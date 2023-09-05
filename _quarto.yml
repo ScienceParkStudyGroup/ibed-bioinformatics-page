@@ -1,0 +1,25 @@
+project:
+  type: website
+
+website:
+  title: "Software"
+  page-navigation: true
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - index.qmd
+      - section: "Fungal genomics"
+        contents:
+          - docs/ITSx/readme.qmd
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    css: styles.css
+    toc: true
+
+
+

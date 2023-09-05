@@ -1,0 +1,23 @@
+[
+  {
+    "objectID": "docs/ITSx/readme.html",
+    "href": "docs/ITSx/readme.html",
+    "title": "Software",
+    "section": "",
+    "text": "“ITSx is an open source software utility to extract the highly variable ITS1 and ITS2 subregions from ITS sequences, which is commonly used as a molecular barcode for e.g. fungi.”\n\nWebsite\nManual\n\nAvailable on Crunchomics: No\n\n\n\nITSx can be installed from scratch but below is the code needed to install the software with mamba (or conda if that is preferred). If you don’t have mamba/conda installed find the correction version for your system here for mamba and here for conda. Examples for setting up either mamba or conda are found in the code cell below.\nIf there is an issue with the mamba/conda installation, the software can also be downloaded with wget https://microbiology.se/sw/ITSx_1.1.3.tar.gz. After the download, decompress the folder and follow the information in the readme.txt. The download also comes with a test.fasta which can be used to test either installation.\n\n\n\n#install conda (run only if not yet installed)\n#adjust the file name based on your system needs\nwget https://repo.anaconda.com/archive/Anaconda3-2023.07-2-Linux-x86_64.sh\n\nbash Anaconda3-2023.07-2-Linux-x86_64.sh\n\n#install mamba (run only if not yet installed)\n#adjust the file name based on your system needs\nwget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh\n\nbash Mambaforge-Linux-x86_64.sh\n\n\n\n\n\nmamba create -n fungi_its\nmamba install -n fungi_its -c bioconda itsx\nmamba deactivate\nmamba activate fungi_its\n\n\n\n\n\nmamba install -c bioconda itsx\n\n\n\n\n\n\nRequired input: FASTA format (aligned or unaligned, DNA or RNA)\nGenerated output:\n\none summary file of the entire run\none more detailed table containing the positions in the respective sequences where the ITS subregions were found\none “semi-graphical” representation of hits\none FASTA file of all identified ITS sequences\none FASTA file for the ITS1 and ITS2 regions\nif entries that did not contain any ITS region are found, a list of sequence IDs representing those entries (optional)\n\nUseful arguments (not extensive, check manual for all arguments):\n\n--save_regions: Get all regions of interest, not only ITS1/2\n-E {value}: E-value cutoff (default 1e-5)\n-S {value}: Domain score cutoff (default 0)\n--cpu {value }: Number of cpus to use (default 1)\n--multi_thread {T/F}: Multi-thread the HMMER-search. On (T) by default if the number of CPUs/cores is larger than one (–cpu option > 1), else off (F)\n--preserve {T/F}: If on, ITSx will preserve the sequence headers from the input file instead of replacing them with ITSx headers in the output. Off (F) by default.\n--only_full {T/F}: If true, the output is limited to full-length ITS1 and ITS2 regions only. Off (F) by default.\n--minlen {value} Minimum length the ITS regions must be to be outputted in the concatenated file (see –concat above). Default is zero (0).\n\n\n\n\n\n#activate the right environment (if using environment)\nmamba deactivate\nmamba activate fungi_its\n\n#testrun (adjust path of test.fasta to where ever you downloaded the software)\nmkdir testing\nITSx -i software/ITSx_1.1.3/test.fasta --save_regions all -o testing/ITS_test_v1\n\n#sanity checking\ngrep -c \">\" *fasta\n\n#deactivate environment (if using environment)\nmamba deactivate\n\nRegions extracted from test file (notice how the full fasta ONLY contains sequences with all regions):\n\nITS_test_v1.5_8S.fasta:50\nITS_test_v1.ITS1.fasta:50\nITS_test_v1.ITS2.fasta:50\nITS_test_v1.LSU.fasta:32\nITS_test_v1.SSU.fasta:31\nITS_test_v1.full.fasta:19"
+  },
+  {
+    "objectID": "readme.html",
+    "href": "readme.html",
+    "title": "Software",
+    "section": "",
+    "text": "Available software information"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "General",
+    "section": "",
+    "text": "On this website you can find documentation about software that might be useful for bioinformatic data analyses. Please note: This is very much a work in progress and the page will be slowly updated over time.\nIf you want to add additional information you are welcome to do so. For now, feel free to send an email to n.dombrowski@uva.nl with a markdown, quarto or text file with all relevant information and I can integrate this into the webpage. In the future, a “how-to-add-your-own-information” section will be added as well.\nOn each page, you will find a note if the software is installed on Crunchomics in the introduction. Additionally, each page will give you a brief installation instruction as well as some basic information about using the tool."
+  }
+]
