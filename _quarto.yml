@@ -3,9 +3,13 @@ project:
   output-dir: docs
   render:
     - "!readme.md"
+    - "*qmd"
+
 
 website:
   title: "Software"
+  repo-url:  https://github.com/ScienceParkStudyGroup/software_information
+  repo-actions: [edit, issue]
   page-navigation: true
   sidebar:
     style: "docked"
@@ -15,6 +19,12 @@ website:
       - section: "Fungal genomics"
         contents:
           - source/ITSx/readme.qmd
+    tools:
+      - icon: github
+        menu:
+          - text: Source Code
+            url:  https://github.com/ScienceParkStudyGroup/software_information
+  page-footer: "Copyright 2023, Nina Dombrowski" 
 
 format:
   html:

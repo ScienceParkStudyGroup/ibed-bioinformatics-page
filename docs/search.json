@@ -4,7 +4,7 @@
     "href": "readme.html",
     "title": "Software",
     "section": "",
-    "text": "Available software information"
+    "text": "Available software information\nGo to https://scienceparkstudygroup.github.io/software_information/ for information about software that might be useful for bioinformatic data analyses. Please note: This is very much a work in progress and the page will be slowly updated over time.\nIf you want to add additional information you are welcome to do so. For now, feel free to send an email to n.dombrowski@uva.nl with a markdown, quarto or text file with all relevant information and I can integrate this into the webpage. In the future, a “how-to-add-your-own-information” section will be added as well."
   },
   {
     "objectID": "index.html",
