@@ -36,6 +36,8 @@ ITSx can be installed from scratch but below is the code needed to install the s
 
 If there is an issue with the mamba/conda installation, the software can also be downloaded with `wget https://microbiology.se/sw/ITSx_1.1.3.tar.gz`. After the download, decompress the folder and follow the information in the readme.txt. The download also comes with a test.fasta which can be used to test either installation.
 
+Data for testing can also be found [here](https://github.com/ScienceParkStudyGroup/software_information/data/itsx/)
+
 
 ### Install mamba/conda
 
