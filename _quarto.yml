@@ -1,5 +1,6 @@
 project:
   type: website
+  output-dir: docs
 
 website:
   title: "Software"
@@ -11,7 +12,7 @@ website:
       - index.qmd
       - section: "Fungal genomics"
         contents:
-          - docs/ITSx/readme.qmd
+          - docs/source/ITSx/readme.qmd
 
 format:
   html:

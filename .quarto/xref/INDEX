@@ -10,5 +10,8 @@
   },
   "readme.md": {
     "readme.html": "2a2d3e83"
+  },
+  "docs/source/ITSx/readme.qmd": {
+    "readme.html": "55db7882"
   }
 }
