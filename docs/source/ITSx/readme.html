@@ -83,6 +83,25 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -232,6 +251,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><a href="https://microbiology.se/software/itsx/">Website</a></li>
 <li><a href="https://microbiology.se/publ/itsx_users_guide.pdf">Manual</a></li>
+<li><a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.12073">Paper</a>. Please do not forget to cite the ITSx paper whenever you use the software <span class="citation" data-cites="bengtsson-palme2013">(<a href="#ref-bengtsson-palme2013" role="doc-biblioref">Bengtsson-Palme et al. 2013</a>)</span>.</li>
 </ul>
 <p>Available on Crunchomics: No</p>
 </section>
@@ -302,32 +322,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> deactivate</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate fungi_its</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#testrun (adjust path of test.fasta to where ever you downloaded the software)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#download data for testing the install (optional)</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> testing</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">ITSx</span> <span class="at">-i</span> software/ITSx_1.1.3/test.fasta <span class="at">--save_regions</span> all <span class="at">-o</span> testing/ITS_test_v1</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-P</span> testing https://raw.githubusercontent.com/ScienceParkStudyGroup/software_information/main/data/itsx/test.fasta</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#sanity checking</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-c</span> <span class="st">"&gt;"</span> <span class="pp">*</span>fasta</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#testrun (adjust path of test.fasta to where ever you downloaded the software)</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="ex">ITSx</span> <span class="at">-i</span> testing/test.fasta <span class="at">--save_regions</span> all <span class="at">-o</span> testing/ITS_test_v1</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#deactivate environment (if using environment)</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#sanity checking</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-c</span> <span class="st">"&gt;"</span> testing/<span class="pp">*</span>fasta</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#deactivate environment (if using environment)</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Regions extracted from test file (notice how the full fasta ONLY contains sequences with all regions):</p>
 <ul>
-<li>ITS_test_v1.5_8S.fasta:50</li>
-<li>ITS_test_v1.ITS1.fasta:50</li>
-<li>ITS_test_v1.ITS2.fasta:50</li>
-<li>ITS_test_v1.LSU.fasta:32</li>
-<li>ITS_test_v1.SSU.fasta:31</li>
-<li>ITS_test_v1.full.fasta:19</li>
+<li><p>testing/ITS_test_v1.5_8S.fasta:50</p></li>
+<li><p>testing/ITS_test_v1.ITS1.fasta:50</p></li>
+<li><p>testing/ITS_test_v1.ITS2.fasta:50</p></li>
+<li><p>testing/ITS_test_v1.LSU.fasta:32</p></li>
+<li><p>testing/ITS_test_v1.SSU.fasta:31</p></li>
+<li><p>testing/ITS_test_v1.full.fasta:19</p></li>
+<li><p>testing/ITS_test_v1_no_detections.fasta:0</p></li>
+<li><p>testing/test.fasta:50</p></li>
 </ul>
-
-
 </section>
 </section>
 </section>
+<section id="references" class="level2">
 
-</main> <!-- /main -->
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-bengtsson-palme2013" class="csl-entry" role="doc-biblioentry">
+Bengtsson-Palme, Johan, Martin Ryberg, Martin Hartmann, Sara Branco, Zheng Wang, Anna Godhe, Pierre De Wit, et al. 2013. <span>“Improved Software Detection and Extraction of ITS1 and ITS2 from Ribosomal ITS Sequences of Fungi and Other Eukaryotes for Analysis of Environmental Sequencing Data.”</span> <em>Methods in Ecology and Evolution</em> 4 (10): 914–19. <a href="https://doi.org/10.1111/2041-210X.12073">https://doi.org/10.1111/2041-210X.12073</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

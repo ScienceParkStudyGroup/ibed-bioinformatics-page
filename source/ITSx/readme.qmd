@@ -4,28 +4,28 @@ code-block-border-left: "#31BAE9"
 execute:
   eval: false
 engine: knitr
+bibliography: references.bib
 ---
 
 ## ITSx
 
 ### Introduction
 
-"ITSx is an open source software utility to extract the highly variable ITS1 and ITS2 subregions from ITS sequences, which is commonly used as a molecular barcode for e.g. fungi." 
+"ITSx is an open source software utility to extract the highly variable ITS1 and ITS2 subregions from ITS sequences, which is commonly used as a molecular barcode for e.g. fungi."
 
-- [Website](https://microbiology.se/software/itsx/)
-- [Manual](https://microbiology.se/publ/itsx_users_guide.pdf)
+-   [Website](https://microbiology.se/software/itsx/)
+-   [Manual](https://microbiology.se/publ/itsx_users_guide.pdf)
+-   [Paper](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.12073). Please do not forget to cite the ITSx paper whenever you use the software [@bengtsson-palme2013].
 
 Available on Crunchomics: No
 
-
-### Installation 
+### Installation
 
 ITSx can be installed from scratch but below is the code needed to install the software with mamba (or conda if that is preferred). If you don't have mamba/conda installed find the correction version for your system here for [mamba](https://github.com/conda-forge/miniforge#mambaforge) and here for [conda](https://www.anaconda.com/download). Examples for setting up either mamba or conda are found in the code cell below.
 
 If there is an issue with the mamba/conda installation, the software can also be downloaded with `wget https://microbiology.se/sw/ITSx_1.1.3.tar.gz`. After the download, decompress the folder and follow the information in the readme.txt. The download also comes with a test.fasta which can be used to test either installation.
 
 Data for testing can also be found [here](https://github.com/ScienceParkStudyGroup/software_information/data/itsx/).
-
 
 #### Install mamba/conda
 
@@ -56,33 +56,29 @@ mamba install -n fungi_its -c bioconda itsx
 mamba install -c bioconda itsx
 ```
 
-
-
 ### Usage
 
-- Required input: FASTA format (aligned or unaligned, DNA or RNA)
+-   Required input: FASTA format (aligned or unaligned, DNA or RNA)
 
-- Generated output:
-  - one summary file of the entire run 
-  - one more detailed table containing the positions in the respective sequences where the
-ITS subregions were found
-  - one "semi-graphical" representation of hits 
-  - one FASTA file of all identified ITS sequences
-  - one FASTA file for the ITS1 and ITS2 regions
-  - if entries that did not contain any ITS region are found, a list of sequence IDs
-representing those entries (optional)
+-   Generated output:
 
-- Useful arguments (not extensive, check manual for all arguments):
-  - `--save_regions`: Get all regions of interest, not only ITS1/2
-  - `-E {value}`: E-value cutoff (default 1e-5)
-  - `-S {value}`: Domain score cutoff (default 0) 
-  - `--cpu {value }`: Number of cpus to use (default 1)
-  - `--multi_thread {T/F}`: Multi-thread the HMMER-search. On (T) by default if the number of CPUs/cores is larger than one (--cpu option > 1), else off (F)
-  - `--preserve {T/F}`: If on, ITSx will preserve the sequence headers from the input file instead of replacing them with ITSx headers in the output. Off (F) by default.
-  - `--only_full {T/F}`: If true, the output is limited to full-length ITS1 and ITS2 regions only. Off (F) by default.
-  - `--minlen {value}` Minimum length the ITS regions must be to be outputted in
-the concatenated file (see --concat above). Default is zero (0).
+    -   one summary file of the entire run
+    -   one more detailed table containing the positions in the respective sequences where the ITS subregions were found
+    -   one "semi-graphical" representation of hits
+    -   one FASTA file of all identified ITS sequences
+    -   one FASTA file for the ITS1 and ITS2 regions
+    -   if entries that did not contain any ITS region are found, a list of sequence IDs representing those entries (optional)
 
+-   Useful arguments (not extensive, check manual for all arguments):
+
+    -   `--save_regions`: Get all regions of interest, not only ITS1/2
+    -   `-E {value}`: E-value cutoff (default 1e-5)
+    -   `-S {value}`: Domain score cutoff (default 0)
+    -   `--cpu {value }`: Number of cpus to use (default 1)
+    -   `--multi_thread {T/F}`: Multi-thread the HMMER-search. On (T) by default if the number of CPUs/cores is larger than one (--cpu option \> 1), else off (F)
+    -   `--preserve {T/F}`: If on, ITSx will preserve the sequence headers from the input file instead of replacing them with ITSx headers in the output. Off (F) by default.
+    -   `--only_full {T/F}`: If true, the output is limited to full-length ITS1 and ITS2 regions only. Off (F) by default.
+    -   `--minlen {value}` Minimum length the ITS regions must be to be outputted in the concatenated file (see --concat above). Default is zero (0).
 
 #### Example code
 
@@ -91,12 +87,15 @@ the concatenated file (see --concat above). Default is zero (0).
 mamba deactivate
 mamba activate fungi_its
 
-#testrun (adjust path of test.fasta to where ever you downloaded the software)
+#download data for testing the install (optional)
 mkdir testing
-ITSx -i software/ITSx_1.1.3/test.fasta --save_regions all -o testing/ITS_test_v1
+wget -P testing https://raw.githubusercontent.com/ScienceParkStudyGroup/software_information/main/data/itsx/test.fasta
+
+#testrun (adjust path of test.fasta to where ever you downloaded the software)
+ITSx -i testing/test.fasta --save_regions all -o testing/ITS_test_v1
 
 #sanity checking
-grep -c ">" *fasta
+grep -c ">" testing/*fasta
 
 #deactivate environment (if using environment)
 mamba deactivate
@@ -104,11 +103,20 @@ mamba deactivate
 
 Regions extracted from test file (notice how the full fasta ONLY contains sequences with all regions):
 
-- ITS_test_v1.5_8S.fasta:50
-- ITS_test_v1.ITS1.fasta:50
-- ITS_test_v1.ITS2.fasta:50
-- ITS_test_v1.LSU.fasta:32
-- ITS_test_v1.SSU.fasta:31
-- ITS_test_v1.full.fasta:19
+-   testing/ITS_test_v1.5_8S.fasta:50
 
+-   testing/ITS_test_v1.ITS1.fasta:50
 
+-   testing/ITS_test_v1.ITS2.fasta:50
+
+-   testing/ITS_test_v1.LSU.fasta:32
+
+-   testing/ITS_test_v1.SSU.fasta:31
+
+-   testing/ITS_test_v1.full.fasta:19
+
+-   testing/ITS_test_v1_no_detections.fasta:0
+
+-   testing/test.fasta:50
+
+## References
