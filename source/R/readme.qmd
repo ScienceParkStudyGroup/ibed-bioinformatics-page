@@ -1,0 +1,12 @@
+---
+title: "Using R"
+---
+
+R is a language and environment for statistical computing and graphics and is useful to analyse computational data.
+
+Some useful information to get started:
+
+- [Installation guide](https://rstudio-education.github.io/hopr/starting.html) for R and RStudio
+- [An R cookbook](https://ndombrowski.github.io/R_cookbook/) including some [example files](https://github.com/ndombrowski/R_cookbook/tree/main/data)
+- [Tutorial on data manipulation with dplyr](https://ndombrowski.github.io/Tidyverse_tutorial/)
+- [Tutorial on data visualization with ggplot2](https://ndombrowski.github.io/Ggplot_tutorial/)

@@ -16,6 +16,14 @@ website:
     search: true
     contents:
       - index.qmd
+      - source/cli/readme.qmd
+      - source/R/readme.qmd
+      - section: "Amplicon sequence analysis"
+        contents:
+          - source/Qiime/readme.qmd
+      - section: "Metagenomics"
+        contents:
+          - source/metagenomics/readme.qmd
       - section: "Fungal genomics"
         contents:
           - source/ITSx/readme.qmd

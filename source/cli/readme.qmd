@@ -1,0 +1,19 @@
+---
+title: "Using the command line interface"
+---
+
+The command line interface (cli) is not a software but nevertheless useful for bioinformaticians since it is a text-based user interface used to run programs, manage computer files and interact with the computer.
+
+You can use cli as follows (installation instructions tba):
+
+- Mac: Use the terminal tool (easy to find with spotlight)
+- Linux: Use xterm or konsole
+- Windows: Use [putty](https://www.putty.org/), [mobaxterm](https://mobaxterm.mobatek.net/?gclid=CjwKCAiAkan9BRAqEiwAP9X6UaGJEwztxdR2mR-EKW5C7hyQPHwVvA3ypPrKCqQQEONI6LBwS6WsrRoC2a8QAvD_BwE/) or[ windows subsystem for linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/basic-commands#install)
+
+If you want to use Crunchomics, the Genomics Compute Environment for SILS and IBED please check out [this documentation](https://crunchomics-documentation.readthedocs.io/en/latest/index.html).
+
+If you are completely unfamiliar with using the command line check out:
+
+- [An older session on using the command line](https://ndombrowski.github.io/Unix_tutorial/#introduction). Will be updated to work on Crunchomics in the future
+- [A tutorial on using AWK](https://ndombrowski.github.io/AWK_tutorial/), an excellent command line tool for filtering tables, extracting patterns, etc... If you want to follow this tutorial then you can download the required input files from [here](https://github.com/ndombrowski/AWK_tutorial/tree/main/1_Inputfiles)
+

@@ -18,9 +18,9 @@ engine: knitr
 ---
 
 
-# ITSx
+## ITSx
 
-## Introduction
+### Introduction
 
 "ITSx is an open source software utility to extract the highly variable ITS1 and ITS2 subregions from ITS sequences, which is commonly used as a molecular barcode for e.g. fungi." 
 
@@ -30,7 +30,7 @@ engine: knitr
 Available on Crunchomics: No
 
 
-## Installation 
+### Installation 
 
 ITSx can be installed from scratch but below is the code needed to install the software with mamba (or conda if that is preferred). If you don't have mamba/conda installed find the correction version for your system here for [mamba](https://github.com/conda-forge/miniforge#mambaforge) and here for [conda](https://www.anaconda.com/download). Examples for setting up either mamba or conda are found in the code cell below.
 
@@ -39,7 +39,7 @@ If there is an issue with the mamba/conda installation, the software can also be
 Data for testing can also be found [here](https://github.com/ScienceParkStudyGroup/software_information/data/itsx/).
 
 
-### Install mamba/conda
+#### Install mamba/conda
 
 ```{bash}
 #install conda (run only if not yet installed)
@@ -55,14 +55,14 @@ wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforg
 bash Mambaforge-Linux-x86_64.sh
 ```
 
-### Option A (install ITSx in a separate environment)
+#### Option A (install ITSx in a separate environment)
 
 ```{bash}
 mamba create -n fungi_its
 mamba install -n fungi_its -c bioconda itsx
 ```
 
-### Option B (base ITSx install)
+#### Option B (base ITSx install)
 
 ```{bash}
 mamba install -c bioconda itsx
@@ -70,7 +70,7 @@ mamba install -c bioconda itsx
 
 
 
-## Usage
+### Usage
 
 - Required input: FASTA format (aligned or unaligned, DNA or RNA)
 
@@ -96,7 +96,7 @@ representing those entries (optional)
 the concatenated file (see --concat above). Default is zero (0).
 
 
-### Example code
+#### Example code
 
 ```{bash}
 #activate the right environment (if using environment)

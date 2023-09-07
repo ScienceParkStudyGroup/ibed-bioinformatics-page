@@ -1462,7 +1462,7 @@ function fuseSearch(query, fuse, fuseOptions) {
 }
 </script>
 <meta name="quarto:offset" content="../../">
-<link href="../../index.html" rel="prev">
+<link href="../../source/Qiime/readme.html" rel="prev">
 <script>const sectionChanged = new CustomEvent("quarto-sectionChanged", {
   detail: {},
   bubbles: true,
@@ -5309,14 +5309,34 @@ window.onload = function() {
   <a href="../../index.html" class="sidebar-item-text sidebar-link">General</a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/readme.html" class="sidebar-item-text sidebar-link">Using the command line interface</a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Fungal genomics</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Amplicon sequence analysis</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/Qiime/readme.html" class="sidebar-item-text sidebar-link">General</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Fungal genomics</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/ITSx/readme.html" class="sidebar-item-text sidebar-link active">ITSx</a>
@@ -5336,16 +5356,8 @@ window.onload = function() {
   <li><a href="#itsx" id="toc-itsx" class="nav-link active" data-scroll-target="#itsx">ITSx</a>
   <ul class="collapse">
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a>
-  <ul class="collapse">
-  <li><a href="#install-mambaconda" id="toc-install-mambaconda" class="nav-link" data-scroll-target="#install-mambaconda">Install mamba/conda</a></li>
-  <li><a href="#option-a-install-itsx-in-a-separate-environment" id="toc-option-a-install-itsx-in-a-separate-environment" class="nav-link" data-scroll-target="#option-a-install-itsx-in-a-separate-environment">Option A (install ITSx in a separate environment)</a></li>
-  <li><a href="#option-b-base-itsx-install" id="toc-option-b-base-itsx-install" class="nav-link" data-scroll-target="#option-b-base-itsx-install">Option B (base ITSx install)</a></li>
-  </ul></li>
-  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a>
-  <ul class="collapse">
-  <li><a href="#example-code" id="toc-example-code" class="nav-link" data-scroll-target="#example-code">Example code</a></li>
-  </ul></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/ScienceParkStudyGroup/software_information/edit/main/source/ITSx/readme.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -5355,10 +5367,10 @@ window.onload = function() {
 
 
 
-<section id="itsx" class="level1">
-<h1>ITSx</h1>
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<section id="itsx" class="level2">
+<h2 class="anchored" data-anchor-id="itsx">ITSx</h2>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 <p>“ITSx is an open source software utility to extract the highly variable ITS1 and ITS2 subregions from ITS sequences, which is commonly used as a molecular barcode for e.g. fungi.”</p>
 <ul>
 <li><a href="https://microbiology.se/software/itsx/">Website</a></li>
@@ -5366,13 +5378,13 @@ window.onload = function() {
 </ul>
 <p>Available on Crunchomics: No</p>
 </section>
-<section id="installation" class="level2">
-<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<section id="installation" class="level3">
+<h3 class="anchored" data-anchor-id="installation">Installation</h3>
 <p>ITSx can be installed from scratch but below is the code needed to install the software with mamba (or conda if that is preferred). If you don’t have mamba/conda installed find the correction version for your system here for <a href="https://github.com/conda-forge/miniforge#mambaforge">mamba</a> and here for <a href="https://www.anaconda.com/download">conda</a>. Examples for setting up either mamba or conda are found in the code cell below.</p>
 <p>If there is an issue with the mamba/conda installation, the software can also be downloaded with <code>wget https://microbiology.se/sw/ITSx_1.1.3.tar.gz</code>. After the download, decompress the folder and follow the information in the readme.txt. The download also comes with a test.fasta which can be used to test either installation.</p>
-<p>Data for testing can also be found <a href="https://github.com/ScienceParkStudyGroup/software_information/data/itsx/">here</a></p>
-<section id="install-mambaconda" class="level3">
-<h3 class="anchored" data-anchor-id="install-mambaconda">Install mamba/conda</h3>
+<p>Data for testing can also be found <a href="https://github.com/ScienceParkStudyGroup/software_information/data/itsx/">here</a>.</p>
+<section id="install-mambaconda" class="level4">
+<h4 class="anchored" data-anchor-id="install-mambaconda">Install mamba/conda</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install conda (run only if not yet installed)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#adjust the file name based on your system needs</span></span>
@@ -5387,24 +5399,22 @@ window.onload = function() {
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> Mambaforge-Linux-x86_64.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="option-a-install-itsx-in-a-separate-environment" class="level3">
-<h3 class="anchored" data-anchor-id="option-a-install-itsx-in-a-separate-environment">Option A (install ITSx in a separate environment)</h3>
+<section id="option-a-install-itsx-in-a-separate-environment" class="level4">
+<h4 class="anchored" data-anchor-id="option-a-install-itsx-in-a-separate-environment">Option A (install ITSx in a separate environment)</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> fungi_its</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install <span class="at">-n</span> fungi_its <span class="at">-c</span> bioconda itsx</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> deactivate</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate fungi_its</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install <span class="at">-n</span> fungi_its <span class="at">-c</span> bioconda itsx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="option-b-base-itsx-install" class="level3">
-<h3 class="anchored" data-anchor-id="option-b-base-itsx-install">Option B (base ITSx install)</h3>
+<section id="option-b-base-itsx-install" class="level4">
+<h4 class="anchored" data-anchor-id="option-b-base-itsx-install">Option B (base ITSx install)</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install <span class="at">-c</span> bioconda itsx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
-<section id="usage" class="level2">
-<h2 class="anchored" data-anchor-id="usage">Usage</h2>
+<section id="usage" class="level3">
+<h3 class="anchored" data-anchor-id="usage">Usage</h3>
 <ul>
 <li><p>Required input: FASTA format (aligned or unaligned, DNA or RNA)</p></li>
 <li><p>Generated output:</p>
@@ -5428,8 +5438,8 @@ window.onload = function() {
 <li><code>--minlen {value}</code> Minimum length the ITS regions must be to be outputted in the concatenated file (see –concat above). Default is zero (0).</li>
 </ul></li>
 </ul>
-<section id="example-code" class="level3">
-<h3 class="anchored" data-anchor-id="example-code">Example code</h3>
+<section id="example-code" class="level4">
+<h4 class="anchored" data-anchor-id="example-code">Example code</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#activate the right environment (if using environment)</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> deactivate</span>
@@ -5711,7 +5721,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../index.html" class="pagination-link">
+      <a href="../../source/Qiime/readme.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">General</span>
       </a>          
   </div>

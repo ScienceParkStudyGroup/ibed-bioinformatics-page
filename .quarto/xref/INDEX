@@ -16,5 +16,20 @@
   },
   "source/ITSx/readme.qmd": {
     "readme.html": "a0038f05"
+  },
+  "source/Qiime/qiime_cmi_tutorial.qmd": {
+    "qiime_cmi_tutorial.html": "90ceda4f"
+  },
+  "source/Qiime/readme.qmd": {
+    "readme.html": "982d6161"
+  },
+  "source/cli/readme.qmd": {
+    "readme.html": "c1607c15"
+  },
+  "source/R/readme.qmd": {
+    "readme.html": "7fcd0438"
+  },
+  "source/metagenomics/readme.qmd": {
+    "readme.html": "def851d0"
   }
 }
