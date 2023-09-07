@@ -1,0 +1,17 @@
+```{r, echo=FALSE}
+toc_headers <- function(level) {
+  toc_data <- quarto:::toc()
+  section_levels <- unique(toc_data$level)
+  toc_data[toc_data$level %in% section_levels[1:level], ]
+}
+
+toc_html <- function(level) {
+  toc_data <- toc_headers(level)
+  if (nrow(toc_data) > 0) {
+    cat('<ul class="nav flex-column">', "\n")
+    for (i in 1:nrow(toc_data)) {
+      cat('<li class="nav-item"><a class="nav-link" href="#', toc_data$slug[i], '">', toc_data$title[i], '</a></li>', "\n")
+    }
+    cat('</ul>', "\n")
+  }
+}

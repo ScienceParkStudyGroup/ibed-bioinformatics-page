@@ -1,6 +1,4 @@
----
-title: "Using the command line interface"
----
+## Using the command line interface {.unnumbered}
 
 The command line interface (cli) is not a software but nevertheless useful for bioinformaticians since it is a text-based user interface used to run programs, manage computer files and interact with the computer.
 

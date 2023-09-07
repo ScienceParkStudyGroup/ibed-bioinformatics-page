@@ -1,6 +1,5 @@
----
-title: "General"
----
+
+## General
 
 On this website you can find documentation about software that might be useful for bioinformatic data analyses. Please note: This is very much a work in progress and the page will be slowly updated over time. 
 

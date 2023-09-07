@@ -5,35 +5,6 @@ project:
     - "!readme.md"
     - "*qmd"
 
-
-website:
-  title: "Software"
-  repo-url:  https://github.com/ScienceParkStudyGroup/software_information
-  repo-actions: [edit, issue]
-  page-navigation: true
-  sidebar:
-    style: "docked"
-    search: true
-    contents:
-      - index.qmd
-      - source/cli/readme.qmd
-      - source/R/readme.qmd
-      - section: "Amplicon sequence analysis"
-        contents:
-          - source/Qiime/readme.qmd
-      - section: "Metagenomics"
-        contents:
-          - source/metagenomics/readme.qmd
-      - section: "Fungal genomics"
-        contents:
-          - source/ITSx/readme.qmd
-    tools:
-      - icon: github
-        menu:
-          - text: Source Code
-            url:  https://github.com/ScienceParkStudyGroup/software_information
-  page-footer: "Copyright 2023, Nina Dombrowski" 
-
 format:
   html:
     theme:
@@ -41,6 +12,41 @@ format:
       dark: darkly
     css: styles.css
     toc: true
+    toc-depth: 0
+    toc-expand: false
+
+website:
+  title: "Software information"
+  page-navigation: true
+  page-footer: "Copyright 2023, Nina Dombrowski" 
+  
+  sidebar:
+    - id: guide
+      style: "docked"
+      search: true
+      collapse-level: 1
+
+      contents:
+        - section: "Guide"
+          href: index.qmd
+          
+          contents:
+          - text: "Command line"
+            href: source/cli/readme.qmd
+          - text: "R"
+            href: source/R/readme.qmd
+          
+          - section: "Metagenomics"
+            contents:
+              - source/metagenomics/readme.qmd
+          
+          - section: "Fungal genomics"
+            contents:
+              - source/ITSx/readme.qmd
+
+      tools:
+        - icon: github
+          href: https://github.com/ScienceParkStudyGroup/software_information
 
 
 

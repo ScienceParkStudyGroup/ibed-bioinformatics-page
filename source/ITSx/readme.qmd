@@ -1,22 +1,10 @@
 ---
-project:
-  type: website
-format:
-  html:
-    embed-resources: true
-    df-print: paged
-    toc: true
-    toc-depth: 3
-theme:
-  light: cosmo
-  dark: darkly
 code-block-bg: true
 code-block-border-left: "#31BAE9"
 execute:
   eval: false
 engine: knitr
 ---
-
 
 ## ITSx
 
