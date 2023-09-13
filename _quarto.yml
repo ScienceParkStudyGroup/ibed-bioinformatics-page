@@ -12,7 +12,6 @@ format:
       dark: darkly
     css: styles.css
     toc: true
-    toc-depth: 0
     toc-expand: false
 
 website:
@@ -35,6 +34,11 @@ website:
             href: source/cli/readme.qmd
           - text: "R"
             href: source/R/readme.qmd
+          
+          - section: "Amplicomics"
+            contents:
+              - source/Qiime/readme.qmd
+              - source/Qiime/3_evelyn_tutorial_notes.qmd
           
           - section: "Metagenomics"
             contents:

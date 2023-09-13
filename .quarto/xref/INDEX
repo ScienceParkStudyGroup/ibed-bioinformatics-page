@@ -31,5 +31,8 @@
   },
   "source/metagenomics/readme.qmd": {
     "readme.html": "def851d0"
+  },
+  "source/Qiime/3_evelyn_tutorial_notes.qmd": {
+    "3_evelyn_tutorial_notes.html": "4f90988e"
   }
 }

@@ -1,10 +1,4 @@
 ---
-format:
-  html:
-    embed-resources: true
-    toc: true
-    toc-location: left
-
 execute:
   eval: false
 
@@ -38,42 +32,6 @@ Other resources:
 - [QIIME2 docs](https://docs.qiime2.org/2023.7/). Notice, the tutorial runs on v2021.2, which we will use for now and later update to the newest QIIME version
 - [Old QIIME tutorials](https://docs.qiime2.org/2021.2/tutorials/)
 - [NEW QIIME tutorials](https://docs.qiime2.org/2023.7/)
-
-
-## Setup on crunchomics
-
-In Evelyn's tutorial `qiime2-2021.2` was used. For this run, qiime2 was updated to a newer version and the tutorial code adjusted if needed.
-
-```{bash}
-#check what environments we already have
-conda env list
-
-#add amplicomics environment to be able to use the QIIME conda install
-conda config --add envs_dirs /zfs/omics/projects/amplicomics/miniconda3/envs/
-
-#exit server contenction (so steps below were run from fresh login)
-#install newer qiime2 version
-#wget https://data.qiime2.org/distro/core/qiime2-2023.7-py38-linux-conda.yml
-#mamba env create -n qiime2-2023.7 --file qiime2-2023.7-py38-linux-conda.yml
-
-#to install it in personal environment add hash before amplicomics envs in 
-#nano /home/ndombro/.condarc
-#mamba env create -n qiime2-2023.7 --file qiime2-2023.7-py38-linux-conda.yml 
-```
-
-
-## Useful SLURM commands
-
-If you have not used SLURM before, please check out the [Crunchomics tutorial](https://crunchomics-documentation.readthedocs.io/en/latest/slurm_overview.html). Below are two key commands to check memory usage and running things via SLURM is explained in a bit more detail in @sec-crunchomics.  
-
-```{bash}
-#find past job ids 
-sacct -X -o <JOB-ID> --starttime 2023-09-12
-
-#determine run time and mem requirements
-sacct -j <JOB-ID> --format="JobID,JobName,AllocCPUs,MaxRSS,elapsed" 
-```
-
 
 
 ## QIIME2 background
@@ -1248,21 +1206,67 @@ ANCOM is implemented in the q2-composition plugin. ANCOM assumes that few (less 
 
 ## Analyses on crunchomics {#sec-crunchomics}
 
-Notice: Was run in screen
+If submitting jobs via the srun command it can be useful to submit them via a screen for long running jobs. Some basics on using a screen can be found [here](https://www.geeksforgeeks.org/screen-command-in-linux-with-examples/).
 
-### Prepare data 
+
+### Get access to QIIME on crunchomics
+
+General notice: In Evelyn's tutorial `qiime2-2021.2` was used. For this run, qiime2 was updated to a newer version and the tutorial code adjusted if needed.
+
+To be able to access the amplicomics share, and the QIIME 2 installation and necessary databases, please contact [Nina Dombrowski](n.dombrowski@uva.nl) with your UvAnetID.
+
+```{bash}
+#check what environments we already have
+conda env list
+
+#add amplicomics environment to be able to use the QIIME conda install
+conda config --add envs_dirs /zfs/omics/projects/amplicomics/miniconda3/envs/
+
+#exit server contenction (so steps below were run from fresh login)
+#install newer qiime2 version
+#wget https://data.qiime2.org/distro/core/qiime2-2023.7-py38-linux-conda.yml
+#mamba env create -n qiime2-2023.7 --file qiime2-2023.7-py38-linux-conda.yml
+
+#to install it in personal environment add hash before amplicomics envs in 
+#nano /home/ndombro/.condarc
+#mamba env create -n qiime2-2023.7 --file qiime2-2023.7-py38-linux-conda.yml 
+```
+
+
+### Useful SLURM commands
+
+If you have not used SLURM before, please check out the [Crunchomics tutorial](https://crunchomics-documentation.readthedocs.io/en/latest/slurm_overview.html). Below are two key commands to check memory usage and running things via SLURM is explained in a bit more detail in @sec-crunchomics.  
+
+```{bash}
+#find past job ids 
+sacct -X -o <JOB-ID> --starttime 2023-09-12
+
+#determine run time and mem requirements
+sacct -j <JOB-ID> --format="JobID,JobName,AllocCPUs,MaxRSS,elapsed" 
+```
+
+
+### Download the data
+
+If you run this the first time, start by downloading the tutorial data.
+
+```{bash}
+#download data data
+wget https://zenodo.org/record/5025210/files/metabarcoding-qiime2-datapackage-v2021.06.2.tar.gz?download=1
+tar -xzvf metabarcoding-qiime2-datapackage-v2021.06.2.tar.gz?download=1
+rm metabarcoding-qiime2-datapackage-v2021.06.2.tar.gz\?download\=1
+```
+
+### Setting your working environment
+
+Below, we set some environmental variables describing the location for key files we want to use. The only thing that **you need to change yourself** is the path to the working directory, ie. wdir, and the path_to_where_you_downloaded_the_data.
 
 ```{bash}
 wdir="/home/ndombro/tutorials/evelyn_qiime"
 cd $wdir
 
-#download data data
-#wget https://zenodo.org/record/5025210/files/metabarcoding-qiime2-datapackage-v2021.06.2.tar.gz?download=1
-#tar -xzvf metabarcoding-qiime2-datapackage-v2021.06.2.tar.gz?download=1
-#rm metabarcoding-qiime2-datapackage-v2021.06.2.tar.gz\?download\=1
-
 #make symbolic link to have the structures in the tutorial work
-#ln -s /home/ndombro/tutorials/evelyn_qiime/metabarcoding-qiime2-datapackage-v2021.06.2/data ./
+ln -s path_to_where_you_downloaded_the_data/metabarcoding-qiime2-datapackage-v2021.06.2/data ./
 
 #set environmental variables
 export MANIFEST="data/MANIFEST.csv"
@@ -1278,10 +1282,11 @@ export DBTAX="/zfs/omics/projects/amplicomics/databases/SILVA/SILVA_138_QIIME/da
 export DBPREFIX="SILVA_138_99_16S"
 
 #activate qiime environment
-mamba activate  /zfs/omics/projects/amplicomics/miniconda3/envs/qiime2-2023.7
+mamba activate qiime2-2023.7
 ```
 
-### Setup wdir
+
+### Setup folders to store our outputs
 
 ```{bash}
 mkdir -p logs
@@ -1295,10 +1300,10 @@ mkdir -p taxonomy
 
 ### Import data
 
-Slurm settings:
+When using Slurm we use the following settings to say that:
 
--  job consists of 1 task (-n)
--  that needs to be run on 1 cpu (--cpus-per-task)
+-  the job consists of 1 task (-n 1)
+-  the job needs to be run on 1 cpu (--cpus-per-task 1)
 
 ```{bash}
 srun -n 1 --cpus-per-task 1 qiime tools import \
@@ -1312,9 +1317,11 @@ srun -n 1 --cpus-per-task 1 qiime demux summarize \
   --i-data prep/demux-seqs.qza \
   --o-visualization prep/demux-seqs.qzv
 
-#instructions to view qvz (tool not available, need to check) 
+#instructions to view qvz (tool not available, need to check if I can find it) 
 #how-to-view-this-qzv prep/demux-seqs.qzv
 ```
+
+Summary of statistics:
 
 ```
 forward reads 	reverse reads
@@ -1349,14 +1356,14 @@ srun -n 1 --cpus-per-task 1 qiime tools extract \
    --output-path visualizations/trimmed-seqs
 ```
 
-- The 2>&1 is a redirection operator :
+- Information about the 2>&1 is a redirection operator :
   - It says to "redirect stderr (file descriptor 2) to the same location as stdout (file descriptor 1)." This means that both stdout and stderr will be combined and sent to the same destination
 - The tee command is used to:
    - Logging: It captures the standard output (stdout) and standard error (stderr) of the command that precedes it and saves it to a file specified as its argument. In this case, it saves the output and errors to the file logs/qiime-cutadapt-trim-paired.log.
    - Displaying Output: In addition to saving the output to a file, tee also displays the captured output and errors on the terminal in real-time. This allows you to see the progress and any error messages while the command is running.
-- If we would want to run without tee we could do `2>&1 > logs/qiime-cutadapt-trim-paired.log` but this won't print output to the screen
+- If we would want to run the command without tee we could do `2>&1 > logs/qiime-cutadapt-trim-paired.log` but this won't print output to the screen
 
-Summary:
+Summary of run:
 
 ```
 forward reads 	reverse reads
@@ -1386,6 +1393,8 @@ qiime demux summarize \
   --o-visualization deblur/joined-seqs.qzv
 ```
 
+Summary of output:
+
 ```
 forward reads
 Minimum 	34
@@ -1397,7 +1406,7 @@ Total 	1346501
 
 #### Deblur: Quality filtering
 
-Notice: cannot be sped up because the qiime quality-filter q-score-command does not have an optio
+Notice: This step cannot be sped up because the `qiime quality-filter q-score` command does not have an option to use more cpus or threads.
 
 ```{bash}
 srun -n 1 --cpus-per-task 1 qiime quality-filter q-score \
@@ -1416,7 +1425,7 @@ qiime metadata tabulate \
   --o-visualization deblur/filt-stats.qzv
 ```
 
-Summary:
+Summary of output:
 
 ```
 forward reads
@@ -1433,7 +1442,6 @@ Below we:
 
 - We defined a memory allocation of 16GB. This is the total amount of RAM you expect to need for this job (+ a bit more to be on the safe side). How much you need is not always easy to predict and requires some experience/trial and error. As a rule of thumb: if you get an Out Of Memory error, double it and try again. Note that you can also define mem-per-cpu, which may be easier to work with if you often change the number of cpus between analyses.
 - We get a warning `warn' method is deprecated, use 'warning' instead`, but we can ignore that 
-  
 
 ```{bash}
 #job id: 398288

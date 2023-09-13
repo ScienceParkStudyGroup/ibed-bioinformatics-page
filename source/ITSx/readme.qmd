@@ -119,4 +119,4 @@ Regions extracted from test file (notice how the full fasta ONLY contains sequen
 
 -   testing/test.fasta:50
 
-## References
+### References
