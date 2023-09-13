@@ -192,6 +192,12 @@ qiime demux summarize \
 
 **qiime demux**: supports demultiplexing of single-end and paired-end sequence reads and visualization of sequence quality information.
 
+## `qiime tools peek`: check artifact format
+
+```{bash}
+qiime tools peek  demultiplexed-sequences.qza
+```
+
 ## Demultiplexing
 
 If you have reads from multiple samples in the same file, you'll need to demultiplex your sequences.
