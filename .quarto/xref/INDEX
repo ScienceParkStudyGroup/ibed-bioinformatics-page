@@ -34,5 +34,15 @@
   },
   "source/Qiime/3_evelyn_tutorial_notes.qmd": {
     "3_evelyn_tutorial_notes.html": "4f90988e"
+  },
+  "source/snakemake/tutorial.qmd": {
+    "tutorial.tex": "bee662e4",
+    "tutorial.html": "fd2d78b1"
+  },
+  "source/interproscan/readme.qmd": {
+    "readme.html": "42714e48"
+  },
+  "source/fama/readme.qmd": {
+    "readme.html": "46bb09f0"
   }
 }

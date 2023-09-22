@@ -1,0 +1,53 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+---
+
+# FAMA
+
+
+## Adding more databases to FAMA
+
+Sulfur database installation instructions:
+
+1. Download and unpack the archive into a separate directory:https://iseq.lbl.gov/mydocs/fama_downloads/fama_sulfur_dataset.tar.gz
+
+2. Create diamond databases:
+
+```{bash}
+diamond makedb --in classification_database.faa --db classification_database
+diamond makedb --in selection_database_clustered.faa --db selection_database
+```
+
+
+3. Append your config.ini file with a new section and replace "<path to db files>" with real paths:
+
+
+```{bash}
+[test_sulfur_v1]
+functions_file = <path to db files>/collection_functions.txt
+taxonomy_file = <path to db files>/collection_taxonomy.txt
+reference_diamond_db = <path to db files>/selection_database.dmnd
+background_diamond_db = <path to db files>/classification_database.dmnd
+reference_db_size = 6990766
+background_db_size = 99120132
+```
+
+
+
+## Run FAMA
+
+```{bash}
+#activate environment
+conda activate /zfs/omics/projects/metatools/TOOLS/miniconda3/envs/FAMA
+
+#get template and add
+cp /zfs/omics/projects/metatools/DB/fama_new/project.ini.sample my.project.config
+
+#run FAMA 
+python3 /zfs/omics/projects/metatools/DB/fama_new/py/fama.py -c /zfs/omics/projects/metatools/DB/fama_new/config.ini -p my.project.config
+```
+

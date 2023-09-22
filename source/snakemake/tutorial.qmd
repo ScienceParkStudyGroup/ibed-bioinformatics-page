@@ -1,0 +1,858 @@
+---
+format:
+  html:
+    embed-resources: true
+    toc: true
+    toc-location: left
+    
+execute:
+  eval: false
+
+engine: knitr
+---
+
+# Snakemake tutorial
+
+Notes following the snakemake tutorial outlined [here](https://snakemake.readthedocs.io/en/stable/tutorial/tutorial.html). Also, check out this [snakemake presentation](https://slides.com/johanneskoester/snakemake-tutorial#/1) for more information.
+
+format:
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+
+
+## General
+
+- Python-based workflow system
+- Command-line interface
+- Scheduling algorithm suitable to work on clusters and batch systems allowing scaling of workflows
+- Reproducibility: 
+  - Install required software and all dependencies in exact versions
+  - Software install from different sources
+  - Normalize installation via build script
+  - No admin rights needed
+  - Isolated environments
+- Integrates with Conda package manager and the Singularity container engine
+- Generation of self-contained HTML reports
+- **Workflows** are defined in terms of rules that define how to create output files from input files. The are executed in three phases:
+  - Initialization (parsing) 
+  - DAG phase (DAG is build)
+  - Scheduling phase (execution of DAG)
+- **Dependencies** 
+  - between the rules are determined automatically, creating a DAG (directed acyclic graph) of jobs that can be automatically parallelized
+  - Dependencies are determined top-down, i.e. the rule on top which defines the input gets passed to a rule further down were files are for example sorted
+- Job execution only if:
+  - Output file is target and does notexist
+  - Input file newer than output file
+  - Rule has been modified
+  - Execution is enforced
+- Easy distribution of workflows via git repositories with standardized folder structure
+
+
+## Best practices
+
+- It is best practice to have subsequent steps of a workflow in separate, unique, output folders. This keeps the working directory structured. Further, such unique prefixes allow Snakemake to quickly discard most rules in its search for rules that can provide the requested input. This accelerates the resolution of the rule dependencies in a workflow.
+- Snakemake (>=5.11) comes with a code quality checker (a so called linter), that analyzes your workflow and highlights issues that should be solved in order to follow best practices, achieve maximum readability, and reproducibility. The linter can be invoked with `snakemake --lint`
+- In addition to the central Snakefile, rules can be stored in a modular way, using the optional subfolder workflow/rules. Such modules should end with .smk, the recommended file extension of Snakemake. 
+- Further, scripts should be stored in a subfolder workflow/scripts and notebooks in a subfolder workflow/notebooks
+- Conda environments (see [Integrated Package Management](https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html#integrated-package-management)) should be stored in a subfolder workflow/envs
+- When publishing your workflow in a Github repository, it is a good idea to add some minimal test data and configure Github Actions for continuously testing the workflow on each new commit. For this purpose, we provide predefined Github actions for both running tests and linting [here](https://github.com/snakemake/snakemake-github-action), as well as formatting [here](https://github.com/snakemake/snakefmt#github-actions).
+- Configuration of a workflow should be handled via config files and, if needed, tabular configuration like sample sheets (either via Pandas or PEPs). Use such configuration for metadata and experiement information, not for runtime specific configuration like threads, resources and output folders. For those, just rely on Snakemake’s CLI arguments like --set-threads, --set-resources, --set-default-resources, and --directory. This makes workflows more readable, scalable, and portable.
+- Try to keep filenames short (thus easier on the eye), but informative. Avoid mixing of too many special characters (e.g. decide whether to use _ or - as a separator and do that consistently throughout the workflow).
+- Try to keep Python code like helper functions separate from rules (e.g. in a workflow/rules/common.smk file). This way, you help non-experts to read the workflow without needing to parse internals that are irrelevant for them. The helper function names should be chosen in a way that makes them sufficiently informative without looking at their content. Also avoid lambda expressions inside of rules.
+- Make use of [Snakemake wrappers](https://snakemake-wrappers.readthedocs.io/en/stable/) whenever possible. Consider contributing to the wrapper repo whenever you have a rule that reoccurs in at least two of your workflows. More about wrappers can be found [here](https://snakemake.readthedocs.io/en/latest/snakefiles/modularization.html#wrappers).
+
+Follow [this link](https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html) to view the recommended structure to store a workflow in a git repository. A snakemake workflow template can be found [here](https://github.com/snakemake-workflows/snakemake-workflow-template). Conda determines the priority of channels depending on their order of appearance in the channels list. For instance, the channel that comes first in the list gets the highest priority.
+
+```
+├── .gitignore
+├── README.md
+├── LICENSE.md
+├── workflow
+│   ├── rules
+|   │   ├── module1.smk
+|   │   └── module2.smk
+│   ├── envs
+|   │   ├── tool1.yaml
+|   │   └── tool2.yaml
+│   ├── scripts
+|   │   ├── script1.py
+|   │   └── script2.R
+│   ├── notebooks
+|   │   ├── notebook1.py.ipynb
+|   │   └── notebook2.r.ipynb
+│   ├── report
+|   │   ├── plot1.rst
+|   │   └── plot2.rst
+|   └── Snakefile
+├── config
+│   ├── config.yaml
+│   └── some-sheet.tsv
+├── results
+└── resources
+```
+
+## Useful options
+
+- `-n` `--dry-run`: Snakemake will only show the execution plan instead of actually performing the steps
+- `-p`: print the resulting shell command for illustration.
+- `--cores` {INTEGER}: The numbers of course to use. **Must** be part of every executed workflow
+- `--forcerun` allows to repeat a run even if the output files already exist from a given rule
+- `--foreall `  enforces a complete re-execution of the workflow.
+
+
+## Description of example workflow
+
+A Snakemake workflow is defined by specifying rules in a Snakefile. Rules decompose the workflow into small steps (for example, the application of a single tool) by specifying how to create sets of output files from sets of input files. Snakemake automatically determines the dependencies between the rules by matching file names.
+
+All added syntactic structures begin with a keyword followed by a code block that is either in the same line or indented and consisting of multiple lines. The resulting syntax resembles that of original Python constructs.
+
+In this workflow we perform a read mapping workflow.
+
+
+## Setup
+
+### Installing mambaforge
+
+Notice: 
+
+- Setup done in WSL
+- We will use Conda to create an isolated environment with all the required software for this tutorial.
+- Mambaforge already installed, if instructions are needed go [here](https://snakemake.readthedocs.io/en/stable/tutorial/setup.html)
+
+
+### Prepare working directory
+
+```{bash}
+#define wdir
+wdir="/mnt/c/Users/ndmic/WorkingDir/UvA/Tutorials/Snakemake"
+cd $wdir
+
+#activate conda enviornment (for this to work, see code cell below)
+conda activate snakemake-tutorial
+```
+
+```{bash}
+#download the example data
+curl -L https://api.github.com/repos/snakemake/snakemake-tutorial-data/tarball -o snakemake-tutorial-data.tar.gz
+
+#extract the data
+tar --wildcards -xf snakemake-tutorial-data.tar.gz --strip 1 "*/data" "*/environment.yaml"
+
+#create conda env (/home/ndombrowski/mambaforge/envs/snakemake-tutorial)
+mamba env create --name snakemake-tutorial --file environment.yaml
+```
+
+
+## Basic Workflow
+
+### Mapping reads
+
+#### Basics
+
+To write our first rule, we create a new document and use it to map a sample to a reference genome using `bwa mem`. 
+
+A snakemake rule:
+
+- Has a name, i.e. `bwa_map` 
+- Has a number of directives (i.e. input, output, shell)
+- input can provide a list of files that are expected to be used. **Important**: have a comma between input/output items.
+- Has a shell command, i.e. the shell command to be executed
+- If a rule has multiple input files, they will be concatenated and separated by a whitespace (i.e. we get `data/genome.fa data/samples/A.fastq`)
+
+Basics:
+- Snakemake applies the rules given in the Snakefile in a top-down way
+- The application of a rule to generate a set of output files is called job
+-  Note that Snakemake automatically creates missing directories before jobs are executed.
+-   Snakemake works backwards from requested output, and not from available input. Thus, it does not automatically infer all possible output from, for example, the fastq files in the data folder. 
+
+
+
+```{bash}
+nano Snakefile
+```
+
+Content:
+
+```{python}
+rule bwa_map:
+    input:
+        "data/genome.fa",
+        "data/samples/A.fastq"
+    output:
+        "mapped_reads/A.bam"
+    shell:
+        "bwa mem {input} | samtools view -Sb - > {output}"
+```
+
+
+```{bash}
+#perform dry-run workflow
+snakemake -np mapped_reads/A.bam
+
+#execute workflow 
+snakemake --cores 1 mapped_reads/A.bam
+```
+
+Since `mapped_reads/A.bam` now exists snakemake WILL NOT try to create this file again. Snakemake only re-runs jobs if one of the input files is newer than one of the output files or one of the input files will be updated by another job.
+
+
+### Generalized rules
+
+If we want to work on more than one sample not only `data/samples/A.fastq` then we can generalize rules using named wildcards. Below, we for example replace the `A` with `{sample}`
+
+Note that you can have multiple wildcards in your file paths, however, to avoid conflicts with other jobs of the same rule, all output files of a rule have to contain exactly the same wildcards.
+
+```{python}
+rule bwa_map:
+    input:
+        "data/genome.fa",
+        "data/samples/{sample}.fastq"
+    output:
+        "mapped_reads/{sample}.bam"
+    shell:
+        "bwa mem {input} | samtools view -Sb - > {output}"
+```
+
+
+```{bash}
+#execute command (dry-run)
+snakemake -np mapped_reads/B.bam
+```
+
+If we run this, we will see that bwa will use an input name that is based on the `B.bam` name, i.e. `data/samples/B.fastq.`  You can see how the character `B` is propagaged through the input file names and the names in the shell command.
+
+
+```{bash}
+#specify more than one target
+snakemake -np mapped_reads/A.bam mapped_reads/B.bam
+
+#same command but more condensed using bash magic 
+snakemake -np mapped_reads/{A,B}.bam
+```
+
+In both cases, you will see that Snakemake only proposes to create the output file mapped_reads/B.bam. This is because you already executed the workflow before (see the previous step) and no input file is newer than the output file mapped_reads/A.bam.
+
+### Sorting alignments
+
+Add a new rule:
+
+```{python}
+rule samtools_sort:
+    input:
+        "mapped_reads/{sample}.bam"
+    output:
+        "sorted_reads/{sample}.bam"
+    shell:
+        "samtools sort -T sorted_reads/{wildcards.sample} "
+        "-O bam {input} > {output}"
+```
+
+Comments:
+
+- In the shell command above we split the string into two lines, which are however automatically concatenated into one by Python. This is a handy pattern to avoid too long shell command lines. When using this, make sure to have a trailing whitespace in each line but the last, in order to avoid arguments to become not properly separated.
+- With `sorted_reads/{wildcards.sample}` we extract the value of the `sample` wildcard, i.e. we get `sorted_reads/B`
+
+
+```{bash}
+#dry run
+snakemake -np sorted_reads/B.bam
+```
+
+
+### Indexing the alignments and visualizing the DAG
+
+Add a new rule:
+
+```{python}
+rule samtools_index:
+    input:
+        "sorted_reads/{sample}.bam"
+    output:
+        "sorted_reads/{sample}.bam.bai"
+    shell:
+        "samtools index {input}"
+```
+
+
+```{bash}
+#dry run 
+snakemake -np sorted_reads/B.bam.bai
+
+#create a DAG
+snakemake --dag sorted_reads/{A,B}.bam.bai | dot -Tsvg > dag.svg
+```
+
+The last command will create a visualization of the DAG using the dot command provided by Graphviz. For the given target files, Snakemake specifies the DAG in the dot language and pipes it into the dot command, which renders the definition into SVG format. The rendered DAG is piped into the file dag.svg.
+
+The DAG contains a node for each job with the edges connecting them representing the dependencies. The frames of jobs that don’t need to be run (because their output is up-to-date) are dashed. For rules with wildcards, the value of the wildcard for the particular job is displayed in the job node.
+
+
+### Call genomic variants and using `expand` 
+
+Next, we will aggregate the mapped reads from all samples and jointly call genomic variants on them. Therefore, we will combine the two utilities samtools and bcftools. Snakemake provides a helper function for collecting input files that helps us to describe the aggregation in this step. With
+
+```
+expand("sorted_reads/{sample}.bam", sample=SAMPLES)
+```
+
+we obtain a list of files where the given pattern "sorted_reads/{sample}.bam" was formatted with the values in a given list of samples SAMPLES, i.e.
+
+```
+["sorted_reads/A.bam", "sorted_reads/B.bam"]
+```
+
+This can also be used if multiple wildcards are used i.e.
+
+```
+expand("sorted_reads/{sample}.{replicate}.bam", sample=SAMPLES, replicate=[0, 1])
+```
+
+would create
+
+```
+["sorted_reads/A.0.bam", "sorted_reads/A.1.bam", "sorted_reads/B.0.bam", "sorted_reads/B.1.bam"]
+```
+
+Let's start with defining the list of samples ad-hoc in plain Python at the top of the Snakefile and add a rule at the end of our Snakefile:
+
+
+```{python}
+SAMPLES = ["A", "B"]
+
+rule bcftools_call:
+    input:
+        fa="data/genome.fa",
+        bam=expand("sorted_reads/{sample}.bam", sample=SAMPLES),
+        bai=expand("sorted_reads/{sample}.bam.bai", sample=SAMPLES)
+    output:
+        "calls/all.vcf"
+    shell:
+        "bcftools mpileup -f {input.fa} {input.bam} | "
+        "bcftools call -mv - > {output}"
+```
+
+With **multiple input or output files**, it is sometimes handy to refer to them separately in the shell command. This can be done by specifying names for input or output files, for example with `fa=....` The files can then be referred to in the shell command by name, for example with `{input.fa}`. 
+
+For long shell commands like this one, it is advisable to split the string over multiple indented lines. Python will automatically merge it into one. Further, you will notice that the input or output file lists can contain arbitrary Python statements, as long as it returns a string, or a list of strings. Here, we invoke our expand function to aggregate over the aligned reads of all samples.
+
+
+```{bash}
+#create a DAG
+snakemake --dag calls/all.vcf | dot -Tsvg > dag.svg
+```
+
+
+### Using custom scripts
+
+Usually, a workflow not only consists of invoking various tools, but also contains custom code to for example calculate summary statistics or create plots. While Snakemake also allows you to directly write Python code inside a rule, it is usually reasonable to move such logic into separate scripts. For this purpose, Snakemake offers the script directive. Add the following rule to your Snakefile:
+
+With this rule, we will eventually generate a histogram of the quality scores that have been assigned to the variant calls in the file `calls/all.vcf`. The actual Python code to generate the plot is hidden in the script `scripts/plot-quals.py`. 
+
+Script paths are always relative to the referring Snakefile. In the script, all properties of the rule like input, output, wildcards, etc. are available as attributes of a global snakemake object. 
+
+```{python}
+rule plot_quals:
+    input:
+        "calls/all.vcf"
+    output:
+        "plots/quals.svg"
+    script:
+        "scripts/plot-quals.py"
+```
+
+Create the file `scripts/plot-quals.py`, with the following content:
+
+
+```{python}
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+from pysam import VariantFile
+
+quals = [record.qual for record in VariantFile(snakemake.input[0])]
+plt.hist(quals)
+
+plt.savefig(snakemake.output[0])
+```
+
+Although there are other strategies to invoke separate scripts from your workflow (for example, invoking them via shell commands), the benefit of this is obvious: the script logic is separated from the workflow logic (and can even be shared between workflows), but boilerplate code like the parsing of command line arguments is unnecessary.
+
+Apart from Python scripts, it is also possible to use R scripts. In R scripts, an S4 object named snakemake analogous to the Python case above is available and allows access to input and output files and other parameters. Here, the syntax follows that of S4 classes with attributes that are R lists, for example we can access the first input file with snakemake@input[[1]] (note that the first file does not have index 0 here, because R starts counting from 1). Named input and output files can be accessed in the same way, by just providing the name instead of an index, for example snakemake@input[["myfile"]].
+
+For details and examples, see the [External scripts section](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#snakefiles-external-scripts) in the Documentation.
+
+
+### Adding a target rule
+
+So far, we always executed the workflow by specifying a target file at the command line. Apart from filenames, Snakemake also accepts rule names as targets if the requested rule does not have wildcards. 
+
+It is possible to write target rules collecting particular subsets of the desired results or all results. Moreover, if no target is given at the command line, Snakemake will define the first rule of the Snakefile as the target. Hence, it is best practice to have a rule all at the top of the workflow which has all typically desired target files as input files.
+
+To do this add the following to the top of the workflow:
+
+```{python}
+rule all:
+    input:
+        "plots/quals.svg"
+```
+
+And execute snakemake with:
+
+```{bash}
+snakemake -n
+```
+
+If we run this the execution plan for creating the file plots/quals.svg, which contains and summarizes all our results, will be shown. 
+
+Note that, apart from Snakemake considering the first rule of the workflow as the default target, the order of rules in the Snakefile is arbitrary and does not influence the DAG of jobs.
+
+
+### Execute full workflow
+
+
+```{bash}
+#execution 
+snakemake --cores 1
+
+#view output
+wslview plots/quals.svg
+
+#force to re-execute samtools_sort
+snakemake --cores 1 --forcerun samtools_sort
+```
+
+
+## Advanced options
+
+### Specifying the number of threads
+
+Snakemake can be made aware of the threads a rule needs with the threads directive. Ie change the bwa_map as follows:
+
+
+```{python}
+rule bwa_map:
+    input:
+        "data/genome.fa",
+        "data/samples/{sample}.fastq"
+    output:
+        "mapped_reads/{sample}.bam"
+    threads: 2
+    shell:
+        "bwa mem -t {threads} {input} | samtools view -Sb - > {output}"
+```
+
+The number of threads can be propagated to the shell command with the familiar braces notation (i.e. {threads}). If no threads directive is given, a rule is assumed to need 1 thread.
+
+When a workflow is executed, the number of threads the jobs need is considered by the Snakemake scheduler. In particular, the scheduler ensures that the sum of the threads of all jobs running at the same time does not exceed a given number of available CPU cores. This number is given with the --cores command line argument, which is mandatory for snakemake calls that actually run the workflow. 
+
+For example `snakemake --cores 10` would execute the workflow with 10 cores. Since the rule bwa_map needs 8 threads, only one job of the rule can run at a time, and the Snakemake scheduler will try to saturate the remaining cores with other jobs like, e.g., samtools_sort.
+
+The threads directive in a rule is interpreted as a maximum: when less cores than threads are provided, the number of threads a rule uses will be reduced to the number of given cores.
+
+If `--cores` is given without a number, all available cores are used.
+
+
+```{bash}
+snakemake --forceall --cores 2
+snakemake --forceall --cores 4
+```
+
+
+### Configuration files
+
+We can use a configuration file if we want your workflow to be customizable:
+
+- Check out the full readme [here](https://snakemake.readthedocs.io/en/latest/snakefiles/configuration.html)
+- Can be provided as JSON or YAML
+- They are used with the configfile direction
+- variable names in the rule and the key name in the configuration file do not have to be identical.  Snakemake matches variables in the rule based on their position within the curly braces {}.
+
+A config file is specified by adding this to the top of our Snakemake workflow:
+
+
+```{python}
+configfile: "config.yaml"
+```
+
+Snakemake will load the config file and store its contents into a globally available dictionary named config. In our case, it makes sense to specify the samples in `config.yaml` as:
+
+```
+samples:
+    A: data/samples/A.fastq
+    B: data/samples/B.fastq
+```
+
+And remove the statement defining the `SAMPLES` in the Snakemake file. And change the rule of `bcftools_call` to:
+
+
+```{python}
+rule bcftools_call:
+    input:
+        fa="data/genome.fa",
+        bam=expand("sorted_reads/{sample}.bam", sample=config["samples"]),
+        bai=expand("sorted_reads/{sample}.bam.bai", sample=config["samples"])
+    output:
+        "calls/all.vcf"
+    shell:
+        "bcftools mpileup -f {input.fa} {input.bam} | "
+        "bcftools call -mv - > {output}"
+```
+
+
+### Input functions
+
+Since we have stored the path to the FASTQ files in the config file, we can also generalize the rule bwa_map to use these paths. This case is different to the rule bcftools_call we modified above. To understand this, it is important to know that Snakemake workflows are executed in three phases.
+
+1. In the **initialization phase**, the files defining the workflow are parsed and all rules are instantiated.
+2. In the **DAG phase**, the directed acyclic dependency graph of all jobs is built by filling wildcards and matching input files to output files.
+3. In the **scheduling phase**, the DAG of jobs is executed, with jobs started according to the available resources.
+
+The `expand` functions in the list of input files of the rule `bcftools_call` are executed during the initialization phase.
+
+In this phase, we don’t know about jobs, wildcard values and rule dependencies. Hence, we cannot determine the FASTQ paths for rule bwa_map from the config file in this phase, because we don’t even know which jobs will be generated from that rule. 
+
+ Instead, we need to defer the determination of input files to the DAG phase. This can be achieved by specifying an input function instead of a string as inside of the input directive. For the rule bwa_map this works as follows:
+
+ 
+ ```{python}
+ def get_bwa_map_input_fastqs(wildcards):
+    return config["samples"][wildcards.sample]
+
+rule bwa_map:
+    input:
+        "data/genome.fa",
+        get_bwa_map_input_fastqs
+    output:
+        "mapped_reads/{sample}.bam"
+    threads: 8
+    shell:
+        "bwa mem -t {threads} {input} | samtools view -Sb - > {output}"
+ ```
+
+How wild cards work here:
+
+- The wildcards object is a special Snakemake variable that represents placeholders in rule input and output file names. In your case, you are using {sample} as a placeholder in the rule's input section, and Snakemake automatically parses this placeholder into a wildcards object.
+- When you define the function get_bwa_map_input_fastqs(wildcards), you are essentially telling Snakemake that this function accepts a wildcards object as an argument. This allows the function to access and use the wildcards to determine which sample's input files to fetch.
+- When Snakemake processes the rule bwa_map, it looks at the rule's input section and identifies that it contains the {sample} placeholder.
+- Snakemake then matches the placeholder to the wildcards object. If you have multiple samples defined in your config.yaml, Snakemake will create separate jobs for each sample, each with a different wildcards.sample value.
+- For each job, the wildcards.sample attribute will be replaced with the actual sample name being processed. For example, if Snakemake is processing the sample "A," then wildcards.sample will be "A."
+- The function get_bwa_map_input_fastqs uses config["samples"][wildcards.sample] to fetch the corresponding input file path for the sample being processed. So, for sample "A," it would retrieve "data/samples/A.fastq" as the input file path.
+
+
+ Benefits of using python function:
+
+1. Modularity and Reusability: By defining a separate Python function (get_bwa_map_input_fastqs) to retrieve the input files, you create a modular and reusable piece of code. This can be particularly useful if you have multiple rules that need to access the same input files, as you can reuse the function across those rules.
+2.  Abstraction: The function abstracts the details of where the input files come from. In your first version, you had to specify the exact path to the input files in the rule itself. With the function, you only need to specify how to obtain the input files for a given sample, making your rule more abstract and easier to maintain.
+3.  Flexibility: If you need to change the way you obtain input files in the future (for example, if you decide to store them in a different directory or use a different naming convention), you can update the function in one place, and all the rules that use it will automatically adapt.
+4.  Reduced Redundancy: Your original version of the rule had repetitive code for specifying input and output paths for each sample. With the function, you reduce redundancy and the potential for errors, as the input file retrieval logic is centralized.
+5.  Easier Testing: You can more easily write unit tests for the input file retrieval function to ensure it works correctly, which can be challenging when input paths are hard-coded in multiple rules.
+
+
+#### Exercise 
+
+In the data/samples folder, there is an additional sample C.fastq. Add that sample to the config file and see how Snakemake wants to recompute the part of the workflow belonging to the new sample, when invoking with `snakemake -n --forcerun bcftools_call`
+
+Note: Snakemake does not automatically rerun jobs when new input files are added as in the excercise below. However, you can get a list of output files that are affected by such changes with snakemake --list-input-changes. To trigger a rerun, this bit of bash magic helps:
+
+```{bash}
+snakemake -n --forcerun $(snakemake --list-input-changes)
+```
+
+
+### Rule parameters
+
+Sometimes shell commands are not only composed of input and output files but require additional parameters.
+
+We can set additional parameters need to be set depending on the wildcard values of the job. For this, Snakemake allows to define arbitrary parameters for rules with the params directive.  I.e. edit bwa_map as follows:
+
+
+```{python}
+rule bwa_map:
+    input:
+        "data/genome.fa",
+        get_bwa_map_input_fastqs
+    output:
+        "mapped_reads/{sample}.bam"
+    params:
+        rg=r"@RG\tID:{sample}\tSM:{sample}"
+    threads: 8
+    shell:
+        "bwa mem -R '{params.rg}' -t {threads} {input} | samtools view -Sb - > {output}"
+```
+
+
+```{bash}
+snakemake -np --forceall
+```
+
+Next, consider another important parameter, the prior mutation rate (1e-3 per default). It is set via the flag `-P` of the `bcftools` call command. Consider making this flag configurable via adding a new key to the config file and using the params directive in the rule bcftools_call to propagate it to the shell command.
+
+Add this in the config file: 
+
+```
+bcftools:
+    evalue: 0.001
+```
+
+Change this in the Snakemakefile:
+
+```{python}
+rule bcftools_call:
+    input:
+        fa="data/genome.fa",
+        bam=expand("sorted_reads/{sample}.bam", sample=config["samples"]),
+        bai=expand("sorted_reads/{sample}.bam.bai", sample=config["samples"])
+    output:
+        "calls/all.vcf"
+    params:
+        eval = config["bcftools"]["evalue"]
+    shell:
+        "bcftools mpileup -f {input.fa} {input.bam} | "
+        "bcftools call -P {params.eval} -mv - > {output}"
+```
+
+
+```{bash}
+snakemake -p --cores 1 --forceall
+```
+
+
+### Logging
+
+When executing a large workflow, it is usually desirable to store the logging output of each job into a separate file, instead of just printing all logging output to the terminal—when multiple jobs are run in parallel, this would result in chaotic output. For this purpose, Snakemake allows to specify log files for rules. Log files are defined via the log directive and handled similarly to output files, but they are not subject of rule matching and are not cleaned up when a job fails. We modify our rule bwa_map as follows:
+
+
+```{python}
+rule bwa_map:
+    input:
+        "data/genome.fa",
+        get_bwa_map_input_fastqs
+    output:
+        "mapped_reads/{sample}.bam"
+    params:
+        rg=r"@RG\tID:{sample}\tSM:{sample}"
+    log:
+        "logs/bwa_mem/{sample}.log"
+    threads: 8
+    shell:
+        "(bwa mem -R '{params.rg}' -t {threads} {input} | "
+        "samtools view -Sb - > {output}) 2> {log}"
+```
+
+The shell command is modified to collect STDERR output of both bwa and samtools and pipe it into the file referred to by `{log}`. Log files must contain exactly the same wildcards as the output files to avoid file name clashes between different jobs of the same rule.
+
+Let's add a log to the to the bcftools_call rule as well.
+
+
+```{python}
+rule bcftools_call:
+    input:
+        fa="data/genome.fa",
+        bam=expand("sorted_reads/{sample}.bam", sample=config["samples"]),
+        bai=expand("sorted_reads/{sample}.bam.bai", sample=config["samples"])
+    output:
+        "calls/all.vcf"
+    params:
+        eval = config["bcftools"]["evalue"]
+    log:
+        "logs/bcftools/all.log"
+    shell:
+        "(bcftools mpileup -f {input.fa} {input.bam} | "
+        "bcftools call -P {params.eval} -mv - > {output}) 2> {log}"
+```
+
+```{bash}
+snakemake -p --cores 1 --forceall
+```
+
+The ability to track the provenance of each generated result is an important step towards reproducible analyses. Apart from the report functionality discussed before, Snakemake can summarize various provenance information for all output files of the workflow. The flag --summary prints a table associating each output file with the rule used to generate it, the creation date and optionally the version of the tool used for creation is provided. Further, the table informs about updated input files and changes to the source code of the rule after creation of the output file. 
+
+
+```{bash}
+snakemake -p --cores 1 --forceall --summary
+```
+
+
+### Temporary and protected files
+
+In our workflow, we create two BAM files for each sample, namely the output of the rules bwa_map and samtools_sort. When not dealing with examples, the underlying data is usually huge. Hence, the resulting BAM files need a lot of disk space and their creation takes some time. To save disk space, you can mark output files as temporary. Snakemake will delete the marked files for you, once all the consuming jobs (that need it as input) have been executed. We use this mechanism for the output file of the rule bwa_map:
+
+
+```{python}
+rule bwa_map:
+    input:
+        "data/genome.fa",
+        get_bwa_map_input_fastqs
+    output:
+        temp("mapped_reads/{sample}.bam")
+    params:
+        rg=r"@RG\tID:{sample}\tSM:{sample}"
+    log:
+        "logs/bwa_mem/{sample}.log"
+    threads: 8
+    shell:
+        "(bwa mem -R '{params.rg}' -t {threads} {input} | "
+        "samtools view -Sb - > {output}) 2> {log}"
+```
+
+This results in the deletion of the BAM file once the corresponding samtools_sort job has been executed. Since the creation of BAM files via read mapping and sorting is computationally expensive, it is reasonable to **protect** the final BAM file **from accidental deletion or modification**. We modify the rule samtools_sort to mark its output file as protected:
+
+
+```{python}
+rule samtools_sort:
+    input:
+        "mapped_reads/{sample}.bam"
+    output:
+        protected("sorted_reads/{sample}.bam")
+    shell:
+        "samtools sort -T sorted_reads/{wildcards.sample} "
+        "-O bam {input} > {output}"
+```
+
+Run Snakemake with the target `mapped_reads/A.bam`. Although the file is marked as temporary, you will see that Snakemake does not delete it because it is specified as a target file.
+
+
+```{bash}
+snakemake --forceall --cores 1 mapped_reads/A.bam 
+```
+
+
+## Additional features
+
+For more, check out [this documentation](https://snakemake.readthedocs.io/en/stable/tutorial/additional_features.html).
+
+
+### Modularization
+
+In order to re-use building blocks or simply to structure large workflows, it is sometimes reasonable to split a workflow into modules. For this, Snakemake provides the include directive to include another Snakefile into the current one, e.g.:
+
+```
+include: "path/to/other.snakefile"
+```
+
+Alternatively, Snakemake allows to define sub-workflows. A sub-workflow refers to a working directory with a complete Snakemake workflow. Output files of that sub-workflow can be used in the current Snakefile. When executing, Snakemake ensures that the output files of the sub-workflow are up-to-date before executing the current workflow. This mechanism is particularly useful when you want to extend a previous analysis without modifying it. For details about sub-workflows, see [the documentation](https://snakemake.readthedocs.io/en/stable/snakefiles/modularization.html#snakefiles-sub-workflows).
+
+In addition to the central Snakefile, rules can be stored in a modular way, using the optional subfolder `workflow/rules`. Such modules should end with `.smk`, the recommended file extension of Snakemake. 
+
+Lets put the read mapping into a separate snakefile and use `include` to make it available in our workflow:
+
+In `rules` add a new file `bwa_mem.smk` with the following content:
+
+
+```{python}
+rule bwa_map:
+    input:
+        "data/genome.fa",
+        get_bwa_map_input_fastqs
+    output:
+        temp("mapped_reads/{sample}.bam")
+    params:
+        rg=r"@RG\tID:{sample}\tSM:{sample}"
+    log:
+        "logs/bwa_mem/{sample}.log"
+    threads: 2
+    shell:
+        "(bwa mem -R '{params.rg}' -t {threads} {input} | "
+        "samtools view -Sb - > {output}) 2> {log}"
+```
+
+Remove the bwa_mem rule from the workflow and add `include: "rules/bwa_mem.smk` and run the workflow with :
+
+
+```{bash}
+snakemake --forceall -p --cores 1
+```
+
+
+### Automatic deployment of software dependencies
+
+In order to get a fully reproducible data analysis, it is not sufficient to be able to execute each step and document all used parameters. The used software tools and libraries have to be documented as well. In this tutorial, you have already seen how Conda can be used to specify an isolated software environment for a whole workflow. With Snakemake, you can go one step further and specify Conda environments per rule. This way, you can even make use of conflicting software versions (e.g. combine Python 2 with Python 3).
+
+In our example, instead of using an external environment we can specify environments per rule, e.g.:
+
+
+```{python}
+rule samtools_index:
+  input:
+      "sorted_reads/{sample}.bam"
+  output:
+      "sorted_reads/{sample}.bam.bai"
+  conda:
+      "envs/samtools.yaml"
+  shell:
+      "samtools index {input}"
+```
+
+with `envs/samtools.yaml` defined as:
+
+```{python}
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - samtools =1.9
+```
+
+When executing the workflow with `snakemake --use-conda --cores 1` it will automatically create required environments and activate them before a job is executed. **It is best practice to specify at least the major and minor version of any packages in the environment definition.**
+
+Specifying environments per rule in this way has two advantages: 
+- First, the workflow definition also documents all used software versions. 
+- Second, a workflow can be re-executed (without admin rights) on a vanilla system, without installing any prerequisites apart from Snakemake and Miniconda.
+
+
+### Tool wrappers
+
+In order to simplify the utilization of popular tools, Snakemake provides a repository of so-called wrappers (the [Snakemake wrapper repository](https://snakemake-wrappers.readthedocs.io/en/stable/)). A wrapper is a short script that wraps (typically) a command line application and makes it directly addressable from within Snakemake. For this, Snakemake provides the wrapper directive that can be used instead of shell, script, or run. For example, the rule bwa_map could alternatively look like this:
+
+
+```{python}
+rule bwa_mem:
+  input:
+      ref="data/genome.fa",
+      sample=lambda wildcards: config["samples"][wildcards.sample]
+  output:
+      temp("mapped_reads/{sample}.bam")
+  log:
+      "logs/bwa_mem/{sample}.log"
+  params:
+      "-R '@RG\tID:{sample}\tSM:{sample}'"
+  threads: 8
+  wrapper:
+      "0.15.3/bio/bwa/mem"
+```
+
+
+### Cluster execution
+
+By default, Snakemake executes jobs on the local machine it is invoked on. Alternatively, it can execute jobs in distributed environments, e.g., compute clusters or batch systems. If the nodes share a common file system, Snakemake supports three alternative execution modes.
+
+In cluster environments, compute jobs are usually submitted as shell scripts via commands like qsub. Snakemake provides a generic mode to execute on such clusters. By invoking Snakemake with ` snakemake --cluster qsub --jobs 100` each job will be compiled into a shell script that is submitted with the given command (here qsub). The --jobs flag limits the number of concurrently submitted jobs to 100. 
+
+Find out more for [SLURM submissions](https://snakemake.readthedocs.io/en/stable/executing/cluster.html).
+
+
+### Constraining wildcards
+
+Sometimes it is useful to constrain the values a wildcard can have. This can be achieved by adding a regular expression that describes the set of allowed wildcard values. For example, the wildcard sample in the output file `"sorted_reads/{sample}.bam"` can be constrained to only allow alphanumeric sample names as `"sorted_reads/{sample,[A-Za-z0-9]+}.bam"`. 
+
+Constraints may be defined per rule or globally using the wildcard_constraints keyword, as demonstrated in [Wildcards](https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#snakefiles-wildcards). This mechanism helps to solve two kinds of ambiguity.
+
+1. It can help to avoid ambiguous rules, i.e. two or more rules that can be applied to generate the same output file. Other ways of handling ambiguous rules are described in the Section Handling Ambiguous Rules.
+2. It can help to guide the regular expression based matching so that wildcards are assigned to the right parts of a file name. Consider the output file `{sample}.{group}.txt` and assume that the target file is `A.1.normal.txt`. It is not clear whether dataset="A.1" and group="normal" or dataset="A" and group="1.normal" is the right assignment. Here, constraining the dataset wildcard by `{sample,[A-Z]+}.{group} `solves the problem.
+
+When dealing with ambiguous rules, it is best practice to first try to solve the ambiguity by using a proper file structure, for example, by separating the output files of different steps in different directories.
+
+
+### Generate html report
+
+A basic report contains runtime statistics, a visualization of the workflow topology, used software and data provenance information.
+
+```{bash}
+snakemake --report report.html --rerun-incomplete
+```
+
+In addition, you can mark any output file generated in your workflow for inclusion into the report. It will be encoded directly into the report, such that it can be, e.g., emailed as a self-contained document. The reader (e.g., a collaborator of yours) can at any time download the enclosed results from the report for further use, e.g., in a manuscript you write together. 
+
+Let's mark the output file "results/plots/quals.svg" for inclusion by replacing it with report("results/plots/quals.svg", caption="report/calling.rst") and adding a file report/calling.rst, containing some description of the output file. This description will be presented as caption in the resulting report.

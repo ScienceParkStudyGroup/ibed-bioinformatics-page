@@ -1,0 +1,101 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: ../references.bib
+---
+
+## Interproscan
+
+### Introduction
+
+[InterPro](http://www.ebi.ac.uk/interpro/) is a database which integrates together predictive information about proteins' function from a number of partner resources, giving an overview of the families that a protein belongs to and the domains and sites it contains [@blum2021].
+
+Users who have novel nucleotide or protein sequences that they wish to functionally characterise can use the software package [InterProScan](https://interproscan-docs.readthedocs.io/en/latest/Introduction.html) to run the scanning algorithms from the InterPro database in an integrated way. Sequences are submitted in FASTA format. Matches are then calculated against all of the required member database's signatures and the results are then output in a variety of formats [@jones2014].
+
+### Installation
+
+### Newest version
+
+Notice: The newest version does NOT run on crunchomics, since it requires a newer Java version. Therefore, use the code below if you want to install interproscan on your own system.
+
+```{python}
+cd software_dir
+
+mkdir interproscan
+cd interproscan 
+
+#download software
+wget https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.64-96.0/interproscan-5.64-96.0-64-bit.tar.gz
+wget https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.64-96.0/interproscan-5.64-96.0-64-bit.tar.gz.md5
+
+# Recommended checksum to confirm the download was success
+# Must return *interproscan-5.64-96.0-64-bit.tar.gz: OK*
+md5sum -c interproscan-5.64-96.0-64-bit.tar.gz.md5
+
+tar -pxvzf interproscan-5.64-96.0-*-bit.tar.gz
+
+#index hmm models
+cd interproscan-5.64-96.0
+python3 setup.py -f interproscan.properties
+```
+
+#### Version for Crunchomics
+
+On Crunchomics, newer version of interproscan do not run due to an incompatibility with the installed Java version. To get it running use the following version:
+
+```{python}
+#download software
+wget https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.36-75.0/interproscan-5.36-75.0-64-bit.tar.gz
+wget https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.36-75.0/interproscan-5.36-75.0-64-bit.tar.gz.md5
+
+# Recommended checksum to confirm the download was success
+# Must return *interproscan-5.64-96.0-64-bit.tar.gz: OK*
+md5sum interproscan-5.36-75.0-64-bit.tar.gz.md5
+
+tar -pxvzf interproscan-5.36-75.0-64-bit.tar.gz
+
+#index hmm models
+cd interproscan-5.36-75.0
+#srun -n 1 --cpus-per-task 1 python3 setup.py -f interproscan.properties
+srun -n1 --cpus-per-task 8 --mem=8G ./interproscan.sh -i test_proteins.fasta
+```
+
+
+
+
+### Usage
+
+Required inputs:
+
+- Protein fasta file
+
+Generated outputs:
+
+-    TSV: a simple tab-delimited file format
+-    XML: the new "IMPACT" XML format
+-    GFF3: The GFF 3.0 format
+-    JSON
+-    SVG
+-    HTML
+
+Notice:
+
+-   Interproscan does not like `*` symbols inside the protein sequence. Some tools for protein calling, like prokka, use `*` add the end of a protein to indicate that the full protein was found. If your files have such symbols, use the code below to remove it first. Beware: using `sed -i` overwrites the content of your file. If that behaviour is not wanted use `sed 's/*//g' Proteins_of_interest_new.faa` instead.
+-   If you are on Crunchomics (or most other servers): DO NOT run jobs on the head node, but add something like `srun -n 1 --cpus-per-task 4` before the actual command
+
+Example code:
+
+```{python}
+#clean faa file 
+#remove `*` as interproscan does not like that symbol
+sed -i 's/*//g' Proteins_of_interest.faa
+
+#run interproscan
+path_to_install/interproscan-5.36-75.0/interproscan.sh --cpu 4 -i Proteins_of_interest.faa -d outputfolder -T outputfolder/temp --iprlookup --goterms
+
+```
+
+To check available options use `path_to_install/interproscan-5.36-75.0/interproscan.sh --help` or for more detailed information, see [the documentation](https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html)):

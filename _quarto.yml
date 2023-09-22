@@ -12,7 +12,7 @@ format:
       dark: darkly
     css: styles.css
     toc: true
-    toc-expand: false
+    toc-expand: true
 
 website:
   title: "Software information"
@@ -23,7 +23,7 @@ website:
     - id: guide
       style: "docked"
       search: true
-      collapse-level: 1
+      collapse-level: 2
 
       contents:
         - section: "Guide"
@@ -43,6 +43,8 @@ website:
           - section: "Metagenomics"
             contents:
               - source/metagenomics/readme.qmd
+              - source/interproscan/readme.qmd
+              - source/fama/readme.qmd
           
           - section: "Fungal genomics"
             contents:

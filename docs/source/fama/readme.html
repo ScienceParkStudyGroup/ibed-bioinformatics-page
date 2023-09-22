@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/Qiime/3_evelyn_tutorial_notes.html" rel="next">
-<link href="../../source/R/readme.html" rel="prev">
+<link href="../../source/ITSx/readme.html" rel="next">
+<link href="../../source/interproscan/readme.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -77,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Guide</a></li><li class="breadcrumb-item"><a href="../../source/Qiime/readme.html">Amplicomics</a></li><li class="breadcrumb-item"><a href="../../source/Qiime/readme.html">QIIME 2</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Guide</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Metagenomics</a></li><li class="breadcrumb-item"><a href="../../source/fama/readme.html">FAMA</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -129,16 +163,16 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
  <span class="menu-text">Amplicomics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/Qiime/readme.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../source/Qiime/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">QIIME 2</span></a>
   </div>
 </li>
@@ -152,13 +186,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
  <span class="menu-text">Metagenomics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/readme.html" class="sidebar-item-text sidebar-link">
@@ -173,7 +207,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/fama/readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/fama/readme.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">FAMA</span></a>
   </div>
 </li>
@@ -208,7 +242,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#qiime-2" id="toc-qiime-2" class="nav-link active" data-scroll-target="#qiime-2">QIIME 2</a></li>
+  <li><a href="#fama" id="toc-fama" class="nav-link active" data-scroll-target="#fama">FAMA</a>
+  <ul class="collapse">
+  <li><a href="#adding-more-databases-to-fama" id="toc-adding-more-databases-to-fama" class="nav-link" data-scroll-target="#adding-more-databases-to-fama">Adding more databases to FAMA</a></li>
+  <li><a href="#run-fama" id="toc-run-fama" class="nav-link" data-scroll-target="#run-fama">Run FAMA</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -217,17 +255,47 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="qiime-2" class="level2">
-<h2 class="anchored" data-anchor-id="qiime-2">QIIME 2</h2>
-<p>QIIME 2 is a platform for microbial community analysis such as 16S amplicon analysis. The QIIME 2 website comes with a wealth of documentation and tutorials that are worthwhile to check out before running QIIME 2 on your own data:</p>
-<ul>
-<li><a href="https://docs.qiime2.org/2023.7/install/native/">Installation instructions</a></li>
-<li><a href="https://docs.qiime2.org/2023.7/">The QIIME 2 documentation</a>.</li>
-<li><a href="cancer-microbiome-intervention-tutorial">The cancer microbiome tutorial</a></li>
-<li><a href="https://gregcaporaso.github.io/q2book/front-matter/preface.html">q2book</a> a very detailed, but still unfinished, tutorial on QIIME 2.</li>
-</ul>
+<section id="fama" class="level1">
+<h1>FAMA</h1>
+<section id="adding-more-databases-to-fama" class="level2">
+<h2 class="anchored" data-anchor-id="adding-more-databases-to-fama">Adding more databases to FAMA</h2>
+<p>Sulfur database installation instructions:</p>
+<ol type="1">
+<li><p>Download and unpack the archive into a separate directory:https://iseq.lbl.gov/mydocs/fama_downloads/fama_sulfur_dataset.tar.gz</p></li>
+<li><p>Create diamond databases:</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">diamond</span> makedb <span class="at">--in</span> classification_database.faa <span class="at">--db</span> classification_database</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">diamond</span> makedb <span class="at">--in</span> selection_database_clustered.faa <span class="at">--db</span> selection_database</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>Append your config.ini file with a new section and replace “<path to="" db="" files="">” with real paths:</path></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[test_sulfur_v1]</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">functions_file</span> = <span class="op">&lt;</span>path to db files<span class="op">&gt;</span>/collection_functions.txt</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">taxonomy_file</span> = <span class="op">&lt;</span>path to db files<span class="op">&gt;</span>/collection_taxonomy.txt</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">reference_diamond_db</span> = <span class="op">&lt;</span>path to db files<span class="op">&gt;</span>/selection_database.dmnd</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">background_diamond_db</span> = <span class="op">&lt;</span>path to db files<span class="op">&gt;</span>/classification_database.dmnd</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">reference_db_size</span> = 6990766</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">background_db_size</span> = 99120132</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="run-fama" class="level2">
+<h2 class="anchored" data-anchor-id="run-fama">Run FAMA</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#activate environment</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate /zfs/omics/projects/metatools/TOOLS/miniconda3/envs/FAMA</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#get template and add</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /zfs/omics/projects/metatools/DB/fama_new/project.ini.sample my.project.config</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#run FAMA </span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> /zfs/omics/projects/metatools/DB/fama_new/py/fama.py <span class="at">-c</span> /zfs/omics/projects/metatools/DB/fama_new/config.ini <span class="at">-p</span> my.project.config</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -581,13 +649,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/R/readme.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">R</span>
+      <a href="../../source/interproscan/readme.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Interproscan</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/Qiime/3_evelyn_tutorial_notes.html" class="pagination-link">
-        <span class="nav-page-text">Follow Eveylyn’s QIIME workflow</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/ITSx/readme.html" class="pagination-link">
+        <span class="nav-page-text">ITSx</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
