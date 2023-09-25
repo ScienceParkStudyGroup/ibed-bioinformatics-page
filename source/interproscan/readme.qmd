@@ -19,9 +19,13 @@ Users who have novel nucleotide or protein sequences that they wish to functiona
 
 ### Newest version
 
-Notice: The newest version does NOT run on crunchomics, since it requires a newer Java version. Therefore, use the code below if you want to install interproscan on your own system.
+Notice: The newest version does NOT run on crunchomics unless you do some extra steps during the isntallation since we need a newer java version and we need to update a tool used to analyse Prosite specific databases. 
 
-```{python}
+These changes require to move a few things around, so if you feel uncomfortable with this feel free to install an older version (for installation, see section **#### Version for Crunchomics** below) that works well with the default java version installed on crunchomics.
+
+If you want to work with the newest version and are not afraid of some extra steps do the following:
+
+```{bash}
 cd software_dir
 
 mkdir interproscan
@@ -40,7 +44,40 @@ tar -pxvzf interproscan-5.64-96.0-*-bit.tar.gz
 #index hmm models
 cd interproscan-5.64-96.0
 python3 setup.py -f interproscan.properties
+
+#get correct java version
+conda deactivate
+mamba create --name java_f_iprscan -c conda-forge openjdk
+conda activate java_f_iprscan
+mamba install -c conda-forge gfortran
+
+#test error outside of iprscan
+bin/prosite/pfsearchV3
+
+#get new pftools version via conda
+mamba install -c bioconda pftools
+cd bin/prosite
+
+rm pfscanV3
+rm pfsearchV3
+
+cp ~/personal/mambaforge/envs/java_f_iprscan/bin/pfscan .
+cp ~/personal/mambaforge/envs/java_f_iprscan/bin/pfscanV3 .
+cp ~/personal/mambaforge/envs/java_f_iprscan/bin/pfsearch .
+cp ~/personal/mambaforge/envs/java_f_iprscan/bin/pfsearchV3 .
+cd ..
+
+#check glibc version
+ldd --version
+
+#do testrun (ProSiteProfiles and ProSitePatterns not working yet)
+srun -n 1 --cpus-per-task 1 --mem=8G ./interproscan.sh -i test_all_appl.fasta -f tsv -dp --appl TIGRFAM,SFLD,SUPERFAMILY,PANTHER,GENE3D,Hamap,Coils,SMART,CDD,PRINTS,PIRSR,AntiFam,Pfam,MobiDBLite,PIRSF,ProSiteProfiles 
+
+srun -n 1 --cpus-per-task 1 --mem=8G ./interproscan.sh -i test_all_appl.fasta -f tsv
+conda deactivate
+
 ```
+
 
 #### Version for Crunchomics
 

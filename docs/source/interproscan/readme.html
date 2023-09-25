@@ -288,26 +288,59 @@ div.csl-indent {
 </section>
 <section id="newest-version" class="level3">
 <h3 class="anchored" data-anchor-id="newest-version">Newest version</h3>
-<p>Notice: The newest version does NOT run on crunchomics, since it requires a newer Java version. Therefore, use the code below if you want to install interproscan on your own system.</p>
+<p>Notice: The newest version does NOT run on crunchomics unless you do some extra steps during the isntallation since we need a newer java version and we need to update a tool used to analyse Prosite specific databases.</p>
+<p>These changes require to move a few things around, so if you feel uncomfortable with this feel free to install an older version (for installation, see section <strong>#### Version for Crunchomics</strong> below) that works well with the default java version installed on crunchomics.</p>
+<p>If you want to work with the newest version and are not afraid of some extra steps do the following:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>cd software_dir</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> software_dir</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>mkdir interproscan</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>cd interproscan </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> interproscan</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> interproscan </span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#download software</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>wget https:<span class="op">//</span>ftp.ebi.ac.uk<span class="op">/</span>pub<span class="op">/</span>software<span class="op">/</span>unix<span class="op">/</span>iprscan<span class="op">/</span><span class="dv">5</span><span class="op">/</span><span class="fl">5.64</span><span class="op">-</span><span class="fl">96.0</span><span class="op">/</span>interproscan<span class="op">-</span><span class="fl">5.64</span><span class="op">-</span><span class="fl">96.0</span><span class="op">-</span><span class="dv">64</span><span class="op">-</span>bit.tar.gz</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>wget https:<span class="op">//</span>ftp.ebi.ac.uk<span class="op">/</span>pub<span class="op">/</span>software<span class="op">/</span>unix<span class="op">/</span>iprscan<span class="op">/</span><span class="dv">5</span><span class="op">/</span><span class="fl">5.64</span><span class="op">-</span><span class="fl">96.0</span><span class="op">/</span>interproscan<span class="op">-</span><span class="fl">5.64</span><span class="op">-</span><span class="fl">96.0</span><span class="op">-</span><span class="dv">64</span><span class="op">-</span>bit.tar.gz.md5</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.64-96.0/interproscan-5.64-96.0-64-bit.tar.gz</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.64-96.0/interproscan-5.64-96.0-64-bit.tar.gz.md5</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Recommended checksum to confirm the download was success</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Must return *interproscan-5.64-96.0-64-bit.tar.gz: OK*</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>md5sum <span class="op">-</span>c interproscan<span class="op">-</span><span class="fl">5.64</span><span class="op">-</span><span class="fl">96.0</span><span class="op">-</span><span class="dv">64</span><span class="op">-</span>bit.tar.gz.md5</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">md5sum</span> <span class="at">-c</span> interproscan-5.64-96.0-64-bit.tar.gz.md5</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>tar <span class="op">-</span>pxvzf interproscan<span class="op">-</span><span class="fl">5.64</span><span class="op">-</span><span class="fl">96.0</span><span class="op">-*-</span>bit.tar.gz</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-pxvzf</span> interproscan-5.64-96.0-<span class="pp">*</span>-bit.tar.gz</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#index hmm models</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>cd interproscan<span class="op">-</span><span class="fl">5.64</span><span class="op">-</span><span class="fl">96.0</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>python3 setup.py <span class="op">-</span>f interproscan.properties</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> interproscan-5.64-96.0</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> setup.py <span class="at">-f</span> interproscan.properties</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#get correct java version</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">--name</span> java_f_iprscan <span class="at">-c</span> conda-forge openjdk</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate java_f_iprscan</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install <span class="at">-c</span> conda-forge gfortran</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">#test error outside of iprscan</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ex">bin/prosite/pfsearchV3</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">#get new pftools version via conda</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install <span class="at">-c</span> bioconda pftools</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> bin/prosite</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> pfscanV3</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> pfsearchV3</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> ~/personal/mambaforge/envs/java_f_iprscan/bin/pfscan .</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> ~/personal/mambaforge/envs/java_f_iprscan/bin/pfscanV3 .</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> ~/personal/mambaforge/envs/java_f_iprscan/bin/pfsearch .</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> ~/personal/mambaforge/envs/java_f_iprscan/bin/pfsearchV3 .</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co">#check glibc version</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">ldd</span> <span class="at">--version</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co">#do testrun (ProSiteProfiles and ProSitePatterns not working yet)</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 1 <span class="at">--mem</span><span class="op">=</span>8G ./interproscan.sh <span class="at">-i</span> test_all_appl.fasta <span class="at">-f</span> tsv <span class="at">-dp</span> <span class="at">--appl</span> TIGRFAM,SFLD,SUPERFAMILY,PANTHER,GENE3D,Hamap,Coils,SMART,CDD,PRINTS,PIRSR,AntiFam,Pfam,MobiDBLite,PIRSF,ProSiteProfiles </span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 1 <span class="at">--mem</span><span class="op">=</span>8G ./interproscan.sh <span class="at">-i</span> test_all_appl.fasta <span class="at">-f</span> tsv</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="version-for-crunchomics" class="level4">
 <h4 class="anchored" data-anchor-id="version-for-crunchomics">Version for Crunchomics</h4>
