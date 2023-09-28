@@ -44,5 +44,23 @@
   },
   "source/fama/readme.qmd": {
     "readme.html": "46bb09f0"
+  },
+  "source/nanopore/readme.qmd": {
+    "readme.html": "aba8ff7e"
+  },
+  "source/ITSx/itsx_readme.qmd": {
+    "itsx_readme.html": "f9a3ce30"
+  },
+  "source/fastqc_readme.qmd": {
+    "fastqc_readme.html": "0b44de58"
+  },
+  "source/nanopore/nanoqc_readme.qmd": {
+    "nanoqc_readme.html": "c11a2a25"
+  },
+  "source/nanopore/nanoplot_readme.qmd": {
+    "nanoplot_readme.html": "0dcc19f7"
+  },
+  "source/nanopore/porechop_readme.qmd": {
+    "porechop_readme.html": "f201d4fe"
   }
 }

@@ -35,20 +35,28 @@ website:
           - text: "R"
             href: source/R/readme.qmd
           
-          - section: "Amplicomics"
+          - section: "Amplicon analyses"
             contents:
               - source/Qiime/readme.qmd
               - source/Qiime/3_evelyn_tutorial_notes.qmd
-          
+
+          - section: "Nanopore analyses"
+            contents:
+              - source/nanopore/readme.qmd
+              - source/nanopore/nanoqc_readme.qmd
+              - source/nanopore/nanoplot_readme.qmd
+              - source/nanopore/porechop_readme.qmd
+
           - section: "Metagenomics"
             contents:
               - source/metagenomics/readme.qmd
+              - source/fastqc_readme.qmd
               - source/interproscan/readme.qmd
               - source/fama/readme.qmd
           
           - section: "Fungal genomics"
             contents:
-              - source/ITSx/readme.qmd
+              - source/ITSx/itsx_readme.qmd
 
       tools:
         - icon: github

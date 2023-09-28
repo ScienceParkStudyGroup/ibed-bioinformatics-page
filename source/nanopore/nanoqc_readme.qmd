@@ -1,0 +1,58 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+## NanoQC
+
+### Introduction
+
+[NanoQC] is a quality control tool for long read sequencing data aiming to replicate some of the plots made by fastQC [@decoster2018].
+
+Available on Crunchomics: Not by default
+
+### Installation
+
+NanoQC is part of the Nanopack package and I would recommend installing this package to already have other useful tools installed. Therefore, we install a new conda environment called nanopack, feel free to replace this name with whatever you feel suitable. If you already have an environment with tools for long-read analyses I suggest adding nanopack there instead.
+
+If you do not have mamba (or conda) installed. Check out the installation instructions for [mamba](https://mamba.readthedocs.io/en/latest/mamba-installation.html#mamba-install) and [conda](https://crunchomics-documentation.readthedocs.io/en/latest/miniconda.html). Mamba is a newer version of conda and from experience faster but since its newer this might mean that not all software can yet be installed with mamba.
+
+```{bash}
+#setup new conda environment, which we name nanopack
+mamba create --name nanopack -c conda-forge -c bioconda python=3.6 pip
+
+#activate environment
+conda activate nanopack 
+
+#install nanopack software tools 
+/home/ndombro/personal/mambaforge/envs/nanopore/bin/pip3 install nanopack
+
+#close environment
+conda deactivate
+```
+
+
+### Usage
+
+-   Inputs: Fastqc.gz file
+-   Output: An HTML with quality information
+
+Example code:
+
+```{bash}
+#start environment
+conda activate nanopack
+
+#run on a single file
+nanoQC myfile.fastq.gz -o outputfolder
+```
+
+Useful arguments (for the full version, check the manual):
+
+-   `-l`, `--minlen` {int} Minimum length of reads to be included in the plots. This also controls the length plotted in the graphs from the beginning and end of reads (length plotted = minlen / 2)
+
+### References

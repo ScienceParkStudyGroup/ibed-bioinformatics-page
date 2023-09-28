@@ -1,0 +1,3 @@
+## General
+
+In this section you find tools to analyse long-read sequencing data. There might be a bit of overlap with the section "Amplicon sequencing data" but this section mainly lists tools suitable for short-read data generated with Illumina.

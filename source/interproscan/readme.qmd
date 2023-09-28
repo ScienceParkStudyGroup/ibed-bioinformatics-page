@@ -7,7 +7,7 @@ engine: knitr
 bibliography: ../references.bib
 ---
 
-## Interproscan
+## Interproscan {#sec-interproscan}
 
 ### Introduction
 
