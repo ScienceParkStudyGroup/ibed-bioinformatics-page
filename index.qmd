@@ -10,6 +10,7 @@ On each page, you will find a note if the software is installed on Crunchomics i
 
 ### Tool list A-Z
 
+- [Chopper](source/nanopore/chopper.qmd)
 - [FAMA](source/fama/readme.qmd)
 - [FastQC](source/fastqc_readme.qmd)
 - [Interproscan](source/interproscan/readme.qmd)

@@ -74,5 +74,8 @@
   },
   "source/classification/minimap2.qmd": {
     "minimap2.html": "6dd8bca0"
+  },
+  "source/nanopore/chopper.qmd": {
+    "chopper.html": "07beb3e3"
   }
 }
