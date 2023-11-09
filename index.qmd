@@ -7,12 +7,15 @@ If you want to add additional information you are welcome to do so. For now, fee
 
 On each page, you will find a note if the software is installed on Crunchomics in the introduction. Additionally, each page will give you a brief installation instruction as well as some basic information about using the tool.
 
-### Tool list
+
+### Tool list A-Z
 
 - [FAMA](source/fama/readme.qmd)
 - [FastQC](source/fastqc_readme.qmd)
 - [Interproscan](source/interproscan/readme.qmd)
-- [ITSx](source/ITSx/readme.qmd)
+- [ITSx](source/ITSx/itsx_readme.qmd)
+- [NanoClass](source/nanopore/nanoclass.qmd)
+- [NanoITS](source/nanopore/nanoITS.qmd)
 - [NanoPlot](source/nanopore/nanoplot_readme.qmd)
 - [NanoQC](source/nanopore/nanoqc_readme.qmd)
 - [Porechop](source/nanopore/porechop_readme.qmd)

@@ -62,5 +62,11 @@
   },
   "source/nanopore/porechop_readme.qmd": {
     "porechop_readme.html": "f201d4fe"
+  },
+  "source/nanopore/nanoclass.qmd": {
+    "nanoclass.html": "81508ee3"
+  },
+  "source/nanopore/nanoITS.qmd": {
+    "nanoITS.html": "f70f413b"
   }
 }

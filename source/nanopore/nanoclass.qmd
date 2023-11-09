@@ -1,0 +1,20 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+## NanoClass
+
+### Introduction
+
+NanoClass is a snakemake workflow developed by IBED's former biofinformatician Evelien Jongepier.
+
+NanoClass is a taxonomic meta-classifier for meta-barcoding 16S rRNA gene sequencing data generated with the Oxford Nanopore Technology. With a single command, this Snakemake pipeline installs all programs and databases and runs and evaluates 10 popular taxonomic classification tools.
+
+
+
+To find out more check out the [manual](https://ejongepier.github.io/NanoClass/index.html).

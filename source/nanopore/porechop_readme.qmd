@@ -7,9 +7,9 @@ engine: knitr
 bibliography: references.bib
 ---
 
-## Nanoplot
+## Porechop
 
-### Porechop
+### Introduction
 
 [Porechop](https://github.com/rrwick/Porechop) is a tool for finding and removing adapters from Oxford Nanopore reads. Adapters on the ends of reads are trimmed off, and when a read has an adapter in its middle, it is treated as chimeric and chopped into separate reads. Porechop performs thorough alignments to effectively find adapters, even at low sequence identity. 
 
@@ -19,12 +19,10 @@ Available on Crunchomics: Not by default
 
 ### Installation
 
-
-If you do not have mamba (or conda) installed. Check out the installation instructions for [mamba](https://mamba.readthedocs.io/en/latest/mamba-installation.html#mamba-install) and [conda](https://crunchomics-documentation.readthedocs.io/en/latest/miniconda.html). Mamba is a newer version of conda and from experience faster but since its newer this might mean that not all software can yet be installed with mamba.
+It is easiest to install porechop with conda. If you do not have mamba (or conda) installed. Check out the installation instructions for [mamba](https://mamba.readthedocs.io/en/latest/mamba-installation.html#mamba-install) and [conda](https://crunchomics-documentation.readthedocs.io/en/latest/miniconda.html). Mamba is a newer version of conda and from experience faster but since its newer this might mean that not all software can yet be installed with mamba.
 
 ```{bash}
 mamba create --name porechop -c conda-forge -c bioconda porechop=0.2.4
-
 ```
 
 
@@ -32,9 +30,9 @@ mamba create --name porechop -c conda-forge -c bioconda porechop=0.2.4
 
 ::: {.callout-important}
 Adaptor trimming very much depends on how the sequencing library was generated.
-Therefore, I recommend to read carefully to read through the [How it works section](https://github.com/rrwick/Porechop) of the softwares manual to know what to expect and look out for. 
+Therefore, I recommend to carefully read through the [How it works section](https://github.com/rrwick/Porechop) of the softwares manual to know what to expect and look out for. 
 
-Similarly, porechop works with both demultiplexed and non-demultiplexed sequences.
+Similarly, porechop works with both demultiplexed and non-demultiplexed sequences. Also here, the manual explains in more detail how to perform barcode demultiplexing.
 :::
 
 
@@ -59,22 +57,22 @@ porechop --input myfile.fastq.gz \
 
 Useful arguments (for the full version, check the manual):
 
-- -b BARCODE_DIR, --barcode_dir BARCODE_DIR: Reads will be binned based on their barcode and saved to separate files in this directory (incompatible with --output)
-- `--barcode_threshold` BARCODE_THRESHOLD
+- `-b` {BARCODE_DIR}, `--barcode_dir` {BARCODE_DIR}: Reads will be binned based on their barcode and saved to separate files in this directory (incompatible with --output)
+- `--barcode_threshold` {BARCODE_THRESHOLD}
                                  A read must have at least this percent identity to a barcode to be
                                  binned (default: 75.0)
--  `--barcode_diff` BARCODE_DIFF    If the difference between a read's best barcode identity and its
+-  `--barcode_diff` {BARCODE_DIFF}    If the difference between a read's best barcode identity and its
                                  second-best barcode identity is less than this value, it will not
                                  be put in a barcode bin (to exclude cases which are too close to
                                  call) (default: 5.0)
-- `--adapter_threshold` ADAPTER_THRESHOLD
+- `--adapter_threshold` {ADAPTER_THRESHOLD}
                                  An adapter set has to have at least this percent identity to be
                                  labelled as present and trimmed off (0 to 100) (default: 90.0)
-- `--check_reads `CHECK_READS      This many reads will be aligned to all possible adapters to
+- `--check_reads `{CHECK_READS}      This many reads will be aligned to all possible adapters to
                                  determine which adapter sets are present (default: 10000)
 - `--no_split`                     Skip splitting reads based on middle adapters (default: split
                                  reads when an adapter is found in the middle)
--  `--discard_middle`               Reads with middle adapters will be discarded (default: reads with
+- `--discard_middle`               Reads with middle adapters will be discarded (default: reads with
                                  middle adapters are split) (required for reads to be used with
                                  Nanopolish, this option is on by default when outputting reads
                                  into barcode bins)

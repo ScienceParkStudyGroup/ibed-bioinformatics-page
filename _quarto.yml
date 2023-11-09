@@ -43,6 +43,8 @@ website:
           - section: "Nanopore analyses"
             contents:
               - source/nanopore/readme.qmd
+              - source/nanopore/nanoclass.qmd
+              - source/nanopore/nanoITS.qmd
               - source/nanopore/nanoqc_readme.qmd
               - source/nanopore/nanoplot_readme.qmd
               - source/nanopore/porechop_readme.qmd
@@ -57,6 +59,7 @@ website:
           - section: "Fungal genomics"
             contents:
               - source/ITSx/itsx_readme.qmd
+              - source/nanopore/nanoITS.qmd
 
       tools:
         - icon: github

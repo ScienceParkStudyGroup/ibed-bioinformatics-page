@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Software information – readme</title>
+<title>Software information – nanoits</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/nanopore/nanoclass.html" rel="next">
-<link href="../../source/Qiime/3_evelyn_tutorial_notes.html" rel="prev">
+<link href="../../source/nanopore/nanoqc_readme.html" rel="next">
+<link href="../../source/nanopore/nanoclass.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -77,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Guide</a></li><li class="breadcrumb-item"><a href="../../source/nanopore/readme.html">Nanopore analyses</a></li><li class="breadcrumb-item"><a href="../../source/nanopore/readme.html">General</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Guide</a></li><li class="breadcrumb-item"><a href="../../source/nanopore/readme.html">Nanopore analyses</a></li><li class="breadcrumb-item"><a href="../../source/nanopore/nanoITS.html">NanoITS</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -161,7 +195,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/nanopore/readme.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../source/nanopore/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">General</span></a>
   </div>
 </li>
@@ -169,6 +203,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../../source/nanopore/nanoclass.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoClass</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">NanoITS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -241,6 +281,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">ITSx</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NanoITS</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -255,7 +301,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#general" id="toc-general" class="nav-link active" data-scroll-target="#general">General</a></li>
+  <li><a href="#nanoits" id="toc-nanoits" class="nav-link active" data-scroll-target="#nanoits">NanoITS</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  </ul></li>
+  <li><a href="#quick-start" id="toc-quick-start" class="nav-link" data-scroll-target="#quick-start">Quick start</a></li>
   </ul>
 </nav>
     </div>
@@ -264,9 +314,43 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="general" class="level2">
-<h2 class="anchored" data-anchor-id="general">General</h2>
-<p>In this section you find tools to analyse long-read sequencing data. There might be a bit of overlap with the section “Amplicon sequencing data” but in the <strong>Nanopore analysis</strong> section you specifically will find tools suitable for dealing with long read data generated with Nanopore.</p>
+<section id="nanoits" class="level2">
+<h2 class="anchored" data-anchor-id="nanoits">NanoITS</h2>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>NanoITS is a classifier for long-read Oxford Nanopore data of the eukaryotic 18S/SSU-ITS1 operon.</p>
+<p>When giving the tool some nanopore long-read data it will:</p>
+<ul>
+<li>Provide a quality report of the raw reads</li>
+<li>Check the reads for adaptors and barcodes and if present trim the reads</li>
+<li>Remove low-quality and short reads</li>
+<li>Provide a quality report for the cleaned reads</li>
+<li>Identify and separate both the ITS1 and 18S rRNA gene</li>
+<li>Classify the SSU and/or ITS1 gene using kraken2 and/or minimap2</li>
+<li>Generate taxonomic barplots and OTU tables</li>
+</ul>
+<p>For a more detailed explanation, check out <a href="https://ndombrowski.github.io/NanoITS/">the manual</a>.</p>
+<p>Below you can find the full workflow:</p>
+<p><img src="../../img/visualization.png" class="img-fluid"></p>
+</section>
+</section>
+<section id="quick-start" class="level2">
+<h2 class="anchored" data-anchor-id="quick-start">Quick start</h2>
+<p>To run NanoITs, install conda and snakemake and clone the directory from github via:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>git clone https:<span class="op">//</span>github.com<span class="op">/</span>ndombrowski<span class="op">/</span>NanoITS.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Provide your sample names and path to the samples as a comma-separated file, for example, a file looking similar as the one provided in <code>example_files/mapping.csv</code>. Sample names should be unique and consist of letter, numbers and <code>-</code> only. The barcode column can be left empty as it is not yet implemented. The path should contain the path to your demultiplexed, compressed fastq file.</p>
+<p>Adjust <code>config/config.yaml</code> to configure the location of your mapping file as well as specificy the parameters used by NanoITs.</p>
+<p>NanoITs can then be run with:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>snakemake <span class="op">--</span>use<span class="op">-</span>conda <span class="op">--</span>cores <span class="op">&lt;</span>nr_cores<span class="op">&gt;</span> <span class="op">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span>s <span class="op">&lt;</span>path_to_NanoITS_install<span class="op">&gt;/</span>workflow<span class="op">/</span>Snakefile <span class="op">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">--</span>configfile config<span class="op">/</span>config.yaml <span class="op">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">--</span>conda<span class="op">-</span>prefix <span class="op">&lt;</span>path_to_NanoITS_install<span class="op">&gt;/</span>workflow<span class="op">/</span>.snakemake<span class="op">/</span>conda  <span class="op">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">--</span>rerun<span class="op">-</span>incomplete <span class="op">--</span>nolock <span class="op">-</span>np </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For a more detailed explanation, check out <a href="https://ndombrowski.github.io/NanoITS/">the manual</a>.</p>
 
 
 </section>
@@ -622,13 +706,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/Qiime/3_evelyn_tutorial_notes.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Follow Eveylyn’s QIIME workflow</span>
+      <a href="../../source/nanopore/nanoclass.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">NanoClass</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/nanopore/nanoclass.html" class="pagination-link">
-        <span class="nav-page-text">NanoClass</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/nanopore/nanoqc_readme.html" class="pagination-link">
+        <span class="nav-page-text">NanoQC</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
