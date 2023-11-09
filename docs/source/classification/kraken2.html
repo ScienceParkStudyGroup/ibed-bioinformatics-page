@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Software information – nanoits</title>
+<title>Software information – kraken2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -54,7 +54,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -64,8 +83,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/nanopore/nanoqc_readme.html" rel="next">
-<link href="../../source/nanopore/nanoclass.html" rel="prev">
+<link href="../../source/metagenomics/readme.html" rel="next">
+<link href="../../source/nanopore/porechop_readme.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -111,7 +130,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Guide</a></li><li class="breadcrumb-item"><a href="../../source/nanopore/readme.html">Nanopore analyses</a></li><li class="breadcrumb-item"><a href="../../source/nanopore/nanoITS.html">NanoITS</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Guide</a></li><li class="breadcrumb-item"><a href="../../source/classification/kraken2.html">Sequence classification</a></li><li class="breadcrumb-item"><a href="../../source/classification/kraken2.html">Kraken2</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -186,13 +205,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
  <span class="menu-text">Nanopore analyses</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/nanopore/readme.html" class="sidebar-item-text sidebar-link">
@@ -207,7 +226,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoITS</span></a>
   </div>
 </li>
@@ -233,13 +252,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
- <span class="menu-text">Metagenomics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Sequence classification</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/classification/kraken2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Kraken2</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">Metagenomics</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/readme.html" class="sidebar-item-text sidebar-link">
@@ -268,13 +304,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
  <span class="menu-text">Fungal genomics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/ITSx/itsx_readme.html" class="sidebar-item-text sidebar-link">
@@ -301,10 +337,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#nanoits" id="toc-nanoits" class="nav-link active" data-scroll-target="#nanoits">NanoITS</a>
+  <li><a href="#kraken2" id="toc-kraken2" class="nav-link active" data-scroll-target="#kraken2">Kraken2</a>
   <ul class="collapse">
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#quick-start" id="toc-quick-start" class="nav-link" data-scroll-target="#quick-start">Quick start</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -314,48 +352,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="nanoits" class="level2">
-<h2 class="anchored" data-anchor-id="nanoits">NanoITS</h2>
+<section id="kraken2" class="level2">
+<h2 class="anchored" data-anchor-id="kraken2">Kraken2</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>NanoITS is a classifier for long-read Oxford Nanopore data of the eukaryotic 18S/SSU-ITS1 operon.</p>
-<p>When giving the tool some nanopore long-read data it will:</p>
-<ul>
-<li>Provide a quality report of the raw reads</li>
-<li>Check the reads for adaptors and barcodes and if present trim the reads</li>
-<li>Remove low-quality and short reads</li>
-<li>Provide a quality report for the cleaned reads</li>
-<li>Identify and separate both the ITS1 and 18S rRNA gene</li>
-<li>Classify the SSU and/or ITS1 gene using kraken2 and/or minimap2</li>
-<li>Generate taxonomic barplots and OTU tables</li>
-</ul>
-<p>For a more detailed explanation, check out <a href="https://ndombrowski.github.io/NanoITS/">the manual</a>.</p>
-<p>Below you can find the full workflow:</p>
-<p><img src="../../img/visualization.png" class="img-fluid"></p>
+<p>Kraken2 <span class="citation" data-cites="wood2019">(<a href="#ref-wood2019" role="doc-biblioref">Wood, Lu, and Langmead 2019</a>)</span> is a taxonomic sequence classifier that assigns taxonomic labels to DNA sequences. Kraken examines the k-mers within a query sequence and uses the information within those k-mers to query a database. That database maps k-mers to the lowest common ancestor (LCA) of all genomes known to contain a given k-mer.</p>
+<p>Available on Crunchomics: Kraken version 2.0.8-beta installed</p>
 </section>
-<section id="quick-start" class="level3">
-<h3 class="anchored" data-anchor-id="quick-start">Quick start</h3>
-<p>To run NanoITs, install conda and snakemake and clone the directory from github via:</p>
+<section id="installation" class="level3">
+<h3 class="anchored" data-anchor-id="installation">Installation</h3>
+<p>If you want to install kraken2 on your own, its best to install it via mamba.</p>
+<p>If you do not have mamba (or conda) installed. Check out the installation instructions for <a href="https://mamba.readthedocs.io/en/latest/mamba-installation.html#mamba-install">mamba</a> and <a href="https://crunchomics-documentation.readthedocs.io/en/latest/miniconda.html">conda</a>. Mamba is a newer version of conda and from experience faster but since its newer this might mean that not all software can yet be installed with mamba.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>git clone https:<span class="op">//</span>github.com<span class="op">/</span>ndombrowski<span class="op">/</span>NanoITS.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#setup new conda environment, which we name kraken2</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">--name</span> kraken2 <span class="at">-c</span> bioconda kraken2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Provide your sample names and path to the samples as a comma-separated file, for example, a file looking similar as the one provided in <code>example_files/mapping.csv</code>. Sample names should be unique and consist of letter, numbers and <code>-</code> only. The barcode column can be left empty as it is not yet implemented. The path should contain the path to your demultiplexed, compressed fastq file.</p>
-<p>Adjust <code>config/config.yaml</code> to configure the location of your mapping file as well as specificy the parameters used by NanoITs.</p>
-<p>NanoITs can then be run with:</p>
+</section>
+<section id="usage" class="level3">
+<h3 class="anchored" data-anchor-id="usage">Usage</h3>
+<p>For detailed usage information, check out the <a href="https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown">kraken2 manual</a>.</p>
+<section id="build-a-kraken-database" class="level4">
+<h4 class="anchored" data-anchor-id="build-a-kraken-database">Build a kraken database</h4>
+<p>The command below will download NCBI taxonomic information, as well as the complete genomes in RefSeq for the bacterial, archaeal, and viral domains, along with the human genome and a collection of known vectors (UniVec_Core). After downloading all this data, the build process begins; this can be the most time-consuming step. If you have multiple processing cores, you can run this process with multiple threads.</p>
+<p>Kraken2 comes with several databases, such as the SILVA database for 16S rRNA gene analyses. Check the <a href="https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown">kraken2 manual</a> for detailed information on how to download custom things..</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>snakemake <span class="op">--</span>use<span class="op">-</span>conda <span class="op">--</span>cores <span class="op">&lt;</span>nr_cores<span class="op">&gt;</span> <span class="op">\</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span>s <span class="op">&lt;</span>path_to_NanoITS_install<span class="op">&gt;/</span>workflow<span class="op">/</span>Snakefile <span class="op">\</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">--</span>configfile config<span class="op">/</span>config.yaml <span class="op">\</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">--</span>conda<span class="op">-</span>prefix <span class="op">&lt;</span>path_to_NanoITS_install<span class="op">&gt;/</span>workflow<span class="op">/</span>.snakemake<span class="op">/</span>conda  <span class="op">\</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">--</span>rerun<span class="op">-</span>incomplete <span class="op">--</span>nolock <span class="op">-</span>np </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create a kraken2 database </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kraken2-build</span> <span class="at">--standard</span> <span class="at">--threads</span> 24 <span class="at">--db</span> <span class="va">$DBNAME</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>For a more detailed explanation, check out <a href="https://ndombrowski.github.io/NanoITS/">the manual</a>.</p>
+</section>
+<section id="classification" class="level4">
+<h4 class="anchored" data-anchor-id="classification">Classification</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kraken2</span> <span class="at">--db</span> <span class="va">$DBNAME</span> seqs.fa <span class="at">--output</span> output.out <span class="at">--report</span> output.report</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="references" class="level3">
+
+
 
 
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-wood2019" class="csl-entry" role="listitem">
+Wood, Derrick E., Jennifer Lu, and Ben Langmead. 2019. <span>“Improved Metagenomic Analysis with Kraken 2.”</span> <em>Genome Biology</em> 20 (1): 257. <a href="https://doi.org/10.1186/s13059-019-1891-0">https://doi.org/10.1186/s13059-019-1891-0</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -706,13 +750,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/nanopore/nanoclass.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">NanoClass</span>
+      <a href="../../source/nanopore/porechop_readme.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Porechop</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/nanopore/nanoqc_readme.html" class="pagination-link">
-        <span class="nav-page-text">NanoQC</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/metagenomics/readme.html" class="pagination-link">
+        <span class="nav-page-text">Past workshop materials</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

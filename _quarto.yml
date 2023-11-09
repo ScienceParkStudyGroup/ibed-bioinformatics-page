@@ -49,6 +49,10 @@ website:
               - source/nanopore/nanoplot_readme.qmd
               - source/nanopore/porechop_readme.qmd
 
+          - section: "Sequence classification"
+            contents:
+              - source/classification/kraken2.qmd
+
           - section: "Metagenomics"
             contents:
               - source/metagenomics/readme.qmd

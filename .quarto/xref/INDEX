@@ -68,5 +68,8 @@
   },
   "source/nanopore/nanoITS.qmd": {
     "nanoITS.html": "f70f413b"
+  },
+  "source/classification/kraken2.qmd": {
+    "kraken2.html": "c42f4e8f"
   }
 }

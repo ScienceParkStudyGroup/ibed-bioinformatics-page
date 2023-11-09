@@ -30,7 +30,7 @@ Below you can find the full workflow:
 ![](../../img/visualization.png)
 
 
-## Quick start
+### Quick start
 
 To run NanoITs, install conda and snakemake and clone the directory from github via:
 
