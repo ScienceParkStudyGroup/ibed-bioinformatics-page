@@ -52,6 +52,7 @@ website:
           - section: "Sequence classification"
             contents:
               - source/classification/kraken2.qmd
+              - source/classification/minimap2.qmd
 
           - section: "Metagenomics"
             contents:

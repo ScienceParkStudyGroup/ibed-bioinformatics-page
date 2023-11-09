@@ -1,0 +1,57 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+## Minimap2
+
+### Introduction
+
+Minimap2 [@li2018] is a versatile sequence alignment program that aligns DNA or mRNA sequences against a large reference database.
+
+Available on Crunchomics: Minimap2 version 2.24-r1122 installed
+
+### Installation
+
+If you want to install minimap2 on your own, its best to install it via mamba.
+
+If you do not have mamba (or conda) installed. Check out the installation instructions for [mamba](https://mamba.readthedocs.io/en/latest/mamba-installation.html#mamba-install) and [conda](https://crunchomics-documentation.readthedocs.io/en/latest/miniconda.html). Mamba is a newer version of conda and from experience faster but since its newer this might mean that not all software can yet be installed with mamba.
+
+```{bash}
+#setup new conda environment, which we name kraken2
+mamba create --name minimap2 -c bioconda minimap2
+```
+
+### Usage
+
+For detailed usage information, check out the [minimap2 manual](https://github.com/lh3/minimap2#started).
+
+Input:
+
+- Minimap takes both fastq as well as fasta sequences as input
+
+```{bash}
+#example of mapping input sequences against sequences of the SILVA 16S database
+minimap2 -cx map-ont -t <nr_of_threads> \
+        -N 10 -K 25M \
+        silva-ref.fasta \
+        my_seqs.fastq \
+        -o output.paf
+```
+
+Used options:
+
+- `-x map-ont`: Run minimap optimized for Nanopore reads
+- `-c`: output is generated in [PAF format](https://github.com/lh3/miniasm/blob/master/PAF.md), use `-a`if you prefer the output in [SAM format](https://samtools.github.io/hts-specs/SAMv1.pdf)
+- `-N`: lso retain up to -N [=10] top secondary mappings
+- `-K`: Read -K [=25M] query bases
+- ...
+
+There are many different ways to run minimap2, so check out the [minimap2 manual](https://github.com/lh3/minimap2#started) for all options.
+
+
+### References

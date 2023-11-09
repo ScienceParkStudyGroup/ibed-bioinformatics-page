@@ -71,5 +71,8 @@
   },
   "source/classification/kraken2.qmd": {
     "kraken2.html": "c42f4e8f"
+  },
+  "source/classification/minimap2.qmd": {
+    "minimap2.html": "6dd8bca0"
   }
 }

@@ -15,6 +15,7 @@ On each page, you will find a note if the software is installed on Crunchomics i
 - [Interproscan](source/interproscan/readme.qmd)
 - [ITSx](source/ITSx/itsx_readme.qmd)
 - [Kraken2](source/classification/kraken2.qmd)
+- [Minimap2](source/classification/minimap2.qmd)
 - [NanoClass](source/nanopore/nanoclass.qmd)
 - [NanoITS](source/nanopore/nanoITS.qmd)
 - [NanoPlot](source/nanopore/nanoplot_readme.qmd)
