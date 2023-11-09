@@ -326,8 +326,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#fama" id="toc-fama" class="nav-link active" data-scroll-target="#fama">FAMA</a>
   <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#instructions" id="toc-instructions" class="nav-link" data-scroll-target="#instructions">Instructions</a></li>
   <li><a href="#adding-more-databases-to-fama" id="toc-adding-more-databases-to-fama" class="nav-link" data-scroll-target="#adding-more-databases-to-fama">Adding more databases to FAMA</a></li>
-  <li><a href="#run-fama" id="toc-run-fama" class="nav-link" data-scroll-target="#run-fama">Run FAMA</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -339,41 +341,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="fama" class="level1">
 <h1>FAMA</h1>
-<section id="adding-more-databases-to-fama" class="level2">
-<h2 class="anchored" data-anchor-id="adding-more-databases-to-fama">Adding more databases to FAMA</h2>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>Fama is a fast pipeline for functional and taxonomic analysis of shotgun metagenomic sequences.</p>
+</section>
+<section id="installation" class="level3">
+<h3 class="anchored" data-anchor-id="installation">Installation</h3>
+<p>If you want to install FAMA on your own, follow these instructions in the <a href="https://github.com/novichkov-lab/fama">FAMA manual</a>.</p>
+<p>Available on Crunchomics: Yes, via the metatools share. For access contact Anna Heintz Buschart <a href="mailto:a.u.s.heintzbuschart@uva.nl" class="email">a.u.s.heintzbuschart@uva.nl</a></p>
+</section>
+<section id="instructions" class="level3">
+<h3 class="anchored" data-anchor-id="instructions">Instructions</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#activate environment</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate /zfs/omics/projects/metatools/TOOLS/miniconda3/envs/FAMA</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#get template and add </span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#(if you downloaded FAMA by yourself then the ini file can be found in the folder you downloaded)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /zfs/omics/projects/metatools/DB/fama_new/project.ini.sample Annotations/Fama/my.project.config</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#run FAMA </span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> /zfs/omics/projects/metatools/DB/fama_new/py/fama.py <span class="at">-c</span> /zfs/omics/projects/metatools/DB/fama_new/config.ini <span class="at">-p</span> my.project.config</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Example content of <code>Annotations/Fama/my.project.config</code>:</p>
+<pre><code>[DEFAULT]
+project_name = 'Test sample sulfur'
+collection = test_sulfur_v1
+ref_output_name = ref_tabular_output.txt
+background_output_name = bgr_tabular_output.txt
+ref_hits_list_name = ref_hits.txt
+ref_hits_fastq_name = ref_hits.fq
+reads_fastq_name = reads.fq
+pe_reads_fastq_name = reads_pe.fq
+output_subdir = out_sulfur
+report_name = report.txt
+xml_name = krona.xml
+html_name = functional_profile.html
+reads_json_name = reads.json
+assembly_subdir = assembly
+work_dir = /zfs/omics/projects/thiopac-mgx/nina_wdir/Annotations/Fama
+
+[test_sample]
+sample_id = TPS_fame_sulfur
+fastq_pe1 = /zfs/omics/projects/thiopac-mgx/nina_wdir/faa/All_genomes.faa
+sample_dir = /zfs/omics/projects/thiopac-mgx/nina_wdir/Annotations/Fama
+replicate = 0
+#fastq_pe1_readcount = 30
+#fastq_pe1_basecount = 4509
+#fastq_pe2_readcount = 30
+#fastq_pe2_basecount = 4346
+#rpkg_scaling = 0.18962061540779365
+#insert_size = 233.4950097660472</code></pre>
+</section>
+<section id="adding-more-databases-to-fama" class="level3">
+<h3 class="anchored" data-anchor-id="adding-more-databases-to-fama">Adding more databases to FAMA</h3>
+<p>It is possible to add new databases to FAMA. Below is an example on how to add a custom sulfur database.</p>
 <p>Sulfur database installation instructions:</p>
 <ol type="1">
 <li><p>Download and unpack the archive into a separate directory:https://iseq.lbl.gov/mydocs/fama_downloads/fama_sulfur_dataset.tar.gz</p></li>
 <li><p>Create diamond databases:</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">diamond</span> makedb <span class="at">--in</span> classification_database.faa <span class="at">--db</span> classification_database</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">diamond</span> makedb <span class="at">--in</span> selection_database_clustered.faa <span class="at">--db</span> selection_database</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">diamond</span> makedb <span class="at">--in</span> classification_database.faa <span class="at">--db</span> classification_database</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">diamond</span> makedb <span class="at">--in</span> selection_database_clustered.faa <span class="at">--db</span> selection_database</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="3" type="1">
 <li>Append your config.ini file with a new section and replace “<path to="" db="" files="">” with real paths:</path></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[test_sulfur_v1]</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">functions_file</span> = <span class="op">&lt;</span>path to db files<span class="op">&gt;</span>/collection_functions.txt</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">taxonomy_file</span> = <span class="op">&lt;</span>path to db files<span class="op">&gt;</span>/collection_taxonomy.txt</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">reference_diamond_db</span> = <span class="op">&lt;</span>path to db files<span class="op">&gt;</span>/selection_database.dmnd</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">background_diamond_db</span> = <span class="op">&lt;</span>path to db files<span class="op">&gt;</span>/classification_database.dmnd</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">reference_db_size</span> = 6990766</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">background_db_size</span> = 99120132</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="run-fama" class="level2">
-<h2 class="anchored" data-anchor-id="run-fama">Run FAMA</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#activate environment</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate /zfs/omics/projects/metatools/TOOLS/miniconda3/envs/FAMA</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#get template and add</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /zfs/omics/projects/metatools/DB/fama_new/project.ini.sample my.project.config</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#run FAMA </span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> /zfs/omics/projects/metatools/DB/fama_new/py/fama.py <span class="at">-c</span> /zfs/omics/projects/metatools/DB/fama_new/config.ini <span class="at">-p</span> my.project.config</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[test_sulfur_v1]</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">functions_file</span> = <span class="op">&lt;</span>path to db files<span class="op">&gt;</span>/collection_functions.txt</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">taxonomy_file</span> = <span class="op">&lt;</span>path to db files<span class="op">&gt;</span>/collection_taxonomy.txt</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">reference_diamond_db</span> = <span class="op">&lt;</span>path to db files<span class="op">&gt;</span>/selection_database.dmnd</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">background_diamond_db</span> = <span class="op">&lt;</span>path to db files<span class="op">&gt;</span>/classification_database.dmnd</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">reference_db_size</span> = 6990766</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">background_db_size</span> = 99120132</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

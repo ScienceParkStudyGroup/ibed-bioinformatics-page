@@ -17,7 +17,7 @@ Users who have novel nucleotide or protein sequences that they wish to functiona
 
 ### Installation
 
-### Newest version
+#### Newest version
 
 Notice: The newest version does NOT run on crunchomics unless you do some extra steps during the isntallation since we need a newer java version and we need to update a tool used to analyse Prosite specific databases. 
 
