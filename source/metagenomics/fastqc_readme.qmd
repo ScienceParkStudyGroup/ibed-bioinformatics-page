@@ -1,0 +1,42 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## FastQC
+
+### Introduction
+
+[FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) is a quality control tool for high throughput sequence data. For help with interpreting the output, please visit the website with some very good examples.
+
+FastQC can be run both on short- and long-read data.
+
+Available on Crunchomics: Yes
+
+### Installation
+
+FastQC already is installed on Crunchomics, if you want to install it on your own system check out the instructions found [here](https://raw.githubusercontent.com/s-andrews/FastQC/master/INSTALL.txt).
+
+### Usage
+
+- Inputs: FastQC can process bam,sam,bam_mapped,sam_mapped and fastq files
+- Output: An HTML quality report
+
+Example code:
+
+```{bash}
+#get help 
+fastqc --help
+
+#run on a single file
+fastqc myfile.fastq.gz -o outputfolder --threads 1
+```
+
+
+### References

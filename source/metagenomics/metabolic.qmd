@@ -1,0 +1,155 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## Metabolic
+
+### Introduction
+
+Metabolic is a workflow developed by the AnantharamanLab. The tool was already run for the MAGs by GM but will be re-run here as well for testing purposes. Check out [the manual](https://github.com/AnantharamanLab/METABOLIC/wiki) for all usage options [@zhou2022].
+
+Available on Crunchomics: No
+
+### Installation
+
+#### Metabolic
+
+```{bash}
+#go into folder in which to install software
+cd /home/ndombro/personal/software/METABOLIC_4.0
+
+#get installation instructions
+mkdir envs
+wget https://raw.githubusercontent.com/AnantharamanLab/METABOLIC/master/METABOLIC_v4.0_env.yml -P envs/
+
+#install dependencies conda env (this env will be named METABOLIC_v4.0)
+mamba env create -f envs/METABOLIC_v4.0_env.yml
+
+#activate environment (NEEDS to be active to run the setup steps below)
+conda activate METABOLIC_v4.0
+
+#download a git clone of the METABOLIC workflow
+git clone https://github.com/AnantharamanLab/METABOLIC.git
+
+#run bash setup script (needs some time, have patience)
+cd METABOLIC
+bash run_to_setup.sh
+```
+
+::: callout-note
+The command `bash run_to_setup.sh` installs some public databases, which might be useful to use other things. These are:
+
+-   The kofam database: KOfams are a customized HMM database of KEGG Orthologs (KOs). The KO (KEGG Orthology) database is a database of molecular functions represented in terms of functional orthologs and is useful to assign functions to your proteins of interest. The script will download the database from scratch and you will therefore always have the newest version installed when installing METABOLIC.
+-   The dbCAN2 database: A database that can be used for carbohydrate-active enzyme annotation. The script downloads dbCAN v10.
+-   The Meropds database: A database for peptidases (also termed proteases, proteinases and proteolytic enzymes) and the proteins that inhibit them. The script will download the most recent version from the internet.
+:::
+
+#### Link to GTDB database
+
+METABOLIC uses GTDB_tk for taxonomic assignment. This database is very big, so instead of installing this database every single time in a conda environment folder that uses GTDB_tk, it is better to use one global installation.
+
+##### Use global installation
+
+For UvA people using crunchomics, we have a global install of GTDB r207 you can use, which is installed on the metatools share. To get access to the share, please contact Anna Heintz Buschart via [a.u.s.heintzbuschart\@uva.nl](mailto:a.u.s.heintzbuschart@uva.nl){.email} with your UvAnetID and a description why you need access
+
+```{bash}
+#needs local gtdb install for r207_v2
+conda env config vars set GTDBTK_DATA_PATH="/zfs/omics/projects/metatools/DB/GTDB_tk/GTDB_tk_r207"
+
+#reactivate env 
+conda deactivate
+conda activate METABOLIC_v4.0
+```
+
+##### Manual installation
+
+If desired, you can install the GTDB database yourself as follows:
+
+```{python}
+#Manually download the latest reference data ()
+wget https://data.gtdb.ecogenomic.org/releases/release207/207.0/auxillary_files/gtdbtk_r207_v2_data.tar.gz
+
+#Extract the archive to a target directory:
+#change `/path/to/target/db` to whereever you want to install the db
+tar -xvzf gtdbtk_r207_v2_data.tar.gz -c "/path/to/target/db" --strip 1 > /dev/null
+
+#cleanup
+rm gtdbtk_r207_v2_data.tar.gz
+
+#while the conda env for METABOLIC is activate link gtdb database
+conda env config vars set GTDBTK_DATA_PATH="/path/to/target/db"
+
+#reactivate env 
+conda deactivate
+conda activate METABOLIC_v4.0
+```
+
+
+### Usage example 
+
+METABOLIC has two scripts:
+
+-   METABOLIC-G.pl: Allows for classification of the metabolic capabilities of input genomes.
+-   METABOLIC-C.pl: Allows for classification of the metabolic capabilities of input genomes, calculation of genome coverage, creation of biogeochemical cycling diagrams, and visualization of community metabolic interactions and contribution to biogeochemical processes by each microbial group.
+
+Input:
+
+-   Nucleotide fasta files (use `-in-gn` in the perl script)
+-   Protein faa files (use `-in` in the perl script)
+-   Illumina reads (use `-r` flag in the metabolic-c perl script) provided as un-compressed fastq files. This option requires you to provide the full path to your paired reads. Note that the two different sets of paired reads are separated by a line return (new line), and two reads in each line are separated by a "," but not " ," or " , " (no spaces before or after comma). Blank lines are not allowed
+-   Nanopore/PacBio long-reds (use `r` togher with `-st illumina/pacbio/pacbio_hifi/nanopore` to provide information about the sequencing type)
+
+```         
+#Read pairs: 
+/path/to/your/reads/file/SRR3577362_sub_1.fastq,/path/to/your/reads/file/SRR3577362_sub_2.fastq
+/path/to/your/reads/file/SRR3577362_sub2_1.fastq,/path/to/your/reads/file/SRR3577362_sub2_2.fastq
+```
+
+Outputs (for more detail, check the [manual](https://github.com/AnantharamanLab/METABOLIC/wiki/METABOLIC-Usage#Metabolic_usage)):
+
+-   All_gene_collections_mapped.depth.txt: The gene depth of all input genes (METABOLIC-C only)\
+-   Each_HMM_Amino_Acid_Sequence/: The faa collection for each hmm file
+-   intermediate_files/: The hmmsearch, peptides (MEROPS), CAZymes (dbCAN2), and GTDB-Tk (only for METABOLIC-C) running intermediate files
+-   KEGG_identifier_result/: The hit and result of each genome by Kofam database
+-   METABOLIC_Figures/: All figures output from the running of METABOLIC
+-   METABOLIC_Figures_Input/: All input files for R-generated diagrams
+-   METABOLIC_result_each_spreadsheet/: TSV files representing each sheet of the created METABOLIC_result.xlsx file
+-   MW-score_result/: The resulted table for MW-score (METABOLIC-C only)\
+-   METABOLIC_result.xlsx: The resulting excel file of METABOLIC
+
+Required/Optional flags:
+
+-   `-in-gn` \[required if you are starting from nucleotide fasta files\] Defines the location of the FOLDER containing the genome nucleotide fasta files ending with ".fasta" to be run by this program
+-   `-in` \[required if you are starting from faa files\] Defines the location of the FOLDER containing the genome amino acid files ending with ".faa" to be run by this program
+-   `-r` \[required\] Defines the path to a text file containing the location of paried reads
+-   `-rt` \[optional\] Defines the option to use "metaG" or "metaT" to indicate whether you use the metagenomic reads or metatranscriptomic reads (default: 'metaG'). Only required when using METABOLIC-C
+-   `-st` \[optional\] To use "illumina" (for Illumina short reads), or "pacbio" (for PacBio CLR reads), or "pacbio_hifi" (for PacBio HiFi/CCS genomic reads (v2.19 or later)), or "pacbio_asm20" (for PacBio HiFi/CCS genomic reads (v2.18 or earlier)), or "nanopore" (for Oxford Nanopore reads) to indicate the sequencing type of metagenomes or metatranscriptomes (default: 'illumina'; Note that all "illumina", "pacbio", "pacbio_hifi", "pacbio_asm20", and "nanopore" should be provided as lowercase letters and the underscore "\_" should not be typed as "-" or any other marks)
+-   `-t` \[optional\] Defines the number of threads to run the program with (Default: 20)
+-   `-m-cutoff` \[optional\] Defines the fraction of KEGG module steps present to designate a KEGG module as present (Default: 0.75)
+-   -kofam-db \[optional\] Defines the use of the full ("full") or reduced ("small") KOfam database by the program (Default: 'full'). "small" KOfam database only contains KOs present in KEGG module, using this setting will significantly reduce hmmsearch running time.
+-   `-tax` \[optional\] To calculate MW-score contribution of microbial groups at the resolution of which taxonomical level (default: "phylum"; other options: "class", "order", "family", "genus", "species", and "bin" (MAG itself)). Only required when using METABOLIC-C
+-   `-p` \[optional\] Defines the prodigal method used to annotate ORFs ("meta" or "single")(Default: "meta")
+-   `-o` \[optional\] Defines the output directory to be created by the program (Default: current directory)
+
+Some example files for testing can be found in `METABOLIC_test_files/`.
+
+```{python}
+#print the help information
+perl METABOLIC-C.pl -help
+
+#run workflow on test data (5 genomes provided as nucleotides)
+mkdir -p testing/genomes
+perl METABOLIC-G.pl -in-gn METABOLIC_test_files/Guaymas_Basin_genome_files/ -o testing/genomes
+
+#run workflow on metagenomic fastq files
+perl METABOLIC-C.pl -test true
+```
+
+### References

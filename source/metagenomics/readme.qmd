@@ -1,7 +1,10 @@
-### Past workshop materials
+<div style="text-align: justify">
+
+## General
 
 Metagenomics is the study of genetic material recovered directly from environmental or other samples using sequencing technologies. Below you find some tutorials explaining how to work with sequencing data, assemble metagenome-assembled genomes (MAGs) from this sequencing data and how to analyse these MAGS. Notice: These tutorials where not developed at UvA and will be updated in the future but will nevertheless give a good starting point in these kind of analyses.
 
+### Tutorials
 
 - [Assembling a metagenome](https://ndombrowski.github.io/Assembly_tutorial/)
 - [Genomic binning](https://ndombrowski.github.io/Binning_tutorial//)

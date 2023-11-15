@@ -1,3 +1,5 @@
+<div style="text-align: justify">
+
 ## General
 
 In this section you find tools to analyse long-read sequencing data. There might be a bit of overlap with the section "Amplicon sequencing data" but in the **Nanopore analysis** section you specifically will find tools suitable for dealing with long read data generated with Nanopore. 

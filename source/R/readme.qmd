@@ -2,6 +2,8 @@
 title: "Using R"
 ---
 
+<div style="text-align: justify">
+
 R is a language and environment for statistical computing and graphics and is useful to analyse computational data.
 
 Some useful information to get started:

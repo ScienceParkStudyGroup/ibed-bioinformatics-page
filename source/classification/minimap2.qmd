@@ -7,6 +7,8 @@ engine: knitr
 bibliography: references.bib
 ---
 
+<div style="text-align: justify">
+
 ## Minimap2
 
 ### Introduction

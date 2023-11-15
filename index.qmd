@@ -1,24 +1,53 @@
 
-## General
+![](img/banner.png)
 
-On this website you can find documentation about software that might be useful for bioinformatic data analyses. Please note: This is very much a work in progress and the page will be slowly updated over time. 
+<div style="text-align: justify">
 
-If you want to add additional information you are welcome to do so. For now, feel free to send an email to <n.dombrowski@uva.nl> with a markdown, quarto or text file with all relevant information and I can integrate this into the webpage. In the future, a "how-to-add-your-own-information" section will be added as well.
+On this website you can find documentation about software that might be useful for bioinformatic data analyses as well as tutorials about various bioinformatic subjects.
 
-On each page, you will find a note if the software is installed on Crunchomics in the introduction. Additionally, each page will give you a brief installation instruction as well as some basic information about using the tool.
+If you are working at UVAs Institute for Biodiversity and Ecosystem Dynamics (IBED) and want to know more about what resources are available, please visit the [computational support team website](https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html) and check the options under **Scientific programming and HPC**.
+
+This is very much a work in progress and the page will be slowly updated over time. If you want to add additional information or feel that something is missing feel free to send an email to <n.dombrowski@uva.nl>.
+
+## Useful tutorials
+
+### Getting started 
+
+- [Getting started on the Crunchomics server](https://crunchomics-documentation.readthedocs.io/en/latest/)
+- [Getting started with the command line](https://ndombrowski.github.io/Unix_tutorial/#introduction)
+- [Version control with git](https://github.com/fkariminejadasl/ml-notebooks/blob/main/tutorial/git.md)
+- [A tutorial on using AWK](https://ndombrowski.github.io/AWK_tutorial/), an excellent command line tool for filtering tables, extracting patterns, etc... If you want to follow this tutorial then you can download the required input files from [here](https://github.com/ndombrowski/AWK_tutorial/tree/main/1_Inputfiles)
+
+### Using R
+
+- [An R cookbook](https://ndombrowski.github.io/R_cookbook/) including some [example files](https://github.com/ndombrowski/R_cookbook/tree/main/data) if you want to code along
+- [Tutorial on data manipulation with dplyr](https://ndombrowski.github.io/Tidyverse_tutorial/)
+- [Tutorial on data visualization with ggplot2](https://ndombrowski.github.io/Ggplot_tutorial/)
+
+### Bioinformatic workflows
+
+- [Analysing amplicond data with Qiime](source/Qiime/3_evelyn_tutorial_notes.qmd)
+- [Assembling a metagenome](https://ndombrowski.github.io/Assembly_tutorial/)
+- [Genomic binning](https://ndombrowski.github.io/Binning_tutorial//)
+- [Annotating microbial genomes](https://github.com/ndombrowski/Annotation_workflow)
+- [How to do phylogenetic analyses](https://ndombrowski.github.io/Phylogeny_tutorial/) 
 
 
-### Tool list A-Z
+
+
+## Bioinformatic tools A-Z
 
 - [Chopper](source/nanopore/chopper.qmd)
-- [FAMA](source/fama/readme.qmd)
-- [FastQC](source/fastqc_readme.qmd)
-- [Interproscan](source/interproscan/readme.qmd)
+- [FAMA](source/metagenomics/fama_readme.qmd)
+- [FastQC](source/metagenomics/fastqc_readme.qmd)
+- [Interproscan](source/metagenomics/interposcan_readme.qmd)
 - [ITSx](source/ITSx/itsx_readme.qmd)
 - [Kraken2](source/classification/kraken2.qmd)
+- [METABOLIC](source/metagenomics/metabolic.qmd)
 - [Minimap2](source/classification/minimap2.qmd)
 - [NanoClass](source/nanopore/nanoclass.qmd)
 - [NanoITS](source/nanopore/nanoITS.qmd)
 - [NanoPlot](source/nanopore/nanoplot_readme.qmd)
 - [NanoQC](source/nanopore/nanoqc_readme.qmd)
 - [Porechop](source/nanopore/porechop_readme.qmd)
+

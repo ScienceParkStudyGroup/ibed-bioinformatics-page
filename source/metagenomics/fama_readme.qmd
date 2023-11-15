@@ -1,0 +1,103 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+---
+
+<div style="text-align: justify">
+
+# FAMA
+
+### Introduction
+
+Fama is a fast pipeline for functional and taxonomic analysis of shotgun metagenomic sequences.
+
+
+### Installation
+
+If you want to install FAMA on your own, follow these instructions in the [FAMA manual](https://github.com/novichkov-lab/fama).
+
+
+Available on Crunchomics: Yes, via the metatools share. For access contact Anna Heintz Buschart <a.u.s.heintzbuschart@uva.nl>
+
+
+### Instructions
+
+```{bash}
+#activate environment
+conda activate /zfs/omics/projects/metatools/TOOLS/miniconda3/envs/FAMA
+
+#get template and add 
+#(if you downloaded FAMA by yourself then the ini file can be found in the folder you downloaded)
+cp /zfs/omics/projects/metatools/DB/fama_new/project.ini.sample Annotations/Fama/my.project.config
+
+#run FAMA 
+python3 /zfs/omics/projects/metatools/DB/fama_new/py/fama.py -c /zfs/omics/projects/metatools/DB/fama_new/config.ini -p my.project.config
+```
+
+Example content of `Annotations/Fama/my.project.config`: 
+
+```
+[DEFAULT]
+project_name = 'Test sample sulfur'
+collection = test_sulfur_v1
+ref_output_name = ref_tabular_output.txt
+background_output_name = bgr_tabular_output.txt
+ref_hits_list_name = ref_hits.txt
+ref_hits_fastq_name = ref_hits.fq
+reads_fastq_name = reads.fq
+pe_reads_fastq_name = reads_pe.fq
+output_subdir = out_sulfur
+report_name = report.txt
+xml_name = krona.xml
+html_name = functional_profile.html
+reads_json_name = reads.json
+assembly_subdir = assembly
+work_dir = /zfs/omics/projects/thiopac-mgx/nina_wdir/Annotations/Fama
+
+[test_sample]
+sample_id = TPS_fame_sulfur
+fastq_pe1 = /zfs/omics/projects/thiopac-mgx/nina_wdir/faa/All_genomes.faa
+sample_dir = /zfs/omics/projects/thiopac-mgx/nina_wdir/Annotations/Fama
+replicate = 0
+#fastq_pe1_readcount = 30
+#fastq_pe1_basecount = 4509
+#fastq_pe2_readcount = 30
+#fastq_pe2_basecount = 4346
+#rpkg_scaling = 0.18962061540779365
+#insert_size = 233.4950097660472
+```
+
+
+
+### Adding more databases to FAMA
+
+It is possible to add new databases to FAMA. Below is an example on how to add a custom sulfur database.
+
+Sulfur database installation instructions:
+
+1. Download and unpack the archive into a separate directory:https://iseq.lbl.gov/mydocs/fama_downloads/fama_sulfur_dataset.tar.gz
+
+2. Create diamond databases:
+
+```{bash}
+diamond makedb --in classification_database.faa --db classification_database
+diamond makedb --in selection_database_clustered.faa --db selection_database
+```
+
+
+3. Append your config.ini file with a new section and replace "<path to db files>" with real paths:
+
+
+```{bash}
+[test_sulfur_v1]
+functions_file = <path to db files>/collection_functions.txt
+taxonomy_file = <path to db files>/collection_taxonomy.txt
+reference_diamond_db = <path to db files>/selection_database.dmnd
+background_diamond_db = <path to db files>/classification_database.dmnd
+reference_db_size = 6990766
+background_db_size = 99120132
+```
+

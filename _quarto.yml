@@ -8,26 +8,26 @@ project:
 format:
   html:
     theme:
-      light: flatly
-      dark: darkly
+      light: lumen
+      dark: cyborg
     css: styles.css
     toc: true
     toc-expand: true
     toc-depth: 4
 
 website:
-  title: "Software information"
+  title: "Bioinformatics guidance page"
   page-navigation: true
   page-footer: "Copyright 2023, Nina Dombrowski" 
   
   sidebar:
-    - id: guide
+    - id: "Welcome page"
       style: "docked"
       search: true
-      collapse-level: 3
+      collapse: true
 
       contents:
-        - section: "Guide"
+        - section: "Welcome page"
           href: index.qmd
           
           contents:
@@ -59,9 +59,10 @@ website:
           - section: "Metagenomics"
             contents:
               - source/metagenomics/readme.qmd
-              - source/fastqc_readme.qmd
-              - source/interproscan/readme.qmd
-              - source/fama/readme.qmd
+              - source/metagenomics/fastqc_readme.qmd
+              - source/metagenomics/interproscan_readme.qmd
+              - source/metagenomics/fama_readme.qmd
+              - source/metagenomics/metabolic.qmd
           
           - section: "Fungal genomics"
             contents:
