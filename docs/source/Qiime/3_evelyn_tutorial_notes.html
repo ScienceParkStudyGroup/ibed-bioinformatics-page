@@ -111,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Welcome page</a></li><li class="breadcrumb-item"><a href="../../source/Qiime/readme.html">Amplicon analyses</a></li><li class="breadcrumb-item"><a href="../../source/Qiime/3_evelyn_tutorial_notes.html">Follow Eveylyn’s QIIME workflow</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Welcome page</a></li><li class="breadcrumb-item"><a href="../../source/Qiime/readme.html">Amplicon analyses</a></li><li class="breadcrumb-item"><a href="../../source/Qiime/3_evelyn_tutorial_notes.html">A short QIIME tutorial</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -157,6 +157,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/conda/conda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Installing software</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/R/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">R</span></a>
   </div>
@@ -179,7 +185,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/Qiime/3_evelyn_tutorial_notes.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Follow Eveylyn’s QIIME workflow</span></a>
+ <span class="menu-text">A short QIIME tutorial</span></a>
   </div>
 </li>
       </ul>
@@ -336,9 +342,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#follow-eveylyns-qiime-workflow" id="toc-follow-eveylyns-qiime-workflow" class="nav-link active" data-scroll-target="#follow-eveylyns-qiime-workflow">Follow Eveylyn’s QIIME workflow</a>
+  <li><a href="#a-short-qiime-tutorial" id="toc-a-short-qiime-tutorial" class="nav-link active" data-scroll-target="#a-short-qiime-tutorial">A short QIIME tutorial</a>
   <ul>
-  <li><a href="#qiime2-background" id="toc-qiime2-background" class="nav-link" data-scroll-target="#qiime2-background">QIIME2 background</a></li>
+  <li><a href="#qiime2-terminology" id="toc-qiime2-terminology" class="nav-link" data-scroll-target="#qiime2-terminology">QIIME2 terminology</a></li>
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a>
   <ul class="collapse">
   <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
@@ -430,17 +436,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div style="text-align: justify">
 
-<section id="follow-eveylyns-qiime-workflow" class="level1">
-<h1>Follow Eveylyn’s QIIME workflow</h1>
-<p>These are the notes following <a href="https://ejongepier.github.io/metabarcoding-qiime2-workshop/genintro.html">Evelyn Jongepier’s tutorial</a> on using QIIME2. A large part of the text found here was taken directly from this tutorial but extended as was seen fit.</p>
+<section id="a-short-qiime-tutorial" class="level1">
+<h1>A short QIIME tutorial</h1>
+<p>These tutorial closely follows <a href="https://ejongepier.github.io/metabarcoding-qiime2-workshop/genintro.html">Evelyn Jongepier’s tutorial</a> on using QIIME2. A large part of the text found here was taken directly from this tutorial but extended as was seen fit.</p>
 <p>This was run on a personal Windows computer as well as Crunchomics.</p>
-<p>A test data set to run QIIME 2 on was provided and consists of already demultiplexed sequencing data (provided by the sequencing facility). The files we are working with are:</p>
+<p>A test data set is provided with this tutorial and consists of already demultiplexed sequencing data. The files we are working with are:</p>
 <ul>
 <li>The forward, R1, reads</li>
 <li>The reverse, R2, reads</li>
 <li>The metadata file describing what kind of data we work with (in our case that is simply a sample ID)</li>
 </ul>
-<p>Other comments:</p>
+<p>Other comments on the files:</p>
 <ul>
 <li>barcode length = ~20</li>
 <li>read length 250 bp</li>
@@ -451,14 +457,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>230 + 230 - 411 = 50</li>
 </ul></li>
 </ul>
-<p>Other resources:</p>
-<ul>
-<li><a href="https://docs.qiime2.org/2023.7/">QIIME2 docs</a>. Notice, the tutorial runs on v2021.2, which we will use for now and later update to the newest QIIME version</li>
-<li><a href="https://docs.qiime2.org/2021.2/tutorials/">Old QIIME tutorials</a></li>
-<li><a href="https://docs.qiime2.org/2023.7/">NEW QIIME tutorials</a></li>
-</ul>
-<section id="qiime2-background" class="level2">
-<h2 class="anchored" data-anchor-id="qiime2-background">QIIME2 background</h2>
+<section id="qiime2-terminology" class="level2">
+<h2 class="anchored" data-anchor-id="qiime2-terminology">QIIME2 terminology</h2>
 <p>Notes were copied from the <a href="https://docs.qiime2.org/2023.7/concepts/">QIIME2docs</a>.</p>
 <p>Data produced by QIIME 2 exist as QIIME 2 <strong>artifacts</strong>. A QIIME 2 artifact contains data and metadata. The metadata describes things about the data, such as its type, format, and how it was generated (i.e.&nbsp;provenance). A QIIME 2 artifact typically has the <code>.qza</code> file extension when stored in a file. Since QIIME 2 works with artifacts instead of data files (e.g.&nbsp;FASTA files), you must create a QIIME 2 artifact by importing data.</p>
 <p><strong>Visualizations</strong> are another type of data generated by QIIME 2. When written to disk, visualization files typically have the <code>.qzv</code> file extension. Visualizations contain similar types of metadata as QIIME 2 artifacts, including provenance information. Similar to QIIME 2 artifacts, visualizations are standalone information that can be archived or shared with collaborators. Use https://view.qiime2.org to easily view QIIME 2 artifacts and visualizations files (generally .qza and .qzv files) without requiring a QIIME installation.</p>
@@ -469,7 +469,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>We install QIIME with with mamba. If you do not have mamba installed, you can use conda instead.</p>
+<p>We install QIIME with with mamba. If you do not have mamba installed, you can use replace mamba with conda.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://data.qiime2.org/distro/core/qiime2-2023.7-py38-linux-conda.yml</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> env create <span class="at">-n</span> qiime2-2023.7 <span class="at">--file</span> qiime2-2023.7-py38-linux-conda.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

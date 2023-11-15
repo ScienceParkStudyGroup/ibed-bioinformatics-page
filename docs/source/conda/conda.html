@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Bioinformatics guidance page – itsx_readme</title>
+<title>Bioinformatics guidance page – conda</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -54,26 +54,7 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -83,7 +64,8 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/metagenomics/metabolic.html" rel="prev">
+<link href="../../source/R/readme.html" rel="next">
+<link href="../../source/cli/readme.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -129,7 +111,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Welcome page</a></li><li class="breadcrumb-item"><a href="../../source/ITSx/itsx_readme.html">Fungal genomics</a></li><li class="breadcrumb-item"><a href="../../source/ITSx/itsx_readme.html">ITSx</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Welcome page</a></li><li class="breadcrumb-item"><a href="../../source/conda/conda.html">Installing software</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -175,7 +157,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/conda/conda.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/conda/conda.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Installing software</span></a>
   </div>
 </li>
@@ -327,16 +309,16 @@ div.csl-indent {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
  <span class="menu-text">Fungal genomics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/ITSx/itsx_readme.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../source/ITSx/itsx_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ITSx</span></a>
   </div>
 </li>
@@ -360,20 +342,10 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#itsx" id="toc-itsx" class="nav-link active" data-scroll-target="#itsx">ITSx</a>
+  <li><a href="#installing-software" id="toc-installing-software" class="nav-link active" data-scroll-target="#installing-software">Installing software</a>
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a>
-  <ul class="collapse">
-  <li><a href="#install-mambaconda" id="toc-install-mambaconda" class="nav-link" data-scroll-target="#install-mambaconda">Install mamba/conda</a></li>
-  <li><a href="#option-a-install-itsx-in-a-separate-environment" id="toc-option-a-install-itsx-in-a-separate-environment" class="nav-link" data-scroll-target="#option-a-install-itsx-in-a-separate-environment">Option A (install ITSx in a separate environment)</a></li>
-  <li><a href="#option-b-base-itsx-install" id="toc-option-b-base-itsx-install" class="nav-link" data-scroll-target="#option-b-base-itsx-install">Option B (base ITSx install)</a></li>
-  </ul></li>
-  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a>
-  <ul class="collapse">
-  <li><a href="#example-code" id="toc-example-code" class="nav-link" data-scroll-target="#example-code">Example code</a></li>
-  </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#installing-mamba" id="toc-installing-mamba" class="nav-link" data-scroll-target="#installing-mamba">Installing mamba</a></li>
+  <li><a href="#setting-up-an-environment" id="toc-setting-up-an-environment" class="nav-link" data-scroll-target="#setting-up-an-environment">Setting up an environment</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -385,124 +357,45 @@ div.csl-indent {
 
 <div style="text-align: justify">
 
-<section id="itsx" class="level2">
-<h2 class="anchored" data-anchor-id="itsx">ITSx</h2>
-<section id="introduction" class="level3">
-<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>“ITSx is an open source software utility to extract the highly variable ITS1 and ITS2 subregions from ITS sequences, which is commonly used as a molecular barcode for e.g.&nbsp;fungi.”</p>
-<ul>
-<li><a href="https://microbiology.se/software/itsx/">Website</a></li>
-<li><a href="https://microbiology.se/publ/itsx_users_guide.pdf">Manual</a></li>
-<li><a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.12073">Paper</a>. Please do not forget to cite the ITSx paper whenever you use the software <span class="citation" data-cites="bengtsson-palme2013">(<a href="#ref-bengtsson-palme2013" role="doc-biblioref">Bengtsson-Palme et al. 2013</a>)</span>.</li>
-</ul>
-<p>Available on Crunchomics: No</p>
-</section>
-<section id="installation" class="level3">
-<h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>ITSx can be installed from scratch but below is the code needed to install the software with mamba (or conda if that is preferred). If you don’t have mamba/conda installed find the correction version for your system here for <a href="https://github.com/conda-forge/miniforge#mambaforge">mamba</a> and here for <a href="https://www.anaconda.com/download">conda</a>. Examples for setting up either mamba or conda are found in the code cell below.</p>
-<p>If there is an issue with the mamba/conda installation, the software can also be downloaded with <code>wget https://microbiology.se/sw/ITSx_1.1.3.tar.gz</code>. After the download, decompress the folder and follow the information in the readme.txt. The download also comes with a test.fasta which can be used to test either installation.</p>
-<p>Data for testing can also be found <a href="https://github.com/ScienceParkStudyGroup/software_information/data/itsx/">here</a>.</p>
-<section id="install-mambaconda" class="level4">
-<h4 class="anchored" data-anchor-id="install-mambaconda">Install mamba/conda</h4>
+<section id="installing-software" class="level2">
+<h2 class="anchored" data-anchor-id="installing-software">Installing software</h2>
+<p>A lot of bioinformatic workflows start with installing software. Since this often means not only installing the software but several dependencies, we recommend the use of a package management system, such as <strong>conda</strong> and <strong>mamba</strong>. These tools allow you to find and install packages in their own environment without administrator privileges.</p>
+<p>This is especially useful if you require different software versions, such as python3.6 versus python3.10, for different workflows. With package management systems you can easily setup different python versions in different environments.</p>
+<section id="installing-mamba" class="level3">
+<h3 class="anchored" data-anchor-id="installing-mamba">Installing mamba</h3>
+<p>A lot of system already come with conda installed, however, if possible we recommend working with mamba instead. mamba is a drop-in replacement and uses the same commands and configuration options as conda, however, it tends to be much faster than conda. A useful thing is that if you find documentation for conda then you can swap almost all commands between conda &amp; mamba.</p>
+<p>To install mamba, follow the instructions <a href="https://github.com/conda-forge/miniforge">here</a>. This should look something like this for mac and linux-systems. If you are on windows, the easiest is to setup up <a href="https://learn.microsoft.com/en-us/windows/wsl/basic-commands#install">Windows Subsystem for Linux (WSL)</a> first.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install conda (run only if not yet installed)</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#adjust the file name based on your system needs</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://repo.anaconda.com/archive/Anaconda3-2023.07-2-Linux-x86_64.sh</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> Anaconda3-2023.07-2-Linux-x86_64.sh</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#install mamba (run only if not yet installed)</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#adjust the file name based on your system needs</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> Mambaforge-Linux-x86_64.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-L</span> <span class="at">-O</span> <span class="st">"https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-</span><span class="va">$(</span><span class="fu">uname</span><span class="va">)</span><span class="st">-</span><span class="va">$(</span><span class="fu">uname</span> <span class="at">-m</span><span class="va">)</span><span class="st">.sh"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> Miniforge3-<span class="va">$(</span><span class="fu">uname</span><span class="va">)</span>-<span class="va">$(</span><span class="fu">uname</span> <span class="at">-m</span><span class="va">)</span>.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="option-a-install-itsx-in-a-separate-environment" class="level4">
-<h4 class="anchored" data-anchor-id="option-a-install-itsx-in-a-separate-environment">Option A (install ITSx in a separate environment)</h4>
+<section id="setting-up-an-environment" class="level3">
+<h3 class="anchored" data-anchor-id="setting-up-an-environment">Setting up an environment</h3>
+<p>Let’s assume we want to install a tool, ITSx, into an environment called fungal_genomics. We can do this as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> fungi_its</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install <span class="at">-n</span> fungi_its <span class="at">-c</span> bioconda itsx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#check if the tool is installed (should return command not found)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ITSx</span> <span class="at">-h</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#create an empty environment and name it fungal_genomics</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> fungal_genomics</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#install some software, i.e. itsx, into the fungal_genomics environment</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install <span class="at">-n</span> fungal_genomics <span class="at">-c</span> bioconda itsx</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#to run the tool activate the environment</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate fungal_genomics</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#check if tool is installed</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="ex">ITSx</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="option-b-base-itsx-install" class="level4">
-<h4 class="anchored" data-anchor-id="option-b-base-itsx-install">Option B (base ITSx install)</h4>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install <span class="at">-c</span> bioconda itsx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-</section>
-<section id="usage" class="level3">
-<h3 class="anchored" data-anchor-id="usage">Usage</h3>
-<ul>
-<li><p>Required input: FASTA format (aligned or unaligned, DNA or RNA)</p></li>
-<li><p>Generated output:</p>
-<ul>
-<li>one summary file of the entire run</li>
-<li>one more detailed table containing the positions in the respective sequences where the ITS subregions were found</li>
-<li>one “semi-graphical” representation of hits</li>
-<li>one FASTA file of all identified ITS sequences</li>
-<li>one FASTA file for the ITS1 and ITS2 regions</li>
-<li>if entries that did not contain any ITS region are found, a list of sequence IDs representing those entries (optional)</li>
-</ul></li>
-<li><p>Useful arguments (not extensive, check manual for all arguments):</p>
-<ul>
-<li><code>--save_regions</code>: Get all regions of interest, not only ITS1/2</li>
-<li><code>-E {value}</code>: E-value cutoff (default 1e-5)</li>
-<li><code>-S {value}</code>: Domain score cutoff (default 0)</li>
-<li><code>--cpu {value }</code>: Number of cpus to use (default 1)</li>
-<li><code>--multi_thread {T/F}</code>: Multi-thread the HMMER-search. On (T) by default if the number of CPUs/cores is larger than one (–cpu option &gt; 1), else off (F)</li>
-<li><code>--preserve {T/F}</code>: If on, ITSx will preserve the sequence headers from the input file instead of replacing them with ITSx headers in the output. Off (F) by default.</li>
-<li><code>--only_full {T/F}</code>: If true, the output is limited to full-length ITS1 and ITS2 regions only. Off (F) by default.</li>
-<li><code>--minlen {value}</code> Minimum length the ITS regions must be to be outputted in the concatenated file (see –concat above). Default is zero (0).</li>
-</ul></li>
-</ul>
-<section id="example-code" class="level4">
-<h4 class="anchored" data-anchor-id="example-code">Example code</h4>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#activate the right environment (if using environment)</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> deactivate</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate fungi_its</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#download data for testing the install (optional)</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> testing</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-P</span> testing https://raw.githubusercontent.com/ScienceParkStudyGroup/software_information/main/data/itsx/test.fasta</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#testrun (adjust path of test.fasta to where ever you downloaded the software)</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="ex">ITSx</span> <span class="at">-i</span> testing/test.fasta <span class="at">--save_regions</span> all <span class="at">-o</span> testing/ITS_test_v1</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#sanity checking</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-c</span> <span class="st">"&gt;"</span> testing/<span class="pp">*</span>fasta</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#deactivate environment (if using environment)</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Regions extracted from test file (notice how the full fasta ONLY contains sequences with all regions):</p>
-<ul>
-<li><p>testing/ITS_test_v1.5_8S.fasta:50</p></li>
-<li><p>testing/ITS_test_v1.ITS1.fasta:50</p></li>
-<li><p>testing/ITS_test_v1.ITS2.fasta:50</p></li>
-<li><p>testing/ITS_test_v1.LSU.fasta:32</p></li>
-<li><p>testing/ITS_test_v1.SSU.fasta:31</p></li>
-<li><p>testing/ITS_test_v1.full.fasta:19</p></li>
-<li><p>testing/ITS_test_v1_no_detections.fasta:0</p></li>
-<li><p>testing/test.fasta:50</p></li>
-</ul>
-</section>
-</section>
-<section id="references" class="level3">
-
-
+<p>A full set of mamba/conda commands can be found <a href="https://docs.conda.io/projects/conda/en/latest/commands/index.html.">here</a></p>
 
 
 </section>
 </section>
 
-</div><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-bengtsson-palme2013" class="csl-entry" role="listitem">
-Bengtsson-Palme, Johan, Martin Ryberg, Martin Hartmann, Sara Branco, Zheng Wang, Anna Godhe, Pierre De Wit, et al. 2013. <span>“Improved Software Detection and Extraction of ITS1 and ITS2 from Ribosomal ITS Sequences of Fungi and Other Eukaryotes for Analysis of Environmental Sequencing Data.”</span> <em>Methods in Ecology and Evolution</em> 4 (10): 914–19. <a href="https://doi.org/10.1111/2041-210X.12073">https://doi.org/10.1111/2041-210X.12073</a>.
-</div>
-</div></section></div></main> <!-- /main -->
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -853,11 +746,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/metagenomics/metabolic.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Metabolic</span>
+      <a href="../../source/cli/readme.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Command line</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../source/R/readme.html" class="pagination-link">
+        <span class="nav-page-text">R</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

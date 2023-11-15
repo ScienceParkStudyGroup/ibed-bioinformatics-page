@@ -1,0 +1,49 @@
+---
+execute:
+  eval: false
+
+engine: knitr
+---
+
+<div style="text-align: justify">
+
+## Installing software 
+
+A lot of bioinformatic workflows start with installing software. Since this often means not only installing the software but several dependencies, we recommend the use of a package management system, such as **conda** and **mamba**. These tools allow you to find and install packages in their own environment without administrator privileges. 
+
+This is especially useful if you require different software versions, such as python3.6 versus python3.10, for different workflows. With package management systems you can easily setup different python versions in different environments.
+
+### Installing mamba
+
+A lot of system already come with conda installed, however, if possible we recommend working with mamba instead. mamba is a drop-in replacement and uses the same commands and configuration options as conda, however, it tends to be much faster than conda. A useful thing is that if you find documentation for conda then you can swap almost all commands between conda & mamba.
+
+To install mamba, follow the instructions [here](https://github.com/conda-forge/miniforge). This should look something like this for mac and linux-systems. If you are on windows, the easiest is to setup up [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/basic-commands#install) first.
+
+```{bash}
+curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+bash Miniforge3-$(uname)-$(uname -m).sh
+```
+
+
+### Setting up an environment
+
+Let's assume we want to install a tool, ITSx, into an environment called fungal_genomics. We can do this as follows:
+
+```{bash}
+#check if the tool is installed (should return command not found)
+ITSx -h
+
+#create an empty environment and name it fungal_genomics
+mamba create -n fungal_genomics
+
+#install some software, i.e. itsx, into the fungal_genomics environment
+mamba install -n fungal_genomics -c bioconda itsx
+
+#to run the tool activate the environment
+conda activate fungal_genomics
+
+#check if tool is installed
+ITSx -h
+```
+
+A full set of mamba/conda commands can be found [here](https://docs.conda.io/projects/conda/en/latest/commands/index.html.)

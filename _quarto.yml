@@ -33,9 +33,11 @@ website:
           contents:
           - text: "Command line"
             href: source/cli/readme.qmd
+          - test: "Installing software"
+            href: source/conda/conda.qmd
           - text: "R"
             href: source/R/readme.qmd
-          
+
           - section: "Amplicon analyses"
             contents:
               - source/Qiime/readme.qmd
