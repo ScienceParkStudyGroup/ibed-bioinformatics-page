@@ -7,7 +7,7 @@ engine: knitr
 
 <div style="text-align: justify">
 
-## Installing software 
+## Installing software  
 
 A lot of bioinformatic workflows start with installing software. Since this often means not only installing the software but several dependencies, we recommend the use of a package management system, such as **conda** and **mamba**. These tools allow you to find and install packages in their own environment without administrator privileges. 
 

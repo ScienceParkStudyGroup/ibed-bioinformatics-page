@@ -5,9 +5,9 @@
 
 On this website you can find documentation about software that might be useful for bioinformatic data analyses as well as tutorials about various bioinformatic subjects.
 
-If you are working at UVAs Institute for Biodiversity and Ecosystem Dynamics (IBED) and want to know more about what resources are available, please visit the [computational support team website](https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html) and check the options under **Scientific programming and HPC**.
+If you are working at UVAs Institute for Biodiversity and Ecosystem Dynamics (IBED) and want to know more about what resources are available, please visit the [computational support teams website](https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html) and check the options under **Scientific programming and HPC**.
 
-This is very much a work in progress and the page will be slowly updated over time. If you want to add additional information or feel that something is missing feel free to send an email to <n.dombrowski@uva.nl>.
+This page is very much a work in progress and the page will be slowly updated over time. If you want to add additional information or feel that something is missing feel free to send an email to <n.dombrowski@uva.nl>.
 
 ## Useful tutorials
 
@@ -26,12 +26,11 @@ This is very much a work in progress and the page will be slowly updated over ti
 
 ### Bioinformatic workflows
 
-- [Analysing amplicond data with Qiime](source/Qiime/3_evelyn_tutorial_notes.qmd)
+- [Analysing amplicon data with Qiime](source/Qiime/3_evelyn_tutorial_notes.qmd)
 - [Assembling a metagenome](https://ndombrowski.github.io/Assembly_tutorial/)
 - [Genomic binning](https://ndombrowski.github.io/Binning_tutorial//)
 - [Annotating microbial genomes](https://github.com/ndombrowski/Annotation_workflow)
 - [How to do phylogenetic analyses](https://ndombrowski.github.io/Phylogeny_tutorial/) 
-
 
 
 

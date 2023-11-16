@@ -10,6 +10,7 @@ format:
     theme:
       light: lumen
       dark: cyborg
+    date: last-modified
     css: styles.css
     toc: true
     toc-expand: true
@@ -18,7 +19,10 @@ format:
 website:
   title: "Bioinformatics guidance page"
   page-navigation: true
-  page-footer: "Copyright 2023, Nina Dombrowski" 
+  page-footer:  
+    center: | 
+      Copyright 2023, Nina Dombrowski,    
+      Last modified: {{< meta date >}} 
   
   sidebar:
     - id: "Welcome page"
@@ -33,7 +37,7 @@ website:
           contents:
           - text: "Command line"
             href: source/cli/readme.qmd
-          - test: "Installing software"
+          - text: "Installing software"
             href: source/conda/conda.qmd
           - text: "R"
             href: source/R/readme.qmd
@@ -74,6 +78,4 @@ website:
       tools:
         - icon: github
           href: https://github.com/ScienceParkStudyGroup/software_information
-
-
 
