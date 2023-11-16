@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
 <link href="../../source/R/readme.html" rel="next">
-<link href="../../source/cli/readme.html" rel="prev">
+<link href="../../source/cli/hpc_usage.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -152,8 +152,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/cli/readme.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Command line</span></a>
+  <a href="../../source/cli/cli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using the command line</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using an HPC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -347,6 +353,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#installing-mamba" id="toc-installing-mamba" class="nav-link" data-scroll-target="#installing-mamba">Installing mamba</a></li>
   <li><a href="#setting-up-an-environment" id="toc-setting-up-an-environment" class="nav-link" data-scroll-target="#setting-up-an-environment">Setting up an environment</a></li>
+  <li><a href="#adding-existing-environments" id="toc-adding-existing-environments" class="nav-link" data-scroll-target="#adding-existing-environments">Adding existing environments</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -360,12 +367,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="installing-software" class="level2">
 <h2 class="anchored" data-anchor-id="installing-software">Installing software</h2>
-<p>A lot of bioinformatic workflows start with installing software. Since this often means not only installing the software but several dependencies, we recommend the use of a package management system, such as <strong>conda</strong> and <strong>mamba</strong>. These tools allow you to find and install packages in their own environment without administrator privileges.</p>
+<p>A lot of bioinformatic workflows start with installing software. Since this often means not only installing the software but several dependencies, we recommend the use of a package management system, such as <strong>conda</strong> or <strong>mamba</strong>. These tools allow you to find and install packages in their own environment without administrator privileges.</p>
 <p>This is especially useful if you require different software versions, such as python3.6 versus python3.10, for different workflows. With package management systems you can easily setup different python versions in different environments.</p>
 <section id="installing-mamba" class="level3">
 <h3 class="anchored" data-anchor-id="installing-mamba">Installing mamba</h3>
-<p>A lot of system already come with conda installed, however, if possible we recommend working with mamba instead. mamba is a drop-in replacement and uses the same commands and configuration options as conda, however, it tends to be much faster than conda. A useful thing is that if you find documentation for conda then you can swap almost all commands between conda &amp; mamba.</p>
-<p>To install mamba, follow the instructions <a href="https://github.com/conda-forge/miniforge">here</a>. This should look something like this for mac and linux-systems. If you are on windows, the easiest is to setup up <a href="https://learn.microsoft.com/en-us/windows/wsl/basic-commands#install">Windows Subsystem for Linux (WSL)</a> first.</p>
+<p>A lot of system already come with conda installed, however, if possible we recommend working with mamba instead of conda. mamba is a drop-in replacement and uses the same commands and configuration options as conda, however, it tends to be much faster. A useful thing is that if you find documentation for conda then you can swap almost all commands between conda &amp; mamba.</p>
+<p>To install mamba, follow the instructions <a href="https://github.com/conda-forge/miniforge">here</a>. This should look something like this for mac and linux-systems. If you are on windows, the easiest is to setup up <a href="https://learn.microsoft.com/en-us/windows/wsl/basic-commands#install">Windows Subsystem for Linux (WSL)</a> first and then use the code below.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-L</span> <span class="at">-O</span> <span class="st">"https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-</span><span class="va">$(</span><span class="fu">uname</span><span class="va">)</span><span class="st">-</span><span class="va">$(</span><span class="fu">uname</span> <span class="at">-m</span><span class="va">)</span><span class="st">.sh"</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> Miniforge3-<span class="va">$(</span><span class="fu">uname</span><span class="va">)</span>-<span class="va">$(</span><span class="fu">uname</span> <span class="at">-m</span><span class="va">)</span>.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -388,9 +395,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate fungal_genomics</span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#check if tool is installed</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="ex">ITSx</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="ex">ITSx</span> <span class="at">-h</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#leave the environment</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A full set of mamba/conda commands can be found <a href="https://docs.conda.io/projects/conda/en/latest/commands/index.html.">here</a></p>
+</section>
+<section id="adding-existing-environments" class="level3">
+<h3 class="anchored" data-anchor-id="adding-existing-environments">Adding existing environments</h3>
+<p>On crunchomics other people might have already installed environments that might be useful for your work. One example is the amplicomics share, which comes with several QIIME 2 installations. To use this, first ask for access to the amplicomics share by contacting <a href="mailto:n.dombrowski@uva.nl" class="email">n.dombrowski@uva.nl</a> with your uva net id. After you got access, you can add conda environments in the amplicomics share with:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/amplicomics/miniconda3/envs/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 </section>
@@ -747,8 +764,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/cli/readme.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Command line</span>
+      <a href="../../source/cli/hpc_usage.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Using an HPC</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

@@ -10,8 +10,6 @@ You can use cli as follows:
 - Linux: Use xterm or konsole
 - Windows: Use [putty](https://www.putty.org/), [mobaxterm](https://mobaxterm.mobatek.net/?gclid=CjwKCAiAkan9BRAqEiwAP9X6UaGJEwztxdR2mR-EKW5C7hyQPHwVvA3ypPrKCqQQEONI6LBwS6WsrRoC2a8QAvD_BwE/) or [ windows subsystem for linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/basic-commands#install)
 
-If you want to use Crunchomics, the Genomics Compute Environment for SILS and IBED please check out [this documentation](https://crunchomics-documentation.readthedocs.io/en/latest/index.html). If you need access to Crunchomics, send email to Wim de Leeuw to get an account set up and give him your uva-net id. To get information about other resources available visit the [computational support team website](https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html) and check the options under **Scientific programming and HPC**.
-
 If you are completely unfamiliar with using the command line check out:
 
 - [An older session on using the command line](https://ndombrowski.github.io/Unix_tutorial/#introduction). Will be updated to work on Crunchomics in the future

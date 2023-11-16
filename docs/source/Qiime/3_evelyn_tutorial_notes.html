@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2023-11-16">
 
 <title>Bioinformatics guidance page – evelyn_tutorial_notes</title>
 <style>
@@ -151,8 +152,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/cli/readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/cli.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Command line</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/conda/hpc_usage" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using a HPC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -341,90 +348,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
     <h2 id="toc-title">On this page</h2>
    
-  <ul>
+  <ul class="collapse">
   <li><a href="#a-short-qiime-tutorial" id="toc-a-short-qiime-tutorial" class="nav-link active" data-scroll-target="#a-short-qiime-tutorial">A short QIIME tutorial</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#qiime2-terminology" id="toc-qiime2-terminology" class="nav-link" data-scroll-target="#qiime2-terminology">QIIME2 terminology</a></li>
-  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a>
-  <ul class="collapse">
-  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
-  <li><a href="#download-the-example-data" id="toc-download-the-example-data" class="nav-link" data-scroll-target="#download-the-example-data">Download the example data</a></li>
-  <li><a href="#set-environmental-variables" id="toc-set-environmental-variables" class="nav-link" data-scroll-target="#set-environmental-variables">Set environmental variables</a></li>
-  <li><a href="#getting-help" id="toc-getting-help" class="nav-link" data-scroll-target="#getting-help">Getting help</a></li>
-  </ul></li>
-  <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data">Import data</a>
-  <ul class="collapse">
-  <li><a href="#the-manifest-file" id="toc-the-manifest-file" class="nav-link" data-scroll-target="#the-manifest-file">The manifest file</a></li>
-  <li><a href="#data-import" id="toc-data-import" class="nav-link" data-scroll-target="#data-import">Data import</a></li>
-  </ul></li>
-  <li><a href="#quality-controls" id="toc-quality-controls" class="nav-link" data-scroll-target="#quality-controls">Quality controls</a>
-  <ul class="collapse">
-  <li><a href="#fastqc" id="toc-fastqc" class="nav-link" data-scroll-target="#fastqc">FastQC</a></li>
-  <li><a href="#primer-removal" id="toc-primer-removal" class="nav-link" data-scroll-target="#primer-removal">Primer removal</a></li>
-  </ul></li>
-  <li><a href="#generate-asvs-using-deblur-and-dada2" id="toc-generate-asvs-using-deblur-and-dada2" class="nav-link" data-scroll-target="#generate-asvs-using-deblur-and-dada2">Generate ASVs using deblur and dada2</a>
-  <ul class="collapse">
-  <li><a href="#deblur-merge-paired-end-reads" id="toc-deblur-merge-paired-end-reads" class="nav-link" data-scroll-target="#deblur-merge-paired-end-reads">Deblur: Merge paired end reads</a></li>
-  <li><a href="#quality-filter-required-for-deblur" id="toc-quality-filter-required-for-deblur" class="nav-link" data-scroll-target="#quality-filter-required-for-deblur">Quality filter (required for deblur)</a></li>
-  <li><a href="#run-deblur" id="toc-run-deblur" class="nav-link" data-scroll-target="#run-deblur">Run deblur</a></li>
-  <li><a href="#qiime-tools-validate-code-for-sanity-checking" id="toc-qiime-tools-validate-code-for-sanity-checking" class="nav-link" data-scroll-target="#qiime-tools-validate-code-for-sanity-checking"><code>qiime tools validate</code>: Code for sanity checking</a></li>
-  <li><a href="#dada2" id="toc-dada2" class="nav-link" data-scroll-target="#dada2">Dada2</a></li>
-  </ul></li>
-  <li><a href="#taxonomic-classification-naive-bayes" id="toc-taxonomic-classification-naive-bayes" class="nav-link" data-scroll-target="#taxonomic-classification-naive-bayes">Taxonomic classification (Naive Bayes)</a>
-  <ul class="collapse">
-  <li><a href="#import-the-database" id="toc-import-the-database" class="nav-link" data-scroll-target="#import-the-database">Import the database</a></li>
-  <li><a href="#extract-reference-reads" id="toc-extract-reference-reads" class="nav-link" data-scroll-target="#extract-reference-reads">Extract reference reads</a></li>
-  <li><a href="#train-the-classifier" id="toc-train-the-classifier" class="nav-link" data-scroll-target="#train-the-classifier">Train the classifier</a></li>
-  <li><a href="#taxonomic-classification" id="toc-taxonomic-classification" class="nav-link" data-scroll-target="#taxonomic-classification">Taxonomic classification</a></li>
-  <li><a href="#plot-data" id="toc-plot-data" class="nav-link" data-scroll-target="#plot-data">Plot data</a></li>
-  </ul></li>
-  <li><a href="#filtering" id="toc-filtering" class="nav-link" data-scroll-target="#filtering">Filtering</a>
-  <ul class="collapse">
-  <li><a href="#filtering-the-feature-table" id="toc-filtering-the-feature-table" class="nav-link" data-scroll-target="#filtering-the-feature-table">Filtering the feature table</a></li>
-  <li><a href="#filtering-the-sequences" id="toc-filtering-the-sequences" class="nav-link" data-scroll-target="#filtering-the-sequences">Filtering the sequences</a></li>
-  <li><a href="#filter-by-taxonomy" id="toc-filter-by-taxonomy" class="nav-link" data-scroll-target="#filter-by-taxonomy">Filter by taxonomy</a></li>
-  </ul></li>
-  <li><a href="#phylogenetic-tree-construction" id="toc-phylogenetic-tree-construction" class="nav-link" data-scroll-target="#phylogenetic-tree-construction">Phylogenetic tree construction</a>
-  <ul class="collapse">
-  <li><a href="#basics" id="toc-basics" class="nav-link" data-scroll-target="#basics">Basics</a></li>
-  <li><a href="#runing-the-qiime-pipeline" id="toc-runing-the-qiime-pipeline" class="nav-link" data-scroll-target="#runing-the-qiime-pipeline">Runing the Qiime pipeline</a></li>
-  <li><a href="#run-things-step-by-step" id="toc-run-things-step-by-step" class="nav-link" data-scroll-target="#run-things-step-by-step">Run things step by step</a></li>
-  </ul></li>
-  <li><a href="#identifying-an-even-sampling-depth-for-use-in-diversity-metrics" id="toc-identifying-an-even-sampling-depth-for-use-in-diversity-metrics" class="nav-link" data-scroll-target="#identifying-an-even-sampling-depth-for-use-in-diversity-metrics">Identifying an even sampling depth for use in diversity metrics</a>
-  <ul class="collapse">
-  <li><a href="#notes-on-rarefication" id="toc-notes-on-rarefication" class="nav-link" data-scroll-target="#notes-on-rarefication">Notes on rarefication</a></li>
-  <li><a href="#alpha-rarefaction-plots" id="toc-alpha-rarefaction-plots" class="nav-link" data-scroll-target="#alpha-rarefaction-plots">Alpha rarefaction plots</a></li>
-  </ul></li>
-  <li><a href="#computing-diversity-metrics" id="toc-computing-diversity-metrics" class="nav-link" data-scroll-target="#computing-diversity-metrics">Computing diversity metrics</a>
-  <ul class="collapse">
-  <li><a href="#alpha-diversity" id="toc-alpha-diversity" class="nav-link" data-scroll-target="#alpha-diversity">Alpha diversity</a></li>
-  </ul></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data">Import data</a></li>
+  <li><a href="#quality-controls" id="toc-quality-controls" class="nav-link" data-scroll-target="#quality-controls">Quality controls</a></li>
+  <li><a href="#generate-asvs-using-deblur-and-dada2" id="toc-generate-asvs-using-deblur-and-dada2" class="nav-link" data-scroll-target="#generate-asvs-using-deblur-and-dada2">Generate ASVs using deblur and dada2</a></li>
+  <li><a href="#taxonomic-classification-naive-bayes" id="toc-taxonomic-classification-naive-bayes" class="nav-link" data-scroll-target="#taxonomic-classification-naive-bayes">Taxonomic classification (Naive Bayes)</a></li>
+  <li><a href="#filtering" id="toc-filtering" class="nav-link" data-scroll-target="#filtering">Filtering</a></li>
+  <li><a href="#phylogenetic-tree-construction" id="toc-phylogenetic-tree-construction" class="nav-link" data-scroll-target="#phylogenetic-tree-construction">Phylogenetic tree construction</a></li>
+  <li><a href="#identifying-an-even-sampling-depth-for-use-in-diversity-metrics" id="toc-identifying-an-even-sampling-depth-for-use-in-diversity-metrics" class="nav-link" data-scroll-target="#identifying-an-even-sampling-depth-for-use-in-diversity-metrics">Identifying an even sampling depth for use in diversity metrics</a></li>
+  <li><a href="#computing-diversity-metrics" id="toc-computing-diversity-metrics" class="nav-link" data-scroll-target="#computing-diversity-metrics">Computing diversity metrics</a></li>
   <li><a href="#differential-abundance-testing" id="toc-differential-abundance-testing" class="nav-link" data-scroll-target="#differential-abundance-testing">Differential abundance testing</a></li>
-  <li><a href="#sec-crunchomics" id="toc-sec-crunchomics" class="nav-link" data-scroll-target="#sec-crunchomics">Analyses on crunchomics</a>
-  <ul class="collapse">
-  <li><a href="#get-access-to-qiime-on-crunchomics" id="toc-get-access-to-qiime-on-crunchomics" class="nav-link" data-scroll-target="#get-access-to-qiime-on-crunchomics">Get access to QIIME on crunchomics</a></li>
-  <li><a href="#useful-slurm-commands" id="toc-useful-slurm-commands" class="nav-link" data-scroll-target="#useful-slurm-commands">Useful SLURM commands</a></li>
-  <li><a href="#download-the-data" id="toc-download-the-data" class="nav-link" data-scroll-target="#download-the-data">Download the data</a></li>
-  <li><a href="#setting-your-working-environment" id="toc-setting-your-working-environment" class="nav-link" data-scroll-target="#setting-your-working-environment">Setting your working environment</a></li>
-  <li><a href="#setup-folders-to-store-our-outputs" id="toc-setup-folders-to-store-our-outputs" class="nav-link" data-scroll-target="#setup-folders-to-store-our-outputs">Setup folders to store our outputs</a></li>
-  <li><a href="#import-data-1" id="toc-import-data-1" class="nav-link" data-scroll-target="#import-data-1">Import data</a></li>
-  <li><a href="#primer-removal-1" id="toc-primer-removal-1" class="nav-link" data-scroll-target="#primer-removal-1">Primer removal</a></li>
-  <li><a href="#feature-table-construction" id="toc-feature-table-construction" class="nav-link" data-scroll-target="#feature-table-construction">Feature table construction</a>
-  <ul class="collapse">
-  <li><a href="#deblur-join-reads" id="toc-deblur-join-reads" class="nav-link" data-scroll-target="#deblur-join-reads">Deblur: Join reads</a></li>
-  <li><a href="#deblur-quality-filtering" id="toc-deblur-quality-filtering" class="nav-link" data-scroll-target="#deblur-quality-filtering">Deblur: Quality filtering</a></li>
-  <li><a href="#run-deblur-1" id="toc-run-deblur-1" class="nav-link" data-scroll-target="#run-deblur-1">Run deblur</a></li>
-  <li><a href="#dada2-1" id="toc-dada2-1" class="nav-link" data-scroll-target="#dada2-1">Dada2</a></li>
-  </ul></li>
-  <li><a href="#taxonomic-classification-1" id="toc-taxonomic-classification-1" class="nav-link" data-scroll-target="#taxonomic-classification-1">Taxonomic classification</a>
-  <ul class="collapse">
-  <li><a href="#extract-reference-reads-1" id="toc-extract-reference-reads-1" class="nav-link" data-scroll-target="#extract-reference-reads-1">Extract reference reads</a></li>
-  <li><a href="#train-the-classifier-1" id="toc-train-the-classifier-1" class="nav-link" data-scroll-target="#train-the-classifier-1">Train the classifier</a></li>
-  <li><a href="#taxonomic-classification-2" id="toc-taxonomic-classification-2" class="nav-link" data-scroll-target="#taxonomic-classification-2">Taxonomic classification</a></li>
-  <li><a href="#plotting" id="toc-plotting" class="nav-link" data-scroll-target="#plotting">Plotting</a></li>
-  </ul></li>
-  <li><a href="#download-qzvs" id="toc-download-qzvs" class="nav-link" data-scroll-target="#download-qzvs">Download qzvs</a></li>
-  </ul></li>
+  <li><a href="#sec-crunchomics" id="toc-sec-crunchomics" class="nav-link" data-scroll-target="#sec-crunchomics">Analyses on crunchomics</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -438,8 +376,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="a-short-qiime-tutorial" class="level1">
 <h1>A short QIIME tutorial</h1>
-<p>These tutorial closely follows <a href="https://ejongepier.github.io/metabarcoding-qiime2-workshop/genintro.html">Evelyn Jongepier’s tutorial</a> on using QIIME2. A large part of the text found here was taken directly from this tutorial but extended as was seen fit.</p>
-<p>This was run on a personal Windows computer as well as Crunchomics.</p>
+<p>These tutorial closely follows <a href="https://ejongepier.github.io/metabarcoding-qiime2-workshop/genintro.html">the tutorial</a> from IBEDs former bioinformatician, Evelyn Jongepier. A large part of the text found here was taken directly from this tutorial but extended as was seen fit and updated to work with a newer QIIME version.</p>
 <p>A test data set is provided with this tutorial and consists of already demultiplexed sequencing data. The files we are working with are:</p>
 <ul>
 <li>The forward, R1, reads</li>
@@ -459,9 +396,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <section id="qiime2-terminology" class="level2">
 <h2 class="anchored" data-anchor-id="qiime2-terminology">QIIME2 terminology</h2>
-<p>Notes were copied from the <a href="https://docs.qiime2.org/2023.7/concepts/">QIIME2docs</a>.</p>
 <p>Data produced by QIIME 2 exist as QIIME 2 <strong>artifacts</strong>. A QIIME 2 artifact contains data and metadata. The metadata describes things about the data, such as its type, format, and how it was generated (i.e.&nbsp;provenance). A QIIME 2 artifact typically has the <code>.qza</code> file extension when stored in a file. Since QIIME 2 works with artifacts instead of data files (e.g.&nbsp;FASTA files), you must create a QIIME 2 artifact by importing data.</p>
-<p><strong>Visualizations</strong> are another type of data generated by QIIME 2. When written to disk, visualization files typically have the <code>.qzv</code> file extension. Visualizations contain similar types of metadata as QIIME 2 artifacts, including provenance information. Similar to QIIME 2 artifacts, visualizations are standalone information that can be archived or shared with collaborators. Use https://view.qiime2.org to easily view QIIME 2 artifacts and visualizations files (generally .qza and .qzv files) without requiring a QIIME installation.</p>
+<p><strong>Visualizations</strong> are another type of data generated by QIIME 2. When written to disk, visualization files typically have the <code>.qzv</code> file extension. Visualizations contain similar types of metadata as QIIME 2 artifacts, including provenance information. Similar to QIIME 2 artifacts, visualizations are standalone information that can be archived or shared with collaborators. Use <a href="https://view.qiime2.org" class="uri">https://view.qiime2.org</a> to easily view QIIME 2 artifacts and visualizations files.</p>
 <p>Every artifact generated by QIIME 2 has a <strong>semantic type</strong> associated with it. Semantic types enable QIIME 2 to identify artifacts that are suitable inputs to an analysis. For example, if an analysis expects a distance matrix as input, QIIME 2 can determine which artifacts have a distance matrix semantic type and prevent incompatible artifacts from being used in the analysis (e.g.&nbsp;an artifact representing a phylogenetic tree).</p>
 <p><strong>Plugins</strong> are software packages that can be developed by anyone. The QIIME 2 team has developed several plugins for an initial end-to-end microbiome analysis pipeline, but third-party developers are encouraged to create their own plugins to provide additional analyses. A <strong>method</strong> accepts some combination of QIIME 2 artifacts and parameters as input, and produces one or more QIIME 2 artifacts as output. A <strong>visualizer</strong> is similar to a method in that it accepts some combination of QIIME 2 artifacts and parameters as input. In contrast to a method, a visualizer produces exactly one visualization as output.</p>
 </section>
@@ -469,14 +405,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>We install QIIME with with mamba. If you do not have mamba installed, you can use replace mamba with conda.</p>
+<p>We can install a QIIME 2 environment with with mamba:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://data.qiime2.org/distro/core/qiime2-2023.7-py38-linux-conda.yml</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> env create <span class="at">-n</span> qiime2-2023.7 <span class="at">--file</span> qiime2-2023.7-py38-linux-conda.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>If you run into problem, have a look at <a href="https://docs.qiime2.org/2023.9/install/">QIIME 2 installation guide</a>.</p>
 </section>
 <section id="download-the-example-data" class="level3">
 <h3 class="anchored" data-anchor-id="download-the-example-data">Download the example data</h3>
+<p>Next, we download the example files for this tutorial. The folder contains:</p>
+<ul>
+<li>De-multiplexed sequence fastq files in the data folder</li>
+<li>A manifest.csv file that lists the sampleID, sample location and read orientation in the data folder</li>
+<li></li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://zenodo.org/record/5025210/files/metabarcoding-qiime2-datapackage-v2021.06.2.tar.gz<span class="pp">?</span>download=1</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzvf</span> metabarcoding-qiime2-datapackage-v2021.06.2.tar.gz<span class="pp">?</span>download=1</span>
@@ -2097,7 +2040,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">Copyright 2023, Nina Dombrowski</div>
+    <div class="nav-footer-center">Copyright 2023, Nina Dombrowski,<br>
+Last modified: November 16, 2023</div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

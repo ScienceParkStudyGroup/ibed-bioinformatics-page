@@ -35,10 +35,15 @@ website:
           href: index.qmd
           
           contents:
-          - text: "Command line"
-            href: source/cli/readme.qmd
+          - text: "Using the command line"
+            href: source/cli/cli.qmd
+
+          - text: "Using an HPC"
+            href: source/cli/hpc_usage.qmd
+
           - text: "Installing software"
             href: source/conda/conda.qmd
+
           - text: "R"
             href: source/R/readme.qmd
 

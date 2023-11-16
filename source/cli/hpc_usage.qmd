@@ -1,0 +1,20 @@
+<div style="text-align: justify">
+
+## Using a HPC
+
+If you want to use the cli on the Crunchomics HPC, the Genomics Compute Environment for SILS and IBED, please check out [this documentation](https://crunchomics-documentation.readthedocs.io/en/latest/index.html). If you need access to Crunchomics, send an email to Wim de Leeuw <w.c.deleeuw@uva.nl> to get an account set up by giving him your uva-net id. Information about other resources available is documented at [computational support teams website](https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html) under **Scientific programming and HPC**.
+
+::: {.callout-important}
+Since you share resources with other people when using the Crunchomics HPC (and any other HPC) make sure to read [the documentation](https://crunchomics-documentation.readthedocs.io/en/latest/index.html) first!
+:::
+
+
+Using an HPC works a bit differently than running jobs on your computer, below you find a simplified shematic: 
+
+![](../../img/crunchomics1.png)
+
+To login and submit jobs, have a look at the following guides:
+
+- [Connecting to Crunchomics](https://crunchomics-documentation.readthedocs.io/en/latest/intro_crunchomics.html)
+- [First time setup when using Crunchomics](https://crunchomics-documentation.readthedocs.io/en/latest/intro_crunchomics.html#preparing-your-account)
+- [Submitting jobs via SLURM](https://crunchomics-documentation.readthedocs.io/en/latest/slurm_overview.html)

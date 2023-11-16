@@ -92,5 +92,11 @@
   },
   "source/conda/conda.qmd": {
     "conda.html": "f9bdf706"
+  },
+  "source/cli/cli.qmd": {
+    "cli.html": "9ddddb5b"
+  },
+  "source/cli/hpc_usage.qmd": {
+    "hpc_usage.html": "0e53997a"
   }
 }

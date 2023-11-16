@@ -2,7 +2,7 @@
 
 ## QIIME 2
 
-QIIME 2 is a platform for microbial community analysis such as 16S amplicon analysis. The QIIME 2 website comes with a wealth of documentation and tutorials that are worthwhile to check out before running QIIME 2 on your own data:
+QIIME 2 is a platform for microbial community analysis such as 16S rRNA gene amplicon analysis. The QIIME 2 website comes with a wealth of documentation and tutorials that are worthwhile to check out before running QIIME 2 on your own data:
 
 - [Installation instructions](https://docs.qiime2.org/2023.7/install/native/)
 - [The QIIME 2 documentation](https://docs.qiime2.org/2023.7/). 

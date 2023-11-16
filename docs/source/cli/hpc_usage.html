@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2023-11-16">
 
-<title>Bioinformatics guidance page – readme</title>
+<title>Bioinformatics guidance page – hpc_usage</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,7 +32,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
 <link href="../../source/conda/conda.html" rel="next">
-<link href="../../index.html" rel="prev">
+<link href="../../source/cli/cli.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -78,7 +78,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Welcome page</a></li><li class="breadcrumb-item"><a href="../../source/cli/readme.html">Command line</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Welcome page</a></li><li class="breadcrumb-item"><a href="../../source/cli/hpc_usage.html">Using an HPC</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -118,8 +118,14 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/cli/readme.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Command line</span></a>
+  <a href="../../source/cli/cli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using the command line</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Using an HPC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -309,7 +315,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#using-the-command-line-interface" id="toc-using-the-command-line-interface" class="nav-link active" data-scroll-target="#using-the-command-line-interface">Using the command line interface</a></li>
+  <li><a href="#using-a-hpc" id="toc-using-a-hpc" class="nav-link active" data-scroll-target="#using-a-hpc">Using a HPC</a></li>
   </ul>
 </nav>
     </div>
@@ -320,20 +326,29 @@ ul.task-list li input[type="checkbox"] {
 
 <div style="text-align: justify">
 
-<section id="using-the-command-line-interface" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="using-the-command-line-interface">Using the command line interface</h2>
-<p>The command line interface (cli) is not a software but nevertheless useful for bioinformaticians since it is a text-based user interface used to run programs, manage computer files and interact with the computer.</p>
-<p>You can use cli as follows:</p>
+<section id="using-a-hpc" class="level2">
+<h2 class="anchored" data-anchor-id="using-a-hpc">Using a HPC</h2>
+<p>If you want to use the cli on the Crunchomics HPC, the Genomics Compute Environment for SILS and IBED, please check out <a href="https://crunchomics-documentation.readthedocs.io/en/latest/index.html">this documentation</a>. If you need access to Crunchomics, send an email to Wim de Leeuw <a href="mailto:w.c.deleeuw@uva.nl" class="email">w.c.deleeuw@uva.nl</a> to get an account set up by giving him your uva-net id. Information about other resources available is documented at <a href="https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html">computational support teams website</a> under <strong>Scientific programming and HPC</strong>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Since you share resources with other people when using the Crunchomics HPC (and any other HPC) make sure to read <a href="https://crunchomics-documentation.readthedocs.io/en/latest/index.html">the documentation</a> first!</p>
+</div>
+</div>
+<p>Using an HPC works a bit differently than running jobs on your computer, below you find a simplified shematic:</p>
+<p><img src="../../img/crunchomics1.png" class="img-fluid"></p>
+<p>To login and submit jobs, have a look at the following guides:</p>
 <ul>
-<li>Mac: Use the terminal tool (easy to find with spotlight)</li>
-<li>Linux: Use xterm or konsole</li>
-<li>Windows: Use <a href="https://www.putty.org/">putty</a>, <a href="https://mobaxterm.mobatek.net/?gclid=CjwKCAiAkan9BRAqEiwAP9X6UaGJEwztxdR2mR-EKW5C7hyQPHwVvA3ypPrKCqQQEONI6LBwS6WsrRoC2a8QAvD_BwE/">mobaxterm</a> or <a href="https://learn.microsoft.com/en-us/windows/wsl/basic-commands#install">windows subsystem for linux (WSL)</a></li>
-</ul>
-<p>If you want to use the cli on IBEDs Crunchomics HPC, the Genomics Compute Environment for SILS and IBED, please check out <a href="https://crunchomics-documentation.readthedocs.io/en/latest/index.html">this documentation</a>. If you need access to Crunchomics, send an email to Wim de Leeuw <a href="mailto:w.c.deleeuw@uva.nl" class="email">w.c.deleeuw@uva.nl</a> to get an account set up by giving him your uva-net id. Information about other resources available is documented at <a href="https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html">computational support teasm website</a> under <strong>Scientific programming and HPC</strong>.</p>
-<p>If you are completely unfamiliar with using the command line check out:</p>
-<ul>
-<li><a href="https://ndombrowski.github.io/Unix_tutorial/#introduction">An older session on using the command line</a>. Will be updated to work on Crunchomics in the future</li>
-<li><a href="https://ndombrowski.github.io/AWK_tutorial/">A tutorial on using AWK</a>, an excellent command line tool for filtering tables, extracting patterns, etc… If you want to follow this tutorial then you can download the required input files from <a href="https://github.com/ndombrowski/AWK_tutorial/tree/main/1_Inputfiles">here</a></li>
+<li><a href="https://crunchomics-documentation.readthedocs.io/en/latest/intro_crunchomics.html">Connecting to Crunchomics</a></li>
+<li><a href="https://crunchomics-documentation.readthedocs.io/en/latest/intro_crunchomics.html#preparing-your-account">First time setup when using Crunchomics</a></li>
+<li><a href="https://crunchomics-documentation.readthedocs.io/en/latest/slurm_overview.html">Submitting jobs via SLURM</a></li>
 </ul>
 
 
@@ -690,8 +705,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../index.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Welcome page</span>
+      <a href="../../source/cli/cli.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Using the command line</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

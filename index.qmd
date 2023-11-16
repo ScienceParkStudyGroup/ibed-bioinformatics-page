@@ -26,11 +26,11 @@ This page is very much a work in progress and the page will be slowly updated ov
 
 ### Bioinformatic workflows
 
-- [Analysing amplicon data with Qiime](source/Qiime/3_evelyn_tutorial_notes.qmd)
+- [From sequence file to OTU table with Qiime](source/Qiime/3_evelyn_tutorial_notes.qmd)
 - [Assembling a metagenome](https://ndombrowski.github.io/Assembly_tutorial/)
-- [Genomic binning](https://ndombrowski.github.io/Binning_tutorial//)
+- [Metagenomic binning](https://ndombrowski.github.io/Binning_tutorial//)
 - [Annotating microbial genomes](https://github.com/ndombrowski/Annotation_workflow)
-- [How to do phylogenetic analyses](https://ndombrowski.github.io/Phylogeny_tutorial/) 
+- [How to do generate a species tree](https://ndombrowski.github.io/Phylogeny_tutorial/) 
 
 
 
@@ -39,7 +39,7 @@ This page is very much a work in progress and the page will be slowly updated ov
 - [Chopper](source/nanopore/chopper.qmd)
 - [FAMA](source/metagenomics/fama_readme.qmd)
 - [FastQC](source/metagenomics/fastqc_readme.qmd)
-- [Interproscan](source/metagenomics/interposcan_readme.qmd)
+- [Interproscan](source/metagenomics/interproscan_readme.qmd)
 - [ITSx](source/ITSx/itsx_readme.qmd)
 - [Kraken2](source/classification/kraken2.qmd)
 - [METABOLIC](source/metagenomics/metabolic.qmd)
