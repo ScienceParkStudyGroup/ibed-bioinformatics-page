@@ -19,9 +19,7 @@ Available on Crunchomics: Not by default
 
 ### Installation
 
-NanoPlot is part of the Nanopack package and I would recommend installing this package to already have other useful tools installed. Therefore, we install a new conda environment called nanopack, feel free to replace this name with whatever you feel suitable. If you already have an environment with tools for long-read analyses I suggest adding nanopack there instead.
-
-If you do not have mamba (or conda) installed. Check out the installation instructions for [mamba](https://mamba.readthedocs.io/en/latest/mamba-installation.html#mamba-install) and [conda](https://crunchomics-documentation.readthedocs.io/en/latest/miniconda.html). Mamba is a newer version of conda and from experience faster but since its newer this might mean that not all software can yet be installed with mamba.
+NanoPlot is part of the Nanopack package and I would recommend installing this package to already have other useful tools installed. Therefore, we install a new conda environment called nanopack. If you already have an environment with tools for long-read analyses I suggest adding nanopack there instead.
 
 ```{bash}
 #setup new conda environment, which we name nanopack
@@ -31,7 +29,7 @@ mamba create --name nanopack -c conda-forge -c bioconda python=3.6 pip
 conda activate nanopack 
 
 #install nanopack software tools 
-/home/ndombro/personal/mambaforge/envs/nanopore/bin/pip3 install nanopack
+$HOME/personal/mambaforge/envs/nanopore/bin/pip3 install nanopack
 
 #close environment
 conda deactivate

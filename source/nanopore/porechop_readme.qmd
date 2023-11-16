@@ -21,7 +21,7 @@ Available on Crunchomics: Not by default
 
 ### Installation
 
-It is easiest to install porechop with conda. If you do not have mamba (or conda) installed. Check out the installation instructions for [mamba](https://mamba.readthedocs.io/en/latest/mamba-installation.html#mamba-install) and [conda](https://crunchomics-documentation.readthedocs.io/en/latest/miniconda.html). Mamba is a newer version of conda and from experience faster but since its newer this might mean that not all software can yet be installed with mamba.
+It is easiest to install porechop with conda:
 
 ```{bash}
 mamba create --name porechop -c conda-forge -c bioconda porechop=0.2.4
@@ -36,7 +36,6 @@ Therefore, I recommend to carefully read through the [How it works section](http
 
 Similarly, porechop works with both demultiplexed and non-demultiplexed sequences. Also here, the manual explains in more detail how to perform barcode demultiplexing.
 :::
-
 
 
 Required input:

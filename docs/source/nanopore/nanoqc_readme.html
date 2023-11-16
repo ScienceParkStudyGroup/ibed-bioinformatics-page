@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2023-11-16">
 
 <title>Bioinformatics guidance page – nanoqc_readme</title>
 <style>
@@ -170,8 +171,20 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/cli/readme.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Command line</span></a>
+  <a href="../../source/cli/cli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using the command line</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using an HPC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/conda/conda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Installing software</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -198,7 +211,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/Qiime/3_evelyn_tutorial_notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Follow Eveylyn’s QIIME workflow</span></a>
+ <span class="menu-text">A short QIIME tutorial</span></a>
   </div>
 </li>
       </ul>
@@ -381,8 +394,7 @@ div.csl-indent {
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>NanoQC is part of the Nanopack package and I would recommend installing this package to already have other useful tools installed. Therefore, we install a new conda environment called nanopack, feel free to replace this name with whatever you feel suitable. If you already have an environment with tools for long-read analyses I suggest adding nanopack there instead.</p>
-<p>If you do not have mamba (or conda) installed. Check out the installation instructions for <a href="https://mamba.readthedocs.io/en/latest/mamba-installation.html#mamba-install">mamba</a> and <a href="https://crunchomics-documentation.readthedocs.io/en/latest/miniconda.html">conda</a>. Mamba is a newer version of conda and from experience faster but since its newer this might mean that not all software can yet be installed with mamba.</p>
+<p>NanoQC is part of the Nanopack package and I would recommend installing this package to already have other useful tools installed. Therefore, we install a new conda environment called nanopack. If you already have an environment with tools for long-read analyses I suggest adding nanopack there instead.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#setup new conda environment, which we name nanopack</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">--name</span> nanopack <span class="at">-c</span> conda-forge <span class="at">-c</span> bioconda python=3.6 pip</span>
@@ -390,8 +402,8 @@ div.csl-indent {
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#activate environment</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate nanopack </span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#install nanopack software tools </span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">/home/ndombro/personal/mambaforge/envs/nanopore/bin/pip3</span> install nanopack</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#install nanopack software tools using pip</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="va">$HOME</span><span class="ex">/personal/mambaforge/envs/nanopore/bin/pip3</span> install nanopack</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#close environment</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -795,7 +807,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">Copyright 2023, Nina Dombrowski</div>
+    <div class="nav-footer-center">Copyright 2023, Nina Dombrowski,<br>
+Last modified: November 16, 2023</div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2023-11-16">
 
 <title>Bioinformatics guidance page – chopper</title>
 <style>
@@ -170,8 +171,20 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/cli/readme.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Command line</span></a>
+  <a href="../../source/cli/cli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using the command line</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using an HPC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/conda/conda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Installing software</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -198,7 +211,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/Qiime/3_evelyn_tutorial_notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Follow Eveylyn’s QIIME workflow</span></a>
+ <span class="menu-text">A short QIIME tutorial</span></a>
   </div>
 </li>
       </ul>
@@ -376,7 +389,7 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="chopper">Chopper</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p><a href="https://github.com/wdecoster/chopper">Chopper</a> is a tool for quality filtering of long read data. It is a Rust implementation of NanoFilt and NanoLyse, both originally written in Python. This tool, intended for long read sequencing such as PacBio or ONT, filters and trims a fastq file <span class="citation" data-cites="decoster2023">(<a href="#ref-decoster2023" role="doc-biblioref">De Coster and Rademakers 2023</a>)</span>.</p>
+<p><a href="https://github.com/wdecoster/chopper">Chopper</a> is a tool for quality filtering of long read data. It is a Rust implementation of two other tools for long-read quality filtering, NanoFilt and NanoLyse, both originally written in Python. This tool, intended for long read sequencing such as PacBio or ONT, filters and trims a fastq file <span class="citation" data-cites="decoster2023">(<a href="#ref-decoster2023" role="doc-biblioref">De Coster and Rademakers 2023</a>)</span>.</p>
 <p>Available on Crunchomics: Not by default</p>
 </section>
 <section id="installation" class="level3">
@@ -396,7 +409,7 @@ div.csl-indent {
 <ul>
 <li>FASTQ files</li>
 </ul>
-<p>Example code:</p>
+<p>Example usage:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">chopper</span> <span class="at">-q</span> 10 <span class="dt">\</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">--headcrop</span> 0 <span class="dt">\</span></span>
@@ -795,7 +808,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">Copyright 2023, Nina Dombrowski</div>
+    <div class="nav-footer-center">Copyright 2023, Nina Dombrowski,<br>
+Last modified: November 16, 2023</div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

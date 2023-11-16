@@ -24,12 +24,12 @@ A test data set is provided with this tutorial and consists of already demultipl
 
 Other comments on the files:
 
-- barcode length = ~20
-- read length 250 bp
-- The primers used are for 515F-926R  (**fragment length** = 411)
-- length of the primer trimmed fragment (i.e. **target region**) = 371
-- calculating overlap: (length of forward read) + (length of reverse read) − (length of amplicon) = length of overlap
-  - 230 + 230 - 411 = 50
+- The barcodes used are ~20 bp long
+- Each read is 250 bp long
+- The primers used are called 515F and 926R and target the V4 region of the 16S SSU rRNA resulting in a **fragment length** or **amplicon size** of 411 bp
+- When removing the primer, we have a **target region** of around 371 bp
+- How to calculating whether or not there is an overlap between our forward and reverse read: (length of forward read) + (length of reverse read) − (length of amplicon) = length of overlap
+  - 250 + 250 - 411 = ~90 bp overlap
 
 
 ## QIIME2 terminology
@@ -63,7 +63,7 @@ Next, we download the example files for this tutorial. The folder contains:
 
 - De-multiplexed sequence fastq files in the data folder
 - A manifest.csv file that lists the sampleID, sample location and read orientation in the data folder
-- 
+- Files generated during the workflow
 
 ```{bash}
 wget https://zenodo.org/record/5025210/files/metabarcoding-qiime2-datapackage-v2021.06.2.tar.gz?download=1
@@ -77,12 +77,12 @@ cd metabarcoding-qiime2-datapackage-v2021.06.2
 Notice:
 
 - Change the path stored in wdir to wherever you downloaded the data
-- This is not needed but useful to have if you resume an analysis after closing the terminal
-- If you don't have QIIME installed on your personal computer then follow [these install instructions](https://docs.qiime2.org/2023.7/install/). The easiest is to follow the conda/mamba installation instructions.
+- Setting an environmental variable to your working directory is not needed but useful to have if you resume an analysis after closing the terminal or simply to remind yourself where you analysed your data
+
 
 ```{bash}
 #set working environment
-wdir="/mnt/c/Users/ndmic/WorkingDir/UvA/Tutorials/QIIME/Evelyn_Qiime/metabarcoding-qiime2-datapackage-v2021.06.2/"
+wdir="<path_to_your_downloaded_folder>/metabarcoding-qiime2-datapackage-v2021.06.2/"
 cd $wdir
 
 #activate QIIME environment 
@@ -93,6 +93,8 @@ mamba activate qiime2-2023.7
 
 
 ### Getting help
+
+The help argument allows you to get an explanation about what each plugin in QIIME 2 does:
 
 ```{bash}
 #find out what plugins are installed
@@ -111,7 +113,7 @@ qiime diversity alpha-phylogenetic --help
 
 ### The manifest file
 
-The manifest file includes the sample ids, the path to where each sequence read file, i.e. fastq.gz file, is stored, and its orientation. Because we have paired-end data and thus two files for each sample, we will list each sample twice, once for the forward and once for the reverse orientation. This is what the first few lines of the manifest file look like (or run `head data/MANIFEST.csv`):
+The manifest file includes the sample ids, the path to where each sequence read file, i.e. fastq.gz file, is stored, and the read orientation. Because we have paired-end data and thus two files for each sample, we will list each sample twice, once for the forward and once for the reverse orientation. This is what the first few lines of the manifest file look like if you open the file manually or run `head data/MANIFEST.csv` in the terminal:
 
 ```
 sample-id,absolute-filepath,direction
@@ -123,19 +125,20 @@ DUMMY12,$PWD/data/Sample-DUMMY12_R1.fastq.gz,forward
 DUMMY12,$PWD/data/Sample-DUMMY12_R2.fastq.gz,reverse
 ```
 
+Notice:
+
+- The manifest file is a csv file, i.e. a comma-separated file
+- We use `$PWD`, standing for print working directory, to say that the input files are in the data folder which is found in our working directory.
+
 ### Data import
 
-Comments:
-
-- A general tutorial on importing data can be found [here](https://docs.qiime2.org/2023.7/tutorials/importing/)
-- You can import data by: 
-  -  providing the path to the sequences with `--input-path`
-  - Or you can import sequences using the maifest file, which maps the sample identifiers to a fastq.gz or fastq file. It requires a file path, which as to be an absolute filepath (but can use $PWD/) as well as the direction of the reads. The manifest file is compatible with the metadata format
-- There are different phred scores used, Phred33 and Phred64. In Phred 64 files, you should not be seeing phred values <64. But you can also look at upper case and lower case of quality representations (ascii letters). In general, lower case means 64.
+We can import our data into QIIME as follows:
 
 ```{bash}
+#prepare a folder in which we store our imported data
 mkdir -p prep
 
+#import the fastq files into QIIME
 qiime tools import \
   --type 'SampleData[PairedEndSequencesWithQuality]' \
   --input-path data/MANIFEST.csv \
@@ -150,6 +153,18 @@ qiime demux summarize \
     --i-data prep/demux-seqs.qza \
     --o-visualization prep/demux-seqs.qzv
 ```
+
+If we visualize `prep/demux-seqs.qzv`  with QIIME view, we get an overview about our samples:
+
+![](../../img/qiime_read_sum.png)
+
+Some additonal comments on importing data:
+
+- A general tutorial on importing data can be found [here](https://docs.qiime2.org/2023.7/tutorials/importing/)
+- You can import data by: 
+  -  providing the path to the sequences with `--input-path`
+  - Or you can import sequences using the maifest file, which maps the sample identifiers to a fastq.gz or fastq file. It requires a file path, which as to be an absolute filepath (but can use $PWD/) as well as the direction of the reads. The manifest file is compatible with the metadata format
+- There are different phred scores used in the `input-format`: Phred33 and Phred64. In Phred 64 files, you should not be seeing phred values <64. But you can also look at upper case and lower case of quality representations (ascii letters). In general, lower case means 64.
 
 Useful Options:
 
@@ -183,19 +198,8 @@ fastqc data/*gz -o prep/fastqc
 
 ### Primer removal
 
-The next step is to remove any primer sequences. We will use the cutadapt QIIME2 plugin for that. Because we have paired-end data, there is a forward and reverse primer, referenced by the parameters `--p-front-f` and `--p-front-r`
+The next step is to remove any primer sequences. We will use the cutadapt QIIME2 plugin for that. Because we have paired-end data, there is a forward and reverse primer, referenced by the parameters `--p-front-f` and `--p-front-r`.
 
-Useful options:
-
-- trim-paired: Find and remove adapters in demultiplexed paired-end sequences
-- `-p-front-f` {TEXT...}    Sequence of an adapter ligated to the 5' end.
-- `--p-error-rate` {PROPORTION Range(0, 1, inclusive_end=True)}
-                          Maximum allowed error rate.           [default: 0.1]
-
-
-Notice:
-
-- I played a bit with the error threshold to see how it behaves
 
 ```{bash}
 qiime cutadapt trim-paired \
@@ -207,23 +211,15 @@ qiime cutadapt trim-paired \
   --p-cores 2 \
   --verbose
 
-qiime cutadapt trim-paired \
-    --i-demultiplexed-sequences prep/demux-seqs.qza \
-  --p-front-f GTGYCAGCMGCCGCGGTAA \
-  --p-front-r CCGYCAATTYMTTTRAGTTT \
-  --p-error-rate 0.1 \
-  --o-trimmed-sequences prep/trimmed-seqs_err0_1.qza \
-  --p-cores 2 \
-  --verbose
+#generate summary 
+qiime demux summarize \
+  --i-data prep/trimmed-seqs.qza \
+  --o-visualization prep/trimmed-seqs.qzv
 
-qiime cutadapt trim-paired \
-    --i-demultiplexed-sequences prep/demux-seqs.qza \
-  --p-front-f GTGYCAGCMGCCGCGGTAA \
-  --p-front-r CCGYCAATTYMTTTRAGTTT \
-  --p-error-rate 0.2 \
-  --o-trimmed-sequences prep/trimmed-seqs_err0_2.qza \
-  --p-cores 2 \
-  --verbose
+#export data (not necessary but to give an example how to do this)
+qiime tools extract \
+    --output-path prep/trimmed_remove_primers \
+    --input-path prep/trimmed-seqs.qza
 ```
 
 Useful options (for the full list, check the help function):
@@ -264,60 +260,26 @@ Useful options (for the full list, check the help function):
                                                                  [default: 33]
 
 
-```{bash}
-#generate summary 
-qiime demux summarize \
-  --i-data prep/trimmed-seqs.qza \
-  --o-visualization prep/trimmed-seqs.qzv
-
-qiime demux summarize \
-  --i-data prep/trimmed-seqs.qza \
-  --o-visualization prep/trimmed-seqs_err0_1.qzv
-
-qiime demux summarize \
-  --i-data prep/trimmed-seqs.qza \
-  --o-visualization prep/trimmed-seqs_err0_2.qzv
-
-#view trimmed sequences
-mkdir prep/trimmed_remove_primers
-
-qiime tools extract \
-    --output-path prep/trimmed_remove_primers \
-    --input-path prep/trimmed-seqs.qza
-
-#check for R1 sequences: 1,323,201 (all in the beginning it seems) to 38
-cat data/Sample-DUMMY*R1.fastq.gz | zcat | grep -c "GTG[CT]CAGC[AC]GCCGCGGTAA"
-
-cat prep/trimmed_remove_primers/c22435d6-299d-414e-931a-098ae6915e2e/data/DUMMY*R1*.fastq.gz | zcat | grep -c "GTG[CT]CAGC[AC]GCCGCGGTAA"
-
-#check for R2 sequences: 1,439,600 (all in the beginning it seems) to 38
-cat data/Sample-DUMMY*R2.fastq.gz | zcat | grep -c "CCG[CT]CAATT[CT][AC]TTT[AG]AGTTT"
-
-cat prep/trimmed_remove_primers/c22435d6-299d-414e-931a-098ae6915e2e/data/DUMMY*R2*.fastq.gz | zcat | grep -c "CCG[CT]CAATT[CT][AC]TTT[AG]AGTTT"
-
-```
-
-- The 38 adaptor sequences found were found inside the sequence, not at the beginning.
-- When using the 0.1 error rate, we can see that some positions at the end of the reverse reads have quite a low quality score, so we either need to watch this or use the more stringent cutoff.
 
 
+## Generate ASVs using Deblur or DADA2
 
-## Generate ASVs using deblur and dada2
+In order to minimize the risks of sequencer error in targeted sequencing, **clustering approaches** were initially developed. Clustering approaches are based upon the idea that related/similar organisms will have similar gene sequences and that rare sequencing errors will have a trivial contribution, if any, to the consensus sequence for these clusters, or operating taxonomic units (OTUs).
 
-In order to minimize the risks of sequencer error in targeted sequencing, clustering approaches were initially developed. Clustering approaches are based upon the idea that related/similar organisms will have similar target gene sequences and that rare sequencing errors will have a trivial contribution, if any, to the consensus sequence for these clusters, or operating taxonomic units (OTUs)
+In contrast, **ASV methods** generate an error model tailored to an individual sequencing run and employing algorithms that use the model to distinguish between true biological sequences and those generated by error. The two ASV methods we explore in this tutorial are Deblur and DADA2.
 
-ASV methods generating an error model tailored to an individual sequencing run and employing algorithms that use the model to distinguish between true biological sequences and those generated by error. The two ASV methods we explore in this tutorial are Deblur and DADA2.
+[DADA2](https://www.nature.com/articles/nmeth.3869) implements an algorithm that models the errors introduced during amplicon sequencing, and uses that error model to infer the true sample composition. DADA2 replaces the traditional OTU-picking step in amplicon sequencing workflows and instead produces tables of amplicon sequence variants (ASVs).
 
-[DADA2](https://www.nature.com/articles/nmeth.3869) implements a novel algorithm that models the errors introduced during amplicon sequencing, and uses that error model to infer the true sample composition. DADA2 replaces the traditional “OTU-picking” step in amplicon sequencing workflows, producing instead higher-resolution tables of amplicon sequence variants (ASVs).
-
-[Deblur](https://journals.asm.org/doi/full/10.1128/msystems.00191-16) uses pre-computed error profiles to obtain putative error-free sequences from Illumina MiSeq and HiSeq sequencing platforms. Unlike, Deblur operates on each sample independently. Additionally, reads are depleted from sequencing artifacts either using a set of known sequencing artifacts (such as PhiX) (negative filtering) or using a set of known 16S sequences (positive filtering). 
+[Deblur](https://journals.asm.org/doi/full/10.1128/msystems.00191-16) uses pre-computed error profiles to obtain putative error-free sequences from Illumina MiSeq and HiSeq sequencing platforms. Unlike DADA2, Deblur operates on each sample independently. Additionally, reads are depleted from sequencing artifacts either using a set of known sequencing artifacts (such as PhiX) (negative filtering) or using a set of known 16S sequences (positive filtering). 
 
 
-### Deblur: Merge paired end reads
+### Deblur
+
+#### 1. Merge paired end reads
 
 Notice:
 
-- Depending on the version you might need to change `qiime vsearch join-pairs` to `vsearch merge-pairs`. 
+- Depending on the QIIME 2 version you use, you might need to change `qiime vsearch join-pairs` to `vsearch merge-pairs`. 
 - Some more details on merging reads can be found [here](https://docs.qiime2.org/2023.7/tutorials/read-joining/)
 - **If you plan to use DADA2 to join and denoise your paired end data, do not join your reads prior to denoising with DADA2; DADA2 expects reads that have not yet been joined, and will join the reads for you during the denoising process.** 
 - Some [notes](https://forum.qiime2.org/t/calculate-overlap-base-pairs/4368) on overlap calculation for dada2
@@ -326,16 +288,17 @@ Notice:
 ```{bash}
 mkdir -p deblur
 
+#merge reads
 qiime vsearch merge-pairs \
   --i-demultiplexed-seqs prep/trimmed-seqs.qza \
   --o-merged-sequences deblur/joined-seqs.qza \
   --p-threads 2 \
   --verbose
 
+#summarize data
 qiime demux summarize \
   --i-data deblur/joined-seqs.qza \
   --o-visualization deblur/joined-seqs.qzv
-
 ```
 
 Useful options:
@@ -354,8 +317,9 @@ Useful options:
                          The number of threads to use for computation. Does
                          not scale much past 4 threads.           [default: 1]
 
-Example output from what is printed to the screen:
+When running this, we will get a lot of information printed to the screen. It is useful to look at this to know if the merge worked well. For example, we see below that ~90% of our sequences merged well, telling us that everything went fine. Much lower values might indicate some problems with the trimmed data.
 
+```
 Merging reads 100%
      45195  Pairs
      40730  Merged (90.1%)
@@ -380,15 +344,22 @@ Statistics of merged reads:
       0.21  Mean observed errors in merged region of forward sequences
       0.71  Mean observed errors in merged region of reverse sequences
       0.92  Mean observed errors in merged region
+```
 
 
-**In the end we end up with 1,346,501 joined reads (out of 1,554,929 trimmed reads); so ~86.5% of reads maintained which seems decent.**
+Notice that if we look at `deblur/joined-seqs.qzv` with QIIME view we see an increased quality score in the middle of the region:
 
-Notice that when looking at the plot we see an increased quality score in the middle of the region. When merging reads with tools like vsearch, the quality scores often increase, not decrease, in the region of overlap. The reason being, if the forward and reverse read call the same base at the same position (even if both are low quality), then the quality estimate for the base in that position goes up. That is, you have two independent observations of that base in that position. This is often the benefit of being able to merge paired reads, as you can recover / increase your confidence of the sequence in the region of overlap.
+![](../../img/qiime_merge.png)
 
-### Quality filter (required for deblur)
 
-Notice: Both DADA and deblur will do some quality filtering, so we do not need to be too strict here. Once can consider whether to even include this step, running this might be useful to reduce the dataset site.
+When merging reads with tools like vsearch, the quality scores often increase, not decrease, in the region of overlap. The reason being, if the forward and reverse read call the same base at the same position (even if both are low quality), then the quality estimate for the base in that position goes up. That is, you have two independent observations of that base in that position. This is often the benefit of being able to merge paired reads, as you can recover / increase your confidence of the sequence in the region of overlap.
+
+
+
+#### 2. Quality filtering
+
+
+Notice: Both DADA and deblur will do some quality filtering, so we do not need to be too strict here. One could consider whether to even include this step, however, running this might be useful to reduce the dataset site.
 
 ```{bash}
 qiime quality-filter q-score \
@@ -422,26 +393,7 @@ Default settings:
   `--p-max-ambiguous` 0: The maximum number of ambiguous (i.e., N) base calls.
 
 
-Summary:
-
-- Initially we had 1,346,501 joined reads , after filtering we have 1,346,501 (so nothing was lost). A few reads were trimmed, as can be seen based on the 2% percentile
-
-These results actually look very, very similar to the summary vizualisation of the joined sequences. In fact, when you look at the trimming stats, nothing really seems to have happened. This is somewhat unusual but so is the quality of this particular data set. Just be prepared that your own data may be of lower quality.
-
-
-### Run deblur
-
-- When we continue with deblur-denoise in the next step, you need to truncate your fragments such that they are all of the same length. The position at which sequences are truncated is specified by the `--p-trim-length` parameter. Any sequence that is shorter than this value will be lost from your analyses. Any sequence that is longer will be truncated at this position.
-- Evelyn selected a --p-trim-length of 370, because that resulted in minimal data loss. That is, only <9% of the reads were discarded for being too short, and only 4 bases were trimmed off from sequences of median length. Also, we can see that sequences afterwards drop in quality
-- Perform sequence quality control for Illumina data using the Deblur workflow
-  with a 16S reference as a positive filter. Only forward reads are supported
-  at this time. The specific reference used is the 88% OTUs from Greengenes
-  13_8. This mode of operation should only be used when data were generated
-  from a 16S amplicon protocol on an Illumina platform. The reference is only
-  used to assess whether each sequence is likely to be 16S by a local
-  alignment using SortMeRNA with a permissive e-value; the reference is not
-  used to characterize the sequences
-- deblur does an excellent job of denoising and likely produces less false-positives, compared to DADA2 and UNOISE3. It does however seem to get more conservative with longer reads.
+#### 3. Create ASVs with deblur
 
 
 ```{bash}
@@ -456,6 +408,15 @@ qiime deblur denoise-16S \
   --p-jobs-to-start 2 \
   --verbose
 ```
+
+How to set the parameters:
+
+- When you use `deblur-denoise`, you need to truncate your fragments such that they are all of the same length. The position at which sequences are truncated is specified by the `--p-trim-length` parameter. Any sequence that is shorter than this value will be lost from your analyses. Any sequence that is longer will be truncated at this position.
+- To decide on what value to choose, inspect `deblur/filt-seqs.qzv` with QIIME view. Once you open the interactive quality plot and scroll down we see the following:
+
+![](../../img/qiime_dblur1.png){width=70% fig-align="center"}
+
+- We can set `--p-trim-length` of 370, because that resulted in minimal data loss. That is, only <9% of the reads were discarded for being too short, and only 4 bases were trimmed off from sequences of median length.
 
 Useful options:
 
@@ -485,6 +446,7 @@ Generated outputs:
 - A representative sequences artifact with one single fasta sequence for each of the features in the feature table.
 - A stats artifact with details of how many reads passed each filtering step of the deblur procedure.
 
+We can create visualizations from the different outputs as follows:
 
 ```{bash}
 #look at stats
@@ -648,12 +610,11 @@ qiime feature-table tabulate-seqs \
 
 Notes:
 
-- **Sanity check**: in the stats visualizations for both DADA2 and deblur check that outside of filtering, there should no step in which a majority of reads are lost. If a majority of reads failed to merge, you may need to revisit the truncLen parameter used in the filtering step and make sure that the truncated reads span your amplicon. If a majority of reads were removed as chimeric, you may need to revisit the removal of primers, as the ambiguous nucleotides in unremoved primers interfere with chimera identification
-- sequences that are much longer or shorter than expected may be the result of non-specific priming. You could consider removing those sequences from the asv table.
+- **Sanity check**: in the stats visualizations for both DADA2 and deblur check that outside of filtering, there should be no step in which a majority of reads are lost. If a majority of reads failed to merge, you may need to revisit the truncLen parameter used in the filtering step and make sure that the truncated reads span your amplicon. If a majority of reads were removed as chimeric, you may need to revisit the removal of primers, as the ambiguous nucleotides in unremoved primers interfere with chimera identification
+- sequences that are much longer or shorter than expected may be the result of non-specific priming. You could consider removing those sequences from the ASV table.
 
-Comments on the two methods:
+If we compare the two tools, we should see something like this:
 
-- Overall there seem to be a bit less reads passing through the DADA2 filters
 - Deblur:
   - 3,636 features
   - 290,671 total frequency (out of 1,346,802 filtered and merged reads, ca 21%)
@@ -663,23 +624,28 @@ Comments on the two methods:
   - 648,666 total frequency (out of 1554929 trimmed reads, ~41%)
   -  most samples at 10,000 frequency/sample peak, histrogram looks closer to normal distribution, 1 sample with ~37 000 frequencies
 
-Overal Dada2 seems beneficial in that less reads are lost but without some deeper dive into the data the qzv files are not informative enough to decide what happened to the sequences. From some quick checks, it seems that more sequences in dada2 pass the filtering steps, while a lot is lost in the deblur section "fraction-artifact-with-minsize":
-- Fraction-artifact-with-minsize is the fraction of sequences detected as artifactual, including those that fall below the minimum length threshold (specified by the --p-trim-length parameter). Fraction-artifact is the fraction of raw sequences that were identified as artifactual
-- If we check the min frequency we get 2000 with deblur and 0 with dada2, so these two are really not comparable at this stage
-- If we set both to a sampling depth of 2000 we get 
+Overal Dada2 seems beneficial in that less reads are lost but without some deeper dive into the data the qzv files are not informative enough to decide what happened to the sequences. The reason why more DADA2 retains more reads is related to the quality filtering steps. To better compare sequences, we could compare them at a sampling depth of 2000 and should see:
   - Retained 94,000 (32.34%) features in 47 (100.00%) samples  (deblur) instead of 290,671 (100.00%) features in 47 (100.00%)
   - Retained 94,000 (14.49%) features in 47 (95.92%) samples (dada2) instead of  648,666 (100.00%) features in 49 (100.00%) 
 
-Based on that it does not seem to make much of a difference what one uses.
+Based on that both methods produce very similar results.
 
 
 ## Taxonomic classification (Naive Bayes)
 
 To identify the organisms in a sample it is usually not enough using the closest alignment --- because other sequences that are equally close matches or nearly as close may have different taxonomic annotations. So we use taxonomy classifiers to determine the closest taxonomic affiliation with some degree of confidence or consensus (which may not be a species name if one cannot be predicted with certainty!), based on alignment, k-mer frequencies, etc.
 
-q2-feature-classifier contains three different classification methods: - classify-consensus-blast and classify-consensus-vsearch are both alignment-based methods that find a consensus assignment across N top hits. These methods take reference database FeatureData\[Taxonomy\] and FeatureData\[Sequence\] files directly, and do not need to be pre-trained - Machine-learning-based classification methods are available through classify-sklearn, and theoretically can apply any of the classification methods available in scikit-learn. These classifiers must be trained, e.g., to learn which features best distinguish each taxonomic group, adding an additional step to the classification process. Classifier training is reference database- and marker-gene-specific and only needs to happen once per marker-gene/reference database combination; that classifier may then be re-used as many times as you like without needing to re-train! - Most users do not even need to follow that tutorial and perform that training step, because the lovely QIIME 2 developers provide several [pre-trained classifiers](https://docs.qiime2.org/2023.7/data-resources/) for public use.
+q2-feature-classifier contains three different classification methods: 
 
-In general classify-sklearn with a Naive Bayes classifier can slightly outperform other methods we've tested based on several criteria for classification of 16S rRNA gene and fungal ITS sequences. It can be more difficult and frustrating for some users, however, since it requires that additional training step. That training step can be memory intensive, becoming a barrier for some users who are unable to use the pre-trained classifiers.
+- classify-consensus-blast 
+- classify-consensus-vsearch 
+- Machine-learning-based classification methods
+  
+The first two are alignment-based methods that find a consensus assignment across N top hits. These methods take reference database FeatureData\[Taxonomy\] and FeatureData\[Sequence\] files directly, and do not need to be pre-trained 
+
+Machine-learning-based classification methods are available through classify-sklearn, and theoretically can apply any of the classification methods available in scikit-learn. These classifiers must be trained, e.g., to learn which features best distinguish each taxonomic group, adding an additional step to the classification process. Classifier training is reference database- and marker-gene-specific and only needs to happen once per marker-gene/reference database combination; that classifier may then be re-used as many times as you like without needing to re-train!  QIIME 2 developers provide several [pre-trained classifiers](https://docs.qiime2.org/2023.7/data-resources/) for public use.
+
+In general classify-sklearn with a Naive Bayes classifier can slightly outperform other methods based on several criteria for classification of 16S rRNA gene and fungal ITS sequences. It can be more difficult and frustrating for some users, however, since it requires that additional training step. That training step can be memory intensive, becoming a barrier for some users who are unable to use the pre-trained classifiers.
 
 Check out the [Qiime info page](https://docs.qiime2.org/2023.7/tutorials/feature-classifier/) for other classifiers.
 
@@ -702,6 +668,8 @@ Requirements:
 
 ### Import the database
 
+First, we import the SILVA database (consisting of fasta sequences and ta taxonomy table) into QIIME:
+
 ```{bash}
 qiime tools import \
   --type "FeatureData[Sequence]" \
@@ -714,22 +682,14 @@ qiime tools import \
   --input-path db/SILVA_138_99_16S-ref-taxonomy.txt \
   --output-path db/SILVA_138_99_16S-ref-taxonomy.qza
 
-#check data: Avg length --> 1456.89
-head -2 db/SILVA_138_99_16S-ref-seqs.fna
-grep CP013078.2406498.2408039 db/SILVA_138_99_16S-ref-taxonomy.txt
-
-awk '{/>/&&++a||b+=length()}END{print b/a}' db/SILVA_138_99_16S-ref-seqs.fna
 ```
 
-- Using full length references to look at partial amplicons seems to have similar performances (depending on the algorithm), maybe slightly lower, check out [this paper](https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-018-0470-z).
-- Trimmed might give better species-level resolution and might make computation faster [see here](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3379627/)
-- Trimming will exclude non-target DNA, effectively denoising the kmer profiles used for training
-- It has been shown that taxonomic classification accuracy of 16S rRNA gene sequences improves when a Naive Bayes classifier is trained on only the region of the target sequences that was sequenced [Werner et al., 2012](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3217155/)
+
 
 
 ### Extract reference reads
 
-From the trimming step yesterday, we know which primer sequences were used. We can now use these same sequences to extract the corresponding region of the 16S rRNA sequences from the SILVA database, like so:
+We can now use these same sequences we used to amplify our 16S sequences to extract the corresponding region of the 16S rRNA sequences from the SILVA database, like so:
 
 ```{bash}
 qiime feature-classifier extract-reads \
@@ -742,7 +702,7 @@ qiime feature-classifier extract-reads \
 
 Options:
 
-- ` --p-trim-right` 0
+- `--p-trim-right` 0
 - `--p-trunc-len` 0
 - `--p-identity` {NUMBER}     minimum combined primer match identity threshold.
                                                                 [default: 0.8]
@@ -756,17 +716,19 @@ Options:
 This results in :
 
 - Min length: 56 (we have partial sequences)
-- Max length: 2316 (indicates we might have some non-16S seqs)
+- Max length: 2316 (indicates we might have some non-16S seqs or some 16S sequences have introns)
 - Mean length: 394 (What we would expect based on our 16S data)
   
 
 ### Train the classifier
 
-**Not run on Windows PC since this requires >32 GB RAM**
+Next, we use the reference fragments you just created to train your classifier specifically on your region of interest.
 
-- This classifier is not very specific with respect to which environment the samples come from, because it assumes that all species in the reference database are equally likely to be observed in your samples (i.e., that sea-floor microbes are just as likely to be found in a stool sample as microbes usually associated with stool).
-- It is possible to incorporate environment-specific taxonomic abundance information to improve species inference. This bespoke method has been shown to improve classification accuracy when compared to traditional Naive Bayes classifiers [Kaehler et al. 2019](https://www.nature.com/articles/s41467-019-12669-6). However, there are also some down-sides discussed [here](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-020-6592-2)
-- To train a classifier using this bespoke method, we need to provide an additional file with taxonomic weigths (see --i-class-weight in the qiime feature-classifier fit-classifier-naive-bayes help function) Pre-assembled taxonomic weights can be found in the readytowear collection at https://github.com/BenKaehler/readytowear.
+::: {.callout-warning}
+You should only run this step if you have >32GB of RAM available!
+
+If you run this on a desktop computer, you can use the pre-computed classifier found in the `db` folder.
+:::
 
 ```{bash}
 qiime feature-classifier fit-classifier-naive-bayes \
@@ -775,12 +737,17 @@ qiime feature-classifier fit-classifier-naive-bayes \
   --o-classifier db/SILVA_138_99_16S-ref-classifier.qza
 ```
 
-**Check on options online, since the help function is not very specific**
 
 
 ### Taxonomic classification
 
-**requires ~50 GB of RAM. Don’t run this yourself unless you have lots of RAM on your system.**
+Now that we have a trained classifier and a set of representative sequences from our DADA2-denoise analyses we can finally classify the sequences in our dataset.
+
+::: {.callout-warning}
+You should only run this step if you have ~50 GB of RAM available!
+
+If you run this on a desktop computer, you can use the pre-computed classifier found in the `taxonomy` folder.
+:::
 
 ```{bash}
 qiime feature-classifier classify-sklearn \
@@ -824,7 +791,7 @@ We see:
 
 ### Plot data
 
-Before running the command, we will need to prepair a metadata file. This metadata file should contain information on the samples. For instance, at which depth was the sample taken, from which location does it come, was it subjected to experimental or control treatment etc. etc. This information is of course very specific to the study design but at the very least it should look like this (see also data/META.tsv):
+Before running the command, we will need to prepare a metadata file. This metadata file should contain information on the samples. For instance, at which depth was the sample taken, from which location does it come, was it subjected to experimental or control treatment etc. etc. This information is of course very specific to the study design but at the very least it should look like this (see also data/META.tsv):
 
 ```
 #SampleID
@@ -842,6 +809,7 @@ but we can add any variables, like so:
 <your data>
 ```
 
+Next, we can generate a barplot like this:
 
 ```{bash}
 qiime taxa barplot \
@@ -1238,27 +1206,6 @@ conda env list
 #add amplicomics environment to be able to use the QIIME conda install
 conda config --add envs_dirs /zfs/omics/projects/amplicomics/miniconda3/envs/
 
-#exit server contenction (so steps below were run from fresh login)
-#install newer qiime2 version
-#wget https://data.qiime2.org/distro/core/qiime2-2023.7-py38-linux-conda.yml
-#mamba env create -n qiime2-2023.7 --file qiime2-2023.7-py38-linux-conda.yml
-
-#to install it in personal environment add hash before amplicomics envs in 
-#nano /home/ndombro/.condarc
-#mamba env create -n qiime2-2023.7 --file qiime2-2023.7-py38-linux-conda.yml 
-```
-
-
-### Useful SLURM commands
-
-If you have not used SLURM before, please check out the [Crunchomics tutorial](https://crunchomics-documentation.readthedocs.io/en/latest/slurm_overview.html). Below are two key commands to check memory usage and running things via SLURM is explained in a bit more detail in @sec-crunchomics.  
-
-```{bash}
-#find past job ids 
-sacct -X -o <JOB-ID> --starttime 2023-09-12
-
-#determine run time and mem requirements
-sacct -j <JOB-ID> --format="JobID,JobName,AllocCPUs,MaxRSS,elapsed" 
 ```
 
 

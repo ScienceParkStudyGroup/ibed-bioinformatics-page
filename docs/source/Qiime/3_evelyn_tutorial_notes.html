@@ -153,13 +153,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/cli/cli.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Command line</span></a>
+ <span class="menu-text">Using the command line</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/conda/hpc_usage" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Using a HPC</span></a>
+  <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using an HPC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -355,7 +355,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
   <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data">Import data</a></li>
   <li><a href="#quality-controls" id="toc-quality-controls" class="nav-link" data-scroll-target="#quality-controls">Quality controls</a></li>
-  <li><a href="#generate-asvs-using-deblur-and-dada2" id="toc-generate-asvs-using-deblur-and-dada2" class="nav-link" data-scroll-target="#generate-asvs-using-deblur-and-dada2">Generate ASVs using deblur and dada2</a></li>
+  <li><a href="#generate-asvs-using-deblur-or-dada2" id="toc-generate-asvs-using-deblur-or-dada2" class="nav-link" data-scroll-target="#generate-asvs-using-deblur-or-dada2">Generate ASVs using Deblur or DADA2</a></li>
   <li><a href="#taxonomic-classification-naive-bayes" id="toc-taxonomic-classification-naive-bayes" class="nav-link" data-scroll-target="#taxonomic-classification-naive-bayes">Taxonomic classification (Naive Bayes)</a></li>
   <li><a href="#filtering" id="toc-filtering" class="nav-link" data-scroll-target="#filtering">Filtering</a></li>
   <li><a href="#phylogenetic-tree-construction" id="toc-phylogenetic-tree-construction" class="nav-link" data-scroll-target="#phylogenetic-tree-construction">Phylogenetic tree construction</a></li>
@@ -385,13 +385,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Other comments on the files:</p>
 <ul>
-<li>barcode length = ~20</li>
-<li>read length 250 bp</li>
-<li>The primers used are for 515F-926R (<strong>fragment length</strong> = 411)</li>
-<li>length of the primer trimmed fragment (i.e.&nbsp;<strong>target region</strong>) = 371</li>
-<li>calculating overlap: (length of forward read) + (length of reverse read) − (length of amplicon) = length of overlap
+<li>The barcodes used are ~20 bp long</li>
+<li>Each read is 250 bp long</li>
+<li>The primers used are called 515F and 926R and target the V4 region of the 16S SSU rRNA resulting in a <strong>fragment length</strong> or <strong>amplicon size</strong> of 411 bp</li>
+<li>When removing the primer, we have a <strong>target region</strong> of around 371 bp</li>
+<li>How to calculating whether or not there is an overlap between our forward and reverse read: (length of forward read) + (length of reverse read) − (length of amplicon) = length of overlap
 <ul>
-<li>230 + 230 - 411 = 50</li>
+<li>250 + 250 - 411 = ~90 bp overlap</li>
 </ul></li>
 </ul>
 <section id="qiime2-terminology" class="level2">
@@ -418,7 +418,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>De-multiplexed sequence fastq files in the data folder</li>
 <li>A manifest.csv file that lists the sampleID, sample location and read orientation in the data folder</li>
-<li></li>
+<li>Files generated during the workflow</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://zenodo.org/record/5025210/files/metabarcoding-qiime2-datapackage-v2021.06.2.tar.gz<span class="pp">?</span>download=1</span>
@@ -432,12 +432,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Notice:</p>
 <ul>
 <li>Change the path stored in wdir to wherever you downloaded the data</li>
-<li>This is not needed but useful to have if you resume an analysis after closing the terminal</li>
-<li>If you don’t have QIIME installed on your personal computer then follow <a href="https://docs.qiime2.org/2023.7/install/">these install instructions</a>. The easiest is to follow the conda/mamba installation instructions.</li>
+<li>Setting an environmental variable to your working directory is not needed but useful to have if you resume an analysis after closing the terminal or simply to remind yourself where you analysed your data</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#set working environment</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">wdir</span><span class="op">=</span><span class="st">"/mnt/c/Users/ndmic/WorkingDir/UvA/Tutorials/QIIME/Evelyn_Qiime/metabarcoding-qiime2-datapackage-v2021.06.2/"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">wdir</span><span class="op">=</span><span class="st">"&lt;path_to_your_downloaded_folder&gt;/metabarcoding-qiime2-datapackage-v2021.06.2/"</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$wdir</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#activate QIIME environment </span></span>
@@ -447,6 +446,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="getting-help" class="level3">
 <h3 class="anchored" data-anchor-id="getting-help">Getting help</h3>
+<p>The help argument allows you to get an explanation about what each plugin in QIIME 2 does:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#find out what plugins are installed</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> <span class="at">--help</span></span>
@@ -463,7 +463,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="import-data">Import data</h2>
 <section id="the-manifest-file" class="level3">
 <h3 class="anchored" data-anchor-id="the-manifest-file">The manifest file</h3>
-<p>The manifest file includes the sample ids, the path to where each sequence read file, i.e.&nbsp;fastq.gz file, is stored, and its orientation. Because we have paired-end data and thus two files for each sample, we will list each sample twice, once for the forward and once for the reverse orientation. This is what the first few lines of the manifest file look like (or run <code>head data/MANIFEST.csv</code>):</p>
+<p>The manifest file includes the sample ids, the path to where each sequence read file, i.e.&nbsp;fastq.gz file, is stored, and the read orientation. Because we have paired-end data and thus two files for each sample, we will list each sample twice, once for the forward and once for the reverse orientation. This is what the first few lines of the manifest file look like if you open the file manually or run <code>head data/MANIFEST.csv</code> in the terminal:</p>
 <pre><code>sample-id,absolute-filepath,direction
 DUMMY10,$PWD/data/Sample-DUMMY10_R1.fastq.gz,forward
 DUMMY10,$PWD/data/Sample-DUMMY10_R2.fastq.gz,reverse
@@ -471,10 +471,37 @@ DUMMY11,$PWD/data/Sample-DUMMY11_R1.fastq.gz,forward
 DUMMY11,$PWD/data/Sample-DUMMY11_R2.fastq.gz,reverse
 DUMMY12,$PWD/data/Sample-DUMMY12_R1.fastq.gz,forward
 DUMMY12,$PWD/data/Sample-DUMMY12_R2.fastq.gz,reverse</code></pre>
+<p>Notice:</p>
+<ul>
+<li>The manifest file is a csv file, i.e.&nbsp;a comma-separated file</li>
+<li>We use <code>$PWD</code>, standing for print working directory, to say that the input files are in the data folder which is found in our working directory.</li>
+</ul>
 </section>
 <section id="data-import" class="level3">
 <h3 class="anchored" data-anchor-id="data-import">Data import</h3>
-<p>Comments:</p>
+<p>We can import our data into QIIME as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#prepare a folder in which we store our imported data</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> prep</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#import the fastq files into QIIME</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> tools import <span class="dt">\</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--type</span> <span class="st">'SampleData[PairedEndSequencesWithQuality]'</span> <span class="dt">\</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--input-path</span> data/MANIFEST.csv <span class="dt">\</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--input-format</span> PairedEndFastqManifestPhred33 <span class="dt">\</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output-path</span> prep/demux-seqs.qza</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#check artifact type</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> tools peek prep/demux-seqs.qza </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#generate summary</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> demux summarize <span class="dt">\</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">--i-data</span> prep/demux-seqs.qza <span class="dt">\</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">--o-visualization</span> prep/demux-seqs.qzv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we visualize <code>prep/demux-seqs.qzv</code> with QIIME view, we get an overview about our samples:</p>
+<p><img src="../../img/qiime_read_sum.png" class="img-fluid"></p>
+<p>Some additonal comments on importing data:</p>
 <ul>
 <li>A general tutorial on importing data can be found <a href="https://docs.qiime2.org/2023.7/tutorials/importing/">here</a></li>
 <li>You can import data by:
@@ -482,25 +509,8 @@ DUMMY12,$PWD/data/Sample-DUMMY12_R2.fastq.gz,reverse</code></pre>
 <li>providing the path to the sequences with <code>--input-path</code></li>
 <li>Or you can import sequences using the maifest file, which maps the sample identifiers to a fastq.gz or fastq file. It requires a file path, which as to be an absolute filepath (but can use $PWD/) as well as the direction of the reads. The manifest file is compatible with the metadata format</li>
 </ul></li>
-<li>There are different phred scores used, Phred33 and Phred64. In Phred 64 files, you should not be seeing phred values &lt;64. But you can also look at upper case and lower case of quality representations (ascii letters). In general, lower case means 64.</li>
+<li>There are different phred scores used in the <code>input-format</code>: Phred33 and Phred64. In Phred 64 files, you should not be seeing phred values &lt;64. But you can also look at upper case and lower case of quality representations (ascii letters). In general, lower case means 64.</li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> prep</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> tools import <span class="dt">\</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--type</span> <span class="st">'SampleData[PairedEndSequencesWithQuality]'</span> <span class="dt">\</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--input-path</span> data/MANIFEST.csv <span class="dt">\</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--input-format</span> PairedEndFastqManifestPhred33 <span class="dt">\</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output-path</span> prep/demux-seqs.qza</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#check artifact type</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> tools peek prep/demux-seqs.qza </span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#generate summary</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> demux summarize <span class="dt">\</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">--i-data</span> prep/demux-seqs.qza <span class="dt">\</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">--o-visualization</span> prep/demux-seqs.qzv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <p>Useful Options:</p>
 <ul>
 <li><code>--type</code> {TEXT} The semantic type of the artifact that will be created upon importing. Use –show-importable-types to see what importable semantic types are available in the current deployment. [required]</li>
@@ -523,17 +533,7 @@ DUMMY12,$PWD/data/Sample-DUMMY12_R2.fastq.gz,reverse</code></pre>
 </section>
 <section id="primer-removal" class="level3">
 <h3 class="anchored" data-anchor-id="primer-removal">Primer removal</h3>
-<p>The next step is to remove any primer sequences. We will use the cutadapt QIIME2 plugin for that. Because we have paired-end data, there is a forward and reverse primer, referenced by the parameters <code>--p-front-f</code> and <code>--p-front-r</code></p>
-<p>Useful options:</p>
-<ul>
-<li>trim-paired: Find and remove adapters in demultiplexed paired-end sequences</li>
-<li><code>-p-front-f</code> {TEXT…} Sequence of an adapter ligated to the 5’ end.</li>
-<li><code>--p-error-rate</code> {PROPORTION Range(0, 1, inclusive_end=True)} Maximum allowed error rate. [default: 0.1]</li>
-</ul>
-<p>Notice:</p>
-<ul>
-<li>I played a bit with the error threshold to see how it behaves</li>
-</ul>
+<p>The next step is to remove any primer sequences. We will use the cutadapt QIIME2 plugin for that. Because we have paired-end data, there is a forward and reverse primer, referenced by the parameters <code>--p-front-f</code> and <code>--p-front-r</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> cutadapt trim-paired <span class="dt">\</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--i-demultiplexed-sequences</span> prep/demux-seqs.qza <span class="dt">\</span></span>
@@ -544,23 +544,15 @@ DUMMY12,$PWD/data/Sample-DUMMY12_R2.fastq.gz,reverse</code></pre>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-cores</span> 2 <span class="dt">\</span></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> cutadapt trim-paired <span class="dt">\</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--i-demultiplexed-sequences</span> prep/demux-seqs.qza <span class="dt">\</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-front-f</span> GTGYCAGCMGCCGCGGTAA <span class="dt">\</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-front-r</span> CCGYCAATTYMTTTRAGTTT <span class="dt">\</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-error-rate</span> 0.1 <span class="dt">\</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-trimmed-sequences</span> prep/trimmed-seqs_err0_1.qza <span class="dt">\</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-cores</span> 2 <span class="dt">\</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> cutadapt trim-paired <span class="dt">\</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">--i-demultiplexed-sequences</span> prep/demux-seqs.qza <span class="dt">\</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-front-f</span> GTGYCAGCMGCCGCGGTAA <span class="dt">\</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-front-r</span> CCGYCAATTYMTTTRAGTTT <span class="dt">\</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-error-rate</span> 0.2 <span class="dt">\</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-trimmed-sequences</span> prep/trimmed-seqs_err0_2.qza <span class="dt">\</span></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-cores</span> 2 <span class="dt">\</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#generate summary </span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> demux summarize <span class="dt">\</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-data</span> prep/trimmed-seqs.qza <span class="dt">\</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> prep/trimmed-seqs.qzv</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#export data (not necessary but to give an example how to do this)</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> tools extract <span class="dt">\</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">--output-path</span> prep/trimmed_remove_primers <span class="dt">\</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">--input-path</span> prep/trimmed-seqs.qza</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Useful options (for the full list, check the help function):</p>
 <ul>
@@ -574,71 +566,40 @@ DUMMY12,$PWD/data/Sample-DUMMY12_R2.fastq.gz,reverse</code></pre>
 <li><code>--p-minimum-length</code> INTEGER Range(1, None) Discard reads shorter than specified value. Note, the cutadapt default of 0 has been overridden, because that value produces empty sequence records. [default: 1]</li>
 <li><code>--p-max-expected-errors</code> NUMBER Range(0, None) Discard reads that exceed maximum expected erroneous nucleotides. [optional] <code>--p-max-n</code> NUMBER Discard reads with more than COUNT N bases. If Range(0, None) COUNT_or_FRACTION is a number between 0 and 1, it is interpreted as a fraction of the read length. [optional] <code>--p-quality-cutoff-5end</code> INTEGER Range(0, None) Trim nucleotides with Phred score quality lower than threshold from 5 prime end. [default: 0] <code>--p-quality-cutoff-3end</code> INTEGER Range(0, None) Trim nucleotides with Phred score quality lower than threshold from 3 prime end. [default: 0] <code>--p-quality-base</code> INTEGER Range(0, None) How the Phred score is encoded (33 or 64). [default: 33]</li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#generate summary </span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> demux summarize <span class="dt">\</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-data</span> prep/trimmed-seqs.qza <span class="dt">\</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> prep/trimmed-seqs.qzv</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> demux summarize <span class="dt">\</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-data</span> prep/trimmed-seqs.qza <span class="dt">\</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> prep/trimmed-seqs_err0_1.qzv</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> demux summarize <span class="dt">\</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-data</span> prep/trimmed-seqs.qza <span class="dt">\</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> prep/trimmed-seqs_err0_2.qzv</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#view trimmed sequences</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> prep/trimmed_remove_primers</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> tools extract <span class="dt">\</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">--output-path</span> prep/trimmed_remove_primers <span class="dt">\</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">--input-path</span> prep/trimmed-seqs.qza</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co">#check for R1 sequences: 1,323,201 (all in the beginning it seems) to 38</span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> data/Sample-DUMMY<span class="pp">*</span>R1.fastq.gz <span class="kw">|</span> <span class="fu">zcat</span> <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-c</span> <span class="st">"GTG[CT]CAGC[AC]GCCGCGGTAA"</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> prep/trimmed_remove_primers/c22435d6-299d-414e-931a-098ae6915e2e/data/DUMMY<span class="pp">*</span>R1<span class="pp">*</span>.fastq.gz <span class="kw">|</span> <span class="fu">zcat</span> <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-c</span> <span class="st">"GTG[CT]CAGC[AC]GCCGCGGTAA"</span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co">#check for R2 sequences: 1,439,600 (all in the beginning it seems) to 38</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> data/Sample-DUMMY<span class="pp">*</span>R2.fastq.gz <span class="kw">|</span> <span class="fu">zcat</span> <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-c</span> <span class="st">"CCG[CT]CAATT[CT][AC]TTT[AG]AGTTT"</span></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> prep/trimmed_remove_primers/c22435d6-299d-414e-931a-098ae6915e2e/data/DUMMY<span class="pp">*</span>R2<span class="pp">*</span>.fastq.gz <span class="kw">|</span> <span class="fu">zcat</span> <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-c</span> <span class="st">"CCG[CT]CAATT[CT][AC]TTT[AG]AGTTT"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul>
-<li>The 38 adaptor sequences found were found inside the sequence, not at the beginning.</li>
-<li>When using the 0.1 error rate, we can see that some positions at the end of the reverse reads have quite a low quality score, so we either need to watch this or use the more stringent cutoff.</li>
-</ul>
 </section>
 </section>
-<section id="generate-asvs-using-deblur-and-dada2" class="level2">
-<h2 class="anchored" data-anchor-id="generate-asvs-using-deblur-and-dada2">Generate ASVs using deblur and dada2</h2>
-<p>In order to minimize the risks of sequencer error in targeted sequencing, clustering approaches were initially developed. Clustering approaches are based upon the idea that related/similar organisms will have similar target gene sequences and that rare sequencing errors will have a trivial contribution, if any, to the consensus sequence for these clusters, or operating taxonomic units (OTUs)</p>
-<p>ASV methods generating an error model tailored to an individual sequencing run and employing algorithms that use the model to distinguish between true biological sequences and those generated by error. The two ASV methods we explore in this tutorial are Deblur and DADA2.</p>
-<p><a href="https://www.nature.com/articles/nmeth.3869">DADA2</a> implements a novel algorithm that models the errors introduced during amplicon sequencing, and uses that error model to infer the true sample composition. DADA2 replaces the traditional “OTU-picking” step in amplicon sequencing workflows, producing instead higher-resolution tables of amplicon sequence variants (ASVs).</p>
-<p><a href="https://journals.asm.org/doi/full/10.1128/msystems.00191-16">Deblur</a> uses pre-computed error profiles to obtain putative error-free sequences from Illumina MiSeq and HiSeq sequencing platforms. Unlike, Deblur operates on each sample independently. Additionally, reads are depleted from sequencing artifacts either using a set of known sequencing artifacts (such as PhiX) (negative filtering) or using a set of known 16S sequences (positive filtering).</p>
-<section id="deblur-merge-paired-end-reads" class="level3">
-<h3 class="anchored" data-anchor-id="deblur-merge-paired-end-reads">Deblur: Merge paired end reads</h3>
+<section id="generate-asvs-using-deblur-or-dada2" class="level2">
+<h2 class="anchored" data-anchor-id="generate-asvs-using-deblur-or-dada2">Generate ASVs using Deblur or DADA2</h2>
+<p>In order to minimize the risks of sequencer error in targeted sequencing, <strong>clustering approaches</strong> were initially developed. Clustering approaches are based upon the idea that related/similar organisms will have similar gene sequences and that rare sequencing errors will have a trivial contribution, if any, to the consensus sequence for these clusters, or operating taxonomic units (OTUs).</p>
+<p>In contrast, <strong>ASV methods</strong> generate an error model tailored to an individual sequencing run and employing algorithms that use the model to distinguish between true biological sequences and those generated by error. The two ASV methods we explore in this tutorial are Deblur and DADA2.</p>
+<p><a href="https://www.nature.com/articles/nmeth.3869">DADA2</a> implements an algorithm that models the errors introduced during amplicon sequencing, and uses that error model to infer the true sample composition. DADA2 replaces the traditional OTU-picking step in amplicon sequencing workflows and instead produces tables of amplicon sequence variants (ASVs).</p>
+<p><a href="https://journals.asm.org/doi/full/10.1128/msystems.00191-16">Deblur</a> uses pre-computed error profiles to obtain putative error-free sequences from Illumina MiSeq and HiSeq sequencing platforms. Unlike DADA2, Deblur operates on each sample independently. Additionally, reads are depleted from sequencing artifacts either using a set of known sequencing artifacts (such as PhiX) (negative filtering) or using a set of known 16S sequences (positive filtering).</p>
+<section id="deblur" class="level3">
+<h3 class="anchored" data-anchor-id="deblur">Deblur</h3>
+<section id="merge-paired-end-reads" class="level4">
+<h4 class="anchored" data-anchor-id="merge-paired-end-reads">1. Merge paired end reads</h4>
 <p>Notice:</p>
 <ul>
-<li>Depending on the version you might need to change <code>qiime vsearch join-pairs</code> to <code>vsearch merge-pairs</code>.</li>
+<li>Depending on the QIIME 2 version you use, you might need to change <code>qiime vsearch join-pairs</code> to <code>vsearch merge-pairs</code>.</li>
 <li>Some more details on merging reads can be found <a href="https://docs.qiime2.org/2023.7/tutorials/read-joining/">here</a></li>
 <li><strong>If you plan to use DADA2 to join and denoise your paired end data, do not join your reads prior to denoising with DADA2; DADA2 expects reads that have not yet been joined, and will join the reads for you during the denoising process.</strong></li>
 <li>Some <a href="https://forum.qiime2.org/t/calculate-overlap-base-pairs/4368">notes</a> on overlap calculation for dada2</li>
 <li>Another option for joining is <strong>fastq-join</strong></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> deblur</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> vsearch merge-pairs <span class="dt">\</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-demultiplexed-seqs</span> prep/trimmed-seqs.qza <span class="dt">\</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-merged-sequences</span> deblur/joined-seqs.qza <span class="dt">\</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-threads</span> 2 <span class="dt">\</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> demux summarize <span class="dt">\</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-data</span> deblur/joined-seqs.qza <span class="dt">\</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> deblur/joined-seqs.qzv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> deblur</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#merge reads</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> vsearch merge-pairs <span class="dt">\</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-demultiplexed-seqs</span> prep/trimmed-seqs.qza <span class="dt">\</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-merged-sequences</span> deblur/joined-seqs.qza <span class="dt">\</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-threads</span> 2 <span class="dt">\</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#summarize data</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> demux summarize <span class="dt">\</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-data</span> deblur/joined-seqs.qza <span class="dt">\</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> deblur/joined-seqs.qzv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Useful options:</p>
 <ul>
@@ -649,17 +610,38 @@ DUMMY12,$PWD/data/Sample-DUMMY12_R2.fastq.gz,reverse</code></pre>
 <li><code>--p-maxee</code> {NUMBER} Maximum number of expected errors in the merged read Range(0.0, None) to be retained. [optional]</li>
 <li><code>--p-threads</code> {INTEGER Range(0, 8, inclusive_end=True)} The number of threads to use for computation. Does not scale much past 4 threads. [default: 1]</li>
 </ul>
-<p>Example output from what is printed to the screen:</p>
-<p>Merging reads 100% 45195 Pairs 40730 Merged (90.1%) 4465 Not merged (9.9%)</p>
-<p>Pairs that failed merging due to various reasons: 50 too few kmers found on same diagonal 30 multiple potential alignments 1878 too many differences 1790 alignment score too low, or score drop too high 717 staggered read pairs</p>
-<p>Statistics of all reads: 233.02 Mean read length</p>
-<p>Statistics of merged reads: 374.39 Mean fragment length 14.67 Standard deviation of fragment length 0.32 Mean expected error in forward sequences 0.78 Mean expected error in reverse sequences 0.51 Mean expected error in merged sequences 0.21 Mean observed errors in merged region of forward sequences 0.71 Mean observed errors in merged region of reverse sequences 0.92 Mean observed errors in merged region</p>
-<p><strong>In the end we end up with 1,346,501 joined reads (out of 1,554,929 trimmed reads); so ~86.5% of reads maintained which seems decent.</strong></p>
-<p>Notice that when looking at the plot we see an increased quality score in the middle of the region. When merging reads with tools like vsearch, the quality scores often increase, not decrease, in the region of overlap. The reason being, if the forward and reverse read call the same base at the same position (even if both are low quality), then the quality estimate for the base in that position goes up. That is, you have two independent observations of that base in that position. This is often the benefit of being able to merge paired reads, as you can recover / increase your confidence of the sequence in the region of overlap.</p>
+<p>When running this, we will get a lot of information printed to the screen. It is useful to look at this to know if the merge worked well. For example, we see below that ~90% of our sequences merged well, telling us that everything went fine. Much lower values might indicate some problems with the trimmed data.</p>
+<pre><code>Merging reads 100%
+     45195  Pairs
+     40730  Merged (90.1%)
+      4465  Not merged (9.9%)
+
+Pairs that failed merging due to various reasons:
+        50  too few kmers found on same diagonal
+        30  multiple potential alignments
+      1878  too many differences
+      1790  alignment score too low, or score drop too high
+       717  staggered read pairs
+
+Statistics of all reads:
+    233.02  Mean read length
+
+Statistics of merged reads:
+    374.39  Mean fragment length
+     14.67  Standard deviation of fragment length
+      0.32  Mean expected error in forward sequences
+      0.78  Mean expected error in reverse sequences
+      0.51  Mean expected error in merged sequences
+      0.21  Mean observed errors in merged region of forward sequences
+      0.71  Mean observed errors in merged region of reverse sequences
+      0.92  Mean observed errors in merged region</code></pre>
+<p>Notice that if we look at <code>deblur/joined-seqs.qzv</code> with QIIME view we see an increased quality score in the middle of the region:</p>
+<p><img src="../../img/qiime_merge.png" class="img-fluid"></p>
+<p>When merging reads with tools like vsearch, the quality scores often increase, not decrease, in the region of overlap. The reason being, if the forward and reverse read call the same base at the same position (even if both are low quality), then the quality estimate for the base in that position goes up. That is, you have two independent observations of that base in that position. This is often the benefit of being able to merge paired reads, as you can recover / increase your confidence of the sequence in the region of overlap.</p>
 </section>
-<section id="quality-filter-required-for-deblur" class="level3">
-<h3 class="anchored" data-anchor-id="quality-filter-required-for-deblur">Quality filter (required for deblur)</h3>
-<p>Notice: Both DADA and deblur will do some quality filtering, so we do not need to be too strict here. Once can consider whether to even include this step, running this might be useful to reduce the dataset site.</p>
+<section id="quality-filtering" class="level4">
+<h4 class="anchored" data-anchor-id="quality-filtering">2. Quality filtering</h4>
+<p>Notice: Both DADA and deblur will do some quality filtering, so we do not need to be too strict here. One could consider whether to even include this step, however, running this might be useful to reduce the dataset site.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> quality-filter q-score <span class="dt">\</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-demux</span> deblur/joined-seqs.qza <span class="dt">\</span></span>
@@ -682,20 +664,9 @@ DUMMY12,$PWD/data/Sample-DUMMY12_R2.fastq.gz,reverse</code></pre>
 <li><code>--p-quality-window</code> 3: The maximum number of low PHRED scores that can be observed in direct succession before truncating a sequence read.</li>
 <li><code>--p-min-length-fraction</code> 0.75: The minimum length that a sequence read can be following truncation and still be retained. This length should be provided as a fraction of the input sequence length. <code>--p-max-ambiguous</code> 0: The maximum number of ambiguous (i.e., N) base calls.</li>
 </ul>
-<p>Summary:</p>
-<ul>
-<li>Initially we had 1,346,501 joined reads , after filtering we have 1,346,501 (so nothing was lost). A few reads were trimmed, as can be seen based on the 2% percentile</li>
-</ul>
-<p>These results actually look very, very similar to the summary vizualisation of the joined sequences. In fact, when you look at the trimming stats, nothing really seems to have happened. This is somewhat unusual but so is the quality of this particular data set. Just be prepared that your own data may be of lower quality.</p>
 </section>
-<section id="run-deblur" class="level3">
-<h3 class="anchored" data-anchor-id="run-deblur">Run deblur</h3>
-<ul>
-<li>When we continue with deblur-denoise in the next step, you need to truncate your fragments such that they are all of the same length. The position at which sequences are truncated is specified by the <code>--p-trim-length</code> parameter. Any sequence that is shorter than this value will be lost from your analyses. Any sequence that is longer will be truncated at this position.</li>
-<li>Evelyn selected a –p-trim-length of 370, because that resulted in minimal data loss. That is, only &lt;9% of the reads were discarded for being too short, and only 4 bases were trimmed off from sequences of median length. Also, we can see that sequences afterwards drop in quality</li>
-<li>Perform sequence quality control for Illumina data using the Deblur workflow with a 16S reference as a positive filter. Only forward reads are supported at this time. The specific reference used is the 88% OTUs from Greengenes 13_8. This mode of operation should only be used when data were generated from a 16S amplicon protocol on an Illumina platform. The reference is only used to assess whether each sequence is likely to be 16S by a local alignment using SortMeRNA with a permissive e-value; the reference is not used to characterize the sequences</li>
-<li>deblur does an excellent job of denoising and likely produces less false-positives, compared to DADA2 and UNOISE3. It does however seem to get more conservative with longer reads.</li>
-</ul>
+<section id="create-asvs-with-deblur" class="level4">
+<h4 class="anchored" data-anchor-id="create-asvs-with-deblur">3. Create ASVs with deblur</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#default settings</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> deblur denoise-16S <span class="dt">\</span></span>
@@ -708,6 +679,19 @@ DUMMY12,$PWD/data/Sample-DUMMY12_R2.fastq.gz,reverse</code></pre>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-jobs-to-start</span> 2 <span class="dt">\</span></span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>How to set the parameters:</p>
+<ul>
+<li>When you use <code>deblur-denoise</code>, you need to truncate your fragments such that they are all of the same length. The position at which sequences are truncated is specified by the <code>--p-trim-length</code> parameter. Any sequence that is shorter than this value will be lost from your analyses. Any sequence that is longer will be truncated at this position.</li>
+<li>To decide on what value to choose, inspect <code>deblur/filt-seqs.qzv</code> with QIIME view. Once you open the interactive quality plot and scroll down we see the following:</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/qiime_dblur1.png" class="img-fluid figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<ul>
+<li>We can set <code>--p-trim-length</code> of 370, because that resulted in minimal data loss. That is, only &lt;9% of the reads were discarded for being too short, and only 4 bases were trimmed off from sequences of median length.</li>
+</ul>
 <p>Useful options:</p>
 <ul>
 <li><code>--p-trim-length</code> INTEGER Sequence trim length, specify -1 to disable trimming. [required]</li>
@@ -725,6 +709,7 @@ DUMMY12,$PWD/data/Sample-DUMMY12_R2.fastq.gz,reverse</code></pre>
 <li>A representative sequences artifact with one single fasta sequence for each of the features in the feature table.</li>
 <li>A stats artifact with details of how many reads passed each filtering step of the deblur procedure.</li>
 </ul>
+<p>We can create visualizations from the different outputs as follows:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#look at stats</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> deblur visualize-stats <span class="dt">\</span></span>
@@ -749,6 +734,7 @@ DUMMY12,$PWD/data/Sample-DUMMY12_R2.fastq.gz,reverse</code></pre>
 <li>With this dataset we loose a lot to “fraction-artifact-with-minsize” . This value is related to the <code>--p-min-size</code> parameter which sets the min abundance of a read to be retained (default 2). So we simply might loose things because it is a subsetted dataset and it means that most of your reads are singletons and so are discarded. For a real dataset this could be due to improper merging, not having removed primer/barcodes from your reads, or that there just is that many singletons (though unlikely imo)</li>
 <li>loss of sequences with merged reads in deblur compared to just the forward reads has been observed and discussed before <a href="https://forum.qiime2.org/t/losing-almost-all-reads-after-running-deblur-on-paired-end-sequences/5479">see here</a></li>
 </ul>
+</section>
 </section>
 <section id="qiime-tools-validate-code-for-sanity-checking" class="level3">
 <h3 class="anchored" data-anchor-id="qiime-tools-validate-code-for-sanity-checking"><code>qiime tools validate</code>: Code for sanity checking</h3>
@@ -806,12 +792,11 @@ DUMMY12,$PWD/data/Sample-DUMMY12_R2.fastq.gz,reverse</code></pre>
 </div>
 <p>Notes:</p>
 <ul>
-<li><strong>Sanity check</strong>: in the stats visualizations for both DADA2 and deblur check that outside of filtering, there should no step in which a majority of reads are lost. If a majority of reads failed to merge, you may need to revisit the truncLen parameter used in the filtering step and make sure that the truncated reads span your amplicon. If a majority of reads were removed as chimeric, you may need to revisit the removal of primers, as the ambiguous nucleotides in unremoved primers interfere with chimera identification</li>
-<li>sequences that are much longer or shorter than expected may be the result of non-specific priming. You could consider removing those sequences from the asv table.</li>
+<li><strong>Sanity check</strong>: in the stats visualizations for both DADA2 and deblur check that outside of filtering, there should be no step in which a majority of reads are lost. If a majority of reads failed to merge, you may need to revisit the truncLen parameter used in the filtering step and make sure that the truncated reads span your amplicon. If a majority of reads were removed as chimeric, you may need to revisit the removal of primers, as the ambiguous nucleotides in unremoved primers interfere with chimera identification</li>
+<li>sequences that are much longer or shorter than expected may be the result of non-specific priming. You could consider removing those sequences from the ASV table.</li>
 </ul>
-<p>Comments on the two methods:</p>
+<p>If we compare the two tools, we should see something like this:</p>
 <ul>
-<li>Overall there seem to be a bit less reads passing through the DADA2 filters</li>
 <li>Deblur:
 <ul>
 <li>3,636 features</li>
@@ -825,15 +810,22 @@ DUMMY12,$PWD/data/Sample-DUMMY12_R2.fastq.gz,reverse</code></pre>
 <li>most samples at 10,000 frequency/sample peak, histrogram looks closer to normal distribution, 1 sample with ~37 000 frequencies</li>
 </ul></li>
 </ul>
-<p>Overal Dada2 seems beneficial in that less reads are lost but without some deeper dive into the data the qzv files are not informative enough to decide what happened to the sequences. From some quick checks, it seems that more sequences in dada2 pass the filtering steps, while a lot is lost in the deblur section “fraction-artifact-with-minsize”: - Fraction-artifact-with-minsize is the fraction of sequences detected as artifactual, including those that fall below the minimum length threshold (specified by the –p-trim-length parameter). Fraction-artifact is the fraction of raw sequences that were identified as artifactual - If we check the min frequency we get 2000 with deblur and 0 with dada2, so these two are really not comparable at this stage - If we set both to a sampling depth of 2000 we get - Retained 94,000 (32.34%) features in 47 (100.00%) samples (deblur) instead of 290,671 (100.00%) features in 47 (100.00%) - Retained 94,000 (14.49%) features in 47 (95.92%) samples (dada2) instead of 648,666 (100.00%) features in 49 (100.00%)</p>
-<p>Based on that it does not seem to make much of a difference what one uses.</p>
+<p>Overal Dada2 seems beneficial in that less reads are lost but without some deeper dive into the data the qzv files are not informative enough to decide what happened to the sequences. The reason why more DADA2 retains more reads is related to the quality filtering steps. To better compare sequences, we could compare them at a sampling depth of 2000 and should see: - Retained 94,000 (32.34%) features in 47 (100.00%) samples (deblur) instead of 290,671 (100.00%) features in 47 (100.00%) - Retained 94,000 (14.49%) features in 47 (95.92%) samples (dada2) instead of 648,666 (100.00%) features in 49 (100.00%)</p>
+<p>Based on that both methods produce very similar results.</p>
 </section>
 </section>
 <section id="taxonomic-classification-naive-bayes" class="level2">
 <h2 class="anchored" data-anchor-id="taxonomic-classification-naive-bayes">Taxonomic classification (Naive Bayes)</h2>
 <p>To identify the organisms in a sample it is usually not enough using the closest alignment — because other sequences that are equally close matches or nearly as close may have different taxonomic annotations. So we use taxonomy classifiers to determine the closest taxonomic affiliation with some degree of confidence or consensus (which may not be a species name if one cannot be predicted with certainty!), based on alignment, k-mer frequencies, etc.</p>
-<p>q2-feature-classifier contains three different classification methods: - classify-consensus-blast and classify-consensus-vsearch are both alignment-based methods that find a consensus assignment across N top hits. These methods take reference database FeatureData[Taxonomy] and FeatureData[Sequence] files directly, and do not need to be pre-trained - Machine-learning-based classification methods are available through classify-sklearn, and theoretically can apply any of the classification methods available in scikit-learn. These classifiers must be trained, e.g., to learn which features best distinguish each taxonomic group, adding an additional step to the classification process. Classifier training is reference database- and marker-gene-specific and only needs to happen once per marker-gene/reference database combination; that classifier may then be re-used as many times as you like without needing to re-train! - Most users do not even need to follow that tutorial and perform that training step, because the lovely QIIME 2 developers provide several <a href="https://docs.qiime2.org/2023.7/data-resources/">pre-trained classifiers</a> for public use.</p>
-<p>In general classify-sklearn with a Naive Bayes classifier can slightly outperform other methods we’ve tested based on several criteria for classification of 16S rRNA gene and fungal ITS sequences. It can be more difficult and frustrating for some users, however, since it requires that additional training step. That training step can be memory intensive, becoming a barrier for some users who are unable to use the pre-trained classifiers.</p>
+<p>q2-feature-classifier contains three different classification methods:</p>
+<ul>
+<li>classify-consensus-blast</li>
+<li>classify-consensus-vsearch</li>
+<li>Machine-learning-based classification methods</li>
+</ul>
+<p>The first two are alignment-based methods that find a consensus assignment across N top hits. These methods take reference database FeatureData[Taxonomy] and FeatureData[Sequence] files directly, and do not need to be pre-trained</p>
+<p>Machine-learning-based classification methods are available through classify-sklearn, and theoretically can apply any of the classification methods available in scikit-learn. These classifiers must be trained, e.g., to learn which features best distinguish each taxonomic group, adding an additional step to the classification process. Classifier training is reference database- and marker-gene-specific and only needs to happen once per marker-gene/reference database combination; that classifier may then be re-used as many times as you like without needing to re-train! QIIME 2 developers provide several <a href="https://docs.qiime2.org/2023.7/data-resources/">pre-trained classifiers</a> for public use.</p>
+<p>In general classify-sklearn with a Naive Bayes classifier can slightly outperform other methods based on several criteria for classification of 16S rRNA gene and fungal ITS sequences. It can be more difficult and frustrating for some users, however, since it requires that additional training step. That training step can be memory intensive, becoming a barrier for some users who are unable to use the pre-trained classifiers.</p>
 <p>Check out the <a href="https://docs.qiime2.org/2023.7/tutorials/feature-classifier/">Qiime info page</a> for other classifiers.</p>
 <p>Notes:</p>
 <ul>
@@ -852,6 +844,7 @@ DUMMY12,$PWD/data/Sample-DUMMY12_R2.fastq.gz,reverse</code></pre>
 </ul>
 <section id="import-the-database" class="level3">
 <h3 class="anchored" data-anchor-id="import-the-database">Import the database</h3>
+<p>First, we import the SILVA database (consisting of fasta sequences and ta taxonomy table) into QIIME:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> tools import <span class="dt">\</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--type</span> <span class="st">"FeatureData[Sequence]"</span> <span class="dt">\</span></span>
@@ -862,24 +855,12 @@ DUMMY12,$PWD/data/Sample-DUMMY12_R2.fastq.gz,reverse</code></pre>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--type</span> <span class="st">"FeatureData[Taxonomy]"</span> <span class="dt">\</span></span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--input-format</span> HeaderlessTSVTaxonomyFormat <span class="dt">\</span></span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--input-path</span> db/SILVA_138_99_16S-ref-taxonomy.txt <span class="dt">\</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output-path</span> db/SILVA_138_99_16S-ref-taxonomy.qza</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co">#check data: Avg length --&gt; 1456.89</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-2</span> db/SILVA_138_99_16S-ref-seqs.fna</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> CP013078.2406498.2408039 db/SILVA_138_99_16S-ref-taxonomy.txt</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{/&gt;/&amp;&amp;++a||b+=length()}END{print b/a}'</span> db/SILVA_138_99_16S-ref-seqs.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output-path</span> db/SILVA_138_99_16S-ref-taxonomy.qza</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<ul>
-<li>Using full length references to look at partial amplicons seems to have similar performances (depending on the algorithm), maybe slightly lower, check out <a href="https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-018-0470-z">this paper</a>.</li>
-<li>Trimmed might give better species-level resolution and might make computation faster <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3379627/">see here</a></li>
-<li>Trimming will exclude non-target DNA, effectively denoising the kmer profiles used for training</li>
-<li>It has been shown that taxonomic classification accuracy of 16S rRNA gene sequences improves when a Naive Bayes classifier is trained on only the region of the target sequences that was sequenced <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3217155/">Werner et al., 2012</a></li>
-</ul>
 </section>
 <section id="extract-reference-reads" class="level3">
 <h3 class="anchored" data-anchor-id="extract-reference-reads">Extract reference reads</h3>
-<p>From the trimming step yesterday, we know which primer sequences were used. We can now use these same sequences to extract the corresponding region of the 16S rRNA sequences from the SILVA database, like so:</p>
+<p>We can now use these same sequences we used to amplify our 16S sequences to extract the corresponding region of the 16S rRNA sequences from the SILVA database, like so:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> feature-classifier extract-reads <span class="dt">\</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-sequences</span> db/SILVA_138_99_16S-ref-seqs.qza <span class="dt">\</span></span>
@@ -898,29 +879,51 @@ DUMMY12,$PWD/data/Sample-DUMMY12_R2.fastq.gz,reverse</code></pre>
 <p>This results in :</p>
 <ul>
 <li>Min length: 56 (we have partial sequences)</li>
-<li>Max length: 2316 (indicates we might have some non-16S seqs)</li>
+<li>Max length: 2316 (indicates we might have some non-16S seqs or some 16S sequences have introns)</li>
 <li>Mean length: 394 (What we would expect based on our 16S data)</li>
 </ul>
 </section>
 <section id="train-the-classifier" class="level3">
 <h3 class="anchored" data-anchor-id="train-the-classifier">Train the classifier</h3>
-<p><strong>Not run on Windows PC since this requires &gt;32 GB RAM</strong></p>
-<ul>
-<li>This classifier is not very specific with respect to which environment the samples come from, because it assumes that all species in the reference database are equally likely to be observed in your samples (i.e., that sea-floor microbes are just as likely to be found in a stool sample as microbes usually associated with stool).</li>
-<li>It is possible to incorporate environment-specific taxonomic abundance information to improve species inference. This bespoke method has been shown to improve classification accuracy when compared to traditional Naive Bayes classifiers <a href="https://www.nature.com/articles/s41467-019-12669-6">Kaehler et al.&nbsp;2019</a>. However, there are also some down-sides discussed <a href="https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-020-6592-2">here</a></li>
-<li>To train a classifier using this bespoke method, we need to provide an additional file with taxonomic weigths (see –i-class-weight in the qiime feature-classifier fit-classifier-naive-bayes help function) Pre-assembled taxonomic weights can be found in the readytowear collection at https://github.com/BenKaehler/readytowear.</li>
-</ul>
+<p>Next, we use the reference fragments you just created to train your classifier specifically on your region of interest.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You should only run this step if you have &gt;32GB of RAM available!</p>
+<p>If you run this on a desktop computer, you can use the pre-computed classifier found in the <code>db</code> folder.</p>
+</div>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> feature-classifier fit-classifier-naive-bayes <span class="dt">\</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-reference-reads</span> db/SILVA_138_99_16S-ref-frags.qza <span class="dt">\</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-reference-taxonomy</span> db/SILVA_138_99_16S-ref-taxonomy.qza <span class="dt">\</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-classifier</span> db/SILVA_138_99_16S-ref-classifier.qza</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>Check on options online, since the help function is not very specific</strong></p>
 </section>
 <section id="taxonomic-classification" class="level3">
 <h3 class="anchored" data-anchor-id="taxonomic-classification">Taxonomic classification</h3>
-<p><strong>requires ~50 GB of RAM. Don’t run this yourself unless you have lots of RAM on your system.</strong></p>
+<p>Now that we have a trained classifier and a set of representative sequences from our DADA2-denoise analyses we can finally classify the sequences in our dataset.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You should only run this step if you have ~50 GB of RAM available!</p>
+<p>If you run this on a desktop computer, you can use the pre-computed classifier found in the <code>taxonomy</code> folder.</p>
+</div>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> feature-classifier classify-sklearn <span class="dt">\</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-classifier</span> db/SILVA_138_99_16S-ref-classifier.qza <span class="dt">\</span></span>
@@ -948,7 +951,7 @@ DUMMY12,$PWD/data/Sample-DUMMY12_R2.fastq.gz,reverse</code></pre>
 </section>
 <section id="plot-data" class="level3">
 <h3 class="anchored" data-anchor-id="plot-data">Plot data</h3>
-<p>Before running the command, we will need to prepair a metadata file. This metadata file should contain information on the samples. For instance, at which depth was the sample taken, from which location does it come, was it subjected to experimental or control treatment etc. etc. This information is of course very specific to the study design but at the very least it should look like this (see also data/META.tsv):</p>
+<p>Before running the command, we will need to prepare a metadata file. This metadata file should contain information on the samples. For instance, at which depth was the sample taken, from which location does it come, was it subjected to experimental or control treatment etc. etc. This information is of course very specific to the study design but at the very least it should look like this (see also data/META.tsv):</p>
 <pre><code>#SampleID
 #q2:types
 DUMMY1
@@ -958,6 +961,7 @@ DUMMY10
 <pre><code>#SampleID    BarcodeSequence Location        depth   location        treatment       grainsize       flowrate        age
 #q2:types    categorical     categorical     categorical     catechorical    categorical     numeric numeric numeric
 &lt;your data&gt;</code></pre>
+<p>Next, we can generate a barplot like this:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> taxa barplot <span class="dt">\</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-table</span> dada2/dada2-table.qza <span class="dt">\</span></span>
@@ -1292,75 +1296,55 @@ qiime phylogeny midpoint-root ...</code></pre>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env list</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co">#add amplicomics environment to be able to use the QIIME conda install</span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/amplicomics/miniconda3/envs/</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co">#exit server contenction (so steps below were run from fresh login)</span></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="co">#install newer qiime2 version</span></span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="co">#wget https://data.qiime2.org/distro/core/qiime2-2023.7-py38-linux-conda.yml</span></span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="co">#mamba env create -n qiime2-2023.7 --file qiime2-2023.7-py38-linux-conda.yml</span></span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="co">#to install it in personal environment add hash before amplicomics envs in </span></span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a><span class="co">#nano /home/ndombro/.condarc</span></span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="co">#mamba env create -n qiime2-2023.7 --file qiime2-2023.7-py38-linux-conda.yml </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="useful-slurm-commands" class="level3">
-<h3 class="anchored" data-anchor-id="useful-slurm-commands">Useful SLURM commands</h3>
-<p>If you have not used SLURM before, please check out the <a href="https://crunchomics-documentation.readthedocs.io/en/latest/slurm_overview.html">Crunchomics tutorial</a>. Below are two key commands to check memory usage and running things via SLURM is explained in a bit more detail in <a href="#sec-crunchomics">Section&nbsp;1.12</a>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#find past job ids </span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span> <span class="at">-X</span> <span class="at">-o</span> <span class="op">&lt;</span>JOB-ID<span class="op">&gt;</span> --starttime 2023-09-12</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co">#determine run time and mem requirements</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span> <span class="at">-j</span> <span class="op">&lt;</span>JOB-ID<span class="op">&gt;</span> --format=<span class="st">"JobID,JobName,AllocCPUs,MaxRSS,elapsed"</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/amplicomics/miniconda3/envs/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="download-the-data" class="level3">
 <h3 class="anchored" data-anchor-id="download-the-data">Download the data</h3>
 <p>If you run this the first time, start by downloading the tutorial data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#download data data</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://zenodo.org/record/5025210/files/metabarcoding-qiime2-datapackage-v2021.06.2.tar.gz<span class="pp">?</span>download=1</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzvf</span> metabarcoding-qiime2-datapackage-v2021.06.2.tar.gz<span class="pp">?</span>download=1</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> metabarcoding-qiime2-datapackage-v2021.06.2.tar.gz<span class="dt">\?</span>download<span class="dt">\=</span>1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#download data data</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://zenodo.org/record/5025210/files/metabarcoding-qiime2-datapackage-v2021.06.2.tar.gz<span class="pp">?</span>download=1</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzvf</span> metabarcoding-qiime2-datapackage-v2021.06.2.tar.gz<span class="pp">?</span>download=1</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> metabarcoding-qiime2-datapackage-v2021.06.2.tar.gz<span class="dt">\?</span>download<span class="dt">\=</span>1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="setting-your-working-environment" class="level3">
 <h3 class="anchored" data-anchor-id="setting-your-working-environment">Setting your working environment</h3>
 <p>Below, we set some environmental variables describing the location for key files we want to use. The only thing that <strong>you need to change yourself</strong> is the path to the working directory, ie. wdir, and the path_to_where_you_downloaded_the_data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="va">wdir</span><span class="op">=</span><span class="st">"/home/ndombro/tutorials/evelyn_qiime"</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$wdir</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co">#make symbolic link to have the structures in the tutorial work</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> path_to_where_you_downloaded_the_data/metabarcoding-qiime2-datapackage-v2021.06.2/data ./</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="co">#set environmental variables</span></span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">MANIFEST</span><span class="op">=</span><span class="st">"data/MANIFEST.csv"</span></span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">META</span><span class="op">=</span><span class="st">"data/META.tsv"</span></span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PRIMFWD</span><span class="op">=</span><span class="st">"GTGYCAGCMGCCGCGGTAA"</span></span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PRIMREV</span><span class="op">=</span><span class="st">"CCGYCAATTYMTTTRAGTTT"</span></span>
-<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">TRIMLENG</span><span class="op">=</span>370</span>
-<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">TRUNKFWD</span><span class="op">=</span>230</span>
-<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">TRUNKREV</span><span class="op">=</span>220</span>
-<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">DBSEQ</span><span class="op">=</span><span class="st">"/zfs/omics/projects/amplicomics/databases/SILVA/SILVA_138_QIIME/data/silva-138-99-seqs.qza"</span></span>
-<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">DBTAX</span><span class="op">=</span><span class="st">"/zfs/omics/projects/amplicomics/databases/SILVA/SILVA_138_QIIME/data/silva-138-99-tax.qza"</span></span>
-<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">DBPREFIX</span><span class="op">=</span><span class="st">"SILVA_138_99_16S"</span></span>
-<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a><span class="co">#activate qiime environment</span></span>
-<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate qiime2-2023.7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="va">wdir</span><span class="op">=</span><span class="st">"/home/ndombro/tutorials/evelyn_qiime"</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$wdir</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co">#make symbolic link to have the structures in the tutorial work</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> path_to_where_you_downloaded_the_data/metabarcoding-qiime2-datapackage-v2021.06.2/data ./</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="co">#set environmental variables</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">MANIFEST</span><span class="op">=</span><span class="st">"data/MANIFEST.csv"</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">META</span><span class="op">=</span><span class="st">"data/META.tsv"</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PRIMFWD</span><span class="op">=</span><span class="st">"GTGYCAGCMGCCGCGGTAA"</span></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PRIMREV</span><span class="op">=</span><span class="st">"CCGYCAATTYMTTTRAGTTT"</span></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">TRIMLENG</span><span class="op">=</span>370</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">TRUNKFWD</span><span class="op">=</span>230</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">TRUNKREV</span><span class="op">=</span>220</span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">DBSEQ</span><span class="op">=</span><span class="st">"/zfs/omics/projects/amplicomics/databases/SILVA/SILVA_138_QIIME/data/silva-138-99-seqs.qza"</span></span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">DBTAX</span><span class="op">=</span><span class="st">"/zfs/omics/projects/amplicomics/databases/SILVA/SILVA_138_QIIME/data/silva-138-99-tax.qza"</span></span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">DBPREFIX</span><span class="op">=</span><span class="st">"SILVA_138_99_16S"</span></span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a><span class="co">#activate qiime environment</span></span>
+<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate qiime2-2023.7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="setup-folders-to-store-our-outputs" class="level3">
 <h3 class="anchored" data-anchor-id="setup-folders-to-store-our-outputs">Setup folders to store our outputs</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> logs</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> prep</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> deblur</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> dada2</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> db</span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> taxonomy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> logs</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> prep</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> deblur</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> dada2</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> db</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> taxonomy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="import-data-1" class="level3">
@@ -1371,19 +1355,19 @@ qiime phylogeny midpoint-root ...</code></pre>
 <li>the job needs to be run on 1 cpu (–cpus-per-task 1)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 1 qiime tools import <span class="dt">\</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--type</span> <span class="st">'SampleData[PairedEndSequencesWithQuality]'</span> <span class="dt">\</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--input-path</span> <span class="va">$MANIFEST</span> <span class="dt">\</span></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--input-format</span> PairedEndFastqManifestPhred33 <span class="dt">\</span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output-path</span> prep/demux-seqs.qza</span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="co">#create visualization</span></span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 1 qiime demux summarize <span class="dt">\</span></span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-data</span> prep/demux-seqs.qza <span class="dt">\</span></span>
-<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> prep/demux-seqs.qzv</span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a><span class="co">#instructions to view qvz (tool not available, need to check if I can find it) </span></span>
-<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a><span class="co">#how-to-view-this-qzv prep/demux-seqs.qzv</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 1 qiime tools import <span class="dt">\</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--type</span> <span class="st">'SampleData[PairedEndSequencesWithQuality]'</span> <span class="dt">\</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--input-path</span> <span class="va">$MANIFEST</span> <span class="dt">\</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--input-format</span> PairedEndFastqManifestPhred33 <span class="dt">\</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output-path</span> prep/demux-seqs.qza</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="co">#create visualization</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 1 qiime demux summarize <span class="dt">\</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-data</span> prep/demux-seqs.qza <span class="dt">\</span></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> prep/demux-seqs.qzv</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="co">#instructions to view qvz (tool not available, need to check if I can find it) </span></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a><span class="co">#how-to-view-this-qzv prep/demux-seqs.qzv</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Summary of statistics:</p>
 <pre><code>forward reads   reverse reads
@@ -1396,24 +1380,24 @@ Total   1554929     1554929</code></pre>
 <section id="primer-removal-1" class="level3">
 <h3 class="anchored" data-anchor-id="primer-removal-1">Primer removal</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 4 qiime cutadapt trim-paired <span class="dt">\</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-demultiplexed-sequences</span> prep/demux-seqs.qza <span class="dt">\</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-front-f</span> <span class="va">$PRIMFWD</span> <span class="dt">\</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-front-r</span> <span class="va">$PRIMREV</span> <span class="dt">\</span></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-error-rate</span> 0 <span class="dt">\</span></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-trimmed-sequences</span> prep/trimmed-seqs.qza <span class="dt">\</span></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-cores</span> 2 <span class="dt">\</span></span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span> <span class="dt">\</span></span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> logs/qiime-cutadapt-trim-paired.log</span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 1 qiime demux summarize <span class="dt">\</span></span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-data</span> prep/trimmed-seqs.qza <span class="dt">\</span></span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> prep/trimmed-seqs.qzv</span>
-<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a><span class="co">#make a table out of this (quick, so ok to run on headnode)</span></span>
-<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 1 qiime tools extract <span class="dt">\</span></span>
-<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>   <span class="at">--input-path</span> prep/trimmed-seqs.qzv <span class="dt">\</span></span>
-<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>   <span class="at">--output-path</span> visualizations/trimmed-seqs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 4 qiime cutadapt trim-paired <span class="dt">\</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-demultiplexed-sequences</span> prep/demux-seqs.qza <span class="dt">\</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-front-f</span> <span class="va">$PRIMFWD</span> <span class="dt">\</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-front-r</span> <span class="va">$PRIMREV</span> <span class="dt">\</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-error-rate</span> 0 <span class="dt">\</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-trimmed-sequences</span> prep/trimmed-seqs.qza <span class="dt">\</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-cores</span> 2 <span class="dt">\</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span> <span class="dt">\</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> logs/qiime-cutadapt-trim-paired.log</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 1 qiime demux summarize <span class="dt">\</span></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-data</span> prep/trimmed-seqs.qza <span class="dt">\</span></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> prep/trimmed-seqs.qzv</span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a><span class="co">#make a table out of this (quick, so ok to run on headnode)</span></span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 1 qiime tools extract <span class="dt">\</span></span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>   <span class="at">--input-path</span> prep/trimmed-seqs.qzv <span class="dt">\</span></span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>   <span class="at">--output-path</span> visualizations/trimmed-seqs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Information about the 2&gt;&amp;1 is a redirection operator :
@@ -1441,16 +1425,16 @@ Total   1554929     1554929</code></pre>
 <h4 class="anchored" data-anchor-id="deblur-join-reads">Deblur: Join reads</h4>
 <p>Note that for the qiime cutadapt trim-paired-command you used p-cores while here you need p-threads</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 4 qiime vsearch merge-pairs <span class="dt">\</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-demultiplexed-seqs</span> prep/trimmed-seqs.qza <span class="dt">\</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-merged-sequences</span> deblur/joined-seqs.qza <span class="dt">\</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-threads</span> 4 <span class="dt">\</span></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span> <span class="dt">\</span></span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> logs/qiime-vsearch-join-pairs.log</span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> demux summarize <span class="dt">\</span></span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-data</span> deblur/joined-seqs.qza <span class="dt">\</span></span>
-<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> deblur/joined-seqs.qzv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 4 qiime vsearch merge-pairs <span class="dt">\</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-demultiplexed-seqs</span> prep/trimmed-seqs.qza <span class="dt">\</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-merged-sequences</span> deblur/joined-seqs.qza <span class="dt">\</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-threads</span> 4 <span class="dt">\</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span> <span class="dt">\</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> logs/qiime-vsearch-join-pairs.log</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> demux summarize <span class="dt">\</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-data</span> deblur/joined-seqs.qza <span class="dt">\</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> deblur/joined-seqs.qzv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Summary of output:</p>
 <pre><code>forward reads
@@ -1464,20 +1448,20 @@ Total   1346501</code></pre>
 <h4 class="anchored" data-anchor-id="deblur-quality-filtering">Deblur: Quality filtering</h4>
 <p>Notice: This step cannot be sped up because the <code>qiime quality-filter q-score</code> command does not have an option to use more cpus or threads.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 1 qiime quality-filter q-score <span class="dt">\</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-demux</span> deblur/joined-seqs.qza <span class="dt">\</span></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-filtered-sequences</span> deblur/filt-seqs.qza <span class="dt">\</span></span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-filter-stats</span> deblur/filt-stats.qza <span class="dt">\</span></span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span> <span class="dt">\</span></span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> logs/qiime-quality-filter-q-score.log</span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> demux summarize <span class="dt">\</span></span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-data</span> deblur/filt-seqs.qza <span class="dt">\</span></span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> deblur/filt-seqs.qzv</span>
-<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> metadata tabulate <span class="dt">\</span></span>
-<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--m-input-file</span> deblur/filt-stats.qza <span class="dt">\</span></span>
-<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> deblur/filt-stats.qzv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 1 qiime quality-filter q-score <span class="dt">\</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-demux</span> deblur/joined-seqs.qza <span class="dt">\</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-filtered-sequences</span> deblur/filt-seqs.qza <span class="dt">\</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-filter-stats</span> deblur/filt-stats.qza <span class="dt">\</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span> <span class="dt">\</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> logs/qiime-quality-filter-q-score.log</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> demux summarize <span class="dt">\</span></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-data</span> deblur/filt-seqs.qza <span class="dt">\</span></span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> deblur/filt-seqs.qzv</span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> metadata tabulate <span class="dt">\</span></span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--m-input-file</span> deblur/filt-stats.qza <span class="dt">\</span></span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> deblur/filt-stats.qzv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Summary of output:</p>
 <pre><code>forward reads
@@ -1487,44 +1471,44 @@ Mean    26930.02
 Maximum     52400
 Total   1346501</code></pre>
 </section>
-<section id="run-deblur-1" class="level4">
-<h4 class="anchored" data-anchor-id="run-deblur-1">Run deblur</h4>
+<section id="run-deblur" class="level4">
+<h4 class="anchored" data-anchor-id="run-deblur">Run deblur</h4>
 <p>Below we:</p>
 <ul>
 <li>We defined a memory allocation of 16GB. This is the total amount of RAM you expect to need for this job (+ a bit more to be on the safe side). How much you need is not always easy to predict and requires some experience/trial and error. As a rule of thumb: if you get an Out Of Memory error, double it and try again. Note that you can also define mem-per-cpu, which may be easier to work with if you often change the number of cpus between analyses.</li>
 <li>We get a warning <code>warn' method is deprecated, use 'warning' instead</code>, but we can ignore that</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">#job id: 398288</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 10 <span class="at">--mem</span><span class="op">=</span>16GB qiime deblur denoise-16S <span class="dt">\</span></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-demultiplexed-seqs</span> deblur/filt-seqs.qza <span class="dt">\</span></span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-trim-length</span> <span class="va">$TRIMLENG</span> <span class="dt">\</span></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-representative-sequences</span> deblur/deblur-reprseqs.qza <span class="dt">\</span></span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-table</span> deblur/deblur-table.qza <span class="dt">\</span></span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-sample-stats</span> <span class="dt">\</span></span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-min-size</span> 2 <span class="dt">\</span></span>
-<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-stats</span> deblur/deblur-stats.qza <span class="dt">\</span></span>
-<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-jobs-to-start</span> 10 <span class="dt">\</span></span>
-<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span> <span class="dt">\</span></span>
-<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> logs/qiime-deblur-denoise-16S.log</span>
-<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a><span class="co">#check memory requirements: 1.6GB</span></span>
-<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a><span class="co">#maxrss = maximum amount of memory used at any time by any process in that job</span></span>
-<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span> <span class="at">-j</span> 398288 <span class="at">--format</span><span class="op">=</span><span class="st">"JobID,JobName,AllocCPUs,MaxRSS,elapsed"</span> </span>
-<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> deblur.log <span class="op">&gt;&gt;</span> logs/qiime_deblur_denoise-16S.log <span class="kw">&amp;&amp;</span> <span class="fu">rm</span> deblur.log</span>
-<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> deblur visualize-stats <span class="dt">\</span></span>
-<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-deblur-stats</span> deblur/deblur-stats.qza <span class="dt">\</span></span>
-<span id="cb54-22"><a href="#cb54-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> deblur/deblur-stats.qzv</span>
-<span id="cb54-23"><a href="#cb54-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-24"><a href="#cb54-24" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> feature-table summarize <span class="dt">\</span></span>
-<span id="cb54-25"><a href="#cb54-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-table</span> deblur/deblur-table.qza <span class="dt">\</span></span>
-<span id="cb54-26"><a href="#cb54-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> deblur/deblur-table.qzv</span>
-<span id="cb54-27"><a href="#cb54-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-28"><a href="#cb54-28" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> feature-table tabulate-seqs <span class="dt">\</span></span>
-<span id="cb54-29"><a href="#cb54-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-data</span> deblur/deblur-reprseqs.qza <span class="dt">\</span></span>
-<span id="cb54-30"><a href="#cb54-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> deblur/deblur-reprseqs.qzv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">#job id: 398288</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 10 <span class="at">--mem</span><span class="op">=</span>16GB qiime deblur denoise-16S <span class="dt">\</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-demultiplexed-seqs</span> deblur/filt-seqs.qza <span class="dt">\</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-trim-length</span> <span class="va">$TRIMLENG</span> <span class="dt">\</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-representative-sequences</span> deblur/deblur-reprseqs.qza <span class="dt">\</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-table</span> deblur/deblur-table.qza <span class="dt">\</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-sample-stats</span> <span class="dt">\</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-min-size</span> 2 <span class="dt">\</span></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-stats</span> deblur/deblur-stats.qza <span class="dt">\</span></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-jobs-to-start</span> 10 <span class="dt">\</span></span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span> <span class="dt">\</span></span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> logs/qiime-deblur-denoise-16S.log</span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a><span class="co">#check memory requirements: 1.6GB</span></span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a><span class="co">#maxrss = maximum amount of memory used at any time by any process in that job</span></span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span> <span class="at">-j</span> 398288 <span class="at">--format</span><span class="op">=</span><span class="st">"JobID,JobName,AllocCPUs,MaxRSS,elapsed"</span> </span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> deblur.log <span class="op">&gt;&gt;</span> logs/qiime_deblur_denoise-16S.log <span class="kw">&amp;&amp;</span> <span class="fu">rm</span> deblur.log</span>
+<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> deblur visualize-stats <span class="dt">\</span></span>
+<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-deblur-stats</span> deblur/deblur-stats.qza <span class="dt">\</span></span>
+<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> deblur/deblur-stats.qzv</span>
+<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> feature-table summarize <span class="dt">\</span></span>
+<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-table</span> deblur/deblur-table.qza <span class="dt">\</span></span>
+<span id="cb53-26"><a href="#cb53-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> deblur/deblur-table.qzv</span>
+<span id="cb53-27"><a href="#cb53-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-28"><a href="#cb53-28" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> feature-table tabulate-seqs <span class="dt">\</span></span>
+<span id="cb53-29"><a href="#cb53-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-data</span> deblur/deblur-reprseqs.qza <span class="dt">\</span></span>
+<span id="cb53-30"><a href="#cb53-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> deblur/deblur-reprseqs.qzv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="dada2-1" class="level4">
@@ -1533,33 +1517,33 @@ Total   1346501</code></pre>
 <li>DADA2 performs filtering, joining and denoising all with one single command, and therefor takes longer to run. Here, it takes ca. 30m5.334s using 8 cpus. It is tempting to just increase the number of cpus when impatient, but please note that not all commands are very efficient at running more jobs in parallel (i.e.&nbsp;on multiple cpus). The reason often is that the rate-limiting step in the workflow is unable to use multiple cpus, so all but one are idle.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co">#job id: 398291</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="bu">time</span> srun <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 8 <span class="at">--mem</span><span class="op">=</span>32GB qiime dada2 denoise-paired <span class="dt">\</span></span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-demultiplexed-seqs</span> prep/trimmed-seqs.qza <span class="dt">\</span></span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-trunc-len-f</span> <span class="va">$TRUNKFWD</span> <span class="dt">\</span></span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-trunc-len-r</span> <span class="va">$TRUNKREV</span> <span class="dt">\</span></span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-n-threads</span> 8 <span class="dt">\</span></span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-table</span> dada2/dada2-table.qza <span class="dt">\</span></span>
-<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-representative-sequences</span> dada2/dada2-reprseqs.qza <span class="dt">\</span></span>
-<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-denoising-stats</span> dada2/dada2-stats.qza <span class="dt">\</span></span>
-<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span> <span class="dt">\</span></span>
-<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> logs/qiime-dada2-denoise-paired.log</span>
-<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a><span class="co">#get mem usage</span></span>
-<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span> <span class="at">-j</span> 398291 <span class="at">--format</span><span class="op">=</span><span class="st">"JobID,JobName,AllocCPUs,MaxRSS,elapsed"</span> </span>
-<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a><span class="co">#get summaries</span></span>
-<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> metadata tabulate <span class="dt">\</span></span>
-<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">--m-input-file</span> dada2/dada2-stats.qza <span class="dt">\</span></span>
-<span id="cb55-19"><a href="#cb55-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> dada2/dada2-stats.qzv</span>
-<span id="cb55-20"><a href="#cb55-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-21"><a href="#cb55-21" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> feature-table summarize <span class="dt">\</span></span>
-<span id="cb55-22"><a href="#cb55-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-table</span> dada2/dada2-table.qza <span class="dt">\</span></span>
-<span id="cb55-23"><a href="#cb55-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> dada2/dada2-table.qzv</span>
-<span id="cb55-24"><a href="#cb55-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-25"><a href="#cb55-25" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> feature-table tabulate-seqs <span class="dt">\</span></span>
-<span id="cb55-26"><a href="#cb55-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-data</span> dada2/dada2-reprseqs.qza <span class="dt">\</span></span>
-<span id="cb55-27"><a href="#cb55-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> dada2/dada2-reprseqs.qzv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">#job id: 398291</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="bu">time</span> srun <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 8 <span class="at">--mem</span><span class="op">=</span>32GB qiime dada2 denoise-paired <span class="dt">\</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-demultiplexed-seqs</span> prep/trimmed-seqs.qza <span class="dt">\</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-trunc-len-f</span> <span class="va">$TRUNKFWD</span> <span class="dt">\</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-trunc-len-r</span> <span class="va">$TRUNKREV</span> <span class="dt">\</span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-n-threads</span> 8 <span class="dt">\</span></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-table</span> dada2/dada2-table.qza <span class="dt">\</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-representative-sequences</span> dada2/dada2-reprseqs.qza <span class="dt">\</span></span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-denoising-stats</span> dada2/dada2-stats.qza <span class="dt">\</span></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span> <span class="dt">\</span></span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> logs/qiime-dada2-denoise-paired.log</span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a><span class="co">#get mem usage</span></span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span> <span class="at">-j</span> 398291 <span class="at">--format</span><span class="op">=</span><span class="st">"JobID,JobName,AllocCPUs,MaxRSS,elapsed"</span> </span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a><span class="co">#get summaries</span></span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> metadata tabulate <span class="dt">\</span></span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">--m-input-file</span> dada2/dada2-stats.qza <span class="dt">\</span></span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> dada2/dada2-stats.qzv</span>
+<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> feature-table summarize <span class="dt">\</span></span>
+<span id="cb54-22"><a href="#cb54-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-table</span> dada2/dada2-table.qza <span class="dt">\</span></span>
+<span id="cb54-23"><a href="#cb54-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> dada2/dada2-table.qzv</span>
+<span id="cb54-24"><a href="#cb54-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-25"><a href="#cb54-25" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> feature-table tabulate-seqs <span class="dt">\</span></span>
+<span id="cb54-26"><a href="#cb54-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-data</span> dada2/dada2-reprseqs.qza <span class="dt">\</span></span>
+<span id="cb54-27"><a href="#cb54-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> dada2/dada2-reprseqs.qzv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Usage info –&gt; 7.64878 GB needed and 50 min</p>
 <pre><code>       JobID    JobName  AllocCPUS     MaxRSS    Elapsed
@@ -1574,18 +1558,18 @@ Total   1346501</code></pre>
 <section id="extract-reference-reads-1" class="level4">
 <h4 class="anchored" data-anchor-id="extract-reference-reads-1">Extract reference reads</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co">#job id: 398333</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="bu">time</span> srun <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 8 <span class="at">--mem</span><span class="op">=</span>4GB qiime feature-classifier extract-reads <span class="dt">\</span></span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-sequences</span> <span class="va">$DBSEQ</span> <span class="dt">\</span></span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-f-primer</span> <span class="va">$PRIMFWD</span> <span class="dt">\</span></span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-r-primer</span> <span class="va">$PRIMREV</span> <span class="dt">\</span></span>
-<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-reads</span> db/<span class="va">$DBPREFIX</span>-ref-frags.qza <span class="dt">\</span></span>
-<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-n-jobs</span> 8 <span class="dt">\</span></span>
-<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span> <span class="dt">\</span></span>
-<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> logs/qiime-feature-classifier-extract-reads.log</span>
-<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a><span class="co">#get mem usage</span></span>
-<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span> <span class="at">-j</span> 398333 <span class="at">--format</span><span class="op">=</span><span class="st">"JobID,JobName,AllocCPUs,MaxRSS,elapsed"</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co">#job id: 398333</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="bu">time</span> srun <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 8 <span class="at">--mem</span><span class="op">=</span>4GB qiime feature-classifier extract-reads <span class="dt">\</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-sequences</span> <span class="va">$DBSEQ</span> <span class="dt">\</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-f-primer</span> <span class="va">$PRIMFWD</span> <span class="dt">\</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-r-primer</span> <span class="va">$PRIMREV</span> <span class="dt">\</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-reads</span> db/<span class="va">$DBPREFIX</span>-ref-frags.qza <span class="dt">\</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-n-jobs</span> 8 <span class="dt">\</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span> <span class="dt">\</span></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> logs/qiime-feature-classifier-extract-reads.log</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a><span class="co">#get mem usage</span></span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span> <span class="at">-j</span> 398333 <span class="at">--format</span><span class="op">=</span><span class="st">"JobID,JobName,AllocCPUs,MaxRSS,elapsed"</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Usage info –&gt; 1.43846 GB needed in 4 min</p>
 <pre><code>       JobID    JobName  AllocCPUS     MaxRSS    Elapsed
@@ -1598,16 +1582,16 @@ Total   1346501</code></pre>
 <h4 class="anchored" data-anchor-id="train-the-classifier-1">Train the classifier</h4>
 <p>Training a classifier takes quite some time, especially because the qiime feature-classifier fit-classifier-naive-bayes- command cannot use multiple cpus in parallel (see qiime feature-classifier fit-classifier-naive-bayes –help). Here, it took ca. 145m56.836s. You can however often re-use your classifier, provided you used the same primers and db.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co">#job id: 398335</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="bu">time</span> srun <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 1 <span class="at">--mem</span><span class="op">=</span>32GB qiime feature-classifier fit-classifier-naive-bayes <span class="dt">\</span></span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-reference-reads</span> db/<span class="va">$DBPREFIX</span>-ref-frags.qza <span class="dt">\</span></span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-reference-taxonomy</span> <span class="va">$DBTAX</span> <span class="dt">\</span></span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-classifier</span> db/<span class="va">$DBPREFIX</span>-ref-classifier.qza <span class="dt">\</span></span>
-<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-verbose</span> <span class="dt">\</span></span>
-<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> logs/qiime-feature-classifier-extract-reads.log</span>
-<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="co">#get mem usage</span></span>
-<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span> <span class="at">-j</span> 398335 <span class="at">--format</span><span class="op">=</span><span class="st">"JobID,JobName,AllocCPUs,MaxRSS,elapsed"</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co">#job id: 398335</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="bu">time</span> srun <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 1 <span class="at">--mem</span><span class="op">=</span>32GB qiime feature-classifier fit-classifier-naive-bayes <span class="dt">\</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-reference-reads</span> db/<span class="va">$DBPREFIX</span>-ref-frags.qza <span class="dt">\</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-reference-taxonomy</span> <span class="va">$DBTAX</span> <span class="dt">\</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-classifier</span> db/<span class="va">$DBPREFIX</span>-ref-classifier.qza <span class="dt">\</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-verbose</span> <span class="dt">\</span></span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> logs/qiime-feature-classifier-extract-reads.log</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="co">#get mem usage</span></span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span> <span class="at">-j</span> 398335 <span class="at">--format</span><span class="op">=</span><span class="st">"JobID,JobName,AllocCPUs,MaxRSS,elapsed"</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Resources needed –&gt; 33.4GB</p>
 <pre><code>       JobID    JobName  AllocCPUS     MaxRSS    Elapsed
@@ -1621,28 +1605,28 @@ Total   1346501</code></pre>
 <p><strong>Important</strong></p>
 <p>The classifier takes up quite some disc space. If you ‘just’ run it you are likely to get a No space left on device-error. You can avoid this by changing the directory where temporary files are written to, but make sure you have sufficient space there as well of course.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co">#prepare tmp dir </span></span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> tmptmp</span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">TMPDIR</span><span class="op">=</span><span class="va">$PWD</span>/tmptmp/</span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="co">#job id: 398339</span></span>
-<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="bu">time</span> srun <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 32 <span class="at">--mem</span><span class="op">=</span>160GB qiime feature-classifier classify-sklearn <span class="dt">\</span></span>
-<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-classifier</span> db/<span class="va">$DBPREFIX</span>-ref-classifier.qza <span class="dt">\</span></span>
-<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-reads</span> dada2/dada2-reprseqs.qza <span class="dt">\</span></span>
-<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-classification</span> taxonomy/dada2-<span class="va">$DBPREFIX</span>-taxonomy.qza <span class="dt">\</span></span>
-<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-n-jobs</span> 32 <span class="dt">\</span></span>
-<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span> <span class="dt">\</span></span>
-<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> logs/qiime-feature-classifier-classify-sklearn.log</span>
-<span id="cb61-13"><a href="#cb61-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-14"><a href="#cb61-14" aria-hidden="true" tabindex="-1"></a><span class="co">#get mem usage</span></span>
-<span id="cb61-15"><a href="#cb61-15" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span> <span class="at">-j</span> 398339 <span class="at">--format</span><span class="op">=</span><span class="st">"JobID,JobName,AllocCPUs,MaxRSS,elapsed"</span> </span>
-<span id="cb61-16"><a href="#cb61-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-17"><a href="#cb61-17" aria-hidden="true" tabindex="-1"></a><span class="co">#cleanup</span></span>
-<span id="cb61-18"><a href="#cb61-18" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-fr</span> tmptmp</span>
-<span id="cb61-19"><a href="#cb61-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-20"><a href="#cb61-20" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> metadata tabulate <span class="dt">\</span></span>
-<span id="cb61-21"><a href="#cb61-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">--m-input-file</span> taxonomy/dada2-<span class="va">$DBPREFIX</span>-taxonomy.qza <span class="dt">\</span></span>
-<span id="cb61-22"><a href="#cb61-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> taxonomy/dada2-<span class="va">$DBPREFIX</span>-taxonomy.qzv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co">#prepare tmp dir </span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> tmptmp</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">TMPDIR</span><span class="op">=</span><span class="va">$PWD</span>/tmptmp/</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="co">#job id: 398339</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a><span class="bu">time</span> srun <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 32 <span class="at">--mem</span><span class="op">=</span>160GB qiime feature-classifier classify-sklearn <span class="dt">\</span></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-classifier</span> db/<span class="va">$DBPREFIX</span>-ref-classifier.qza <span class="dt">\</span></span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-reads</span> dada2/dada2-reprseqs.qza <span class="dt">\</span></span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-classification</span> taxonomy/dada2-<span class="va">$DBPREFIX</span>-taxonomy.qza <span class="dt">\</span></span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-n-jobs</span> 32 <span class="dt">\</span></span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span> <span class="dt">\</span></span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> logs/qiime-feature-classifier-classify-sklearn.log</span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a><span class="co">#get mem usage</span></span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span> <span class="at">-j</span> 398339 <span class="at">--format</span><span class="op">=</span><span class="st">"JobID,JobName,AllocCPUs,MaxRSS,elapsed"</span> </span>
+<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a><span class="co">#cleanup</span></span>
+<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-fr</span> tmptmp</span>
+<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-20"><a href="#cb60-20" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> metadata tabulate <span class="dt">\</span></span>
+<span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">--m-input-file</span> taxonomy/dada2-<span class="va">$DBPREFIX</span>-taxonomy.qza <span class="dt">\</span></span>
+<span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> taxonomy/dada2-<span class="va">$DBPREFIX</span>-taxonomy.qzv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Resource need –&gt; 158.7 GB:</p>
 <pre><code>       JobID    JobName  AllocCPUS     MaxRSS    Elapsed
@@ -1654,18 +1638,18 @@ Total   1346501</code></pre>
 <section id="plotting" class="level4">
 <h4 class="anchored" data-anchor-id="plotting">Plotting</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> taxa barplot <span class="dt">\</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-table</span> dada2/dada2-table.qza <span class="dt">\</span></span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-taxonomy</span> taxonomy/dada2-<span class="va">$DBPREFIX</span>-taxonomy.qza <span class="dt">\</span></span>
-<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--m-metadata-file</span> <span class="va">$META</span> <span class="dt">\</span></span>
-<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> taxonomy/dada2-<span class="va">$DBPREFIX</span>-taxplot.qzv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> taxa barplot <span class="dt">\</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-table</span> dada2/dada2-table.qza <span class="dt">\</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-taxonomy</span> taxonomy/dada2-<span class="va">$DBPREFIX</span>-taxonomy.qza <span class="dt">\</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--m-metadata-file</span> <span class="va">$META</span> <span class="dt">\</span></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-visualization</span> taxonomy/dada2-<span class="va">$DBPREFIX</span>-taxplot.qzv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="download-qzvs" class="level3">
 <h3 class="anchored" data-anchor-id="download-qzvs">Download qzvs</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> crunchomics:<span class="st">'/home/ndombro/tutorials/evelyn_qiime/*/*.qzv'</span> crunchomics_files/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> crunchomics:<span class="st">'/home/ndombro/tutorials/evelyn_qiime/*/*.qzv'</span> crunchomics_files/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

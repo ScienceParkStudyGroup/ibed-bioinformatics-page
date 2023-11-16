@@ -23,40 +23,18 @@ Available on Crunchomics: No
 
 ### Installation
 
-ITSx can be installed from scratch but below is the code needed to install the software with mamba (or conda if that is preferred). If you don't have mamba/conda installed find the correction version for your system here for [mamba](https://github.com/conda-forge/miniforge#mambaforge) and here for [conda](https://www.anaconda.com/download). Examples for setting up either mamba or conda are found in the code cell below.
+ITSx can be installed from scratch but below is the code needed to install the software with mamba.
 
 If there is an issue with the mamba/conda installation, the software can also be downloaded with `wget https://microbiology.se/sw/ITSx_1.1.3.tar.gz`. After the download, decompress the folder and follow the information in the readme.txt. The download also comes with a test.fasta which can be used to test either installation.
 
 Data for testing can also be found [here](https://github.com/ScienceParkStudyGroup/software_information/data/itsx/).
 
-#### Install mamba/conda
-
-```{bash}
-#install conda (run only if not yet installed)
-#adjust the file name based on your system needs
-wget https://repo.anaconda.com/archive/Anaconda3-2023.07-2-Linux-x86_64.sh
-
-bash Anaconda3-2023.07-2-Linux-x86_64.sh
-
-#install mamba (run only if not yet installed)
-#adjust the file name based on your system needs
-wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh
-
-bash Mambaforge-Linux-x86_64.sh
-```
-
-#### Option A (install ITSx in a separate environment)
 
 ```{bash}
 mamba create -n fungi_its
 mamba install -n fungi_its -c bioconda itsx
 ```
 
-#### Option B (base ITSx install)
-
-```{bash}
-mamba install -c bioconda itsx
-```
 
 ### Usage
 
@@ -85,19 +63,16 @@ mamba install -c bioconda itsx
 #### Example code
 
 ```{bash}
-#activate the right environment (if using environment)
-mamba deactivate
+#activate the right environment
 mamba activate fungi_its
 
-#download data for testing the install (optional)
+#download data for testing the installation (optional)
 mkdir testing
 wget -P testing https://raw.githubusercontent.com/ScienceParkStudyGroup/software_information/main/data/itsx/test.fasta
 
 #testrun (adjust path of test.fasta to where ever you downloaded the software)
 ITSx -i testing/test.fasta --save_regions all -o testing/ITS_test_v1
 
-#sanity checking
-grep -c ">" testing/*fasta
 
 #deactivate environment (if using environment)
 mamba deactivate
@@ -106,19 +81,13 @@ mamba deactivate
 Regions extracted from test file (notice how the full fasta ONLY contains sequences with all regions):
 
 -   testing/ITS_test_v1.5_8S.fasta:50
-
 -   testing/ITS_test_v1.ITS1.fasta:50
-
 -   testing/ITS_test_v1.ITS2.fasta:50
-
 -   testing/ITS_test_v1.LSU.fasta:32
-
 -   testing/ITS_test_v1.SSU.fasta:31
-
 -   testing/ITS_test_v1.full.fasta:19
-
 -   testing/ITS_test_v1_no_detections.fasta:0
-
 -   testing/test.fasta:50
+
 
 ### References

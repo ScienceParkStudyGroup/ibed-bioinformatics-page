@@ -19,9 +19,7 @@ Available on Crunchomics: Minimap2 version 2.24-r1122 installed
 
 ### Installation
 
-If you want to install minimap2 on your own, its best to install it via mamba.
-
-If you do not have mamba (or conda) installed. Check out the installation instructions for [mamba](https://mamba.readthedocs.io/en/latest/mamba-installation.html#mamba-install) and [conda](https://crunchomics-documentation.readthedocs.io/en/latest/miniconda.html). Mamba is a newer version of conda and from experience faster but since its newer this might mean that not all software can yet be installed with mamba.
+If you want to install minimap2 on your own, its best to install it via mamba:
 
 ```{bash}
 #setup new conda environment, which we name kraken2

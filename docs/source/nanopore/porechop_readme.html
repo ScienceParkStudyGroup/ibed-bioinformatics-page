@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2023-11-16">
 
 <title>Bioinformatics guidance page – porechop_readme</title>
 <style>
@@ -151,8 +152,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/cli/readme.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Command line</span></a>
+  <a href="../../source/cli/cli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using the command line</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using an HPC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/conda/conda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Installing software</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -179,7 +192,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/Qiime/3_evelyn_tutorial_notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Follow Eveylyn’s QIIME workflow</span></a>
+ <span class="menu-text">A short QIIME tutorial</span></a>
   </div>
 </li>
       </ul>
@@ -363,7 +376,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>It is easiest to install porechop with conda. If you do not have mamba (or conda) installed. Check out the installation instructions for <a href="https://mamba.readthedocs.io/en/latest/mamba-installation.html#mamba-install">mamba</a> and <a href="https://crunchomics-documentation.readthedocs.io/en/latest/miniconda.html">conda</a>. Mamba is a newer version of conda and from experience faster but since its newer this might mean that not all software can yet be installed with mamba.</p>
+<p>It is easiest to install porechop with conda:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">--name</span> porechop <span class="at">-c</span> conda-forge <span class="at">-c</span> bioconda porechop=0.2.4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -784,7 +797,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">Copyright 2023, Nina Dombrowski</div>
+    <div class="nav-footer-center">Copyright 2023, Nina Dombrowski,<br>
+Last modified: November 16, 2023</div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

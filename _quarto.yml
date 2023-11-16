@@ -5,6 +5,7 @@ project:
     - "!readme.md"
     - "*qmd"
 
+
 format:
   html:
     theme:
@@ -18,6 +19,8 @@ format:
 
 website:
   title: "Bioinformatics guidance page"
+  repo-url: https://github.com/ScienceParkStudyGroup/software_information/
+  repo-actions: [source, issue]
   page-navigation: true
   page-footer:  
     center: | 
@@ -79,8 +82,4 @@ website:
             contents:
               - source/ITSx/itsx_readme.qmd
               - source/nanopore/nanoITS.qmd
-
-      tools:
-        - icon: github
-          href: https://github.com/ScienceParkStudyGroup/software_information
 

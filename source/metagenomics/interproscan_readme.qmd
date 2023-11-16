@@ -28,8 +28,10 @@ These changes require to move a few things around, so if you feel uncomfortable 
 If you want to work with the newest version and are not afraid of some extra steps do the following:
 
 ```{bash}
+#go into a folder in which you have all your software installed
 cd software_dir
 
+#make a new folder for the interproscan installation and go into the folder
 mkdir interproscan
 cd interproscan 
 
@@ -41,49 +43,51 @@ wget https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.64-96.0/interproscan-5.
 # Must return *interproscan-5.64-96.0-64-bit.tar.gz: OK*
 md5sum -c interproscan-5.64-96.0-64-bit.tar.gz.md5
 
+#decompress the downloaded folder
 tar -pxvzf interproscan-5.64-96.0-*-bit.tar.gz
 
 #index hmm models
 cd interproscan-5.64-96.0
 python3 setup.py -f interproscan.properties
 
-#get correct java version
+#setup a conda environment with the newest java version
 conda deactivate
 mamba create --name java_f_iprscan -c conda-forge openjdk
+
+#activate teh environment and install some more dependencies
 conda activate java_f_iprscan
 mamba install -c conda-forge gfortran
 
 #test error outside of iprscan
-bin/prosite/pfsearchV3
+#bin/prosite/pfsearchV3
 
 #get new pftools version via conda
 mamba install -c bioconda pftools
-cd bin/prosite
 
+#remove old pftools 
+cd bin/prosite
 rm pfscanV3
 rm pfsearchV3
 
+#replace with new pftools we have installed (and which are found in the mamba env folder)
 cp ~/personal/mambaforge/envs/java_f_iprscan/bin/pfscan .
 cp ~/personal/mambaforge/envs/java_f_iprscan/bin/pfscanV3 .
 cp ~/personal/mambaforge/envs/java_f_iprscan/bin/pfsearch .
 cp ~/personal/mambaforge/envs/java_f_iprscan/bin/pfsearchV3 .
 cd ..
 
-#check glibc version
-ldd --version
 
 #do testrun (ProSiteProfiles and ProSitePatterns not working yet)
 srun -n 1 --cpus-per-task 1 --mem=8G ./interproscan.sh -i test_all_appl.fasta -f tsv -dp --appl TIGRFAM,SFLD,SUPERFAMILY,PANTHER,GENE3D,Hamap,Coils,SMART,CDD,PRINTS,PIRSR,AntiFam,Pfam,MobiDBLite,PIRSF,ProSiteProfiles 
 
 srun -n 1 --cpus-per-task 1 --mem=8G ./interproscan.sh -i test_all_appl.fasta -f tsv
 conda deactivate
-
 ```
 
 
 #### Version for Crunchomics
 
-On Crunchomics, newer version of interproscan do not run due to an incompatibility with the installed Java version. To get it running use the following version:
+On Crunchomics, newer versions of interproscan do not run due to an incompatibility with the installed Java version. To get it running without complicated environmental setups, you can install an older version:
 
 ```{python}
 #download software
@@ -94,15 +98,15 @@ wget https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.36-75.0/interproscan-5.
 # Must return *interproscan-5.64-96.0-64-bit.tar.gz: OK*
 md5sum interproscan-5.36-75.0-64-bit.tar.gz.md5
 
+#decompress the folder
 tar -pxvzf interproscan-5.36-75.0-64-bit.tar.gz
 
 #index hmm models
 cd interproscan-5.36-75.0
-#srun -n 1 --cpus-per-task 1 python3 setup.py -f interproscan.properties
+
+#do a test run to check the installation
 srun -n1 --cpus-per-task 8 --mem=8G ./interproscan.sh -i test_proteins.fasta
 ```
-
-
 
 
 ### Usage
@@ -122,7 +126,7 @@ Generated outputs:
 
 Notice:
 
--   Interproscan does not like `*` symbols inside the protein sequence. Some tools for protein calling, like prokka, use `*` add the end of a protein to indicate that the full protein was found. If your files have such symbols, use the code below to remove it first. Beware: using `sed -i` overwrites the content of your file. If that behaviour is not wanted use `sed 's/*//g' Proteins_of_interest_new.faa` instead.
+-   Interproscan does not like `*` symbols inside the protein sequence. Some tools for protein calling, like prokka, use `*` add the end of a protein to indicate that the full protein was found. If your files have such symbols, use the code below to remove it first. Beware: using `sed -i` overwrites the content of your file. If that behaviour is not wanted use `sed 's/*//g' Proteins_of_interest.faa > Proteins_of_interest_new.faa` instead.
 -   If you are on Crunchomics (or most other servers): DO NOT run jobs on the head node, but add something like `srun -n 1 --cpus-per-task 4` before the actual command
 
 Example code:
@@ -133,8 +137,8 @@ Example code:
 sed -i 's/*//g' Proteins_of_interest.faa
 
 #run interproscan
-path_to_install/interproscan-5.36-75.0/interproscan.sh --cpu 4 -i Proteins_of_interest.faa -d outputfolder -T outputfolder/temp --iprlookup --goterms
+<path_to_install>/interproscan-5.36-75.0/interproscan.sh --cpu 4 -i Proteins_of_interest.faa -d outputfolder -T outputfolder/temp --iprlookup --goterms
 
 ```
 
-To check available options use `path_to_install/interproscan-5.36-75.0/interproscan.sh --help` or for more detailed information, see [the documentation](https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html)):
+To check available options use `<path_to_install>/interproscan-5.36-75.0/interproscan.sh --help` or for more detailed information, see [the documentation](https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html)):

@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2023-11-16">
 
 <title>Bioinformatics guidance page – kraken2</title>
 <style>
@@ -170,8 +171,20 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/cli/readme.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Command line</span></a>
+  <a href="../../source/cli/cli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using the command line</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using an HPC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/conda/conda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Installing software</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -198,7 +211,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/Qiime/3_evelyn_tutorial_notes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Follow Eveylyn’s QIIME workflow</span></a>
+ <span class="menu-text">A short QIIME tutorial</span></a>
   </div>
 </li>
       </ul>
@@ -385,8 +398,7 @@ div.csl-indent {
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>If you want to install kraken2 on your own, its best to install it via mamba.</p>
-<p>If you do not have mamba (or conda) installed. Check out the installation instructions for <a href="https://mamba.readthedocs.io/en/latest/mamba-installation.html#mamba-install">mamba</a> and <a href="https://crunchomics-documentation.readthedocs.io/en/latest/miniconda.html">conda</a>. Mamba is a newer version of conda and from experience faster but since its newer this might mean that not all software can yet be installed with mamba.</p>
+<p>If you want to install kraken2 on your own, its best to install it via mamba:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#setup new conda environment, which we name kraken2</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">--name</span> kraken2 <span class="at">-c</span> bioconda kraken2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -398,7 +410,7 @@ div.csl-indent {
 <section id="build-a-kraken-database" class="level4">
 <h4 class="anchored" data-anchor-id="build-a-kraken-database">Build a kraken database</h4>
 <p>The command below will download NCBI taxonomic information, as well as the complete genomes in RefSeq for the bacterial, archaeal, and viral domains, along with the human genome and a collection of known vectors (UniVec_Core). After downloading all this data, the build process begins; this can be the most time-consuming step. If you have multiple processing cores, you can run this process with multiple threads.</p>
-<p>Kraken2 comes with several databases, such as the SILVA database for 16S rRNA gene analyses. Check the <a href="https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown">kraken2 manual</a> for detailed information on how to download custom things..</p>
+<p>Addtionally, kraken2 comes with several custom databases, such as the SILVA database for 16S rRNA gene analyses. Check the <a href="https://github.com/DerrickWood/kraken2/blob/master/docs/MANUAL.markdown">kraken2 manual</a> for detailed information on how to download custom things..</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create a kraken2 database </span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kraken2-build</span> <span class="at">--standard</span> <span class="at">--threads</span> 24 <span class="at">--db</span> <span class="va">$DBNAME</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -790,7 +802,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">Copyright 2023, Nina Dombrowski</div>
+    <div class="nav-footer-center">Copyright 2023, Nina Dombrowski,<br>
+Last modified: November 16, 2023</div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

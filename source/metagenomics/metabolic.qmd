@@ -13,7 +13,11 @@ bibliography: references.bib
 
 ### Introduction
 
-Metabolic is a workflow developed by the AnantharamanLab. The tool was already run for the MAGs by GM but will be re-run here as well for testing purposes. Check out [the manual](https://github.com/AnantharamanLab/METABOLIC/wiki) for all usage options [@zhou2022].
+Metabolic is a workflow developed by the AnantharamanLab. This software enables the prediction of metabolic and biogeochemical functional trait profiles to any given genome datasets. These genome datasets can either be metagenome-assembled genomes (MAGs), single-cell amplified genomes (SAGs) or isolated strain sequenced genomes. 
+
+METABOLIC has two main implementations, which are METABOLIC-G and METABOLIC-C. METABOLIC-G.pl allows for generation of metabolic profiles and biogeochemical cycling diagrams of input genomes and does not require input of sequencing reads. METABOLIC-C.pl generates the same output as METABOLIC-G.pl, but as it allows for the input of metagenomic read data, it will generate information pertaining to community metabolism. 
+
+Check out [the manual](https://github.com/AnantharamanLab/METABOLIC/wiki) for all usage options [@zhou2022].
 
 Available on Crunchomics: No
 
@@ -23,13 +27,13 @@ Available on Crunchomics: No
 
 ```{bash}
 #go into folder in which to install software
-cd /home/ndombro/personal/software/METABOLIC_4.0
+cd ~/personal/software/METABOLIC_4.0
 
-#get installation instructions
+#download environmental yaml (which tells conda what software to install)
 mkdir envs
 wget https://raw.githubusercontent.com/AnantharamanLab/METABOLIC/master/METABOLIC_v4.0_env.yml -P envs/
 
-#install dependencies conda env (this env will be named METABOLIC_v4.0)
+#install dependencies via the environmental yaml (this env will be named METABOLIC_v4.0)
 mamba env create -f envs/METABOLIC_v4.0_env.yml
 
 #activate environment (NEEDS to be active to run the setup steps below)
@@ -60,10 +64,10 @@ METABOLIC uses GTDB_tk for taxonomic assignment. This database is very big, so i
 For UvA people using crunchomics, we have a global install of GTDB r207 you can use, which is installed on the metatools share. To get access to the share, please contact Anna Heintz Buschart via [a.u.s.heintzbuschart\@uva.nl](mailto:a.u.s.heintzbuschart@uva.nl){.email} with your UvAnetID and a description why you need access
 
 ```{bash}
-#needs local gtdb install for r207_v2
+#tell conda where the gtdb database is installed
 conda env config vars set GTDBTK_DATA_PATH="/zfs/omics/projects/metatools/DB/GTDB_tk/GTDB_tk_r207"
 
-#reactivate env 
+#reactivate env to make the changes work
 conda deactivate
 conda activate METABOLIC_v4.0
 ```
