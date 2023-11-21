@@ -4,7 +4,7 @@
     "href": "index.html#useful-tutorials",
     "title": "Bioinformatics guidance page",
     "section": "Useful tutorials",
-    "text": "Useful tutorials\n\nGetting started\n\nGetting started on the Crunchomics server\nGetting started with the command line\nVersion control with git\nA tutorial on using AWK, an excellent command line tool for filtering tables, extracting patterns, etc… If you want to follow this tutorial then you can download the required input files from here\n\n\n\nUsing R\n\nAn R cookbook including some example files if you want to code along\nTutorial on data manipulation with dplyr\nTutorial on data visualization with ggplot2\n\n\n\nBioinformatic workflows\n\nFrom sequence file to OTU table with Qiime\nAssembling a metagenome\nMetagenomic binning\nAnnotating microbial genomes\nHow to do generate a species tree"
+    "text": "Useful tutorials\n\nGetting started\n\nGetting started on the Crunchomics server\nGetting started with the command line\nVersion control with git\nA tutorial on using AWK, an excellent command line tool for filtering tables, extracting patterns, etc… If you want to follow this tutorial then you can download the required input files from here\n\n\n\nUsing R\n\nAn R cookbook including some example files if you want to code along\nTutorial on data manipulation with dplyr\nTutorial on data visualization with ggplot2\n\n\n\nBioinformatic workflows\n\nFrom sequence file to OTU table with Qiime\nAnalysing an OTU table with R\nAssembling a metagenome\nMetagenomic binning\nAnnotating microbial genomes\nHow to do generate a species tree"
   },
   {
     "objectID": "index.html#bioinformatic-tools-a-z",

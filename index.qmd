@@ -1,3 +1,7 @@
+---
+toc-depth: 2
+---
+
 
 ![](img/banner-min.png)
 
@@ -27,6 +31,7 @@ This page is very much a work in progress and the page will be slowly updated ov
 ### Bioinformatic workflows
 
 - [From sequence file to OTU table with Qiime](source/Qiime/3_evelyn_tutorial_notes.qmd)
+- [Analysing an OTU table with R](source/Qiime/OTU_table_analysis.qmd)
 - [Assembling a metagenome](https://ndombrowski.github.io/Assembly_tutorial/)
 - [Metagenomic binning](https://ndombrowski.github.io/Binning_tutorial//)
 - [Annotating microbial genomes](https://github.com/ndombrowski/Annotation_workflow)
