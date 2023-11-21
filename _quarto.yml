@@ -5,6 +5,8 @@ project:
     - "!readme.md"
     - "*qmd"
 
+execute:
+  freeze: auto  # re-render only when source changes
 
 format:
   html:
@@ -54,6 +56,7 @@ website:
             contents:
               - source/Qiime/readme.qmd
               - source/Qiime/3_evelyn_tutorial_notes.qmd
+              - source/Qiime/OTU_table_analysis.qmd
 
           - section: "Nanopore analyses"
             contents:
