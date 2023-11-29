@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2023-11-15">
+<meta name="dcterms.date" content="2023-11-29">
 
 <title>Bioinformatics guidance page – nanoclass</title>
 <style>
@@ -70,6 +70,7 @@ ul.task-list li input[type="checkbox"] {
 </head>
 
 <body class="nav-sidebar docked">
+
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -158,6 +159,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../../source/Qiime/3_evelyn_tutorial_notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A short QIIME tutorial</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/Qiime/OTU_table_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analysing OTU tables with R</span></a>
   </div>
 </li>
       </ul>
@@ -332,9 +339,9 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="nanoclass">NanoClass</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>NanoClass is a snakemake workflow developed by IBED’s former biofinformatician Evelien Jongepier.</p>
-<p>NanoClass is a taxonomic meta-classifier for meta-barcoding 16S rRNA gene sequencing data generated with the Oxford Nanopore Technology. With a single command, this Snakemake pipeline installs all programs and databases and runs and evaluates 10 popular taxonomic classification tools.</p>
-<p>To find out more check out the <a href="https://ejongepier.github.io/NanoClass/index.html">manual</a>.</p>
+<p>NanoClass2 build upon a snakemake workflow originally developed by IBED’s former biofinformatician Evelien Jongepier.</p>
+<p>NanoClass2 is a taxonomic meta-classifier for meta-barcoding 16S/18S rRNA gene sequencing data generated with the Oxford Nanopore Technology. With a single command, this Snakemake pipeline installs all programs and databases and runs and evaluates different popular taxonomic classification tools (BLASTN, Centrifuge, Kraken2, IDTAXA, MegaBLAST, dcMegaBLAST, Minimap2, Mothur, QIIME2, RDP and SPINGO).</p>
+<p>To find out more check out the <a href="https://ndombrowski.github.io/NanoClass2/">manual</a>.</p>
 
 
 </section>
@@ -708,7 +715,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       &nbsp;
     </div>   
     <div class="nav-footer-center">Copyright 2023, Nina Dombrowski,<br>
-Last modified: November 15, 2023</div>
+Last modified: November 29, 2023</div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

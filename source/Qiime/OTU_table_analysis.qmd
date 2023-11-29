@@ -548,16 +548,26 @@ summarize_table(reads_per_OTU_filt)
 ## Normalize data
 
 Below, we generate three new phyloseq objects using three different normalization approaches:  
-1. Compositional: transforms the data into relative abundance  
-2. CLR: stands for centerd log-ratio transform and allows us to compare proportions of OTUs within each sample. After this transformation the values will no longer be counts, but rather the dominance (or lack thereof) for each taxa relative to the geometric mean of all taxa on the logarithmic scale  
-3. Rarefaction: scales all of your reads down to the lowest total sequencing depth. Notice, that this might drop many OTUs in higher read samples and might lead to under-estimation of low-abundant OTUs  
+1. *Compositional**: transforms the data into relative abundance  
+2. *CLR**: stands for centered log-ratio transform and allows us to compare proportions of OTUs within each sample. After this transformation the values will no longer be counts, but rather the dominance (or lack thereof) for each taxa relative to the geometric mean of all taxa on the logarithmic scale  
+3. *Rarefaction**: scales all of your reads down to the lowest total sequencing depth. Notice, that this might drop many OTUs in higher read samples and might lead to under-estimation of low-abundant OTUs. Here, we use the non-filtered data as rarefaction expects singletons, and for that purpose they should be retained, unless you have reason to think they are wrong (and which of them are wrong). Depending on whether you want to filter taxa (such as chloroplast), you might want to filter those before doing rarefaction.
 
 Generating different phyloseq objects for different normalization approaches allows us to easily compare analysis steps with different inputs. 
+
+If you want to familiarize yourself more about why and how to normalize data, feel free to check out the following resources that give some more insights into the topic. As you will see, there is a lot of debate about data treatment and you might want to test and compare different approaches with your data.
+
+- [Microbiome Datasets Are Compositional: And This Is Not Optional](https://www.frontiersin.org/articles/10.3389/fmicb.2017.02224)
+- [Understanding sequencing data as compositions: an outlook and review](https://doi.org/10.1093/bioinformatics/bty175)
+- [Waste Not, Want Not: Why Rarefying Microbiome Data is Inadmissible](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003531)
+- [To rarefy or not to rarefy: robustness and efficiency trade-offs of rarefying microbiome data](https://academic.oup.com/bioinformatics/article/38/9/2389/6536959?login=true)
+- [Normalization and microbial differential abundance strategies depend upon data characteristics](https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-017-0237-y)
+
+
 
 ```{r, message=FALSE}
 physeq_rel_abundance <- microbiome::transform(physeq_filt, "compositional")
 physeq_clr <- microbiome::transform(physeq_filt, "clr")
-physeq_rarified <- rarefy_even_depth(physeq_filt)
+physeq_rarified <- rarefy_even_depth(physeq)
 ```
 
 
@@ -569,10 +579,12 @@ Rarefaction curves illustrate how well your sample was sampled. The rarefaction 
 
 In an ideal dataset, each curve should reach a plateau, i.e. horizontal asymptote, ideally around the same depth. While this almost never is the case, exploring these graphs gives us an idea how well each sample was sampled.
 
+In our dataset below, we will use the unfiltered data, since rarefaction is highly dependent on the number of singletons in a sample – the rarer the sequence, the more likely it is that it will be observed only once in a sample. 
+
 
 ```{r}
 #create a df from our otu table
-df <- as.data.frame(otu_table(physeq_filt))
+df <- as.data.frame(otu_table(physeq))
 
 #rarefy data with a step size of 50, using tidy = TRUE will return a dataframe instead of a plot
 df_rare <- rarecurve(t(df), step=50, cex=0.5, label = FALSE, tidy = TRUE)
@@ -608,6 +620,11 @@ In this example we can see that almost none of the sample reach a plateau, RH is
 
 Alpha diversity measures the diversity within our sample and we distinguish between species richness (i.e. the number of species) and species richness (i.e. how relatively abundant each of the species are). 
 
+Something to keep in mind: Some richness-based alpha diversity metrics require singletons to estimate OTUs/ASVs observed zero times in the data. These methods try to to estimate how many rare things are around that you didn't see, and the rare things you did see (that inform you about the unseen others) will be seen 1 or 2 times. Different methods (e.g. rarefaction or Chao's S1) all have that basic dependence.
+
+However, working with sequencing data we have one caveat: Some sequences are being miss classified as new OTUs/ASVs that simply don't really exist. More specifically, errors/chimeras/artefacts/contaminants get interpreted as real OTUs (because they are different enough) and those show up largely in the singleton/doubletons and can almost entirely drive richness estimates to nonsensical values.
+
+
 ```{r, message=FALSE}
 #calculate different alpha diversity indicators
 richness_meta <-microbiome::alpha(physeq_filt, index = "all")
@@ -622,7 +639,7 @@ richness_meta  <- merge(richness_meta, metadata_combined, by = "sample_id")
 colnames(richness_meta)
 ```
 
-Next, we can generate a plot. Since we calculated the diversity estimates after removing singletons, we will look at evenness indices, such as the Shannon index.
+Next, we can generate a plot. Based on our discussion on singletons and since we calculated the diversity estimates after removing singletons, we will look at evenness indices, such as the Shannon index.
 
 ```{r}
 #generate figure
