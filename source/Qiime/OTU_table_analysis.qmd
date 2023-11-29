@@ -809,7 +809,7 @@ fig <-
     labs(y = "Relative abundance", x = "", title = paste0("Relative abundance at ", "Phylum", " rank")) +
     scale_fill_manual(name = paste0("Phylum","_rank"), labels = levels(df$tax_level2), values = cols) +
     facet_grid(cols =  vars(treatment), scales = "free", space = "free") +
-    scale_y_continuous(expand = c(0, 0), limits = c(0, 1.01)) +
+    #scale_y_continuous(expand = c(0, 0), limits = c(0, 1.01)) +
     custom_theme() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1 ) ) +
     guides(fill=guide_legend(title = "Phylum"))
@@ -955,7 +955,7 @@ head(wilcox_results)
 There, seem to be a few OTUs that are distinct between sampling dates, lets explore them further by generating some plots:
 
 ```{r, warning=FALSE, message=FALSE}
-df <- cbind(as.data.frame(as(tax_table(physeq_rel_abundance)[as.character(wilcox_results$OTU), ], "matrix")),as.data.frame(as(otu_table(physeq_rel_abundance)[as.character(wilcox_results$OTU), ], "matrix")))
+df <- cbind(as.data.frame(as(tax_table(physeq_clr)[as.character(wilcox_results$OTU), ], "matrix")),as.data.frame(as(otu_table(physeq_clr)[as.character(wilcox_results$OTU), ], "matrix")))
 
 df_long <- reshape2::melt(df)
 df_long <- merge(df_long, metadata_combined, by.x = "variable", by.y = "sample_id")
@@ -967,7 +967,7 @@ ggplot(df_long, aes(x=Genus, y=value, color = Date)) +
   facet_wrap(vars(Genus), scales = "free") +
   scale_color_manual(values = c("orange", "purple")) +
   xlab("") +
-  ylab("Relative abundance") +
+  ylab("CLR abundance") +
   theme(axis.text.x = element_blank())
 
 ```
@@ -1077,7 +1077,7 @@ Plot significant OTUs (relative abundance):
 
 ```{r}
 #extract relevant data for significant otus
-df <- cbind(as.data.frame(as(tax_table(physeq_rel_abundance)[rownames(res_sig), ], "matrix")),as.data.frame(as(otu_table(physeq_rel_abundance)[rownames(res_sig), ], "matrix")))
+df <- cbind(as.data.frame(as(tax_table(physeq_clr)[rownames(res_sig), ], "matrix")),as.data.frame(as(otu_table(physeq_clr)[rownames(res_sig), ], "matrix")))
 
 #convert to long df
 df_long <- reshape2::melt(df)
@@ -1093,7 +1093,7 @@ ggplot(df_long, aes(x=Genus, y=value, color = treatment)) +
   facet_wrap(vars(Genus), scales = "free") +
   scale_color_manual(values = c("grey", "orange", "purple")) +
   xlab("") +
-  ylab("Relative abundance") +
+  ylab("CLR abundance") +
   theme(axis.text.x = element_blank())
 
 ```
