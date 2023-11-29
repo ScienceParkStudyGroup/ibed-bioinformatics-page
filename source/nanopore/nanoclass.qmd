@@ -13,10 +13,8 @@ bibliography: references.bib
 
 ### Introduction
 
-NanoClass is a snakemake workflow developed by IBED's former biofinformatician Evelien Jongepier.
+NanoClass2 build upon a snakemake workflow originally developed by IBED's former biofinformatician Evelien Jongepier.
 
-NanoClass is a taxonomic meta-classifier for meta-barcoding 16S rRNA gene sequencing data generated with the Oxford Nanopore Technology. With a single command, this Snakemake pipeline installs all programs and databases and runs and evaluates 10 popular taxonomic classification tools.
+NanoClass2 is a taxonomic meta-classifier for meta-barcoding 16S/18S rRNA gene sequencing data generated with the Oxford Nanopore Technology. With a single command, this Snakemake pipeline installs all programs and databases and runs and evaluates different popular taxonomic classification tools (BLASTN, Centrifuge, Kraken2, IDTAXA, MegaBLAST, dcMegaBLAST, Minimap2, Mothur, QIIME2, RDP and SPINGO).
 
-
-
-To find out more check out the [manual](https://ejongepier.github.io/NanoClass/index.html).
+To find out more check out the [manual](https://ndombrowski.github.io/NanoClass2/).
