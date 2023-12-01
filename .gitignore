@@ -3,3 +3,7 @@ _freeze/
 *.Rhistory
 *pdf
 *.pptx
+*txt
+playground
+img
+to_compress

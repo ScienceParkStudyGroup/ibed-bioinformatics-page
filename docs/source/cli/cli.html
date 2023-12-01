@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2023-11-16">
+<meta name="dcterms.date" content="2023-12-01">
 
-<title>Bioinformatics guidance page – cli</title>
+<title>Bioinformatics guidance page - Using the command line</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -70,6 +104,7 @@ ul.task-list li input[type="checkbox"] {
 </head>
 
 <body class="nav-sidebar docked">
+
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -158,6 +193,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../../source/Qiime/3_evelyn_tutorial_notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A short QIIME tutorial</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/Qiime/OTU_table_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analysing OTU tables with R</span></a>
   </div>
 </li>
       </ul>
@@ -313,32 +354,1241 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
     <h2 id="toc-title">On this page</h2>
    
-  <ul>
-  <li><a href="#using-the-command-line-interface" id="toc-using-the-command-line-interface" class="nav-link active" data-scroll-target="#using-the-command-line-interface">Using the command line interface</a></li>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#the-shell-on-different-operating-systems" id="toc-the-shell-on-different-operating-systems" class="nav-link" data-scroll-target="#the-shell-on-different-operating-systems">The shell on different operating systems</a></li>
+  <li><a href="#the-file-system" id="toc-the-file-system" class="nav-link" data-scroll-target="#the-file-system">The file system</a></li>
+  <li><a href="#moving-around-folders-via-the-terminal" id="toc-moving-around-folders-via-the-terminal" class="nav-link" data-scroll-target="#moving-around-folders-via-the-terminal">Moving around folders via the terminal</a></li>
+  <li><a href="#pathnames" id="toc-pathnames" class="nav-link" data-scroll-target="#pathnames">Pathnames</a></li>
+  <li><a href="#general-structure-of-a-unix-command" id="toc-general-structure-of-a-unix-command" class="nav-link" data-scroll-target="#general-structure-of-a-unix-command">General structure of a Unix command</a></li>
+  <li><a href="#viewing-what-files-folders-etc-are-present-in-our-directories" id="toc-viewing-what-files-folders-etc-are-present-in-our-directories" class="nav-link" data-scroll-target="#viewing-what-files-folders-etc-are-present-in-our-directories">Viewing what files, folders, etc are present in our directories</a></li>
+  <li><a href="#generating-and-viewing-files" id="toc-generating-and-viewing-files" class="nav-link" data-scroll-target="#generating-and-viewing-files">Generating and viewing files</a></li>
+  <li><a href="#io-redirection-to-new-files" id="toc-io-redirection-to-new-files" class="nav-link" data-scroll-target="#io-redirection-to-new-files">I/O redirection to new files</a></li>
+  <li><a href="#making-new-folders" id="toc-making-new-folders" class="nav-link" data-scroll-target="#making-new-folders">Making new folders</a></li>
+  <li><a href="#moving-and-copying-files" id="toc-moving-and-copying-files" class="nav-link" data-scroll-target="#moving-and-copying-files">Moving and copying files</a></li>
+  <li><a href="#removing-files-and-folders" id="toc-removing-files-and-folders" class="nav-link" data-scroll-target="#removing-files-and-folders">Removing files and folders</a></li>
+  <li><a href="#downloading-data" id="toc-downloading-data" class="nav-link" data-scroll-target="#downloading-data">Downloading data</a></li>
+  <li><a href="#file-compression" id="toc-file-compression" class="nav-link" data-scroll-target="#file-compression">File compression</a></li>
+  <li><a href="#basic-bash-commands" id="toc-basic-bash-commands" class="nav-link" data-scroll-target="#basic-bash-commands">Basic bash commands</a></li>
+  <li><a href="#using-wildcards" id="toc-using-wildcards" class="nav-link" data-scroll-target="#using-wildcards">Using wildcards</a></li>
+  <li><a href="#sed-manipulating-files" id="toc-sed-manipulating-files" class="nav-link" data-scroll-target="#sed-manipulating-files">SED: manipulating files</a></li>
+  <li><a href="#using-a-screen" id="toc-using-a-screen" class="nav-link" data-scroll-target="#using-a-screen">Using a screen</a></li>
+  <li><a href="#running-loops" id="toc-running-loops" class="nav-link" data-scroll-target="#running-loops">Running loops</a></li>
+  <li><a href="#connecting-to-severs" id="toc-connecting-to-severs" class="nav-link" data-scroll-target="#connecting-to-severs">Connecting to severs</a></li>
+  <li><a href="#random-but-useful" id="toc-random-but-useful" class="nav-link" data-scroll-target="#random-but-useful">Random but useful</a></li>
+  <li><a href="#counting-things-in-a-large-number-of-files" id="toc-counting-things-in-a-large-number-of-files" class="nav-link" data-scroll-target="#counting-things-in-a-large-number-of-files">Counting things in a large number of files</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/cli.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Using the command line</h1>
+</div>
 
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 1, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
 
 <div style="text-align: justify">
 
-<section id="using-the-command-line-interface" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="using-the-command-line-interface">Using the command line interface</h2>
-<p>The command line interface (cli) is not a software but nevertheless useful for bioinformaticians since it is a text-based user interface used to run programs, manage computer files and interact with the computer.</p>
-<p>You can use cli as follows:</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>This page gives a basic introduction on how to use command line.</p>
+<p>The Linux command-line interface (<strong>CLI</strong>) is an alternative to a graphical user interface (GUI) with which you are likely more familiar. Both interfaces allow a user to interact with an operating system. The key difference between the CLI and GUI is that the interaction with CLI is based on issuing commands. In contrast, the interaction with a GUI involves visual elements, such as windows, buttons, etc. CLI is often also referred to as the shell, terminal, console, prompt or various other names</p>
+<p><strong>Bash</strong> is a type of interpreter that processes shell commands. A shell interpreter takes commands in plain text format and calls Operating System services to do something. Bash itself stands for Bourne Again Shell and it is one of the popular command-line shells used to run other programs.</p>
+<p>Below you find a short introduction on using the Unix command-line interface Bash.</p>
+</section>
+<section id="the-shell-on-different-operating-systems" class="level2">
+<h2 class="anchored" data-anchor-id="the-shell-on-different-operating-systems">The shell on different operating systems</h2>
+<section id="linux" class="level3">
+<h3 class="anchored" data-anchor-id="linux">Linux</h3>
+<p>The default shell is usually Bash and there is usually no need to install anything to be able to follow this tutorial.</p>
+</section>
+<section id="mac" class="level3">
+<h3 class="anchored" data-anchor-id="mac">MAC</h3>
+<p>To access the Unix command prompt in Mac OS X, open the Terminal application. It is located by default inside the Utilities folder, which in turn is inside the Applications folder, i.e., /Applications/Utilities/ folder. Alternatively, you should be able to find it by using the spotlight tool.</p>
+</section>
+<section id="windows" class="level3">
+<h3 class="anchored" data-anchor-id="windows">Windows</h3>
+<p>Operating systems like macOS and Linux come with a native command-line terminal, making it straightforward to run bash commands. However, for Windows users you need to install some software first to be able to use bash.</p>
+<p>One option to access the bash shell commands is using Git Bash, for detailed installation instructions please have a look at the <a href="https://carpentries.github.io/workshop-template/install_instructions/#shell-windows">carpenties website</a>.</p>
+<p>A second option is Mobaxterm, which enables Windows users to execute basic Linux/Unix commands on their local machine, connect to an HPC with SSH and to transfer files with SCP/SFTP (more on that later). Installation instructions can be found <a href="https://hpc.ncsu.edu/Documents/mobaxterm.php">here</a>.</p>
+<p>A final option is to use Windows and Linux at the same time on a Windows machine. The Windows Subsystem for Linux (WSL) lets users install a Linux distribution (such as Ubuntu, which is the default Linux distribution, which we recommend to use) and use Linux applications, utilities, and Bash command-line tools directly on Windows. Installation instructions can be found <a href="https://learn.microsoft.com/en-us/windows/wsl/install">here</a>.</p>
+<p>After you set everything up and opening a terminal you should see something like this and are good to go if you want to follow the tutorial:</p>
+<p align="left">
+<img width="600" src="../../img/terminal.png">
+</p>
+</section>
+</section>
+<section id="the-file-system" class="level2">
+<h2 class="anchored" data-anchor-id="the-file-system">The file system</h2>
+<p>Before getting started with the CLI, lets first understand the file system used by Unix, which might look some thing like this:</p>
+<p align="left">
+<img width="600" src="../../img/filesystem.png">
+</p>
+<p>The Unix File System is a logical method of organizing and storing large amounts of information in a way that makes it easy to manage. Some key features are:</p>
 <ul>
-<li>Mac: Use the terminal tool (easy to find with spotlight)</li>
-<li>Linux: Use xterm or konsole</li>
-<li>Windows: Use <a href="https://www.putty.org/">putty</a>, <a href="https://mobaxterm.mobatek.net/?gclid=CjwKCAiAkan9BRAqEiwAP9X6UaGJEwztxdR2mR-EKW5C7hyQPHwVvA3ypPrKCqQQEONI6LBwS6WsrRoC2a8QAvD_BwE/">mobaxterm</a> or <a href="https://learn.microsoft.com/en-us/windows/wsl/basic-commands#install">windows subsystem for linux (WSL)</a></li>
+<li>Different to what you might be used to from Windows, Unix does not use Drives but apppears as a rooted tree of directories<br>
+</li>
+<li>The first directory in the file system is called the root directory represented by <code>/</code><br>
+</li>
+<li>With Unix we do not split our system into different drives but always use a single tree. I.e. different storage devices may contain different branches of the tree, but there is always a single tree. e.g., /users/john/ and / users/mary/</li>
 </ul>
-<p>If you are completely unfamiliar with using the command line check out:</p>
+</section>
+<section id="moving-around-folders-via-the-terminal" class="level2">
+<h2 class="anchored" data-anchor-id="moving-around-folders-via-the-terminal">Moving around folders via the terminal</h2>
+<p>Now that we know how the file system looks like, we do want to move around. Since we do not use a GUI we can not use the mouse to point and click but instead have to write down what we want to do.</p>
+<p>Below are the key commands to do this, feel free to try them on your own devices:</p>
 <ul>
-<li><a href="https://ndombrowski.github.io/Unix_tutorial/#introduction">An older session on using the command line</a>. Will be updated to work on Crunchomics in the future</li>
-<li><a href="https://ndombrowski.github.io/AWK_tutorial/">A tutorial on using AWK</a>, an excellent command line tool for filtering tables, extracting patterns, etc… If you want to follow this tutorial then you can download the required input files from <a href="https://github.com/ndombrowski/AWK_tutorial/tree/main/1_Inputfiles">here</a></li>
+<li><code>pwd</code> prints the location of the current working directory and find out where we are. Usually when we login we start from what is called our home directory. This generally will be something like /Users/username but might be slightly different depending on your operating system.</li>
 </ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now that we know where we are, let’s see how to move around by first seeing what other folders there are. For this we can use the <code>ls</code> command, which stands for list directory contents</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In my case this returns something like this:</p>
+<p align="left">
+<img width="600" src="../../img/ls.png">
+</p>
+<p>This might look a bit different for your system in terms of color and file/folder names but what we basically see are the files (in bold text) and folders (green-highlighted text).</p>
+<p>Next, lets move around these folders using the <code>cd</code> command, which let’s you change the directory. If you run this on your computer exchange <code>source</code> to a folder name that you see when using <code>ls</code>. If there are no directories, we will explain a bit later how to generate new directories.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> source/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you use <code>pwd</code> afterwards, then you should see that we moved into another directory. We can also move back to our orginal directory as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can also move around multiple levels for example here i am going into the source folder, then back to the home directory and then into the docs folder.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> source/../docs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Another useful command is to use a tilde symbol, i.e.&nbsp;<code>~</code>, that can be used as a shortcut to move directly into our home directory:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="pathnames" class="level2">
+<h2 class="anchored" data-anchor-id="pathnames">Pathnames</h2>
+<p>Next, let’s discuss an important distinction between absolute and relative pathnames.</p>
+<p><strong>Absolute pathnames</strong></p>
+<p>An absolute pathname begins with the root directory and follows the tree branch by branch until the path to the desired directory or file is completed. For example on your computer full path to our Desktop might be <code>/Users/username/Desktop</code></p>
+<p>If we want to go to the desktop using an absolute path we do the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /Users/username/Desktop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Relative pathnames</strong></p>
+<p>A relative pathname starts from the directory you are currently in and you traverse to other directories relative from this directory. When using the relative pathway allows you to use a couple of special notations to represent relative positions in the file system tree.</p>
+<ul>
+<li><code>.</code> (dot) The working directory itself</li>
+<li><code>..</code> (dot dot) Refers to the working directory’s parent directory</li>
+</ul>
+<p>If we want to go to the source dir using an relative path we do the following (again change this to whatever folder you see when using ls):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> Desktop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="general-structure-of-a-unix-command" class="level2">
+<h2 class="anchored" data-anchor-id="general-structure-of-a-unix-command">General structure of a Unix command</h2>
+<p>Next, let’s go into the actual commands that might be useful. The general structure of a command looks like this:</p>
+<p><strong>command [options] [arguments]</strong></p>
+<ul>
+<li>command is the name of the command you want to use, i.e.&nbsp;<code>ls</code> would be an example for a very basic Unix command</li>
+<li>arguments is one or more adjustments to the command’s behavior. I.e. for <code>ls</code> we could use the following arguments
+<ul>
+<li>Short notation: <code>-a</code></li>
+<li>Long notation: <code>—all</code></li>
+</ul></li>
+</ul>
+<p>Let’s explore more about how to use this arguments in the next section.</p>
+</section>
+<section id="viewing-what-files-folders-etc-are-present-in-our-directories" class="level2">
+<h2 class="anchored" data-anchor-id="viewing-what-files-folders-etc-are-present-in-our-directories">Viewing what files, folders, etc are present in our directories</h2>
+<p>Let’s look a bit closer into the ls command and use it with an argument <code>-l</code>.</p>
+<p>As a reminder:</p>
+<ul>
+<li><code>ls</code> stands for list directory contents</li>
+<li>everything starting with a minus symbol is an optional argument we can use</li>
+<li><code>-l</code> is an additional argument we can use that makes ls use a long listing format</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After running this, we should see our files and folders but in what is called the long format (which gives way more information):</p>
+<p align="left">
+<img width="600" src="../../img/ls2.png">
+</p>
+<p>If you are unsure what options come with a program its always a good idea to check out the manual. You can do this with:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">man</span> ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can exit the manual by pressing <code>q</code>.</p>
+<p>In case you want to check what a program does or what options there are, depending on the program there might be different ways how to do this. These most common ways are:</p>
+<ul>
+<li><code>man ls</code></li>
+<li><code>ls --help</code></li>
+<li><code>ls -h</code></li>
+</ul>
+</section>
+<section id="generating-and-viewing-files" class="level2">
+<h2 class="anchored" data-anchor-id="generating-and-viewing-files">Generating and viewing files</h2>
+<p>Now, let’s make some files of our own using <code>nano</code>. Nano is a basic text editor that lets us view and generate text.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#open a new document and name it random.txt</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> random.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we type this and press enter, we will open a new document called random.txt.</p>
+<ul>
+<li>Type something into this document</li>
+<li>Close the document with <code>control + X</code></li>
+<li>Type <code>y</code> to save changes and press enter</li>
+</ul>
+<p>If we now use <code>ls -l</code> again, we see that a new file was generated.</p>
+<p>We can use nano to open whatever document we want, but for larger files it might take a long time to read everything into memory. For such cases, let’s look at some alternative text viewers.</p>
+<section id="less" class="level3">
+<h3 class="anchored" data-anchor-id="less">less</h3>
+<p>less is a program that lets you view a file’s contents one screen at a time. This is useful when dealing with a large text file because it doesn’t load the entire file but accesses it page by page, resulting in fast loading speeds.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> random.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Once started, less will display the text file one page at a time.</p>
+<ul>
+<li>You can use the arrow Up and Page arrow keys to move through the text file.</li>
+<li>To exit less, type <code>q</code>.</li>
+<li><code>G</code> Go to the end of the text file</li>
+<li><code>1G</code> Go to the beginning of the text file (or to the Nth line “NG”)</li>
+<li><code>/characters</code> Search forward in the text file for an occurrence of the specified characters</li>
+<li><code>n</code> Repeat the previous search</li>
+<li><code>h</code> Display a complete list less commands and options</li>
+</ul>
+<p>For files with a lots of columns we can use</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> <span class="at">-S</span> random.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this mode we can also use the arrow right and left keys, to view columns that are further on the right.</p>
+</section>
+<section id="head" class="level3">
+<h3 class="anchored" data-anchor-id="head">head</h3>
+<p>Another, very quick way to check the first 10 rows is <code>head</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> random.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="tail" class="level3">
+<h3 class="anchored" data-anchor-id="tail">tail</h3>
+<p>If you want to check the last 10 rows use <code>tail</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> random.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="io-redirection-to-new-files" class="level2">
+<h2 class="anchored" data-anchor-id="io-redirection-to-new-files">I/O redirection to new files</h2>
+<p>By using some special notations we can redirect the output of many commands to files, devices, and even to the input of other commands.</p>
+<p><strong>Standard output (stdout)</strong></p>
+<p>By default, standard output directs its contents to the display, i.e.&nbsp;when we use <code>ls</code> the list of files and folders is printed to the screen. However, we can also redirect the standard output to a file by using <code>&gt;</code> character is used like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#redirect the output from ls to a new file</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="op">&gt;</span> file_list.txt</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#check what happened</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> file_list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we would use <code>ls &gt; file_list.txt</code> again we would overwrite the content of any existing files. However, there might be instances were we want to append something to an existing file. We can do this as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Use this symbol twice (“&gt;&gt;”) to append the result to an existing file</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="op">&gt;&gt;</span> file_list.txt</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#check what happened</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> file_list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="making-new-folders" class="level2">
+<h2 class="anchored" data-anchor-id="making-new-folders">Making new folders</h2>
+<p>Now that we know how to make files, what if we want to generate a new folder. For this we use the <code>mkdir command</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#go into the folder from which you want to work (i.e. the home directory)</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#make a new folder (in the directory we currently are in, name it new_older)</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> playground</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#check if new folder was generated</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="moving-and-copying-files" class="level2">
+<h2 class="anchored" data-anchor-id="moving-and-copying-files">Moving and copying files</h2>
+<p>Next, let’s move the text file we generated before around. To do this, we mainly need two commands:</p>
+<ul>
+<li><code>cp</code> - copy files and directories</li>
+<li><code>mv</code> - move or rename files and directories</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make a file were we store some random text</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>  <span class="op">&gt;</span> random.txt</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#copy our random file into our new folder</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> random.txt playground</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we check our files after doing this, we should see that random.txt exists now twice. Once in our working directory and once in the playground folder. If we want to move a file, instead of copying, we can do the follwoing:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#copy our random file into our new_folder</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> random.txt Unix_Tutorial</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, random.txt should only exist once in the playground folder.</p>
+</section>
+<section id="removing-files-and-folders" class="level2">
+<h2 class="anchored" data-anchor-id="removing-files-and-folders">Removing files and folders</h2>
+<p>To remove files and folders, we use the <code>rm</code> command. Let’s first remove the text file we generated:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#rm a file</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> playground/random.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we want to remove a folder, we need to tell <code>rm</code> that we want to remove folders using an argument. To do this, we use the <code>-r</code> argument (to remove directories and their contents recursively).</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Unix does not have an undelete command.</strong></p>
+<p>Therefore, if you delete something with rm, it’s gone. So use rm with care and check what you wrote twice before pressing enter!</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#rm a directory</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-r</span> playground</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="downloading-data" class="level2">
+<h2 class="anchored" data-anchor-id="downloading-data">Downloading data</h2>
+<p>Next, let’s download some data to learn how to manipulate files. One way to do this is using the <code>wget</code>. With <code>-P</code> we specify were to download the data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make a folder for our downloads</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> playground</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#download a genome from ncbi using wget</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-P</span> playground ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/002/728/275/GCA_002728275.1_ASM272827v1/GCA_002728275.1_ASM272827v1_genomic.fna.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="file-compression" class="level2">
+<h2 class="anchored" data-anchor-id="file-compression">File compression</h2>
+<section id="compressing-data-using-gzip" class="level3">
+<h3 class="anchored" data-anchor-id="compressing-data-using-gzip">Compressing data using gzip</h3>
+<p>After downloading and exploring the content of the playground folder, you see that the file we downloaded ends with <code>gz</code>. This indicates that we work with a gzip-compressed file. Gzip is a tool used to compress the size of files.</p>
+<p>In order to work with files, we sometimes need to de-compress them first. We can do this as follows (by using the decompress, <code>-d</code> argument):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#decompress gz data (-d = decompress)</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-d</span> playground/GCA_002728275.1_ASM272827v1_genomic.fna.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Conversely, if you want to compress a file, you can do this as such:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#compress</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> playground/GCA_002728275.1_ASM272827v1_genomic.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="compressing-data-using-tar" class="level3">
+<h3 class="anchored" data-anchor-id="compressing-data-using-tar">Compressing data using tar</h3>
+<p>Another file compression you might encounter is tar:</p>
+<ul>
+<li>Short for Tape Archive, and sometimes referred to as tarball, is a file in the Consolidated Unix Archive format.</li>
+<li>The TAR file format is common in Unix and Unix-like systems when storing data (however, we do not compress our files when using the tar files)</li>
+<li>TAR files are often compressed after being created and then become TGZ files, using the tgz, tar.gz, or gz extension.</li>
+</ul>
+<p>Let’s try to make a compressed tarball with the file we just downloaded.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#decompress gz data</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-d</span> playground/GCA_002728275.1_ASM272827v1_genomic.fna.gz</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#create a tar file, to_compress.tar.gz, from our playground directory</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-cvzf</span> to_compress.tar.gz playground</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we print the content of our working directory with <code>ls</code> we now see an additional file, <code>to_compress.tar.gz</code>. We can uncompress this file into a new folder as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make a folder into with to compress the data</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> to_compress </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co">#decompress</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xvf</span> to_compress.tar.gz <span class="at">-C</span> to_compress</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co">#check what happened</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> to_compress</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can see that there is one folder in to_compress, our playground folder.</p>
+</section>
+</section>
+<section id="basic-bash-commands" class="level2">
+<h2 class="anchored" data-anchor-id="basic-bash-commands">Basic bash commands</h2>
+<p>Next, let’s go through some basic bash commands that are extremely useful when working with files. To this, let’s first download some example files to use.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-P</span> playground https://raw.githubusercontent.com/ndombrowski/Unix_tutorial/main/Input_docs/Experiment1.txt</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-P</span> playground https://raw.githubusercontent.com/ndombrowski/Unix_tutorial/main/Input_docs/Experiment2.txt</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-P</span> playground https://raw.githubusercontent.com/ndombrowski/Unix_tutorial/main/Input_docs/Experiment3.txt</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-P</span> playground https://raw.githubusercontent.com/ndombrowski/Unix_tutorial/main/Input_docs/PF00900.faa</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-P</span> playground https://raw.githubusercontent.com/ndombrowski/Unix_tutorial/main/Input_docs/PF01015.faa</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co">#check if this worked</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> playground/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The content of the files is not super important but the text files are metadata files recording some data from a growth experiment and the files look something like this:</p>
+<table class="table">
+<tbody>
+<tr class="odd">
+<td>Ex1</td>
+<td>control1</td>
+<td>0.2</td>
+<td>0.3</td>
+<td>#Ex1_all_good</td>
+</tr>
+<tr class="even">
+<td>Ex1</td>
+<td>control2</td>
+<td>0.3</td>
+<td>0.1</td>
+<td>#all_good</td>
+</tr>
+<tr class="odd">
+<td>Ex1</td>
+<td>N[0.4uM]</td>
+<td>10.1</td>
+<td>4.7</td>
+<td>#contamination</td>
+</tr>
+<tr class="even">
+<td>Ex1</td>
+<td>N[0.4uM]</td>
+<td>5.2</td>
+<td>4.3</td>
+<td>#all_good</td>
+</tr>
+</tbody>
+</table>
+<p>The faa files are a file type you might encounter when working with molecular data. The FASTA format is a text-based format for representing either nucleotide sequences or amino acid (protein) sequences, in which nucleotides or amino acids are represented using single-letter codes. A sequence begins with a greater-than character (<code>&gt;</code>) followed by a description of the sequence (all in a single line). The lines immediately following the description line are the sequence representation, with one letter per amino acid or nucleic acid, and are typically no more than 80 characters in length.</p>
+<pre><code>&gt;GCA_000007185
+MVRDKWKDKVWYTILAPDMFDNVEVGETPADDPEKVIGRVLETTLGDVLDDITKHHIKVFFRIYDVEGTTAYSKFEGHRLMRDYVRSLVRRGTSRIDGVIDVVTKDGYKVRVAGLAFTTRRAKTSQQRAIRKEMFKVIEENAKECDFDEFIRRCLSISEEESIPEQIKEAGRKIYPIRQAEIRKTEVLEEPNGLPPYEAVGDRATPELASY
+&gt;GCA_000007305
+MAAKRATTTRDKWKLKQWYII</code></pre>
+<p>In your case you will look at two protein fasta files in which the header contains the information from what genome, i.e.&nbsp;GCA_000007185, a sequence was extracted from as well as the acutal sequence itself.</p>
+<section id="wc-counting-files" class="level3">
+<h3 class="anchored" data-anchor-id="wc-counting-files">WC: Counting files</h3>
+<p>The <code>wc</code> (= wordcount) command in UNIX is a command line utility for printing newline, word and byte counts for files.</p>
+<ul>
+<li>It can return the number of lines in a file, the number of characters in a file and the number of words in a file</li>
+<li>It can also be combine with pipes for general counting operations. We will explain pipes a bit later</li>
+<li><code>*</code> Stands for a wildcard, and we will discuss below how exactly it works but for now it allows us to catch all files ending with a txt in the playground folder</li>
+</ul>
+<p>These commands are simple but essential for quality control and you will use it a lot to check whether your commands worked all right.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#count how many words we have</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-w</span> playground/Experiment1.txt</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co">#count how many lines we have in a file we have</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> playground/Experiment1.txt</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co">#count how many files we have that end with a certain extension</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="ex">ll</span> playground/<span class="pp">*</span>.txt <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="grep-finding-patterns-in-files" class="level3">
+<h3 class="anchored" data-anchor-id="grep-finding-patterns-in-files">Grep: Finding patterns in files</h3>
+<p>The grep command is used to search text. It searches the given file for lines containing a match to the given strings or words. Also this command is simple but very useful for sanity checks after file transformations.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#count how often the pattern **control** occurs in our document</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"control"</span> playground/Experiment1.txt</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co">#only give the counts, not the lines</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-c</span> <span class="st">"control"</span> playground/Experiment1.txt</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co">#grep a pattern only if it occurs at the beginning of a line</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"^Ex"</span> playground/Experiment1.txt</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co">#we can also count the number of sequences in the fasta file we downloaded before</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-c</span> <span class="st">"&gt;"</span> playground/<span class="pp">*</span>faa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="using-wildcards" class="level2">
+<h2 class="anchored" data-anchor-id="using-wildcards">Using wildcards</h2>
+<p>Since the shell uses filenames so much, it provides special characters to help you rapidly specify groups of filenames.</p>
+<p>A <strong>Wild-card</strong> character can be used as a substitute for any class of characters in a search.</p>
+<ol type="1">
+<li>The <code>*</code> wildcard is the wildcard with the broadest meaning of any of the wildcards, it can represent 0 characters, all single characters or any string of characters. I.e. we can grep for something in any files that end with .txt as follows:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-c</span> <span class="st">"Ex"</span> playground/<span class="pp">*</span>txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>The <code>?</code> wildcard matches exactly one character but will ingore files that start with a dot. We could use it as follows:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"control"</span> playground/Experiment<span class="pp">?</span>.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>[012] wildcard = matches 0 or 1 or 2 exactly once</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span>  <span class="st">"control"</span> playground/Experiment<span class="pp">[</span><span class="ss">012</span><span class="pp">]</span>.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="4" type="1">
+<li>[0-9] wildcard = matches matches any number exactly one</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span>  <span class="st">"control"</span> playground/Experiment<span class="pp">[</span><span class="ss">0</span><span class="pp">-</span><span class="ss">9</span><span class="pp">]</span>.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="5" type="1">
+<li>combining wildcards</li>
+</ol>
+<ul>
+<li>[A-Z] wildcard = any letter in capitals occurring once</li>
+<li>[a-z]* wildcard = any letter in non-capital letters occurring many times</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"control"</span> playground/<span class="pp">[</span><span class="ss">A</span><span class="pp">-</span><span class="ss">Z</span><span class="pp">][</span><span class="ss">a</span><span class="pp">-</span><span class="ss">z</span><span class="pp">]*[</span><span class="ss">12</span><span class="pp">]</span>.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>[a-z]{7} we are exactly looking for 7 letters (as in ‘control’)</li>
+<li>these 7 letters should be followed by either a 1 or 2</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"[a-z]\{7\}[12]"</span> playground/Experiment<span class="pp">[</span><span class="ss">12</span><span class="pp">]</span>.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="7" type="1">
+<li>if we are not sure how many characters we have</li>
+</ol>
+<ul>
+<li>matches 3-10 characters</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"[a-z]\{3,10\}[12]"</span> playground/Experiment<span class="pp">[</span><span class="ss">12</span><span class="pp">]</span>.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you use grep with special symbols you might notice something:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#this does not work</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"control?"</span> playground/Experiment1.txt</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co">#this works how we want it to work</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-E</span> <span class="st">"control?"</span> playground/Experiment1.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><code>-E</code> tells grep that the ‘?’ is not taken literally but as a wildcard</li>
+</ul>
+<p>Unfortunately different programs have slightly ways to do things, i.e greop uses <code>-E</code> while sed uses different quotes. If you run into problems when using wildcards check the manual or the web.</p>
+<p><strong>Exercise</strong></p>
+<ul>
+<li>In the faa files, how many sequences do we have? Notice, sequences always start with a <code>&gt;</code></li>
+<li>In the faa files, how often do we have 3 consecutive A’s?</li>
+<li>In the faa files, how often do we have 2x A’s followed by a T?</li>
+<li>In the faa files, how often do we have 2x M’s followed by a T or followed by a D?</li>
+</ul>
+<p>Comment: If you unsure what is happening remove the <code>-c</code> to see what grep is grepping.</p>
+<div class="cell">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#question1:</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-c</span> <span class="st">"&gt;"</span> playground/<span class="pp">*</span>.faa</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co">#question2</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-c</span> <span class="st">"[A]\{3\}"</span> playground/<span class="pp">*</span>.faa</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co">#question4</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-c</span> <span class="st">"[A]\{2\}[T]"</span> playground/<span class="pp">*</span>.faa</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="co">#question5</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-c</span>  <span class="st">"[A]\{2\}[TC]"</span> playground/<span class="pp">*</span>.faa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Hint: if you are unsure what is happening, redo the command without the <code>-c</code> option</p>
+<section id="cat-combining-data" class="level3">
+<h3 class="anchored" data-anchor-id="cat-combining-data">Cat: Combining data</h3>
+<p>The cat command has three main functions related to manipulating text files:</p>
+<ol type="1">
+<li>Create a new file using cat, then type <code>Hello!</code> press enter, and *Press “ctrl+c” to save the file:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;</span> playground/file_test.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>Display the content of an existing file:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> playground/file_test.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>Concatenate several files:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#merge files</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> playground/file_test.txt playground/file_test.txt  <span class="op">&gt;</span> playground/file_merged.txt</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co">#check the content of the file</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> playground/file_merged.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Exercise</strong></p>
+<ul>
+<li>View the content of playground/Experiment1.txt by using cat</li>
+<li>Combine playground/Experiment1.txt and playground/Experiment2.txt.</li>
+<li>Do the same as above but use a wildcard to not have to type everything and store the output as <code>playground/Experiments.txt</code></li>
+</ul>
+<div class="cell">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#question1</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> playground/Experiment1.txt</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co">#question3</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> playground/Experiment1.txt playground/Experiment2.txt</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="co">#question3</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> playground/Experiment<span class="pp">*</span>.txt <span class="op">&gt;</span> playground/Experiments.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="pipes-combining-commands" class="level3">
+<h3 class="anchored" data-anchor-id="pipes-combining-commands">Pipes: Combining commands</h3>
+<p>Pipes are a powerful utility to connect multiple commands together. They allow us to feed the standard output of one command as input into another command.</p>
+<p>In this example we first combine two files using <code>cat</code> and use <code>wc -l</code> on the standard output to count the number of lines after concatenating the two files:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> playground/Experiment<span class="pp">[</span><span class="ss">12</span><span class="pp">]</span>.txt <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Exercise</strong></p>
+<ul>
+<li>Using a pipe, combine the two faa files and count the total number of sequences using grep:</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">#question1</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> playground/<span class="pp">*</span>faa <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-c</span> <span class="st">"&gt;"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="the-cut-command" class="level3">
+<h3 class="anchored" data-anchor-id="the-cut-command">The cut command</h3>
+<p>We can use <code>cut</code> to separate columns. By default <code>cut</code> uses a tab as a delimiter. We could print the first colummn of our data as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#only print the second column of our table</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f1</span> playground/Experiment1.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Or if we only want to get the second column:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">#only print the second column of our table</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f2</span> playground/Experiment1.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we wanted to get columns 1 and 2 we do:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co">#only print the second column of our table</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f1-2</span> playground/Experiment1.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can also change how we cut, i.e.&nbsp;we could cut after a <code>#</code> by using the <code>-d</code> argument:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#change how we cut, ie cut after a #</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f1</span> <span class="at">-d</span> <span class="st">"#"</span> playground/Experiment1.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Exercise</strong></p>
+<ul>
+<li>In PF00900.faa, we want to shorten the fasta header. To do this cut the text of after the first underscore <code>_</code> (i.e.&nbsp;keep only the first element). Combine this with the head command to only view the first few lines and see if your command worked.</li>
+<li>In PF00900.faa, cut to only keep the text after the first <code>_</code> (i.e.&nbsp;keep the second element). Again, combine this with the head command.</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">#question1</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f1</span> <span class="at">-d</span> <span class="st">"_"</span> playground/PF00900.faa <span class="kw">|</span> <span class="fu">head</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="co">#question2</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f2</span> <span class="at">-d</span> <span class="st">"_"</span> playground/PF00900.faa <span class="kw">|</span> <span class="fu">head</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Be careful when using the second options, as this will cut away the <code>&gt;</code> symbol that we need in fasta files to define the header. I.e. fasta headers always should start with this symbol and if we would use such a command we would need the <code>&gt;</code> back in/</p>
+</section>
+<section id="sort" class="level3">
+<h3 class="anchored" data-anchor-id="sort">Sort</h3>
+<p><strong>sort</strong> – sort lines in a file from A-Z and is useful for file organization. We can sort files like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> playground/Experiment2.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Sort by default sorts from left to right, but we also can sort based on a specific column:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">#sort using the fourth column</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-k4</span> playground/Experiment2.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can also sort by more than one column:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">#sort using the 5th and then the third column</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-k5</span> <span class="at">-k3</span> playground/Experiment1.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="uniq" class="level3">
+<h3 class="anchored" data-anchor-id="uniq">Uniq</h3>
+<p><strong>uniq</strong> – can be used to remove or find duplicates. However, for this to work the file first needs to be sorted. To do this, we can make use of pipes. Lets, start of by extracting the observations we made with <code>cut</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f5</span> playground/Experiment1.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We then can sort the column by adding a pipe:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f5</span> playground/Experiment1.txt <span class="kw">|</span> <span class="fu">sort</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And only print unique observations with uniq:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f5</span> playground/Experiment1.txt <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we where interested in duplicated observations, we can add the <code>-d</code> argument:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co">#only keep duplicates</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f5</span> playground/Experiment1.txt <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-d</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Check out the manual for more options!</p>
+<p><strong>Exercise</strong></p>
+<ul>
+<li>Using a pipe: combine the faa files. How many sequences do we have in total?</li>
+<li>Using a pipe: combine the faa files. Extract only the header and then count how many duplicates do we have?</li>
+<li>Same as above, but how many sequences are not duplicated? Check the manual for uniq on what option allows you to do this.</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co">#question1</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> playground/<span class="pp">*</span>faa <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-c</span> <span class="st">"&gt;"</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="co">#question 2</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> playground/<span class="pp">*</span>faa <span class="kw">|</span> <span class="fu">grep</span> <span class="st">"&gt;"</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-d</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span> </span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="co">#question 3</span></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> playground/<span class="pp">*</span>faa <span class="kw">|</span> <span class="fu">grep</span> <span class="st">"&gt;"</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-u</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="find" class="level3">
+<h3 class="anchored" data-anchor-id="find">find</h3>
+<p><code>find</code> searches through the directories for files and directories with a given name, date, size, or any other attribute you care to specify.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co">#find all files with a txt extension</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> playground/ <span class="at">-name</span> <span class="st">"*txt"</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="co">#find files over a certain size and display results as a long list</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> playground/ <span class="at">-size</span> +1M <span class="at">-ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="sed-manipulating-files" class="level2">
+<h2 class="anchored" data-anchor-id="sed-manipulating-files">SED: manipulating files</h2>
+<p>Sed is a stream editor that can be used to perform basic text transformations on an input stream (a file or input from a pipeline).</p>
+<p>The most basic pattern to use sed for is <strong>sed ‘s/find/replace/’ file</strong>.</p>
+<section id="basics-search-and-replace" class="level3">
+<h3 class="anchored" data-anchor-id="basics-search-and-replace">Basics: search and replace</h3>
+<p>Let’s go back to our text files and assume that instead of writing Ex we want to be more clear and write Experiment, we can do this as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/Ex/Experiment/'</span> playground/Experiment1.txt </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>When doing this, we see that:</p>
+<ul>
+<li>Ex only gets replaced the first time it appears in a line, ie. the #Ex1_all_good in the first line gets not replaced</li>
+<li>sed will not overwrite the input file (unless you tell it to do so) but it will print the changed to the screen. If we wanted to save this in a file, we would need to re-direct the output to a new file.</li>
+</ul>
+<p>To change all instances of Ex, we can do the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/Ex/Experiment/g'</span> playground/Experiment1.txt </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Sed can be easily used with wildcards. For example, if you would want to replace control1 and control2 just with control you could do:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/control[0-9]/control/g'</span> playground/Experiment1.txt </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>One important thing to remember is that certain symbols have specific meanings in UNIX. Examples are: comma, brackets, pipes. Do search for these in files, we need to escape them with a <code>\</code>. For example, we could replace the square with round brackets as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co">#replace the square bracket with a round bracket. </span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/N\[0.4uM\]/N(0.4uM)/g'</span> playground/Experiment1.txt </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Exercise</strong></p>
+<ul>
+<li>In playground/PF00900.faa , replace the GCA_ with Genome_</li>
+<li>In playground/PF00900.faa , use wildcards to replace the string of numbers after the GCA with a <code>hello</code></li>
+</ul>
+<div class="cell">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co">#qst 1</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/GCA_/Genome_/g'</span>  playground/PF00900.faa </span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a><span class="co">#qst 2</span></span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/GCA_[0-9]*/GCA_hello/g'</span>  playground/PF00900.faa </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="removing-things-and-using-wildcards" class="level3">
+<h3 class="anchored" data-anchor-id="removing-things-and-using-wildcards">Removing things (and using WILDCARDs)</h3>
+<p>Sed can also be used to remove things, such as line(s) or patterns. Below is a list of examples that you might encounter or find useful.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove 1 first line</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'1d'</span> playground/Experiment1.txt</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="co">#remove last line</span></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'$d'</span> playground/Experiment1.txt</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a><span class="co">#remove lines 2-4</span></span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'2,4d'</span> playground/Experiment1.txt</span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a><span class="co">#remove lines other than 2-4</span></span>
+<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'2,4!d'</span> playground/Experiment1.txt </span>
+<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a><span class="co">#remove the first and last line</span></span>
+<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'1d;$d'</span> playground/Experiment1.txt</span>
+<span id="cb66-15"><a href="#cb66-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-16"><a href="#cb66-16" aria-hidden="true" tabindex="-1"></a><span class="co">#remove lines beginning with an **L**</span></span>
+<span id="cb66-17"><a href="#cb66-17" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'/^L/d'</span> playground/Experiment1.txt</span>
+<span id="cb66-18"><a href="#cb66-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-19"><a href="#cb66-19" aria-hidden="true" tabindex="-1"></a><span class="co">#delete lines ending with d</span></span>
+<span id="cb66-20"><a href="#cb66-20" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'/d$/d'</span> playground/Experiment1.txt</span>
+<span id="cb66-21"><a href="#cb66-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-22"><a href="#cb66-22" aria-hidden="true" tabindex="-1"></a><span class="co">#delete lines ending with d OR D</span></span>
+<span id="cb66-23"><a href="#cb66-23" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'/[dD]$/d'</span> playground/Experiment1.txt</span>
+<span id="cb66-24"><a href="#cb66-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-25"><a href="#cb66-25" aria-hidden="true" tabindex="-1"></a><span class="co">#delete blank lines ('^$' indicates lines containing nothing, i.e. lines with zero or more spaces)</span></span>
+<span id="cb66-26"><a href="#cb66-26" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'/^$/d'</span> playground/Experiment1.txt</span>
+<span id="cb66-27"><a href="#cb66-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-28"><a href="#cb66-28" aria-hidden="true" tabindex="-1"></a><span class="co">#delete lines that start with capital letters</span></span>
+<span id="cb66-29"><a href="#cb66-29" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'/^[A-Z]/d'</span> playground/Experiment1.txt</span>
+<span id="cb66-30"><a href="#cb66-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-31"><a href="#cb66-31" aria-hidden="true" tabindex="-1"></a><span class="co">#delete lines with the pattern **Ex**</span></span>
+<span id="cb66-32"><a href="#cb66-32" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'/Ex/d'</span> playground/Experiment1.txt</span>
+<span id="cb66-33"><a href="#cb66-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-34"><a href="#cb66-34" aria-hidden="true" tabindex="-1"></a><span class="co">#delete files with the pattern control or uM</span></span>
+<span id="cb66-35"><a href="#cb66-35" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'/control\|uM/d'</span> playground/Experiment1.txt</span>
+<span id="cb66-36"><a href="#cb66-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-37"><a href="#cb66-37" aria-hidden="true" tabindex="-1"></a><span class="co">#delete the 2nd occurence of each pattern per line (here *o*)</span></span>
+<span id="cb66-38"><a href="#cb66-38" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/o//2'</span> playground/Experiment1.txt</span>
+<span id="cb66-39"><a href="#cb66-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-40"><a href="#cb66-40" aria-hidden="true" tabindex="-1"></a><span class="co">#remove all digits across the whole file</span></span>
+<span id="cb66-41"><a href="#cb66-41" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/[0-9]//g'</span> playground/Experiment1.txt</span>
+<span id="cb66-42"><a href="#cb66-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-43"><a href="#cb66-43" aria-hidden="true" tabindex="-1"></a><span class="co">#remove all alpha-numerical characters and numbers</span></span>
+<span id="cb66-44"><a href="#cb66-44" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/[a-zA-Z0-9]//g'</span> playground/Experiment1.txt</span>
+<span id="cb66-45"><a href="#cb66-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-46"><a href="#cb66-46" aria-hidden="true" tabindex="-1"></a><span class="co">#remove character, here E,  regardless of the case</span></span>
+<span id="cb66-47"><a href="#cb66-47" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/[eE]//g'</span> playground/Experiment1.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="using-a-screen" class="level2">
+<h2 class="anchored" data-anchor-id="using-a-screen">Using a screen</h2>
+<p>Screen or GNU Screen is a terminal multiplexer. This means that you can start a screen session and then open any number of windows (virtual terminals) inside that session. Processes running in Screen will continue to run when their window is not visible even if you get disconnected This is perfect, if we start longer running processes on the server and want to shut down our computer when leaving for the day. As long as the server is still connected to the internet, your process will continue running.</p>
+<p>We start a screen as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="ex">screen</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We detach, i.e.&nbsp;exit, from a screen with <code>control+a+d</code>.</p>
+<p>If you run multiple things, it can be useful to give your screens more descriptive names. You can do this as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co">#start a screen and give it a name</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="ex">screen</span> <span class="at">-S</span> testrun</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After detaching from a screen you can list all currently running screens with:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="ex">screen</span> <span class="at">-ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can restart a screen like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co">#restart an existing screen</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="ex">screen</span> <span class="at">-r</span> testrun</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you want to completely close and remove a screen, type the following while being inside of the screen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="running-loops" class="level2">
+<h2 class="anchored" data-anchor-id="running-loops">Running loops</h2>
+<section id="echoprintf" class="level3">
+<h3 class="anchored" data-anchor-id="echoprintf">echo/printf</h3>
+<p>echo displays a line of text that can be printed to the screen or stored in a file (why this is useful you see in a second):</p>
+<p>Both echo and printf print something into the console. However, echo uses different versions across shells, so you might get slighly different outputs depending on the shell you use. Printf is more portable and allows for more formatting options. You might encounter both when finding code in the wild.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co">#print a string to the console using echo</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Hello everyone"</span></span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a><span class="co">#print a string to the console using printf</span></span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"Hello everyone"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="for-loops" class="level3">
+<h3 class="anchored" data-anchor-id="for-loops">For-loops</h3>
+<p>A <strong>for loop</strong> is a bash programming language statement which allows code to be repeatedly executed. I.e. it allows us to run a command 2, 3, 5 or 100 times.</p>
+<p>Try running this example in which we want to say hello several times:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> 1 2 3<span class="kw">;</span> <span class="cf">do</span> <span class="bu">echo</span> <span class="st">"Welcome </span><span class="va">$i</span><span class="st"> times"</span><span class="kw">;</span> <span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here, you see what this command does step by step:</p>
+<p align="left">
+<img width="600" src="../../img/loops.png">
+</p>
+<p>We could also use a loop to run sed on all our txt files. For example assume that instead of nitrogen (N) we measured sulfur (s) we could replace it among all text files as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co">#change the N for  P in all our files</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> playground/<span class="pp">*</span>txt<span class="kw">;</span> <span class="cf">do</span> <span class="fu">sed</span> <span class="st">'s/N/S/g'</span> <span class="va">$i</span><span class="kw">;</span> <span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p align="left">
+<img width="600" src="../../img/loops2.png">
+</p>
+<p>If we want to store the output in new files, we could store them with a slightly different name as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> playground/<span class="pp">*</span>txt<span class="kw">;</span> <span class="cf">do</span> <span class="fu">sed</span> <span class="st">'s/N/S/g'</span> <span class="va">$i</span> <span class="op">&gt;</span> <span class="va">${i}</span>_2.txt<span class="kw">;</span> <span class="cf">done</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="co">#check that all went alright with </span></span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a><span class="ex">ll</span> playground/<span class="pp">*</span>txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You see here, that we added curly brackets to define the borders of our variable i. I.e. if we would not have the brackets unix would look for a variable i_2, which does not exist.</p>
+<p>You will also see that the name of the output file is not ideal, i.e.&nbsp;it is something like playground/Experiment3.txt_2.txt. To get more control over the name of the output files we can use a file list for building the loop.</p>
+<p>To do this let’s use printf to generate a <code>FileList</code> in which list the the two files we want to work with: Experiment1 and Experiment2. We do this using printf and <code>\n</code>, which is a special character we can use to separate Experiment1 and Experiment using a new line.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"Experiment1\nExperiment2"</span> <span class="op">&gt;</span> playground/FileList</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="co">#view file</span></span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> playground/FileList</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can use this file to run our loop.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="kw">`</span><span class="fu">cat</span> playground/FileList<span class="kw">`;</span> <span class="cf">do</span> <span class="fu">sed</span> <span class="st">'s/N/S/g'</span> playground/<span class="va">${i}</span>.txt <span class="op">&gt;</span> playground/<span class="va">${i}</span>_2.txt<span class="kw">;</span> <span class="cf">done</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="co">#check that all went alright with </span></span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a><span class="ex">ll</span> playground/<span class="pp">*</span>txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Notice, that using this option we need to add the file extension! However, the resulting filenames, i.e.&nbsp;playground/Experiment2_2.txt, are much cleaner.</p>
+<p><strong>Exercise</strong></p>
+<ul>
+<li>make a list with all the faa files (do this with the command line). Ideally, we want to have PF00900 and PF01015 in one column. For this you want to list the names of all faa files but at the same time remove the file extension and the folder name.</li>
+<li>Use this list to, in a loop, replace the GCA_ with Genome_. Store the files with the new ending <code>renamed.faa</code></li>
+</ul>
+<div class="cell">
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co">#question1</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> playground/<span class="pp">*</span>faa <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/playground\///g'</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/\.faa//g'</span> <span class="op">&gt;</span> playground/FaaList</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a><span class="co">#question2</span></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> sample <span class="kw">in</span> <span class="kw">`</span><span class="fu">cat</span> playground/FaaList<span class="kw">`;</span> <span class="cf">do</span> <span class="fu">sed</span> <span class="st">'s/GCA_/Genome_/g'</span> playground/<span class="va">${sample}</span>.faa <span class="op">&gt;</span> playground/<span class="va">${sample}</span>_renamed.faa<span class="kw">;</span> <span class="cf">done</span></span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a><span class="co">#check file</span></span>
+<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> playground/PF00900_renamed.faa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="connecting-to-severs" class="level2">
+<h2 class="anchored" data-anchor-id="connecting-to-severs">Connecting to severs</h2>
+<section id="basics" class="level3">
+<h3 class="anchored" data-anchor-id="basics">Basics</h3>
+<p><strong>SSH</strong> (Secure Shell) is a network protocol that enables secure remote connections between two systems.</p>
+<p>Options:</p>
+<ul>
+<li><code>-Y</code> option enables trusted X11 forwarding in SSH (if we want to open i.e.&nbsp;a java interface, or view alignments). For this to work you might need to install X11 on your computer first. Trusted means: the remote machine is treated as a trusted client. This means that other graphical (X11) clients could take data from the remote machine (make screenshots, do keylogging and other nasty stuff) and it is even possible to alter those data.</li>
+<li><code>-X</code> option enables untrusted X11 forwarding in SSH. Untrusted means = your local client sends a command to the remote machine and receives the graphical output</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="co">#connect to a server</span></span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-X</span> username@server</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="checking-available-resources" class="level3">
+<h3 class="anchored" data-anchor-id="checking-available-resources">Checking available resources</h3>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+When working on an HPC keep in mind that you share resources with a lot of other users:
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Always read the documentation to get comfortable with using the system</li>
+<li>Keep in mind that we share resources with many other researchers, so schedule jobs sensibly</li>
+<li>For crunchomics there are the following rules:
+<ul>
+<li>DO NOT run multicore programs on the head-node (omics-h0 for crunchomics), use the compute nodes</li>
+<li>Don’t allocate more than 20% (cpu or mem) of the cluster for more than a day</li>
+<li>Do not leave allocations unused and set reasonable time limits on you jobs</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<p>There are different methods we have to check how busy the servers are. This is a good thing to do, do judge how many resources you yourself can use. For running small things on the head node you can use:</p>
+<p><strong><code>top</code></strong></p>
+<p>Typing top into the terminal should give something like this:</p>
+<p align="left">
+<img width="600" src="../../img/top.png">
+</p>
+<p>The different IDs stand for:</p>
+<ul>
+<li>PID: Unique process id.</li>
+<li>USER: Task’s owner.</li>
+<li>PR: It is the priority of the task.</li>
+<li>NI: The nice value of the task. A negative nice value means higher priority,whereas a positive nice value means lower priority.</li>
+<li>VIRT: Total amount of virtual memory used by the task.</li>
+<li>RES: Resident size, the non-swapped physical memory a task has used.</li>
+<li>SHR: Shared Mem size (kb), the amount of shared memory used by a task.</li>
+<li>%CPU: It shows the CPU usage as a percentage of total CPU time.</li>
+<li>%MEM: It shows the Memory usage, a task’s currently used share of available physical memory.
+<ul>
+<li><strong>as a rule of thump in the example above the first process uses 1492/100 = so roughly 15 of the 144 avail. cpus</strong></li>
+</ul></li>
+<li>S: Status of the process</li>
+<li>TIME+: CPU Time</li>
+<li>COMMAND: Display the command line used to start a task or the name ofthe associated program.</li>
+</ul>
+<p><strong><code>htop</code></strong></p>
+<p>Htop gives similar info to top but allows to access how many CPUs and how much mem is used in total a bit easier:</p>
+<p align="left">
+<img width="600" src="../../img/htop.png">
+</p>
+<p>The numbers from 1-144 are our 144 CPUs and the fuller the bar is, the more of a single CPU is currently in use. This is also summarized under <strong>tasks</strong>. Another important line is the <strong>memory</strong> listing how much in total of the avail. memory is in use.</p>
+<p><strong><code>df</code></strong></p>
+<p><code>df</code> monitors the available space on the different file systems.</p>
+<p align="left">
+<img width="600" src="../../img/df.png">
+</p>
+<p><strong><code>free</code></strong></p>
+<p>Monitor avail. memory on the different file systems.</p>
+<p align="left">
+<img width="600" src="../../img/free.png">
+</p>
+<p>We can see that lv3, where scratch is, is almost full. So it is a good point to do data cleaning.</p>
+<p><strong><code>du</code></strong></p>
+<p>Monitor`s how much space specific folders take up. In the example below we look at all the folders in the Desktop folder.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-sh</span> Desktop/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="transferring-data-fromto-a-server" class="level3">
+<h3 class="anchored" data-anchor-id="transferring-data-fromto-a-server">Transferring data from/to a server</h3>
+<p>Note: If transferring data the transfer is prepared from the terminal of your local computer. There are filetransfer systems that can make the job easier, i.e.&nbsp;FileZilla. If you do not have a file transfer system, you can also transfer files via the command line using <code>scp</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co">#copy a File from your local pc to server</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> File username@server:/HomeDir</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="co">#from server to local</span></span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> username@server:/HomeDir/File Desktop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="working-on-a-server-via-slurm" class="level3">
+<h3 class="anchored" data-anchor-id="working-on-a-server-via-slurm">Working on a server via slurm</h3>
+<p>On crunchomics we can not directly run larger jobs on the headnode (i.e.&nbsp;where you login) but we need to submit them via a job submission system called slurm.</p>
+<p>Slurm has three key functions.</p>
+<ol type="1">
+<li>It allocates exclusive and/or non-exclusive access to resources (compute nodes) to users for some duration of time.</li>
+<li>It provides a framework for starting, executing, and monitoring work (normally a parallel job) on the set of allocated nodes.</li>
+<li>It arbitrates contention for resources by managing a queue of pending work</li>
+</ol>
+<p>Below you find some basic information on how to use Slurm on Crunchomics, for more information, visit the <a href="https://crunchomics-documentation.readthedocs.io/en/latest/slurm_overview.html">crunchomics website</a>.</p>
+</section>
+<section id="viewing-available-resources" class="level3">
+<h3 class="anchored" data-anchor-id="viewing-available-resources">Viewing available resources</h3>
+<p><strong>sinfo</strong> can be used to information about the cluster: node names, state, partition (queue). Here:</p>
+<ul>
+<li>partition: the queues that are available</li>
+<li>state: idle (available for jobs), mix (partly available), down etc. Slurm codes</li>
+<li>node list: the names of the nodes omics-cn001 to omics-cn005</li>
+</ul>
+<p><strong>squeue</strong> can be used to view information about jobs in the queue</p>
+<section id="preparing-a-job-script" class="level4">
+<h4 class="anchored" data-anchor-id="preparing-a-job-script">Preparing a job script</h4>
+<p>To submit a job we can do this with a job script. To do this, we need to open a document in nano and describe what resources we need, i.e.&nbsp;with</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> jobscript.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Inside the script we can have something written like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/sh</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --partition=normal    # default "normal", if not specified</span></span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --nodelist=no1       # the node we want to work on</span></span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=0-06:30:00     # run time in days-hh:mm:ss</span></span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --nodes=1             # require 1 node</span></span>
+<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --ntasks-per-node=36  # (by default, "ntasks"="cpus")</span></span>
+<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem-per-cpu=4000    # MB RAM per CPU core (default 4 GB/core)</span></span>
+<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --error=job.%J.err</span></span>
+<span id="cb83-9"><a href="#cb83-9" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=job.%J.out</span></span>
+<span id="cb83-10"><a href="#cb83-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-11"><a href="#cb83-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Executable commands :</span></span>
+<span id="cb83-12"><a href="#cb83-12" aria-hidden="true" tabindex="-1"></a><span class="ex">iqtree</span> <span class="at">-s</span> my_aln.faa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The most important things are</p>
+<ul>
+<li>the partition, esp.&nbsp;for jobs that run longer</li>
+<li>the node we want to work on, i.e.&nbsp;only some allow for longer running jobs</li>
+<li>the number of nodes, we usally use one for our jobs</li>
+<li>–error and –output are good to keep in case you ran into problems</li>
+</ul>
+<p>Not absolutely necessary (at least on the NIOZ system but might be on other systems)</p>
+<ul>
+<li>time = not necessary for the NIOZ server, just make sure you are in the max limit</li>
+<li>mem-per-cpu</li>
+<li>nodes = not needed if you use nodelist</li>
+</ul>
+</section>
+<section id="basic-commands-for-slurm" class="level4">
+<h4 class="anchored" data-anchor-id="basic-commands-for-slurm">basic commands for slurm:</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co">#submitting your job</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> jobscript.sh</span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a><span class="co">#checking for running jobs</span></span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span></span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a><span class="co">#kill a job incase sth is wrong (the job ID you can find via squeue)</span></span>
+<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a><span class="ex">scancel</span> job#</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="random-but-useful" class="level2">
+<h2 class="anchored" data-anchor-id="random-but-useful">Random but useful</h2>
+<p>The code below is a random collection of code the author found useful. This means it might be interesting for you BUT these are so far not linked to example files and some programs might not be avail. on ada.</p>
+<section id="escaping-characters" class="level3">
+<h3 class="anchored" data-anchor-id="escaping-characters">Escaping characters</h3>
+<p>Certain characters are significant to the shell; Escaping is a method of quoting single characters. The escape (<code>\</code>) preceding a character tells the shell to interpret that character literally. Below, we find the special meanings of certain escaped characters:</p>
+<p align="left">
+<img width="400" src="../../img/escaping.png">
+</p>
+</section>
+<section id="exceldos-to-unix-issue-cleanup" class="level3">
+<h3 class="anchored" data-anchor-id="exceldos-to-unix-issue-cleanup">Excel/DOS to UNIX issue cleanup</h3>
+<ol type="1">
+<li>hidden symbols</li>
+</ol>
+<p>Sometimes when saving excel documents as text this insert hidden symbols. These can be seen as a blue M when opening the file in vim (sometimes they result in odd errors while parsing tables). Most often you see these issues when you open your files and lines are merged that should not be merged.</p>
+<p>This symbol can be removed as follows in vim:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="ex">:%s/\r/\r/g</span>   to remove blue M</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>wrong file types</li>
+</ol>
+<p>Files created on WINDOWS systems are not always compatible with UNIX. In case there is an issue it is always safer to convert. You see if you have an issue if you open your file of interest with nano and check the file format at the bottom.</p>
+<p>If we see we are dealing with a dos file, we can clean files like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dos to unix</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ sub("\r$", ""); print }'</span> winfile.txt <span class="op">&gt;</span> unixfile.txt</span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="co">#unix to dos</span></span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'sub("$", "\r")'</span> unixfile.txt <span class="op">&gt;</span> winfile.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="datamash-merging-rows-by-keys" class="level3">
+<h3 class="anchored" data-anchor-id="datamash-merging-rows-by-keys">datamash: merging rows by keys</h3>
+<p>GNU datamash is a command-line program which performs basic numeric, textual and statistical operations on input textual data files.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="ex">datamash</span> <span class="at">-sW</span> <span class="at">-g1</span> collapse 2 collapse 4 <span class="op">&lt;</span> Unimarkers_KO_count_table.txt  <span class="op">&gt;</span> Unimarkers_KO_collapsed.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="using-environmental-variables" class="level3">
+<h3 class="anchored" data-anchor-id="using-environmental-variables">Using environmental variables</h3>
+<p>Simply put, environment variables are variables that are set up in your shell when you log in. They are called “environment variables” because most of them affect the way your Unix shell works for you. I.e. one points to your home directory and another to your history file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co">#list of avail. variables</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="fu">env</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-10</span></span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="co"># show where variables are stored</span></span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$PATH</span></span>
+<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a><span class="co"># change location of variables</span></span>
+<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">HOME</span><span class="op">=</span>/home/shs</span>
+<span id="cb88-9"><a href="#cb88-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-10"><a href="#cb88-10" aria-hidden="true" tabindex="-1"></a><span class="co">#change path of environmental varialbes</span></span>
+<span id="cb88-11"><a href="#cb88-11" aria-hidden="true" tabindex="-1"></a><span class="va">PATH</span><span class="op">=</span>~/bin:<span class="va">$PATH</span>:/apps/bin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="dealing-with-pdfs-cpdf" class="level3">
+<h3 class="anchored" data-anchor-id="dealing-with-pdfs-cpdf">Dealing with PDFs –&gt; CPDF</h3>
+<p>CPDF is a useful program if you want to merge pdfs, remodel them all to A4 etc.</p>
+<p>This is not available on the server but easy to install in case you are interested.</p>
+<p>For more information, see <a href="https://community.coherentpdf.com">here</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="co"># merge pdfs</span></span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a><span class="ex">~/Desktop/Programs/cpdf-binaries-master/OSX-Intel/cpdf</span> <span class="at">-merge</span> <span class="pp">*</span>pdf <span class="at">-o</span> All_Main_Figs.pdf</span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a><span class="co">#convert to A4</span></span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a><span class="ex">~/Desktop/Programs/cpdf-binaries-master/OSX-Intel/cpdf</span> <span class="at">-scale-to-fit</span> a4portrait SI_Figures.pdf <span class="at">-o</span> test.pdf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="accesss-rights" class="level3">
+<h3 class="anchored" data-anchor-id="accesss-rights">Accesss rights</h3>
+<p>Each file (and directory) has associated access rights, which may be found by typing ls -l. Also, ls -lg gives additional information as to which group owns the file</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lg</span> playground/Experiment1.txt </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>-rw-r--r--  1 staff   156B Sep 28  2019 playground/Experiment1.txt</code></p>
+<p>In the left-hand column is a 10 symbol string consisting of the symbols d, r, w, x, -, and, occasionally, s or S. If d is present, it will be at the left hand end of the string, and indicates a directory: otherwise - will be the starting symbol of the string.</p>
+<p>The 9 remaining symbols indicate the permissions, or access rights, and are taken as three groups of 3.</p>
+<ul>
+<li>The left group of 3 gives the file permissions for the user that owns the file (or directory)</li>
+<li>the middle group gives the permissions for the group of people to whom the file (or directory)</li>
+<li>the rightmost group gives the permissions for all others.</li>
+</ul>
+<p>The symbols r, w, etc., have slightly different meanings depending on whether they refer to a simple file or to a directory.</p>
+<section id="access-rights-on-files." class="level4">
+<h4 class="anchored" data-anchor-id="access-rights-on-files.">Access rights on files.</h4>
+<ul>
+<li>r (or -), indicates read permission (or otherwise), that is, the presence or absence of permission to read and copy the file</li>
+<li>w (or -), indicates write permission (or otherwise), that is, the permission (or otherwise) to change a file</li>
+<li>x (or -), indicates execution permission (or otherwise), that is, the permission to execute a file, where appropriate</li>
+</ul>
+</section>
+<section id="access-rights-on-directories." class="level4">
+<h4 class="anchored" data-anchor-id="access-rights-on-directories.">Access rights on directories.</h4>
+<ul>
+<li>r allows users to list files in the directory;</li>
+<li>w means that users may delete files from the directory or move files into it;</li>
+<li>x means the right to access files in the directory. This implies that you may read files in the directory provided you have read permission on the individual files.</li>
+</ul>
+<p>So, in order to read a file, you must have execute permission on the directory containing that file, and hence on any directory containing that directory as a subdirectory, and so on, up the tree.</p>
+</section>
+<section id="changing-access-rights" class="level4">
+<h4 class="anchored" data-anchor-id="changing-access-rights">Changing access rights</h4>
+<ul>
+<li><code>chmod</code> = changing a file mode</li>
+</ul>
+<p>Chmod options:</p>
+<p>u = user g = group o = other a = all r = read w = write (and delete) x = execute (and access directory) + = add permission - = take away permission</p>
+<p>For example, to remove read write and execute permissions on the file example.txt for the group and others, type</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> go-rwx example.txt </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="counting-things-in-a-large-number-of-files" class="level2">
+<h2 class="anchored" data-anchor-id="counting-things-in-a-large-number-of-files">Counting things in a large number of files</h2>
+<p>Here: Find all files that start with *DN** and have a *codon** in them. Once you have these files grep the number of sequences in each file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-maxdepth</span> 6 <span class="at">-name</span> <span class="st">'DN*codon*'</span> <span class="at">-exec</span> grep <span class="at">-c</span> <span class="at">-H</span> <span class="st">"&gt;"</span> {} <span class="dt">\;</span> <span class="op">&gt;</span> Count_hits.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 </section>
@@ -711,7 +1961,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       &nbsp;
     </div>   
     <div class="nav-footer-center">Copyright 2023, Nina Dombrowski,<br>
-Last modified: November 16, 2023</div>
+Last modified: December 1, 2023</div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
