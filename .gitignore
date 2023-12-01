@@ -7,3 +7,4 @@ _freeze/
 playground
 img
 to_compress
+!docs/img
