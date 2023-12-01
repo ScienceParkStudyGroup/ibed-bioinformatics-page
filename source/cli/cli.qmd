@@ -1,6 +1,4 @@
 ---
-title: "Using the command line"
-
 toc-depth: 2
 
 execute:
@@ -11,7 +9,7 @@ engine: knitr
 
 <div style="text-align: justify">
 
-## Introduction
+## Using the command line
 
 This page gives a basic introduction on how to use command line. 
 
@@ -94,7 +92,7 @@ ls
 In my case this returns something like this:
 
 <p align="left">
-  <img width="600" src="../../img/ls.png">
+  <img width="400" src="../../img/ls.png">
 </p>
 
 This might look a bit different for your system  in terms of color and file/folder names but what we basically see are the files (in bold text) and folders (green-highlighted text). 

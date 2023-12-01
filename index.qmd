@@ -18,7 +18,7 @@ This page is very much a work in progress and the page will be slowly updated ov
 ### Getting started 
 
 - [Getting started on the Crunchomics server](https://crunchomics-documentation.readthedocs.io/en/latest/)
-- [Getting started with the command line](https://ndombrowski.github.io/Unix_tutorial/#introduction)
+- [Getting started with the command line](source/cli/cli.qmd)
 - [Version control with git](https://github.com/fkariminejadasl/ml-notebooks/blob/main/tutorial/git.md)
 - [A tutorial on using AWK](https://ndombrowski.github.io/AWK_tutorial/), an excellent command line tool for filtering tables, extracting patterns, etc... If you want to follow this tutorial then you can download the required input files from [here](https://github.com/ndombrowski/AWK_tutorial/tree/main/1_Inputfiles)
 
