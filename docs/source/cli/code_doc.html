@@ -380,45 +380,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Documenting your code is crucial for both your future self and anyone else who might work with your code. Documentation serves as a roadmap for your code. It helps others (and your future self) understand the purpose, functionality, and usage of your code.</p>
 <p>When documenting code, its best to avoid visual editors, such as word, as they are not designed for writing code.</p>
 <p>Instead you can use a plain text editor, such as TextEdit (Mac) or Notepad (Windows). This is the easiest to get started but you will loose some functionality, such as using headers or writing text in bold. Alternatives, with more functionality, are for example writing markdown in RStudioas well as VSCode or Sublime.</p>
+<p><a href="https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf">A Guide to Reproducible Code in Ecology and Evolution</a> gives detailed information on how to organize project folders and how to write clear and reproducible code. The examples are mainly based on R code but most are general enough to apply to other computational langauges (and scientific discipline).</p>
 </section>
 <section id="choose-your-editor" class="level2">
 <h2 class="anchored" data-anchor-id="choose-your-editor">Choose Your Editor</h2>
 <section id="rmarkdown-in-rstudio" class="level3">
 <h3 class="anchored" data-anchor-id="rmarkdown-in-rstudio">Rmarkdown in RStudio</h3>
-<p>R Markdown is an extension of Markdown that allows you to integrate R code directly into your documentation.</p>
+<p>RMarkdown is an extension of Markdown that allows you to integrate R code directly into your documentation.</p>
 <p>If you have not install R and Rstudio, follow <a href="https://rstudio-education.github.io/hopr/starting.html">these instructions</a>.</p>
 <p>In RStudio you can create an R Markdown File by:</p>
 <ul>
-<li>In RStudio, go to File -&gt; New File -&gt; R Markdown.</li>
-<li>Choose a title, author, and output format.</li>
+<li>In RStudio, go to File -&gt; New File -&gt; R Markdown</li>
+<li>Choose a title, author, and output format</li>
+<li>Knit the Document:
+<ul>
+<li>Click the “Knit” button to render your R Markdown document into the chosen output format.</li>
+</ul></li>
 </ul>
 </section>
-<section id="sublime" class="level3">
-<h3 class="anchored" data-anchor-id="sublime">Sublime</h3>
-<p>Sublime Text is known for its speed, simplicity, and powerful features. Follow these steps to set it up for documentation:</p>
-<ol type="1">
-<li>Installation:
+<section id="quarto-in-rstudio" class="level3">
+<h3 class="anchored" data-anchor-id="quarto-in-rstudio">Quarto in Rstudio</h3>
+<p>Quarto is an alternative to RStudio for creating dynamic documents. It provides enhanced features for document creation and includes many more built in output formats (and many more options for customizing each format).</p>
+<p>It is installed by default on newer R installations.</p>
 <ul>
-<li>Download and install Sublime Text from <a href="https://www.sublimetext.com/">here</a>.</li>
-</ul></li>
-<li>Packages:
+<li>In RStudio, go to File -&gt; New File -&gt; Quarto document</li>
+<li>Choose a title, author, and output format</li>
+<li>Render the Document:
 <ul>
-<li>Install the MarkdownEditing package for enhanced Markdown support.
-<ul>
-<li>Open the Command Palette (<code>Ctrl+Shift+P</code> on Windows/Linux, <code>Cmd+Shift+P</code> on macOS).</li>
-<li>Type “Install Package” and select it.</li>
-<li>Search for “MarkdownEditing” and install it.</li>
+<li>Click the “Render” button to render your R Markdown document into the chosen output format.</li>
 </ul></li>
-</ul></li>
-<li>Create a Markdown File:
-<ul>
-<li>Open Sublime Text and create a new file with a <code>.md</code> extension.</li>
-</ul></li>
-</ol>
+</ul>
 </section>
 <section id="vscode" class="level3">
 <h3 class="anchored" data-anchor-id="vscode">VSCode</h3>
-<p>Visual Studio Code (VSCode) is a versatile and user-friendly code editor. It provides excellent support for various programming languages, extensions, and a built-in terminal.</p>
+<p>Visual Studio Code (VSCode) is a versatile and user-friendly code editor. It provides excellent support for various programming languages, extensions, and a built-in terminal but might take a bit of work to setup to work with different compuational languages.</p>
 <ol type="1">
 <li>Installation:
 <ul>

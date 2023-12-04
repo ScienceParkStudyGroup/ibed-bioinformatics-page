@@ -12,40 +12,42 @@ When documenting code, its best to avoid visual editors, such as word, as they a
 
 Instead you can use a plain text editor, such as TextEdit (Mac) or Notepad (Windows). This is the easiest to get started but you will loose some functionality, such as using headers or writing text in bold. Alternatives, with more functionality, are for example writing markdown in RStudioas well as VSCode or Sublime.
 
+[A Guide to Reproducible Code in Ecology and Evolution](https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf) gives detailed information on how to organize project folders and how to write clear and reproducible code. The examples are mainly based on R code but most are general enough to apply to other computational langauges (and scientific discipline).
+
+
 
 ## Choose Your Editor
 
 ### Rmarkdown in RStudio
 
-R Markdown is an extension of Markdown that allows you to integrate R code directly into your documentation.
+RMarkdown is an extension of Markdown that allows you to integrate R code directly into your documentation.
 
 If you have not install R and Rstudio, follow [these instructions](https://rstudio-education.github.io/hopr/starting.html).
 
 In RStudio you can create an R Markdown File by:
 
-- In RStudio, go to File -> New File -> R Markdown.
-- Choose a title, author, and output format.
+- In RStudio, go to File -> New File -> R Markdown
+- Choose a title, author, and output format
+- Knit the Document:
+   - Click the "Knit" button to render your R Markdown document into the chosen output format.
 
 
-### Sublime
+### Quarto in Rstudio
 
-Sublime Text is known for its speed, simplicity, and powerful features. Follow these steps to set it up for documentation:
+Quarto is an alternative to RStudio for creating dynamic documents. It provides enhanced features for document creation and includes many more built in output formats (and many more options for customizing each format). 
 
-1. Installation:
-   - Download and install Sublime Text from [here](https://www.sublimetext.com/).
+It is installed by default on newer R installations.
 
-2. Packages:
-   - Install the MarkdownEditing package for enhanced Markdown support.
-      - Open the Command Palette (`Ctrl+Shift+P` on Windows/Linux, `Cmd+Shift+P` on macOS).
-      - Type "Install Package" and select it.
-      - Search for "MarkdownEditing" and install it.
+- In RStudio, go to File -> New File -> Quarto document
+- Choose a title, author, and output format
+- Render the Document:
+   - Click the "Render" button to render your R Markdown document into the chosen output format.
 
-3. Create a Markdown File:
-   - Open Sublime Text and create a new file with a `.md` extension.
+
 
 ### VSCode
 
-Visual Studio Code (VSCode) is a versatile and user-friendly code editor. It provides excellent support for various programming languages, extensions, and a built-in terminal.
+Visual Studio Code (VSCode) is a versatile and user-friendly code editor. It provides excellent support for various programming languages, extensions, and a built-in terminal but might take a bit of work to setup to work with different compuational languages.
 
 1. Installation:
    - Download and install VSCode from [here](https://code.visualstudio.com/).
