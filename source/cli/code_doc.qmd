@@ -1,0 +1,161 @@
+---
+toc-depth: 2
+---
+
+<div style="text-align: justify">
+
+## Documenting code
+
+Documenting your code is crucial for both your future self and anyone else who might work with your code. Documentation serves as a roadmap for your code. It helps others (and your future self) understand the purpose, functionality, and usage of your code.
+
+When documenting code, its best to avoid visual editors, such as word, as they are not designed for writing code. 
+
+Instead you can use a plain text editor, such as TextEdit (Mac) or Notepad (Windows). This is the easiest to get started but you will loose some functionality, such as using headers or writing text in bold. Alternatives, with more functionality, are for example writing markdown in RStudioas well as VSCode or Sublime.
+
+
+## Choose Your Editor
+
+### Rmarkdown in RStudio
+
+R Markdown is an extension of Markdown that allows you to integrate R code directly into your documentation.
+
+If you have not install R and Rstudio, follow [these instructions](https://rstudio-education.github.io/hopr/starting.html).
+
+In RStudio you can create an R Markdown File by:
+
+- In RStudio, go to File -> New File -> R Markdown.
+- Choose a title, author, and output format.
+
+
+### Sublime
+
+Sublime Text is known for its speed, simplicity, and powerful features. Follow these steps to set it up for documentation:
+
+1. Installation:
+   - Download and install Sublime Text from [here](https://www.sublimetext.com/).
+
+2. Packages:
+   - Install the MarkdownEditing package for enhanced Markdown support.
+      - Open the Command Palette (`Ctrl+Shift+P` on Windows/Linux, `Cmd+Shift+P` on macOS).
+      - Type "Install Package" and select it.
+      - Search for "MarkdownEditing" and install it.
+
+3. Create a Markdown File:
+   - Open Sublime Text and create a new file with a `.md` extension.
+
+### VSCode
+
+Visual Studio Code (VSCode) is a versatile and user-friendly code editor. It provides excellent support for various programming languages, extensions, and a built-in terminal.
+
+1. Installation:
+   - Download and install VSCode from [here](https://code.visualstudio.com/).
+
+2. Extensions:
+   - Install extensions relevant to your programming language (e.g., Python, R). These extensions enhance code highlighting and provide additional features.
+
+
+
+## Markdown for Documentation
+
+Markdown is a lightweight markup language that's easy to read and write. It allows you to add formatting elements to plain text documents.
+
+**Headers:**
+  
+Use `#` for headers. The more `#` symbols, the smaller the header.
+
+```markdown
+# Main Header
+## Subheader
+```
+
+**Lists:**
+  
+Use `-` or `*` for unordered lists and numbers for ordered lists.
+
+```markdown
+- Item 1
+- Item 2
+ - Subitem
+ 
+1. Numbered Item 1
+2. Numbered Item 2
+```
+
+**Code Blocks:**
+  
+Enclose code snippets in triple backticks.
+
+````markdown
+```bash
+grep "control" downloads/Experiment1.txt
+```
+````
+
+**Links:**
+  
+Create links to external resources or within your documentation.
+
+```markdown
+[Link Text](https://www.example.com)
+```
+
+**Emphasis:**
+  
+Use `*` or `_` for italic and `**` or `__` for bold.
+
+```markdown
+*italic*
+**bold**
+```
+
+**Pictures**
+
+You can easily add images to your documentation as well:
+
+```markdown
+![Alt Text](path/to/your/image.jpg)
+```
+
+Here, replace `Alt Text` with a descriptive alternative text for your image, and `path/to/your/image.jpg` with the actual path or URL of your image.
+
+
+**Tables**
+
+Tables can be useful for organizing information. Here's a simple table:
+
+```markdown
+| Header 1 | Header 2 |
+| ---------| ---------|
+| Content 1| Content 2|
+| Content 3| Content 4|
+```
+
+
+
+## Rendering to HTML or Word Report
+
+### In RStudio
+
+RStudio makes it easy to render your Markdown document to various formats, including HTML, PDF and Word.
+
+- Save your Markdown file:
+  - Save your document with a .Rmd extension (e.g., document.Rmd) to indicate it's an R Markdown file
+- Set Output Format:
+  - At the top of your R Markdown document, add the following YAML header to set the output format:
+
+```yaml
+---
+title: "Your Document Title"
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+---
+```
+
+Adjust the title as needed.
+
+- Render the Document:
+  - To render the document to HTML, click the "Knit" button.
+  - To render it to a Word report, change the "Knit" dropdown menu to "Knit to Word."
+

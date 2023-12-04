@@ -38,8 +38,12 @@ website:
       contents:
         - section: "Welcome page"
           href: index.qmd
-          
+
           contents:
+
+          - text: "Documenting your code"
+            href: source/cli/code_doc.qmd
+
           - text: "Using the command line"
             href: source/cli/cli.qmd
 
