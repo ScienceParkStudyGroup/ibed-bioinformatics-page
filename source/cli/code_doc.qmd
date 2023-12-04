@@ -8,15 +8,19 @@ toc-depth: 2
 
 Documenting your code is crucial for both your future self and anyone else who might work with your code. Documentation serves as a roadmap for your code. It helps others (and your future self) understand the purpose, functionality, and usage of your code.
 
-When documenting code, its best to avoid visual editors, such as word, as they are not designed for writing code. 
-
-Instead you can use a plain text editor, such as TextEdit (Mac) or Notepad (Windows). This is the easiest to get started but you will loose some functionality, such as using headers or writing text in bold. Alternatives, with more functionality, are for example writing markdown in RStudioas well as VSCode or Sublime.
-
-[A Guide to Reproducible Code in Ecology and Evolution](https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf) gives detailed information on how to organize project folders and how to write clear and reproducible code. The examples are mainly based on R code but most are general enough to apply to other computational langauges (and scientific discipline).
+[A Guide to Reproducible Code in Ecology and Evolution](https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf) gives detailed information on how to organize project folders and how to write clear and reproducible code. The examples are mainly based on R code but most are general enough to apply to other computational langauges (and scientific disciplines).
 
 
 
 ## Choose Your Editor
+
+### Plain text editor
+
+When documenting code, its best to avoid visual editors, such as word, as they are not designed for writing code. 
+
+Instead you can use a plain text editor, such as TextEdit (Mac) or Notepad (Windows). This is the easiest to get started but you will loose some functionality, such as using headers or writing text in bold. 
+
+Alternatives, that offer more functionality, are for example RStudio or VScode.
 
 ### Rmarkdown in RStudio
 
@@ -31,10 +35,11 @@ In RStudio you can create an R Markdown File by:
 - Knit the Document:
    - Click the "Knit" button to render your R Markdown document into the chosen output format.
 
+For more information visit [the RMarkdown tutorial](https://rmarkdown.rstudio.com/lesson-1.html).
 
 ### Quarto in Rstudio
 
-Quarto is an alternative to RStudio for creating dynamic documents. It provides enhanced features for document creation and includes many more built in output formats (and many more options for customizing each format). 
+Quarto is an alternative to RMarkdown for creating dynamic documents in RStudio but can be read by other editors, such as VScode. Compared to RMarkdown it provides enhanced features for document creation and includes many more built in output formats (and many more options for customizing each format). 
 
 It is installed by default on newer R installations.
 
@@ -43,6 +48,7 @@ It is installed by default on newer R installations.
 - Render the Document:
    - Click the "Render" button to render your R Markdown document into the chosen output format.
 
+For more information (and more functionality) visit [the Quarto website](https://quarto.org/docs/get-started/hello/rstudio.html).
 
 
 ### VSCode
@@ -63,25 +69,66 @@ Markdown is a lightweight markup language that's easy to read and write. It allo
 
 **Headers:**
   
-Use `#` for headers. The more `#` symbols, the smaller the header.
+Use `#` for headers. The more `#` symbols, the smaller the header. When writing a header make sure to always put a space between the `#` and the header name.
 
 ```markdown
 # Main Header
 ## Subheader
 ```
 
+
 **Lists:**
   
 Use `-` or `*` for unordered lists and numbers for ordered lists.
 
+Ordered lists are created by using numbers followed by periods. The numbers don’t have to be in numerical order, but the list should start with the number one.
+
 ```markdown
-- Item 1
-- Item 2
- - Subitem
- 
-1. Numbered Item 1
-2. Numbered Item 2
+1. First item
+2. Second item
+3. Third item
+4. Fourth item 
 ```
+
+```markdown
+1. First item
+2. Second item
+3. Third item
+    1. Indented item
+    2. Indented item
+4. Fourth item 
+```
+
+Unordered lists are created using dashes (`-`), asterisks (`*`), or plus signs (`+`) in front of line items. Indent one or more items to create a nested list.
+
+```markdown
+- First item
+- Second item
+- Third item
+- Fourth item 
+```
+
+```markdown
+ - First item
+- Second item
+- Third item
+    - Indented item
+    - Indented item
+- Fourth item 
+```
+
+You can also combine ordered with unordered lists:
+
+```markdown
+1. First item
+2. Second item
+3. Third item
+    - Indented item
+    - Indented item
+4. Fourth item
+```
+
+
 
 **Code Blocks:**
   
@@ -133,31 +180,4 @@ Tables can be useful for organizing information. Here's a simple table:
 ```
 
 
-
-## Rendering to HTML or Word Report
-
-### In RStudio
-
-RStudio makes it easy to render your Markdown document to various formats, including HTML, PDF and Word.
-
-- Save your Markdown file:
-  - Save your document with a .Rmd extension (e.g., document.Rmd) to indicate it's an R Markdown file
-- Set Output Format:
-  - At the top of your R Markdown document, add the following YAML header to set the output format:
-
-```yaml
----
-title: "Your Document Title"
-output:
-  html_document: default
-  word_document: default
-  pdf_document: default
----
-```
-
-Adjust the title as needed.
-
-- Render the Document:
-  - To render the document to HTML, click the "Knit" button.
-  - To render it to a Word report, change the "Knit" dropdown menu to "Knit to Word."
 
