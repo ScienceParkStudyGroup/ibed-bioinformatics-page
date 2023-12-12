@@ -1,0 +1,40 @@
+---
+toc-depth: 2
+
+execute:
+  eval: false
+
+engine: knitr
+---
+
+<div style="text-align: justify">
+
+
+## Setting up a terminal
+
+Below you find some links that help you in setting up a Bash command line depending on your operating system:
+
+### Linux
+
+The default shell is usually Bash and there is usually no need to install anything to be able to follow this tutorial. 
+
+### Mac
+
+To access the Unix command prompt on a Mac operating system, open the Terminal application. It is located by default inside the Utilities folder, which in turn is inside the Applications folder, i.e., /Applications/Utilities/ folder. Alternatively, you can find the terminal application by using the spotlight search tool.
+
+### Windows
+
+Operating systems like macOS and Linux come with a native command-line terminal, making it straightforward to run bash commands. However, for Windows users you need to install some software first to be able to use bash.
+
+One option to access the bash shell commands is using Git Bash, for detailed installation instructions please have a look at the [carpenties website](https://carpentries.github.io/workshop-template/install_instructions/#shell-windows).
+
+A second option is Mobaxterm, which enables Windows users to execute basic Linux/Unix commands on their local machine, connect to an HPC with SSH and to transfer files with SCP/SFTP (more on that later). Installation instructions can be found [here](https://hpc.ncsu.edu/Documents/mobaxterm.php).
+
+A final option is to use Windows and Linux at the same time on a Windows machine. The Windows Subsystem for Linux (WSL) lets users install a Linux distribution (such as Ubuntu, which is the default Linux distribution, which we recommend to use) and use Linux applications, utilities, and Bash command-line tools directly on Windows. This option allows you to use all the tools available but since you more or less are installing a separating system on your PC needs to have enough memory to run this. Installation instructions can be found [here](https://learn.microsoft.com/en-us/windows/wsl/install).
+
+
+After you set everything up and opened a terminal you should see something like this and are good to go if you want to follow the tutorial:
+
+<p align="center">
+  <img width="500"  src="../../img/terminal.png">
+</p>

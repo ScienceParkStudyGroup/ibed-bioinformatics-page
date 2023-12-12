@@ -107,5 +107,14 @@
   },
   "source/cli/slurm_basics.qmd": {
     "slurm_basics.html": "f606d9c9"
+  },
+  "source/cli/cli_installation.qmd": {
+    "cli_installation.html": "d598a640"
+  },
+  "source/cli/cli_basics.qmd": {
+    "cli_basics.html": "f2b45209"
+  },
+  "source/cli/cli_file_manipulation.qmd": {
+    "cli_file_manipulation.html": "df895562"
   }
 }

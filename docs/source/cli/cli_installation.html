@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2023-12-04">
+<meta name="dcterms.date" content="2023-12-12">
 
-<title>Bioinformatics guidance page – code_doc</title>
+<title>Bioinformatics guidance page – cli_installation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -65,8 +31,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/cli/cli.html" rel="next">
-<link href="../../index.html" rel="prev">
+<link href="../../source/cli/cli_basics.html" rel="next">
+<link href="../../source/cli/cli.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -113,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Welcome page</a></li><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Documenting your code</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Welcome page</a></li><li class="breadcrumb-item"><a href="../../source/cli/cli.html">Using the command line</a></li><li class="breadcrumb-item"><a href="../../source/cli/cli_installation.html">Setting up a terminal</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -152,19 +118,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/cli/code_doc.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../source/cli/code_doc.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Documenting your code</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
  <span class="menu-text">Using the command line</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/cli/cli.html" class="sidebar-item-text sidebar-link">
@@ -173,7 +139,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/cli/cli_installation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/cli_installation.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Setting up a terminal</span></a>
   </div>
 </li>
@@ -407,11 +373,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#documenting-code" id="toc-documenting-code" class="nav-link active" data-scroll-target="#documenting-code">Documenting code</a></li>
-  <li><a href="#choose-your-editor" id="toc-choose-your-editor" class="nav-link" data-scroll-target="#choose-your-editor">Choose Your Editor</a></li>
-  <li><a href="#markdown-for-documentation" id="toc-markdown-for-documentation" class="nav-link" data-scroll-target="#markdown-for-documentation">Markdown for Documentation</a></li>
+  <li><a href="#setting-up-a-terminal" id="toc-setting-up-a-terminal" class="nav-link active" data-scroll-target="#setting-up-a-terminal">Setting up a terminal</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/code_doc.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/cli_installation.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -420,125 +384,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div style="text-align: justify">
 
-<section id="documenting-code" class="level2">
-<h2 class="anchored" data-anchor-id="documenting-code">Documenting code</h2>
-<p>Documenting your code is crucial for both your future self and anyone else who might work with your code. Documentation serves as a roadmap for your code. It helps others (and your future self) understand the purpose, functionality, and usage of your code.</p>
-<p><a href="https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf">A Guide to Reproducible Code in Ecology and Evolution</a> gives detailed information on how to organize project folders and how to write clear and reproducible code. The examples are mainly based on R code but most are general enough to apply to other computational langauges (and scientific disciplines).</p>
+
+<section id="setting-up-a-terminal" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up-a-terminal">Setting up a terminal</h2>
+<p>Below you find some links that help you in setting up a Bash command line depending on your operating system:</p>
+<section id="linux" class="level3">
+<h3 class="anchored" data-anchor-id="linux">Linux</h3>
+<p>The default shell is usually Bash and there is usually no need to install anything to be able to follow this tutorial.</p>
 </section>
-<section id="choose-your-editor" class="level2">
-<h2 class="anchored" data-anchor-id="choose-your-editor">Choose Your Editor</h2>
-<section id="plain-text-editor" class="level3">
-<h3 class="anchored" data-anchor-id="plain-text-editor">Plain text editor</h3>
-<p>When documenting code, its best to avoid visual editors, such as word, as they are not designed for writing code.</p>
-<p>Instead you can use a plain text editor, such as TextEdit (Mac) or Notepad (Windows). This is the easiest to get started but you will loose some functionality, such as using headers or writing text in bold.</p>
-<p>Alternatives, that offer more functionality, are for example RStudio or VScode.</p>
+<section id="mac" class="level3">
+<h3 class="anchored" data-anchor-id="mac">Mac</h3>
+<p>To access the Unix command prompt on a Mac operating system, open the Terminal application. It is located by default inside the Utilities folder, which in turn is inside the Applications folder, i.e., /Applications/Utilities/ folder. Alternatively, you can find the terminal application by using the spotlight search tool.</p>
 </section>
-<section id="rmarkdown-in-rstudio" class="level3">
-<h3 class="anchored" data-anchor-id="rmarkdown-in-rstudio">Rmarkdown in RStudio</h3>
-<p>RMarkdown is an extension of Markdown that allows you to integrate R code directly into your documentation.</p>
-<p>If you have not install R and Rstudio, follow <a href="https://rstudio-education.github.io/hopr/starting.html">these instructions</a>.</p>
-<p>In RStudio you can create an R Markdown File by:</p>
-<ul>
-<li>In RStudio, go to File -&gt; New File -&gt; R Markdown</li>
-<li>Choose a title, author, and output format</li>
-<li>Knit the Document:
-<ul>
-<li>Click the “Knit” button to render your R Markdown document into the chosen output format.</li>
-</ul></li>
-</ul>
-<p>For more information visit <a href="https://rmarkdown.rstudio.com/lesson-1.html">the RMarkdown tutorial</a>.</p>
-</section>
-<section id="quarto-in-rstudio" class="level3">
-<h3 class="anchored" data-anchor-id="quarto-in-rstudio">Quarto in Rstudio</h3>
-<p>Quarto is an alternative to RMarkdown for creating dynamic documents in RStudio but can be read by other editors, such as VScode. Compared to RMarkdown it provides enhanced features for document creation and includes many more built in output formats (and many more options for customizing each format).</p>
-<p>It is installed by default on newer R installations.</p>
-<ul>
-<li>In RStudio, go to File -&gt; New File -&gt; Quarto document</li>
-<li>Choose a title, author, and output format</li>
-<li>Render the Document:
-<ul>
-<li>Click the “Render” button to render your R Markdown document into the chosen output format.</li>
-</ul></li>
-</ul>
-<p>For more information (and more functionality) visit <a href="https://quarto.org/docs/get-started/hello/rstudio.html">the Quarto website</a>.</p>
-</section>
-<section id="vscode" class="level3">
-<h3 class="anchored" data-anchor-id="vscode">VSCode</h3>
-<p>Visual Studio Code (VSCode) is a versatile and user-friendly code editor. It provides excellent support for various programming languages, extensions, and a built-in terminal but might take a bit of work to setup to work with different compuational languages.</p>
-<ol type="1">
-<li>Installation:
-<ul>
-<li>Download and install VSCode from <a href="https://code.visualstudio.com/">here</a>.</li>
-</ul></li>
-<li>Extensions:
-<ul>
-<li>Install extensions relevant to your programming language (e.g., Python, R). These extensions enhance code highlighting and provide additional features.</li>
-</ul></li>
-</ol>
-</section>
-</section>
-<section id="markdown-for-documentation" class="level2">
-<h2 class="anchored" data-anchor-id="markdown-for-documentation">Markdown for Documentation</h2>
-<p>Markdown is a lightweight markup language that’s easy to read and write. It allows you to add formatting elements to plain text documents.</p>
-<p><strong>Headers:</strong></p>
-<p>Use <code>#</code> for headers. The more <code>#</code> symbols, the smaller the header. When writing a header make sure to always put a space between the <code>#</code> and the header name.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Main Header</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">## Subheader</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Lists:</strong></p>
-<p>Use <code>-</code> or <code>*</code> for unordered lists and numbers for ordered lists.</p>
-<p>Ordered lists are created by using numbers followed by periods. The numbers don’t have to be in numerical order, but the list should start with the number one.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>First item</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Second item</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Third item</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Fourth item </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>First item</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Second item</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Third item</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ss">    1. </span>Indented item</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ss">    2. </span>Indented item</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Fourth item </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Unordered lists are created using dashes (<code>-</code>), asterisks (<code>*</code>), or plus signs (<code>+</code>) in front of line items. Indent one or more items to create a nested list.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>First item</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Second item</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Third item</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Fourth item </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>First item</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Second item</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Third item</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Indented item</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Indented item</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Fourth item </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You can also combine ordered with unordered lists:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>First item</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Second item</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Third item</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Indented item</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Indented item</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Fourth item</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Code Blocks:</strong></p>
-<p>Enclose code snippets in triple backticks.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```bash</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"control"</span> downloads/Experiment1.txt</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Links:</strong></p>
-<p>Create links to external resources or within your documentation.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Link Text</span><span class="co">](https://www.example.com)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Emphasis:</strong></p>
-<p>Use <code>*</code> or <code>_</code> for italic and <code>**</code> or <code>__</code> for bold.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>*italic*</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>**bold**</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>Pictures</strong></p>
-<p>You can easily add images to your documentation as well:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="al">![Alt Text](path/to/your/image.jpg)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Here, replace <code>Alt Text</code> with a descriptive alternative text for your image, and <code>path/to/your/image.jpg</code> with the actual path or URL of your image.</p>
-<p><strong>Tables</strong></p>
-<p>Tables can be useful for organizing information. Here’s a simple table:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>| Header 1 | Header 2 |</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>| ---------| ---------|</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>| Content 1| Content 2|</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>| Content 3| Content 4|</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="windows" class="level3">
+<h3 class="anchored" data-anchor-id="windows">Windows</h3>
+<p>Operating systems like macOS and Linux come with a native command-line terminal, making it straightforward to run bash commands. However, for Windows users you need to install some software first to be able to use bash.</p>
+<p>One option to access the bash shell commands is using Git Bash, for detailed installation instructions please have a look at the <a href="https://carpentries.github.io/workshop-template/install_instructions/#shell-windows">carpenties website</a>.</p>
+<p>A second option is Mobaxterm, which enables Windows users to execute basic Linux/Unix commands on their local machine, connect to an HPC with SSH and to transfer files with SCP/SFTP (more on that later). Installation instructions can be found <a href="https://hpc.ncsu.edu/Documents/mobaxterm.php">here</a>.</p>
+<p>A final option is to use Windows and Linux at the same time on a Windows machine. The Windows Subsystem for Linux (WSL) lets users install a Linux distribution (such as Ubuntu, which is the default Linux distribution, which we recommend to use) and use Linux applications, utilities, and Bash command-line tools directly on Windows. This option allows you to use all the tools available but since you more or less are installing a separating system on your PC needs to have enough memory to run this. Installation instructions can be found <a href="https://learn.microsoft.com/en-us/windows/wsl/install">here</a>.</p>
+<p>After you set everything up and opened a terminal you should see something like this and are good to go if you want to follow the tutorial:</p>
+<p align="center">
+<img width="500" src="../../img/terminal.png">
+</p>
 
 
+</section>
 </section>
 
 </div></main> <!-- /main -->
@@ -892,13 +762,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../index.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Welcome page</span>
+      <a href="../../source/cli/cli.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/cli/cli.html" class="pagination-link">
-        <span class="nav-page-text">Introduction</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/cli/cli_basics.html" class="pagination-link">
+        <span class="nav-page-text">Unix Basics</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -909,7 +779,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       &nbsp;
     </div>   
     <div class="nav-footer-center">Copyright 2023, Nina Dombrowski,<br>
-Last modified: December 4, 2023</div>
+Last modified: December 12, 2023</div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

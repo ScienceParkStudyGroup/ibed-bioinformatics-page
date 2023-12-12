@@ -45,8 +45,13 @@ website:
           - text: "Documenting your code"
             href: source/cli/code_doc.qmd
 
-          - text: "Using the command line"
-            href: source/cli/cli.qmd
+
+          - section: "Using the command line"
+            contents:
+              - source/cli/cli.qmd
+              - source/cli/cli_installation.qmd
+              - source/cli/cli_basics.qmd
+              - source/cli/cli_file_manipulation.qmd
 
           - section: "Using an HPC"
             contents:
