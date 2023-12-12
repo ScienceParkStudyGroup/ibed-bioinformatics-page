@@ -47,8 +47,10 @@ website:
           - text: "Using the command line"
             href: source/cli/cli.qmd
 
-          - text: "Using an HPC"
-            href: source/cli/hpc_usage.qmd
+          - section: "Using an HPC"
+            contents:
+              - source/cli/hpc_usage.qmd
+              - source/cli/slurm_basics.qmd
 
           - text: "Installing software"
             href: source/conda/conda.qmd

@@ -104,5 +104,8 @@
   },
   "source/cli/code_doc.qmd": {
     "code_doc.html": "e2755058"
+  },
+  "source/cli/slurm_basics.qmd": {
+    "slurm_basics.html": "f606d9c9"
   }
 }

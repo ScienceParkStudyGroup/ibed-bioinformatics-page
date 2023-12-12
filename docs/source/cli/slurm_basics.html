@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2023-12-12">
 
-<title>Bioinformatics guidance page – hpc_usage</title>
+<title>Bioinformatics guidance page – slurm_basics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -31,8 +65,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/cli/slurm_basics.html" rel="next">
-<link href="../../source/cli/cli.html" rel="prev">
+<link href="../../source/conda/conda.html" rel="next">
+<link href="../../source/cli/hpc_usage.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -79,7 +113,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Welcome page</a></li><li class="breadcrumb-item"><a href="../../source/cli/hpc_usage.html">Using an HPC</a></li><li class="breadcrumb-item"><a href="../../source/cli/hpc_usage.html">Getting started</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Welcome page</a></li><li class="breadcrumb-item"><a href="../../source/cli/hpc_usage.html">Using an HPC</a></li><li class="breadcrumb-item"><a href="../../source/cli/slurm_basics.html">Working on a cluster</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -139,13 +173,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Getting started</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/cli/slurm_basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/slurm_basics.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Working on a cluster</span></a>
   </div>
 </li>
@@ -344,9 +378,22 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started">Getting started</a></li>
+  <li><a href="#working-on-a-cluster" id="toc-working-on-a-cluster" class="nav-link active" data-scroll-target="#working-on-a-cluster">Working on a cluster</a></li>
+  <li><a href="#slurm-basics" id="toc-slurm-basics" class="nav-link" data-scroll-target="#slurm-basics">Slurm basics</a>
+  <ul>
+  <li><a href="#get-information-about-the-cluster" id="toc-get-information-about-the-cluster" class="nav-link" data-scroll-target="#get-information-about-the-cluster">Get information about the cluster</a></li>
+  <li><a href="#view-info-about-jobs-in-the-queue" id="toc-view-info-about-jobs-in-the-queue" class="nav-link" data-scroll-target="#view-info-about-jobs-in-the-queue">View info about jobs in the queue</a></li>
+  <li><a href="#unsure-about-the-resources-each-node-has" id="toc-unsure-about-the-resources-each-node-has" class="nav-link" data-scroll-target="#unsure-about-the-resources-each-node-has">Unsure about the resources each node has?</a></li>
+  <li><a href="#get-information-about-running-jobs" id="toc-get-information-about-running-jobs" class="nav-link" data-scroll-target="#get-information-about-running-jobs">Get information about running jobs</a></li>
+  </ul></li>
+  <li><a href="#submitting-a-job" id="toc-submitting-a-job" class="nav-link" data-scroll-target="#submitting-a-job">Submitting a job</a>
+  <ul>
+  <li><a href="#srun" id="toc-srun" class="nav-link" data-scroll-target="#srun">srun</a></li>
+  <li><a href="#sbatch" id="toc-sbatch" class="nav-link" data-scroll-target="#sbatch">sbatch</a></li>
+  <li><a href="#running-things-in-parallel" id="toc-running-things-in-parallel" class="nav-link" data-scroll-target="#running-things-in-parallel">Running things in parallel</a></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/hpc_usage.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/slurm_basics.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -355,9 +402,15 @@ ul.task-list li input[type="checkbox"] {
 
 <div style="text-align: justify">
 
-<section id="getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
-<p>If work at IBED and want to use the cli on the Crunchomics HPC, the Genomics Compute Environment for SILS and IBED, please check out <a href="https://crunchomics-documentation.readthedocs.io/en/latest/index.html">this documentation</a>. If you need access to Crunchomics, send an email to Wim de Leeuw <a href="mailto:w.c.deleeuw@uva.nl" class="email">w.c.deleeuw@uva.nl</a> to get an account set up by giving him your uva-net id. Information about other resources available is documented on the <a href="https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html">computational support teams website</a> under <strong>Scientific programming and HPC</strong>.</p>
+<section id="working-on-a-cluster" class="level2">
+<h2 class="anchored" data-anchor-id="working-on-a-cluster">Working on a cluster</h2>
+<p>Next, let’s go over some basic commands that are useful when working on an HPC.</p>
+<p>Generally, you schedule jobs on an HPC for them to run effectively. The scheduler used on Crunchomics is called slurm and allows you to:</p>
+<ul>
+<li>allocate resources on compute nodes</li>
+<li>helps you start, run, and keep track of work on the assigned node</li>
+<li>handles conflicts for resources by keeping track of a waiting list for pending work</li>
+</ul>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -368,23 +421,238 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Since you share resources with other people when using the Crunchomics HPC (and any other HPC) make sure to read <a href="https://crunchomics-documentation.readthedocs.io/en/latest/index.html">the documentation</a> first!</p>
+<p>Since you share resources with other people when using an HPC:</p>
+<p>Choose the resources you use wisely and allow other users to also run some work. For big projects on the Uva Crunchomics HPC you are encouraged to contact Wim de Leeuw <a href="mailto:w.c.deleeuw@uva.nl" class="email">w.c.deleeuw@uva.nl</a> beforehand.</p>
 </div>
 </div>
-<p>Using an HPC works a bit differently than running jobs on your computer, below you find a simplified shematic:</p>
+</section>
+<section id="slurm-basics" class="level2">
+<h2 class="anchored" data-anchor-id="slurm-basics">Slurm basics</h2>
+<section id="get-information-about-the-cluster" class="level3">
+<h3 class="anchored" data-anchor-id="get-information-about-the-cluster">Get information about the cluster</h3>
+<p>By typing the following command into the cli:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sinfo</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We will see something like this:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../../img/crunchomics1.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<p><img src="../../img/sinfo.png" class="img-fluid figure-img" style="width:70.0%"></p>
 </figure>
 </div>
-<p>To login and submit jobs, have a look at the following guides:</p>
+<p>Here, you see information about the:</p>
 <ul>
-<li><a href="https://crunchomics-documentation.readthedocs.io/en/latest/intro_crunchomics.html">Connecting to Crunchomics</a></li>
-<li><a href="https://crunchomics-documentation.readthedocs.io/en/latest/intro_crunchomics.html#preparing-your-account">First time setup when using Crunchomics</a></li>
-<li><a href="https://crunchomics-documentation.readthedocs.io/en/latest/slurm_overview.html">Submitting jobs via SLURM</a></li>
+<li>partition: the queues that are available</li>
+<li>state:
+<ul>
+<li>mix : consumable resources partially allocated</li>
+<li>idle : available to requests consumable resources</li>
+<li>drain : unavailable for use per system administrator request</li>
+<li>alloc : consumable resources fully allocated</li>
+<li>down : unavailable for use.</li>
+</ul></li>
+<li>Nodes: The number of nodes</li>
+<li>NodeList: the names of the nodes omics-cn001 to omics-cn005</li>
+</ul>
+</section>
+<section id="view-info-about-jobs-in-the-queue" class="level3">
+<h3 class="anchored" data-anchor-id="view-info-about-jobs-in-the-queue">View info about jobs in the queue</h3>
+<p>The following commands gives us some information about how busy the HPC is:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After running this, you can see all jobs scheduled on the HPC:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/squeue.png" class="img-fluid figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+<ul>
+<li>JOBID: every job gets a number and you can manipulate jobs via this number</li>
+<li>ST: Job state codes that describe the current state of the job. The full list of abbreviations can be found <a href="https://curc.readthedocs.io/en/latest/running-jobs/squeue-status-codes.html">here</a></li>
+</ul>
+</section>
+<section id="unsure-about-the-resources-each-node-has" class="level3">
+<h3 class="anchored" data-anchor-id="unsure-about-the-resources-each-node-has">Unsure about the resources each node has?</h3>
+<p>If you are unsure about how many resources a compute node has available you can get more information using the followign command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scontrol</span> show node</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/node_info.png" class="img-fluid figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<p>This is a lot of information but here are some useful things to look at:</p>
+<ul>
+<li>NodeName=omics-cn005: This is the name of the node you’re inspecting. Each node has a unique name for identification.</li>
+<li>CPUAlloc=4 CPUTot=64 CPULoad=1.00:
+<ul>
+<li>CPUAlloc=4: Currently, 4 CPUs are allocated or actively being used.</li>
+<li>CPUTot=64: The total number of CPUs available on this node is 64.</li>
+<li>CPULoad=1.00: The CPU load gives you an idea of how busy the CPUs are. A load of 1.00 means they’re fully utilized.</li>
+</ul></li>
+<li>RealMemory=514900 AllocMem=20480 FreeMem=510438:
+<ul>
+<li>RealMemory=514900: The total physical memory (RAM) on this node is 514900 megabytes or 512 Gb.</li>
+<li>AllocMem=20480: Currently, 20 gigabytes of memory are allocated or in use.</li>
+<li>FreeMem=510438: There are 510438 megabytes of free memory available.</li>
+</ul></li>
+<li>AllocTRES=cpu=4,mem=20G:
+<ul>
+<li>AllocTRES shows the resources currently allocated. 4 CPUs and 20 gigabytes of memory are currently in use.</li>
+</ul></li>
+</ul>
+<p>If unsure about what resources are available:</p>
+<ul>
+<li>Check CPUTot for the total CPUs on the node</li>
+<li>Look at CPUAlloc for the currently allocated CPUs.</li>
+<li>Examine RealMemory for total available memory and FreeMem for the unused portion.</li>
+</ul>
+</section>
+<section id="get-information-about-running-jobs" class="level3">
+<h3 class="anchored" data-anchor-id="get-information-about-running-jobs">Get information about running jobs</h3>
+<p>To get a better feel about how many resources a job used we can use <code>sacct</code>, which displays accounting data for all jobs and job steps in the Slurm job accounting log or Slurm database.</p>
+<p>In the command below <code>419847</code> is the job ID of a currently running or finished job and -with <code>--format</code> we create a custom repport with some useful information:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span> <span class="at">-j</span> 419847 <span class="at">--format</span><span class="op">=</span>User,JobID,Jobname,state,start,end,elapsed,MaxRss,nnodes,ncpus,nodelist</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/sacct.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+<p>This tells us:</p>
+<ul>
+<li>In the example the first row corresponds to the job itself and the other rows are job steps. If you run things in parallel you will get several additional rows and can see how many resources each job used</li>
+<li>How long the job run (or each job for parallel jobs)</li>
+<li>MaxRSS: the highest amount of memory your job used while it was running in kilobytes. In our example we see the job used 3525948 kilobytes or 3.5 Gigabytes.</li>
+</ul>
+</section>
+</section>
+<section id="submitting-a-job" class="level2">
+<h2 class="anchored" data-anchor-id="submitting-a-job">Submitting a job</h2>
+<section id="srun" class="level3">
+<h3 class="anchored" data-anchor-id="srun">srun</h3>
+<p>srun isused when you want to run tasks interactively or have more control over the execution. You directly issue srun commands in the terminal, specifying the tasks to be executed and their resource requirements.</p>
+<p>Use srun when:</p>
+<ul>
+<li>You want to run tasks interactively and need immediate feedback.</li>
+<li>You are testing or debugging your commands before incorporating them into a script.</li>
+<li>You need more control over the execution of tasks.</li>
+</ul>
+<p>A simple example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> echo <span class="st">"Hello interactively"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Assuming you want to run a more complex interactive task with srun it is good to specify the resources your job needs by adding flags, i.e.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--nodes</span><span class="op">=</span>1 <span class="at">--ntasks</span><span class="op">=</span>1 <span class="at">--cpus-per-task</span><span class="op">=</span>4 <span class="at">--mem</span><span class="op">=</span>4G echo <span class="st">"Hello interactively"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><code>--nodes=1</code>: Specifies the number of nodes. In this case, it’s set to 1.</li>
+<li><code>--ntasks=1</code>: Defines the number of tasks to run. Here, it’s set to</li>
+<li><code>--cpus-per-task=4</code>: Specifies the number of CPUs per task. Adjust this based on the computational requirements of your task.</li>
+<li><code>--mem=4G</code>: Sets the memory requirement for the task. Modify this based on your task’s memory needs.</li>
+<li><code>echo "Hello interactively!</code>: The actual command you want to run interactively.</li>
+</ul>
+</section>
+<section id="sbatch" class="level3">
+<h3 class="anchored" data-anchor-id="sbatch">sbatch</h3>
+<p>sbatch is your go-to command when you have a script (a batch script) that needs to be executed without direct user interaction.</p>
+<p>Use sbatch when:</p>
+<ul>
+<li>You have long-running or resource-intensive tasks.</li>
+<li>You want to submit jobs that can run independently without your immediate supervision</li>
+<li>You want to submit multiple jobs at once</li>
+</ul>
+<p>To run a job script, you:</p>
+<ul>
+<li>create a script that contains all the commands and configurations needed for your job</li>
+<li>use sbatch to submit this script to the Slurm scheduler, and it takes care of the rest.</li>
+</ul>
+<p>To get started, assume we have created a script named <code>first_batch_script.sh</code> with the following content in which we want to run two commands after each other:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --nodes=1</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --ntasks=1</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=2</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=2G</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Job Step 1</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Hello from your extended batch script"</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Job Step 2</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Today we are using slurm"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The we can submit <code>first_batch_script.sh</code> with:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> first_batch_script.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After running this, you will see that a new file is generated that will look something like this <code>slurm-425707.out</code>. When you submit a batch job using sbatch, Slurm redirects the standard output and standard error streams of your job to a file named in the format slurm-JOBID.out, where JOBID is the unique identifier assigned to your job.</p>
+<p>This file is useful as it:</p>
+<ul>
+<li>Captures the output of our batch scripts and stores them in a file</li>
+<li>Can be used for debugging, since if something goes wrong with your job, examining the contents of this file can provide valuable insights into the issue. Error messages, warnings, or unexpected outputs are often recorded here.</li>
+</ul>
+</section>
+<section id="running-things-in-parallel" class="level3">
+<h3 class="anchored" data-anchor-id="running-things-in-parallel">Running things in parallel</h3>
+<p>In bioinformatics its very common to run the same command on several input files. Instead of copy pasting the same command several times, we can write the command once and use a slurm array to run the command in parallel on the same files.</p>
+<p>Assume we have three files with sequencing data, one for each sample:</p>
+<ul>
+<li>sample1.fastq.gz</li>
+<li>sample2.fastq.gz</li>
+<li>sample3.fastq.gz</li>
+</ul>
+<p>We might want to do some cleaning of the reads, for example remove adaptors from all three files. We start with making a file that list all samples we want to work with (i.e.&nbsp;using nano or cp from excel) called <code>sample_list</code> which might look like this:</p>
+<pre><code>sample1
+sample2
+sample3</code></pre>
+<p>We then can write a sbatch script, i.e.&nbsp;<code>arrays.sh</code>, as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=our_job</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=%A_%a.out</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --error=%A_%a.err</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-3%2</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=20</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem-per-cpu=5G</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mail-type=</span><span class="re">END</span><span class="co">,FAIL</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mail-user=user@uva.nl</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate the index of the current job within the batch</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="va">INDEX</span><span class="op">=</span><span class="va">$((SLURM_ARRAY_TASK_ID</span> <span class="va">))</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">#build array structure via ale file names</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="va">CURRENT_SAMPLE</span><span class="op">=</span><span class="va">$(</span><span class="fu">cat</span> sample_list <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-V</span>  <span class="kw">|</span> <span class="fu">sed</span> <span class="at">-n</span> <span class="st">"</span><span class="va">${INDEX}</span><span class="st">p"</span><span class="va">)</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Now Job</span><span class="va">${INDEX}</span><span class="st"> runs on </span><span class="va">${CURRENT_SAMPLE}</span><span class="st">"</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="ex">porechop</span> <span class="at">--input</span> <span class="va">${CURRENT_SAMPLE}</span>.fastq.gz <span class="dt">\</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> outputfolder/<span class="va">${CURRENT_SAMPLE}</span>_filtered.fastq.gz <span class="dt">\</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--threads</span> 20 <span class="dt">\</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">--discard_middle</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The first section contains parameters for Slurm, the job scheduler.</p>
+<ul>
+<li><code>--job-name:</code> Specifies the name of the job.</li>
+<li><code>--output</code> and <code>--error</code>: Define the naming pattern for the standard output and error files. <code>%A</code> represents the job ID assigned by Slurm, and <code>%a</code> represents the array task ID, which is the index of the current job within the array. After running the job, you will get files that might be named 123456_1.out or 123456_1.err, where 123456 is the job ID and 1 is the array task ID.</li>
+<li><code>--array</code>: Sets up a job array, specifying the range (1-3) and stride (%2) for the array. It says that we want to run 3 jobs and two jobs should be run at the same time</li>
+<li><code>--cpus-per-task</code>: Indicates the number of CPU cores each task in the array will use</li>
+<li><code>--mem-per-cpu</code>: Specifies the memory requirement per CPU core.</li>
+<li><code>--mail-type</code> and <code>--mail-user</code>: Configure email notifications for job completion or failure.</li>
+</ul>
+<p>The job does the following:</p>
+<ul>
+<li>The INDEX variable is calculated using the SLURM_ARRAY_TASK_ID, representing the index of the current job within the array. In our case this will be first 1, then 2 and finally 3.</li>
+<li>Next, we build the array structure. The CURRENT_SAMPLE variable is created by reading the sample_list file, sorting it using sort -V (version sorting), and extracting the sample at the calculated index using sed. So for the first index we extract sample1 and store it in the variable CURRENT_SAMPLE.</li>
+<li>The porechop command is executed using the CURRENT_SAMPLE variable, processing the corresponding FASTQ file. So for the first array, it will trim adapters from sample1.fastq.gz</li>
 </ul>
 
 
+</section>
 </section>
 
 </div></main> <!-- /main -->
@@ -738,13 +1006,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/cli/cli.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Using the command line</span>
+      <a href="../../source/cli/hpc_usage.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Getting started</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/cli/slurm_basics.html" class="pagination-link">
-        <span class="nav-page-text">Working on a cluster</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/conda/conda.html" class="pagination-link">
+        <span class="nav-page-text">Installing software</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
