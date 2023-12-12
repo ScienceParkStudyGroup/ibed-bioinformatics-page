@@ -389,8 +389,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#submitting-a-job" id="toc-submitting-a-job" class="nav-link" data-scroll-target="#submitting-a-job">Submitting a job</a>
   <ul>
   <li><a href="#srun" id="toc-srun" class="nav-link" data-scroll-target="#srun">srun</a></li>
+  <li><a href="#choosing-the-right-amount-of-resources" id="toc-choosing-the-right-amount-of-resources" class="nav-link" data-scroll-target="#choosing-the-right-amount-of-resources">Choosing the right amount of resources</a></li>
   <li><a href="#sbatch" id="toc-sbatch" class="nav-link" data-scroll-target="#sbatch">sbatch</a></li>
-  <li><a href="#running-things-in-parallel" id="toc-running-things-in-parallel" class="nav-link" data-scroll-target="#running-things-in-parallel">Running things in parallel</a></li>
+  <li><a href="#arrays-running-things-in-parallel" id="toc-arrays-running-things-in-parallel" class="nav-link" data-scroll-target="#arrays-running-things-in-parallel">arrays: running things in parallel</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/slurm_basics.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -435,7 +436,7 @@ Important
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sinfo</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We will see something like this:</p>
-<div class="quarto-figure quarto-figure-center">
+<div class="quarto-figure quarto-figure-left">
 <figure class="figure">
 <p><img src="../../img/sinfo.png" class="img-fluid figure-img" style="width:70.0%"></p>
 </figure>
@@ -443,7 +444,7 @@ Important
 <p>Here, you see information about the:</p>
 <ul>
 <li>partition: the queues that are available</li>
-<li>state:
+<li>state: if a node is busy or not
 <ul>
 <li>mix : consumable resources partially allocated</li>
 <li>idle : available to requests consumable resources</li>
@@ -462,7 +463,7 @@ Important
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>After running this, you can see all jobs scheduled on the HPC:</p>
-<div class="quarto-figure quarto-figure-center">
+<div class="quarto-figure quarto-figure-left">
 <figure class="figure">
 <p><img src="../../img/squeue.png" class="img-fluid figure-img" style="width:90.0%"></p>
 </figure>
@@ -474,11 +475,11 @@ Important
 </section>
 <section id="unsure-about-the-resources-each-node-has" class="level3">
 <h3 class="anchored" data-anchor-id="unsure-about-the-resources-each-node-has">Unsure about the resources each node has?</h3>
-<p>If you are unsure about how many resources a compute node has available you can get more information using the followign command:</p>
+<p>If you are unsure about how many resources a compute node has available you can get more information using the following command:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scontrol</span> show node</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="quarto-figure quarto-figure-center">
+<div class="quarto-figure quarto-figure-left">
 <figure class="figure">
 <p><img src="../../img/node_info.png" class="img-fluid figure-img" style="width:70.0%"></p>
 </figure>
@@ -513,7 +514,7 @@ Important
 <section id="get-information-about-running-jobs" class="level3">
 <h3 class="anchored" data-anchor-id="get-information-about-running-jobs">Get information about running jobs</h3>
 <p>To get a better feel about how many resources a job used we can use <code>sacct</code>, which displays accounting data for all jobs and job steps in the Slurm job accounting log or Slurm database.</p>
-<p>In the command below <code>419847</code> is the job ID of a currently running or finished job and -with <code>--format</code> we create a custom repport with some useful information:</p>
+<p>In the command below <code>419847</code> is the job ID of a currently running or finished job and -with <code>--format</code> we create a custom report with some useful information:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span> <span class="at">-j</span> 419847 <span class="at">--format</span><span class="op">=</span>User,JobID,Jobname,state,start,end,elapsed,MaxRss,nnodes,ncpus,nodelist</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -534,7 +535,7 @@ Important
 <h2 class="anchored" data-anchor-id="submitting-a-job">Submitting a job</h2>
 <section id="srun" class="level3">
 <h3 class="anchored" data-anchor-id="srun">srun</h3>
-<p>srun isused when you want to run tasks interactively or have more control over the execution. You directly issue srun commands in the terminal, specifying the tasks to be executed and their resource requirements.</p>
+<p>srun is used when you want to run tasks interactively or have more control over the execution. You directly issue srun commands in the terminal, specifying the tasks to be executed and their resource requirements.</p>
 <p>Use srun when:</p>
 <ul>
 <li>You want to run tasks interactively and need immediate feedback.</li>
@@ -547,14 +548,29 @@ Important
 </div>
 <p>Assuming you want to run a more complex interactive task with srun it is good to specify the resources your job needs by adding flags, i.e.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--nodes</span><span class="op">=</span>1 <span class="at">--ntasks</span><span class="op">=</span>1 <span class="at">--cpus-per-task</span><span class="op">=</span>4 <span class="at">--mem</span><span class="op">=</span>4G echo <span class="st">"Hello interactively"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--nodes</span><span class="op">=</span>1 <span class="at">--ntasks</span><span class="op">=</span>1 <span class="at">--cpus-per-task</span><span class="op">=</span>1 <span class="at">--mem</span><span class="op">=</span>1G echo <span class="st">"Hello interactively"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li><code>--nodes=1</code>: Specifies the number of nodes. In this case, it’s set to 1.</li>
-<li><code>--ntasks=1</code>: Defines the number of tasks to run. Here, it’s set to</li>
-<li><code>--cpus-per-task=4</code>: Specifies the number of CPUs per task. Adjust this based on the computational requirements of your task.</li>
-<li><code>--mem=4G</code>: Sets the memory requirement for the task. Modify this based on your task’s memory needs.</li>
-<li><code>echo "Hello interactively!</code>: The actual command you want to run interactively.</li>
+<li><code>--nodes=1</code>: Specifies the number of nodes. In this case, it’s set to 1 and tells slurm that we want to use a full node. Only use this if you make use of all resources on that node, otherwise omit.</li>
+<li><code>--ntasks=1</code>: Defines the number of tasks to run. Here, it’s set to 1</li>
+<li><code>--cpus-per-task=1</code>: Specifies the number of CPUs per task. Adjust this based on the computational requirements of your task.</li>
+<li><code>--mem=1G</code>: Sets the memory requirement for the task. Modify this based on your task’s memory needs.</li>
+<li><code>echo "Hello interactively</code>: The actual command you want to run interactively.</li>
+</ul>
+</section>
+<section id="choosing-the-right-amount-of-resources" class="level3">
+<h3 class="anchored" data-anchor-id="choosing-the-right-amount-of-resources">Choosing the right amount of resources</h3>
+<p>When you’re just starting, deciding on the right resources to request for your computational job can be a bit challenging. The resource requirements can vary significantly based on the specific tool or workflow you are using. Here are some general guidelines to help you make informed choices:</p>
+<ul>
+<li>Use default settings: Begin by working with the default settings provided by the HPC cluster. These are often set to provide a balanced resource allocation for a wide range of tasks</li>
+<li>Check the software documentation: Consult the documentation of the software or tool you are using. Many tools provide recommendations for resource allocation based on the nature of the computation.</li>
+<li>Testing with Small Datasets: For initial testing and debugging, consider working with a smaller subset of your dataset. This allows for faster job turnaround times, helping you identify and resolve issues more efficiently.</li>
+<li>Monitor the resources usage:
+<ul>
+<li>Use <code>sacct</code> to check what resources a finished job has used. Look for columns like MaxRSS (maximum resident set size) to check if the amount of memory allocated (–mem) was appropriate.</li>
+<li>For instance, with <code>--cpus-per-task=4 --mem=4G</code>, you would expect to use a total of 16 GB of memory (4 CPUs * 4 GB). Verify this with sacct to ensure your job’s resource requirements align with its actual usage.</li>
+</ul></li>
+<li>Fine-Tuning Resource Requests: If you encounter performance issues or your jobs are not completing successfully, consider iteratively adjusting resource requests. This might involve increasing or decreasing the number of CPUs, memory allocation, or other relevant parameters.</li>
 </ul>
 </section>
 <section id="sbatch" class="level3">
@@ -596,10 +612,10 @@ Important
 <li>Can be used for debugging, since if something goes wrong with your job, examining the contents of this file can provide valuable insights into the issue. Error messages, warnings, or unexpected outputs are often recorded here.</li>
 </ul>
 </section>
-<section id="running-things-in-parallel" class="level3">
-<h3 class="anchored" data-anchor-id="running-things-in-parallel">Running things in parallel</h3>
-<p>In bioinformatics its very common to run the same command on several input files. Instead of copy pasting the same command several times, we can write the command once and use a slurm array to run the command in parallel on the same files.</p>
-<p>Assume we have three files with sequencing data, one for each sample:</p>
+<section id="arrays-running-things-in-parallel" class="level3">
+<h3 class="anchored" data-anchor-id="arrays-running-things-in-parallel">arrays: running things in parallel</h3>
+<p>In bioinformatics its very common to run the same command on several input files. Instead of copy pasting the same command several times, one option is to write the command once and use a slurm array to run the command in parallel on multiple files.</p>
+<p>Assume we have three samples and for each sample we have generated a file with sequencing data:</p>
 <ul>
 <li>sample1.fastq.gz</li>
 <li>sample2.fastq.gz</li>
@@ -646,9 +662,9 @@ sample3</code></pre>
 </ul>
 <p>The job does the following:</p>
 <ul>
-<li>The INDEX variable is calculated using the SLURM_ARRAY_TASK_ID, representing the index of the current job within the array. In our case this will be first 1, then 2 and finally 3.</li>
-<li>Next, we build the array structure. The CURRENT_SAMPLE variable is created by reading the sample_list file, sorting it using sort -V (version sorting), and extracting the sample at the calculated index using sed. So for the first index we extract sample1 and store it in the variable CURRENT_SAMPLE.</li>
-<li>The porechop command is executed using the CURRENT_SAMPLE variable, processing the corresponding FASTQ file. So for the first array, it will trim adapters from sample1.fastq.gz</li>
+<li>The <code>INDEX</code> variable is calculated using the <code>SLURM_ARRAY_TASK_ID</code>, representing the index of the current job within the array. In our case this will be first 1, then 2 and finally 3.</li>
+<li>Next, we build the array structure. The <code>CURRENT_SAMPLE</code> variable is created by reading the <code>sample_list</code> file, sorting it using sort -V (version sorting), and extracting the sample at the calculated index using sed. So for the first index we extract sample1 and store it in the variable <code>CURRENT_SAMPLE</code>.</li>
+<li>The porechop command is executed using the <code>CURRENT_SAMPLE</code> variable, processing the corresponding FASTQ file. So for the first array, it will trim adapters from sample1.fastq.gz</li>
 </ul>
 
 

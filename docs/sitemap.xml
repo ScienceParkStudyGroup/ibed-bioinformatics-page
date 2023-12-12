@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
-    <lastmod>2023-12-12T09:44:13.400Z</lastmod>
+    <lastmod>2023-12-12T10:10:16.126Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/cli.html</loc>
@@ -11,5 +11,9 @@
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/Qiime/3_evelyn_tutorial_notes.html</loc>
     <lastmod>2023-12-12T09:43:55.323Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/slurm_basics.html</loc>
+    <lastmod>2023-12-12T10:16:47.122Z</lastmod>
   </url>
 </urlset>
