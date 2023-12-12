@@ -113,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Welcome page</a></li><li class="breadcrumb-item"><a href="../../source/cli/hpc_usage.html">Using an HPC</a></li><li class="breadcrumb-item"><a href="../../source/cli/slurm_basics.html">Working on a cluster</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Welcome page</a></li><li class="breadcrumb-item"><a href="../../source/cli/hpc_usage.html">Using an HPC</a></li><li class="breadcrumb-item"><a href="../../source/cli/slurm_basics.html">Getting started</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -156,31 +156,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Documenting your code</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/cli/cli.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Using the command line</span></a>
-  </div>
-</li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
- <span class="menu-text">Using an HPC</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Using the command line</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/cli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/cli_installation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setting up a terminal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/cli_basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unix Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/cli_file_manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with files in bash</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Using an HPC</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Getting started</span></a>
+ <span class="menu-text">Introduction</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/cli/slurm_basics.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Working on a cluster</span></a>
+ <span class="menu-text">Getting started</span></a>
   </div>
 </li>
       </ul>
@@ -199,13 +228,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
  <span class="menu-text">Amplicon analyses</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/Qiime/readme.html" class="sidebar-item-text sidebar-link">
@@ -228,13 +257,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
  <span class="menu-text">Nanopore analyses</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/nanopore/readme.html" class="sidebar-item-text sidebar-link">
@@ -281,13 +310,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
  <span class="menu-text">Sequence classification</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/classification/kraken2.html" class="sidebar-item-text sidebar-link">
@@ -304,13 +333,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
  <span class="menu-text">Metagenomics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/readme.html" class="sidebar-item-text sidebar-link">
@@ -345,13 +374,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
  <span class="menu-text">Fungal genomics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/ITSx/itsx_readme.html" class="sidebar-item-text sidebar-link">
@@ -378,13 +407,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#working-on-a-cluster" id="toc-working-on-a-cluster" class="nav-link active" data-scroll-target="#working-on-a-cluster">Working on a cluster</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started">Getting started</a></li>
   <li><a href="#slurm-basics" id="toc-slurm-basics" class="nav-link" data-scroll-target="#slurm-basics">Slurm basics</a>
   <ul>
   <li><a href="#get-information-about-the-cluster" id="toc-get-information-about-the-cluster" class="nav-link" data-scroll-target="#get-information-about-the-cluster">Get information about the cluster</a></li>
   <li><a href="#view-info-about-jobs-in-the-queue" id="toc-view-info-about-jobs-in-the-queue" class="nav-link" data-scroll-target="#view-info-about-jobs-in-the-queue">View info about jobs in the queue</a></li>
   <li><a href="#unsure-about-the-resources-each-node-has" id="toc-unsure-about-the-resources-each-node-has" class="nav-link" data-scroll-target="#unsure-about-the-resources-each-node-has">Unsure about the resources each node has?</a></li>
   <li><a href="#get-information-about-running-jobs" id="toc-get-information-about-running-jobs" class="nav-link" data-scroll-target="#get-information-about-running-jobs">Get information about running jobs</a></li>
+  <li><a href="#htop-how-busy-is-a-node" id="toc-htop-how-busy-is-a-node" class="nav-link" data-scroll-target="#htop-how-busy-is-a-node"><code>htop</code>: How busy is a node</a></li>
+  <li><a href="#df-disk-space-usage" id="toc-df-disk-space-usage" class="nav-link" data-scroll-target="#df-disk-space-usage"><code>df</code>: Disk space usage</a></li>
+  <li><a href="#du-checking-the-size-of-a-folder" id="toc-du-checking-the-size-of-a-folder" class="nav-link" data-scroll-target="#du-checking-the-size-of-a-folder"><code>du</code>: Checking the size of a folder</a></li>
+  </ul></li>
+  <li><a href="#connecting-to-a-sever" id="toc-connecting-to-a-sever" class="nav-link" data-scroll-target="#connecting-to-a-sever">Connecting to a sever</a></li>
+  <li><a href="#transferring-files" id="toc-transferring-files" class="nav-link" data-scroll-target="#transferring-files">Transferring files</a>
+  <ul>
+  <li><a href="#scp-transferring-data-fromto-a-server" id="toc-scp-transferring-data-fromto-a-server" class="nav-link" data-scroll-target="#scp-transferring-data-fromto-a-server"><code>scp</code>: Transferring data from/to a server</a></li>
+  <li><a href="#rsync-synchronize-files-and-directories-between-two-hosts-or-machines" id="toc-rsync-synchronize-files-and-directories-between-two-hosts-or-machines" class="nav-link" data-scroll-target="#rsync-synchronize-files-and-directories-between-two-hosts-or-machines"><code>rsync</code>: Synchronize files and directories between two hosts or machines</a></li>
   </ul></li>
   <li><a href="#submitting-a-job" id="toc-submitting-a-job" class="nav-link" data-scroll-target="#submitting-a-job">Submitting a job</a>
   <ul>
@@ -403,8 +441,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div style="text-align: justify">
 
-<section id="working-on-a-cluster" class="level2">
-<h2 class="anchored" data-anchor-id="working-on-a-cluster">Working on a cluster</h2>
+<section id="getting-started" class="level2">
+<h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
 <p>Next, let’s go over some basic commands that are useful when working on an HPC.</p>
 <p>Generally, you schedule jobs on an HPC for them to run effectively. The scheduler used on Crunchomics is called slurm and allows you to:</p>
 <ul>
@@ -431,7 +469,7 @@ Important
 <h2 class="anchored" data-anchor-id="slurm-basics">Slurm basics</h2>
 <section id="get-information-about-the-cluster" class="level3">
 <h3 class="anchored" data-anchor-id="get-information-about-the-cluster">Get information about the cluster</h3>
-<p>By typing the following command into the cli:</p>
+<p>Let’s start by getting some basic information about what nodes are avaiable on a cluster by typing the following command into the cli:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sinfo</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -530,6 +568,84 @@ Important
 <li>MaxRSS: the highest amount of memory your job used while it was running in kilobytes. In our example we see the job used 3525948 kilobytes or 3.5 Gigabytes.</li>
 </ul>
 </section>
+<section id="htop-how-busy-is-a-node" class="level3">
+<h3 class="anchored" data-anchor-id="htop-how-busy-is-a-node"><code>htop</code>: How busy is a node</h3>
+<p>Htop gives us an overview about how busy a node is, typing htop will give a screen that looks something like this:</p>
+<p align="left">
+</p><p><img src="../../img/htop.png" width="600"></p>
+<p></p>
+<p>The numbers from 1-64 are the 64 CPUs available on the Crunchomics login ndode and the fuller the bar is, the more of a single CPU is currently in use. This is also summarized under <strong>tasks</strong>. Another important line is the <strong>memory</strong> listing how much in total of the avail. memory is in use.</p>
+<p>You exit the htop window by typing <code>q</code>.</p>
+</section>
+<section id="df-disk-space-usage" class="level3">
+<h3 class="anchored" data-anchor-id="df-disk-space-usage"><code>df</code>: Disk space usage</h3>
+<p><code>df</code> monitors the available space on the different file systems. There might be a lot of different files listed but it quickly allows you to look for the folders you have access to and check how much space you have available.</p>
+<p align="left">
+</p><p><img src="../../img/df.png" width="600"></p>
+<p></p>
+</section>
+<section id="du-checking-the-size-of-a-folder" class="level3">
+<h3 class="anchored" data-anchor-id="du-checking-the-size-of-a-folder"><code>du</code>: Checking the size of a folder</h3>
+<p><code>du</code> monitors how much space specific folders take up. In the example below we look at all the folders in folder called <code>personal</code>. If your folder is large and has many individual files, give this a bit of time to run.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-sh</span> personal/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="connecting-to-a-sever" class="level2">
+<h2 class="anchored" data-anchor-id="connecting-to-a-sever">Connecting to a sever</h2>
+<p><strong>SSH</strong> (Secure Shell) is a network protocol that enables secure remote connections between two systems. The basic command to login looks like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#connect to a server</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-X</span> username@server</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Options:</p>
+<ul>
+<li><code>-X</code> option enables untrusted X11 forwarding in SSH. Untrusted means = your local client sends a command to the remote machine and receives the graphical output</li>
+</ul>
+<p>If you have access to and want to connect to crunchomics you would connect like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-X</span> uvanetid1@omics-h0.science.uva.nl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If this is your first time using crunchomics, then have a look at these notes about <a href="https://crunchomics-documentation.readthedocs.io/en/latest/intro_crunchomics.html#">preparing your account</a>.</p>
+</section>
+<section id="transferring-files" class="level2">
+<h2 class="anchored" data-anchor-id="transferring-files">Transferring files</h2>
+<section id="scp-transferring-data-fromto-a-server" class="level3">
+<h3 class="anchored" data-anchor-id="scp-transferring-data-fromto-a-server"><code>scp</code>: Transferring data from/to a server</h3>
+<p><code>scp</code> stands for Secure Copy Protocol and allows us to securely copy files and directories between remote hosts. When transferring data the transfer is prepared from the terminal of your local computer and not from the HPCs login node.</p>
+<p>The basic syntax is:</p>
+<p><code>scp [options] SOURCE DESTINATION</code></p>
+<p>Let’s assume we have a file, file.txt, on our personal computer and want to move it to an HPC. To be able to do this, we run our commands from the terminal of the local machine, not on the HPC itself:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> file.txt username@server:/path_to_target_folder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For the case of us having a text file on the server and want to move to our personal computer we can do this as follows. Again, we run this command from a terminal on your computer, not while being logged in the HPC:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> username@server:/path_to_target_folder/file.txt Desktop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There are graphical interace filetransfer systems that can make the job easier, i.e.&nbsp;FileZilla, that you can check up on.</p>
+</section>
+<section id="rsync-synchronize-files-and-directories-between-two-hosts-or-machines" class="level3">
+<h3 class="anchored" data-anchor-id="rsync-synchronize-files-and-directories-between-two-hosts-or-machines"><code>rsync</code>: Synchronize files and directories between two hosts or machines</h3>
+<p>While scp is handy for transferring files, rsync takes it a step further by efficiently synchronizing files and directories. This is particularly useful for large datasets (imagine having to move several terrabytes) and for updating files without transferring the entire content.</p>
+<p>This can be useful for transferring large files from an HPC to your computer but also when transferring large files from one to another location on the same machine.</p>
+<p>To copy a file from your local machine to an HPC using rsync, use the following command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-avz</span> file.txt username@server:/path_to_target_folder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Used options:</p>
+<ul>
+<li><code>-a</code>: Archive mode, preserving permissions and other attributes.</li>
+<li><code>-v</code>: Verbose, showing the files being copied.</li>
+<li><code>-z</code>: Compress data during transfer, reducing the amount of data sent over the network.</li>
+</ul>
+<p>Conversely, to copy a file from the server to your local machine, execute the following command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-avz</span> username@server:/path_to_source_folder/file.txt Desktop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For more examples, check out <a href="https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/">this page</a>.</p>
+</section>
 </section>
 <section id="submitting-a-job" class="level2">
 <h2 class="anchored" data-anchor-id="submitting-a-job">Submitting a job</h2>
@@ -544,11 +660,11 @@ Important
 </ul>
 <p>A simple example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> echo <span class="st">"Hello interactively"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> echo <span class="st">"Hello interactively"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Assuming you want to run a more complex interactive task with srun it is good to specify the resources your job needs by adding flags, i.e.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--nodes</span><span class="op">=</span>1 <span class="at">--ntasks</span><span class="op">=</span>1 <span class="at">--cpus-per-task</span><span class="op">=</span>1 <span class="at">--mem</span><span class="op">=</span>1G echo <span class="st">"Hello interactively"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--nodes</span><span class="op">=</span>1 <span class="at">--ntasks</span><span class="op">=</span>1 <span class="at">--cpus-per-task</span><span class="op">=</span>1 <span class="at">--mem</span><span class="op">=</span>1G echo <span class="st">"Hello interactively"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><code>--nodes=1</code>: Specifies the number of nodes. In this case, it’s set to 1 and tells slurm that we want to use a full node. Only use this if you make use of all resources on that node, otherwise omit.</li>
@@ -589,21 +705,21 @@ Important
 </ul>
 <p>To get started, assume we have created a script named <code>first_batch_script.sh</code> with the following content in which we want to run two commands after each other:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --nodes=1</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --ntasks=1</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=2</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=2G</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Job Step 1</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Hello from your extended batch script"</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Job Step 2</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Today we are using slurm"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --nodes=1</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --ntasks=1</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=2</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=2G</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Job Step 1</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Hello from your extended batch script"</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Job Step 2</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Today we are using slurm"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The we can submit <code>first_batch_script.sh</code> with:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> first_batch_script.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> first_batch_script.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>After running this, you will see that a new file is generated that will look something like this <code>slurm-425707.out</code>. When you submit a batch job using sbatch, Slurm redirects the standard output and standard error streams of your job to a file named in the format slurm-JOBID.out, where JOBID is the unique identifier assigned to your job.</p>
 <p>This file is useful as it:</p>
@@ -627,29 +743,29 @@ sample2
 sample3</code></pre>
 <p>We then can write a sbatch script, i.e.&nbsp;<code>arrays.sh</code>, as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=our_job</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=%A_%a.out</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --error=%A_%a.err</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-3%2</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=20</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem-per-cpu=5G</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mail-type=</span><span class="re">END</span><span class="co">,FAIL</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mail-user=user@uva.nl</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate the index of the current job within the batch</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="va">INDEX</span><span class="op">=</span><span class="va">$((SLURM_ARRAY_TASK_ID</span> <span class="va">))</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">#build array structure via ale file names</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="va">CURRENT_SAMPLE</span><span class="op">=</span><span class="va">$(</span><span class="fu">cat</span> sample_list <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-V</span>  <span class="kw">|</span> <span class="fu">sed</span> <span class="at">-n</span> <span class="st">"</span><span class="va">${INDEX}</span><span class="st">p"</span><span class="va">)</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Now Job</span><span class="va">${INDEX}</span><span class="st"> runs on </span><span class="va">${CURRENT_SAMPLE}</span><span class="st">"</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="ex">porechop</span> <span class="at">--input</span> <span class="va">${CURRENT_SAMPLE}</span>.fastq.gz <span class="dt">\</span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> outputfolder/<span class="va">${CURRENT_SAMPLE}</span>_filtered.fastq.gz <span class="dt">\</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--threads</span> 20 <span class="dt">\</span></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">--discard_middle</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=our_job</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=%A_%a.out</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --error=%A_%a.err</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-3%2</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=20</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem-per-cpu=5G</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mail-type=</span><span class="re">END</span><span class="co">,FAIL</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mail-user=user@uva.nl</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate the index of the current job within the batch</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="va">INDEX</span><span class="op">=</span><span class="va">$((SLURM_ARRAY_TASK_ID</span> <span class="va">))</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co">#build array structure via ale file names</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="va">CURRENT_SAMPLE</span><span class="op">=</span><span class="va">$(</span><span class="fu">cat</span> sample_list <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-V</span>  <span class="kw">|</span> <span class="fu">sed</span> <span class="at">-n</span> <span class="st">"</span><span class="va">${INDEX}</span><span class="st">p"</span><span class="va">)</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Now Job</span><span class="va">${INDEX}</span><span class="st"> runs on </span><span class="va">${CURRENT_SAMPLE}</span><span class="st">"</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="ex">porechop</span> <span class="at">--input</span> <span class="va">${CURRENT_SAMPLE}</span>.fastq.gz <span class="dt">\</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> outputfolder/<span class="va">${CURRENT_SAMPLE}</span>_filtered.fastq.gz <span class="dt">\</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--threads</span> 20 <span class="dt">\</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">--discard_middle</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The first section contains parameters for Slurm, the job scheduler.</p>
 <ul>
@@ -1023,7 +1139,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../../source/cli/hpc_usage.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Getting started</span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

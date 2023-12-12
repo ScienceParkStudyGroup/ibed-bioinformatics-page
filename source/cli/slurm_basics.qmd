@@ -8,7 +8,7 @@ engine: knitr
 
 <div style="text-align: justify">
 
-## Working on a cluster
+## Getting started
 
 Next, let's go over some basic commands that are useful when working on an HPC.
 
@@ -28,7 +28,7 @@ Choose the resources you use wisely and allow other users to also run some work.
 
 ### Get information about the cluster
 
-By typing the following command into the cli:
+Let's start by getting some basic information about what nodes are avaiable on a cluster by typing the following command into the cli:
 
 ```{bash}
 sinfo
@@ -113,6 +113,109 @@ This tells us:
 -   How long the job run (or each job for parallel jobs)
 -   MaxRSS: the highest amount of memory your job used while it was running in kilobytes. In our example we see the job used 3525948 kilobytes or 3.5 Gigabytes.
 
+### `htop`: How busy is a node
+
+Htop gives us an overview about how busy a node is, typing htop will give a screen that looks something like this:
+
+<p align="left">
+
+<img src="../../img/htop.png" width="600"/>
+
+</p>
+
+The numbers from 1-64 are the 64 CPUs available on the Crunchomics login ndode and the fuller the bar is, the more of a single CPU is currently in use. This is also summarized under **tasks**. Another important line is the **memory** listing how much in total of the avail. memory is in use.
+
+You exit the htop window by typing `q`.
+
+### `df`: Disk space usage
+
+`df` monitors the available space on the different file systems. There might be a lot of different files listed but it quickly allows you to look for the folders you have access to and check how much space you have available.
+
+<p align="left">
+
+<img src="../../img/df.png" width="600"/>
+
+</p>
+
+### `du`: Checking the size of a folder
+
+`du` monitors how much space specific folders take up. In the example below we look at all the folders in folder called `personal`. If your folder is large and has many individual files, give this a bit of time to run.
+
+```{bash}
+du -sh personal/
+```
+
+## Connecting to a sever
+
+**SSH** (Secure Shell) is a network protocol that enables secure remote connections between two systems. The basic command to login looks like this:
+
+```{bash}
+#connect to a server
+ssh -X username@server
+```
+
+Options:
+
+-   `-X` option enables untrusted X11 forwarding in SSH. Untrusted means = your local client sends a command to the remote machine and receives the graphical output
+
+If you have access to and want to connect to crunchomics you would connect like this:
+
+```{bash}
+ssh -X uvanetid1@omics-h0.science.uva.nl
+```
+
+If this is your first time using crunchomics, then have a look at these notes about [preparing your account](https://crunchomics-documentation.readthedocs.io/en/latest/intro_crunchomics.html#).
+
+## Transferring files
+
+### `scp`: Transferring data from/to a server
+
+`scp` stands for Secure Copy Protocol and allows us to securely copy files and directories between remote hosts. When transferring data the transfer is prepared from the terminal of your local computer and not from the HPCs login node.
+
+The basic syntax is:
+
+`scp [options] SOURCE DESTINATION`
+
+Let's assume we have a file, file.txt, on our personal computer and want to move it to an HPC. To be able to do this, we run our commands from the terminal of the local machine, not on the HPC itself:
+
+```{bash}
+scp file.txt username@server:/path_to_target_folder
+```
+
+For the case of us having a text file on the server and want to move to our personal computer we can do this as follows. Again, we run this command from a terminal on your computer, not while being logged in the HPC:
+
+```{bash}
+scp username@server:/path_to_target_folder/file.txt Desktop
+```
+
+There are graphical interace filetransfer systems that can make the job easier, i.e. FileZilla, that you can check up on.
+
+### `rsync`: Synchronize files and directories between two hosts or machines
+
+While scp is handy for transferring files, rsync takes it a step further by efficiently synchronizing files and directories. This is particularly useful for large datasets (imagine having to move several terrabytes) and for updating files without transferring the entire content.
+
+This can be useful for transferring large files from an HPC to your computer but also when transferring large files from one to another location on the same machine.
+
+To copy a file from your local machine to an HPC using rsync, use the following command:
+
+```{bash}
+rsync -avz file.txt username@server:/path_to_target_folder
+```
+
+Used options:
+
+-   `-a`: Archive mode, preserving permissions and other attributes.
+-   `-v`: Verbose, showing the files being copied.
+-   `-z`: Compress data during transfer, reducing the amount of data sent over the network.
+
+Conversely, to copy a file from the server to your local machine, execute the following command:
+
+```{bash}
+rsync -avz username@server:/path_to_source_folder/file.txt Desktop
+```
+
+For more examples, check out [this page](https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/).
+
 ## Submitting a job
 
 ### srun
@@ -143,7 +246,6 @@ srun --nodes=1 --ntasks=1 --cpus-per-task=1 --mem=1G echo "Hello interactively"
 -   `--mem=1G`: Sets the memory requirement for the task. Modify this based on your task's memory needs.
 -   `echo "Hello interactively`: The actual command you want to run interactively.
 
-
 ### Choosing the right amount of resources
 
 When you're just starting, deciding on the right resources to request for your computational job can be a bit challenging. The resource requirements can vary significantly based on the specific tool or workflow you are using. Here are some general guidelines to help you make informed choices:
@@ -152,8 +254,8 @@ When you're just starting, deciding on the right resources to request for your c
 -   Check the software documentation: Consult the documentation of the software or tool you are using. Many tools provide recommendations for resource allocation based on the nature of the computation.
 -   Testing with Small Datasets: For initial testing and debugging, consider working with a smaller subset of your dataset. This allows for faster job turnaround times, helping you identify and resolve issues more efficiently.
 -   Monitor the resources usage:
-    - Use `sacct` to check what resources a finished job has used. Look for columns like MaxRSS (maximum resident set size) to check if the amount of memory allocated (--mem) was appropriate.
-    - For instance, with `--cpus-per-task=4 --mem=4G`, you would expect to use a total of 16 GB of memory (4 CPUs \* 4 GB). Verify this with sacct to ensure your job's resource requirements align with its actual usage.
+    -   Use `sacct` to check what resources a finished job has used. Look for columns like MaxRSS (maximum resident set size) to check if the amount of memory allocated (--mem) was appropriate.
+    -   For instance, with `--cpus-per-task=4 --mem=4G`, you would expect to use a total of 16 GB of memory (4 CPUs \* 4 GB). Verify this with sacct to ensure your job's resource requirements align with its actual usage.
 -   Fine-Tuning Resource Requests: If you encounter performance issues or your jobs are not completing successfully, consider iteratively adjusting resource requests. This might involve increasing or decreasing the number of CPUs, memory allocation, or other relevant parameters.
 
 ### sbatch
