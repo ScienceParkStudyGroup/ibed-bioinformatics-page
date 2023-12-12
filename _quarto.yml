@@ -21,6 +21,7 @@ format:
 
 website:
   title: "Bioinformatics guidance page"
+  site-url: https://scienceparkstudygroup.github.io/software_information/
   repo-url: https://github.com/ScienceParkStudyGroup/software_information/
   repo-actions: [source, issue]
   page-navigation: true

@@ -766,7 +766,7 @@ Next, we want to plot the taxa distribution. Let us first look at the most abund
 
 ```{r, message=FALSE, warning=FALSE}
 #condense data at specific tax rank, i.e. on phylum level
-grouped_taxa <- tax_glom(physeq_rel_abundance, "Phylum")
+grouped_taxa <- tax_glom(physeq_rel_abundance, "Phylum", NArm=FALSE)
   
 #find top19 most abundant taxa 
 top_taxa <- names(sort(taxa_sums(grouped_taxa), TRUE)[1:19])
