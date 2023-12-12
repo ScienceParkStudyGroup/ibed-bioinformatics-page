@@ -178,7 +178,9 @@ grep -c  "[A]\{2\}[TC]" downloads/*.faa
 
 Hint: if you are unsure what is happening, redo the command without the `-c` option
 
-### `cat`: Combining data
+
+
+## `cat`: Combining data
 
 The cat command has three main functions related to manipulating text files:
 
@@ -224,7 +226,8 @@ cat downloads/Experiment1.txt downloads/Experiment2.txt
 cat downloads/Experiment*.txt > downloads/Experiments.txt
 ```
 
-### Pipes (`|`): Combining commands
+
+## Pipes (`|`): Combining commands
 
 Pipes are a powerful utility to connect multiple commands together. They allow us to feed the standard output of one command as input into another command.
 
