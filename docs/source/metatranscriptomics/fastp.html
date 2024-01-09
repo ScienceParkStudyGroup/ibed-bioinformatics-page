@@ -291,24 +291,6 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/nanopore/chopper.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chopper</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/nanopore/nanoclass.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">NanoClass</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">NanoITS</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../source/nanopore/nanoqc_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoQC</span></a>
   </div>
@@ -323,6 +305,24 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="../../source/nanopore/porechop_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Porechop</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/nanopore/chopper.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chopper</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/nanopore/nanoclass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NanoClass</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NanoITS</span></a>
   </div>
 </li>
       </ul>
@@ -470,7 +470,7 @@ div.csl-indent {
 <p>FastP is a tool designed to provide fast all-in-one preprocessing for FastQ files.</p>
 <ul>
 <li><a href="https://github.com/OpenGene/fastp">Manual</a></li>
-<li><a href="https://doi.org/10.1093/bioinformatics/bty560">Paper</a>. Please do not forget to cite the ITSx paper whenever you use the software <span class="citation" data-cites="chen2023">(<a href="#ref-chen2023" role="doc-biblioref">Chen 2023</a>)</span>.</li>
+<li><a href="https://doi.org/10.1093/bioinformatics/bty560">Paper</a>. Please do not forget to cite the paper whenever you use the software <span class="citation" data-cites="chen2023">(<a href="#ref-chen2023" role="doc-biblioref">Chen 2023</a>)</span>.</li>
 </ul>
 <p>Available on Crunchomics: Yes, v0.23.2</p>
 </section>
@@ -493,8 +493,8 @@ div.csl-indent {
 <li><code>-q</code>, <code>--qualified_quality_phred</code>: the quality value that a base is qualified. Default 15 means phred quality &gt;=Q15 is qualified</li>
 <li><code>-l</code>, <code>--length_required</code>: reads shorter than length_required will be discarded, default is 15</li>
 <li><strong>Low complexity filter</strong>: The low complexity filter is disabled by default, and you can enable it by <code>-y</code> or <code>--low_complexity_filter</code>. The complexity is defined as the percentage of base that is different from its next base (base[i] != base[i+1]).</li>
-<li>Adaptors are removed by default and fastp contains some built-in known adapter sequences for better auto-detection. For SE data, the adapters are evaluated by analyzing the tails of first ~1M reads. This evaluation may be inacurrate, and you can specify the adapter sequence by <code>-a</code> or <code>--adapter_sequence</code> option. For PE data, the adapters can be detected by per-read overlap analysis, which seeks for the overlap of each pair of reads. This method is robust and fast, so normally you don’t have to input the adapter sequence even you know it. But you can still specify the adapter sequences for read1 by <code>--adapter_sequence</code>, and for read2 by <code>--adapter_sequence_r2</code>.</li>
-<li><strong>per read cutting by quality score</strong>: fastp supports per read sliding window cutting by evaluating the mean quality scores in the sliding window. There are 3 different operations, and you enable one or all of them:
+<li><strong>Adaptor removal</strong>: Adaptors are removed by default and fastp contains some built-in known adapter sequences for better auto-detection. For SE data, the adapters are evaluated by analyzing the tails of first ~1M reads. This evaluation may be inacurrate, and you can specify the adapter sequence by <code>-a</code> or <code>--adapter_sequence</code> option. For PE data, the adapters can be detected by per-read overlap analysis, which seeks for the overlap of each pair of reads. This method is robust and fast, so normally you don’t have to input the adapter sequence even you know it. But you can still specify the adapter sequences for read1 by <code>--adapter_sequence</code>, and for read2 by <code>--adapter_sequence_r2</code>.</li>
+<li><strong>Read cutting by quality score</strong>: fastp supports per read sliding window cutting by evaluating the mean quality scores in the sliding window. There are 3 different operations, and you enable one or all of them:
 <ul>
 <li><code>-5</code>, <code>--cut_front</code> move a sliding window from front (5’) to tail, drop the bases in the window if its mean quality is below cut_mean_quality, stop otherwise. Default is disabled. The leading N bases are also trimmed. Use cut_front_window_size to set the widnow size, and cut_front_mean_quality to set the mean quality threshold. If the window size is 1, this is similar as the Trimmomatic LEADING method.</li>
 <li><code>-3</code>, <code>--cut_tail</code> move a sliding window from tail (3’) to front, drop the bases in the window if its mean quality is below cut_mean_quality, stop otherwise. Default is disabled. The trailing N bases are also trimmed. Use cut_tail_window_size to set the widnow size, and cut_tail_mean_quality to set the mean quality threshold. If the window size is 1, this is similar as the Trimmomatic TRAILING method.</li>
@@ -506,21 +506,21 @@ div.csl-indent {
 <li>For read1 or SE data, the front/tail trimming settings are given with <code>-f</code>, <code>--trim_front1</code> and <code>-t</code>, <code>--trim_tail1</code>.</li>
 <li>For read2 of PE data, the front/tail trimming settings are given with <code>-F</code>, <code>--trim_front2</code> and <code>-T</code>, <code>--trim_tail2</code>. But if these options are not specified, they will be as same as read1 options, which means trim_front2 = trim_front1 and trim_tail2 = trim_tail1.</li>
 </ul></li>
-<li>Duplication:</li>
 <li><code>-D</code>, <code>--dedup</code>: enable deduplication to drop the duplicated reads/pairs</li>
 </ul></li>
 </ul>
 <section id="example-code" class="level4">
 <h4 class="anchored" data-anchor-id="example-code">Example code</h4>
+<p>To give a simple example for using FastP, assume we work with paired-end (i.e.&nbsp;reverse and forward) reads from a sample and we want to remove adaptors, reads with a quality using a phred-score cutoff of 20 and remove reads shorter than 100 bp.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#activate the right environment</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate fastp</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Assume that we have paired-end (forward and reverse) data for sample1 and we want to remove sequences with low phred score and short sequences:</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#run fastp</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">fastp</span> <span class="dt">\</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-i</span> data/sample1_F.fastq.gz <span class="at">-I</span> data/sample1_R.fastq.gz <span class="dt">\</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> filtered_data/sample1_F_filtered.fq.gz <span class="at">-O</span> filtered_data/sample1_R_filtered.fq.gz <span class="dt">\</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--thread</span> 5 <span class="at">-q</span> 20 <span class="at">-l</span> 10</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--thread</span> 5 <span class="at">-q</span> 20 <span class="at">-l</span> 100</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#deactivate environment (if using environment)</span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

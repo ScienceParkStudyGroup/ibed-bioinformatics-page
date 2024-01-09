@@ -74,13 +74,13 @@ website:
           - section: "Nanopore analyses"
             contents:
               - source/nanopore/readme.qmd
-              - source/nanopore/chopper.qmd
-              - source/nanopore/nanoclass.qmd
-              - source/nanopore/nanoITS.qmd
               - source/nanopore/nanoqc_readme.qmd
               - source/nanopore/nanoplot_readme.qmd
               - source/nanopore/porechop_readme.qmd
-
+              - source/nanopore/chopper.qmd
+              - source/nanopore/nanoclass.qmd
+              - source/nanopore/nanoITS.qmd
+              
           - section: "Sequence classification"
             contents:
               - source/classification/kraken2.qmd
