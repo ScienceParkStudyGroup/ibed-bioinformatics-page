@@ -1,0 +1,75 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## FastP
+
+### Introduction
+
+FastP is a tool designed to provide fast all-in-one preprocessing for FastQ files.
+
+-   [Manual](https://github.com/OpenGene/fastp)
+-   [Paper](https://doi.org/10.1093/bioinformatics/bty560). Please do not forget to cite the paper whenever you use the software [@chen2023].
+
+Available on Crunchomics: Yes, v0.23.2
+
+### Installation
+
+FastP can be easily installed with conda/mamba
+
+```{bash}
+mamba create -n fastp
+mamba install -n fastp -c bioconda fastp
+```
+
+### Usage
+
+FastP has many different options, so its best to also have a look at [the manual](https://github.com/OpenGene/fastp). Below you find a quick example to try out.
+
+-   Required input: Single-end or paired-end FastQ files (can be compressed)
+
+-   Generated output: Quality filtered fastq files
+
+-   Useful arguments (not extensive, check manual for all arguments):
+
+    - `-q`, `--qualified_quality_phred `: the quality value that a base is qualified. Default 15 means phred quality >=Q15 is qualified
+    - `-l`, `--length_required `: reads shorter than length_required will be discarded, default is 15
+    - **Low complexity filter**: The low complexity filter is disabled by default, and you can enable it by `-y` or `--low_complexity_filter`. The complexity is defined as the percentage of base that is different from its next base (base[i] != base[i+1]). 
+    - **Adaptor removal**: Adaptors are removed by default and fastp contains some built-in known adapter sequences for better auto-detection. For SE data, the adapters are evaluated by analyzing the tails of first ~1M reads. This evaluation may be inacurrate, and you can specify the adapter sequence by `-a` or `--adapter_sequence` option. For PE data, the adapters can be detected by per-read overlap analysis, which seeks for the overlap of each pair of reads. This method is robust and fast, so normally you don't have to input the adapter sequence even you know it. But you can still specify the adapter sequences for read1 by `--adapter_sequence`, and for read2 by `--adapter_sequence_r2`.
+    - **Read cutting by quality score**: fastp supports per read sliding window cutting by evaluating the mean quality scores in the sliding window. There are 3 different operations, and you enable one or all of them:
+      - `-5`, `--cut_front` move a sliding window from front (5') to tail, drop the bases in the window if its mean quality is below cut_mean_quality, stop otherwise. Default is disabled. The leading N bases are also trimmed. Use cut_front_window_size to set the widnow size, and cut_front_mean_quality to set the mean quality threshold. If the window size is 1, this is similar as the Trimmomatic LEADING method.
+      - `-3`, `--cut_tail` move a sliding window from tail (3') to front, drop the bases in the window if its mean quality is below cut_mean_quality, stop otherwise. Default is disabled. The trailing N bases are also trimmed. Use cut_tail_window_size to set the widnow size, and cut_tail_mean_quality to set the mean quality threshold. If the window size is 1, this is similar as the Trimmomatic TRAILING method.
+      - `-r`, `--cut_right` move a sliding window from front to tail, if meet one window with mean quality < threshold, drop the bases in the window and the right part, and then stop. Use cut_right_window_size to set the widnow size, and cut_right_mean_quality to set the mean quality threshold. This is similar as the Trimmomatic SLIDINGWINDOW method.
+      - If you don't set window size and mean quality threshold for these function respectively, fastp will use the values from -W, `--cut_window_size `(Range: 1~1000, default: 4) and -M, `--cut_mean_quality` (Range: 1~36 default: 20)
+    - **Global trimming**: fastp supports global trimming, which means trim all reads in the front or the tail. This function is useful since sometimes you want to drop some cycles of a sequencing run.
+      - For read1 or SE data, the front/tail trimming settings are given with `-f`, `--trim_front1` and `-t`, `--trim_tail1`.
+      - For read2 of PE data, the front/tail trimming settings are given with `-F`, `--trim_front2` and `-T`, `--trim_tail2`. But if these options are not specified, they will be as same as read1 options, which means trim_front2 = trim_front1 and trim_tail2 = trim_tail1.
+    -  `-D`, `--dedup `: enable deduplication to drop the duplicated reads/pairs
+  
+
+#### Example code
+
+To give a simple example for using FastP, assume we work with paired-end (i.e. reverse and forward) reads from a sample and we want to remove adaptors, reads with a quality using a phred-score cutoff of 20 and remove reads shorter than 100 bp.
+
+```{bash}
+#activate the right environment
+mamba activate fastp
+
+#run fastp
+fastp \
+  -i data/sample1_F.fastq.gz -I data/sample1_R.fastq.gz \
+  -o filtered_data/sample1_F_filtered.fq.gz -O filtered_data/sample1_R_filtered.fq.gz \
+  --thread 5 -q 20 -l 100
+
+#deactivate environment (if using environment)
+mamba deactivate
+```
+
+### References

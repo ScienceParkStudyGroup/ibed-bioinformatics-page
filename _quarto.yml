@@ -93,7 +93,11 @@ website:
               - source/metagenomics/interproscan_readme.qmd
               - source/metagenomics/fama_readme.qmd
               - source/metagenomics/metabolic.qmd
-          
+
+          - section: "Metatranscriptomics"
+            contents:
+              - source/metatranscriptomics/fastp.qmd
+
           - section: "Fungal genomics"
             contents:
               - source/ITSx/itsx_readme.qmd

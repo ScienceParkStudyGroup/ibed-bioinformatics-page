@@ -116,5 +116,8 @@
   },
   "source/cli/cli_file_manipulation.qmd": {
     "cli_file_manipulation.html": "df895562"
+  },
+  "source/metatranscriptomics/fastp.qmd": {
+    "fastp.html": "9a6f04c0"
   }
 }

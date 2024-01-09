@@ -2,7 +2,7 @@
 
 ## Introduction
 
-If work at IBED and want to use the cli on the Crunchomics HPC, the Genomics Compute Environment for SILS and IBED, please check out [this documentation](https://crunchomics-documentation.readthedocs.io/en/latest/index.html). If you need access to Crunchomics, send an email to Wim de Leeuw <w.c.deleeuw@uva.nl> to get an account set up by giving him your uva-net id. Information about other resources available is documented on the [computational support teams website](https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html) under **Scientific programming and HPC**.
+If you work at IBED and want to use the cli on the Crunchomics HPC, the Genomics Compute Environment for SILS and IBED, please check out [this documentation](https://crunchomics-documentation.readthedocs.io/en/latest/index.html). If you need access to Crunchomics, send an email to Wim de Leeuw <w.c.deleeuw@uva.nl> to get an account set up by giving him your uva-net id. Information about other resources available is documented on the [computational support teams website](https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html) under **Scientific programming and HPC**.
 
 ::: {.callout-important}
 Since you share resources with other people when using the Crunchomics HPC (and any other HPC) make sure to read [the documentation](https://crunchomics-documentation.readthedocs.io/en/latest/index.html) first!
