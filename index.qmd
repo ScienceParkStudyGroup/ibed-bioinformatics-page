@@ -45,18 +45,18 @@ This page is very much a work in progress and the page will be slowly updated ov
 
 ## Bioinformatic tools A-Z
 
-- [Chopper](source/nanopore/chopper.qmd)
-- [FAMA](source/metagenomics/fama_readme.qmd)
-- [FastP](source/metatranscriptomics/fastp.qmd)
-- [FastQC](source/metagenomics/fastqc_readme.qmd)
-- [Interproscan](source/metagenomics/interproscan_readme.qmd)
-- [ITSx](source/ITSx/itsx_readme.qmd)
-- [Kraken2](source/classification/kraken2.qmd)
-- [METABOLIC](source/metagenomics/metabolic.qmd)
-- [Minimap2](source/classification/minimap2.qmd)
-- [NanoClass](source/nanopore/nanoclass.qmd)
-- [NanoITS](source/nanopore/nanoITS.qmd)
-- [NanoPlot](source/nanopore/nanoplot_readme.qmd)
-- [NanoQC](source/nanopore/nanoqc_readme.qmd)
-- [Porechop](source/nanopore/porechop_readme.qmd)
+- [Chopper](source/nanopore/chopper.qmd): A tool for quality filtering of long read data
+- [FAMA](source/metagenomics/fama_readme.qmd): A fast pipeline for functional and taxonomic analysis of metagenomic sequences
+- [FastP](source/metatranscriptomics/fastp.qmd): A tool for fast all-in-one preprocessing of FastQ files
+- [FastQC](source/metagenomics/fastqc_readme.qmd): A quality control tool for read sequencing data
+- [Interproscan](source/metagenomics/interproscan_readme.qmd): A tool to scan protein and nucleic sequences against InterPro signatures
+- [ITSx](source/ITSx/itsx_readme.qmd): A tool to extract ITS1 and ITS2 subregions from ITS sequences
+- [Kraken2](source/classification/kraken2.qmd): A taxonomic sequence classifier using kmers
+- [METABOLIC](source/metagenomics/metabolic.qmd): A tool to predict functional trait profiles in genome datasets
+- [Minimap2](source/classification/minimap2.qmd): A program to align DNA or mRNA sequences against a reference database
+- [NanoClass](source/nanopore/nanoclass.qmd): A taxonomic meta-classifier for long-read 16S/18S rRNA gene sequencing data
+- [NanoITS](source/nanopore/nanoITS.qmd): A taxonomic meta-classifier for long-read ITS operon sequencing data
+- [NanoPlot](source/nanopore/nanoplot_readme.qmd): Plotting tool for long read sequencing data
+- [NanoQC](source/nanopore/nanoqc_readme.qmd): A quality control tool for long read sequencing data
+- [Porechop](source/nanopore/porechop_readme.qmd): A tool for finding and removing adapters from Nanopore reads
 

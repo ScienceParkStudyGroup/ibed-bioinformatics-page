@@ -11,7 +11,7 @@
     "href": "index.html#bioinformatic-tools-a-z",
     "title": "Bioinformatics guidance page",
     "section": "Bioinformatic tools A-Z",
-    "text": "Bioinformatic tools A-Z\n\nChopper\nFAMA\nFastP\nFastQC\nInterproscan\nITSx\nKraken2\nMETABOLIC\nMinimap2\nNanoClass\nNanoITS\nNanoPlot\nNanoQC\nPorechop"
+    "text": "Bioinformatic tools A-Z\n\nChopper: A tool for quality filtering of long read data\nFAMA: A fast pipeline for functional and taxonomic analysis of metagenomic sequences\nFastP: A tool for fast all-in-one preprocessing of FastQ files\nFastQC: A quality control tool for read sequencing data\nInterproscan: A tool to scan protein and nucleic sequences against InterPro signatures\nITSx: A tool to extract ITS1 and ITS2 subregions from ITS sequences\nKraken2: A taxonomic sequence classifier using kmers\nMETABOLIC: A tool to predict functional trait profiles in genome datasets\nMinimap2: A program to align DNA or mRNA sequences against a reference database\nNanoClass: A taxonomic meta-classifier for long-read 16S/18S rRNA gene sequencing data\nNanoITS: A taxonomic meta-classifier for long-read ITS operon sequencing data\nNanoPlot: Plotting tool for long read sequencing data\nNanoQC: A quality control tool for long read sequencing data\nPorechop: A tool for finding and removing adapters from Nanopore reads"
   },
   {
     "objectID": "source/snakemake/tutorial.html",

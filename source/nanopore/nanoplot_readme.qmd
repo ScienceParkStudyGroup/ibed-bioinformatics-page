@@ -13,7 +13,7 @@ bibliography: references.bib
 
 ### Introduction
 
-[NanoPlot] is a olotting tool for long read sequencing data and alignment [@decoster2018].
+[NanoPlot] is a plotting tool for long read sequencing data and alignment [@decoster2018].
 
 Available on Crunchomics: Not by default
 
