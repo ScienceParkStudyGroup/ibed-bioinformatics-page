@@ -1,0 +1,317 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## Trinity
+
+### Introduction
+
+Trinity is a tool to assemble transcript sequences from Illumina RNA-Seq data *de novo* (without a reference genome). Additionally, it comes with several scripts that can be used to compare replicates, identify differentially expressed genes or functional annotation.
+
+-   [Manual](https://github.com/trinityrnaseq/trinityrnaseq/wiki)
+-   [Paper](https://www.nature.com/articles/nbt.1883): Please do not forget to cite the paper whenever you use the software [@grabherr2011].
+
+Available on Crunchomics: No
+
+### Installation
+
+Trinity can be easily installed with conda/mamba:
+
+```{bash}
+mamba create -n trinity
+mamba install -n trinity -c bioconda trinity 
+```
+
+### Usage
+
+Trinity can not only be used to assemble reads but also do many down-stream analyses. Since its not the scope of this page to give an in-depth overview about these functionalities, we recommend that an in-depth look at [the manual](https://github.com/OpenGene/fastp).
+
+-   Required input:
+    -   Paired-reads (fa or fq)
+    -   Single-reads (fa or fq)
+    -   Notice: Trinity performs best with strand-specific data, in which case sense and antisense transcripts can be resolved
+-   Generated outputs:
+    -   Trinity.fasta: An assembled transcriptome
+
+Recommendations:
+
+-   A basic recommendation is to have 1G of RAM per 1M pairs of Illumina reads in order to run some of the steps in the workflow
+-   The entire process can require \~1 hour per million pairs of reads
+-   Most (not all) parts of Trinity are parallelized. It therefore, makes sense to use most available CPUs and also due to high mem requirement to run such a job on a complete node
+
+Possible settings to adjust when dealing with deeply sequenced data:
+
+-   `--min_kmer_cov 2` (singleton K-mers will not be included in initial Inchworm contigs)
+-   Perform K-mer based insilico read set normalization (`–-normalize_max_read_cov 50`), this is adjusted compared to the default of 200 , see [figure 4](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3875132/) for some benchmarking. As you see applying this coverage thresholds can easily result in \~70% of read reduction. Notice, that some genes may be missed when reads are removed
+-   `--JM` allows the user to control the amount of RAM used during Jellyfish kmer counting
+
+### Example code
+
+Trinity can do a lot of things and the goal of this page is not to go through everyone of them, for this, visit the manual. However, below you find the key commands to generate the assembly, get some quality assessment scores and identify differentially expressed genes
+
+#### Assemble the reads
+
+In a first example, we work with a single sample and have paired-end reads.
+
+```{bash}
+Trinity --seqType fq --max_memory 50G \
+         --left sample1_f.fq.gz  --right sample1_r.fq.gz --CPU 6
+```
+
+More often you however will work with multiple samples, for example you might work with 6 samples: 3 replicates for control conditions and three replicates for sulfur-treatment. Trinity can work with multiple samples by using a text file that gives the tool all relevant information. For example in our case `samples.txt` provides the condition, the replicates, the location of the forward reads and the location of the reverse reads in a tab-delimited file:
+
+```         
+C   C_rep1  sortmerna/C_rep1/other_fwd.fq.gz    sortmerna/C_rep1/other_rev.fq.gz
+C   C_rep2  sortmerna/C_rep2/other_fwd.fq.gz    sortmerna/C_rep2/other_rev.fq.gz
+C   C_rep3  sortmerna/C_rep3/other_fwd.fq.gz    sortmerna/C_rep3/other_rev.fq.gz
+S   S_rep1  sortmerna/S_rep3/other_fwd.fq.gz    sortmerna/S_rep1/other_rev.fq.gz
+S   S_rep2  sortmerna/S-3C/out/other_fwd.fq.gz  sortmerna/S_rep1//other_rev.fq.gz
+S   S_rep3  sortmerna/S-5C/out/other_fwd.fq.gz  sortmerna/S_rep3/other_rev.fq.gz
+```
+
+Once we have this file, we can run the assembly as follows:
+
+```{bash}
+#make folders for better file organization
+mkdir trinity_output 
+
+#generate an assembly
+#using min_kmer_cov and normalize_max_read_cov can be useful for large assemblies
+Trinity \
+  --seqType fq \
+  --samples_file samples.txt \
+  --max_memory 50G \
+  --CPU 6 \
+  --output trinity_output
+```
+
+#### Assess the assembly quality
+
+To assess the quality, we can use a script that comes with Trinity as follows:
+
+```{bash}
+TrinityStats.pl \
+   trinity_output/Trinity.fasta \
+  > trinity_output/trinity_stats.txt
+```
+
+The output of `trinity_output/trinity_stats.txt` might look something like this:
+
+```         
+- Total trinity 'genes':  931,787
+- Total trinity transcripts:      1,130,657
+- Percent GC: 48.25
+
+- Stats based on ALL transcript contigs::
+  - Contig N10: 3008
+  - Contig N20: 1492
+  - Contig N30: 1065
+  - Contig N40: 799
+  - Contig N50: 607 ***might be a bit short
+  - Median contig length: 302
+  - Average contig: 491.91
+  - Total assembled bases: 556178948
+
+- Stats based on ONLY LONGEST ISOFORM per 'GENE:
+  - Contig N10: 1480
+  - Contig N20: 1000
+  - Contig N30: 738
+  - Contig N40: 561
+  - Contig N50: 434
+  - Median contig length: 276
+  - Average contig: 406.06
+  - Total assembled bases: 378358462
+```
+
+If the N50 statistics falls in the right area expected for a gene (about 1000-1,500), then N50 can be used as a rough check on overall "sanity" of the transcriptome assembly.
+
+#### Align reads back to the transcriptome
+
+We will next use some code to ask how many of our reads can be mapped back to our transcriptome. The results can be used to construct an expression matrix as well as estimate how many reads map to our assembly.
+
+There are three options we can use to align our reads to the *de novo* assembly: bowtie, kallisto and salmon. Due to its speed we will use salmon here but feel free to have a look at the other methods as well by checking out the manual.
+
+The command below will print some useful information to the screen. In order to capture this in a file instead we redirect this output by using `&> logs/salmon.info`.
+
+```{bash}
+#get a folder for better organization 
+mkdir logs
+
+#run the pseudo-alignment with salmon
+align_and_estimate_abundance.pl \
+  --transcripts trinity_output/Trinity.fasta \
+  --seqType fq \
+  --thread_count 10 \
+  --samples_file samples.txt \
+  --est_method salmon \
+  --trinity_mode --prep_reference \
+  --output_dir trinity_output/salmon &> logs/salmon.info
+```
+
+If you check `logs/salmon.info` you will see how many of our reads mapped back to the transcriptome. A typical "good" assembly has \~80% reads mapping to the assembly and \~80% are properly paired.
+
+#### Build expression matrix
+
+Next, we use the results from aligning our reads to the transcriptome to build an expression matrix.
+
+Notice, that we talk about isoforms when we talk about transcripts and genes when talking about genes. Depending on what you want to look at you can most of the following steps on either the transcripts or genes. The examples below will only be looking at the transcripts.
+
+```{bash}
+#make files containing a list of all the target files
+ls trinity_output/salmon/*/quant.sf > isoform-file-paths.txt
+ls trinity_output/salmon/*/quant.sf.genes > gene-file-paths.txt
+
+#make matrices for transcripts
+abundance_estimates_to_matrix.pl \
+  			--est_method salmon \
+  			--out_prefix trinity_output/salmon \
+  			--gene_trans_map trinity_output/trinity.Trinity.fasta.gene_trans_map \
+  			--name_sample_by_basedir \
+  			--quant_files isoform-file-paths.txt
+```
+
+The abundance_estimates_to_matrix script generates the following files:
+
+-   salmon.\[gene\|isoform\].counts.matrix: the estimated RNA-Seq fragment counts (raw counts). This file is used for downstream analyses of differential expression.
+-   salmon.\[gene\|isoform\].TMM.EXPR.matrix: a matrix of TPM expression values (not cross-sample normalized). This file is used as the gene expression matrix in most other analyses
+-   salmon.\[gene\|isoform\].TPM.not_cross_norm : a matrix of TMM-normalized expression values
+
+#### Quality check your samples and biological replicates
+
+The PtR script can be used to check the variation across samples and replicates. This is useful to do to ensure that your replicates are more similar to each other compared to any treatments.
+
+::: callout-warning
+The ptr script might run into an error "'length = 2' in coercion to 'logical(1)'", this has to do with an incompatibility with a script with a newer R version, if that happens, you need to make the following changes in one of the script. The script will be found in the location trinity will be installed with and should be something like `\$HOME/personal/mambaforge/envs/metatranscriptomics/opt/trinity-2.15.1/Analysis/DifferentialExpression/R/heatmap.3.R.` You can edit this scripts according to [these instructions](https://github.com/trinityrnaseq/trinityrnaseq/issues/1306).
+
+Alternatively, you can install R v4.2.2 in metatranscriptomic environment (not tested myself).
+:::
+
+Let's first see how to compare replicates:
+
+```{bash}
+PtR --matrix trinity_output/salmon.gene.counts.matrix \
+    --samples <(awk '{print $1"\t"$2}' samples.txt) \
+    --log2 --CPM \
+    --min_rowSums 10 \
+    --compare_replicates
+
+#view the files
+#since the files are large they likely will not open, so best transfer to your own computer
+display N.rep_compare.pdf
+display S.rep_compare.pdf
+```
+
+We can also compare replicates across all samples. Run PtR to generate a correlation matrix for all sample replicates like so:
+
+```{bash}
+PtR \
+  --matrix trinity_output/salmon.isoform.counts.matrix \
+  --min_rowSums 10 \
+  -s <(awk '{print $1"\t"$2}' samples.txt) \
+  --log2 --CPM --sample_cor_matrix 
+```
+
+As before you can use `display` to view the files. Ideally, we want to see that replicates are more highly correlated within samples than between samples.
+
+Another important analysis method to explore relationships among the sample replicates is Principal Component Analysis (PCA). You can generate a PCA plot showing the first 3 principal components like so:
+
+```{bash}
+PtR \
+    --matrix trinity_output/salmon.isoform.counts.matrix \
+    -s <(awk '{print $1"\t"$2}' samples.txt) \
+    --min_rowSums 10 --log2 \
+    --CPM --center_rows \
+    --prin_comp 3 
+```
+
+To keep things organized, lets move these pdfs into a new folder:
+
+```{bash}
+mkdir trinity_output/plots
+mv *pdf trinity_output/plots
+rm salmon*
+```
+
+#### Differential Expression analysis
+
+The script below will perform pairwise comparisons among each of your sample types. To analyze transcripts, use the 'transcripts.counts.matrix' (or isoform.counts.matrix in later software versions) file. To perform an analysis at the 'gene' level, use the 'genes.counts.matrix'.
+
+Trinity comes with three methods for this analysis: edgeR, DESeq2 and voom. View the manual for more information about each of these approaches.
+
+```{bash}
+#look at differential expression  for transcripts
+run_DE_analysis.pl \
+  		--matrix trinity_output/salmon.isoform.counts.matrix \
+  		--method edgeR \
+  		--samples_file samples.txt \
+  		--output trinity_output/edgeR-transcript
+
+#view vulcano plots
+display trinity_output/edgeR-transcript/salmon.gene.counts.matrix.N_vs_S.edgeR.DE_results.MA_n_Volcano.pdf
+
+display trinity_output/edgeR-transcript/salmon.isoform.counts.matrix.N_vs_S.edgeR.DE_results.MA_n_Volcano.pdf
+```
+
+This will generate some information including differentially expressed genes. The output will look something like this:
+
+-   `${prefix}.sampleA_vs_sampleB.${method}.DE_results` : the DE analysis results,\
+    including log fold change and statistical significance (see FDR column).
+
+-   `${prefix}.sampleA_vs_sampleB.${method}.MA_n_Volcano.pdf` : MA and Volcano plots\
+    features found DE at FDR \<0.05 will be colored red. Plots are shown\
+    with large (top) or small (bottom) points only for choice of aesthetics.
+
+-   `${prefix}.sampleA_vs_sampleB.${method}.Rscript` : the R-script executed to perform the DE analysis.
+
+Now that we did this, we can compare our samples and identify differentially expressed features as follows:
+
+```{bash}
+#go into the edge R output folder 
+cd trinity_output/edgeR-transcript
+
+#extract differentially expressed genes
+analyze_diff_expr.pl \
+    --matrix ../salmon.gene.counts.matrix  \
+    --samples ../../samples.txt \
+    -P 0.001 \
+    -C 2
+
+#view results 
+display diffExpr.P0.001_C2.matrix.log2.centered.sample_cor_matrix.pdf
+display diffExpr.P0.001_C2.matrix.log2.centered.genes_vs_samples_heatmap.pdf
+
+```
+
+Options:
+
+-   `-P <float>`: p-value cutoff for FDR (default: 0.001)
+-   `-C <float>`: min abs(log2(a/b)) fold change (default: 2 (meaning 2\^(2) or 4-fold)).
+
+By default, each pairwise sample comparison will be performed. If you want to restrict the pairwise comparisons, provide the list of the comparisons to perform to the `--contrasts parameter`.
+
+In this output directory, you'll find the following files for each of the pairwise comparisons performed:
+
+-   `${prefix}.sampleA_vs_sampleB.voom.DE_results.P0.001_C2.sampleA-UP.subset` : the expression matrix subset\
+    for features up-regulated in sampleA
+
+-   `${prefix}.sampleA_vs_sampleB.voom.DE_results.P0.001_C2.sampleB-UP.subset` : the expression matrix subset\
+    for features up-regulated in sampleB
+
+-   `diffExpr.P0.001_C2.matrix.log2.dat` : All features found DE in any of these pairwise comparisons\
+    consolidated into a single expression matrix:
+
+-   `diffExpr.P0.001_C2.matrix.log2.sample_cor.dat` : A Pearson correlation matrix for pairwise sample comparisons\
+    based on this set of DE features.
+
+-   `diffExpr.P0.001_C2.matrix.log2.sample_cor_matrix.pdf` : clustered heatmap showing the above sample correlation matrix.
+
+-   `diffExpr.P0.001_C2.matrix.log2.centered.genes_vs_samples_heatmap.pdf` : clustered heatmap of DE genes vs. sample replicates.
+
+### References

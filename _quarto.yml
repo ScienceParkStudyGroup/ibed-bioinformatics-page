@@ -98,6 +98,7 @@ website:
             contents:
               - source/metatranscriptomics/fastp.qmd
               - source/metatranscriptomics/sortmerna.qmd
+              - source/metatranscriptomics/trinity.qmd
 
           - section: "Fungal genomics"
             contents:

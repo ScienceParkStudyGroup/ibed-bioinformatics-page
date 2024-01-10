@@ -60,4 +60,5 @@ This page is very much a work in progress and the page will be slowly updated ov
 - [NanoQC](source/nanopore/nanoqc_readme.qmd): A quality control tool for long read sequencing data
 - [Porechop](source/nanopore/porechop_readme.qmd): A tool for finding and removing adapters from Nanopore reads
 - [SortMerNa](source/metatranscriptomics/sortmerna.qmd): A tool to filter ribosomal RNAs in metatranscriptomic data
+- [Trinity](source/metatranscriptomics/trinity.qmd):  A tool to assemble transcript sequences from Illumina RNA-Seq data
 
