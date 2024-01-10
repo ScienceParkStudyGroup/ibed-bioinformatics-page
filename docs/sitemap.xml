@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
-    <lastmod>2024-01-09T12:57:28.113Z</lastmod>
+    <lastmod>2024-01-10T08:40:17.372Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/cli.html</loc>
@@ -50,7 +50,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/nanoplot_readme.html</loc>
-    <lastmod>2024-01-09T12:50:03.982Z</lastmod>
+    <lastmod>2024-01-10T08:40:15.465Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/porechop_readme.html</loc>
@@ -95,5 +95,9 @@
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/ITSx/itsx_readme.html</loc>
     <lastmod>2024-01-09T12:55:33.783Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metatranscriptomics/sortmerna.html</loc>
+    <lastmod>2024-01-10T08:40:21.565Z</lastmod>
   </url>
 </urlset>

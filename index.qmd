@@ -59,4 +59,5 @@ This page is very much a work in progress and the page will be slowly updated ov
 - [NanoPlot](source/nanopore/nanoplot_readme.qmd): Plotting tool for long read sequencing data
 - [NanoQC](source/nanopore/nanoqc_readme.qmd): A quality control tool for long read sequencing data
 - [Porechop](source/nanopore/porechop_readme.qmd): A tool for finding and removing adapters from Nanopore reads
+- [SortMerNa](source/metatranscriptomics/sortmerna.qmd): A tool to filter ribosomal RNAs in metatranscriptomic data
 

@@ -1,0 +1,84 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## SortMeRNA
+
+### Introduction
+
+SortMeRNA is a tool for the fast and accurate filtering of ribosomal RNAs in metatranscriptomic data.
+
+-   [Manual](https://sortmerna.readthedocs.io/en/latest/)
+-   [Paper](https://academic.oup.com/bioinformatics/article/28/24/3211/246053): Please do not forget to cite the paper whenever you use the software [@kopylova2012].
+
+Available on Crunchomics: No
+
+### Installation
+
+SortMeRNA can be easily installed with conda/mamba:
+
+```{bash}
+mamba create -n sortmerna
+mamba install -n sortmerna -c conda-forge -c bioconda -c defaults sortmerna 
+```
+
+### Usage
+
+SortMeRNA has many different options, so its best to also have a look at [the manual](https://github.com/OpenGene/fastp). Below you find a quick example to try out.
+
+-   Required input:
+    -   A reference database
+    -   Single-end or paired-end FastQ files in the following formats: FASTA/FASTQ/FASTA.GZ/FASTQ.GZ
+-   Sortmerna generates multiple output folders:
+    -   kvdb/ key-value datastore for alignment results
+    -   idx/ index database
+    -   out/ output files: Here you find the fastq (or fastq.gz) files that aligned or not-aligned (depending in the used options) to the reference database.
+-   Useful arguments (not extensive, check manual for all arguments as well as use `sortmerna -h` as not all options are listed in the manual):
+    -   `-ref`{PATH}: Reference file (FASTA) absolute or relative path. Can be used multiple times, once per a reference file, if working with more than one reference
+    -   `-reads` {PATH}: Raw reads file. Use twice for files with paired reads
+    -   `-wordir` {PATH}: Working directory for storing the Reference index, Key-value database, Output. Default location is USRDIR/sortmerna/run/
+    -   `-fastx`: Output the reads that aligned to the reference database into FASTA/FASTQ file
+    -   `-other`: Create output file for the non-aligned reads output file. Must be used with fastx
+    -   `--paired_out`: Flags the paired-end reads as Non-aligned, when either of them is non-aligned
+    -   `--out2`: Output paired reads into separate files. Must be used with fastx. If a single reads file is provided, this options implies interleaved paired reads
+    -   `--sout`: Separate paired and singleton aligned reads. Must be used with fastx and Cannot be used with 'paired_in' \| 'paired_out'
+    -   ...
+
+#### Example code
+
+In the example below we start with downloading a database provided by sortmerna into a db folder. When running this on your own, ensure that there are no newer releases or other databases that might be of interest to you. For us, this downloads the following databases:
+
+-   smr_v4.3_default_db.fasta -\> bac-16S 90%, 5S & 5.8S seeds, rest 95% (benchmark accuracy: 99.899%)
+-   smr_v4.3_sensitive_db.fasta -\> all 97% (benchmark accuracy: 99.907%) and thus the most complete database
+-   smr_v4.3_sensitive_db_rfam_seeds.fasta -\> all 97%, except RFAM database which includes the full seed database sequences
+
+Afterwards, we run Sortmerna on an imaginary metatranscriptomic sample1 from which we have paired-end sequencing data that we beforehand cleaned with other tools, such as FastP. Since our goal is in this example to remove rRNA reads from metatranscriptomic data, we would continue working with the unaligned files. However, at the same time sortmerna can be used to extract and work further with rRNA reads if desired.
+
+```{bash}
+#generate some folder to better structure the data 
+mkdir dbs
+mkdir -p sortmerna/sample1
+
+#get rRNA db
+wget https://github.com/biocore/sortmerna/releases/download/v4.3.4/database.tar.gz
+tar -xvf database.tar.gz -C dbs/
+rm database.tar.gz 
+
+#run sortmerna 
+sortmerna \
+  --ref dbs/smr_v4.3_sensitive_db.fasta \
+  --reads data/sample1_forward_filtered.fq.gz \
+  --reads data/sample1_reverse_filtered.fq.gz \
+  --fastx --other --out2 --paired_out \
+  --workdir sortmerna/sample1 \
+  --threads 20 -v 
+```
+
+### References
