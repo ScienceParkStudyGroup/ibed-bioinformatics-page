@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2024-01-16">
 
-<title>Bioinformatics guidance page – nanoclass</title>
+<title>Bioinformatics guidance page – nanoclass2_tutorial</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -65,8 +31,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/nanopore/nanoITS.html" rel="next">
-<link href="../../source/nanopore/chopper.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -113,7 +77,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Welcome page</a></li><li class="breadcrumb-item"><a href="../../source/nanopore/readme.html">Nanopore analyses</a></li><li class="breadcrumb-item"><a href="../../source/nanopore/nanoclass.html">NanoClass2</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
+      Bioinformatics guidance page
+      </li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -257,13 +223,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
  <span class="menu-text">Nanopore analyses</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/nanopore/readme.html" class="sidebar-item-text sidebar-link">
@@ -296,8 +262,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/nanopore/nanoclass.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">NanoClass2</span></a>
+  <a href="../../source/nanopore/nanoclass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NanoClass</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -436,109 +402,111 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#nanoclass2" id="toc-nanoclass2" class="nav-link active" data-scroll-target="#nanoclass2">NanoClass2</a>
+  <li><a href="#installation" id="toc-installation" class="nav-link active" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#setup-a-testrun" id="toc-setup-a-testrun" class="nav-link" data-scroll-target="#setup-a-testrun">Setup a testrun</a>
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#running-nanoclass2-on-crunchomics" id="toc-running-nanoclass2-on-crunchomics" class="nav-link" data-scroll-target="#running-nanoclass2-on-crunchomics">Running NanoClass2 on Crunchomics</a>
-  <ul class="collapse">
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting started</a></li>
-  <li><a href="#setup-a-testrun" id="toc-setup-a-testrun" class="nav-link" data-scroll-target="#setup-a-testrun">Setup a testrun</a></li>
-  <li><a href="#running-nanoclass2-with-other-databases" id="toc-running-nanoclass2-with-other-databases" class="nav-link" data-scroll-target="#running-nanoclass2-with-other-databases">Running NanoClass2 with other databases</a></li>
+  <li><a href="#dry-run" id="toc-dry-run" class="nav-link" data-scroll-target="#dry-run">Dry-run</a></li>
+  <li><a href="#submit-sbatch-job" id="toc-submit-sbatch-job" class="nav-link" data-scroll-target="#submit-sbatch-job">Submit sbatch job</a></li>
   </ul></li>
-  </ul></li>
+  <li><a href="#generate-report" id="toc-generate-report" class="nav-link" data-scroll-target="#generate-report">Generate report</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/nanopore/nanoclass.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/nanopore/nanoclass2_tutorial.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Setup NanoClass2 in amplicomics share</h1>
+</div>
 
 
-<div style="text-align: justify">
 
-<section id="nanoclass2" class="level2">
-<h2 class="anchored" data-anchor-id="nanoclass2">NanoClass2</h2>
-<section id="introduction" class="level3">
-<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>NanoClass2 build upon NanoClass, a snakemake workflow originally developed by IBED’s former bioinformatician Evelien Jongepier.</p>
-<p>NanoClass2 is a taxonomic meta-classifier for meta-barcoding 16S/18S rRNA gene sequencing data generated with the Oxford Nanopore Technology. With a single command, this Snakemake pipeline installs all programs and databases and will do the following:</p>
-<p>NanoClass2 is a snakemake workflow that will:</p>
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 16, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p>This is a guide on how to run the NanoClass2 classifer on crunchomics. NanoClass2 is a snakemake workflow that will:</p>
 <ul>
-<li>Remove adapters with porechop</li>
-<li>Perform quality filtering with chopper</li>
+<li>Remove adaptors with porechop</li>
+<li>Perform quality fitering with chopper</li>
 <li>Generate read quality plots post quality cleaning with pistis</li>
-<li>Subsample reads to compare different classifiers (can be turned of)</li>
-<li>Classify reads with any one of these tools: blastn, centrifuge, dcmegablast, idtaxa, megablast, minimap, mothur, qiime, rdp, spingo, kraken. By default NanoClass2 will use the SILVA_138.1_SSURef_NR99 database to classify reads. If you are interested in using other bases, check out <a href="https://ndombrowski.github.io/NanoClass2/source/other_dbs.html">these instructions</a>.</li>
+<li>Subsample reads to classify several classifiers (can be turned of)</li>
+<li>Classify reads with any one of these tools: “blastn”,“centrifuge”,“dcmegablast”,“idtaxa”,“megablast”,“minimap”,“mothur”,“qiime”,“rdp”,“spingo”, “kraken”</li>
 </ul>
-<p>For more details, feel free to also have a look at <a href="https://ndombrowski.github.io/NanoClass2/">the manual</a>.</p>
+<p>All used software and its version numbers is cited <a href="https://ndombrowski.github.io/NanoClass2/source/references.html">here</a>. For more information, please also have a look at <a href="https://ndombrowski.github.io/NanoClass2/source/run_nanoclass.html">the manual</a>.</p>
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<p>This code below was already run, and is just kept for reference:</p>
+<p>```{bash, code-fold=“true”} #install snakemake (not run, already installed) as a conda/mamba environment mamba create -c conda-forge -c bioconda –prefix /zfs/omics/projects/amplicomics/miniconda3/envs/snakemake_nanoclass2 python=3.9.7 snakemake=6.8.0 tabulate=0.8</p>
+<p>#go to folder in which to install software cd /zfs/omics/projects/amplicomics/bin</p>
+<p>#install NanoClass2 git clone https://github.com/ndombrowski/NanoClass2.git</p>
+<pre><code>
+
+
+
+## Setup working directory
+
+To be able to use the amplicomics share in which the sotware is installed please contact [Nina Dombrowski]( n.dombrowski@uva.nl). To be able to use software installed on the amplicomics share, you first need to set up your environment:
+
+
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/amplicomics/miniconda3/envs/</code></pre>
+<p>This will add pre-installed conda environments you your <code>conda env list</code>. After you run <code>conda env list</code> you should see several tools from amplicomics, including qiime and snakemake.</p>
+<p>Next, you can setup your working environment:</p>
+<pre class="{bash}"><code>#define the directory in which you want to run your analyses
+wdir="/home/ndombro/personal/testing/amplicomics_test"
+
+#go into the working directory
+cd $wdir
+
+#start the snakemake conda environment 
+conda activate snakemake_nanoclass2</code></pre>
 </section>
-<section id="running-nanoclass2-on-crunchomics" class="level3">
-<h3 class="anchored" data-anchor-id="running-nanoclass2-on-crunchomics">Running NanoClass2 on Crunchomics</h3>
-<section id="getting-started" class="level4">
-<h4 class="anchored" data-anchor-id="getting-started">Getting started</h4>
-<p>NanoClass2 is installed on the UvA crunchomics HPC. If you have access to crunchomics you can be added to the amplicomics share in which NanoClass2 is set up. To be added, please send an email with your Uva netID to <a href="n.dombrowski@uva.nl">Nina Dombrowski</a>.</p>
-<p>If you want or need to set up NanoClass2 by yourself, expand the code below to view an example on how to install the software:</p>
-<div class="cell">
-<details>
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install snakemake as a conda/mamba environment</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-c</span> conda-forge <span class="at">-c</span> bioconda <span class="at">--prefix</span> /zfs/omics/projects/amplicomics/miniconda3/envs/snakemake_nanoclass2 python=3.9.7 snakemake=6.8.0 tabulate=0.8</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#go to folder in which to install software </span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /zfs/omics/projects/amplicomics/bin</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#install NanoClass2</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/ndombrowski/NanoClass2.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p>To be able to use software installed on the amplicomics share, you first need to ensure that conda is installed. If it is, then you can run the following command:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/amplicomics/miniconda3/envs/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>This command will add pre-installed conda environments in the amplicomics share to your <code>conda env list</code>. After you run <code>conda env list</code> you should see several tools from amplicomics, including QIIME2 and Snakemake. Snakemake is what we need to run NanoClass2.</p>
-<p>Next, you can setup your working environment. Change the path of the working directory to wherever you want to analyze your data:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#define the directory in which you want to run your analyses</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">wdir</span><span class="op">=</span><span class="st">"/home/</span><span class="va">$USER</span><span class="st">/personal/testing/amplicomics_test"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#go into the working directory</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$wdir</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#activate the snakemake conda environment </span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate snakemake_nanoclass2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="setup-a-testrun" class="level4">
-<h4 class="anchored" data-anchor-id="setup-a-testrun">Setup a testrun</h4>
-<p>The test run will be performed with some example data provided with NanoClass2. The test run will subsample the reads and use the subsetted reads to test all classifiers available with NanoClass2.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#cp some test data over (comes with NanoClass2) </span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> data </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /zfs/omics/projects/amplicomics/bin/NanoClass2/example_files/<span class="pp">*</span>fastq.gz data/</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#copy the mapping file (comes with NanoClass2) </span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /zfs/omics/projects/amplicomics/bin/NanoClass2/example_files/mapping.csv .</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#ensure that the path to the fastq data is correct in mapping.csv</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#exchange the path in `replace` with wherever you copied the fastq.gz files</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="va">search</span><span class="op">=</span><span class="st">'your_path/example_files/'</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="va">replace</span><span class="op">=</span><span class="st">'/home/ndombro/personal/testing/amplicomics_test/data/'</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-i</span> <span class="at">-e</span>  <span class="st">"s|</span><span class="va">$search</span><span class="st">|</span><span class="va">$replace</span><span class="st">|"</span> mapping.csv</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#copy config yaml (comes with NanoClass2) </span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /zfs/omics/projects/amplicomics/bin/NanoClass2/config.yaml .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>In the <code>config.yaml</code> file we can tell NanoClass2 where the data is located and how to run NanoClass2. For the test-run, we only need to:</p>
+<section id="setup-a-testrun" class="level2">
+<h2 class="anchored" data-anchor-id="setup-a-testrun">Setup a testrun</h2>
+<p>The test run will be performed with some example data provided with NanoClass2. The test run will subsample the reads and use the subsetted reads to test all tools.</p>
+<pre class="{bash}"><code>#cp some test data over (comes with NanoClass2) 
+#however, you can have the exact same structure, where you have your files to analyse in a data folder
+mkdir data 
+cp /zfs/omics/projects/amplicomics/bin/NanoClass2/example_files/*fastq.gz data/
+
+#copy the mapping file  (comes with NanoClass2) 
+cp /zfs/omics/projects/amplicomics/bin/NanoClass2/example_files/mapping.csv .
+
+#ensure that the path to the fastq data is correct in mapping.csv
+#do this with excel, nano or sed to search and replace the path
+#after running this, you can do a head command to ensure that things work correctly
+search='your_path/example_files/'
+replace='/home/ndombro/personal/testing/amplicomics_test/data/'
+
+sed -i -e  "s|$search|$replace|" mapping.csv
+
+#get config yaml (comes with NanoClass2) 
+cp /home/ndombro/personal/software/NanoClass2/config.yaml .</code></pre>
+<p>In the config yaml:</p>
 <ul>
 <li>exchange <code>"example_files/mapping.csv"</code> with <code>"mapping.csv"</code></li>
-<li>keep the rest as is, i.e.&nbsp;we want to subsample our reads for the test run</li>
+<li>keep rest as is, i.e.&nbsp;we want to subsample for the test run (this also ensures that all databases are downloaded)</li>
 </ul>
 <p>By default the config.yaml is setup to run NanoClass2 as follows:</p>
 <ul>
 <li>Subsample the fastq files to only work with 100 reads per sample. To turn this of, set <code>skip: true</code></li>
-<li>Run NanoClass2 using all 11 classifiers. If you already have a favorite classifier you can only select the tools that you want to use.</li>
-<li>Quality filter the samples:
+<li>Run NanoClass2 on all of the following methods: [“blastn”,“centrifuge”,“dcmegablast”,“idtaxa”,“megablast”,“minimap”,“mothur”,“qiime”,“rdp”,“spingo”, “kraken”]</li>
+<li>Quality filter the samples by:
 <ul>
 <li>Discard reads shorter than 1400 bp (minlen)</li>
 <li>Discard reads longer than 1600bp (maxlen)</li>
@@ -546,77 +514,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Do not trim nucleotides from the start (headcrop)</li>
 <li>Do not trim nucleotides from the end (tailcrop)</li>
 </ul></li>
-<li>Feel free to check the config file for more details about these and other parameters that can be adjusted</li>
 </ul>
-<section id="perform-a-dry-run" class="level5">
-<h5 class="anchored" data-anchor-id="perform-a-dry-run">Perform a dry-run</h5>
-<p>When running snakemake with <code>-np</code> this will not run NanoClass itself but only perform a dry-run, which is useful to ensure that everything works correctly. The command below should work as it is as long as the <code>config.yaml</code> is located in the same directory from which you start the analysis.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#perform a dry-run</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--cores</span> 1 <span class="dt">\</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">-s</span> /zfs/omics/projects/amplicomics/bin/NanoClass2/Snakefile <span class="dt">\</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--configfile</span> config.yaml <span class="dt">\</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--use-conda</span> <span class="at">--conda-prefix</span> /zfs/omics/projects/amplicomics/bin/NanoClass2/.snakemake/conda <span class="dt">\</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--nolock</span> <span class="at">--rerun-incomplete</span> <span class="at">-np</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="dry-run" class="level3">
+<h3 class="anchored" data-anchor-id="dry-run">Dry-run</h3>
+<p>Running snakemake with <code>-np</code> will not run NanoClass itself but just confirm if everything works alright. This is recommended to ensure that everything works before actually running everything.</p>
+<pre class="{bash}"><code>#perform a dry-run
+snakemake --cores 1 \
+    -s /zfs/omics/projects/amplicomics/bin/NanoClass2/Snakefile \
+    --configfile config.yaml \
+    --use-conda --conda-prefix /zfs/omics/projects/amplicomics/bin/NanoClass2/.snakemake/conda \
+    --nolock --rerun-incomplete -np</code></pre>
 <p>If the above command works and you see <code>This was a dry-run (flag -n). The order of jobs does not reflect the order of execution.</code> all is good and you can submit things to a compute node.</p>
 </section>
-<section id="submit-sbatch-job" class="level5">
-<h5 class="anchored" data-anchor-id="submit-sbatch-job">Submit sbatch job</h5>
-<p>The NanoClass2 installation comes with an example sbatch script that you can move over to where you do your analyses. This script allows you to submit the job to the compute nodes.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#cp template batch script (comes with NanoClass2) </span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /zfs/omics/projects/amplicomics/bin/NanoClass2/jobscript.sh .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The jobscript is setup to work with NanoClass2 in the amplicomics environment and you should not need to change anything if your config.yaml is set up correctly.</p>
+<section id="submit-sbatch-job" class="level3">
+<h3 class="anchored" data-anchor-id="submit-sbatch-job">Submit sbatch job</h3>
+<p>The NanoClass2 installation comes with an example batch script that you can move over to where you do your analyses:</p>
+<pre class="{bash}"><code>#cp template batch script (comes with NanoClass2) 
+cp /zfs/omics/projects/amplicomics/bin/NanoClass2/jobscript.sh .</code></pre>
+<p>The jobscript is setup to work with NanoClass2 in the amplicomics environment and you should not need to change anything if your config.yaml is correct.</p>
 <p>The script does the following:</p>
 <ul>
-<li>Requests 58 crunchomics cpus and 460G of memory. One can set this lower, but for testing purposes you might keep these values. The can be changed with <code>#SBATCH --cpus-per-task=58</code> and <code>#SBATCH --mem=460G</code></li>
-<li>Ensures that conda is loaded properly by running <code>source ~/.bashrc</code>. The bashrc is a script executed once a user logs in and holds special configurations, such as telling the shell where conda is installed. If you run into issues that are related to conda/mamba not being found then open the this file with <code>nano ~/.bashrc</code> and check that you have a section with text similar to <code># &gt;&gt;&gt; conda initialize &gt;&gt;&gt;</code>. If this is not present you might need to run <code>conda init bash</code> to add it.</li>
-<li>Activates the snakemake conda environment that is found in the amplicomics share with <code>conda activate /zfs/omics/projects/amplicomics/miniconda3/envs/snakemake_nanoclass2</code></li>
-<li>Runs NanoClass2. When using the script as is, the script assumes that NanoClass2 is installed at this path <code>/zfs/omics/projects/amplicomics/bin/NanoClass2/</code> and that the config.yaml is located in the folder from which you analyse the data. If that is not the case, change the paths accordingly</li>
+<li>Request 58 crunchomics cpus and 460G of memory. One can set this lower, but for testing purposes you might keep these values. The can be changed with <code>#SBATCH --cpus-per-task=58</code> and <code>#SBATCH --mem=460G</code></li>
+<li>Ensure that conda is loaded properly by running <code>source ~/.bashrc</code>. The bashrc is a script executed once a user logs in and holds special configurations, such as telling the shell where conda is installed. If you run into issues that are related to conda/mamba not being found open the this file with <code>nano ~/.bashrc</code> and check that you have a section with text similar to <code># &gt;&gt;&gt; conda initialize &gt;&gt;&gt;</code>. If this is not present you might need to run <code>conda init bash</code> to add it.</li>
+<li>Activate the snakemake conda environment that is found in the amplicomics share</li>
+<li>Run NanoClass2. When using the script as is, the script assumes that NanoClass2 is installed at this path <code>/zfs/omics/projects/amplicomics/bin/NanoClass2/</code> and that the config.yaml is located in the folder from which you analyse the data. If that is not the case, change the paths accordingly</li>
 </ul>
-<p>Next, we can submit the job as follows:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Submitted batch job 427090</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> jobscript.sh</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#for checking how far things are along:</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#check the end of the log file i.e. </span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="pp">*</span>.log </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#check if sbatch script is still running </span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>Next, we can submit the job:</p>
+<pre class="{bash}"><code>#Submitted batch job 427090
+sbatch jobscript.sh
+
+#for checking how far things are along:
+#check the end of the log file i.e. 
+tail *.log 
+
+#check if sbatch script is still running 
+squeue</code></pre>
 </section>
-<section id="generate-report" class="level5">
-<h5 class="anchored" data-anchor-id="generate-report">Generate report</h5>
-<p>Finally, we can create a report with the following command:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--report</span> report.html <span class="dt">\</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--configfile</span> config.yaml <span class="dt">\</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-s</span> /zfs/omics/projects/amplicomics/bin/NanoClass2/Snakefile</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+</section>
+<section id="generate-report" class="level2">
+<h2 class="anchored" data-anchor-id="generate-report">Generate report</h2>
+<pre class="{bash}"><code>snakemake --report report.html \
+  --configfile config.yaml \
+  -s /zfs/omics/projects/amplicomics/bin/NanoClass2/Snakefile</code></pre>
 <p>To view the report, its best to copy the html to your computer and open it via any web browser.</p>
 <p>The report holds the key information, however, there are other useful outputs, all of which can be found in the <code>results</code> folder. The NanoClass2 website gives some more information about the generated outputs.</p>
-</section>
-</section>
-<section id="running-nanoclass2-with-other-databases" class="level4">
-<h4 class="anchored" data-anchor-id="running-nanoclass2-with-other-databases">Running NanoClass2 with other databases</h4>
-<p>Most classification tools implemented in NanoClass2 can use alternative databases supplied by the user, provided they are formatted correctly. The database that is provided in the amplicomics share is the SILVA 16S or 18S databases.</p>
-<p>If you want to work with a custom database, users will need to:</p>
-<ul>
-<li>Install NanoClass2 for themselves as one installation is needed for each database of interest</li>
-<li>Provide the databases themselves and store them in the db/common/ subdirectory of the NanoClass2 directory. These will then be automatically detected once NanoClass2 is started and NanoClass2 will create and reformat all tools-specific databases based on this user-provided database.</li>
-</ul>
-<p>For an example on how to format a custom database, check out <a href="https://ndombrowski.github.io/NanoClass2/source/other_dbs.html">these instructions</a>.</p>
 
 
 </section>
-</section>
-</section>
 
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -979,18 +925,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../../source/nanopore/chopper.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Chopper</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../../source/nanopore/nanoITS.html" class="pagination-link">
-        <span class="nav-page-text">NanoITS</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

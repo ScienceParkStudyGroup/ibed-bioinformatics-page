@@ -54,7 +54,7 @@ This page is very much a work in progress and the page will be slowly updated ov
 - [Kraken2](source/classification/kraken2.qmd): A taxonomic sequence classifier using kmers
 - [METABOLIC](source/metagenomics/metabolic.qmd): A tool to predict functional trait profiles in genome datasets
 - [Minimap2](source/classification/minimap2.qmd): A program to align DNA or mRNA sequences against a reference database
-- [NanoClass](source/nanopore/nanoclass.qmd): A taxonomic meta-classifier for long-read 16S/18S rRNA gene sequencing data
+- [NanoClass2](source/nanopore/nanoclass.qmd): A taxonomic meta-classifier for long-read 16S/18S rRNA gene sequencing data
 - [NanoITS](source/nanopore/nanoITS.qmd): A taxonomic meta-classifier for long-read ITS operon sequencing data
 - [NanoPlot](source/nanopore/nanoplot_readme.qmd): Plotting tool for long read sequencing data
 - [NanoQC](source/nanopore/nanoqc_readme.qmd): A quality control tool for long read sequencing data

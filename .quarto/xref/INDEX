@@ -125,5 +125,8 @@
   },
   "source/metatranscriptomics/trinity.qmd": {
     "trinity.html": "fe9fea27"
+  },
+  "source/nanopore/nanoclass2_tutorial.qmd": {
+    "nanoclass2_tutorial.html": "8ef89d27"
   }
 }
