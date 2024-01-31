@@ -8,12 +8,15 @@ project:
 execute:
   freeze: auto  # re-render only when source changes
 
+date-modified: last-modified
+
+title-block-style: none
+
 format:
   html:
     theme:
       light: lumen
       dark: cyborg
-    date: last-modified
     css: styles.css
     toc: true
     toc-expand: true
@@ -29,7 +32,7 @@ website:
   page-footer:  
     center: | 
       Copyright 2023, Nina Dombrowski,    
-      Last modified: {{< meta date >}} 
+      Last modified: {{< meta date-modified >}}  
   
   sidebar:
     - id: "Welcome page"

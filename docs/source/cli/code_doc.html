@@ -6,7 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2023-12-04">
 
 <title>Bioinformatics guidance page</title>
 <style>
@@ -445,31 +444,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#documenting-code" id="toc-documenting-code" class="nav-link active" data-scroll-target="#documenting-code">Documenting code</a></li>
   <li><a href="#choose-your-editor" id="toc-choose-your-editor" class="nav-link" data-scroll-target="#choose-your-editor">Choose Your Editor</a></li>
   <li><a href="#markdown-for-documentation" id="toc-markdown-for-documentation" class="nav-link" data-scroll-target="#markdown-for-documentation">Markdown for Documentation</a></li>
+  <li><a href="#an-example-notebook" id="toc-an-example-notebook" class="nav-link" data-scroll-target="#an-example-notebook">An example notebook</a></li>
   </ul>
 <div class="toc-actions"><ul class="collapse"><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/code_doc.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Welcome page</a></li><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Documenting your code</a></li></ol></nav>
-<div class="quarto-title">
-</div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">December 4, 2023</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
+<header id="title-block-header">
 
 
 </header>
@@ -594,8 +576,62 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>| ---------| ---------|</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>| Content 1| Content 2|</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>| Content 3| Content 4|</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="an-example-notebook" class="level2">
+<h2 class="anchored" data-anchor-id="an-example-notebook">An example notebook</h2>
+<p>If you want to see an example for documented code, check out <a href="https://github.com/ndombrowski/cli_workshop/tree/main/example_doc">an example</a> of a notebook in which I started working with some sequencing data.</p>
+<p>The link above leads you to an example for:</p>
+<ul>
+<li>How could I use github to make my code available to others</li>
+<li>How could a “code book” look like? The example you see in the folder is provided a Quarto markdown file <a href="https://github.com/ndombrowski/cli_workshop/blob/main/example_doc/example_notebook.qmd">here</a> and for convenience the report was also rendered as a <a href="https://github.com/ndombrowski/cli_workshop/blob/main/docs/example_doc/example_notebook.html">html</a> to make it easier to read for potential collaborators. To view the HTML report, you need to download it first.</li>
+</ul>
+<p>Please note that this is just an example to get you started and such a report might look different depending on your needs.</p>
+<p>Below you find some snippets from the report rendered to HTML and some thoughts for what to put into different sections.</p>
+<section id="yaml-header" class="level3">
+<h3 class="anchored" data-anchor-id="yaml-header">YAML header</h3>
+<p><img src="../..\img/yaml_header.png" class="img-fluid" width="753"></p>
+</section>
+<section id="setting-up-your-working-directory" class="level3">
+<h3 class="anchored" data-anchor-id="setting-up-your-working-directory">Setting up your working directory</h3>
+<p><img src="../..\img/general_setup.png" class="img-fluid" width="549"></p>
+<p>In this first section I add everything that a user that wants to use my workflow has to change and I try to standardize the code below, so that another user could just run this as is without having to edit anything. Typically things to add are:</p>
+<ul>
+<li>From where to start the analyses</li>
+<li>Custom paths, to for example for databases that need to be downloaded from elsewhere</li>
+<li>Custom variables: In the example above I store the link to the data in a variable called <code>download_link</code>, I then use the variable in the code below to download the data. By doing it this way I have one location in the code another person needs to change the code when for example the path to the data changes. The code below stays the same. When writing code try to think ahead and minimize the number of instances where things need to be changed if for example the location to your data changes.</li>
+<li>…</li>
+</ul>
+<p>I tend to NOT add the information how I use <code>scp</code> to log into an HPC to keep my user name and login information private.</p>
+</section>
+<section id="sanity-checks" class="level3">
+<h3 class="anchored" data-anchor-id="sanity-checks">Sanity checks</h3>
+<p><img src="../..\img/sanity_check.png" class="img-fluid" width="561"></p>
+<p>When I first start working with new data, I try to add as many sanity checks as possible to ensure that my data looks good. That way I avoid that I don’t notice an issue and run into trouble further down the line. I at the same time understand my data more and learn with how many samples and how much data I am working with.</p>
+<p>I also add such sanity checks whenever I modify my data. For example, when I merge individual files into a large file I might count the lines for the individual files and the combined file simply to ensure that I used my wildcards correctly.</p>
+<p>Remember: The computer is only as smart as the person using it and will blindly run your commands. Because of that the computer can do unexpected things and you need to account for that.</p>
+</section>
+<section id="using-markdown-to-make-notes" class="level3">
+<h3 class="anchored" data-anchor-id="using-markdown-to-make-notes">Using markdown to make notes</h3>
+<p><img src="../..\img/comments_in_code.png" class="img-fluid" width="543"></p>
+<p>In the example above I use markdown to not only document my code but also add some comments whenever I might need it. For example here, I added some notes about what the results from FastQC actually told me.</p>
+<p>This kind of documentation can be useful for:</p>
+<ul>
+<li><p>Justifying decisions further down the line. In this example, I might decide on how to clean the sequencing data. For example, if I would have found a lot of low quality reads or the adapter still being part of the sequence then I would have specifically cleaned my sequences to deal with that</p></li>
+<li><p>Future you. If you read the report a month, or a year, later you have the key information in your report and don’t have to open the HTML reports again.</p></li>
+</ul>
+</section>
+<section id="documenting-external-scripts" class="level3">
+<h3 class="anchored" data-anchor-id="documenting-external-scripts">Documenting external scripts</h3>
+<p><img src="../..\img/external_scripts.png" class="img-fluid" width="559"></p>
+<p>This part might make more sense after you have worked through the part of the tutorial about using an HPC. But what you see here is how I have written down code that simply says that I submitted a script to an HPC but it does not actually say how I ran the FastQC software. The actual code is “hidden” inside of the run_fastqc.sh script. This also means that a person reading your workflow does not have the code right away. You can deal with this in two ways.</p>
+<ol type="1">
+<li>Instead of the sbatch command, you can add the actual line of code that was run on the compute node.</li>
+<li>When publishing your code with your manuscript, add the whole scripts folder to where you publish the main code, i.e.&nbsp;on <a href="https://github.com/ndombrowski/cli_workshop/tree/main/example_doc">github</a> or <a href="https://zenodo.org/records/3839790">zenodo</a></li>
+</ol>
+<p>I tend to prefer number 2 because I like to record the code in my notebooks exactly as I ran them but you can do it differently as long as all the code you ran is recorded and accessible to others once you publish your data.</p>
 
 
+</section>
 </section>
 
 </div></main> <!-- /main -->
@@ -1168,7 +1204,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: December 4, 2023</p>
+Last modified: 2024-01-31</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/code_doc.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

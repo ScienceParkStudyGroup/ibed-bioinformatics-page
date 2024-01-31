@@ -2,63 +2,54 @@
 toc-depth: 2
 ---
 
-
 ![](img/banner-min.png)
 
 <div style="text-align: justify">
 
-On this website you can find documentation about software that might be useful for bioinformatic data analyses as well as tutorials about various bioinformatic subjects.
+On this website you can find documentation about software commonly used in bioinformatic data analyses as well as tutorials about various bioinformatic subjects. On this webpage you can find software organized by topic and for each topic you find a list of software tools sorted based on the order of usage rather than alphabetically.
 
-If you are working at UVAs Institute for Biodiversity and Ecosystem Dynamics (IBED) and want to know more about what resources are available, please visit the [computational support teams website](https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html) and check the options under **Scientific programming and HPC**.
+If you are working at the University of Amsterdam (UvA) Institute for Biodiversity and Ecosystem Dynamics (IBED) and want to know more about what computational resources are available, please also visit the [computational support teams website](https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html).
 
-Each tool is organized based on rough bioinformatic topics and the tools are sorted based on the order of usage rather than alphabetically.
-
-
-This page is very much a work in progress and the page will be slowly updated over time. If you want to add additional information or feel that something is missing feel free to send an email to <n.dombrowski@uva.nl>.
-
+Please, be aware that this page is a work in progress and will be slowly updated over time. If you want to add additional information or feel that something is missing feel free to send an email to [n.dombrowski\@uva.nl](mailto:n.dombrowski@uva.nl){.email}.
 
 ## Useful tutorials
 
-### Getting started 
+### Getting started with bash
 
-- [Getting started on the Crunchomics server](https://crunchomics-documentation.readthedocs.io/en/latest/)
-- [A tutorial on using bash and an HPC](https://ndombrowski.github.io/cli_workshop/)
-- [Version control with git](https://github.com/fkariminejadasl/ml-notebooks/blob/main/tutorial/git.md)
-- [A tutorial on using AWK](https://ndombrowski.github.io/AWK_tutorial/), an excellent command line tool for filtering tables, extracting patterns, etc... If you want to follow this tutorial then you can download the required input files from [here](https://github.com/ndombrowski/AWK_tutorial/tree/main/1_Inputfiles)
+-   [A tutorial on using bash and an HPC](https://ndombrowski.github.io/cli_workshop/)
+-   [Version control with git](https://github.com/fkariminejadasl/ml-notebooks/blob/main/tutorial/git.md)
+-   [A tutorial on using AWK](https://ndombrowski.github.io/AWK_tutorial/), a command line tool for filtering tables, extracting patterns, etc... If you want to follow this tutorial then you can download the required input files from [here](https://github.com/ndombrowski/AWK_tutorial/tree/main/1_Inputfiles)
 
 ### Using R
 
-- [An R cookbook](https://ndombrowski.github.io/R_cookbook/) including some [example files](https://github.com/ndombrowski/R_cookbook/tree/main/data) if you want to code along
-- [Tutorial on data manipulation with dplyr](https://ndombrowski.github.io/Tidyverse_tutorial/)
-- [Tutorial on data visualization with ggplot2](https://ndombrowski.github.io/Ggplot_tutorial/)
+-   [An R cookbook](https://ndombrowski.github.io/R_cookbook/) including some [example files](https://github.com/ndombrowski/R_cookbook/tree/main/data) if you want to code along
+-   [Tutorial on data manipulation with dplyr](https://ndombrowski.github.io/Tidyverse_tutorial/)
+-   [Tutorial on data visualization with ggplot2](https://ndombrowski.github.io/Ggplot_tutorial/)
 
 ### Bioinformatic workflows
 
-- [From sequence file to OTU table with Qiime](source/Qiime/3_evelyn_tutorial_notes.qmd)
-- [Analysing an OTU table with R](source/Qiime/OTU_table_analysis.qmd)
-- [Assembling a metagenome](https://ndombrowski.github.io/Assembly_tutorial/)
-- [Metagenomic binning](https://ndombrowski.github.io/Binning_tutorial//)
-- [Annotating microbial genomes](https://github.com/ndombrowski/Annotation_workflow)
-- [How to do generate a species tree](https://ndombrowski.github.io/Phylogeny_tutorial/) 
-
-
+-   [From sequence file to OTU table with Qiime](source/Qiime/3_evelyn_tutorial_notes.qmd)
+-   [Analysing an OTU table with R](source/Qiime/OTU_table_analysis.qmd)
+-   [Assembling a metagenome](https://ndombrowski.github.io/Assembly_tutorial/)
+-   [Metagenomic binning](https://ndombrowski.github.io/Binning_tutorial//)
+-   [Annotating microbial genomes](https://github.com/ndombrowski/Annotation_workflow)
+-   [How to do generate a species tree](https://ndombrowski.github.io/Phylogeny_tutorial/)
 
 ## Bioinformatic tools A-Z
 
-- [Chopper](source/nanopore/chopper.qmd): A tool for quality filtering of long read data
-- [FAMA](source/metagenomics/fama_readme.qmd): A fast pipeline for functional and taxonomic analysis of metagenomic sequences
-- [FastP](source/metatranscriptomics/fastp.qmd): A tool for fast all-in-one preprocessing of FastQ files
-- [FastQC](source/metagenomics/fastqc_readme.qmd): A quality control tool for read sequencing data
-- [Interproscan](source/metagenomics/interproscan_readme.qmd): A tool to scan protein and nucleic sequences against InterPro signatures
-- [ITSx](source/ITSx/itsx_readme.qmd): A tool to extract ITS1 and ITS2 subregions from ITS sequences
-- [Kraken2](source/classification/kraken2.qmd): A taxonomic sequence classifier using kmers
-- [METABOLIC](source/metagenomics/metabolic.qmd): A tool to predict functional trait profiles in genome datasets
-- [Minimap2](source/classification/minimap2.qmd): A program to align DNA or mRNA sequences against a reference database
-- [NanoClass2](source/nanopore/nanoclass.qmd): A taxonomic meta-classifier for long-read 16S/18S rRNA gene sequencing data
-- [NanoITS](source/nanopore/nanoITS.qmd): A taxonomic meta-classifier for long-read ITS operon sequencing data
-- [NanoPlot](source/nanopore/nanoplot_readme.qmd): Plotting tool for long read sequencing data
-- [NanoQC](source/nanopore/nanoqc_readme.qmd): A quality control tool for long read sequencing data
-- [Porechop](source/nanopore/porechop_readme.qmd): A tool for finding and removing adapters from Nanopore reads
-- [SortMerNa](source/metatranscriptomics/sortmerna.qmd): A tool to filter ribosomal RNAs in metatranscriptomic data
-- [Trinity](source/metatranscriptomics/trinity.qmd):  A tool to assemble transcript sequences from Illumina RNA-Seq data
-
+-   [Chopper](source/nanopore/chopper.qmd): A tool for quality filtering of long read data
+-   [FAMA](source/metagenomics/fama_readme.qmd): A fast pipeline for functional and taxonomic analysis of metagenomic sequences
+-   [FastP](source/metatranscriptomics/fastp.qmd): A tool for fast all-in-one preprocessing of FastQ files
+-   [FastQC](source/metagenomics/fastqc_readme.qmd): A quality control tool for read sequencing data
+-   [Interproscan](source/metagenomics/interproscan_readme.qmd): A tool to scan protein and nucleic sequences against InterPro signatures
+-   [ITSx](source/ITSx/itsx_readme.qmd): A tool to extract ITS1 and ITS2 subregions from ITS sequences
+-   [Kraken2](source/classification/kraken2.qmd): A taxonomic sequence classifier using kmers
+-   [METABOLIC](source/metagenomics/metabolic.qmd): A tool to predict functional trait profiles in genome datasets
+-   [Minimap2](source/classification/minimap2.qmd): A program to align DNA or mRNA sequences against a reference database
+-   [NanoClass2](source/nanopore/nanoclass.qmd): A taxonomic meta-classifier for long-read 16S/18S rRNA gene sequencing data
+-   [NanoITS](source/nanopore/nanoITS.qmd): A taxonomic meta-classifier for long-read ITS operon sequencing data
+-   [NanoPlot](source/nanopore/nanoplot_readme.qmd): Plotting tool for long read sequencing data
+-   [NanoQC](source/nanopore/nanoqc_readme.qmd): A quality control tool for long read sequencing data
+-   [Porechop](source/nanopore/porechop_readme.qmd): A tool for finding and removing adapters from Nanopore reads
+-   [SortMerNa](source/metatranscriptomics/sortmerna.qmd): A tool to filter ribosomal RNAs in metatranscriptomic data
+-   [Trinity](source/metatranscriptomics/trinity.qmd): A tool to assemble transcript sequences from Illumina RNA-Seq data

@@ -24,6 +24,46 @@ Since you share resources with other people when using an HPC:
 Choose the resources you use wisely and allow other users to also run some work. For big projects on the Uva Crunchomics HPC you are encouraged to contact Wim de Leeuw [w.c.deleeuw\@uva.nl](mailto:w.c.deleeuw@uva.nl){.email} beforehand.
 :::
 
+
+## Connecting to a sever
+
+**SSH** (Secure Shell) is a network protocol that enables secure remote connections between two systems. The general `ssh` command that you can use to login into any HPC looks as follows:
+
+```{bash}
+ssh -X username@server
+```
+
+Options:
+
+-   `-X` option enables untrusted X11 forwarding in SSH. Untrusted means = your local client sends a command to the remote machine and receives the graphical output. Put simply this option enables us to run graphical applications on a remote server and this for example allows us to view a pdf.
+
+If you have access to and want to connect to Crunchomics you would edit the command above to look like this:
+
+```{bash}
+ssh -X uvanetid@omics-h0.science.uva.nl
+```
+
+::: callout-important
+If you want to log into Crunchomics from outside of UvA you need to be connected to the VPN. If you have not set that up and/or have trouble doing so, please contact ICT.
+:::
+
+
+## Setup for first time Crunchomics users 
+
+If you have access to Crunchomics and have not used Crunchomics before, then you want to first run a small Bash script that:
+
+-   Allows you to use system-wide installed software, by adding `/zfs/omics/software/bin` to your path. This basically means that bash knows that there is an extra folder in which to look for any software that is already installed
+-   Sets up a python3 environment and some useful python packages
+-   Have a link for your 500 GB personal directory in your home directory
+
+To set this up, run the following command in the cli:
+
+```{bash}
+/zfs/omics/software/script/omics_install_script
+```
+
+
+
 ## Slurm basics
 
 ### Get information about the cluster
@@ -145,26 +185,6 @@ You exit the htop window by typing `q`.
 du -sh personal/
 ```
 
-## Connecting to a sever
-
-**SSH** (Secure Shell) is a network protocol that enables secure remote connections between two systems. The basic command to login looks like this:
-
-```{bash}
-#connect to a server
-ssh -X username@server
-```
-
-Options:
-
--   `-X` option enables untrusted X11 forwarding in SSH. Untrusted means = your local client sends a command to the remote machine and receives the graphical output
-
-If you have access to and want to connect to crunchomics you would connect like this:
-
-```{bash}
-ssh -X uvanetid1@omics-h0.science.uva.nl
-```
-
-If this is your first time using crunchomics, then have a look at these notes about [preparing your account](https://crunchomics-documentation.readthedocs.io/en/latest/intro_crunchomics.html#).
 
 ## Transferring files
 

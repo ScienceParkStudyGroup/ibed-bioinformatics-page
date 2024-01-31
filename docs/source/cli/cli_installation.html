@@ -6,7 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2023-12-12">
 
 <title>Bioinformatics guidance page</title>
 <style>
@@ -415,25 +414,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../index.html">Welcome page</a></li><li class="breadcrumb-item"><a href="../../source/cli/cli.html">Using the command line</a></li><li class="breadcrumb-item"><a href="../../source/cli/cli_installation.html">Setting up a terminal</a></li></ol></nav>
-<div class="quarto-title">
-</div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">December 12, 2023</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
+<header id="title-block-header">
 
 
 </header>
@@ -447,18 +428,25 @@ ul.task-list li input[type="checkbox"] {
 <p>Below you find some links that help you in setting up a Bash command line depending on your operating system:</p>
 <section id="linux" class="level3">
 <h3 class="anchored" data-anchor-id="linux">Linux</h3>
-<p>The default shell is usually Bash and there is usually no need to install anything to be able to follow this tutorial.</p>
+<p>The default shell is usually Bash and there is no need to install anything to be able to follow this tutorial. On most versions of Linux, the shell accessible by running the Gnome Terminal or KDE Konsole or xterm, which can be found via the applications menu or the search bar. If your machine is set up to use something other than Bash, you should be able to switch the shell by opening a terminal and typing <code>bash</code>.</p>
 </section>
 <section id="mac" class="level3">
 <h3 class="anchored" data-anchor-id="mac">Mac</h3>
-<p>To access the Unix command prompt on a Mac operating system, open the Terminal application. It is located by default inside the Utilities folder, which in turn is inside the Applications folder, i.e., /Applications/Utilities/ folder. Alternatively, you can find the terminal application by using the spotlight search tool.</p>
+<p>For Mac running macOS Mojave or earlier releases, the default Unix Shell is Bash. For a Mac computer running macOS Catalina or later releases, the default Unix Shell is Zsh. To open a terminal, try one or both of the following:</p>
+<ul>
+<li>In Finder, select the Go menu, then select Utilities. Locate Terminal in the Utilities folder and open it.</li>
+<li>Use the Mac ‘Spotlight’ computer search function. Search for: Terminal and press Return.</li>
+</ul>
+<p>To ensure that you work with a consistent shell and to check if your machine is set up to use something other than Bash, type <code>echo $SHELL</code> in your terminal window. The name of the current shell should be printed to the terminal window.</p>
+<p>If your machine is set up to use something other than Bash, you can try switching to Bash by opening a terminal and typing <code>bash</code>. To check if that worked type <code>echo $SHELL</code> again.</p>
 </section>
 <section id="windows" class="level3">
 <h3 class="anchored" data-anchor-id="windows">Windows</h3>
-<p>Operating systems like macOS and Linux come with a native command-line terminal, making it straightforward to run bash commands. However, for Windows users you need to install some software first to be able to use bash.</p>
-<p>One option to access the bash shell commands is using Git Bash, for detailed installation instructions please have a look at the <a href="https://carpentries.github.io/workshop-template/install_instructions/#shell-windows">carpenties website</a>.</p>
-<p>A second option is Mobaxterm, which enables Windows users to execute basic Linux/Unix commands on their local machine, connect to an HPC with SSH and to transfer files with SCP/SFTP (more on that later). Installation instructions can be found <a href="https://hpc.ncsu.edu/Documents/mobaxterm.php">here</a>.</p>
-<p>A final option is to use Windows and Linux at the same time on a Windows machine. The Windows Subsystem for Linux (WSL) lets users install a Linux distribution (such as Ubuntu, which is the default Linux distribution, which we recommend to use) and use Linux applications, utilities, and Bash command-line tools directly on Windows. This option allows you to use all the tools available but since you more or less are installing a separating system on your PC needs to have enough memory to run this. Installation instructions can be found <a href="https://learn.microsoft.com/en-us/windows/wsl/install">here</a>.</p>
+<p>Operating systems like macOS and Linux come with a native command-line terminal, making it straightforward to run bash commands. However, for Windows users you need to install some software first to be able to use bash, below you find three options:</p>
+<p>One option to access the bash shell commands is using <strong>Git Bash</strong>, for detailed installation instructions please have a look at the <a href="https://carpentries.github.io/workshop-template/install_instructions/#shell-windows">carpenties website</a>.</p>
+<p>A second option is <strong>Mobaxterm</strong>, which enables Windows users to execute basic Linux/Unix commands on their local machine, connect to an HPC with SSH and to transfer files with SCP/SFTP (more on that later). Installation instructions can be found <a href="https://hpc.ncsu.edu/Documents/mobaxterm.php">here</a>.</p>
+<p>A final option is to use Windows and Linux at the same time on a Windows machine. The <strong>Windows Subsystem for Linux (WSL2)</strong> lets users install a Linux distribution (such as Ubuntu, which is the default Linux distribution, which we recommend to use) and use Linux applications, utilities, and Bash command-line tools directly on Windows. This option allows you to use all the tools available but since you more or less are installing a separating system on your PC needs to have enough memory to run this. Installation instructions can be found <a href="https://learn.microsoft.com/en-us/windows/wsl/install">here</a>.</p>
+<p>Notice: The code found on these pages was run on a windows machine using WSL2 and on a Linux machine.</p>
 <p>After you set everything up and opened a terminal you should see something like this and are good to go if you want to follow the tutorial:</p>
 <p align="center">
 <img width="500" src="../../img/terminal.png">
@@ -1038,7 +1026,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: December 12, 2023</p>
+Last modified: 2024-01-31</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/cli_installation.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
