@@ -75,6 +75,7 @@ website:
         contents:
           - section: "Core tools"
             contents:
+              - source/core_tools/ncbi.qmd
               - source/classification/kraken2.qmd
               - source/classification/minimap2.qmd
 
@@ -119,7 +120,5 @@ website:
       #   contents:
 
       # - section: "Bioinformatic databases"
-      #   href: source/databases/readme.qmd
-      #   contents:
 
       # - section: "Tutorials"

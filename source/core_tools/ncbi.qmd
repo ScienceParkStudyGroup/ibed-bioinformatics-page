@@ -1,0 +1,142 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+## Downloading data from NCBI
+
+### Introduction
+
+On this page you will get introduced to a set of tools that are useful to download genomes as well as sequencing data from NCBI:
+
+-   sra-tools: a collection of tools and libraries for using data in the INSDC Sequence Read Archives
+-   ncbi-datasets-cli: NCBI Datasets is a new resource that lets you easily gather data from across NCBI databases
+-   parallel-fastq-dump: is a tool that tool up the process of downloading sra data and is a multi-thread alternative to sra-tools
+
+### Installation
+
+Since we work with a set of programs that fulfill a similar purpose we install them in one single conda environment as follows:
+
+```{bash}
+mamba create -n ncbi_tools
+
+mamba install -n ncbi_tools \
+    -c conda-forge -c bioconda \
+    sra-tools parallel-fastq-dump ncbi-datasets-cli
+
+mamba activate ncbi_tools
+```
+
+## Usage
+
+### Downloading a single SRA archive using sra-tools
+
+Let's assume we want to download some sequencing data, for example some paired-end Illumina sequencing data from which we know the SRA accession, for example [SRR27829729](https://www.ncbi.nlm.nih.gov/sra/SRX23493193%5Baccn%5D).
+
+```{bash}
+mkdir data
+
+#download sra data 
+prefetch SRR27829729 -O data
+
+#convert to fastq.gz
+#the space you need during the conversion is approximately 17 times the size of the accession
+fasterq-dump SRR27829729 -O data
+
+#compress files to reduce file size 
+gzip data/*fastq
+```
+
+For paired-end data, fasterq-dump will automatically generate separate files for the forward and reverse reads.
+
+### Downloading several SRA archives using sra-tools
+
+Let's now assume we want to download two (or more) SRA archives. We can do this by first preparing a list with all the SRAs we want to download. I am doing this with echo, but you can easily prepare a list in excel.
+
+```{bash}
+#prepare a list of SRAs we want to work with 
+echo -e "SRR27829729\nSRR27829749" > sra_list
+
+#get sra 
+prefetch $(<sra_list) -O data
+
+#convert to fastq
+fasterq-dump $(<sra_list) -O data
+
+#compress files to reduce file size 
+gzip data/*fastq
+```
+
+### Downloading several SRA archives using parallel-fastq-dump
+
+If you have few data files to download, the sra-tools are good to use. However, with more data you generate a lot of intermediate files that might need a lot of space. `parallel-fastq-dump` allows to combine all steps in once and make use of several threads (if needed). Assuming we need a lot of space, we can also redirect the temporary directory, which the tool uses to store the sra files, elsewhere.
+
+```{bash}
+mkdir temp 
+
+parallel-fastq-dump \
+    --sra-id $(<sra_list) \
+    --split-files \
+    --threads 4 --gzip -T temp \
+    --outdir data 
+```
+
+Options:
+
+`parallel-fastq-dump` is a parallel version of `fast-dump`, the predecessor of `fasterq-dump`. As such you can add any option you see when typing `parallel-fastq-dump -h` as well as `fastq-dump -h`. In the example above, we use the option `--split-files` in order to split the reads into separate files for the reverse and forward reads.
+
+### Downloading a genome from NCBI
+
+We can use the `datasets` command from the `ncbi-datasets-cli` software to easily download a genome from NCBI as follows:
+
+```{bash}
+datasets download genome accession GCF_000385215.1 \
+    --include gff3,protein,genome \
+    --filename GCF_000385215.zip
+
+#unzip the data directory
+unzip GCF_000385215.zip
+
+#cleanup
+rm GCF_000385215.zip
+```
+
+### Downloading multiple genomes from NCBI
+
+```{bash}
+mkdir data
+
+#prepare a list of accessions we want to work with 
+echo -e "GCF_000385215.1\nGCA_000774145.1" > genome_list
+
+#download data
+for i in `cat genome_list`; do
+    datasets download genome accession ${i} \
+        --include gff3,protein,genome \
+        --filename ${i}.zip
+done 
+
+#unzip the data directories
+for i in `cat genome_list`; do
+    unzip -j ${i}.zip -d data/${i}
+done 
+
+#rename the generic protein and gff file names by adding the accession (works if more than one genome is downloaded)
+for file in data/*/{protein.faa,genomic.gff}
+do
+    directory_name=$(dirname $file)
+    accession=$(basename $directory_name)
+    mv "${file}" "${directory_name}/${accession}_$(basename $file)"
+done
+
+
+#cleanup
+rm *.zip
+
+```
+
+For more functionality of `ncbi-datasets-cli` visit [this NCBI website](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/download-and-install/).

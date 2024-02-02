@@ -1026,8 +1026,8 @@
     "section": "",
     "text": "Kraken2 (Wood, Lu, and Langmead 2019) is a taxonomic sequence classifier that assigns taxonomic labels to DNA sequences. Kraken examines the k-mers within a query sequence and uses the information within those k-mers to query a database. That database maps k-mers to the lowest common ancestor (LCA) of all genomes known to contain a given k-mer.\nAvailable on Crunchomics: Kraken version 2.0.8-beta installed\n\n\n\nIf you want to install kraken2 on your own, its best to install it via mamba:\n\n#setup new conda environment, which we name kraken2\nmamba create --name kraken2 -c bioconda kraken2\n\n\n\n\nFor detailed usage information, check out the kraken2 manual.\n\n\nThe command below will download NCBI taxonomic information, as well as the complete genomes in RefSeq for the bacterial, archaeal, and viral domains, along with the human genome and a collection of known vectors (UniVec_Core). After downloading all this data, the build process begins; this can be the most time-consuming step. If you have multiple processing cores, you can run this process with multiple threads.\nAddtionally, kraken2 comes with several custom databases, such as the SILVA database for 16S rRNA gene analyses. Check the kraken2 manual for detailed information on how to download custom things..\n\n#create a kraken2 database \nkraken2-build --standard --threads 24 --db $DBNAME\n\n\n\n\n\nkraken2 --db $DBNAME seqs.fa --output output.out --report output.report",
     "crumbs": [
-      "Welcome page",
-      "Sequence classification",
+      "Sequence data analyses",
+      "Core tools",
       "Kraken2"
     ]
   },
@@ -1038,8 +1038,8 @@
     "section": "",
     "text": "Kraken2 (Wood, Lu, and Langmead 2019) is a taxonomic sequence classifier that assigns taxonomic labels to DNA sequences. Kraken examines the k-mers within a query sequence and uses the information within those k-mers to query a database. That database maps k-mers to the lowest common ancestor (LCA) of all genomes known to contain a given k-mer.\nAvailable on Crunchomics: Kraken version 2.0.8-beta installed\n\n\n\nIf you want to install kraken2 on your own, its best to install it via mamba:\n\n#setup new conda environment, which we name kraken2\nmamba create --name kraken2 -c bioconda kraken2\n\n\n\n\nFor detailed usage information, check out the kraken2 manual.\n\n\nThe command below will download NCBI taxonomic information, as well as the complete genomes in RefSeq for the bacterial, archaeal, and viral domains, along with the human genome and a collection of known vectors (UniVec_Core). After downloading all this data, the build process begins; this can be the most time-consuming step. If you have multiple processing cores, you can run this process with multiple threads.\nAddtionally, kraken2 comes with several custom databases, such as the SILVA database for 16S rRNA gene analyses. Check the kraken2 manual for detailed information on how to download custom things..\n\n#create a kraken2 database \nkraken2-build --standard --threads 24 --db $DBNAME\n\n\n\n\n\nkraken2 --db $DBNAME seqs.fa --output output.out --report output.report",
     "crumbs": [
-      "Welcome page",
-      "Sequence classification",
+      "Sequence data analyses",
+      "Core tools",
       "Kraken2"
     ]
   },
@@ -1601,6 +1601,42 @@
     "crumbs": [
       "Getting Started",
       "Using an HPC"
+    ]
+  },
+  {
+    "objectID": "source/core_tools/ncbi.html",
+    "href": "source/core_tools/ncbi.html",
+    "title": "Bioinformatics guidance page",
+    "section": "",
+    "text": "On this page you will get introduced to a set of tools that are useful to download genomes as well as sequencing data from NCBI:\n\nsra-tools: a collection of tools and libraries for using data in the INSDC Sequence Read Archives\nncbi-datasets-cli: NCBI Datasets is a new resource that lets you easily gather data from across NCBI databases\nparallel-fastq-dump: is a tool that tool up the process of downloading sra data and is a multi-thread alternative to sra-tools\n\n\n\n\nSince we work with a set of programs that fulfill a similar purpose we install them in one single conda environment as follows:\n\nmamba create -n ncbi_tools\n\nmamba install -n ncbi_tools \\\n    -c conda-forge -c bioconda \\\n    sra-tools parallel-fastq-dump ncbi-datasets-cli\n\nmamba activate ncbi_tools",
+    "crumbs": [
+      "Sequence data analyses",
+      "Core tools",
+      "Downloading data from NCBI"
+    ]
+  },
+  {
+    "objectID": "source/core_tools/ncbi.html#downloading-data-from-ncbi",
+    "href": "source/core_tools/ncbi.html#downloading-data-from-ncbi",
+    "title": "Bioinformatics guidance page",
+    "section": "",
+    "text": "On this page you will get introduced to a set of tools that are useful to download genomes as well as sequencing data from NCBI:\n\nsra-tools: a collection of tools and libraries for using data in the INSDC Sequence Read Archives\nncbi-datasets-cli: NCBI Datasets is a new resource that lets you easily gather data from across NCBI databases\nparallel-fastq-dump: is a tool that tool up the process of downloading sra data and is a multi-thread alternative to sra-tools\n\n\n\n\nSince we work with a set of programs that fulfill a similar purpose we install them in one single conda environment as follows:\n\nmamba create -n ncbi_tools\n\nmamba install -n ncbi_tools \\\n    -c conda-forge -c bioconda \\\n    sra-tools parallel-fastq-dump ncbi-datasets-cli\n\nmamba activate ncbi_tools",
+    "crumbs": [
+      "Sequence data analyses",
+      "Core tools",
+      "Downloading data from NCBI"
+    ]
+  },
+  {
+    "objectID": "source/core_tools/ncbi.html#usage",
+    "href": "source/core_tools/ncbi.html#usage",
+    "title": "Bioinformatics guidance page",
+    "section": "Usage",
+    "text": "Usage\n\nDownloading a single SRA archive using sra-tools\nLet’s assume we want to download some sequencing data, for example some paired-end Illumina sequencing data from which we know the SRA accession, for example SRR27829729.\n\nmkdir data\n\n#download sra data \nprefetch SRR27829729 -O data\n\n#convert to fastq.gz\n#the space you need during the conversion is approximately 17 times the size of the accession\nfasterq-dump SRR27829729 -O data\n\n#compress files to reduce file size \ngzip data/*fastq\n\nFor paired-end data, fasterq-dump will automatically generate separate files for the forward and reverse reads.\n\n\nDownloading several SRA archives using sra-tools\nLet’s now assume we want to download two (or more) SRA archives. We can do this by first preparing a list with all the SRAs we want to download. I am doing this with echo, but you can easily prepare a list in excel.\n\n#prepare a list of SRAs we want to work with \necho -e \"SRR27829729\\nSRR27829749\" &gt; sra_list\n\n#get sra \nprefetch $(&lt;sra_list) -O data\n\n#convert to fastq\nfasterq-dump $(&lt;sra_list) -O data\n\n#compress files to reduce file size \ngzip data/*fastq\n\n\n\nDownloading several SRA archives using parallel-fastq-dump\nIf you have few data files to download, the sra-tools are good to use. However, with more data you generate a lot of intermediate files that might need a lot of space. parallel-fastq-dump allows to combine all steps in once and make use of several threads (if needed). Assuming we need a lot of space, we can also redirect the temporary directory, which the tool uses to store the sra files, elsewhere.\n\nmkdir temp \n\nparallel-fastq-dump \\\n    --sra-id $(&lt;sra_list) \\\n    --split-files \\\n    --threads 4 --gzip -T temp \\\n    --outdir data \n\nOptions:\nparallel-fastq-dump is a parallel version of fast-dump, the predecessor of fasterq-dump. As such you can add any option you see when typing parallel-fastq-dump -h as well as fastq-dump -h. In the example above, we use the option --split-files in order to split the reads into separate files for the reverse and forward reads.\n\n\nDownloading a genome from NCBI\nWe can use the datasets command from the ncbi-datasets-cli software to easily download a genome from NCBI as follows:\n\ndatasets download genome accession GCF_000385215.1 \\\n    --include gff3,protein,genome \\\n    --filename GCF_000385215.zip\n\n#unzip the data directory\nunzip GCF_000385215.zip\n\n#cleanup\nrm GCF_000385215.zip\n\n\n\nDownloading multiple genomes from NCBI\n\nmkdir data\n\n#prepare a list of accessions we want to work with \necho -e \"GCF_000385215.1\\nGCA_000774145.1\" &gt; genome_list\n\n#download data\nfor i in `cat genome_list`; do\n    datasets download genome accession ${i} \\\n        --include gff3,protein,genome \\\n        --filename ${i}.zip\ndone \n\n#unzip the data directories\nfor i in `cat genome_list`; do\n    unzip -j ${i}.zip -d data/${i}\ndone \n\n#rename the generic protein and gff file names by adding the accession (works if more than one genome is downloaded)\nfor file in data/*/{protein.faa,genomic.gff}\ndo\n    directory_name=$(dirname $file)\n    accession=$(basename $directory_name)\n    mv \"${file}\" \"${directory_name}/${accession}_$(basename $file)\"\ndone\n\n\n#cleanup\nrm *.zip\n\nFor more functionality of ncbi-datasets-cli visit this NCBI website.",
+    "crumbs": [
+      "Sequence data analyses",
+      "Core tools",
+      "Downloading data from NCBI"
     ]
   }
 ]
