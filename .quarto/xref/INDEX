@@ -134,5 +134,8 @@
   },
   "source/core_tools/ncbi.qmd": {
     "ncbi.html": "98164ab4"
+  },
+  "source/core_tools/prokka.qmd": {
+    "prokka.html": "6591efce"
   }
 }

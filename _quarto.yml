@@ -76,6 +76,7 @@ website:
           - section: "Core tools"
             contents:
               - source/core_tools/ncbi.qmd
+              - source/core_tools/prokka.qmd
               - source/classification/kraken2.qmd
               - source/classification/minimap2.qmd
 

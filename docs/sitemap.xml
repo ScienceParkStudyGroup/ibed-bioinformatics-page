@@ -33,72 +33,84 @@
     <lastmod>2023-11-15T13:23:47.538Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/conda/conda.html</loc>
-    <lastmod>2023-11-16T07:19:59.409Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/databases/readme.html</loc>
+    <lastmod>2024-02-02T09:11:38.284Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/hpc_usage.html</loc>
-    <lastmod>2024-02-02T09:31:11.152Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/ncbi.html</loc>
+    <lastmod>2024-02-02T11:45:15.845Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/cli_installation.html</loc>
-    <lastmod>2024-01-31T12:49:33.624Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/cli_basics.html</loc>
-    <lastmod>2023-12-12T12:41:50.227Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/classification/minimap2.html</loc>
-    <lastmod>2023-11-16T09:36:39.534Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/R/readme.html</loc>
-    <lastmod>2023-11-16T07:03:02.357Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/Qiime/qiime_cmi_tutorial.html</loc>
-    <lastmod>2023-09-08T07:25:53.874Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/Qiime/3_evelyn_tutorial_notes.html</loc>
-    <lastmod>2023-11-16T09:28:37.396Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
-    <lastmod>2024-02-02T10:51:03.258Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/ITSx/itsx_readme.html</loc>
-    <lastmod>2023-11-16T09:47:43.694Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/Qiime/OTU_table_analysis.html</loc>
-    <lastmod>2023-12-12T09:37:03.694Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/Qiime/readme.html</loc>
-    <lastmod>2023-11-16T07:03:50.290Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/classification/kraken2.html</loc>
-    <lastmod>2023-11-16T09:36:19.677Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/cli.html</loc>
-    <lastmod>2024-02-02T09:23:31.768Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/cli_file_manipulation.html</loc>
-    <lastmod>2023-12-12T13:46:33.071Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/slurm_basics.html</loc>
+    <lastmod>2024-01-31T12:54:49.691Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/code_doc.html</loc>
     <lastmod>2024-02-02T09:44:20.670Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/slurm_basics.html</loc>
-    <lastmod>2024-01-31T12:54:49.691Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/cli_file_manipulation.html</loc>
+    <lastmod>2023-12-12T13:46:33.071Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/cli.html</loc>
+    <lastmod>2024-02-02T09:23:31.768Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/classification/kraken2.html</loc>
+    <lastmod>2023-11-16T09:36:19.677Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/Qiime/readme.html</loc>
+    <lastmod>2023-11-16T07:03:50.290Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/Qiime/OTU_table_analysis.html</loc>
+    <lastmod>2023-12-12T09:37:03.694Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/ITSx/itsx_readme.html</loc>
+    <lastmod>2023-11-16T09:47:43.694Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
+    <lastmod>2024-02-02T12:22:44.323Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/Qiime/3_evelyn_tutorial_notes.html</loc>
+    <lastmod>2023-11-16T09:28:37.396Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/Qiime/qiime_cmi_tutorial.html</loc>
+    <lastmod>2023-09-08T07:25:53.874Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/R/readme.html</loc>
+    <lastmod>2023-11-16T07:03:02.357Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/classification/minimap2.html</loc>
+    <lastmod>2023-11-16T09:36:39.534Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/cli_basics.html</loc>
+    <lastmod>2023-12-12T12:41:50.227Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/cli_installation.html</loc>
+    <lastmod>2024-01-31T12:49:33.624Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/hpc_usage.html</loc>
+    <lastmod>2024-02-02T09:31:11.152Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/conda/conda.html</loc>
+    <lastmod>2023-11-16T07:19:59.409Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/prokka.html</loc>
+    <lastmod>2024-02-02T12:20:28.989Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/fama_readme.html</loc>
@@ -131,13 +143,5 @@
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/readme.html</loc>
     <lastmod>2023-11-15T13:22:27.095Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/databases/readme.html</loc>
-    <lastmod>2024-02-02T09:11:38.284Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/ncbi.html</loc>
-    <lastmod>2024-02-02T10:51:00.966Z</lastmod>
   </url>
 </urlset>

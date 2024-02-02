@@ -34,6 +34,7 @@ Please, be aware that this page is a work in progress and will be slowly updated
 -   [Metagenomic binning](https://ndombrowski.github.io/Binning_tutorial//)
 -   [Annotating microbial genomes](https://github.com/ndombrowski/Annotation_workflow)
 -   [How to do generate a species tree](https://ndombrowski.github.io/Phylogeny_tutorial/)
+-   [Accessing data from NCBI](source/core_tools/ncbi.qmd)
 
 ## Bioinformatic tools A-Z
 
@@ -51,5 +52,6 @@ Please, be aware that this page is a work in progress and will be slowly updated
 -   [NanoPlot](source/nanopore/nanoplot_readme.qmd): Plotting tool for long read sequencing data
 -   [NanoQC](source/nanopore/nanoqc_readme.qmd): A quality control tool for long read sequencing data
 -   [Porechop](source/nanopore/porechop_readme.qmd): A tool for finding and removing adapters from Nanopore reads
+-   [Prokka](source/core_tools/prokka.qmd): A tool to annotate bacterial, archaeal and viral genomes
 -   [SortMerNa](source/metatranscriptomics/sortmerna.qmd): A tool to filter ribosomal RNAs in metatranscriptomic data
 -   [Trinity](source/metatranscriptomics/trinity.qmd): A tool to assemble transcript sequences from Illumina RNA-Seq data
