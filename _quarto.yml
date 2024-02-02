@@ -9,7 +9,6 @@ execute:
   freeze: auto  # re-render only when source changes
 
 date-modified: last-modified
-
 title-block-style: none
 
 format:
@@ -35,76 +34,89 @@ website:
       Last modified: {{< meta date-modified >}}  
   
   sidebar:
-    - id: "Welcome page"
-      style: "docked"
-      search: true
-      collapse: true
+    style: "docked"
+    search: true
+    collapse-level: 2
 
-      contents:
-        - section: "Welcome page"
-          href: index.qmd
+    contents:
+      - text: "Welcome page"
+        href: index.qmd
 
-          contents:
-
-          - text: "Documenting your code"
+      - section: "Getting Started"
+        contents:
+          - text: "Code documentation"
             href: source/cli/code_doc.qmd
-
 
           - section: "Using the command line"
             contents:
-              - source/cli/cli.qmd
-              - source/cli/cli_installation.qmd
-              - source/cli/cli_basics.qmd
-              - source/cli/cli_file_manipulation.qmd
+              - text: "What is the command line?"
+                href: source/cli/cli.qmd
+              - text: "Setting up a bash command line"
+                href: source/cli/cli_installation.qmd
+              - text: "Getting started with bash"
+                href: source/cli/cli_basics.qmd
+              - text: "Manipulating files with bash"
+                href: source/cli/cli_file_manipulation.qmd
+              - text: "Installing software"
+                href: source/conda/conda.qmd
+
+          - section: "Using R"
+            contents:
+              - source/R/readme.qmd
 
           - section: "Using an HPC"
             contents:
-              - source/cli/hpc_usage.qmd
-              - source/cli/slurm_basics.qmd
+              - text: "Using an HPC at UvA"
+                href: source/cli/hpc_usage.qmd
+              - text: "Start working on an HPC"
+                href: source/cli/slurm_basics.qmd
 
-          - text: "Installing software"
-            href: source/conda/conda.qmd
+      - section: "Omics Analyses"
+        href: source/metagenomics/readme.qmd
 
-          - text: "R"
-            href: source/R/readme.qmd
+        contents:
+          - section: "Core tools"
+            contents:
+              - source/classification/kraken2.qmd
+              - source/classification/minimap2.qmd
+
+          - section: "Quality control"
+            contents:
+              - source/metagenomics/fastqc_readme.qmd
+              - source/metatranscriptomics/fastp.qmd
+
+          - section: "Functional annotation"
+            contents:
+              - source/metagenomics/interproscan_readme.qmd
+              - source/metagenomics/fama_readme.qmd
+              - source/metagenomics/metabolic.qmd
 
           - section: "Amplicon analyses"
+            href: source/Qiime/readme.qmd
             contents:
-              - source/Qiime/readme.qmd
               - source/Qiime/3_evelyn_tutorial_notes.qmd
               - source/Qiime/OTU_table_analysis.qmd
 
-          - section: "Nanopore analyses"
+          - section: "(Meta)transcriptomics"
             contents:
-              - source/nanopore/readme.qmd
+              - source/metatranscriptomics/sortmerna.qmd
+              - source/metatranscriptomics/trinity.qmd
+
+          - section: "Nanopore analyses"
+            href: source/nanopore/readme.qmd
+            contents:
               - source/nanopore/nanoqc_readme.qmd
               - source/nanopore/nanoplot_readme.qmd
               - source/nanopore/porechop_readme.qmd
               - source/nanopore/chopper.qmd
               - source/nanopore/nanoclass.qmd
               - source/nanopore/nanoITS.qmd
-              
-          - section: "Sequence classification"
-            contents:
-              - source/classification/kraken2.qmd
-              - source/classification/minimap2.qmd
-
-          - section: "Metagenomics"
-            contents:
-              - source/metagenomics/readme.qmd
-              - source/metagenomics/fastqc_readme.qmd
-              - source/metagenomics/interproscan_readme.qmd
-              - source/metagenomics/fama_readme.qmd
-              - source/metagenomics/metabolic.qmd
-
-          - section: "Metatranscriptomics"
-            contents:
-              - source/metatranscriptomics/fastp.qmd
-              - source/metatranscriptomics/sortmerna.qmd
-              - source/metatranscriptomics/trinity.qmd
 
           - section: "Fungal genomics"
             contents:
               - source/ITSx/itsx_readme.qmd
               - source/nanopore/nanoITS.qmd
 
+      # - section: "Bioinformatic databases"
+      #   href: source/databases/readme.qmd
+      #   contents:
