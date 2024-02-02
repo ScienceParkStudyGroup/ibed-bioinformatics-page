@@ -48,30 +48,28 @@ website:
             href: source/cli/code_doc.qmd
 
           - section: "Using the command line"
+            href: source/cli/cli.qmd
             contents:
-              - text: "What is the command line?"
-                href: source/cli/cli.qmd
               - text: "Setting up a bash command line"
                 href: source/cli/cli_installation.qmd
               - text: "Getting started with bash"
                 href: source/cli/cli_basics.qmd
               - text: "Manipulating files with bash"
                 href: source/cli/cli_file_manipulation.qmd
-              - text: "Installing software"
-                href: source/conda/conda.qmd
 
-          - section: "Using R"
-            contents:
-              - source/R/readme.qmd
+          - text: "Installing software"
+            href: source/conda/conda.qmd
+
+          - text: "Using R"
+            href: source/R/readme.qmd
 
           - section: "Using an HPC"
+            href: source/cli/hpc_usage.qmd
             contents:
-              - text: "Using an HPC at UvA"
-                href: source/cli/hpc_usage.qmd
               - text: "Start working on an HPC"
                 href: source/cli/slurm_basics.qmd
 
-      - section: "Omics Analyses"
+      - section: "Sequence data analyses"
         href: source/metagenomics/readme.qmd
 
         contents:
@@ -103,7 +101,6 @@ website:
               - source/metatranscriptomics/trinity.qmd
 
           - section: "Nanopore analyses"
-            href: source/nanopore/readme.qmd
             contents:
               - source/nanopore/nanoqc_readme.qmd
               - source/nanopore/nanoplot_readme.qmd
@@ -117,6 +114,12 @@ website:
               - source/ITSx/itsx_readme.qmd
               - source/nanopore/nanoITS.qmd
 
+      # - section: "Phylogenomics"
+      #   href: source/databases/readme.qmd
+      #   contents:
+
       # - section: "Bioinformatic databases"
       #   href: source/databases/readme.qmd
       #   contents:
+
+      # - section: "Tutorials"

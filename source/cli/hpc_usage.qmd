@@ -1,10 +1,17 @@
 <div style="text-align: justify">
 
-## Introduction
+## Using an HPC
+
+### Using an HPC at UvA
+
+On the next pages you find some documentation on getting started with High Performance Computing (HPC). These pages are tailored towards researchers working at UvA but might be also useful for people working on an HPC with a SLURM job management system.
 
 If you work at IBED and want to use the cli on the Crunchomics HPC, the Genomics Compute Environment for SILS and IBED, please check out [this documentation](https://crunchomics-documentation.readthedocs.io/en/latest/index.html). If you need access to Crunchomics, send an email to Wim de Leeuw <w.c.deleeuw@uva.nl> to get an account set up by giving him your uva-net id. 
 
 For information about other computational resources please visit the [computational support teams website](https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html) under **Scientific programming and HPC**.
+
+
+### How does an HPC work?
 
 Using an HPC works a bit differently than running jobs on your computer, below you find a simplified shematic:   
 
@@ -17,6 +24,7 @@ Very briefly, the purpose of a **login node**, sometimes also called head node, 
 - mange the queue of submitted jobs based on the availability of resources
 
 
+### Basic information about UvA's Crunchomics HPC
 
 ::: callout-important
 **Crunchomics etiquette**

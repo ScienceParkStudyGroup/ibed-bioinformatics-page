@@ -2,7 +2,9 @@
 
 ## General
 
-Metagenomics is the study of genetic material recovered directly from environmental or other samples using sequencing technologies. Below you find some tutorials explaining how to work with sequencing data, assemble metagenome-assembled genomes (MAGs) from this sequencing data and how to analyse these MAGS. Notice: These tutorials where not developed at UvA and will be updated in the future but will nevertheless give a good starting point in these kind of analyses.
+In this section you find a set of tools useful to analyse sequencing data. Due to the increased popularity in long-read technologies, you can find a separate section for tools suitable for Nanopore analyses.
+
+ Below you find a list of tutorials explaining how assemble and bin metagenome-assembled genomes (MAGs) from short-read sequencing data and how to analyse these MAGS. Notice: These tutorials were not developed at UvA and will be updated in the future but will nevertheless give a good starting point into these kind of analyses.
 
 ### Tutorials
 

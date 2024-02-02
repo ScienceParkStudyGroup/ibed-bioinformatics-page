@@ -11,7 +11,7 @@ engine: knitr
 
 ## Introduction
 
-In this section you will find a short tutorial on using the Unix command-line interface Bash.
+In this section you will find documentation on how to use the Unix command-line interface Bash.
 
 The Linux command-line interface (**CLI**) is an alternative to a graphical user interface (**GUI**) with which you are likely more familiar. Both interfaces allow a user to interact with an operating system. The key difference between the CLI and GUI is that the interaction with CLI is based on issuing commands. In contrast, the interaction with a GUI involves visual elements, such as windows, buttons, etc. CLI is often also referred to as the shell, terminal, console, prompt or various other names
 

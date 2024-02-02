@@ -10,6 +10,7 @@ Documenting your code is crucial for both your future self and anyone else who m
 
 [A Guide to Reproducible Code in Ecology and Evolution](https://www.britishecologicalsociety.org/wp-content/uploads/2017/12/guide-to-reproducible-code.pdf) gives detailed information on how to organize project folders and how to write clear and reproducible code. The examples are mainly based on R code but most are general enough to apply to other computational langauges (and scientific disciplines).
 
+[This website](https://datamgmtinedresearch.com/style) gives some exellent guidelines on how to setup a good folder structure and introduces you to standards when naming folders and files. 
 
 
 ## Choose Your Editor
