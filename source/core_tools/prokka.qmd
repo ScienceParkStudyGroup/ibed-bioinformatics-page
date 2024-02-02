@@ -11,7 +11,7 @@ bibliography: references.bib
 
 ### Introduction
 
-Prokka is a software tool to annotate bacterial, archaeal and viral genomes quickly and produce standards-compliant output files. Whole genome annotation is the process of identifying features of interest in a set of genomic DNA sequences, and labeling them with useful information. Visit [the manual](https://github.com/tseemann/prokka) for more information.
+Prokka is a software tool to annotate bacterial, archaeal and viral genomes quickly and produce standards-compliant output files [@Seemann2014]. Whole genome annotation is the process of identifying features of interest in a set of genomic DNA sequences, and labeling them with useful information. Visit [the manual](https://github.com/tseemann/prokka) for more information.
 
 ### Installation
 

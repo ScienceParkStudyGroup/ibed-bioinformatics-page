@@ -1,0 +1,111 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+## Seqkit
+
+### Introduction
+
+SeqKit is a tool for FASTA/Q File Manipulation [@Shen2016]. As such it comes with a range of abilities and, among others, can:
+
+-   Transform sequences
+-   Generate statistics
+-   Sub-select sequences
+-   Convert Fasta/Fastq files
+-   Remove duplicates
+-   Split sequences into multiple files
+-   Edit the content of fasta files
+-   ...
+
+For a full range of what Seqkit can do and some examples, please [visit the manual](https://bioinf.shenwei.me/seqkit/). Below, you only find example for some, but not all, usages for Seqkit.
+
+### Installation
+
+Installed on crunchomics: No
+
+```{bash}
+mamba create -n seqkit
+
+mamba install -n seqkit -c bioconda seqkit
+
+mamba activate seqkit
+```
+
+## Usage
+
+SeqKit comes with a range of options and it is outside of the scope of this page to go into all aspects. Below you will just find a few examples on how to use the tool.
+
+Required inputs: Fasta or Fastq (compressed and uncompressed)
+
+To run some example, we downloaded a genome from NCBI for testing first.
+
+```{bash}
+mkdir data 
+mkdir seqkit
+
+#download a genome for testing
+wget -O - https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/003/662/865/GCA_003662865.1_ASM366286v1/GCA_003662865.1_ASM366286v1_genomic.fna.gz | gzip -d > data/GCA_003662865.1_ASM366286v1_genomic.fna
+```
+
+### Get statistics
+
+```{bash}
+#get summary statistics (total length, total read number, average phred score, ...)
+seqkit stats -a -To seqkit/seqkit_stats.tsv data/GCA_003662865.1_ASM366286v1_genomic.fna 
+```
+
+### Grepping sequences by name
+
+We can use seqkit to extract sequences based on a list with names to extract.
+
+```{bash}
+#make a list with potential sequences to extract
+echo -e "QMYW01000303.1\nQMYW01000213.1" > contigs_to_screen
+
+seqkit grep -f contigs_to_screen \
+    data/GCA_003662865.1_ASM366286v1_genomic.fna \
+    -o data/extracted_clean.fna
+
+#sanity check: 
+#we went from 309 to 2 sequences 
+grep -c ">" data/GCA_003662865.1_ASM366286v1_genomic.fna
+grep -c ">" data/extracted_clean.fna
+```
+
+We can also do the reverse: Remove the two sequences from the genome file using `-v`, something you would for example do when removing contaminants:
+
+```{bash}
+seqkit grep -f contigs_to_screen -v \
+    data/GCA_003662865.1_ASM366286v1_genomic.fna \
+    -o data/extracted_clean.fna
+
+#sanity check: 
+#we went from 309 to 307 sequences 
+grep -c ">" data/GCA_003662865.1_ASM366286v1_genomic.fna
+grep -c ">" data/extracted_clean.fna
+```
+
+### Identify duplicated sequences
+
+```{bash}
+seqkit rmdup --by-seq --ignore-case  data/GCA_003662865.1_ASM366286v1_genomic.fna \
+     -o data/GCA_003662865_uniq.fasta \
+     --dup-seqs-file data/GCA_003662865_dup.fasta --dup-num-file data/GCA_003662865_dup.text
+```
+
+### Split sequences
+
+Splitting a sequence is useful if you perform large database searches. I.e. you have 1 million proteins that you want to compare against the Uniprot database? You can parallelize this by splitting the proteins first into several files and comparing them in parallel against a database.
+
+```{bash}
+#split file into parts with at most 100 sequences 
+seqkit split2 data/GCA_003662865.1_ASM366286v1_genomic.fna \
+    -s 100 \
+    -O data/split
+
+```

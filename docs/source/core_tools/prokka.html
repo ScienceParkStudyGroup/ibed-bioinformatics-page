@@ -54,7 +54,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -64,7 +84,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/classification/kraken2.html" rel="next">
+<link href="../../source/core_tools/seqkit.html" rel="next">
 <link href="../../source/core_tools/ncbi.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -255,6 +275,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/prokka.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Prokka</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/seqkit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Seqkit</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -473,7 +499,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="prokka">Prokka</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>Prokka is a software tool to annotate bacterial, archaeal and viral genomes quickly and produce standards-compliant output files. Whole genome annotation is the process of identifying features of interest in a set of genomic DNA sequences, and labeling them with useful information. Visit <a href="https://github.com/tseemann/prokka">the manual</a> for more information.</p>
+<p>Prokka is a software tool to annotate bacterial, archaeal and viral genomes quickly and produce standards-compliant output files <span class="citation" data-cites="Seemann2014">(<a href="#ref-Seemann2014" role="doc-biblioref">Seemann 2014</a>)</span>. Whole genome annotation is the process of identifying features of interest in a set of genomic DNA sequences, and labeling them with useful information. Visit <a href="https://github.com/tseemann/prokka">the manual</a> for more information.</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
@@ -536,9 +562,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Unsure what genetic code/translation table to use? Check out <a href="https://en.wikipedia.org/wiki/List_of_genetic_codes">wikipedia</a>. You mainly need to watch out for this when working with mitochondria, mycoplasma and spiroplasma.</p>
 
 
+
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Seemann2014" class="csl-entry" role="listitem">
+Seemann, Torsten. 2014. <span>“Prokka: Rapid Prokaryotic Genome Annotation.”</span> <em>Bioinformatics</em> 30 (14): 2068–69. <a href="https://doi.org/10.1093/bioinformatics/btu153">https://doi.org/10.1093/bioinformatics/btu153</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1095,8 +1126,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/classification/kraken2.html" class="pagination-link" aria-label="Kraken2">
-        <span class="nav-page-text">Kraken2</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/core_tools/seqkit.html" class="pagination-link" aria-label="Seqkit">
+        <span class="nav-page-text">Seqkit</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -137,5 +137,8 @@
   },
   "source/core_tools/prokka.qmd": {
     "prokka.html": "6591efce"
+  },
+  "source/core_tools/seqkit.qmd": {
+    "seqkit.html": "fa067ea9"
   }
 }
