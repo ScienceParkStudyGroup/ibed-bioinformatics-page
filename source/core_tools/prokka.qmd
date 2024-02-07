@@ -11,7 +11,12 @@ bibliography: references.bib
 
 ### Introduction
 
-Prokka is a software tool to annotate bacterial, archaeal and viral genomes quickly and produce standards-compliant output files [@Seemann2014]. Whole genome annotation is the process of identifying features of interest in a set of genomic DNA sequences, and labeling them with useful information. Visit [the manual](https://github.com/tseemann/prokka) for more information.
+Prokka is a software tool to annotate bacterial, archaeal and viral (but **NOT** eukaryotic) genomes quickly and produce standards-compliant output files [@Seemann2014]. Whole genome annotation is the process of identifying features of interest in a set of genomic DNA sequences, and labeling them with useful information. Briefly, Prokka uses a two-step process for the annotation of protein coding regions: 
+
+1. protein coding regions on the genome are identified using Prodigal
+2. the function of the encoded protein is predicted by similarity to proteins in one of many protein or protein domain databases. These databases are ISfinder, NCBI Bacterial Antimicrobial Resistance Reference Gene Database and UniProtKB. 
+
+Visit [the manual](https://github.com/tseemann/prokka) for more information.
 
 ### Installation
 
@@ -31,18 +36,19 @@ Let's assume you downloaded a genome from NCBI and want to annotate the genome.
 
 Required input: The contigs from a genome of interest Generated output:
 
--   .gff This is the master annotation in GFF3 format, containing both sequences and annotations. It can be viewed directly in Artemis or IGV.
--   .gbk This is a standard Genbank file derived from the master .gff. If the input to prokka was a multi-FASTA, then this will be a multi-Genbank, with one record for each sequence.
--   .fna Nucleotide FASTA file of the input contig sequences.
--   .faa Protein FASTA file of the translated CDS sequences.
--   .ffn Nucleotide FASTA file of all the prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)
--   .sqn An ASN1 format "Sequin" file for submission to Genbank. It needs to be edited to set the correct taxonomy, authors, related publication etc.
--   .fsa Nucleotide FASTA file of the input contig sequences, used by "tbl2asn" to create the .sqn file. It is mostly the same as the .fna file, but with extra Sequin tags in the sequence description lines.
--   .tbl Feature Table file, used by "tbl2asn" to create the .sqn file.
--   .err Unacceptable annotations - the NCBI discrepancy report.
--   .log Contains all the output that Prokka produced during its run. This is a record of what settings you used, even if the --quiet option was enabled.
--   .txt Statistics relating to the annotated features found.
--   .tsv Tab-separated file of all features: locus_tag,ftype,len_bp,gene,EC_number,COG,product
+-   `.gff` This is the master annotation in GFF3 format, containing both sequences and annotations. It can be viewed directly in Artemis or IGV.
+-   `.gbk` This is a standard Genbank file derived from the master .gff. If the input to prokka was a multi-FASTA, then this will be a multi-Genbank, with one record for each sequence.
+-   `.fna` Nucleotide FASTA file of the input contig sequences.
+-   `.faa` Protein FASTA file of the translated CDS sequences.
+-   `.ffn` Nucleotide FASTA file of all the prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)
+-   `.sqn` An ASN1 format "Sequin" file for submission to Genbank. It needs to be edited to set the correct taxonomy, authors, related publication etc.
+-   `.fsa` Nucleotide FASTA file of the input contig sequences, used by "tbl2asn" to create the .sqn file. It is mostly the same as the .fna file, but with extra Sequin tags in the sequence description lines.
+-   `.tbl` Feature Table file, used by "tbl2asn" to create the .sqn file.
+-   `.err` Unacceptable annotations - the NCBI discrepancy report.
+-   `.log` Contains all the output that Prokka produced during its run. This is a record of what settings you used, even if the --quiet option was enabled.
+-   `.txt` Statistics relating to the annotated features found.
+-   `.tsv` Tab-separated file of all features: locus_tag,ftype,len_bp,gene,EC_number,COG,product
+
 
 ```{bash}
 mkdir data 
@@ -54,9 +60,9 @@ prokka \
     --outdir data/prokka \
     --prefix GCF_000005845 \
     data/GCF_000005845.2_ASM584v2_genomic.fna \
-    --cpus 4 --kingdom Bacteria \
-    --addgenes --force --increment 10 --compliant --centre UU --norrna --notrna
+    --cpus 4 --kingdom Bacteria
 ```
+
 
 Options:
 

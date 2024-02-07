@@ -499,7 +499,12 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="prokka">Prokka</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>Prokka is a software tool to annotate bacterial, archaeal and viral genomes quickly and produce standards-compliant output files <span class="citation" data-cites="Seemann2014">(<a href="#ref-Seemann2014" role="doc-biblioref">Seemann 2014</a>)</span>. Whole genome annotation is the process of identifying features of interest in a set of genomic DNA sequences, and labeling them with useful information. Visit <a href="https://github.com/tseemann/prokka">the manual</a> for more information.</p>
+<p>Prokka is a software tool to annotate bacterial, archaeal and viral (but <strong>NOT</strong> eukaryotic) genomes quickly and produce standards-compliant output files <span class="citation" data-cites="Seemann2014">(<a href="#ref-Seemann2014" role="doc-biblioref">Seemann 2014</a>)</span>. Whole genome annotation is the process of identifying features of interest in a set of genomic DNA sequences, and labeling them with useful information. Briefly, Prokka uses a two-step process for the annotation of protein coding regions:</p>
+<ol type="1">
+<li>protein coding regions on the genome are identified using Prodigal</li>
+<li>the function of the encoded protein is predicted by similarity to proteins in one of many protein or protein domain databases. These databases are ISfinder, NCBI Bacterial Antimicrobial Resistance Reference Gene Database and UniProtKB.</li>
+</ol>
+<p>Visit <a href="https://github.com/tseemann/prokka">the manual</a> for more information.</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
@@ -518,18 +523,18 @@ div.csl-indent {
 <p>Let’s assume you downloaded a genome from NCBI and want to annotate the genome.</p>
 <p>Required input: The contigs from a genome of interest Generated output:</p>
 <ul>
-<li>.gff This is the master annotation in GFF3 format, containing both sequences and annotations. It can be viewed directly in Artemis or IGV.</li>
-<li>.gbk This is a standard Genbank file derived from the master .gff. If the input to prokka was a multi-FASTA, then this will be a multi-Genbank, with one record for each sequence.</li>
-<li>.fna Nucleotide FASTA file of the input contig sequences.</li>
-<li>.faa Protein FASTA file of the translated CDS sequences.</li>
-<li>.ffn Nucleotide FASTA file of all the prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)</li>
-<li>.sqn An ASN1 format “Sequin” file for submission to Genbank. It needs to be edited to set the correct taxonomy, authors, related publication etc.</li>
-<li>.fsa Nucleotide FASTA file of the input contig sequences, used by “tbl2asn” to create the .sqn file. It is mostly the same as the .fna file, but with extra Sequin tags in the sequence description lines.</li>
-<li>.tbl Feature Table file, used by “tbl2asn” to create the .sqn file.</li>
-<li>.err Unacceptable annotations - the NCBI discrepancy report.</li>
-<li>.log Contains all the output that Prokka produced during its run. This is a record of what settings you used, even if the –quiet option was enabled.</li>
-<li>.txt Statistics relating to the annotated features found.</li>
-<li>.tsv Tab-separated file of all features: locus_tag,ftype,len_bp,gene,EC_number,COG,product</li>
+<li><code>.gff</code> This is the master annotation in GFF3 format, containing both sequences and annotations. It can be viewed directly in Artemis or IGV.</li>
+<li><code>.gbk</code> This is a standard Genbank file derived from the master .gff. If the input to prokka was a multi-FASTA, then this will be a multi-Genbank, with one record for each sequence.</li>
+<li><code>.fna</code> Nucleotide FASTA file of the input contig sequences.</li>
+<li><code>.faa</code> Protein FASTA file of the translated CDS sequences.</li>
+<li><code>.ffn</code> Nucleotide FASTA file of all the prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA)</li>
+<li><code>.sqn</code> An ASN1 format “Sequin” file for submission to Genbank. It needs to be edited to set the correct taxonomy, authors, related publication etc.</li>
+<li><code>.fsa</code> Nucleotide FASTA file of the input contig sequences, used by “tbl2asn” to create the .sqn file. It is mostly the same as the .fna file, but with extra Sequin tags in the sequence description lines.</li>
+<li><code>.tbl</code> Feature Table file, used by “tbl2asn” to create the .sqn file.</li>
+<li><code>.err</code> Unacceptable annotations - the NCBI discrepancy report.</li>
+<li><code>.log</code> Contains all the output that Prokka produced during its run. This is a record of what settings you used, even if the –quiet option was enabled.</li>
+<li><code>.txt</code> Statistics relating to the annotated features found.</li>
+<li><code>.tsv</code> Tab-separated file of all features: locus_tag,ftype,len_bp,gene,EC_number,COG,product</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> data </span>
@@ -541,8 +546,7 @@ div.csl-indent {
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--outdir</span> data/prokka <span class="dt">\</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--prefix</span> GCF_000005845 <span class="dt">\</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    data/GCF_000005845.2_ASM584v2_genomic.fna <span class="dt">\</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">--cpus</span> 4 <span class="at">--kingdom</span> Bacteria <span class="dt">\</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--addgenes</span> <span class="at">--force</span> <span class="at">--increment</span> 10 <span class="at">--compliant</span> <span class="at">--centre</span> UU <span class="at">--norrna</span> <span class="at">--notrna</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">--cpus</span> 4 <span class="at">--kingdom</span> Bacteria</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Options:</p>
 <p>For a list of all options, visit <a href="https://github.com/tseemann/prokka">the manual</a>. Some key options are:</p>
@@ -1139,7 +1143,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2024-02-02</p>
+Last modified: 2024-02-07</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/prokka.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
