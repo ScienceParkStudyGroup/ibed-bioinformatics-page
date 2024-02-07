@@ -43,6 +43,7 @@ Please, be aware that this page is a work in progress and will be slowly updated
 -   [FAMA](source/metagenomics/fama_readme.qmd): A fast pipeline for functional and taxonomic analysis of metagenomic sequences
 -   [FastP](source/metatranscriptomics/fastp.qmd): A tool for fast all-in-one preprocessing of FastQ files
 -   [FastQC](source/metagenomics/fastqc_readme.qmd): A quality control tool for read sequencing data
+-   [FeatureCounts](source/core_tools/featurecounts.qmd): A read summarization program that counts mapped reads for genomic features
 -   [Interproscan](source/metagenomics/interproscan_readme.qmd): A tool to scan protein and nucleic sequences against InterPro signatures
 -   [ITSx](source/ITSx/itsx_readme.qmd): A tool to extract ITS1 and ITS2 subregions from ITS sequences
 -   [Kraken2](source/classification/kraken2.qmd): A taxonomic sequence classifier using kmers

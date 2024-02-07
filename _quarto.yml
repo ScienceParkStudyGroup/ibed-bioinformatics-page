@@ -90,6 +90,7 @@ website:
             contents:
               - source/core_tools/bowtie.qmd
               - source/core_tools/samtools.qmd
+              - source/core_tools/featurecounts.qmd
 
           - section: "Functional annotation"
             contents:

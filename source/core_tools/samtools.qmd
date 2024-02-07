@@ -109,10 +109,10 @@ We can adjust this to ask very specific questions about our data as well. For ex
 4.  Count how many alignments have insertion or deletions (`wc -l`)
 
 ```{bash} 
-#count total reads
+#count total alignments
 SRR6344904_mapped_sorted.bam | wc -l  
 
-#count mapped reads with ID events
+#count mapped alignments with ID events
 samtools view -F 4 SRR6344904_mapped_sorted.bam | \
      cut -f 6 | \
      grep -P '[ID]' | \

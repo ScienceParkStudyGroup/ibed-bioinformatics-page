@@ -85,7 +85,7 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
 <link href="../../source/metagenomics/interproscan_readme.html" rel="next">
-<link href="../../source/core_tools/bowtie.html" rel="prev">
+<link href="../../source/core_tools/samtools.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -138,7 +138,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bowtie.html">Sequence alignment</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/samtools.html">Samtools</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bowtie.html">Sequence alignment</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/featurecounts.html">FeatureCounts</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -337,8 +337,14 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Samtools</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">FeatureCounts</span></a>
   </div>
 </li>
       </ul>
@@ -500,22 +506,14 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#samtools" id="toc-samtools" class="nav-link active" data-scroll-target="#samtools">Samtools</a>
+  <li><a href="#featurecounts" id="toc-featurecounts" class="nav-link active" data-scroll-target="#featurecounts">FeatureCounts</a>
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
-  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a>
-  <ul class="collapse">
-  <li><a href="#what-are-sam-files" id="toc-what-are-sam-files" class="nav-link" data-scroll-target="#what-are-sam-files">What are SAM files</a></li>
-  <li><a href="#samtools-view" id="toc-samtools-view" class="nav-link" data-scroll-target="#samtools-view">Samtools View</a></li>
-  <li><a href="#samtools-sort" id="toc-samtools-sort" class="nav-link" data-scroll-target="#samtools-sort">Samtools Sort</a></li>
-  <li><a href="#samtools-index" id="toc-samtools-index" class="nav-link" data-scroll-target="#samtools-index">Samtools Index</a></li>
-  <li><a href="#samtools-idxstats" id="toc-samtools-idxstats" class="nav-link" data-scroll-target="#samtools-idxstats">Samtools Idxstats</a></li>
-  <li><a href="#samtools-depth" id="toc-samtools-depth" class="nav-link" data-scroll-target="#samtools-depth">Samtools depth</a></li>
-  </ul></li>
+  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/samtools.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/featurecounts.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -528,165 +526,55 @@ div.csl-indent {
 
 <div style="text-align: justify">
 
-<section id="samtools" class="level2">
-<h2 class="anchored" data-anchor-id="samtools">Samtools</h2>
+<section id="featurecounts" class="level2">
+<h2 class="anchored" data-anchor-id="featurecounts">FeatureCounts</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>SAMtools is a toolkit for manipulating alignments in SAM/BAM format, including sorting, merging, indexing and generating alignments in a per-position format <span class="citation" data-cites="Danecek2021">(<a href="#ref-Danecek2021" role="doc-biblioref">Danecek et al. 2021</a>)</span>. The SAM format is a standard format for storing large nucleotide sequence alignments and is generated by many sequence alignment tools such as Bowtie or BWA. The BAM format is the binary form from SAM.</p>
-<p>For more detailed information, please visit <a href="http://www.htslib.org/doc/samtools.html">the manual</a>.</p>
+<p>FeatureCounts is part of the Subread software package, a tool kit for processing next-gen sequencing data <span class="citation" data-cites="Liao2014">(<a href="#ref-Liao2014" role="doc-biblioref">Liao, Smyth, and Shi 2013</a>)</span>. It includes Subread aligner, Subjunc exon-exon junction detector and featureCounts read summarization program.</p>
+<p>FeatureCounts is a program that counts how many reads map to features, such as genes, exon, promoter and genomic bins. Therefore, it is useful to use after you, for example, aligned sequences (from a genome, metagenome, transcriptome) to reference sequences and want to generate a count table.</p>
+<p>A detailed documentation can be downloaded from <a href="https://subread.sourceforge.net/featureCounts.html">here</a>.</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>Installed on crunchomics: Yes, samtools v1.9 is installed.</p>
+<p>Installed on crunchomics: No</p>
 <p>If you want to install it yourself, you can run:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> samtools_1.19.2</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install <span class="at">-n</span> samtools_1.19.2 <span class="at">-c</span> bioconda samtools=1.19.2</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate samtools_1.19.2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> subread_2.0.6</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install <span class="at">-n</span> subread_2.0.6 <span class="at">-c</span> bioconda subread=2.0.6</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate subread_2.0.6</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="usage" class="level3">
 <h3 class="anchored" data-anchor-id="usage">Usage</h3>
-<p>The basic usage of SAMtools is:</p>
-<p><code>samtools COMMAND [options]</code></p>
-<p>The following commands are available:</p>
+<p>FeatureCounts takes as input a annotation file in gtf or gff format and a sorted bam file.</p>
+<p>It outputs a text file with the counts for each feature (in our example CDS) per sample. Notice, how you can use a wildcard to generate a counts table for multiple bam files at the same time.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">featureCounts</span> <span class="at">-T</span> 5 <span class="at">-t</span> CDS <span class="at">-g</span> gene_id <span class="at">-M</span> <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">-a</span> data/genome/genomic.gtf <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">-o</span>  results/featurecounts/ncbi_gtf/counts.txt <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    results/bowtie/<span class="pp">*</span>_mapped_sorted.bam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Useful options:</p>
 <ul>
-<li><strong>view</strong>: SAM/BAM and BAM/SAM conversion</li>
-<li><strong>sort</strong>: sort alignment file</li>
-<li><strong>mpileup</strong>: multi-way pileup</li>
-<li><strong>depth</strong>: compute the depth</li>
-<li><strong>faidx</strong>: index/extract FASTA</li>
-<li><strong>tview</strong>: text alignment viewer</li>
-<li><strong>index</strong>: index the alignment</li>
-<li><strong>idxstats</strong>: generate BAM index stats</li>
-<li><strong>fixmate</strong>: fix mate information</li>
-<li><strong>flagstat</strong>: simple stats</li>
-<li><strong>calmd</strong>: recalculate MD/NM tags and <code>=</code> bases</li>
-<li><strong>merge</strong>: merge sorted alignments</li>
-<li><strong>rmdup</strong>: remove PCR duplicates</li>
-<li><strong>reheader</strong>: replace BAM header</li>
-<li><strong>cat</strong>: concatenate BAMs</li>
-<li><strong>bedcov</strong>: read depth per BED region</li>
-<li><strong>targetcut</strong>: cut fosmid regions</li>
-<li><strong>phase</strong>: phase heterozygotes</li>
-<li><strong>bamshuf</strong>: shuffle and group alignments by name</li>
-</ul>
-<p>For detailed description and more information on a specific command, just type:</p>
-<p><code>samtools COMMAND</code></p>
-<p>Below, you find examples on how to run some of the most common samtools commands. For this, we start with the example of a researcher, who aligned Illumina reads from a sample to a reference genomes and generated a SAM file using Bowtie 2.</p>
-<section id="what-are-sam-files" class="level4">
-<h4 class="anchored" data-anchor-id="what-are-sam-files">What are SAM files</h4>
-<p>The SAM file is a tab-delimited text file that contains information for each individual read and its alignment to the reference.</p>
-<p>The file begins with an option <strong>header</strong>. The header describes the source of data, reference sequence, method of alignment,and might look slightly different depending on the aligner being used. Each section begins with character <code>@</code> followed by a two-letter record type code. These are followed by two-letter tags and values.</p>
-<p>Afterwards, you see the <strong>alignment section</strong>. Each line corresponds to the alignment information for a single read. Each alignment line has 11 mandatory fields for essential mapping information and a variable number of other fields for aligner-specific information. This looks something like this:</p>
-<p><img src="../..\img/samtools.png" class="img-fluid" width="911"></p>
-<p>The individual fields are:</p>
-<ul>
-<li><strong>QNAME</strong>: Query name or read name, the same read name present in the header of the FASTQ file</li>
-<li><strong>FLAG</strong>: numerical value providing information about read mapping and whether the read is part of a pair. To translate these flags into a more meaningful description, go <a href="https://www.samformat.info/sam-format-flag-single">here</a>. In our example:
-<ul>
-<li>The 16 flag means that the short sequence maps on the reverse strand of the reference genom.</li>
-<li>The 0 flag means that none of the bit-wise flags you see in the link are set. This means that your reads with flag 0 are unpaired (because the first flag, 0x1, is not set), successfully mapped to the reference (because 0x4 is not set) and mapped to the forward strand (because 0x10 is not set)</li>
-</ul></li>
-<li><strong>RNAME</strong>: the reference sequence name</li>
-<li><strong>POS</strong>: refers to the 1-based leftmost position of the alignment</li>
-<li><strong>MAPQ</strong>: the alignment quality, the scale of which will depend on the aligner being used. The maximum MAPQ value that Bowtie 2 generates is 42. In contrast, the maximum MAPQ value that BWA will generate is 37. The better the score the better the alignment quality</li>
-<li><strong>CIGAR</strong>: a sequence of letters and numbers that represent the operations that are required to match the read to the reference. The letters are operations that are used to indicate which bases align to the reference (i.e.&nbsp;match, mismatch, deletion, insertion), and the numbers indicate the associated base lengths. For example 129M1I31M means that the first 129 bases match, then we have 1 insertion followed by 31 matches</li>
-<li><strong>MRNM</strong>: the mate reference name</li>
-<li><strong>MPOS</strong>: the mate position (1-based, leftmost)</li>
-<li><strong>ISIZE</strong>: the inferred insert size</li>
-<li><strong>SEQ</strong>: the raw sequence</li>
-<li><strong>QUAL</strong>: the associated quality values for each position in the read</li>
-</ul>
-</section>
-<section id="samtools-view" class="level4">
-<h4 class="anchored" data-anchor-id="samtools-view">Samtools View</h4>
-<p>While the SAM alignment file from Bowtie 2 is human readable, we need a BAM alignment file for downstream analysis. A BAM file is a binary equivalent version of the SAM file, i.e.&nbsp;the same file in a compressed format.</p>
-<p>We can use the samtools view command to convert our SAM file into its binary compressed version (BAM) and save it to file. Once we generate the BAM file, we don’t need to retain the SAM file anymore, we can delete it to save space.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-h</span> <span class="at">-S</span> <span class="at">-b</span> <span class="dt">\</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> SRR6344904_mapped.bam <span class="dt">\</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  SRR6344904_mapped.sam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>We can adjust this to ask very specific questions about our data as well. For example, we might ask how many insertion and deletions do we have in our mapped reads. For this, we can use <code>samtools view</code> followed by some extra commands that we add with a pipe to:</p>
-<ol type="1">
-<li>Extract only the mapped reads by removing the unmapped reads (<code>-F 4</code>)</li>
-<li>Extract the 6th field with the CIGAR string that contains information about insertions, deletions, etc (<code>cut -f 6</code>)</li>
-<li>Extract only alignments that have insertion or deletions (<code>grep -P '[ID]'</code>)</li>
-<li>Count how many alignments have insertion or deletions (<code>wc -l</code>)</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#count total alignments</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">SRR6344904_mapped_sorted.bam</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span>  </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#count mapped alignments with ID events</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> view <span class="at">-F</span> 4 SRR6344904_mapped_sorted.bam <span class="kw">|</span> <span class="dt">\</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>     <span class="fu">cut</span> <span class="at">-f</span> 6 <span class="kw">|</span> <span class="dt">\</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>     <span class="fu">grep</span> <span class="at">-P</span> <span class="st">'[ID]'</span> <span class="kw">|</span> <span class="dt">\</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>     <span class="fu">wc</span> <span class="at">-l}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Used options:</p>
-<ul>
-<li><code>-h</code>: include header in output</li>
-<li><code>-S</code>: input is in SAM format</li>
-<li><code>-b</code>: output BAM format</li>
-<li><code>-o</code>: /path/to/output/file</li>
-<li><code>-F 4</code>: exclude reads with the flag 4 (i.e.&nbsp;unmapped reads)</li>
-<li><code>-f 4</code>: only keep reads with the flag 4 (i.e.&nbsp;unmapped reads)</li>
-</ul>
-</section>
-<section id="samtools-sort" class="level4">
-<h4 class="anchored" data-anchor-id="samtools-sort">Samtools Sort</h4>
-<p>Sorting BAM files is recommended for most down-stream analyses and is done as follows:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> sort <span class="dt">\</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  SRR6344904_mapped.bam <span class="dt">\</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> SRR6344904_mapped_sorted.bam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="samtools-index" class="level4">
-<h4 class="anchored" data-anchor-id="samtools-index">Samtools Index</h4>
-<p>The samtools index command creates a new index file that allows fast look-up of the data in a sorted SAM or BAM file.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> index SRR6344904_mapped_sorted.bam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="samtools-idxstats" class="level4">
-<h4 class="anchored" data-anchor-id="samtools-idxstats">Samtools Idxstats</h4>
-<p>The samtools idxstats command prints stats for the BAM index file but it requires an index to run.</p>
-<p>The output is TAB delimited with each line consisting of reference sequence name, sequence length, number of mapped reads and number of unmapped reads.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> idxstats SRR6344904_mapped_sorted.bam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="samtools-depth" class="level4">
-<h4 class="anchored" data-anchor-id="samtools-depth">Samtools depth</h4>
-<p>Samtools depth computes the read depth at each position or region</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate the depth per position</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#header: the name of the contig or chromosome, the position, the number of reads aligned at that position</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> depth  SRR6344904_mapped_sorted.bam <span class="kw">|</span> <span class="fu">head</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate the average coverage for all covered regions</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> depth  SRR6344904_mapped_sorted.bam <span class="kw">|</span>  <span class="fu">awk</span> <span class="st">'{sum+=$3} END { print "Average = ",sum/NR}'</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate the average coverage for all regions</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> depth <span class="at">-a</span> SRR6344904_mapped_sorted.bam <span class="kw">|</span>  <span class="fu">awk</span> <span class="st">'{sum+=$3} END { print "Average = ",sum/NR}'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Notice:</p>
-<ul>
-<li>If you want to calculate the average X coverage for your genome, then you would need to divide by the total size of your genome, instead of dividing by NR in the command above.</li>
+<li><code>-a</code> <string> Name of an annotation file. GTF/GFF format by default. See -F option for more format information. Inbuilt annotations (SAF format) is available in ‘annotation’ directory of the package. Gzipped file is also accepted.</string></li>
+<li><code>-o</code> <string> Name of output file including read counts. A separate file including summary statistics of counting results is also included in the output (‘<string>.summary’). Both files are in tab delimited format.</string></string></li>
+<li><code>-t</code> <string> Specify feature type(s) in a GTF annotation. If multiple types are provided, they should be separated by ‘,’ with no space in between. ‘exon’ by default. Rows in the annotation with a matched feature will be extracted and used for read mapping.</string></li>
+<li><code>-g</code> <string> Specify attribute type in GTF annotation. ‘gene_id’ by default. Meta-features used for read counting will be extracted from annotation using the provided value.</string></li>
+<li><code>-M</code> Multi-mapping reads will also be counted. For a multi- mapping read, all its reported alignments will be counted. The ‘NH’ tag in BAM/SAM input is used to detect multi-mapping reads.</li>
+<li><code>-L</code> Count long reads such as Nanopore and PacBio reads. Long read counting can only run in one thread and only reads (not read-pairs) can be counted. There is no limitation on the number of ‘M’ operations allowed in a CIGAR string in long read counting.</li>
+<li><code>--maxMOp</code> <int> Maximum number of ‘M’ operations allowed in a CIGAR string. 10 by default. Both ‘X’ and ‘=’ are treated as ‘M’ and adjacent ‘M’ operations are merged in the CIGAR string.</int></li>
+<li><code>-p</code> If specified, libraries are assumed to contain paired-end reads. For any library that contains paired-end reads, the ‘countReadPairs’ parameter controls if read pairs or reads should be counted.</li>
+<li><code>-s</code> <int or="" string=""> Perform strand-specific read counting. A single integer value (applied to all input files) or a string of comma- separated values (applied to each corresponding input file) should be provided. Possible values include: 0 (unstranded), 1 (stranded) and 2 (reversely stranded). Default value is 0 (ie. unstranded read counting carried out for all input files).</int></li>
 </ul>
 
 
 
-</section>
 </section>
 </section>
 
 </div><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-Danecek2021" class="csl-entry" role="listitem">
-Danecek, Petr, James K Bonfield, Jennifer Liddle, John Marshall, Valeriu Ohan, Martin O Pollard, Andrew Whitwham, et al. 2021. <span>“Twelve Years of SAMtools and BCFtools.”</span> <em>GigaScience</em> 10 (2). <a href="https://doi.org/10.1093/gigascience/giab008">https://doi.org/10.1093/gigascience/giab008</a>.
+<div id="ref-Liao2014" class="csl-entry" role="listitem">
+Liao, Yang, Gordon K. Smyth, and Wei Shi. 2013. <span>“featureCounts: An Efficient General Purpose Program for Assigning Sequence Reads to Genomic Features.”</span> <em>Bioinformatics</em> 30 (7): 923–30. <a href="https://doi.org/10.1093/bioinformatics/btt656">https://doi.org/10.1093/bioinformatics/btt656</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1240,8 +1128,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/core_tools/bowtie.html" class="pagination-link  aria-label=" bowtie2"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Bowtie2</span>
+      <a href="../../source/core_tools/samtools.html" class="pagination-link  aria-label=" samtools"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Samtools</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
@@ -1259,7 +1147,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
 Last modified: 2024-02-07</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/samtools.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/featurecounts.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

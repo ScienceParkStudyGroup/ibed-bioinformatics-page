@@ -146,5 +146,8 @@
   },
   "source/core_tools/samtools.qmd": {
     "samtools.html": "44dcd5a6"
+  },
+  "source/core_tools/featurecounts.qmd": {
+    "featurecounts.html": "5e0b8c7f"
   }
 }

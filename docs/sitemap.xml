@@ -74,7 +74,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
-    <lastmod>2024-02-07T09:33:30.693Z</lastmod>
+    <lastmod>2024-02-07T09:58:04.659Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/ITSx/itsx_readme.html</loc>
@@ -154,6 +154,10 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/samtools.html</loc>
-    <lastmod>2024-02-07T09:40:31.306Z</lastmod>
+    <lastmod>2024-02-07T09:42:32.778Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/featurecounts.html</loc>
+    <lastmod>2024-02-07T09:58:00.468Z</lastmod>
   </url>
 </urlset>
