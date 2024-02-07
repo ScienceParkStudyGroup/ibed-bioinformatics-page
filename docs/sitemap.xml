@@ -74,7 +74,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
-    <lastmod>2024-02-07T07:15:14.297Z</lastmod>
+    <lastmod>2024-02-07T07:52:55.649Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/ITSx/itsx_readme.html</loc>
@@ -147,5 +147,9 @@
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/readme.html</loc>
     <lastmod>2023-11-15T13:22:27.095Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/bowtie.html</loc>
+    <lastmod>2024-02-07T07:51:57.912Z</lastmod>
   </url>
 </urlset>

@@ -140,5 +140,8 @@
   },
   "source/core_tools/seqkit.qmd": {
     "seqkit.html": "fa067ea9"
+  },
+  "source/core_tools/bowtie.qmd": {
+    "bowtie.html": "fa0ab41d"
   }
 }

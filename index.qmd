@@ -38,6 +38,7 @@ Please, be aware that this page is a work in progress and will be slowly updated
 
 ## Bioinformatic tools A-Z
 
+-   [Bowtie 2](source/core_tools/bowtie.qmd):  A tool for aligning sequencing reads to genomes and other reference sequences
 -   [Chopper](source/nanopore/chopper.qmd): A tool for quality filtering of long read data
 -   [FAMA](source/metagenomics/fama_readme.qmd): A fast pipeline for functional and taxonomic analysis of metagenomic sequences
 -   [FastP](source/metatranscriptomics/fastp.qmd): A tool for fast all-in-one preprocessing of FastQ files
