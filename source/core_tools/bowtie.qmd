@@ -13,7 +13,7 @@ bibliography: references.bib
 
 ### Introduction
 
-Bowtie 2 is an ultra-fast and memory-efficient tool for aligning sequencing reads to long reference sequences [@Langmead2012]. for example a genome. It is particularly good at aligning reads of about 50 up to 100s or 1,000s of characters, and particularly good at aligning to relatively long genomes.
+Bowtie 2 is an ultra-fast and memory-efficient tool for aligning sequencing reads to long reference sequences, for example a genome [@Langmead2012]. It is particularly good at aligning reads of about 50 up to 100s or 1,000s of characters, and particularly good at aligning to relatively long genomes.
 
 For more detailed information, please visit [the manual](https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml).
 

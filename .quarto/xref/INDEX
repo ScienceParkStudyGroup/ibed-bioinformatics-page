@@ -143,5 +143,8 @@
   },
   "source/core_tools/bowtie.qmd": {
     "bowtie.html": "fa0ab41d"
+  },
+  "source/core_tools/samtools.qmd": {
+    "samtools.html": "44dcd5a6"
   }
 }

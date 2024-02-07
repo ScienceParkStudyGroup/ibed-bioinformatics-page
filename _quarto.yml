@@ -78,7 +78,6 @@ website:
               - source/core_tools/ncbi.qmd
               - source/core_tools/prokka.qmd
               - source/core_tools/seqkit.qmd
-              - source/core_tools/bowtie.qmd
               - source/classification/kraken2.qmd
               - source/classification/minimap2.qmd
 
@@ -86,6 +85,11 @@ website:
             contents:
               - source/metagenomics/fastqc_readme.qmd
               - source/metatranscriptomics/fastp.qmd
+
+          - section: "Sequence alignment"
+            contents:
+              - source/core_tools/bowtie.qmd
+              - source/core_tools/samtools.qmd
 
           - section: "Functional annotation"
             contents:
