@@ -149,5 +149,8 @@
   },
   "source/core_tools/featurecounts.qmd": {
     "featurecounts.html": "5e0b8c7f"
+  },
+  "source/metatranscriptomics/DSEq2.qmd": {
+    "DSEq2.html": "eb13f251"
   }
 }

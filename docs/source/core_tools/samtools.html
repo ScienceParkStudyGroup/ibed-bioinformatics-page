@@ -84,7 +84,7 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/metagenomics/interproscan_readme.html" rel="next">
+<link href="../../source/core_tools/featurecounts.html" rel="next">
 <link href="../../source/core_tools/bowtie.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -341,6 +341,12 @@ div.csl-indent {
  <span class="menu-text">Samtools</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FeatureCounts</span></a>
+  </div>
+</li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
@@ -414,6 +420,30 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="../../source/metatranscriptomics/trinity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Trinity</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bowtie2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Samtools</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FeatureCounts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/DSEq2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DeSeq2</span></a>
   </div>
 </li>
       </ul>
@@ -577,7 +607,7 @@ div.csl-indent {
 <section id="what-are-sam-files" class="level4">
 <h4 class="anchored" data-anchor-id="what-are-sam-files">What are SAM files</h4>
 <p>The SAM file is a tab-delimited text file that contains information for each individual read and its alignment to the reference.</p>
-<p>The file begins with an option <strong>header</strong>. The header describes the source of data, reference sequence, method of alignment,and might look slightly different depending on the aligner being used. Each section begins with character <code>@</code> followed by a two-letter record type code. These are followed by two-letter tags and values.</p>
+<p>The file begins with an optional <strong>header</strong>. The header describes the source of data, reference sequence, method of alignment,and might look slightly different depending on the aligner being used. Each section begins with character <code>@</code> followed by a two-letter record type code. These are followed by two-letter tags and values.</p>
 <p>Afterwards, you see the <strong>alignment section</strong>. Each line corresponds to the alignment information for a single read. Each alignment line has 11 mandatory fields for essential mapping information and a variable number of other fields for aligner-specific information. This looks something like this:</p>
 <p><img src="../..\img/samtools.png" class="img-fluid" width="911"></p>
 <p>The individual fields are:</p>
@@ -585,7 +615,7 @@ div.csl-indent {
 <li><strong>QNAME</strong>: Query name or read name, the same read name present in the header of the FASTQ file</li>
 <li><strong>FLAG</strong>: numerical value providing information about read mapping and whether the read is part of a pair. To translate these flags into a more meaningful description, go <a href="https://www.samformat.info/sam-format-flag-single">here</a>. In our example:
 <ul>
-<li>The 16 flag means that the short sequence maps on the reverse strand of the reference genom.</li>
+<li>The 16 flag means that the short sequence maps on the reverse strand of the reference genome.</li>
 <li>The 0 flag means that none of the bit-wise flags you see in the link are set. This means that your reads with flag 0 are unpaired (because the first flag, 0x1, is not set), successfully mapped to the reference (because 0x4 is not set) and mapped to the forward strand (because 0x10 is not set)</li>
 </ul></li>
 <li><strong>RNAME</strong>: the reference sequence name</li>
@@ -608,7 +638,7 @@ div.csl-indent {
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> SRR6344904_mapped.bam <span class="dt">\</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  SRR6344904_mapped.sam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We can adjust this to ask very specific questions about our data as well. For example, we might ask how many insertion and deletions do we have in our mapped reads. For this, we can use <code>samtools view</code> followed by some extra commands that we add with a pipe to:</p>
+<p>We can adjust this command to ask very specific questions about our data as well. For example, we might ask how many insertions and deletions we have in our mapped reads. For this, we can use <code>samtools view</code> followed by some extra commands that we add with a pipe to:</p>
 <ol type="1">
 <li>Extract only the mapped reads by removing the unmapped reads (<code>-F 4</code>)</li>
 <li>Extract the 6th field with the CIGAR string that contains information about insertions, deletions, etc (<code>cut -f 6</code>)</li>
@@ -1245,8 +1275,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/metagenomics/interproscan_readme.html" class="pagination-link" aria-label="Interproscan">
-        <span class="nav-page-text">Interproscan</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/core_tools/featurecounts.html" class="pagination-link" aria-label="FeatureCounts">
+        <span class="nav-page-text">FeatureCounts</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

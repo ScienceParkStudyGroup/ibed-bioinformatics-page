@@ -13,7 +13,7 @@ bibliography: references.bib
 
 ### Introduction
 
-FeatureCounts is part of the Subread software package, a tool kit for processing next-gen sequencing data [@Liao2014]. It includes Subread aligner, Subjunc exon-exon junction detector and featureCounts read summarization program.
+FeatureCounts is part of the Subread software package, a tool kit for processing next-gen sequencing data [@Liao2014]. It includes Subread aligner, Subjunc exon-exon junction detector and the featureCounts read summarization program.
 
 FeatureCounts is a program that counts how many reads map to features, such as genes, exon, promoter and genomic bins. Therefore, it is useful to use after you, for example, aligned sequences (from a genome, metagenome, transcriptome) to reference sequences and want to generate a count table.
 

@@ -108,6 +108,10 @@ website:
             contents:
               - source/metatranscriptomics/sortmerna.qmd
               - source/metatranscriptomics/trinity.qmd
+              - source/core_tools/bowtie.qmd
+              - source/core_tools/samtools.qmd
+              - source/core_tools/featurecounts.qmd
+              - source/metatranscriptomics/DSEq2.qmd
 
           - section: "Nanopore analyses"
             contents:

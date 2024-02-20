@@ -232,7 +232,7 @@ This kind of documentation can be useful for:
 
 -   Justifying decisions further down the line. In this example, I might decide on how to clean the sequencing data. For example, if I would have found a lot of low quality reads or the adapter still being part of the sequence then I would have specifically cleaned my sequences to deal with that
 
--   Future you. If you read the report a month, or a year, later you have the key information in your report and don't have to open the HTML reports again.
+-   Future you. If you read the report a month, or a year, later you have the key information in your report and don't have to view the actual data or redo summary steps.
 
 ### Documenting external scripts
 

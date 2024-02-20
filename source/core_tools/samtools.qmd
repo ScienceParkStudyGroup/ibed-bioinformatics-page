@@ -67,7 +67,7 @@ Below, you find examples on how to run some of the most common samtools commands
 
 The SAM file is a tab-delimited text file that contains information for each individual read and its alignment to the reference.
 
-The file begins with an option **header**. The header describes the source of data, reference sequence, method of alignment,and might look slightly different depending on the aligner being used. Each section begins with character `@` followed by a two-letter record type code. These are followed by two-letter tags and values.
+The file begins with an optional **header**. The header describes the source of data, reference sequence, method of alignment,and might look slightly different depending on the aligner being used. Each section begins with character `@` followed by a two-letter record type code. These are followed by two-letter tags and values.
 
 Afterwards, you see the **alignment section**. Each line corresponds to the alignment information for a single read. Each alignment line has 11 mandatory fields for essential mapping information and a variable number of other fields for aligner-specific information. This looks something like this:
 
@@ -77,7 +77,7 @@ The individual fields are:
 
 -   **QNAME**: Query name or read name, the same read name present in the header of the FASTQ file
 -   **FLAG**: numerical value providing information about read mapping and whether the read is part of a pair. To translate these flags into a more meaningful description, go [here](https://www.samformat.info/sam-format-flag-single). In our example:
-    -   The 16 flag means that the short sequence maps on the reverse strand of the reference genom.
+    -   The 16 flag means that the short sequence maps on the reverse strand of the reference genome.
     -   The 0 flag means that none of the bit-wise flags you see in the link are set. This means that your reads with flag 0 are unpaired (because the first flag, 0x1, is not set), successfully mapped to the reference (because 0x4 is not set) and mapped to the forward strand (because 0x10 is not set)
 -   **RNAME**: the reference sequence name
 -   **POS**: refers to the 1-based leftmost position of the alignment
@@ -101,7 +101,7 @@ samtools view -h -S -b \
   SRR6344904_mapped.sam
 ```
 
-We can adjust this to ask very specific questions about our data as well. For example, we might ask how many insertion and deletions do we have in our mapped reads. For this, we can use `samtools view` followed by some extra commands that we add with a pipe to:
+We can adjust this command to ask very specific questions about our data as well. For example, we might ask how many insertions and deletions we have in our mapped reads. For this, we can use `samtools view` followed by some extra commands that we add with a pipe to:
 
 1.  Extract only the mapped reads by removing the unmapped reads (`-F 4`)
 2.  Extract the 6th field with the CIGAR string that contains information about insertions, deletions, etc (`cut -f 6`)
