@@ -8,3 +8,4 @@ playground
 img
 to_compress
 !docs/img
+!/data/*/*txt

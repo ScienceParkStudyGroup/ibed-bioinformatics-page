@@ -1,0 +1,7 @@
+sample_id	srx_id	treatment	description
+SRR6344906	SRX3442449	thiosulfate	thiosulfate-grownculture,reactorF
+SRR6344904	SRX3442450	thiosulfate	thiosulfate-grownculture,reactorE
+SRR6344905	SRX3442451	thiosulfate	thiosulfate-grownculture,reactorC
+SRR6344912	SRX3442453	thiocyanate	thiocyanate-grownculture,reactorA
+SRR6344913	SRX3442454	thiocyanate	thiocyanate-grownculture,reactorD
+SRR6344910	SRX3442455	thiocyanate	thiocyanate-grownculture,reactorB
