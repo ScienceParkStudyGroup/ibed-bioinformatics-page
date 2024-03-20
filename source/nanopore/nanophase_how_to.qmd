@@ -17,6 +17,29 @@ Notice that nanophase does not allow for a separate assembly of multiple samples
 
 Some more considerations on whether your samples can be used for a co-assembly or not can be found [here](https://angus.readthedocs.io/en/2019/recovering-rep-genomes-from-mgs.html#what-is-a-co-assembly) and [here](https://training.galaxyproject.org/training-material/topics/microbiome/tutorials/metagenomics-assembly/tutorial.html).
 
+Nanophase uses the following tools, please consider citing them as well when using this tool:
+
+-   flye
+-   metabat2
+-   maxbin2
+-   SemiBin
+-   metawrap
+-   checkm
+-   racon
+-   medaka
+-   polypolish
+-   POLCA
+-   bwa
+-   seqtk
+-   minimap2
+-   BBMap
+-   parallel
+-   perl
+-   samtools
+-   gtdbtk
+-   fastANI
+-   blastp
+
 ## Installation
 
 Nanophase is installed on Crunchomics amplicomics share. If you want access please send an email to [n.dombrowski\@uva.nl](mailto:n.dombrowski@uva.nl){.email}. After you got access, you can add the amplicomics conda environments (in which nanophase is installed) as follows:
@@ -48,8 +71,9 @@ wget https://ccb-microbe.cs.uni-saarland.de/plsdb/plasmids/download/plsdb.fna.bz
 conda activate nanophase_0.2.3
 
 ## setting locations for databases
-## Change /path_to_gtdb_folder/ to the real location where you stored the GTDB
-echo "export GTDBTK_DATA_PATH=/path_to_gtdb_folder/" > $(dirname $(dirname `which nanophase`))/etc/conda/activate.d/np_db.sh
+## change /path_to_gtdb_folder/release_xxx to the real location where you stored the GTDB
+## ensure that the release version number is changed to the release version number that was downloaded
+echo "export GTDBTK_DATA_PATH=/path_to_gtdb_folder/release_xxx" > $(dirname $(dirname `which nanophase`))/etc/conda/activate.d/np_db.sh
 
 ## Change /path/to/plsdb.fna to the real location where you stored the PLSDB
 echo "export PLSDB_PATH=/path_to_plsdb_folder/plsdb.fna" >> $(dirname $(dirname `which nanophase`))/etc/conda/activate.d/np_db.sh
@@ -77,7 +101,11 @@ Output:
 
 In the example below, we download the [ZymoBIOMICS Gut Microbiome Standard](https://files.zymoresearch.com/protocols/_d6331_zymobiomics_gut_microbiome_standard.pdf) sequenced with Nanopore. This Standard is a mixture of 18 bacterial strains, 2 fungal strains, and 1 archaeal strain in staggered abundances to mimic a true gut microbiome.
 
-Notice, that you can also run the workflow if you have both Nanopore and Illumina data. For Illumina-data only other workflows that work with multiple samples might be more useful to explore.
+Notice:
+
+-   You can also run the workflow if you have both Nanopore and Illumina data. If you have only Illumina-data other workflows that work with multiple samples might be more useful to explore
+-   The analysis was successfully run on Crunchomics with 100 GB of memory and 30 threads on a dataset with 1,679,780 reads and an average length of 4300 bp. The most memory intensive step is running pplacer when you place your genomes with gtdb_tk (one of the last steps of the pipeline). If memory is an issue on your cluster, you can start the pipeline with less memory (i.e. 50GB) to get the assembly and MAGs. Afterwards, you can restart the pipeline with more memory to go through the pplacer step as the pipeline will resume from the last completed stage.
+-   If your dataset is larger/smaller you might need to adjust the amount of resources but the numbers given should give you an idea on where to start
 
 ```{bash}
 #start environment 

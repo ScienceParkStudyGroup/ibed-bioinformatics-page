@@ -8,7 +8,7 @@ toc-depth: 2
 
 On this website you can find documentation about software commonly used in bioinformatic data analyses as well as tutorials about various bioinformatic subjects. On this webpage you can find software organized by topic and for each topic you find a list of commonly used software tools.
 
-If you are working at the University of Amsterdam (UvA) Institute for Biodiversity and Ecosystem Dynamics (IBED) and want to know more about what computational resources are available, please also visit the [computational support teams website](https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html).
+If you are working at the University of Amsterdam (UvA) Institute for Biodiversity and Ecosystem Dynamics (IBED) and want to know more about what computational resources are available, please also visit the [computational support teams website](https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html) and our website with more [computation resources](https://computational-resources-uva-ibed-cs-general-20079b9f20f96949e05.gitlab.io/)
 
 Please, be aware that this page is a work in progress and will be slowly updated over time. If you want to add additional information or feel that something is missing feel free to send an email to [n.dombrowski\@uva.nl](mailto:n.dombrowski@uva.nl){.email}.
 
@@ -52,7 +52,7 @@ Please, be aware that this page is a work in progress and will be slowly updated
 -   [Minimap2](source/classification/minimap2.qmd): A program to align DNA or mRNA sequences against a reference database
 -   [NanoClass2](source/nanopore/nanoclass.qmd): A taxonomic meta-classifier for long-read 16S/18S rRNA gene sequencing data
 -   [NanoITS](source/nanopore/nanoITS.qmd): A taxonomic meta-classifier for long-read ITS operon sequencing data
--   [Nanophase](source/nanopore/nanophase_how_to.qmd): A pipeline to generate MAGs using Nanopore or both Nanopore long and Illumina short reads from complex metagenomes
+-   [Nanophase](source/nanopore/nanophase_how_to.qmd): A pipeline to generate MAGs using Nanopore long and Illumina short reads from metagenomes
 -   [NanoPlot](source/nanopore/nanoplot_readme.qmd): Plotting tool for long read sequencing data
 -   [NanoQC](source/nanopore/nanoqc_readme.qmd): A quality control tool for long read sequencing data
 -   [Porechop](source/nanopore/porechop_readme.qmd): A tool for finding and removing adapters from Nanopore reads
