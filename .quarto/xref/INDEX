@@ -152,5 +152,8 @@
   },
   "source/metatranscriptomics/DSEq2.qmd": {
     "DSEq2.html": "eb13f251"
+  },
+  "source/nanopore/nanophase_how_to.qmd": {
+    "nanophase_how_to.html": "eaae46fa"
   }
 }

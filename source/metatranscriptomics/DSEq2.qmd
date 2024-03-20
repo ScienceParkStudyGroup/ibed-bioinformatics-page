@@ -16,7 +16,7 @@ The DESeq2 package provides methods to test for differential expression in RNA-s
 
 In this workflow we look for differentially expressed genes among 6 RNA-seq single-read sequencing libraries that were collected from from 2 growth treatments: *Thioalkalivibrio thiocyanoxidans* grown on thiocyanate and thiosulfate (3 replicates each). To generate a count table, the sequence reads were first processed with FastP and Sortmerna and the remaining reads mapped against the *T. thiocyanoxidans* genome using Bowtie2. Afterwards, count tables were generated using FeatureCounts. Here, we will analyse these count tables using DeSeq2.
 
-To identify *T.thiocyanoxidans* genes, a Gbk file as well as annotations were downloaded from NCBI.
+A Gbk file as well as annotations were downloaded from NCBI in order to have annotations for each gene available.
 
 On those pages you will find information about how to:
 
@@ -43,13 +43,14 @@ library("EnhancedVolcano")
 The exact versions used to write this workflow are:
 
 -   R version 4.2.2
--   EnhancedVolcano_1.16.0
--   RColorBrewer_1.1-3
--   ggrepel_0.9.5
--   pheatmap_1.0.12
--   apeglm_1.20.0
 -   DESeq2_1.38.3
+-   apeglm_1.20.0
 -   tidyverse_2.0.0
+-   EnhancedVolcano_1.16.0 (just for visuals, not essential)
+-   RColorBrewer_1.1-3 (just for visuals, not essential)
+-   ggrepel_0.9.5 (just for visuals, not essential)
+-   pheatmap_1.0.12 (just for visuals, not essential)
+
 
 ## Load data
 
@@ -70,8 +71,16 @@ annotation_table <- read.csv("../../data/metatranscriptomics/ncbi_dataset.tsv", 
 -   To be able to use DeSeq2, the counts in the table should not be normalized
 -   DeSeq2 will correct for library size and therefore you do not need to correct values yourself
 -   The columns of the count matrix and the rows of the metadata table should be in the same order (we will check if that is the case in the step below)
+- Our final count_table will have the geneIDs as row.names, which is why we use `row.names=1` and other than the count information should have no other columns. Since FeatureCounts provides colums with some other information, such as the gene length, we perform some cleaning steps in the code below and you might need to adjust your own data depending on whether or not you have any other columns other than the counts
 
 ## Prepare data
+
+Here we will:
+
+- Ensure that our annotation table has as many rows (i.e. genes) as our count data table
+- Create a minimal metadata file for plotting
+- Ensure that our count table only has the count data as columns and not any other information. I.e. we want the row names be our gene IDs and the columns be the count data for each sample
+- We want to ensure that the columns in our count data is in the same order as in the metadata file. If this is not the case then we will fix this
 
 ```{r, warning=FALSE}
 #subset the gtf table from ncbi to ensure that we work with the same number of genes
@@ -89,7 +98,10 @@ count_table <-
   count_table |> 
     select(!(Chr:Length))
 
-#ensure that names between the count and metadata tables are consistent
+#ensure that the sampleIDs in the count data are the same as in the metadata
+all(rownames(metadata_table) %in% colnames(count_table))
+
+#ensure that names between the count and metadata tables are in the same order
 all(rownames(metadata_table) == colnames(count_table))
 
 #reorder data if the tables above are not in the same order
@@ -100,7 +112,6 @@ all(rownames(metadata_table) == colnames(count_table))
 
 #convert count data to long format 
 count_table_long <- gather(count_table, key = "Sample", value = "RawCount")
-
 ```
 
 ## Explore raw data
@@ -119,16 +130,23 @@ ggplot(count_table_long) +
 
 In this plot, we see some common features of RNA-seq count data:
 
--   a low number of counts associated with a large proportion of genes
--   a long right tail due to the lack of any upper limit for expression
--   a large dynamic range
+- our data will not have a fixed range, i.e. some samples have have a range rom 0 - 150 000 counts, others have more counts
+- our data is not normal distributed:
+  -   a low number of counts associated with a large proportion of genes
+  -   a long right tail due to the lack of any upper limit for expression
+  -   a large dynamic range
 
-This tells us that our RNA-seq data is not normally distributed, which is quite normal for this kind of data. Statistical models used in down-stream analyses need to take these characteristics into account (DeSeq2 does this for us).
+This tells us that our RNA-seq data is not normally distributed, which is quite normal for this kind of data. Statistical models used in down-stream analyses need to take these characteristics into account (DeSeq2 does this for us in order to make predictions (i.e. model) about our data.
+
+If we can not use a normal distribution to model our data, then we could work with a Poisson distribution instead. Poisson can be used for data where the number of cases are large and the probability of an event happening is low. Since in RNA-Seq data, we have millions of reads being sequences, the probability of a read mapping to a gene is low.
+
+However, we first have to test whether our data fulfills the criteria to use the Poisson distribution. Poisson has only one parameter, lamba, and Poisson expects that lamba = mean = variance. We can easily check if that is true for our data.
+
 
 ### Plot the mean vs variance
 
--   Mean: average of a given set of data
--   Variance: average of the squared differences from the mean, it therefore measures the spread of a data set
+-   Mean: average of a given set of data, the mean across all the samples for each individual gene
+-   Variance: average of the squared differences from the mean, it therefore measures the spread of a data set.
 
 Comparing these two values tells us more about the assumptions we can make about our data, specifically if the mean == variance we could model our data using a poisson distribution.
 
@@ -148,17 +166,22 @@ ggplot(df) +
 We see:
 
 -   that the mean is not equal to the variance since data points do not fall on the diagonal
--   that for the genes with high mean expression, the variance across replicates tends to be greater than the mean, since the points fall above the red line
+-   that for the genes with high mean expression, the variance across replicates tends to be greater than the mean, since the points fall above the red line. So variance > mean
 -   for the genes with low mean expression we see more scattering, i.e.“heteroscedasticity”. This tells us that lowly expressed genes show a lot of variability in the variance values
 
 All of this tells us that RNA-Seq data does not fit the criteria if we wanted to model the count data with a Poisson distribution (where mean == variance). If we would increase the samples (\>20) we might be able to use Poisson, however, a large number of replicates can be either hard to obtain (depending on how samples are obtained) and/or may not be affordable.
 
 -   The distribution that fits RNA-seq data best, given this type of variability between replicates, is the negative binomial, which can be used for data where the mean \< variance. DeSeq2 is one tool that allows us to do this.
--   If you work with a lot of samples, DeSeq2 might perform poorly because the data does not work well anymore with the negative binomial distribution. For such cases, a Wilcoxon rank-sum test can be used. A sample size \> 8 has been shown to be useful for switching to Wilcoxon. For more information (and a code example) go [here](https://towardsdatascience.com/deseq2-and-edger-should-no-longer-be-the-default-choice-for-large-sample-differential-gene-8fdf008deae9). Notice , the example uses edgeR but we can easily use the DeSeq normalized count table we extract below.
+- The negative binomial has two parameters, 
+  - the fitted mean, which is composed of the sample specific size factor and the expected true concentration of fragments for each sample
+  - the dispersion parameter (which accounts for the extra variability for lowly expressed genes).
+-   Notice, that if you work with a lot of samples, DeSeq2 might perform poorly because the data does not work well anymore with the negative binomial distribution. For such cases, a Wilcoxon rank-sum test can be used. A sample size \> 8 has been shown to be useful for switching to Wilcoxon. For more information (and a code example) go [here](https://towardsdatascience.com/deseq2-and-edger-should-no-longer-be-the-default-choice-for-large-sample-differential-gene-8fdf008deae9). Notice , the example uses edgeR but we can easily use the DeSeq normalized count table we extract below.
+
+
 
 ## Generate a DESEQDataSet object
 
-The R function `DESeqDataSetFromMatrix` is used to store our count table and metadata in a DESeqDataSet object. Additionally, we provide a formula which specifies the design of our experiment. 
+The R function `DESeqDataSetFromMatrix` is used to store our count table and metadata in a DESeqDataSet object. Additionally, we provide a formula which specifies the design of our experiment, in our case we want to compare thiocyanate versus thiosulfate treatments. Information about these treatments we find in the treatment column in our metadata_table.
 
 ```{r, warning=FALSE}
 #construct a DESEQDataSet Object
@@ -166,6 +189,9 @@ dds <- DESeqDataSetFromMatrix(countData = count_table,
                               colData = metadata_table,
                               design = ~treatment,
                               tidy = FALSE)
+
+#view the structure of this new object
+dds
 
 #you can view the original data with the counts function
 head(counts(dds))
@@ -202,7 +228,12 @@ One can also omit this step entirely and just rely on the independent filtering 
 smallestGroupSize <- 3
 keep <- rowSums(counts(dds) >= 5) >= smallestGroupSize
 dds <- dds[keep,]
+dds
 ```
+
+When viewing our dds object, we should see that we have less rows in the dim category, since some genes will have been removed during this step.
+
+
 
 ### Organize factor levels
 
@@ -211,10 +242,11 @@ By default, R will choose a reference level for factors based on alphabetical or
 1.  you can either explicitly tell `results` which comparison to make using the contrast argument (this will be shown later)
 2.  you can explicitly set the factors levels. In order to see the change of reference levels reflected in the results
 
-Below, we manually will sort the factors and ensure that we compare thiosulfate versus thiocyanate, i.e. the last factor is our factor of interest.
+Below, we manually will sort the factors and ensure that we compare thiosulfate versus thiocyanate (our reference level), i.e. the last factor is our factor of interest.
 
 ```{r}
-dds$treatment <- factor(dds$treatment, levels = c("thiocyanate","thiosulfate"))
+dds$treatment <- relevel(dds$treatment, ref = "thiocyanate")
+dds$treatment
 ```
 
 ## Quality assessment of DSEq data
@@ -302,23 +334,77 @@ rld_downstream <- rlog(dds, blind=FALSE)
 vsd_downstream <- vst(dds, blind=FALSE)   
 ```
 
+
+**Note about technical replicates**
+
+If you have technical replicates, DeSeq2 comes with a function to collapse these before running DESeq.
+
+
 **DESeq2 does the following**:
 
-1.  it calculates the relative library depth of each sample
+1.  it calculates the relative library depth of each sample to estimate a size factor
 2.  it estimates the dispersion of counts for each gene
 3.  it fits a curve to the gene-wide dispersion estimates
 4.  it shrinks gene-wise dispersion estimates
-5.  a generalized linear model (GLM) of the NB family is used to fit the data
+5.  it uses a generalized linear model (GLM) of the NB family to fit the data
 6.   it estimates coefficients for each sample group along with their standard error. The coefficents are the estimated for the log2 foldchanges, and will be used as input for hypothesis testing
-7.  nbinomWaldTest is used to calculate the significance of coefficients in a Negative Binomial GLM using the size and dispersion outputs
+7.  it uses the nbinomWaldTest to calculate the significance of coefficients in a Negative Binomial GLM using the size and dispersion outputs
 
-**Details on the statistical testing**:
 
--   The first step is to set up a null hypothesis for each gene. DeSeq2's null hypothesis is that there is no differential expression across the two sample groups (i.e. LFC == 0)
+**Details on size factor estimation**
+
+There are multiple biases we need to account for with our data: library size, genes length, RNA population composition for each condition and genes GC composition. We can discard differences with gene length and GC composition if we ompare genes among conditions only.
+
+- Library size:  the total number of reads is not always equivalent between samples
+- Compositional bias: Our counts are not absolute values butdescribed as proportions or probabilities. Also have a look at [Fig1](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-018-5160-5) for a visual example.
+
+To account for this, DeSeq2 calculates a size factor for each sample in the counts matrix via the median ratios method. This size factor is used to normalize the counts.
+
+
+**Details on estimating dispersion**
+
+- This step is done to account for variability between replicates
+- Dispersion is a measure of spread/variability in the data
+- The higher the dispersion, the higher the variability is, i.e.a dispersion of 0.01 == 10% of variability between samples 
+- We have seen in the plot above that low mean counts have much larger variance in the data and therefore the dispersion estimates will differ more between genes with small means
+- If we have a small number of replicates, 3-7, calculation of dispersion is not as reliable but DeSeq2 tries to solve this problem by looking at variability across eachg ene. I.e. DESeq2 assumes that genes with similar expression levels should have similar dispersion. 
+- DeSeq2 does the following:
+  - Get dispersion estimates for each gene
+  - Fit a curve to the gene-wise dispersion estimates
+  - Shrink the gene-wise dispersion estimates towards values predicted by the curve
+
+We can explore the behavior of each gene across these steps as follows:
+
+```{r}
+#view dispersion plot
+plotDispEsts(dds)
+```
+
+Here, black dot in the plot represents the dispersion for one gene. The red line is fit to the data, then the dispersions are squeezed toward the red line, resulting in the final (blue) dispersion estimates. Usually, the dispersion is highest at the low counts and levels off at higher counts. Notice that some genes will not be shrunk towards the curve (black dots, with a blue circle) because the variability is so high that DeSeq will not assume that these genes will follow the models assumptions.
+
+This is a good plot to examine to ensure your data is a good fit for the DESeq2 model. Evaluate the plot to see if:
+
+-   The data to generally scatter around the curve, with the dispersion decreasing with increasing mean expression levels.
+-   How much shrinkage you get across the whole range of means in your data. For any experiment with low degrees of freedom, you will expect to see more shrinkage.
+-   The data scatter in a cloud or different shapes. If that is the case then you might want to explore your data more to see if you have contamination (mitochondrial, etc.) or outlier samples.
+-   If you do not see a good fit, you can consider exploring other methods, such as EdgeR or limma.
+
+
+**Details on fitting the linear model**:
+
+- DeSeq2 will fit a generalized linear model for each gene
+- It will model the counts using a negative binominal distribution 
+- It will calculate the log2-fold differences between our treatments that we provide in the design argument in the DeSeq formula when using `DESeqDataSetFromMatrix`
+
+
+**Details on the hypothesis testing**:
+
+-   The first step is to set up a null hypothesis for each gene. DeSeq2's null hypothesis is that there is no differential expression across the two sample groups (i.e. the log-fold change (LFC) == 0)
 -   In DESeq2, the Wald test is the default test used for hypothesis testing when comparing two groups. The Wald test only estimates one model per gene and evaluates the null hypothesis that LFC == 0.
 -   DESeq2 also offers the Likelihood Ratio Test (LRT) as an alternative hypothesis test for when we are comparing more than two sample classes. Rather than evaluating whether a gene’s expression is up- or down-regulated in one class compared to another, the LRT identifies genes that are changing in expression in any direction across the different sample classes.
 
-**p-values**:
+
+**Details about p-values**:
 
 -   For a gene with a significance cut-off of p \< 0.05, this means there is a 5% chance it is a false positive. If we test 20,000 genes for differential expression, at p \< 0.05 we would expect to find 1,000 genes by chance.
 -   Each p-value is the result of a single test (single gene). The more genes we test, the more we inflate the false positive rate. We can correct the p-value for multiple testing. The most common approaches are:
@@ -327,27 +413,8 @@ vsd_downstream <- vst(dds, blind=FALSE)
 -   DESeq2 helps reduce the number of genes tested by removing genes unlikely to be significantly DEs prior to testing, such as those with low number of counts and outlier samples. Additionally, multiple test correction is implemented to reduce the False Discovery Rate using an interpretation of the Benjamini-Hochberg procedure.
 -   By setting the FDR cutoff to \< 0.05, we’re saying that the proportion of false positives we expect among the DE genes is 5%. For example, if you call 500 genes as differentially expressed with an FDR cutoff of 0.05, you expect 25 of them to be false positives.
 
-#### Plot dispersion estimates
 
-One step in the DeSeq workflow is to shrink the gene-wise dispersion estimates toward the expected dispersion values. Here, DESeq2 assumes that genes with similar expression levels should have similar dispersion.
 
-This dispersion shrinkage method is important to reduce false positives in the differential expression analysis. This step allows for more accurate identification of differentially expressed genes when sample sizes are small.
-
-We can view the dispersion estimates as follows:
-
-```{r}
-#view dispersion plot
-plotDispEsts(dds)
-```
-
-Each black dot in the plot represents the dispersion for one gene. The red line is fit to the data, then the dispersions are squeezed toward the red line, resulting in the final (blue) dispersion estimates. Usually, the dispersion is highest at the low counts and levels off at higher counts.
-
-This is a good plot to examine to ensure your data is a good fit for the DESeq2 model. Evaluate the plot to see if:
-
--   The data to generally scatter around the curve, with the dispersion decreasing with increasing mean expression levels.
--   How much shrinkage you get across the whole range of means in your data. For any experiment with low degrees of freedom, you will expect to see more shrinkage.
--   The data scatter in a cloud or different shapes. If that is the case then you might want to explore your data more to see if you have contamination (mitochondrial, etc.) or outlier samples.
--   If you do not see a good fit, you can consider exploring other methods, such as EdgeR or limma.
 
 ### Generate a results table
 
@@ -387,7 +454,7 @@ head(res_thios)
 **Information about the generated output**:
 
 -   baseMean = the average of the normalized counts taken over all samples
--   log2FoldChange = log2 fold change between the groups. E.g. value 2 means that the expression has increased 4-fold. This columns tells us how much the gene's expression seems to have changed due to treatment with thiosulfate in comparison to thiocyanate samples
+-   log2FoldChange = log2 fold change between the treated versus untreated conditions (thiosulfate versus thiocyanate in our case). Here, a value of 2 means that the expression has increased 4-fold in the thiosulfate sample 
 -   lfcSE = standard error of the log2FoldChange estimate
 -   stat = Wald statistic
 -   pvalue = Wald test p-value.

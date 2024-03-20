@@ -121,6 +121,7 @@ website:
               - source/nanopore/chopper.qmd
               - source/nanopore/nanoclass.qmd
               - source/nanopore/nanoITS.qmd
+              - source/nanopore/nanophase_how_to.qmd
 
           - section: "Fungal genomics"
             contents:

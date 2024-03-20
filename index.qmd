@@ -52,6 +52,7 @@ Please, be aware that this page is a work in progress and will be slowly updated
 -   [Minimap2](source/classification/minimap2.qmd): A program to align DNA or mRNA sequences against a reference database
 -   [NanoClass2](source/nanopore/nanoclass.qmd): A taxonomic meta-classifier for long-read 16S/18S rRNA gene sequencing data
 -   [NanoITS](source/nanopore/nanoITS.qmd): A taxonomic meta-classifier for long-read ITS operon sequencing data
+-   [Nanophase](source/nanopore/nanophase_how_to.qmd): A pipeline to generate MAGs using Nanopore or both Nanopore long and Illumina short reads from complex metagenomes
 -   [NanoPlot](source/nanopore/nanoplot_readme.qmd): Plotting tool for long read sequencing data
 -   [NanoQC](source/nanopore/nanoqc_readme.qmd): A quality control tool for long read sequencing data
 -   [Porechop](source/nanopore/porechop_readme.qmd): A tool for finding and removing adapters from Nanopore reads

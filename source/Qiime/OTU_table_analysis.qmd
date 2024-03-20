@@ -75,6 +75,10 @@ Some packages required for this workflow are installed with BiocManager or devto
 #BiocManager::install("microbiome")
 #BiocManager::install("ALDEx2")
 #BiocManager::install("DESeq2")
+#BiocManager::install("metagenomeSeq") 
+
+#if (!requireNamespace("devtools")) install.packages("devtools")
+#devtools::install_github("Russel88/DAtest")
 ```
 
 
@@ -91,8 +95,8 @@ library(DESeq2) #stats
 library(grid) #organizing multiple plots
 library(gridExtra) #organizing multiple plots
 library(scales) #plot aesthetic, comma setting
-#library(ANCOMBC) #stats, tba
-
+library(DAtest) #stats, tba
+library(metagenomeSeq) # stats
 ```
 
 
@@ -104,7 +108,7 @@ Next, we read in some custom things such as:
 - a custom function that we use to calculate some summary statistics for our otu table  
 - a color vector to have more control over what colors are used in our graphs  
 
-Defining custom themes for our plots and custom functions is useful because it means that instead of re-writing the commands for our analyses over and over again if we want to use them more than once, we can just use these functions instead.
+Defining custom themes for our plots and custom functions is useful because it means that instead of having to write the code for our plots over and over again if we want to use them more than once, we can just use these functions instead.
 
 You can add custom functions closer to where you use them in the code, but I prefer to have them organized in one section of the workflow to keep my code organized.
 
@@ -563,7 +567,6 @@ If you want to familiarize yourself more about why and how to normalize data, fe
 - [Normalization and microbial differential abundance strategies depend upon data characteristics](https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-017-0237-y)
 
 
-
 ```{r, message=FALSE}
 physeq_rel_abundance <- microbiome::transform(physeq_filt, "compositional")
 physeq_clr <- microbiome::transform(physeq_filt, "clr")
@@ -647,6 +650,9 @@ alpha_plot <-
   ggplot(richness_meta, aes(x = treatment, y = diversity_shannon)) +
     geom_boxplot() +
     geom_jitter(aes(color = Date), width = 0.2, size = 4) +
+    #geom_text(aes(label = sample_id, x = treatment, y = diversity_shannon), 
+    #      position = position_jitter(width = 0.2, height = 0.2), 
+    #      hjust = -0.5, vjust = -0.5, size = 3) +
     labs(x = "", y = "Shannon index") +
     custom_theme() +
     theme(legend.key=element_blank())
@@ -657,7 +663,7 @@ alpha_plot
 #ggsave(paste0("results/plots/alpha-div.png"), plot=alpha_plot, device="png")
 ```
 
-We see that there is not a difference in terms of species evenness when comparing our different samples.
+We see that there is not a difference in terms of species evenness when comparing our different samples but that we have one sample with a very low shannon index. When we uncommented the code with `geom_text`, we can see that the sample with a low index is BB, one of the samples with the low read counts.
 
 
 ### Explore beta diversity
@@ -676,7 +682,7 @@ In general it is best to avoid methods that use Euclidean distance as microbiome
 
 The methods above generate distance matrices, which can then be used for ordination,which we use to reduce the dimensionality of our data for a more efficient analysis and visualization. Based on the type of algorithm, ordination methods can be divided in two categories:   
 
-- unsupervised, which measure variation in the data without additional information on covariates or other supervision of the model, including:  
+- unsupervised, which measure variation in the data without additional information on co-variates or other supervision of the model, including:  
      - Principal Coordinate Analysis (PCoA)  
      - Principal Component Analysis (PCA)   
      - Uniform Manifold Approximation and Projection for Dimension Reduction (UMAP)  
@@ -690,11 +696,14 @@ For Bray-Curtis our data should not have negative entries, so we will use the re
 
 ```{r}
 #calculate PCOA using Phyloseq package
-pcoa_bc <- ordinate(physeq_rarified, "PCoA", "bray") 
+pcoa_bc <- ordinate(physeq_rel_abundance, "PCoA", "bray") 
+evals <- pcoa_bc$values$Eigenvalues
 
 plot_beta <-
   plot_ordination(physeq_rarified, pcoa_bc, color = "treatment") + 
     geom_point(size = 3) +
+    labs(x = sprintf("PCoA1 [%s%%]", round(evals/sum(evals)*100,1)[1]),
+         y = sprintf("PCoA2 [%s%%]", round(evals/sum(evals)*100, 2)[2])) +
     #add a 95% confidence level for a multivariate t-distribution
     stat_ellipse(aes(group = treatment), linetype = 2) +
     custom_theme()
@@ -702,19 +711,19 @@ plot_beta <-
 plot_beta
 ```
 
-This two-dimensions PCOA plot shows 34% of the total variance between the samples. We can also see that our samples are not forming distinct clusters, i.e. microbiomes from the mixed, paper and wood communities appear very similar.
+This two-dimensions PCOA plot shows 36% of the total variance between the samples. We can also see that our samples are not forming distinct clusters, i.e. microbiomes from the mixed, paper and wood communities appear very similar.
 
 We can also perform our statistics to confirm this visual finding:
 
 ```{r}
 #Generate distance matrix
-rare_dist_matrix <- phyloseq::distance(physeq_rarified, method = "bray") 
+rare_dist_matrix <- phyloseq::distance(physeq_rel_abundance, method = "bray") 
 
 #ADONIS test
-adonis2(rare_dist_matrix ~ phyloseq::sample_data(physeq_rarified)$treatment, permutations=9999, method="bray")
+adonis2(rare_dist_matrix ~ phyloseq::sample_data(physeq_rel_abundance)$treatment, permutations=9999, method="bray")
 ```
 
-This confirms that there do not seem to be any statistically significant differences between our samples.
+We see that the Pr is greater than 0.005, confirming that there do not seem to be any statistically significant differences between our samples.
 
 
 #### Aitchison
@@ -894,11 +903,24 @@ Generated plots:
 
 ### Test for differental abundances
 
-Next, we want to test, whether any OTUs differ among our different conditions, i.e. sampling dates or treatment.
-
 ::: {.callout-caution}
 Notice: This is still in development and needs to be optimized, use with care!
 :::
+
+```{r}
+
+```
+
+
+Next, we want to test, whether any OTUs differ among our different conditions, i.e. sampling dates or treatment. 
+
+Notice, that there is no gold standard how to do these analyses and there are many challenges analysing this kind of data leading to multiple approaches to solve these challenges. The issues we face are:
+
+- Compositionality of the data and that abundances of the taxa are not independent of each other
+- There are many zeros in our data, i.e. many taxa are absent in the majority of samples
+- Skewed distributions since most taxa are rare and only a few are abundant
+
+
 
 
 
@@ -934,7 +956,7 @@ wilcox_results <- ps_wilcox |>
 wilcox_results$wilcox_test[[1]]
 ```
 
-Ok, there seems to be something going on, let's zoom in and look for differences per OTU level (genus rank in our case). To do this we first will correct for multiple comparison testing via false discovery rate (FDR). We also will filter the table to only include values with an FDR < 0.001.
+Ok, the p-value is below 0.05, so there seems to be something going on, let's zoom in and look for differences per OTU level (genus rank in our case). To do this we first will correct for multiple comparison testing via false discovery rate (FDR). We also will filter the table to only include values with an FDR < 0.001.
 
 ```{r}
 #unnest df
@@ -945,7 +967,7 @@ wilcox_results <- wilcox_results |>
 #Computing FDR corrected p-values (since we do multiple statistical comparisons)
 wilcox_results <- wilcox_results |>
   arrange(p_value) |>
-  mutate(BH_FDR = p.adjust(p_value, "BH")) |>
+  mutate(BH_FDR = p.adjust(p_value, "fdr")) |>
   filter(BH_FDR < 0.001) |>
   dplyr::select(OTU, p_value, BH_FDR, everything())
 
@@ -955,11 +977,17 @@ head(wilcox_results)
 There, seem to be a few OTUs that are distinct between sampling dates, lets explore them further by generating some plots:
 
 ```{r, warning=FALSE, message=FALSE}
-df <- cbind(as.data.frame(as(tax_table(physeq_clr)[as.character(wilcox_results$OTU), ], "matrix")),as.data.frame(as(otu_table(physeq_clr)[as.character(wilcox_results$OTU), ], "matrix")))
+#extract oTUs of interest from the phyloseq tax and otu tables
+df <- cbind(as.data.frame(as(tax_table(physeq_clr)[as.character(wilcox_results$OTU), ], "matrix")),
+            as.data.frame(as(otu_table(physeq_clr)[as.character(wilcox_results$OTU), ], "matrix")))
 
+#convert the long into a wide dataframe
 df_long <- reshape2::melt(df)
+
+#add the metadata
 df_long <- merge(df_long, metadata_combined, by.x = "variable", by.y = "sample_id")
 
+#plot
 ggplot(df_long, aes(x=Genus, y=value, color = Date)) +
   geom_boxplot(outlier.shape = NA) +
   geom_point(position = position_jitterdodge(jitter.width=0.1), size = 0.9)  +
@@ -977,7 +1005,8 @@ Wilcoxon has some down-sites when it comes to treating zero values, an alternati
 
 
 ```{r, message=FALSE}
-aldex2_da <- ALDEx2::aldex(data.frame(phyloseq::otu_table(physeq_filt)), phyloseq::sample_data(physeq_filt)$Date, test="t", effect = TRUE, denom="iqlr")
+aldex2_da <- ALDEx2::aldex(data.frame(phyloseq::otu_table(physeq_filt)), 
+                           phyloseq::sample_data(physeq_filt)$Date, test="t", effect = TRUE, denom="iqlr")
 ```
 
 Specifically, this function: 
@@ -1029,55 +1058,49 @@ res_sig <- res |>
 head(res_sig)  
 ```
 
-We get an empty dataframe, since no significant differences were detected.
+We get an empty dataframe, which means that no significant differences were detected.
 
 
-#### DESeq2
+#### Mutli-factor testing using DeSeq2
 
-DESeq2 performs a differential expression analysis based on the Negative Binomial (a.k.a. Gamma-Poisson) distribution. DeSeq normalizes the data throughout its analysis, so we input only the filtered data. For more theory, visit this [page](https://uclouvain-cbio.github.io/WSBIM2122/sec-rnaseq.html).
+DESeq2 performs a differential expression analysis based on the Negative Binomial (a.k.a. Gamma-Poisson) distribution. DeSeq normalizes the data throughout its analysis, so we input only the filtered data.
 
-```{r, warning=FALSE, message=FALSE}
+```{r}
 #convert treatment column to a factor
 sample_data(physeq_filt)$treatment <- as.factor(sample_data(physeq_filt)$treatment)
 
-#Convert the phyloseq object to a DESeqDataSet and run DESeq2:
+#Convert the phyloseq object to a DESeqDataSet object:
 ds <- phyloseq_to_deseq2(physeq_filt, ~ treatment)
 
-#since our samples contain a lot of 0s (something DeSeq is NOT designed for) we use some alternative means to estimate the size factor
-ds <-estimateSizeFactors(ds, type = 'poscounts')
-ds <- DESeq(ds)
+#run DESeq
+ds = DESeq(ds)
 
-#extract the results and filter by a FDR cutoff of 0.001 and
-#find significantly differentially abundant OTU between the seasons “paper” and “wood”
-alpha = 0.001
-res = results(ds, contrast=c("treatment", "paper", "wood"), alpha=alpha)
-res = res[order(res$padj, na.last=NA), ]
-res_sig = res[(res$padj < alpha), ]
+# pulling out our results table, we specify the object, the p-value we are going to use to filter our results, and what contrast we want to consider by first naming the column, then the two groups we care about
+ds_paper_vs_wood <- results(ds, alpha=0.01, contrast=c("treatment", "paper", "wood"))
 
-#print number of significant results
-dim(res_sig)
+#extract only the ones that pass
+ds_paper_vs_wood_sig <- ds_paper_vs_wood[which(ds_paper_vs_wood$padj < 0.01), ]
+
+#add the taxonomy levels
+ds_paper_vs_wood_sig_with_tax <- cbind(as(ds_paper_vs_wood_sig, "data.frame"),
+                                          as(tax_table(physeq_filt)[row.names(ds_paper_vs_wood_sig), ], "matrix"))
 ```
-
 
 Plot significant OTUs (log2fold change):
 
 ```{r}
-#extract relevant data for significant otus
-res_sig = cbind(as(res_sig, "data.frame"), as(tax_table(physeq_filt)[rownames(res_sig), ], "matrix"))
-
 #plot
-ggplot(res_sig, aes(x=Genus, y=log2FoldChange, color=Phylum)) +
+ggplot(ds_paper_vs_wood_sig_with_tax, aes(x=Genus, y=log2FoldChange, color=Phylum)) +
   geom_jitter(size=3, width = 0.2) +
   custom_theme() +
   theme(axis.text.x = element_text(angle = -90, hjust = 0, vjust=0.5))
 ```
 
-
 Plot significant OTUs (relative abundance):
 
-```{r}
+```{r, message=FALSE}
 #extract relevant data for significant otus
-df <- cbind(as.data.frame(as(tax_table(physeq_clr)[rownames(res_sig), ], "matrix")),as.data.frame(as(otu_table(physeq_clr)[rownames(res_sig), ], "matrix")))
+df <- cbind(as.data.frame(as(tax_table(physeq_clr)[rownames(ds_paper_vs_wood_sig_with_tax), ], "matrix")),as.data.frame(as(otu_table(physeq_clr)[rownames(ds_paper_vs_wood_sig_with_tax), ], "matrix")))
 
 #convert to long df
 df_long <- reshape2::melt(df)
@@ -1095,30 +1118,8 @@ ggplot(df_long, aes(x=Genus, y=value, color = treatment)) +
   xlab("") +
   ylab("CLR abundance") +
   theme(axis.text.x = element_blank())
-
 ```
-
 Notice, how in our plots there seems to be no major difference between the wood and paper samples for these OTUs. Considering that both OTUs have marked outliers, it is likely that our statistics are driven a lot by these outliers and we should interpret our results with care.
 
-Also, remember that these two genera are also not returned with the other statistical test we did. If we stay  conservative we would say that we see no differences between the different sample types.
-
-
-#### ANCOM
-
-tba
-
-```{r}
-#out = ancom(data = NULL, assay_name = NULL,
-#           tax_level = "Genus", phyloseq = physeq_filt,
-#           p_adj_method = "holm", prv_cut = 0.10, lib_cut = 1000,
-#           main_var = "treatment",
-#           rand_formula = NULL, lme_control = NULL, struc_zero = TRUE,
-#           neg_lb = TRUE, alpha = 0.05, n_cl = 2)
-
-
-#res = out$res
-#res
-
-```
-
+Also, remember that these two genera are also not returned with the other statistical test we did. If we stay conservative we would say that we see no differences between the different sample types.
 
