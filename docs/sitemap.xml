@@ -30,7 +30,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/metabolic.html</loc>
-    <lastmod>2023-11-16T09:46:09.979Z</lastmod>
+    <lastmod>2024-03-21T12:19:49.915Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/fastqc_readme.html</loc>
@@ -86,7 +86,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
-    <lastmod>2024-03-20T09:22:37.391Z</lastmod>
+    <lastmod>2024-03-27T09:56:57.442Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/Qiime/3_evelyn_tutorial_notes.html</loc>
@@ -167,5 +167,9 @@
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/readme.html</loc>
     <lastmod>2023-11-15T13:22:27.095Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/motus.html</loc>
+    <lastmod>2024-03-21T12:57:26.574Z</lastmod>
   </url>
 </urlset>

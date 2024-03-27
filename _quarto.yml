@@ -104,6 +104,10 @@ website:
               - source/Qiime/3_evelyn_tutorial_notes.qmd
               - source/Qiime/OTU_table_analysis.qmd
 
+          - section: "Metagenomics"
+            contents:
+              - source/metagenomics/motus.qmd
+
           - section: "(Meta)transcriptomics"
             contents:
               - source/metatranscriptomics/sortmerna.qmd

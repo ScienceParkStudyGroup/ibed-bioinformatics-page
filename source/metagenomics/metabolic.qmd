@@ -23,7 +23,7 @@ Available on Crunchomics: No
 
 ### Installation
 
-#### Metabolic
+Available on crunchomics: No
 
 ```{bash}
 #go into folder in which to install software

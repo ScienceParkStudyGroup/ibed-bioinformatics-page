@@ -14,6 +14,19 @@ Please, be aware that this page is a work in progress and will be slowly updated
 
 ## Useful tutorials
 
+The Carpentries teaches workshops around the world on the foundational skills to work effectively and reproducibly with data and code and they are an excellent resource to check out if you want to get started with bioinformatics
+
+- [The software carpentries](https://software-carpentry.org/lessons/) provides tutorials on:
+  - Bash
+  - Git 
+  - Python
+  - R
+- [Data carpentries](https://datacarpentry.org/lessons/) provides domain-specific tutorials, such as for ecology or genomics
+- [Library carpentries](https://librarycarpentry.org/lessons/) contain some useful tutorials if you want to transform data frames, map data to each other and work effectively with data
+
+Next, to the carpentries you will find a list of tutorials for more specific topics below.
+
+
 ### Getting started with bash
 
 -   [A tutorial on using bash and an HPC](https://ndombrowski.github.io/cli_workshop/)
@@ -49,6 +62,7 @@ Please, be aware that this page is a work in progress and will be slowly updated
 -   [ITSx](source/ITSx/itsx_readme.qmd): A tool to extract ITS1 and ITS2 subregions from ITS sequences
 -   [Kraken2](source/classification/kraken2.qmd): A taxonomic sequence classifier using kmers
 -   [METABOLIC](source/metagenomics/metabolic.qmd): A tool to predict functional trait profiles in genome datasets
+-   [MOTUS](source/metagenomics/motus.qmd): A tool to estimate microbial abundances in Illumina and Nanopore sequencing data
 -   [Minimap2](source/classification/minimap2.qmd): A program to align DNA or mRNA sequences against a reference database
 -   [NanoClass2](source/nanopore/nanoclass.qmd): A taxonomic meta-classifier for long-read 16S/18S rRNA gene sequencing data
 -   [NanoITS](source/nanopore/nanoITS.qmd): A taxonomic meta-classifier for long-read ITS operon sequencing data
