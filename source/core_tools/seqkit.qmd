@@ -54,10 +54,19 @@ wget -O - https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/003/662/865/GCA_003662865
 
 ### Get statistics
 
+You can get summary statistics for a single file a as follows:
+
 ```{bash}
 #get summary statistics (total length, total read number, average phred score, ...)
 seqkit stats -a -To seqkit/seqkit_stats.tsv data/GCA_003662865.1_ASM366286v1_genomic.fna 
 ```
+
+You can easily get statistics for several files at once, for example, if you have multiple fastq.gz files in a common folder you can do:
+
+```{bash}
+seqkit stats -a -To seqkit/seqkit_stats.tsv data/*fastq.gz --threads 10
+```
+
 
 ### Grepping sequences by name
 
