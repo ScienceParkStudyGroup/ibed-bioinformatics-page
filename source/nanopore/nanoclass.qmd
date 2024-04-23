@@ -93,6 +93,8 @@ sed -i -e  "s|$search|$replace|" mapping.csv
 cp /zfs/omics/projects/amplicomics/bin/NanoClass2/config.yaml .
 ```
 
+When setting up `mapping.csv` for your own samples, make sure to **use the absolute path**. In the example above, we use `/home/ndombro/personal/testing/amplicomics_test/data/` and not `data/`. Don't use the relative path, as NanoClass2 will look for the input files relative to where it is installed and not to where your working directory is (or from where you want to execute NanoClass2).
+
 In the `config.yaml` file we can tell NanoClass2 where the data is located and how to run NanoClass2. For the test-run, we only need to:
 
 -   exchange `"example_files/mapping.csv"` with `"mapping.csv"`
