@@ -1,0 +1,68 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## FiltLong
+
+### Introduction
+
+[Filtlong](https://github.com/rrwick/Filtlong) is a tool for filtering long reads by quality. It can take a set of long reads and produce a smaller, better subset. It uses both read length (longer is better) and read identity (higher is better) when choosing which reads pass the filter.
+
+For more information, visit the [manual](https://github.com/rrwick/Filtlong)
+
+
+### Installation
+
+Installed on crunchomics: Yes, as part of the bioinformatics share. If you have access to crunchomics you can be added to the bioinformatics share by sending an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).
+
+If you want to install it yourself, you can run:
+
+```{bash}
+mamba create --name filtlong_0.2.1 -c bioconda filtlong=0.2.1
+```
+
+
+### Usage
+
+```{bash}
+#throw out the worst 10% of reads. This is measured by bp, not by read count. So this option throws out the worst 10% of read bases
+#a length weight of 10 (instead of the default of 1) makes read length more important when choosing the best read
+filtlong --min_length 1000 --keep_percent 90 --mean_q_weight 10 input.fastq.gz | gzip > input_filtered.fastq.gz
+```
+
+Useful options:
+
+- output thresholds:
+  - `-t`[int], `--target_bases` [int]        keep only the best reads up to this many total bases
+  - `-p`[float], `--keep_percent` [float]    keep only this percentage of the best reads (measured by
+                                        bases)
+  - `--min_length` [int]                   minimum length threshold
+  - `--max_length` [int]                   maximum length threshold
+  - `--min_mean_q` [float]                 minimum mean quality threshold
+  - `--min_window_q` [float]               minimum window quality threshold
+- external references (if provided, read quality will be determined using these instead of from the Phred scores):
+  - `-a`[file], `--assembly` [file]          reference assembly in FASTA format
+  - `-1`[file], `--illumina_1` [file]        reference Illumina reads in FASTQ format
+  - `-2`[file], `--illumina_2` [file]        reference Illumina reads in FASTQ format
+-  score weights (control the relative contribution of each score to the final read score):
+    `--length_weight` [float]              weight given to the length score (default: 1)
+    `--mean_q_weight` [float]              weight given to the mean quality score (default: 1)
+    `--window_q_weight` [float]            weight given to the window quality score (default: 1)
+- read manipulation:
+    `--trim `                              trim non-k-mer-matching bases from start/end of reads
+    `--split` [split]                      split reads at this many (or more) consecutive
+                                        non-k-mer-matching bases
+- other:
+  - `--window_size` [int]                  size of sliding window used when measuring window quality
+                                        (default: 250)
+  -` --verbose`                            verbose output to stderr with info for each read
+  - `--version `                           display the program version and quit
+
+- `-h`, `--help`                         display this help menu

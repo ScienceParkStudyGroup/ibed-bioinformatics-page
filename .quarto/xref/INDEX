@@ -158,5 +158,11 @@
   },
   "source/metagenomics/motus.qmd": {
     "motus.html": "adc05443"
+  },
+  "source/nanopore/filtlong.qmd": {
+    "filtlong.html": "852fa5ee"
+  },
+  "source/template.qmd": {
+    "template.html": "692e39e2"
   }
 }

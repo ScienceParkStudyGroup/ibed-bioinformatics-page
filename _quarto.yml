@@ -119,6 +119,7 @@ website:
 
           - section: "Nanopore analyses"
             contents:
+              - source/nanopore/filtlong.qmd
               - source/nanopore/nanoqc_readme.qmd
               - source/nanopore/nanoplot_readme.qmd
               - source/nanopore/porechop_readme.qmd

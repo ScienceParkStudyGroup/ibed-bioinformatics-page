@@ -1059,7 +1059,7 @@
     "href": "index.html#bioinformatic-tools-a-z",
     "title": "Bioinformatics guidance page",
     "section": "Bioinformatic tools A-Z",
-    "text": "Bioinformatic tools A-Z\n\nBowtie 2: A tool for aligning sequencing reads to genomes and other reference sequences\nChopper: A tool for quality filtering of long read data\nDeSeq2: Analyse gene expression data in R\nFAMA: A fast pipeline for functional and taxonomic analysis of metagenomic sequences\nFastP: A tool for fast all-in-one preprocessing of FastQ files\nFastQC: A quality control tool for read sequencing data\nFeatureCounts: A read summarization program that counts mapped reads for genomic features\nInterproscan: A tool to scan protein and nucleic sequences against InterPro signatures\nITSx: A tool to extract ITS1 and ITS2 subregions from ITS sequences\nKraken2: A taxonomic sequence classifier using kmers\nMETABOLIC: A tool to predict functional trait profiles in genome datasets\nMOTUS: A tool to estimate microbial abundances in Illumina and Nanopore sequencing data\nMinimap2: A program to align DNA or mRNA sequences against a reference database\nNanoClass2: A taxonomic meta-classifier for long-read 16S/18S rRNA gene sequencing data\nNanoITS: A taxonomic meta-classifier for long-read ITS operon sequencing data\nNanophase: A pipeline to generate MAGs using Nanopore long and Illumina short reads from metagenomes\nNanoPlot: Plotting tool for long read sequencing data\nNanoQC: A quality control tool for long read sequencing data\nPorechop: A tool for finding and removing adapters from Nanopore reads\nProkka: A tool to annotate bacterial, archaeal and viral genomes\nSamtools: A tool to manipulating alignments in SAM/BAM format\nSeqKit: A tool for FASTA/Q file manipulation\nSortMerNa: A tool to filter ribosomal RNAs in metatranscriptomic data\nTrinity: A tool to assemble transcript sequences from Illumina RNA-Seq data",
+    "text": "Bioinformatic tools A-Z\n\nBowtie 2: A tool for aligning sequencing reads to genomes and other reference sequences\nChopper: A tool for quality filtering of long read data\nDeSeq2: Analyse gene expression data in R\nFAMA: A fast pipeline for functional and taxonomic analysis of metagenomic sequences\nFastP: A tool for fast all-in-one preprocessing of FastQ files\nFastQC: A quality control tool for read sequencing data\nFeatureCounts: A read summarization program that counts mapped reads for genomic features\nFiltlong: A A tool for filtering long reads\nInterproscan: A tool to scan protein and nucleic sequences against InterPro signatures\nITSx: A tool to extract ITS1 and ITS2 subregions from ITS sequences\nKraken2: A taxonomic sequence classifier using kmers\nMETABOLIC: A tool to predict functional trait profiles in genome datasets\nMOTUS: A tool to estimate microbial abundances in Illumina and Nanopore sequencing data\nMinimap2: A program to align DNA or mRNA sequences against a reference database\nNanoClass2: A taxonomic meta-classifier for long-read 16S/18S rRNA gene sequencing data\nNanoITS: A taxonomic meta-classifier for long-read ITS operon sequencing data\nNanophase: A pipeline to generate MAGs using Nanopore long and Illumina short reads from metagenomes\nNanoPlot: Plotting tool for long read sequencing data\nNanoQC: A quality control tool for long read sequencing data\nPorechop: A tool for finding and removing adapters from Nanopore reads\nProkka: A tool to annotate bacterial, archaeal and viral genomes\nSamtools: A tool to manipulating alignments in SAM/BAM format\nSeqKit: A tool for FASTA/Q file manipulation\nSortMerNa: A tool to filter ribosomal RNAs in metatranscriptomic data\nTrinity: A tool to assemble transcript sequences from Illumina RNA-Seq data",
     "crumbs": [
       "Welcome page"
     ]
@@ -1962,6 +1962,56 @@
       "Sequence data analyses",
       "Metagenomics",
       "mOTUS"
+    ]
+  },
+  {
+    "objectID": "source/template.html",
+    "href": "source/template.html",
+    "title": "Bioinformatics guidance page",
+    "section": "",
+    "text": "Installed on crunchomics:\nIf you want to install it yourself, you can run:\n\n\n\nUseful options:"
+  },
+  {
+    "objectID": "source/template.html#tool",
+    "href": "source/template.html#tool",
+    "title": "Bioinformatics guidance page",
+    "section": "",
+    "text": "Installed on crunchomics:\nIf you want to install it yourself, you can run:\n\n\n\nUseful options:"
+  },
+  {
+    "objectID": "source/nanopore/filtlong.html",
+    "href": "source/nanopore/filtlong.html",
+    "title": "Bioinformatics guidance page",
+    "section": "",
+    "text": "Filtlong is a tool for filtering long reads by quality. It can take a set of long reads and produce a smaller, better subset. It uses both read length (longer is better) and read identity (higher is better) when choosing which reads pass the filter.\nFor more information, visit the manual\n\n\n\nInstalled on crunchomics: Yes, as part of the bioinformatics share. If you have access to crunchomics you can be added to the bioinformatics share by sending an email with your Uva netID to Nina Dombrowski.\nIf you want to install it yourself, you can run:\n\nmamba create --name filtlong_0.2.1 -c bioconda filtlong=0.2.1\n\n\n\n\n\n#throw out the worst 10% of reads. This is measured by bp, not by read count. So this option throws out the worst 10% of read bases\n#a length weight of 10 (instead of the default of 1) makes read length more important when choosing the best read\nfiltlong --min_length 1000 --keep_percent 90 --mean_q_weight 10 input.fastq.gz | gzip &gt; input_filtered.fastq.gz\n\nUseful options:\n\noutput thresholds:\n\n-t[int], --target_bases [int] keep only the best reads up to this many total bases\n-p[float], --keep_percent [float] keep only this percentage of the best reads (measured by bases)\n--min_length [int] minimum length threshold\n--max_length [int] maximum length threshold\n--min_mean_q [float] minimum mean quality threshold\n--min_window_q [float] minimum window quality threshold\n\nexternal references (if provided, read quality will be determined using these instead of from the Phred scores):\n\n-a[file], --assembly [file] reference assembly in FASTA format\n-1[file], --illumina_1 [file] reference Illumina reads in FASTQ format\n-2[file], --illumina_2 [file] reference Illumina reads in FASTQ format\n\nscore weights (control the relative contribution of each score to the final read score): --length_weight [float] weight given to the length score (default: 1) --mean_q_weight [float] weight given to the mean quality score (default: 1) --window_q_weight [float] weight given to the window quality score (default: 1)\nread manipulation: --trim trim non-k-mer-matching bases from start/end of reads --split [split] split reads at this many (or more) consecutive non-k-mer-matching bases\nother:\n\n--window_size [int] size of sliding window used when measuring window quality (default: 250) ---verbose verbose output to stderr with info for each read\n--version display the program version and quit\n\n-h, --help display this help menu",
+    "crumbs": [
+      "Sequence data analyses",
+      "Nanopore analyses",
+      "FiltLong"
+    ]
+  },
+  {
+    "objectID": "source/nanopore/filtlong.html#tool",
+    "href": "source/nanopore/filtlong.html#tool",
+    "title": "Bioinformatics guidance page",
+    "section": "",
+    "text": "Filtlong is a tool for filtering long reads by quality. It can take a set of long reads and produce a smaller, better subset. It uses both read length (longer is better) and read identity (higher is better) when choosing which reads pass the filter.\nFor more information, visit the manual\n\n\n\nInstalled on crunchomics: Yes, as part of the bioinformatics share. If you have access to crunchomics you can be added to the bioinformatics share by sending an email with your Uva netID to Nina Dombrowski.\nIf you want to install it yourself, you can run:\n\nmamba create --name filtlong_0.2.1 -c bioconda filtlong=0.2.1\n\n\n\n\n\n#throw out the worst 10% of reads. This is measured by bp, not by read count. So this option throws out the worst 10% of read bases\n#a length weight of 10 (instead of the default of 1) makes read length more important when choosing the best read\nfiltlong --min_length 1000 --keep_percent 90 --mean_q_weight 10 input.fastq.gz | gzip &gt; input_filtered.fastq.gz\n\nUseful options:\n\noutput thresholds:\n\n-t[int], --target_bases [int] keep only the best reads up to this many total bases\n-p[float], --keep_percent [float] keep only this percentage of the best reads (measured by bases)\n--min_length [int] minimum length threshold\n--max_length [int] maximum length threshold\n--min_mean_q [float] minimum mean quality threshold\n--min_window_q [float] minimum window quality threshold\n\nexternal references (if provided, read quality will be determined using these instead of from the Phred scores):\n\n-a[file], --assembly [file] reference assembly in FASTA format\n-1[file], --illumina_1 [file] reference Illumina reads in FASTQ format\n-2[file], --illumina_2 [file] reference Illumina reads in FASTQ format\n\nscore weights (control the relative contribution of each score to the final read score): --length_weight [float] weight given to the length score (default: 1) --mean_q_weight [float] weight given to the mean quality score (default: 1) --window_q_weight [float] weight given to the window quality score (default: 1)\nread manipulation: --trim trim non-k-mer-matching bases from start/end of reads --split [split] split reads at this many (or more) consecutive non-k-mer-matching bases\nother:\n\n--window_size [int] size of sliding window used when measuring window quality (default: 250) ---verbose verbose output to stderr with info for each read\n--version display the program version and quit\n\n-h, --help display this help menu",
+    "crumbs": [
+      "Sequence data analyses",
+      "Nanopore analyses",
+      "Tool"
+    ]
+  },
+  {
+    "objectID": "source/nanopore/filtlong.html#filtlong",
+    "href": "source/nanopore/filtlong.html#filtlong",
+    "title": "Bioinformatics guidance page",
+    "section": "",
+    "text": "Filtlong is a tool for filtering long reads by quality. It can take a set of long reads and produce a smaller, better subset. It uses both read length (longer is better) and read identity (higher is better) when choosing which reads pass the filter.\nFor more information, visit the manual\n\n\n\nInstalled on crunchomics: Yes, as part of the bioinformatics share. If you have access to crunchomics you can be added to the bioinformatics share by sending an email with your Uva netID to Nina Dombrowski.\nIf you want to install it yourself, you can run:\n\nmamba create --name filtlong_0.2.1 -c bioconda filtlong=0.2.1\n\n\n\n\n\n#throw out the worst 10% of reads. This is measured by bp, not by read count. So this option throws out the worst 10% of read bases\n#a length weight of 10 (instead of the default of 1) makes read length more important when choosing the best read\nfiltlong --min_length 1000 --keep_percent 90 --mean_q_weight 10 input.fastq.gz | gzip &gt; input_filtered.fastq.gz\n\nUseful options:\n\noutput thresholds:\n\n-t[int], --target_bases [int] keep only the best reads up to this many total bases\n-p[float], --keep_percent [float] keep only this percentage of the best reads (measured by bases)\n--min_length [int] minimum length threshold\n--max_length [int] maximum length threshold\n--min_mean_q [float] minimum mean quality threshold\n--min_window_q [float] minimum window quality threshold\n\nexternal references (if provided, read quality will be determined using these instead of from the Phred scores):\n\n-a[file], --assembly [file] reference assembly in FASTA format\n-1[file], --illumina_1 [file] reference Illumina reads in FASTQ format\n-2[file], --illumina_2 [file] reference Illumina reads in FASTQ format\n\nscore weights (control the relative contribution of each score to the final read score): --length_weight [float] weight given to the length score (default: 1) --mean_q_weight [float] weight given to the mean quality score (default: 1) --window_q_weight [float] weight given to the window quality score (default: 1)\nread manipulation: --trim trim non-k-mer-matching bases from start/end of reads --split [split] split reads at this many (or more) consecutive non-k-mer-matching bases\nother:\n\n--window_size [int] size of sliding window used when measuring window quality (default: 250) ---verbose verbose output to stderr with info for each read\n--version display the program version and quit\n\n-h, --help display this help menu",
+    "crumbs": [
+      "Sequence data analyses",
+      "Nanopore analyses",
+      "FiltLong"
     ]
   }
 ]
