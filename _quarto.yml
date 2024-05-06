@@ -98,6 +98,10 @@ website:
               - source/metagenomics/fama_readme.qmd
               - source/metagenomics/metabolic.qmd
 
+          - section: "Taxonomy/phylogenies"
+            contents:
+              - source/tax/gtdb.qmd
+
           - section: "Amplicon analyses"
             href: source/Qiime/readme.qmd
             contents:

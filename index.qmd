@@ -60,6 +60,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 -   [FeatureCounts](source/core_tools/featurecounts.qmd): A read summarization program that counts mapped reads for genomic features
 -   [Filtlong](source/nanopore/filtlong.qmd): A A tool for filtering long reads
 -   [Flye](source/genomics/flye.qmd): A de novo assembler for single-molecule sequencing reads 
+-   [GTDB_tk](source/tax/gtdb.qmd): A software toolkit for assigning objective taxonomic classifications to bacterial and archaeal genomes
 -   [Interproscan](source/metagenomics/interproscan_readme.qmd): A tool to scan protein and nucleic sequences against InterPro signatures
 -   [ITSx](source/ITSx/itsx_readme.qmd): A tool to extract ITS1 and ITS2 subregions from ITS sequences
 -   [Kraken2](source/classification/kraken2.qmd): A taxonomic sequence classifier using kmers

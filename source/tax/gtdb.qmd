@@ -1,0 +1,76 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## GTDB_tk
+
+### Introduction
+
+GTDB_Tk is a software toolkit for assigning objective taxonomic classifications to bacterial and archaeal genomes [@chaumeil2019]. It uses the GTDB database to assign your genome(s) of interest to a taxonomy [@parks2020]. For more information, visit the tool\`s [github](https://github.com/Ecogenomics/GTDBTk) and [website](https://ecogenomics.github.io/GTDBTk/).
+
+### Installation
+
+Installed on crunchomics: Yes, GTDB_Tk v2.3.2 is installed as part of the bioinformatics share. If you have access to crunchomics you can be added to the bioinformatics share by sending an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl). Additionally, the GTDB r214 database that is compatible with GTDB_Tk v2.3.2 is installed on the metatools share. To get acccess to metatools, send an email with your Uva netID to Anna Heintz Buschart [a.u.s.heintzbuschart\@uva.nl](mailto:a.u.s.heintzbuschart@uva.nl){.email}.
+
+GTDB_tk 2.4.0 is already installed on the bioinformatics share, however, it is lacking the compatible GTDB r220 database at the moment. If you want to use this version, feel free to contact [Nina Dombrowski](n.dombrowski@uva.nl) in order to get instructions how to download the database.
+
+If you want to install it yourself, you can run:
+
+GTDB_tk 2.3.2:
+
+```{bash}
+mamba create -p /zfs/omics/projects/bioinformatics/software/miniconda3/envs/gtdbtk_2.3.2 -c bioconda gtdbtk=2.3.2
+
+#link data to gtdbtk
+conda activate gtdbtk_2.3.2
+conda env config vars set GTDBTK_DATA_PATH="/zfs/omics/projects/metatools/DB/GTDB_tk/GTDB_tk_r214";
+conda deactivate
+
+conda activate gtdbtk_2.3.2
+gtdbtk check_install
+conda deactivate
+```
+
+GTDB_tk 2.4.0:
+
+```{bash}
+mamba create -p /zfs/omics/projects/bioinformatics/software/miniconda3/envs/gtdbtk_2.4.0 -c bioconda gtdbtk=2.4.0
+
+#get gtdb data, v220 
+cd /zfs/omics/projects/bioinformatics/databases/gtdb
+wget https://data.gtdb.ecogenomic.org/releases/latest/auxillary_files/gtdbtk_package/full_package/gtdbtk_data.tar.gz
+tar xvzf gtdbtk_data.tar.gz 
+
+#link data to gtdbtk
+conda activate gtdbtk_2.4.0
+conda env config vars set GTDBTK_DATA_PATH="/zfs/omics/projects/metatools/DB/GTDB_tk/GTDB_tk_r214";
+```
+
+### Usage
+
+```{bash}
+mkdir results/gtdb 
+
+conda activate gtdbtk_2.3.2
+
+gtdbtk classify_wf --genome_dir  data/genomes/fna/ \
+  --out_dir results/gtdb \
+   --mash_db /zfs/omics/projects/metatools/DB/GTDB_tk/GTDB_tk_r214/mash/ \
+  --cpus 20
+
+conda deactivate
+```
+
+### Common Issues and Solutions
+
+-   **Issue 1:** Running out of memory as described [here](https://ecogenomics.github.io/GTDBTk/faq.html)
+    -   Solution 1: Use `--scratch_dir` and `--pplacer_cpus 1`
+-   **Issue 2:** Using a gtdbtk version with the incorrect database
+    -   Solution 2: Ensure that you use the right gtdbtk-db combination, as listed [here](https://ecogenomics.github.io/GTDBTk/installing/index.html)
