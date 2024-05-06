@@ -104,6 +104,10 @@ website:
               - source/Qiime/3_evelyn_tutorial_notes.qmd
               - source/Qiime/OTU_table_analysis.qmd
 
+          - section: "Genomics"
+            contents:
+              - source/genomics/flye.qmd
+
           - section: "Metagenomics"
             contents:
               - source/metagenomics/motus.qmd
