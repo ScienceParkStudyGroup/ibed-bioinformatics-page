@@ -108,13 +108,13 @@ website:
               - source/Qiime/3_evelyn_tutorial_notes.qmd
               - source/Qiime/OTU_table_analysis.qmd
 
-          - section: "Genomics"
+          - section: "(Meta)genomics"
             contents:
-              - source/genomics/flye.qmd
-              - source/genomics/quast.qmd
-
-          - section: "Metagenomics"
-            contents:
+              - source/nanopore/nanophase_how_to.qmd
+              - source/metagenomics/flye.qmd
+              - source/metagenomics/checkm2.qmd
+              - source/metagenomics/quast.qmd
+              - source/tax/gtdb.qmd
               - source/metagenomics/motus.qmd
 
           - section: "(Meta)transcriptomics"

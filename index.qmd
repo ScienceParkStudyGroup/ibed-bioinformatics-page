@@ -52,6 +52,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 ## Bioinformatic tools A-Z
 
 -   [Bowtie 2](source/core_tools/bowtie.qmd):  A tool for aligning sequencing reads to genomes and other reference sequences
+-   [CheckM2](source/metagenomics/checkm2.qmd): A tool to assess the quality of a genome assembly 
 -   [Chopper](source/nanopore/chopper.qmd): A tool for quality filtering of long read data
 -   [DeSeq2](source/metatranscriptomics/DSEq2.qmd): Analyse gene expression data in R
 -   [FAMA](source/metagenomics/fama_readme.qmd): A fast pipeline for functional and taxonomic analysis of metagenomic sequences
@@ -59,7 +60,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 -   [FastQC](source/metagenomics/fastqc_readme.qmd): A quality control tool for read sequencing data
 -   [FeatureCounts](source/core_tools/featurecounts.qmd): A read summarization program that counts mapped reads for genomic features
 -   [Filtlong](source/nanopore/filtlong.qmd): A A tool for filtering long reads
--   [Flye](source/genomics/flye.qmd): A de novo assembler for single-molecule sequencing reads 
+-   [Flye](source/metagenomics/flye.qmd): A de novo assembler for single-molecule sequencing reads 
 -   [GTDB_tk](source/tax/gtdb.qmd): A software toolkit for assigning objective taxonomic classifications to bacterial and archaeal genomes
 -   [Interproscan](source/metagenomics/interproscan_readme.qmd): A tool to scan protein and nucleic sequences against InterPro signatures
 -   [ITSx](source/ITSx/itsx_readme.qmd): A tool to extract ITS1 and ITS2 subregions from ITS sequences
@@ -74,7 +75,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 -   [NanoQC](source/nanopore/nanoqc_readme.qmd): A quality control tool for long read sequencing data
 -   [Porechop](source/nanopore/porechop_readme.qmd): A tool for finding and removing adapters from Nanopore reads
 -   [Prokka](source/core_tools/prokka.qmd): A tool to annotate bacterial, archaeal and viral genomes
--   [QUAST](source/genomics/quast.qmd): A Quality Assessment Tool for Genome Assemblies
+-   [QUAST](source/metagenomics/quast.qmd): A Quality Assessment Tool for Genome Assemblies
 -   [Samtools](source/core_tools/samtools.qmd): A tool to manipulating alignments in SAM/BAM format
 -   [SeqKit](source/core_tools/seqkit.qmd): A tool for FASTA/Q file manipulation
 -   [SortMerNa](source/metatranscriptomics/sortmerna.qmd): A tool to filter ribosomal RNAs in metatranscriptomic data

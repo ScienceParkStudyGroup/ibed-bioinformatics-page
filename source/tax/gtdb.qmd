@@ -17,7 +17,14 @@ GTDB_Tk is a software toolkit for assigning objective taxonomic classifications 
 
 ### Installation
 
-Installed on crunchomics: Yes, GTDB_Tk v2.3.2 is installed as part of the bioinformatics share. If you have access to crunchomics you can be added to the bioinformatics share by sending an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl). Additionally, the GTDB r214 database that is compatible with GTDB_Tk v2.3.2 is installed on the metatools share. To get acccess to metatools, send an email with your Uva netID to Anna Heintz Buschart [a.u.s.heintzbuschart\@uva.nl](mailto:a.u.s.heintzbuschart@uva.nl){.email}.
+Installed on crunchomics: Yes, GTDB_Tk v2.3.2 is installed as part of the bioinformatics share. If you have access to crunchomics you can be added to the bioinformatics share by sending an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl). Additionally, the GTDB r214 database that is compatible with GTDB_Tk v2.3.2 is installed on the metatools share. To get acccess to metatools, send an email with your Uva netID to Anna Heintz Buschart [a.u.s.heintzbuschart\@uva.nl](mailto:a.u.s.heintzbuschart@uva.nl){.email}. 
+
+After you were added to the bioinformatics and metatools share, you can add the conda environments that are installed in these shares as follows:
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+conda config --add envs_dirs /zfs/omics/projects/metatools/TOOLS/miniconda3/envs/
+```
 
 GTDB_tk 2.4.0 is already installed on the bioinformatics share, however, it is lacking the compatible GTDB r220 database at the moment. If you want to use this version, feel free to contact [Nina Dombrowski](n.dombrowski@uva.nl) in order to get instructions how to download the database.
 

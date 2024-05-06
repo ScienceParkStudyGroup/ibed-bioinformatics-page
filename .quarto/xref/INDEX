@@ -173,5 +173,14 @@
   },
   "source/genomics/quast.qmd": {
     "quast.html": "296ab325"
+  },
+  "source/metagenomics/flye.qmd": {
+    "flye.html": "ab9cdd03"
+  },
+  "source/metagenomics/quast.qmd": {
+    "quast.html": "b85d629c"
+  },
+  "source/metagenomics/checkm2.qmd": {
+    "checkm2.html": "37a7620f"
   }
 }

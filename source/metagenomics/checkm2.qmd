@@ -1,0 +1,63 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## CheckM2
+
+CheckM2 is a software to assess the quality (completeness, contamination, coding density, etc.) of a genome assembly [@chklovski]. For more information, check out the softwares \[github page\](<https://github.com/chklovski/CheckM2>).
+
+### Introduction
+
+### Installation
+
+Installed on crunchomics: No
+
+If you want to install it yourself, you can run:
+
+```{bash}
+#setup a conda environment 
+conda create -n checkm2 -c bioconda -c conda-forge checkm2
+
+#activate the environment
+conda activate checkm2 
+
+#You will also need to download and install the external DIAMOND database CheckM2 relies on for rapid annotation
+#change the custom path to a location in your personal folder, i.e. ~personal/db/
+checkm2 database --download --path /custom/path/
+
+#The database path can also be set by setting the environmental variable CHECKM2DB using
+export CHECKM2DB="path/to/database"
+
+#test that everything went ok (can take up to 5 min to run)
+checkm2 testrun 
+
+conda deactivate
+```
+
+Notice:
+
+The `--database_path` can be used with checkm2 predict to provide an already downloaded checkm2 database during a single predict run, e.g. `checkm2 predict -i ./folder_with_MAGs -o ./output_folder --database_path /path/to/database/CheckM2_database/uniref100.KO.1.dmnd`
+
+
+### Usage
+
+```{bash}
+#run checkm2
+conda activate checkm2
+
+checkm2 predict --threads 30 \
+  --input  folder_with_genomes_to_analyse/  \
+  -x fasta \
+  --output-directory results/checkm2 
+
+conda deactivate
+```
+
+For more information, please visit the [manual](https://github.com/chklovski/CheckM2).

@@ -1,0 +1,77 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## Quast
+
+### Introduction
+
+Quast is a quality assessment tools for genome assemblies [@gurevich2013]. For more information, visit the [official website](https://quast.sourceforge.net/) as well as the [manual](https://quast.sourceforge.net/docs/manual.html).
+
+### Installation
+
+Installed on crunchomics: Yes, Quast v5.2.0 is installed as part of the bioinformatics share. If you have access to crunchomics you can be added to the bioinformatics share by sending an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl). Afterwards, you can add the conda environments that are installed in the bioinformatics conda share as follows:
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run:
+
+```{bash}
+mamba create --name quast_5.2.0 -c bioconda quast=5.2.0
+
+#for quast to run, you need to downgreate minimap from 2.28 to 2.4
+#2.28 gives an error that says that the miniconda2 version is not suited for this installation 
+#chose 2.24 based on these notes for quast 5.2.0, https://quast.sourceforge.net/docs/CHANGES.txt
+conda activate quast_5.2.0
+mamba install -c bioconda minimap2=2.24
+```
+
+### Usage
+
+```{bash}
+conda activate quast_5.2.0
+
+#running quast with a reference genome, which was downloaded from ncbi
+#and gff file, which was generated using prokka
+quast.py \
+  assembly.fasta \
+  -r  db/ncbi_ref/GCF_016756315.1_genomic.fna \
+  -g assembly.gff \
+  --nanopore data/raw_sequence_data.fastq.gz \
+  -o results/quast_report \
+  -t 20
+
+#running quast on several assemblies, i.e. several assemblies polished with medaka
+srun --cpus-per-task 20 --mem=50G quast.py \
+  -l 'r1,r2,r3,r4,r5,r6,r7,r8,r9,r10' \
+  results/polishing/medaka/r1/consensus.fasta \
+  results/polishing/medaka/r2/consensus.fasta \
+  results/polishing/medaka/r3/consensus.fasta \
+  results/polishing/medaka/r4/consensus.fasta \
+  results/polishing/medaka/r5/consensus.fasta \
+  results/polishing/medaka/r6/consensus.fasta \
+  results/polishing/medaka/r7/consensus.fasta \
+  results/polishing/medaka/r8/consensus.fasta \
+  results/polishing/medaka/r9/consensus.fasta \
+  results/polishing/medaka/r10/consensus.fasta \
+  --nanopore data/raw_sequence_data.fastq.gz \
+  -r  db/ncbi_ref/GCF_016756315.1_genomic.fna \
+  -o results/polishing/quast_report \
+  -t 20
+
+conda deactivate 
+```
+
+### Common Issues and Solutions
+
+-   **Issue 1:** Running out of memory
+    -   Solution 1: Especially when analysing more than one assembly, it might be good to increase the memory via slurm
