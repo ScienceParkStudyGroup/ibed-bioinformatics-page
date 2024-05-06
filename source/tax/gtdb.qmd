@@ -26,7 +26,7 @@ If you want to install it yourself, you can run:
 GTDB_tk 2.3.2:
 
 ```{bash}
-mamba create -p /zfs/omics/projects/bioinformatics/software/miniconda3/envs/gtdbtk_2.3.2 -c bioconda gtdbtk=2.3.2
+mamba create --name gtdbtk_2.3.2 -c bioconda gtdbtk=2.3.2
 
 #link data to gtdbtk
 conda activate gtdbtk_2.3.2

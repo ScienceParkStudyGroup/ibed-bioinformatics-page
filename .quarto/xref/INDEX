@@ -170,5 +170,8 @@
   },
   "source/tax/gtdb.qmd": {
     "gtdb.html": "b0aa98a9"
+  },
+  "source/genomics/quast.qmd": {
+    "quast.html": "296ab325"
   }
 }

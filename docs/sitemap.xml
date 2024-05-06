@@ -86,7 +86,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
-    <lastmod>2024-05-06T14:10:09.749Z</lastmod>
+    <lastmod>2024-05-06T14:22:42.386Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/Qiime/3_evelyn_tutorial_notes.html</loc>
@@ -182,10 +182,14 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/genomics/flye.html</loc>
-    <lastmod>2024-05-06T13:51:58.414Z</lastmod>
+    <lastmod>2024-05-06T14:22:21.836Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/tax/gtdb.html</loc>
-    <lastmod>2024-05-06T14:11:43.756Z</lastmod>
+    <lastmod>2024-05-06T14:21:42.486Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/genomics/quast.html</loc>
+    <lastmod>2024-05-06T14:21:47.135Z</lastmod>
   </url>
 </urlset>

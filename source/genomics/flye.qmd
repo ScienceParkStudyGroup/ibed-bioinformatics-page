@@ -17,7 +17,7 @@ Flye is a de novo assembler for single-molecule sequencing reads, such as those 
 
 ### Installation
 
-Installed on crunchomics: Yes, Flye v2.9.3 is installed as part of the bioinformatics share. If you have access to crunchomics you can be added to the bioinformatics share by sending an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).
+Installed on crunchomics: Not yet
 
 If you want to install it yourself, you can run:
 
