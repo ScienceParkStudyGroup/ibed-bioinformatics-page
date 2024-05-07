@@ -54,27 +54,49 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../source/metagenomics/quast.html" rel="next">
+<link href="../../source/metagenomics/gtdb.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -104,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-sidebar docked">
@@ -116,9 +138,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
-      Bioinformatics guidance page
-      </li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/nanopore/nanophase_how_to.html">(Meta)genomics</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/pseudofinder.html">Pseudofinder</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -133,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Bioinformatics guidance page</a> 
+      <a href="../../">Bioinformatics guidance page</a> 
         <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
@@ -148,7 +168,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome page</span></a>
   </div>
 </li>
@@ -163,13 +183,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/cli/code_doc.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/code_doc.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Code documentation</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../source/cli/cli.html" class="sidebar-item-text sidebar-link">
+            <a href="../../source/cli/cli.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using the command line</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -178,19 +198,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/cli/cli_installation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/cli_installation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setting up a bash command line</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/cli/cli_basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/cli_basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Getting started with bash</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/cli/cli_file_manipulation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/cli_file_manipulation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Manipulating files with bash</span></a>
   </div>
 </li>
@@ -198,19 +218,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/conda/conda.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/conda/conda.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Installing software</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/R/readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/R/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using R</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
+            <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using an HPC</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -219,7 +239,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/cli/slurm_basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/slurm_basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Start working on an HPC</span></a>
   </div>
 </li>
@@ -229,7 +249,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../source/metagenomics/readme.html" class="sidebar-item-text sidebar-link">
+            <a href="../../source/metagenomics/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sequence data analyses</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -247,31 +267,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/core_tools/ncbi.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/ncbi.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Downloading data from NCBI</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/core_tools/prokka.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/prokka.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prokka</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/core_tools/seqkit.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/seqkit.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Seqkit</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/classification/kraken2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/classification/kraken2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Kraken2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/classification/minimap2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/classification/minimap2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Minimap2</span></a>
   </div>
 </li>
@@ -288,13 +308,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/metagenomics/fastqc_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/fastqc_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FastQC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/metatranscriptomics/fastp.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/fastp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FastP</span></a>
   </div>
 </li>
@@ -311,19 +331,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bowtie2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Samtools</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FeatureCounts</span></a>
   </div>
 </li>
@@ -340,19 +360,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/metagenomics/interproscan_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/interproscan_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Interproscan</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/metagenomics/fama_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/fama_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FAMA</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/metagenomics/metabolic.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/metabolic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Metabolic</span></a>
   </div>
 </li>
@@ -360,7 +380,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../source/Qiime/readme.html" class="sidebar-item-text sidebar-link">
+            <a href="../../source/Qiime/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Amplicon analyses</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -369,13 +389,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/Qiime/3_evelyn_tutorial_notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/Qiime/3_evelyn_tutorial_notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A short QIIME tutorial</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/Qiime/OTU_table_analysis.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/Qiime/OTU_table_analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Analysing OTU tables with R</span></a>
   </div>
 </li>
@@ -383,46 +403,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
  <span class="menu-text">(Meta)genomics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Nanophase</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/metagenomics/flye.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/flye.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Flye</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/metagenomics/checkm2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/checkm2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">CheckM2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/metagenomics/gtdb.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/gtdb.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GTDB_tk</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/metagenomics/quast.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/pseudofinder.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Pseudofinder</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/quast.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Quast</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/metagenomics/motus.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/motus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">mOTUS</span></a>
   </div>
 </li>
@@ -439,37 +465,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/metatranscriptomics/sortmerna.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/sortmerna.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SortMeRNA</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/metatranscriptomics/trinity.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/trinity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Trinity</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bowtie2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Samtools</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FeatureCounts</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/metatranscriptomics/DSEq2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/DSEq2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">DeSeq2</span></a>
   </div>
 </li>
@@ -486,49 +512,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/nanopore/filtlong.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/filtlong.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FiltLong</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/nanopore/nanoqc_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanoqc_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoQC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/nanopore/nanoplot_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanoplot_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Nanoplot</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/nanopore/porechop_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/porechop_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Porechop</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/nanopore/chopper.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/chopper.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chopper</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/nanopore/nanoclass.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanoclass.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoClass2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoITS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Nanophase</span></a>
   </div>
 </li>
@@ -545,13 +571,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/ITSx/itsx_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/ITSx/itsx_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ITSx</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoITS</span></a>
   </div>
 </li>
@@ -569,14 +595,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#tool" id="toc-tool" class="nav-link active" data-scroll-target="#tool">Tool</a>
+  <li><a href="#pseudofinder" id="toc-pseudofinder" class="nav-link active" data-scroll-target="#pseudofinder">Pseudofinder</a>
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
   <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/template.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/pseudofinder.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -589,32 +615,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div style="text-align: justify">
 
-<section id="tool" class="level2">
-<h2 class="anchored" data-anchor-id="tool">Tool</h2>
+<section id="pseudofinder" class="level2">
+<h2 class="anchored" data-anchor-id="pseudofinder">Pseudofinder</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>Pseudofinder is a bioinformatics tool that detects pseudogene candidates from annotated genbank files of bacterial and archaeal genomes <span class="citation" data-cites="syberg-olsen2022">(<a href="#ref-syberg-olsen2022" role="doc-biblioref">Syberg-Olsen et al. 2022</a>)</span>.</p>
+<p>It has been tested mostly on genbank (.gbf/.gbk) files annotated by Prokka with the –compliant flag (i.e.&nbsp;including both /gene and /CDS annotations).</p>
+<p>There are alternative programs for pseudogene finding and annotation (e.g.&nbsp;the NCBI Prokaryotic Genome Annotation Pipeline), but to the best of the software developers knowledge, none of them are open source or allow easy fine-tuning of parameters.</p>
+<p>For more information, please check the <a href="https://github.com/filip-husnik/pseudofinder/wiki">wiki</a>.</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
 <p>Installed on crunchomics: Yes,</p>
 <ul>
-<li>Prokka v1.14.6 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to <a href="n.dombrowski@uva.nl">Nina Dombrowski</a>.</li>
+<li>Pseudofinder v1.1.0 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to <a href="n.dombrowski@uva.nl">Nina Dombrowski</a>.</li>
 <li>Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don’t need to run this command):</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If you want to install it yourself, you can run:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /home/ndombro/personal/software</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/filip-husnik/pseudofinder.git</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> pseudofinder</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> setup.sh</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate pseudofinder</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#install a reference database, i.e. swissprot </span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> path_to_databases/uniprot</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-d</span> uniprot_sprot.fasta.gz </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ex">makeblastdb</span> <span class="at">-in</span> uniprot_sprot.fasta <span class="at">-parse_seqids</span> <span class="at">-dbtype</span> prot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="usage" class="level3">
 <h3 class="anchored" data-anchor-id="usage">Usage</h3>
-<p>Useful options:</p>
+<p>Input files:</p>
+<ul>
+<li>Pseudofinder requires the user to provide the genome in genbank format as well as a non-redundant protein database formatted for BlastP/BlastX searches. If possible, providing a reference genome allows Pseudofinder to include dN/dS calculations to identify pseudogenes.</li>
+<li>The software developers recommend genbank (.gbf/.gbk) files generated by <a href="https://github.com/tseemann/prokka">Prokka</a> with the <code>--compliant</code> and <code>--rfam</code> flags. Annotating rRNAs, tRNAs, and other ncRNAs in Prokka is recommended to eliminate any false positive ‘pseudogene’ candidates. ORFs overlapping with non-coding RNAs such as rRNA can be sometimes misannotated in databases as ‘hypothetical proteins’.</li>
+<li>Using very strict gene length cutt-offs in Pseudofinder (<code>--length_pseudo</code> &gt;0.90) should be avoided since it can lead to biased pseudogene calls in short proteins due to the signal peptide presence/absence (&lt;35 AA difference).</li>
+</ul>
+<p>Database recommendations:</p>
+<ul>
+<li>Database selection is critical to the speed and sensitivity of Pseudofinder. Users can provide any database they would like provided it is a non-redundant protein database formatted for BlastP/BlastX searches, but must keep in mind that larger databases will increase runtime while smaller databases could suffer in sensitivity if they lack relevant protein sequences. For those who don’t have manually curated databases tailored to their specific microbe, we recommend NCBI-NR (non-redundant) protein database (or similar such as SwissProt).</li>
+<li>If you have access to the bioinformatics share, then SwissProt is already installed</li>
+</ul>
+<p>More on how pseudogenes are detected and what categories are identified by Pseudofinder is described <a href="https://github.com/filip-husnik/pseudofinder/wiki/4.-How-does-Pseudofinder-detect-pseudogene-candidates%3F">here</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results/pseudofinder</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#run pseudofinder without reference</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate pseudofinder_1.1.0</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#set variable tp access the reference protein database</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="va">pseudo_db</span><span class="op">=</span><span class="st">"/zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta"</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span> 20 <span class="at">--mem</span><span class="op">=</span>10G pseudofinder.py annotate <span class="dt">\</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">--genome</span> data/prokka/GCF_000005845.gbk <span class="dt">\</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--outprefix</span> results/pseudofinder/pseudofinder <span class="dt">\</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">--database</span> <span class="va">$pseudo_db</span> <span class="at">--threads</span> 20</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Check out <a href="https://github.com/filip-husnik/pseudofinder/wiki/5.-Commands">this page</a> for more information about the individual output files.</p>
+
 
 
 </section>
 </section>
 
-</div></main> <!-- /main -->
+</div><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-syberg-olsen2022" class="csl-entry" role="listitem">
+Syberg-Olsen, Mitchell J, Arkadiy I Garber, Patrick J Keeling, John P McCutcheon, and Filip Husnik. 2022. <span>“Pseudofinder: Detection of Pseudogenes in Prokaryotic Genomes.”</span> <em>Molecular Biology and Evolution</em> 39 (7): msac153. <a href="https://doi.org/10.1093/molbev/msac153">https://doi.org/10.1093/molbev/msac153</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1164,6 +1240,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../source/metagenomics/gtdb.html" class="pagination-link  aria-label=" gtdb_tk"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">GTDB_tk</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../source/metagenomics/quast.html" class="pagination-link" aria-label="Quast">
+        <span class="nav-page-text">Quast</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -1173,7 +1261,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
 Last modified: 2024-05-07</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/template.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/pseudofinder.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
