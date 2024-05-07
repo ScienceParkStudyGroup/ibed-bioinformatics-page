@@ -13,30 +13,53 @@ bibliography: references.bib
 
 ### Introduction
 
-Prokka is a software tool to annotate bacterial, archaeal and viral (but **NOT** eukaryotic) genomes quickly and produce standards-compliant output files [@Seemann2014]. Whole genome annotation is the process of identifying features of interest in a set of genomic DNA sequences, and labeling them with useful information. Briefly, Prokka uses a two-step process for the annotation of protein coding regions: 
+Prokka is a software tool to annotate bacterial, archaeal and viral (but **NOT** eukaryotic) genomes quickly and produce standards-compliant output files [@Seemann2014]. Whole genome annotation is the process of identifying features of interest in a set of genomic DNA sequences, and labeling them with useful information. Briefly, Prokka uses a two-step process for the annotation of protein coding regions:
 
-1. protein coding regions on the genome are identified using Prodigal
-2. the function of the encoded protein is predicted by similarity to proteins in one of many protein or protein domain databases. These databases are ISfinder, NCBI Bacterial Antimicrobial Resistance Reference Gene Database and UniProtKB. 
+1.  protein coding regions on the genome are identified using Prodigal
+2.  the function of the encoded protein is predicted by similarity to proteins in one of many protein or protein domain databases. These databases are ISfinder, NCBI Bacterial Antimicrobial Resistance Reference Gene Database and UniProtKB. You can also add your own databases, such as the TIGRFAM or Pfam databases.
 
 Visit [the manual](https://github.com/tseemann/prokka) for more information.
 
 ### Installation
 
-Installed on crunchomics: No
+Installed on crunchomics: Yes,
+
+-   Prokka v1.14.6 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl). Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
 
 ```{bash}
-mamba create -n prokka
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
 
-mamba install -n prokka -c conda-forge -c bioconda -c defaults prokka
+If you want to install it yourself, you can run:
 
-mamba activate prokka
+```{bash}
+mamba create -n prokka_1.14.6 -c conda-forge -c bioconda -c defaults prokka
+
+#setup extra databases (optional, but useful for better functional assignments)
+cd /zfs/omics/projects/bioinformatics/software/miniconda3/envs/prokka_1.14.6/db/hmm
+
+wget https://ftp.ncbi.nlm.nih.gov/hmm/TIGRFAMs/release_15.0/TIGRFAMs_15.0_HMM.LIB.gz
+gzip -d TIGRFAMs_15.0_HMM.LIB.gz
+mv TIGRFAMs_15.0_HMM.LIB 1-TIGRFAMs_15.0.hmm
+
+wget ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.gz
+gzip -d Pfam-A.hmm.gz 
+mv Pfam-A.hmm 2-Pfam-A.hmm
+
+mv HAMAP.hmm 3-HAMAP.hmm
+
+prokka --setupdb
+
+conda deactivate
 ```
 
 ## Usage
 
-Let's assume you downloaded a genome from NCBI and want to annotate the genome.
+Let's assume you downloaded a genome from NCBI and want to annotate the genome or if you have a set of MAGs and you want to identify the coding regions.
 
-Required input: The contigs from a genome of interest Generated output:
+Required input: The contigs from a genome of interest
+
+Generated output:
 
 -   `.gff` This is the master annotation in GFF3 format, containing both sequences and annotations. It can be viewed directly in Artemis or IGV.
 -   `.gbk` This is a standard Genbank file derived from the master .gff. If the input to prokka was a multi-FASTA, then this will be a multi-Genbank, with one record for each sequence.
@@ -51,22 +74,22 @@ Required input: The contigs from a genome of interest Generated output:
 -   `.txt` Statistics relating to the annotated features found.
 -   `.tsv` Tab-separated file of all features: locus_tag,ftype,len_bp,gene,EC_number,COG,product
 
-
 ```{bash}
 mkdir data 
 
 #download genome 
 wget -O - https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz | gzip -d > data/GCF_000005845.2_ASM584v2_genomic.fna
 
+conda activate prokka_1.14.6 
+
 prokka \
     --outdir data/prokka \
     --prefix GCF_000005845 \
     data/GCF_000005845.2_ASM584v2_genomic.fna \
     --cpus 4 --kingdom Bacteria
+
+conda deactivate
 ```
-
-
-Options:
 
 For a list of all options, visit [the manual](https://github.com/tseemann/prokka). Some key options are:
 
@@ -81,5 +104,6 @@ For a list of all options, visit [the manual](https://github.com/tseemann/prokka
 -   `--metagenome` Improve gene predictions for highly fragmented genomes (default OFF)
 -   `--norrna` Don't run rRNA search (default OFF)
 -   `--notrna` Don't run tRNA search (default OFF)
+-   `--compliant`: Force Genbank/ENA/DDJB compliance: --addgenes --mincontiglen 200 --centre XXX (default OFF). This setting can be useful if you need a specific format for downstream analyses.
 
 Unsure what genetic code/translation table to use? Check out [wikipedia](https://en.wikipedia.org/wiki/List_of_genetic_codes). You mainly need to watch out for this when working with mitochondria, mycoplasma and spiroplasma.

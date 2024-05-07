@@ -613,14 +613,15 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="flye">Flye</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>Flye is a de novo assembler for single-molecule sequencing reads, such as those produced by PacBio and Oxford Nanopore Technologies<span class="citation" data-cites="kolmogorov2019">(<a href="#ref-kolmogorov2019" role="doc-biblioref">Kolmogorov et al. 2019</a>)</span>. It is designed for a wide range of datasets, from small bacterial projects to large mammalian-scale assemblies. The package represents a complete pipeline: it takes raw PacBio / ONT reads as input and outputs polished contigs. Flye also has a special mode for metagenome assembly.</p>
+<p>Flye is a de novo assembler for single-molecule sequencing reads, such as those produced by PacBio and Oxford Nanopore Technologies <span class="citation" data-cites="kolmogorov2019">(<a href="#ref-kolmogorov2019" role="doc-biblioref">Kolmogorov et al. 2019</a>)</span>. It is designed for a wide range of datasets, from small bacterial projects to large mammalian-scale assemblies. The package represents a complete pipeline: it takes raw PacBio / ONT reads as input and outputs polished contigs. Flye also has a special mode for metagenome assembly.</p>
 <p>For more information, please visit <a href="https://github.com/fenderglass/Flye">this page</a>.</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
 <p>Installed on crunchomics: Yes,</p>
 <ul>
-<li>Flye v2.9.3 is installed as part of the bioinformatics share as part of the Trycycler conda environment. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to <a href="n.dombrowski@uva.nl">Nina Dombrowski</a>. Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don’t need to run this command):</li>
+<li>Flye v2.9.3 is installed as part of the bioinformatics share as part of the trycycler_0.5.5 conda environment. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to <a href="n.dombrowski@uva.nl">Nina Dombrowski</a>.</li>
+<li>Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don’t need to run this command):</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -647,8 +648,14 @@ div.csl-indent {
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Notice: - There are different options, that you can use for different long-read datasets - <code>--nano-raw</code> is suitable for data generated with the R9 technology</p>
-<p>For metagenomes: - Use the <code>--meta</code> option</p>
+<p>Notice:</p>
+<ul>
+<li>There are different options, that you can use for different long-read datasets
+<ul>
+<li><code>--nano-raw</code> is suitable for data generated with the R9 technology</li>
+</ul></li>
+<li>Use the <code>--meta</code> option if you work with metagenomes</li>
+</ul>
 <p>For a full set of options, visit the <a href="https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md">manual</a> and also have a look at the <a href="https://github.com/fenderglass/Flye/blob/flye/docs/FAQ.md">FAQ</a> for commonly asked questions.</p>
 
 
