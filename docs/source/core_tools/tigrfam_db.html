@@ -84,8 +84,7 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/core_tools/tigrfam_db.html" rel="next">
-<link href="../../source/ITSx/itsx_readme.html" rel="prev">
+<link href="../../source/core_tools/pgap_db.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -138,7 +137,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/pfam_db.html">Bioinformatic databases</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/pfam_db.html">Pfam database</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/pfam_db.html">Bioinformatic databases</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/tigrfam_db.html">Tool</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -594,13 +593,19 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/pfam_db.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../source/core_tools/pfam_db.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pfam database</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/tigrfam_db.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/pgap_db.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PGAP</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/tigrfam_db.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Tool</span></a>
   </div>
 </li>
@@ -618,13 +623,13 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#pfam-database" id="toc-pfam-database" class="nav-link active" data-scroll-target="#pfam-database">Pfam database</a>
+  <li><a href="#tool" id="toc-tool" class="nav-link active" data-scroll-target="#tool">Tool</a>
   <ul>
-  <li><a href="#general-info" id="toc-general-info" class="nav-link" data-scroll-target="#general-info">General info</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/pfam_db.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/tigrfam_db.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -637,28 +642,28 @@ div.csl-indent {
 
 <div style="text-align: justify">
 
-<section id="pfam-database" class="level2">
-<h2 class="anchored" data-anchor-id="pfam-database">Pfam database</h2>
-<section id="general-info" class="level3">
-<h3 class="anchored" data-anchor-id="general-info">General info</h3>
-<p>Pfam is a collection of protein family alignments which were constructed semi-automatically using hidden Markov models (HMMs) <span class="citation" data-cites="bateman2004">(<a href="#ref-bateman2004" role="doc-biblioref">Bateman et al. 2004</a>)</span>. Sequences that are not covered by Pfam are clustered, aligned and automatically and released as Pfam-B. Pfam-B used to be integrated into the Pfam website, in addition to being available as a flatfile. It was discontinued from Pfam 28.0 to Pfam 33.0. As of Pfam 33.1,Pfam-B entries are available as a tar archive of alignments. Pfam families have permanent accession numbers and contain functional annotation and cross-references to other databases, while Pfam-B families are re-generated at each release and are unannotated.</p>
-<p>Pfam is available on the web at:</p>
-<p>https://www.ebi.ac.uk/interpro/</p>
+<section id="tool" class="level2">
+<h2 class="anchored" data-anchor-id="tool">Tool</h2>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>The original TIGRFAMs database was a research project of The Institute for Genomic Research (TIGR) and its successor, the J. Craig Venter Institute (<a href="https://www.jcvi.org/">JCVI</a>) <span class="citation" data-cites="haft2003">(<a href="#ref-haft2003" role="doc-biblioref">Haft, Selengut, and White 2003</a>)</span>. TIGRFAMs is a collection of manually curated protein families focusing primarily on prokaryotic sequences. It consists of hidden Markov models (HMMs), multiple sequence alignments, Gene Ontology (GO) terminology, Enzyme Commission (EC) numbers, gene symbols, protein family names, descriptive text, cross-references to related models in TIGRFAMs and other databases, and pointers to literature.</p>
+<p>The TIGRFAMs database was transferred in April 2018 to the National Center for Biotechnology Information (NCBI), which now holds the creative commons license to this data and is responsible for maintaining and distributing this intellectual property. The database is used in NCBI’s Prokaryotic Genome Annotation Pipeline for GenBank and RefSeq sequence annotation, and curators continue to revise existing models.</p>
+<p>Notice: Release 15.0 (January 2013) was the last full release of TIGRFAMs from JCVI and newer versions are maintained by NCBI. The up-to-date versions of all TIGRFAM models are available for download by <a href="https://ftp.ncbi.nlm.nih.gov/hmm/current/">FTP</a> as a component of the <a href="https://ftp.ncbi.nlm.nih.gov/hmm/current/">current release of PGAP HMMs</a>. They are recognizable by an accession number beginning with “TIGR”, or by the source designation “JCVI”</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
 <p>Available on crunchomics: Yes,</p>
 <ul>
-<li>Pfam is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to <a href="n.dombrowski@uva.nl">Nina Dombrowski</a>.</li>
+<li>TIGRFAM is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to <a href="n.dombrowski@uva.nl">Nina Dombrowski</a>.</li>
 </ul>
-<p>The Pfam database can be found here:</p>
+<p>The TIGRFAMs database can be found here:</p>
 <ul>
-<li><code>/zfs/omics/projects/bioinformatics/databases/pfam/release_36.0/</code>.</li>
+<li><code>/zfs/omics/projects/bioinformatics/databases/tigrfam/release_15.0</code>.</li>
 </ul>
 <p>If you want to download the database yourself, you can do:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.gz</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-d</span> Pfam-A.hmm.gz </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/hmm/TIGRFAMs/release_15.0/TIGRFAMs_15.0_HMM.LIB.gz</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-d</span> TIGRFAMs_15.0_HMM.LIB.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -667,8 +672,8 @@ div.csl-indent {
 </section>
 
 </div><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-bateman2004" class="csl-entry" role="listitem">
-Bateman, Alex, Lachlan Coin, Richard Durbin, Robert D. Finn, Volker Hollich, Sam Griffiths-Jones, Ajay Khanna, et al. 2004. <span>“The Pfam Protein Families Database.”</span> <em>Nucleic Acids Research</em> 32 (suppl<span>_</span>1): D138–41. <a href="https://doi.org/10.1093/nar/gkh121">https://doi.org/10.1093/nar/gkh121</a>.
+<div id="ref-haft2003" class="csl-entry" role="listitem">
+Haft, Daniel H., Jeremy D. Selengut, and Owen White. 2003. <span>“The TIGRFAMs Database of Protein Families.”</span> <em>Nucleic Acids Research</em> 31 (1): 371–73. <a href="https://doi.org/10.1093/nar/gkg128">https://doi.org/10.1093/nar/gkg128</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1222,14 +1227,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/ITSx/itsx_readme.html" class="pagination-link  aria-label=" itsx"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">ITSx</span>
+      <a href="../../source/core_tools/pgap_db.html" class="pagination-link  aria-label=" pgap"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">PGAP</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/core_tools/tigrfam_db.html" class="pagination-link" aria-label="Tool">
-        <span class="nav-page-text">Tool</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
@@ -1241,7 +1243,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
 Last modified: 2024-05-07</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/pfam_db.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/tigrfam_db.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

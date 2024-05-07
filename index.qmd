@@ -86,3 +86,5 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 ## Useful databases A-Z
 
 - [Pfam](source/core_tools/pfam_db.qmd)
+- [PGAP database](source/core_tools/pgap_db.qmd)
+- [TIGRFAM](source/core_tools/tigrfam_db.qmd)

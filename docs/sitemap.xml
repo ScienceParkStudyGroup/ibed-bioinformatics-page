@@ -98,7 +98,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
-    <lastmod>2024-05-07T08:02:51.937Z</lastmod>
+    <lastmod>2024-05-07T08:30:28.313Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/ITSx/itsx_readme.html</loc>
@@ -206,6 +206,14 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/pfam_db.html</loc>
-    <lastmod>2024-05-07T08:02:26.486Z</lastmod>
+    <lastmod>2024-05-07T08:12:57.215Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/tigrfam_db.html</loc>
+    <lastmod>2024-05-07T08:28:58.537Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/pgap_db.html</loc>
+    <lastmod>2024-05-07T08:30:25.198Z</lastmod>
   </url>
 </urlset>
