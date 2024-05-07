@@ -11,46 +11,44 @@ bibliography: references.bib
 
 ## CheckM2
 
-CheckM2 is a software to assess the quality (completeness, contamination, coding density, etc.) of a genome assembly [@chklovski]. For more information, check out the softwares \[github page\](<https://github.com/chklovski/CheckM2>).
+CheckM2 is a software to assess the quality (completeness, contamination, coding density, etc.) of a genome assembly [@chklovski]. Unlike CheckM1, CheckM2 has universally trained machine learning models it applies regardless of taxonomic lineage to predict the completeness and contamination of genomic bins. This allows it to incorporate many lineages in its training set that have few - or even just one - high-quality genomic representatives, by putting it in the context of all other organisms in the training set. As a result of this machine learning framework, CheckM2 is also highly accurate on organisms with reduced genomes or unusual biology, such as the Nanoarchaeota or Patescibacteria.
+
+For more information, check out the tools [github page](#0).
 
 ### Introduction
 
 ### Installation
 
-Installed on crunchomics: No
+Installed on crunchomics: Yes,
+
+-   CheckM2 v1.0.1 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl). Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
 
 If you want to install it yourself, you can run:
 
 ```{bash}
-#setup a conda environment 
-conda create -n checkm2 -c bioconda -c conda-forge checkm2
+mamba create -p /zfs/omics/projects/bioinformatics/software/miniconda3/envs/checkm2_1.0.1 -c bioconda -c conda-forge checkm2=1.0.1
 
-#activate the environment
-conda activate checkm2 
+conda activate checkm2_1.0.1 
 
-#You will also need to download and install the external DIAMOND database CheckM2 relies on for rapid annotation
-#change the custom path to a location in your personal folder, i.e. ~personal/db/
-checkm2 database --download --path /custom/path/
+#install right python version, otherwise you get a class error
+mamba install python=3.8 
 
-#The database path can also be set by setting the environmental variable CHECKM2DB using
-export CHECKM2DB="path/to/database"
+#install database 
+checkm2 database --download --path /zfs/omics/projects/bioinformatics/databases/checkm
 
-#test that everything went ok (can take up to 5 min to run)
-checkm2 testrun 
-
-conda deactivate
+#do test run 
+checkm2 testrun
 ```
-
-Notice:
-
-The `--database_path` can be used with checkm2 predict to provide an already downloaded checkm2 database during a single predict run, e.g. `checkm2 predict -i ./folder_with_MAGs -o ./output_folder --database_path /path/to/database/CheckM2_database/uniref100.KO.1.dmnd`
-
 
 ### Usage
 
 ```{bash}
 #run checkm2
-conda activate checkm2
+conda activate checkm2_1.0.1
 
 checkm2 predict --threads 30 \
   --input  folder_with_genomes_to_analyse/  \
@@ -60,4 +58,21 @@ checkm2 predict --threads 30 \
 conda deactivate
 ```
 
+After running this, you fill find all relevant information in the `quality_report.tsv` file in the output folder.
+
+Useful options (for a full list, use the help function):
+
+-   `--genes` : Treat input files as protein files. \[Default: False\]
+-   `-x EXTENSION`, `--extension` EXTENSION: Extension of input files. \[Default: .fna\]
+-   `--tmpdir` TMPDIR : specify an alternative directory for temporary files
+-   `--force`: overwrite output directory \[default: not set\]
+-   `--resume`: Reuse Prodigal and DIAMOND results found in output directory \[default: not set\]
+-   `--threads` num_threads, `-t` num_threads: number of CPUS to use \[default: 1\]
+-   `--ttable` ttable: Provide a specific prodigal translation table for bins \[default: automatically determine either 11 or 4\]
+
 For more information, please visit the [manual](https://github.com/chklovski/CheckM2).
+
+### Common Issues and Solutions
+
+-   **Issue 1:** Running out of memory
+    -   Solution 1: If you are running CheckM2 on a device with limited RAM, you can use the `--lowmem` option to reduce DIAMOND RAM use by half at the expense of longer runtime.

@@ -17,16 +17,17 @@ GTDB_Tk is a software toolkit for assigning objective taxonomic classifications 
 
 ### Installation
 
-Installed on crunchomics: Yes, GTDB_Tk v2.3.2 is installed as part of the bioinformatics share. If you have access to crunchomics you can be added to the bioinformatics share by sending an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl). Additionally, the GTDB r214 database that is compatible with GTDB_Tk v2.3.2 is installed on the metatools share. To get acccess to metatools, send an email with your Uva netID to Anna Heintz Buschart [a.u.s.heintzbuschart\@uva.nl](mailto:a.u.s.heintzbuschart@uva.nl){.email}. 
+Installed on crunchomics: Yes,
 
-After you were added to the bioinformatics and metatools share, you can add the conda environments that are installed in these shares as follows:
+-   GTDB_Tk v2.3.2 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).
+-   Additionally, the GTDB r214 database that is compatible with GTDB_Tk v2.3.2 is installed on the metatools share. To get access to metatools, send an email with your Uva netID to Anna Heintz Buschart [a.u.s.heintzbuschart\@uva.nl](mailto:a.u.s.heintzbuschart@uva.nl){.email}.
+
+After you were added to the bioinformatics and metatools share, you can add the conda environments that are installed in these shares as follows (if you have already done this in the past, you don't need to run these commands):
 
 ```{bash}
 conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
 conda config --add envs_dirs /zfs/omics/projects/metatools/TOOLS/miniconda3/envs/
 ```
-
-GTDB_tk 2.4.0 is already installed on the bioinformatics share, however, it is lacking the compatible GTDB r220 database at the moment. If you want to use this version, feel free to contact [Nina Dombrowski](n.dombrowski@uva.nl) in order to get instructions how to download the database.
 
 If you want to install it yourself, you can run:
 
@@ -35,11 +36,17 @@ GTDB_tk 2.3.2:
 ```{bash}
 mamba create --name gtdbtk_2.3.2 -c bioconda gtdbtk=2.3.2
 
+#download the GDTB database (beware its quite large)
+cd my_download_folder
+wget https://data.gtdb.ecogenomic.org/releases/release214/214.0/auxillary_files/gtdbtk_r214_data.tar.gz 
+tar xvzf gtdbtk_r214_data.tar.gz
+
 #link data to gtdbtk
 conda activate gtdbtk_2.3.2
-conda env config vars set GTDBTK_DATA_PATH="/zfs/omics/projects/metatools/DB/GTDB_tk/GTDB_tk_r214";
+conda env config vars set GTDBTK_DATA_PATH="my_download_folder/GTDB_tk_r214";
 conda deactivate
 
+#check that the install went ok
 conda activate gtdbtk_2.3.2
 gtdbtk check_install
 conda deactivate
@@ -58,6 +65,7 @@ tar xvzf gtdbtk_data.tar.gz
 #link data to gtdbtk
 conda activate gtdbtk_2.4.0
 conda env config vars set GTDBTK_DATA_PATH="/zfs/omics/projects/metatools/DB/GTDB_tk/GTDB_tk_r214";
+conda deactivate
 ```
 
 ### Usage
@@ -74,6 +82,11 @@ gtdbtk classify_wf --genome_dir  data/genomes/fna/ \
 
 conda deactivate
 ```
+
+The file `gtdbtk.bac120.summary.tsv` will contain key information about the taxonomic assignment of your genome(s).
+
+For a full set of options and description how the tool works, please visit the [manual](https://ecogenomics.github.io/GTDBTk/).
+
 
 ### Common Issues and Solutions
 

@@ -50,7 +50,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/checkm2.html</loc>
-    <lastmod>2024-05-06T15:53:06.914Z</lastmod>
+    <lastmod>2024-05-07T05:06:36.714Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/seqkit.html</loc>
@@ -98,7 +98,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
-    <lastmod>2024-05-06T15:58:15.106Z</lastmod>
+    <lastmod>2024-05-07T05:27:15.837Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/ITSx/itsx_readme.html</loc>
@@ -154,7 +154,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/flye.html</loc>
-    <lastmod>2024-05-06T14:22:21.836Z</lastmod>
+    <lastmod>2024-05-07T05:27:09.762Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/metabolic.html</loc>
@@ -195,5 +195,9 @@
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/tax/gtdb.html</loc>
     <lastmod>2024-05-06T16:09:06.457Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/gtdb.html</loc>
+    <lastmod>2024-05-07T05:21:22.996Z</lastmod>
   </url>
 </urlset>

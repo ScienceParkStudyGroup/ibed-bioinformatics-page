@@ -84,8 +84,8 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/metagenomics/checkm2.html" rel="next">
-<link href="../../source/nanopore/nanophase_how_to.html" rel="prev">
+<link href="../../source/metagenomics/quast.html" rel="next">
+<link href="../../source/metagenomics/checkm2.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -138,7 +138,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/nanopore/nanophase_how_to.html">(Meta)genomics</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/flye.html">Flye</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/nanopore/nanophase_how_to.html">(Meta)genomics</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/gtdb.html">GTDB_tk</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -418,7 +418,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/flye.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../source/metagenomics/flye.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Flye</span></a>
   </div>
 </li>
@@ -430,7 +430,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/gtdb.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/gtdb.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">GTDB_tk</span></a>
   </div>
 </li>
@@ -589,14 +589,15 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#flye" id="toc-flye" class="nav-link active" data-scroll-target="#flye">Flye</a>
+  <li><a href="#gtdb_tk" id="toc-gtdb_tk" class="nav-link active" data-scroll-target="#gtdb_tk">GTDB_tk</a>
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
   <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
+  <li><a href="#common-issues-and-solutions" id="toc-common-issues-and-solutions" class="nav-link" data-scroll-target="#common-issues-and-solutions">Common Issues and Solutions</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/flye.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/gtdb.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -609,47 +610,88 @@ div.csl-indent {
 
 <div style="text-align: justify">
 
-<section id="flye" class="level2">
-<h2 class="anchored" data-anchor-id="flye">Flye</h2>
+<section id="gtdb_tk" class="level2">
+<h2 class="anchored" data-anchor-id="gtdb_tk">GTDB_tk</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>Flye is a de novo assembler for single-molecule sequencing reads, such as those produced by PacBio and Oxford Nanopore Technologies<span class="citation" data-cites="kolmogorov2019">(<a href="#ref-kolmogorov2019" role="doc-biblioref">Kolmogorov et al. 2019</a>)</span>. It is designed for a wide range of datasets, from small bacterial projects to large mammalian-scale assemblies. The package represents a complete pipeline: it takes raw PacBio / ONT reads as input and outputs polished contigs. Flye also has a special mode for metagenome assembly.</p>
-<p>For more information, please visit <a href="https://github.com/fenderglass/Flye">this page</a>.</p>
+<p>GTDB_Tk is a software toolkit for assigning objective taxonomic classifications to bacterial and archaeal genomes <span class="citation" data-cites="chaumeil2019">(<a href="#ref-chaumeil2019" role="doc-biblioref">Chaumeil et al. 2019</a>)</span>. It uses the GTDB database to assign your genome(s) of interest to a taxonomy <span class="citation" data-cites="parks2020">(<a href="#ref-parks2020" role="doc-biblioref">Parks et al. 2020</a>)</span>. For more information, visit the tool`s <a href="https://github.com/Ecogenomics/GTDBTk">github</a> and <a href="https://ecogenomics.github.io/GTDBTk/">website</a>.</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
 <p>Installed on crunchomics: Yes,</p>
 <ul>
-<li>Flye v2.9.3 is installed as part of the bioinformatics share as part of the Trycycler conda environment. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to <a href="n.dombrowski@uva.nl">Nina Dombrowski</a>. Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don’t need to run this command):</li>
+<li>GTDB_Tk v2.3.2 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to <a href="n.dombrowski@uva.nl">Nina Dombrowski</a>.</li>
+<li>Additionally, the GTDB r214 database that is compatible with GTDB_Tk v2.3.2 is installed on the metatools share. To get access to metatools, send an email with your Uva netID to Anna Heintz Buschart <a href="mailto:a.u.s.heintzbuschart@uva.nl" class="email">a.u.s.heintzbuschart@uva.nl</a>.</li>
 </ul>
+<p>After you were added to the bioinformatics and metatools share, you can add the conda environments that are installed in these shares as follows (if you have already done this in the past, you don’t need to run these commands):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/metatools/TOOLS/miniconda3/envs/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If you want to install it yourself, you can run:</p>
+<p>GTDB_tk 2.3.2:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> flye_v2.9.3</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">--name</span> gtdbtk_2.3.2 <span class="at">-c</span> bioconda gtdbtk=2.3.2</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate flye_v2.9.3</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install <span class="at">-c</span> bioconda flye</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#download the GDTB database (beware its quite large)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> my_download_folder</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://data.gtdb.ecogenomic.org/releases/release214/214.0/auxillary_files/gtdbtk_r214_data.tar.gz </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> xvzf gtdbtk_r214_data.tar.gz</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#link data to gtdbtk</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate gtdbtk_2.3.2</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env config vars set GTDBTK_DATA_PATH=<span class="st">"my_download_folder/GTDB_tk_r214"</span><span class="kw">;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#check that the install went ok</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate gtdbtk_2.3.2</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="ex">gtdbtk</span> check_install</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>GTDB_tk 2.4.0:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-p</span> /zfs/omics/projects/bioinformatics/software/miniconda3/envs/gtdbtk_2.4.0 <span class="at">-c</span> bioconda gtdbtk=2.4.0</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#get gtdb data, v220 </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /zfs/omics/projects/bioinformatics/databases/gtdb</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://data.gtdb.ecogenomic.org/releases/latest/auxillary_files/gtdbtk_package/full_package/gtdbtk_data.tar.gz</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> xvzf gtdbtk_data.tar.gz </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#link data to gtdbtk</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate gtdbtk_2.4.0</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env config vars set GTDBTK_DATA_PATH=<span class="st">"/zfs/omics/projects/metatools/DB/GTDB_tk/GTDB_tk_r214"</span><span class="kw">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="usage" class="level3">
 <h3 class="anchored" data-anchor-id="usage">Usage</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate trycycler_0.5.5</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#run flye on long read nanopore data</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">flye</span> <span class="at">--nano-raw</span>  my_data.fastq.gz <span class="dt">\</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--iterations</span> 2 <span class="dt">\</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> results/assembly/flye_v1 <span class="dt">\</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">-t</span> 30</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> results/gtdb </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate gtdbtk_2.3.2</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">gtdbtk</span> classify_wf <span class="at">--genome_dir</span>  data/genomes/fna/ <span class="dt">\</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--out_dir</span> results/gtdb <span class="dt">\</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>   <span class="at">--mash_db</span> /zfs/omics/projects/metatools/DB/GTDB_tk/GTDB_tk_r214/mash/ <span class="dt">\</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--cpus</span> 20</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Notice: - There are different options, that you can use for different long-read datasets - <code>--nano-raw</code> is suitable for data generated with the R9 technology</p>
-<p>For metagenomes: - Use the <code>--meta</code> option</p>
-<p>For a full set of options, visit the <a href="https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md">manual</a> and also have a look at the <a href="https://github.com/fenderglass/Flye/blob/flye/docs/FAQ.md">FAQ</a> for commonly asked questions.</p>
+<p>The file <code>gtdbtk.bac120.summary.tsv</code> will contain key information about the taxonomic assignment of your genome(s).</p>
+<p>For a full set of options and description how the tool works, please visit the <a href="https://ecogenomics.github.io/GTDBTk/">manual</a>.</p>
+</section>
+<section id="common-issues-and-solutions" class="level3">
+<h3 class="anchored" data-anchor-id="common-issues-and-solutions">Common Issues and Solutions</h3>
+<ul>
+<li><strong>Issue 1:</strong> Running out of memory as described <a href="https://ecogenomics.github.io/GTDBTk/faq.html">here</a>
+<ul>
+<li>Solution 1: Use <code>--scratch_dir</code> and <code>--pplacer_cpus 1</code></li>
+</ul></li>
+<li><strong>Issue 2:</strong> Using a gtdbtk version with the incorrect database
+<ul>
+<li>Solution 2: Ensure that you use the right gtdbtk-db combination, as listed <a href="https://ecogenomics.github.io/GTDBTk/installing/index.html">here</a></li>
+</ul></li>
+</ul>
 
 
 
@@ -657,8 +699,11 @@ div.csl-indent {
 </section>
 
 </div><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-kolmogorov2019" class="csl-entry" role="listitem">
-Kolmogorov, Mikhail, Jeffrey Yuan, Yu Lin, and Pavel A. Pevzner. 2019. <span>“Assembly of Long, Error-Prone Reads Using Repeat Graphs.”</span> <em>Nature Biotechnology</em> 37 (5): 540546. <a href="https://doi.org/10.1038/s41587-019-0072-8">https://doi.org/10.1038/s41587-019-0072-8</a>.
+<div id="ref-chaumeil2019" class="csl-entry" role="listitem">
+Chaumeil, Pierre-Alain, Aaron J. Mussig, Philip Hugenholtz, and Donovan H. Parks. 2019. <span>“GTDB-Tk: A Toolkit to Classify Genomes with the Genome Taxonomy Database.”</span> <em>Bioinformatics (Oxford, England)</em>, November. <a href="https://doi.org/10.1093/bioinformatics/btz848">https://doi.org/10.1093/bioinformatics/btz848</a>.
+</div>
+<div id="ref-parks2020" class="csl-entry" role="listitem">
+Parks, Donovan H., Maria Chuvochina, Pierre-Alain Chaumeil, Christian Rinke, Aaron J. Mussig, and Philip Hugenholtz. 2020. <span>“A Complete Domain-to-Species Taxonomy for Bacteria and Archaea.”</span> <em>Nature Biotechnology</em> 38 (9): 1079–86. <a href="https://doi.org/10.1038/s41587-020-0501-8">https://doi.org/10.1038/s41587-020-0501-8</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1212,13 +1257,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/nanopore/nanophase_how_to.html" class="pagination-link  aria-label=" nanophase"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Nanophase</span>
+      <a href="../../source/metagenomics/checkm2.html" class="pagination-link  aria-label=" checkm2"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">CheckM2</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/metagenomics/checkm2.html" class="pagination-link" aria-label="CheckM2">
-        <span class="nav-page-text">CheckM2</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/metagenomics/quast.html" class="pagination-link" aria-label="Quast">
+        <span class="nav-page-text">Quast</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1231,7 +1276,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
 Last modified: 2024-05-07</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/flye.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/gtdb.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

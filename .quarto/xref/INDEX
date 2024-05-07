@@ -182,5 +182,8 @@
   },
   "source/metagenomics/checkm2.qmd": {
     "checkm2.html": "37a7620f"
+  },
+  "source/metagenomics/gtdb.qmd": {
+    "gtdb.html": "a393ed01"
   }
 }

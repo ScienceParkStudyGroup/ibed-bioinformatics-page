@@ -98,10 +98,6 @@ website:
               - source/metagenomics/fama_readme.qmd
               - source/metagenomics/metabolic.qmd
 
-          - section: "Taxonomy/phylogenies"
-            contents:
-              - source/tax/gtdb.qmd
-
           - section: "Amplicon analyses"
             href: source/Qiime/readme.qmd
             contents:
@@ -113,8 +109,8 @@ website:
               - source/nanopore/nanophase_how_to.qmd
               - source/metagenomics/flye.qmd
               - source/metagenomics/checkm2.qmd
+              - source/metagenomics/gtdb.qmd
               - source/metagenomics/quast.qmd
-              - source/tax/gtdb.qmd
               - source/metagenomics/motus.qmd
 
           - section: "(Meta)transcriptomics"

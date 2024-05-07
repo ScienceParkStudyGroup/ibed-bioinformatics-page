@@ -13,11 +13,20 @@ bibliography: references.bib
 
 ### Introduction
 
-Flye is a de novo assembler for single-molecule sequencing reads, such as those produced by PacBio and Oxford Nanopore Technologies. For more information, please visit [this page](https://github.com/fenderglass/Flye) [@kolmogorov2019].
+Flye is a de novo assembler for single-molecule sequencing reads, such as those produced by PacBio and Oxford Nanopore Technologies [@kolmogorov2019]. It is designed for a wide range of datasets, from small bacterial projects to large mammalian-scale assemblies. The package represents a complete pipeline: it takes raw PacBio / ONT reads as input and outputs polished contigs. Flye also has a special mode for metagenome assembly.
+
+For more information, please visit [this page](https://github.com/fenderglass/Flye).
 
 ### Installation
 
-Installed on crunchomics: Not yet
+Installed on crunchomics: Yes,
+
+-   Flye v2.9.3 is installed as part of the bioinformatics share as part of the trycycler_0.5.5 conda environment. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).
+-   Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
 
 If you want to install it yourself, you can run:
 
@@ -32,19 +41,21 @@ mamba deactivate
 ### Usage
 
 ```{bash}
+conda activate trycycler_0.5.5
+
 #run flye on long read nanopore data
 flye --nano-raw  my_data.fastq.gz \
   --iterations 2 \
   -o results/assembly/flye_v1 \
   -t 30
+
+conda deactivate
 ```
 
 Notice:
 
 -   There are different options, that you can use for different long-read datasets
-
     -   `--nano-raw` is suitable for data generated with the R9 technology
+-   Use the `--meta` option if you work with metagenomes
 
-For metagenomes:
-
--   Use the `--meta` option
+For a full set of options, visit the [manual](https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md) and also have a look at the [FAQ](https://github.com/fenderglass/Flye/blob/flye/docs/FAQ.md) for commonly asked questions.
