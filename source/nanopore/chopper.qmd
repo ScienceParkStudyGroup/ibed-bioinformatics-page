@@ -38,12 +38,12 @@ Output:
 Example usage:
 
 ```{bash}
-chopper -q 10 \
-        --headcrop 0 \
-        --tailcrop 0   \
-        -l 250 \
-        --maxlength 3000  \
-        --threads 1 
+gunzip -c results/porechop/my_reads.fastq.gz |\
+    chopper -q 10 \
+    --headcrop 0 --tailcrop 0  \
+    -l 1000 \
+    --threads 20 |\
+    gzip > results/chopper/my_reads_filtered1000.fastq.gz
 ```
 
 Useful arguments:
