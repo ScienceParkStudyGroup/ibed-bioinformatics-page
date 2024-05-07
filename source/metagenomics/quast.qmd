@@ -13,11 +13,16 @@ bibliography: references.bib
 
 ### Introduction
 
-Quast is a quality assessment tools for genome assemblies [@gurevich2013]. For more information, visit the [official website](https://quast.sourceforge.net/) as well as the [manual](https://quast.sourceforge.net/docs/manual.html).
+QUAST stands for QUality ASsessment Tool [@gurevich2013]. The tool evaluates genome assemblies by computing various metrics. This tool has different mpdules including the general QUAST tool for genome assemblies, MetaQUAST, the extension for metagenomic datasets, QUAST-LG, the extension for large genomes (e.g., mammalians), and Icarus, the interactive visualizer for these tools.  
+
+For more information, visit the [official website](https://quast.sourceforge.net/) as well as the [manual](https://quast.sourceforge.net/docs/manual.html).
 
 ### Installation
 
-Installed on crunchomics: Yes, Quast v5.2.0 is installed as part of the bioinformatics share. If you have access to crunchomics you can be added to the bioinformatics share by sending an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl). Afterwards, you can add the conda environments that are installed in the bioinformatics conda share as follows:
+Installed on crunchomics: Yes, 
+
+- Quast v5.2.0 is installed as part of the bioinformatics share. If you have access to crunchomics you can be added to the bioinformatics share by sending an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl). 
+-   Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
 
 ```{bash}
 conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
@@ -70,6 +75,8 @@ srun --cpus-per-task 20 --mem=50G quast.py \
 
 conda deactivate 
 ```
+
+For more information about the different modules, please visit [the manual](https://quast.sourceforge.net/docs/manual.html).
 
 ### Common Issues and Solutions
 

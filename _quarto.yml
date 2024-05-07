@@ -141,6 +141,7 @@ website:
           
           - section: "Bioinformatic databases"
             contents:
+              - source/core_tools/kegg_db.qmd
               - source/core_tools/pfam_db.qmd
               - source/core_tools/pgap_db.qmd
               - source/core_tools/tigrfam_db.qmd

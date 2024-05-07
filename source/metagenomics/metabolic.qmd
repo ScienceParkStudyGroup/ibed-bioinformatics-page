@@ -145,6 +145,8 @@ Required/Optional flags:
 Some example files for testing can be found in `METABOLIC_test_files/`.
 
 ```{python}
+conda activate METABOLIC_v4.0
+
 #print the help information
 perl METABOLIC-C.pl -help
 
@@ -154,6 +156,8 @@ perl METABOLIC-G.pl -in-gn METABOLIC_test_files/Guaymas_Basin_genome_files/ -o t
 
 #run workflow on metagenomic fastq files
 perl METABOLIC-C.pl -test true
+
+conda deactivate
 ```
 
 ### References

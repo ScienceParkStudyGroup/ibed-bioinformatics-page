@@ -197,5 +197,8 @@
   },
   "source/core_tools/pgap_db.qmd": {
     "pgap_db.html": "8c466a13"
+  },
+  "source/core_tools/kegg_db.qmd": {
+    "kegg_db.html": "c81535fe"
   }
 }

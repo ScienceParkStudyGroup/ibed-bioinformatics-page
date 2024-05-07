@@ -24,7 +24,8 @@ Visit [the manual](https://github.com/tseemann/prokka) for more information.
 
 Installed on crunchomics: Yes,
 
--   Prokka v1.14.6 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl). Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+-   Prokka v1.14.6 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl). 
+-   Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
 
 ```{bash}
 conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/

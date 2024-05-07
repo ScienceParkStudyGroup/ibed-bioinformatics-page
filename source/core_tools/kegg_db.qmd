@@ -1,0 +1,70 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## KOfam database
+
+### Introduction
+
+[Kyoto Encyclopedia of Genes and Genomes (KEGG)](https://www.genome.jp/kegg/) is a widely used reference knowledge base, which helps investigate genomic functions by linking genes to biological knowledge such as metabolic pathways and molecular networks [@aramaki2020]. In KEGG, the KEGG Orthology (KO) database—a manually curated large collection of protein families (i.e. KO families)—serves as a baseline reference to link genes with other KEGG resources such as metabolic maps through K number identifiers.
+
+KOfam is a profile hidden Markov model (HMM) database of KEGG Orthology (KO). Profiles are built from sequences in KO database using CD-HIT, MAFFT and HMMER. Each profile has its own HMMER score threshold, with which the KO is assigned to a sequence.
+
+Personal note: The HMMER score threshold is a good starting point to confidently assign functions, however, for novel organisms that are underrepresented in the KEGG database, it might be useful to explore hits with lower scores, for example when working with DPANN or CPR.
+
+### Installation
+
+Available on crunchomics: Yes,
+
+-   The KEGG database is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).
+
+The database can be found here:
+
+-   `/zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04`.
+
+If you want to download the database yourself, you can do:
+
+```{bash}
+cd database_folder
+
+wget https://www.genome.jp/ftp/db/kofam/profiles.tar.gz
+wget https://www.genome.jp/ftp/db/kofam/ko_list.gz
+
+tar -xzvf profiles.tar.gz
+
+#create combined db: Pressed and indexed 26206 HMMs
+cat profiles/*hmm > KO_db.hmm 
+hmmpress KO_db.hmm 
+
+#prepare mapping file
+gzip -d ko_list.gz
+sed -i 's/ /_/g' ko_list
+
+#cleanup 
+rm -r profiles
+rm -r profiles.tar.gz
+```
+
+This directory contains the following files.
+
+-   KO_db.hmm: a combined profile HMMs of all KO groups.
+-   ko_list: Tab separated file containing the following information:
+    -   knum ... K number
+    -   threshold ... score threshold
+    -   score_type ... score type used for the KO (full or domain)
+    -   profile_type ... Poorly aligned sequences are removed (trim) or not (all) when building the profile
+    -   F-measure ... F-measure when calculating threshold
+    -   nseq ... number of sequences
+    -   nseq_used ... number of sequences used to build the profile
+    -   alen ... alignment length
+    -   mlen ... length of consensus positions
+    -   eff_nseq ... effective number of sequences
+    -   re/pos ... relative entropy per position
+    -   definition ... KO definition
