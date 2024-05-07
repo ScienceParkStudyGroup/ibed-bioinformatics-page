@@ -188,5 +188,8 @@
   },
   "source/metagenomics/pseudofinder.qmd": {
     "pseudofinder.html": "13bdd510"
+  },
+  "source/core_tools/pfam_db.qmd": {
+    "pfam_db.html": "751e16c6"
   }
 }

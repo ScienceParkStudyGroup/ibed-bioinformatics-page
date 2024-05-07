@@ -98,7 +98,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
-    <lastmod>2024-05-07T07:19:51.812Z</lastmod>
+    <lastmod>2024-05-07T08:02:51.937Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/ITSx/itsx_readme.html</loc>
@@ -202,6 +202,10 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/pseudofinder.html</loc>
-    <lastmod>2024-05-07T07:19:48.180Z</lastmod>
+    <lastmod>2024-05-07T07:20:30.158Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/pfam_db.html</loc>
+    <lastmod>2024-05-07T08:02:26.486Z</lastmod>
   </url>
 </urlset>

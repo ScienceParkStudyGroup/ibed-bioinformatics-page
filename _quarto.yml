@@ -138,6 +138,10 @@ website:
             contents:
               - source/ITSx/itsx_readme.qmd
               - source/nanopore/nanoITS.qmd
+          
+          - section: "Bioinformatic databases"
+            contents:
+              - source/core_tools/pfam_db.qmd
 
       # - section: "Phylogenomics"
       #   href: source/databases/readme.qmd

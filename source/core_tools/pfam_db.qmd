@@ -1,0 +1,42 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## Pfam database
+
+### General info
+
+Pfam is a collection of protein family alignments which were constructed semi-automatically using hidden Markov models (HMMs) [@bateman2004]. Sequences that are not covered by Pfam are clustered, aligned and automatically and released as Pfam-B. Pfam-B used to be integrated into the Pfam website, in addition to being available as a flatfile. It was discontinued from Pfam 28.0 to Pfam 33.0. As of Pfam 33.1,Pfam-B entries are available as a tar archive of alignments. Pfam families have permanent accession numbers and contain functional annotation and cross-references to other databases, while Pfam-B families are re-generated at each release and are unannotated.
+
+Pfam is available on the web at:
+
+https://www.ebi.ac.uk/interpro/
+
+### Installation
+
+Available on crunchomics: Yes,
+
+-   Pfam is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).
+-   Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+The Pfam database can be found here:
+
+-    `/zfs/omics/projects/bioinformatics/databases/pfam/release_36.0/`.
+
+If you want to download the database yourself, you can do:
+
+```{bash}
+wget ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.gz
+gzip -d Pfam-A.hmm.gz 
+```
