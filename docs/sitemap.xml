@@ -5,36 +5,36 @@
     <lastmod>2024-05-07T07:12:25.558Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/snakemake/tutorial.html</loc>
-    <lastmod>2023-09-15T10:04:19.554Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/readme.html</loc>
+    <lastmod>2023-11-15T13:22:27.095Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/porechop_readme.html</loc>
-    <lastmod>2023-11-16T09:35:18.468Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/nanoqc_readme.html</loc>
+    <lastmod>2023-11-16T09:33:21.249Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/nanoplot_readme.html</loc>
-    <lastmod>2024-01-09T12:50:30.572Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/nanophase_how_to.html</loc>
+    <lastmod>2024-03-20T11:37:51.371Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/nanoclass.html</loc>
-    <lastmod>2024-04-23T10:25:56.382Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/nanoITS.html</loc>
+    <lastmod>2023-11-15T13:22:49.920Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/filtlong.html</loc>
-    <lastmod>2024-05-02T12:49:50.556Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/chopper.html</loc>
+    <lastmod>2024-05-07T10:08:58.180Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/metatranscriptomics/trinity.html</loc>
-    <lastmod>2024-01-10T11:22:15.273Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metatranscriptomics/sortmerna.html</loc>
+    <lastmod>2024-01-10T08:47:52.447Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/metatranscriptomics/fastp.html</loc>
-    <lastmod>2024-01-09T12:44:48.220Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metatranscriptomics/DSEq2.html</loc>
+    <lastmod>2024-02-26T15:04:01.037Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/readme.html</loc>
-    <lastmod>2024-02-02T09:38:25.238Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/quast.html</loc>
+    <lastmod>2024-05-07T10:05:43.123Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/motus.html</loc>
@@ -45,12 +45,16 @@
     <lastmod>2023-11-16T09:42:50.631Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/fastqc_readme.html</loc>
-    <lastmod>2023-11-15T13:23:47.538Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/flye.html</loc>
+    <lastmod>2024-05-07T05:28:58.920Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/checkm2.html</loc>
-    <lastmod>2024-05-07T05:06:36.714Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/fama_readme.html</loc>
+    <lastmod>2023-11-15T13:23:52.634Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/databases/readme.html</loc>
+    <lastmod>2024-02-02T09:11:38.284Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/seqkit.html</loc>
@@ -59,6 +63,14 @@
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/prokka.html</loc>
     <lastmod>2024-05-07T10:05:44.817Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/pfam_db.html</loc>
+    <lastmod>2024-05-07T08:42:21.538Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/kegg_db.html</loc>
+    <lastmod>2024-05-07T13:03:23.304Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/featurecounts.html</loc>
@@ -98,7 +110,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
-    <lastmod>2024-05-07T11:08:36.700Z</lastmod>
+    <lastmod>2024-05-07T13:03:30.661Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/ITSx/itsx_readme.html</loc>
@@ -137,87 +149,75 @@
     <lastmod>2024-02-07T09:39:20.944Z</lastmod>
   </url>
   <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/hmmer.html</loc>
+    <lastmod>2024-05-07T13:04:37.348Z</lastmod>
+  </url>
+  <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/ncbi.html</loc>
     <lastmod>2024-02-02T11:45:15.845Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/samtools.html</loc>
-    <lastmod>2024-02-07T15:54:21.915Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/databases/readme.html</loc>
-    <lastmod>2024-02-02T09:11:38.284Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/fama_readme.html</loc>
-    <lastmod>2023-11-15T13:23:52.634Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/flye.html</loc>
-    <lastmod>2024-05-07T05:28:58.920Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/metabolic.html</loc>
-    <lastmod>2024-05-07T08:56:29.671Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/quast.html</loc>
-    <lastmod>2024-05-07T10:05:43.123Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/metatranscriptomics/DSEq2.html</loc>
-    <lastmod>2024-02-26T15:04:01.037Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/metatranscriptomics/sortmerna.html</loc>
-    <lastmod>2024-01-10T08:47:52.447Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/chopper.html</loc>
-    <lastmod>2024-05-07T10:08:58.180Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/nanoITS.html</loc>
-    <lastmod>2023-11-15T13:22:49.920Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/nanophase_how_to.html</loc>
-    <lastmod>2024-03-20T11:37:51.371Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/nanoqc_readme.html</loc>
-    <lastmod>2023-11-16T09:33:21.249Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/readme.html</loc>
-    <lastmod>2023-11-15T13:22:27.095Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/tax/gtdb.html</loc>
-    <lastmod>2024-05-06T16:09:06.457Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/gtdb.html</loc>
-    <lastmod>2024-05-07T05:21:22.996Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/pseudofinder.html</loc>
-    <lastmod>2024-05-07T07:20:30.158Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/pfam_db.html</loc>
-    <lastmod>2024-05-07T08:42:21.538Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/tigrfam_db.html</loc>
-    <lastmod>2024-05-07T08:38:44.644Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/pgap_db.html</loc>
     <lastmod>2024-05-07T08:40:26.173Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/kegg_db.html</loc>
-    <lastmod>2024-05-07T11:07:52.200Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/samtools.html</loc>
+    <lastmod>2024-02-07T15:54:21.915Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/tigrfam_db.html</loc>
+    <lastmod>2024-05-07T13:03:57.700Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/checkm2.html</loc>
+    <lastmod>2024-05-07T05:06:36.714Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/fastqc_readme.html</loc>
+    <lastmod>2023-11-15T13:23:47.538Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/gtdb.html</loc>
+    <lastmod>2024-05-07T05:21:22.996Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/metabolic.html</loc>
+    <lastmod>2024-05-07T08:56:29.671Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/pseudofinder.html</loc>
+    <lastmod>2024-05-07T07:20:30.158Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/readme.html</loc>
+    <lastmod>2024-02-02T09:38:25.238Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metatranscriptomics/fastp.html</loc>
+    <lastmod>2024-01-09T12:44:48.220Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metatranscriptomics/trinity.html</loc>
+    <lastmod>2024-01-10T11:22:15.273Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/filtlong.html</loc>
+    <lastmod>2024-05-02T12:49:50.556Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/nanoclass.html</loc>
+    <lastmod>2024-04-23T10:25:56.382Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/nanoplot_readme.html</loc>
+    <lastmod>2024-01-09T12:50:30.572Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/porechop_readme.html</loc>
+    <lastmod>2023-11-16T09:35:18.468Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/snakemake/tutorial.html</loc>
+    <lastmod>2023-09-15T10:04:19.554Z</lastmod>
   </url>
 </urlset>

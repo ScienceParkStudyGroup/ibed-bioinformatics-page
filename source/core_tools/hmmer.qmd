@@ -1,0 +1,79 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## HMMER
+
+### Introduction
+
+HMMER is used for searching sequence databases for sequence homologs, and for making sequence alignments [@Eddy2011]. It implements methods using probabilistic models called profile hidden Markov models (profile HMMs).
+
+HMMER is often used together with a profile database, such as Pfam or many of the databases that participate in Interpro. But HMMER can also work with query sequences, not just profiles, just like BLAST. For example, you can search a protein query sequence against a database with phmmer, or do an iterative search with jackhmmer.
+
+HMMER is designed to detect remote homologs as sensitively as possible, relying on the strength of its underlying probability models. In the past, this strength came at significant computational expense, but as of the new HMMER3 project, HMMER is now essentially as fast as BLAST.
+
+For more information, please visit the [official website](http://hmmer.org/) and have a look at the [User's guide](http://eddylab.org/software/hmmer/Userguide.pdf).
+
+### Installation
+
+Installed on crunchomics: Yes,HMMER 3.3.2 is installed
+
+### Usage
+
+HMMER is a software suite with a lot of programs and possibilities, for a full list have a look at the [User's guide](http://eddylab.org/software/hmmer/Userguide.pdf). Some key programs are used to:
+
+-   Build models and align sequences (DNA or protein)
+    -   hmmbuild - Build a profile HMM from an input multiple alignment.
+    -   hmmalign - Make a multiple alignment of many sequences to a common profile HMM
+-   Search protein queries against protein database
+    -   phmmer - Search a single protein sequence against a protein sequence database. (BLASTP-like)
+    -   jackhmmer - Iteratively search a protein sequence against a protein sequence database. (PSIBLAST-like)
+    -   hmmsearch - Search a protein profile HMM against a protein sequence database.
+    -   hmmscan - Search a protein sequence against a protein profile HMM database.
+    -   hmmpgmd - Search daemon used for hmmer.org website.
+
+Notice, that either hmmsearch or hmmscan can compare a set of profiles to a set of sequences. Due to disk access patterns of the two tools, it is usually more efficient to use hmmsearch, unless the number of profiles greatly exceeds the number of sequences.
+
+Examples:
+
+#### Generate your own hmm for searches
+
+In some cases a good hmm might not exist but you can easily create your own. For this, collect all proteins for your orthologue of interest. For example, we might want to build a custom profile for a methyl coenzyme M reductase (mcrA). To do this, search for protein sequences in databases, such as NCBI and generate a protein fasta file. Next, you can generate a multiple sequence (MSA) alignment with tools such as MAFFT, let's call this file mcrA.aln. For good alignments, consider to manually inspect it and discard sequences that don't align well.
+
+Then you can run:
+
+```{bash}
+#generate a hmm profile
+hmmbuild mcrA.hmm mcrA.aln
+
+#we can then use this profile to against a protein database,
+#my_proteins.faa could be proteins from a genome for which we want to check for the presence of mcrA proteins
+hmmsearch mcrA.hmm my_proteins.faa > mcrA.out
+```
+
+#### Compare proteins of interest against a hmm database
+
+```{bash}
+hmmsearch \
+	--tblout results/sequence_results.txt \
+	--domtblout results/domain_results.txt \
+	--notextw \
+	--cpu 10 \
+	KO_db.hmm \
+	results/prokka/bin5.faa
+```
+
+Output:
+
+-   The `--tblout` output option produces the target hits table. The target hits table consists of one line for each different query/target comparison that met the reporting thresholds, ranked by decreasing statistical significance (increasing E-value). Page 67 of the [User's guide](http://eddylab.org/software/hmmer/Userguide.pdf) explains each column in more detail.
+-   In protein search programs, the --domtblout option produces the domain hits table. There is one line for each domain. There may be more than one domain per sequence. Page 70 of the [User's guide](http://eddylab.org/software/hmmer/Userguide.pdf) explains each column in more detail.
+-   `--notextw`: Unlimits the length of each line in the main output. The default is a limit of 120 characters per line, which helps in displaying the output cleanly on terminals and in editors, but can truncate target profile description lines.
+
+For more options, check the manual or use `hmmsearch -h`

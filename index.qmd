@@ -62,6 +62,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 -   [Filtlong](source/nanopore/filtlong.qmd): A A tool for filtering long reads
 -   [Flye](source/metagenomics/flye.qmd): A de novo assembler for single-molecule sequencing reads 
 -   [GTDB_tk](source/metagenomics/gtdb.qmd): A software toolkit for assigning objective taxonomic classifications to bacterial and archaeal genomes
+-   [HMMER](source/core_tools/hmmer.qmd): A tool for searching sequence databases for sequence homologs, and for making sequence alignments
 -   [Interproscan](source/metagenomics/interproscan_readme.qmd): A tool to scan protein and nucleic sequences against InterPro signatures
 -   [ITSx](source/ITSx/itsx_readme.qmd): A tool to extract ITS1 and ITS2 subregions from ITS sequences
 -   [Kraken2](source/classification/kraken2.qmd): A taxonomic sequence classifier using kmers

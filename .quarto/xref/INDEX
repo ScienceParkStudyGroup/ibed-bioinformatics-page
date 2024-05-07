@@ -200,5 +200,8 @@
   },
   "source/core_tools/kegg_db.qmd": {
     "kegg_db.html": "c81535fe"
+  },
+  "source/core_tools/hmmer.qmd": {
+    "hmmer.html": "a840b852"
   }
 }

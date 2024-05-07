@@ -9,7 +9,7 @@ bibliography: references.bib
 
 <div style="text-align: justify">
 
-## Tool
+## TIGRFAM
 
 ### Introduction
 
