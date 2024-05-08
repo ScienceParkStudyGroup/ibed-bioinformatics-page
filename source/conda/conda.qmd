@@ -24,6 +24,14 @@ curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Mi
 bash Miniforge3-$(uname)-$(uname -m).sh
 ```
 
+When running the bash command, you get asked a few questions:
+
+1. Read the license and use arrow down to scroll down. Don't scroll too fast, so that you see the next question
+2. Decide were conda gets installed. You can say yes, with the default location in your home but don't forget that for Crunchomics your home only has 25G of space. You could also install the miniforge/mambaforge folder in your personal folder instead.
+3. Say yes, when you get asked whether conda should be initialized during start up
+4. Restart the shell (exit the terminal and use ssh to log back in) for the changes to take effect
+5. Check if conda is accessible by running `conda -h`
+
 
 ### Setting up an environment
 
