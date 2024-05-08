@@ -28,6 +28,10 @@ website:
   repo-url: https://github.com/ScienceParkStudyGroup/software_information/
   repo-actions: [source, issue]
   page-navigation: true
+  search: 
+    location: sidebar
+    type: overlay
+    show-item-context: true
   page-footer:  
     center: | 
       Copyright 2023, Nina Dombrowski,    
@@ -35,7 +39,6 @@ website:
   
   sidebar:
     style: "docked"
-    search: true
     collapse-level: 2
 
     contents:
