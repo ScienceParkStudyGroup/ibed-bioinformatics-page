@@ -113,6 +113,7 @@ website:
               - source/metagenomics/gtdb.qmd
               - source/metagenomics/pseudofinder.qmd
               - source/metagenomics/quast.qmd
+              - source/metagenomics/dnaapler.qmd
               - source/metagenomics/motus.qmd
 
           - section: "(Meta)transcriptomics"

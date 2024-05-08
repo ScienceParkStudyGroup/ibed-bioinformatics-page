@@ -203,5 +203,8 @@
   },
   "source/core_tools/hmmer.qmd": {
     "hmmer.html": "a840b852"
+  },
+  "source/metagenomics/dnaapler.qmd": {
+    "dnaapler.html": "9b9646b5"
   }
 }

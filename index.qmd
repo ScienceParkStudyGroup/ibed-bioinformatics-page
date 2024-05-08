@@ -55,6 +55,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 -   [CheckM2](source/metagenomics/checkm2.qmd): A tool to assess the quality of a genome assembly 
 -   [Chopper](source/nanopore/chopper.qmd): A tool for quality filtering of long read data
 -   [DeSeq2](source/metatranscriptomics/DSEq2.qmd): Analyse gene expression data in R
+-   [Dnaapler](source/metagenomics/dnaapler.qmd): A tool to re-orient a genome, for example at dnaA
 -   [FAMA](source/metagenomics/fama_readme.qmd): A fast pipeline for functional and taxonomic analysis of metagenomic sequences
 -   [FastP](source/metatranscriptomics/fastp.qmd): A tool for fast all-in-one preprocessing of FastQ files
 -   [FastQC](source/metagenomics/fastqc_readme.qmd): A quality control tool for read sequencing data

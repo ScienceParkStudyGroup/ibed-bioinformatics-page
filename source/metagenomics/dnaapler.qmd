@@ -1,0 +1,68 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## dnaapler
+
+### Introduction
+
+`dnaapler` is a simple python program that takes a single nucleotide input sequence (in FASTA format), finds the desired start gene using `blastx` against an amino acid sequence database, checks that the start codon of this gene is found, and if so, then reorients the chromosome to begin with this gene on the forward strand [@bouras2024].
+
+It was originally designed to replicate the reorientation functionality of [Unicycler](https://github.com/rrwick/Unicycler/blob/main/unicycler/gene_data/repA.fasta) with dnaA, but for for long-read first assembled chromosomes. We have extended it to work with plasmids (`dnaapler plasmid`) and phages (`dnaapler phage`), or for any input FASTA desired with `dnaapler custom`, `dnaapler mystery` or `dnaapler nearest`.
+
+For bacterial chromosomes, `dnaapler chromosome` should ensure the chromosome breakpoint never interrupts genes or mobile genetic elements like prophages. It is intended to be used with good-quality completed bacterial genomes, generated with methods such as [Trycycler](https://github.com/rrwick/Trycycler/wiki), [Dragonflye](https://github.com/rpetit3/dragonflye) or my own pipeline [hybracter](https://github.com/gbouras13/hybracter).
+
+Additionally, you can also reorient multiple bacterial chromosomes/plasmids/phages at once using the `dnaapler bulk` subcommand.
+
+If your input FASTA is mixed (e.g. has chromosome and plasmids), you can also use `dnaapler all`, with the option to ignore some contigs with the `--ignore` parameter.
+
+If no DnaA sequence was found in your genome, you also can check out [Circulator](https://github.com/sanger-pathogens/circlator).
+
+### Installation
+
+Installed on crunchomics: Yes,
+
+-   dnaapler v0.7.0 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).
+-   Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run:
+
+``` [bash]
+mamba create -p /zfs/omics/projects/bioinformatics/software/miniconda3/envs/dnaapler_0.7.0 -c bioconda dnaapler=0.7.0
+```
+
+### Usage
+
+Available commands:
+
+-   dnaapler all: Reorients 1 or more contigs to begin with any of dnaA, terL, repA.
+    -   Practically, this should be the most useful command for most users.
+-   dnaapler chromosome: Reorients your sequence to begin with the dnaA chromosomal replication initiator gene
+-   dnaapler plasmid: Reorients your sequence to begin with the repA plasmid replication initiation gene
+-   dnaapler phage: Reorients your sequence to begin with the terL large terminase subunit gene
+-   dnaapler custom: Reorients your sequence to begin with a custom amino acid FASTA format gene that you specify
+-   dnaapler mystery: Reorients your sequence to begin with a random CDS
+-   dnaapler largest: Reorients your sequence to begin with the largest CDS
+-   dnaapler nearest: Reorients your sequence to begin with the first CDS (nearest to the start). Designed for fixing sequences where a CDS spans the breakpoint.
+-   dnaapler bulk: Reorients multiple contigs to begin with the desired start gene - either dnaA, terL, repA or a custom gene.
+
+```{bash}
+mkdir results/v3_trycycler/dnaapler/
+
+#find dnaA and reorient a genome to begin at dnaA
+dnaapler chromosome -i my_genome.fasta \
+    -o results/dnaapler/ -p J4 -t 8
+```
+
+For a full list of options, check the [manual](https://dnaapler.readthedocs.io/en/latest/) or use `dnappler command -h`
