@@ -17,13 +17,21 @@ Metabolic is a workflow developed by the AnantharamanLab. This software enables 
 
 METABOLIC has two main implementations, which are METABOLIC-G and METABOLIC-C. METABOLIC-G.pl allows for generation of metabolic profiles and biogeochemical cycling diagrams of input genomes and does not require input of sequencing reads. METABOLIC-C.pl generates the same output as METABOLIC-G.pl, but as it allows for the input of metagenomic read data, it will generate information pertaining to community metabolism. 
 
-Check out [the manual](https://github.com/AnantharamanLab/METABOLIC/wiki) for all usage options [@zhou2022].
+Check out [the manual](https://github.com/AnantharamanLab/METABOLIC/wiki) for all usage options and more details about what the software exactly does [@zhou2022].
 
-Available on Crunchomics: No
 
 ### Installation
 
-Available on crunchomics: No
+Available on crunchomics: Yes, 
+
+- Metabolic v4.0 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to  [Nina Dombrowski](n.dombrowski@uva.nl). 
+- Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run:
 
 ```{bash}
 #go into folder in which to install software
@@ -98,17 +106,18 @@ conda activate METABOLIC_v4.0
 
 ### Usage example 
 
-METABOLIC has two scripts:
+**METABOLIC has two scripts:**
 
 -   METABOLIC-G.pl: Allows for classification of the metabolic capabilities of input genomes.
 -   METABOLIC-C.pl: Allows for classification of the metabolic capabilities of input genomes, calculation of genome coverage, creation of biogeochemical cycling diagrams, and visualization of community metabolic interactions and contribution to biogeochemical processes by each microbial group.
 
-Input:
+**Input:**
 
 -   Nucleotide fasta files (use `-in-gn` in the perl script)
 -   Protein faa files (use `-in` in the perl script)
 -   Illumina reads (use `-r` flag in the metabolic-c perl script) provided as un-compressed fastq files. This option requires you to provide the full path to your paired reads. Note that the two different sets of paired reads are separated by a line return (new line), and two reads in each line are separated by a "," but not " ," or " , " (no spaces before or after comma). Blank lines are not allowed
 -   Nanopore/PacBio long-reds (use `r` togher with `-st illumina/pacbio/pacbio_hifi/nanopore` to provide information about the sequencing type)
+- If you provide the raw reads, the should be given as a text file with the absolute paths that looks something like this: 
 
 ```         
 #Read pairs: 
@@ -116,7 +125,78 @@ Input:
 /path/to/your/reads/file/SRR3577362_sub2_1.fastq,/path/to/your/reads/file/SRR3577362_sub2_2.fastq
 ```
 
-Outputs (for more detail, check the [manual](https://github.com/AnantharamanLab/METABOLIC/wiki/METABOLIC-Usage#Metabolic_usage)):
+**Important**:
+
+- Ensure that the fasta headers of each ".fasta" or ".faa" file is unique (all fasta or faa files will be concatenated together to make a "total.fasta" or "total.faa" file; be sure that all sequence headers are unique)
+- that your file names do not contain spaces (suggest to only use alphanumeric characters and underscores in the file names)
+-  be sure that in the genomes folder, only the genomes are placed but not other files, for example, non-genome metagenomic assemblies, since METABOLIC will take in all the files within the folder as genomes. 
+-  If you want to use METABOLIC-C, only "fasta" files and the "-in-gn" flag are allowed to perform the analysis correctly.
+
+
+Some example files for testing can be found in `METABOLIC_test_files/`. The steps below show how to get the files and also includes some sanity checks that can be useful to test, whether your files are suitable to be used by metabolic:
+
+```{python}
+conda activate METABOLIC_v4.0
+
+#print the help information (and ensure everything is running ok)
+perl METABOLIC-C.pl -help
+
+#prepare the example data that is available in the METABOLIC directory
+mkdir results/fna
+mkdir results/faa
+mkdir data/reads
+mkdir results/metabolic
+
+#get contigs
+cp /zfs/omics/projects/bioinformatics/software/metabolic/v4.0.0/METABOLIC_test_files/Guaymas_Basin_genome_files/*fasta results/fna/
+
+#get proteins
+cp /zfs/omics/projects/bioinformatics/software/metabolic/v4.0.0/METABOLIC_test_files/Guaymas_Basin_genome_files/*faa results/faa/
+
+#for proteins, ensure that there is no space in the header
+#if there is, we remove everything after the space as follows:
+for i in results/faa/*faa; do
+    cut -f1 -d " " "$i" > "$i.tmp" && mv "$i.tmp" "$i"
+done
+
+#for proteins, ensure that we don't have duplicate protein IDs, this code should return nothing
+cat results/faa/*faa | grep ">" | sort | uniq -d
+
+#get reads
+#since the files are larger, we generate a symbolic link
+ln -s /zfs/omics/projects/bioinformatics/software/metabolic/v4.0.
+0/METABOLIC_test_files/METABOLIC_test_reads/SRR3577362_sub_*fastq data/reads/
+
+#get file with path to the reads 
+echo "#Read pairs:" > read_location
+find "$(pwd)/data/reads" -name "*fastq.gz" >> read_location
+```
+
+Run the G mode with fasta files as input:
+```{bash}
+perl /home/ndombro/personal/software/METABOLIC_4.0/METABOLIC/METABOLIC-G.pl \
+  -in-gn results/fna/ \
+  -o results/metabolic/v1_g_mode_w_fasta
+```
+
+Run the G mode with faa files as input:
+```{bash}
+perl /home/ndombro/personal/software/METABOLIC_4.0/METABOLIC/METABOLIC-G.pl \
+  -in results/faa/ \
+  -o results/metabolic/v2_g_mode_w_faa
+```
+
+Run the C mode, **notice that this mode still seems to be buggy and I recommend to either install Metabolic yourself if you want to use it or start with using the G mode**:
+
+```{bash}
+perl /home/ndombro/personal/software/METABOLIC_4.0/METABOLIC/METABOLIC-C.pl \
+  -in-gn results/fna \
+  -st nanopore \
+  -r read_location \
+  -o results/metabolic/v3_c_mode_w_faa > error.log 2>&1
+```
+
+**Generated outputs** (for more detail, check the [manual](https://github.com/AnantharamanLab/METABOLIC/wiki/METABOLIC-Usage#Metabolic_usage)):
 
 -   All_gene_collections_mapped.depth.txt: The gene depth of all input genes (METABOLIC-C only)\
 -   Each_HMM_Amino_Acid_Sequence/: The faa collection for each hmm file
@@ -128,7 +208,7 @@ Outputs (for more detail, check the [manual](https://github.com/AnantharamanLab/
 -   MW-score_result/: The resulted table for MW-score (METABOLIC-C only)\
 -   METABOLIC_result.xlsx: The resulting excel file of METABOLIC
 
-Required/Optional flags:
+**Required/Optional flags:** (for a detail explanation, please read [the manual](https://github.com/AnantharamanLab/METABOLIC/wiki/METABOLIC-Usage))
 
 -   `-in-gn` \[required if you are starting from nucleotide fasta files\] Defines the location of the FOLDER containing the genome nucleotide fasta files ending with ".fasta" to be run by this program
 -   `-in` \[required if you are starting from faa files\] Defines the location of the FOLDER containing the genome amino acid files ending with ".faa" to be run by this program
@@ -141,23 +221,5 @@ Required/Optional flags:
 -   `-tax` \[optional\] To calculate MW-score contribution of microbial groups at the resolution of which taxonomical level (default: "phylum"; other options: "class", "order", "family", "genus", "species", and "bin" (MAG itself)). Only required when using METABOLIC-C
 -   `-p` \[optional\] Defines the prodigal method used to annotate ORFs ("meta" or "single")(Default: "meta")
 -   `-o` \[optional\] Defines the output directory to be created by the program (Default: current directory)
-
-Some example files for testing can be found in `METABOLIC_test_files/`.
-
-```{python}
-conda activate METABOLIC_v4.0
-
-#print the help information
-perl METABOLIC-C.pl -help
-
-#run workflow on test data (5 genomes provided as nucleotides)
-mkdir -p testing/genomes
-perl METABOLIC-G.pl -in-gn METABOLIC_test_files/Guaymas_Basin_genome_files/ -o testing/genomes
-
-#run workflow on metagenomic fastq files
-perl METABOLIC-C.pl -test true
-
-conda deactivate
-```
 
 ### References

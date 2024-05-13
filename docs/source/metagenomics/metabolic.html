@@ -668,32 +668,39 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 <p>Metabolic is a workflow developed by the AnantharamanLab. This software enables the prediction of metabolic and biogeochemical functional trait profiles to any given genome datasets. These genome datasets can either be metagenome-assembled genomes (MAGs), single-cell amplified genomes (SAGs) or isolated strain sequenced genomes.</p>
 <p>METABOLIC has two main implementations, which are METABOLIC-G and METABOLIC-C. METABOLIC-G.pl allows for generation of metabolic profiles and biogeochemical cycling diagrams of input genomes and does not require input of sequencing reads. METABOLIC-C.pl generates the same output as METABOLIC-G.pl, but as it allows for the input of metagenomic read data, it will generate information pertaining to community metabolism.</p>
-<p>Check out <a href="https://github.com/AnantharamanLab/METABOLIC/wiki">the manual</a> for all usage options <span class="citation" data-cites="zhou2022">(<a href="#ref-zhou2022" role="doc-biblioref">Zhou et al. 2022</a>)</span>.</p>
-<p>Available on Crunchomics: No</p>
+<p>Check out <a href="https://github.com/AnantharamanLab/METABOLIC/wiki">the manual</a> for all usage options and more details about what the software exactly does <span class="citation" data-cites="zhou2022">(<a href="#ref-zhou2022" role="doc-biblioref">Zhou et al. 2022</a>)</span>.</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>Available on crunchomics: No</p>
+<p>Available on crunchomics: Yes,</p>
+<ul>
+<li>Metabolic v4.0 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to <a href="n.dombrowski@uva.nl">Nina Dombrowski</a>.</li>
+<li>Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don’t need to run this command):</li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#go into folder in which to install software</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/personal/software/METABOLIC_4.0</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#download environmental yaml (which tells conda what software to install)</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> envs</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://raw.githubusercontent.com/AnantharamanLab/METABOLIC/master/METABOLIC_v4.0_env.yml <span class="at">-P</span> envs/</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#install dependencies via the environmental yaml (this env will be named METABOLIC_v4.0)</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> env create <span class="at">-f</span> envs/METABOLIC_v4.0_env.yml</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#activate environment (NEEDS to be active to run the setup steps below)</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate METABOLIC_v4.0</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#download a git clone of the METABOLIC workflow</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/AnantharamanLab/METABOLIC.git</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#run bash setup script (needs some time, have patience)</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> METABOLIC</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> run_to_setup.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you want to install it yourself, you can run:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#go into folder in which to install software</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/personal/software/METABOLIC_4.0</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#download environmental yaml (which tells conda what software to install)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> envs</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://raw.githubusercontent.com/AnantharamanLab/METABOLIC/master/METABOLIC_v4.0_env.yml <span class="at">-P</span> envs/</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#install dependencies via the environmental yaml (this env will be named METABOLIC_v4.0)</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> env create <span class="at">-f</span> envs/METABOLIC_v4.0_env.yml</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#activate environment (NEEDS to be active to run the setup steps below)</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate METABOLIC_v4.0</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#download a git clone of the METABOLIC workflow</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/AnantharamanLab/METABOLIC.git</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#run bash setup script (needs some time, have patience)</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> METABOLIC</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> run_to_setup.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -720,56 +727,121 @@ Note
 <h5 class="anchored" data-anchor-id="use-global-installation">Use global installation</h5>
 <p>For UvA people using crunchomics, we have a global install of GTDB r207 you can use, which is installed on the metatools share. To get access to the share, please contact Anna Heintz Buschart via <a href="mailto:a.u.s.heintzbuschart@uva.nl" class="email">a.u.s.heintzbuschart@uva.nl</a> with your UvAnetID and a description why you need access</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#tell conda where the gtdb database is installed</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env config vars set GTDBTK_DATA_PATH=<span class="st">"/zfs/omics/projects/metatools/DB/GTDB_tk/GTDB_tk_r207"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#reactivate env to make the changes work</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate METABOLIC_v4.0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#tell conda where the gtdb database is installed</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env config vars set GTDBTK_DATA_PATH=<span class="st">"/zfs/omics/projects/metatools/DB/GTDB_tk/GTDB_tk_r207"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#reactivate env to make the changes work</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate METABOLIC_v4.0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="manual-installation" class="level5">
 <h5 class="anchored" data-anchor-id="manual-installation">Manual installation</h5>
 <p>If desired, you can install the GTDB database yourself as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Manually download the latest reference data ()</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>wget https:<span class="op">//</span>data.gtdb.ecogenomic.org<span class="op">/</span>releases<span class="op">/</span>release207<span class="op">/</span><span class="fl">207.0</span><span class="op">/</span>auxillary_files<span class="op">/</span>gtdbtk_r207_v2_data.tar.gz</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract the archive to a target directory:</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#change `/path/to/target/db` to whereever you want to install the db</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>tar <span class="op">-</span>xvzf gtdbtk_r207_v2_data.tar.gz <span class="op">-</span>c <span class="st">"/path/to/target/db"</span> <span class="op">--</span>strip <span class="dv">1</span> <span class="op">&gt;</span> <span class="op">/</span>dev<span class="op">/</span>null</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#cleanup</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>rm gtdbtk_r207_v2_data.tar.gz</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#while the conda env for METABOLIC is activate link gtdb database</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>conda env config <span class="bu">vars</span> <span class="bu">set</span> GTDBTK_DATA_PATH<span class="op">=</span><span class="st">"/path/to/target/db"</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#reactivate env </span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>conda deactivate</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>conda activate METABOLIC_v4<span class="fl">.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Manually download the latest reference data ()</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>wget https:<span class="op">//</span>data.gtdb.ecogenomic.org<span class="op">/</span>releases<span class="op">/</span>release207<span class="op">/</span><span class="fl">207.0</span><span class="op">/</span>auxillary_files<span class="op">/</span>gtdbtk_r207_v2_data.tar.gz</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract the archive to a target directory:</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#change `/path/to/target/db` to whereever you want to install the db</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>tar <span class="op">-</span>xvzf gtdbtk_r207_v2_data.tar.gz <span class="op">-</span>c <span class="st">"/path/to/target/db"</span> <span class="op">--</span>strip <span class="dv">1</span> <span class="op">&gt;</span> <span class="op">/</span>dev<span class="op">/</span>null</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#cleanup</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>rm gtdbtk_r207_v2_data.tar.gz</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#while the conda env for METABOLIC is activate link gtdb database</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>conda env config <span class="bu">vars</span> <span class="bu">set</span> GTDBTK_DATA_PATH<span class="op">=</span><span class="st">"/path/to/target/db"</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#reactivate env </span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>conda deactivate</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>conda activate METABOLIC_v4<span class="fl">.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 </section>
 <section id="usage-example" class="level3">
 <h3 class="anchored" data-anchor-id="usage-example">Usage example</h3>
-<p>METABOLIC has two scripts:</p>
+<p><strong>METABOLIC has two scripts:</strong></p>
 <ul>
 <li>METABOLIC-G.pl: Allows for classification of the metabolic capabilities of input genomes.</li>
 <li>METABOLIC-C.pl: Allows for classification of the metabolic capabilities of input genomes, calculation of genome coverage, creation of biogeochemical cycling diagrams, and visualization of community metabolic interactions and contribution to biogeochemical processes by each microbial group.</li>
 </ul>
-<p>Input:</p>
+<p><strong>Input:</strong></p>
 <ul>
 <li>Nucleotide fasta files (use <code>-in-gn</code> in the perl script)</li>
 <li>Protein faa files (use <code>-in</code> in the perl script)</li>
 <li>Illumina reads (use <code>-r</code> flag in the metabolic-c perl script) provided as un-compressed fastq files. This option requires you to provide the full path to your paired reads. Note that the two different sets of paired reads are separated by a line return (new line), and two reads in each line are separated by a “,” but not ” ,” or ” , ” (no spaces before or after comma). Blank lines are not allowed</li>
 <li>Nanopore/PacBio long-reds (use <code>r</code> togher with <code>-st illumina/pacbio/pacbio_hifi/nanopore</code> to provide information about the sequencing type)</li>
+<li>If you provide the raw reads, the should be given as a text file with the absolute paths that looks something like this:</li>
 </ul>
 <pre><code>#Read pairs: 
 /path/to/your/reads/file/SRR3577362_sub_1.fastq,/path/to/your/reads/file/SRR3577362_sub_2.fastq
 /path/to/your/reads/file/SRR3577362_sub2_1.fastq,/path/to/your/reads/file/SRR3577362_sub2_2.fastq</code></pre>
-<p>Outputs (for more detail, check the <a href="https://github.com/AnantharamanLab/METABOLIC/wiki/METABOLIC-Usage#Metabolic_usage">manual</a>):</p>
+<p><strong>Important</strong>:</p>
+<ul>
+<li>Ensure that the fasta headers of each “.fasta” or “.faa” file is unique (all fasta or faa files will be concatenated together to make a “total.fasta” or “total.faa” file; be sure that all sequence headers are unique)</li>
+<li>that your file names do not contain spaces (suggest to only use alphanumeric characters and underscores in the file names)</li>
+<li>be sure that in the genomes folder, only the genomes are placed but not other files, for example, non-genome metagenomic assemblies, since METABOLIC will take in all the files within the folder as genomes.</li>
+<li>If you want to use METABOLIC-C, only “fasta” files and the “-in-gn” flag are allowed to perform the analysis correctly.</li>
+</ul>
+<p>Some example files for testing can be found in <code>METABOLIC_test_files/</code>. The steps below show how to get the files and also includes some sanity checks that can be useful to test, whether your files are suitable to be used by metabolic:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>conda activate METABOLIC_v4<span class="fl">.0</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#print the help information (and ensure everything is running ok)</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>perl METABOLIC<span class="op">-</span>C.pl <span class="op">-</span><span class="bu">help</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#prepare the example data that is available in the METABOLIC directory</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>mkdir results<span class="op">/</span>fna</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>mkdir results<span class="op">/</span>faa</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>mkdir data<span class="op">/</span>reads</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>mkdir results<span class="op">/</span>metabolic</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#get contigs</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>cp <span class="op">/</span>zfs<span class="op">/</span>omics<span class="op">/</span>projects<span class="op">/</span>bioinformatics<span class="op">/</span>software<span class="op">/</span>metabolic<span class="op">/</span>v4<span class="fl">.0.0</span><span class="op">/</span>METABOLIC_test_files<span class="op">/</span>Guaymas_Basin_genome_files<span class="op">/*</span>fasta results<span class="op">/</span>fna<span class="op">/</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#get proteins</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>cp <span class="op">/</span>zfs<span class="op">/</span>omics<span class="op">/</span>projects<span class="op">/</span>bioinformatics<span class="op">/</span>software<span class="op">/</span>metabolic<span class="op">/</span>v4<span class="fl">.0.0</span><span class="op">/</span>METABOLIC_test_files<span class="op">/</span>Guaymas_Basin_genome_files<span class="op">/*</span>faa results<span class="op">/</span>faa<span class="op">/</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#for proteins, ensure that there is no space in the header</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">#if there is, we remove everything after the space as follows:</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> results<span class="op">/</span>faa<span class="op">/*</span>faa<span class="op">;</span> do</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    cut <span class="op">-</span>f1 <span class="op">-</span>d <span class="st">" "</span> <span class="st">"$i"</span> <span class="op">&gt;</span> <span class="st">"$i.tmp"</span> <span class="op">&amp;&amp;</span> mv <span class="st">"$i.tmp"</span> <span class="st">"$i"</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>done</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co">#for proteins, ensure that we don't have duplicate protein IDs, this code should return nothing</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>cat results<span class="op">/</span>faa<span class="op">/*</span>faa <span class="op">|</span> grep <span class="st">"&gt;"</span> <span class="op">|</span> sort <span class="op">|</span> uniq <span class="op">-</span>d</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="co">#get reads</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="co">#since the files are larger, we generate a symbolic link</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>ln <span class="op">-</span>s <span class="op">/</span>zfs<span class="op">/</span>omics<span class="op">/</span>projects<span class="op">/</span>bioinformatics<span class="op">/</span>software<span class="op">/</span>metabolic<span class="op">/</span>v4<span class="fl">.0</span>.</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span><span class="op">/</span>METABOLIC_test_files<span class="op">/</span>METABOLIC_test_reads<span class="op">/</span>SRR3577362_sub_<span class="op">*</span>fastq data<span class="op">/</span>reads<span class="op">/</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="co">#get file with path to the reads </span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"#Read pairs:"</span> <span class="op">&gt;</span> read_location</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>find <span class="st">"$(pwd)/data/reads"</span> <span class="op">-</span>name <span class="st">"*fastq.gz"</span> <span class="op">&gt;&gt;</span> read_location</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Run the G mode with fasta files as input:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">perl</span> /home/ndombro/personal/software/METABOLIC_4.0/METABOLIC/METABOLIC-G.pl <span class="dt">\</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-in-gn</span> results/fna/ <span class="dt">\</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> results/metabolic/v1_g_mode_w_fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Run the G mode with faa files as input:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">perl</span> /home/ndombro/personal/software/METABOLIC_4.0/METABOLIC/METABOLIC-G.pl <span class="dt">\</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-in</span> results/faa/ <span class="dt">\</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> results/metabolic/v2_g_mode_w_faa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Run the C mode, <strong>notice that this mode still seems to be buggy and I recommend to either install Metabolic yourself if you want to use it or start with using the G mode</strong>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">perl</span> /home/ndombro/personal/software/METABOLIC_4.0/METABOLIC/METABOLIC-C.pl <span class="dt">\</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-in-gn</span> results/fna <span class="dt">\</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-st</span> nanopore <span class="dt">\</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-r</span> read_location <span class="dt">\</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> results/metabolic/v3_c_mode_w_faa <span class="op">&gt;</span> error.log <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Generated outputs</strong> (for more detail, check the <a href="https://github.com/AnantharamanLab/METABOLIC/wiki/METABOLIC-Usage#Metabolic_usage">manual</a>):</p>
 <ul>
 <li>All_gene_collections_mapped.depth.txt: The gene depth of all input genes (METABOLIC-C only)<br>
 </li>
@@ -783,7 +855,7 @@ Note
 </li>
 <li>METABOLIC_result.xlsx: The resulting excel file of METABOLIC</li>
 </ul>
-<p>Required/Optional flags:</p>
+<p><strong>Required/Optional flags:</strong> (for a detail explanation, please read <a href="https://github.com/AnantharamanLab/METABOLIC/wiki/METABOLIC-Usage">the manual</a>)</p>
 <ul>
 <li><code>-in-gn</code> [required if you are starting from nucleotide fasta files] Defines the location of the FOLDER containing the genome nucleotide fasta files ending with “.fasta” to be run by this program</li>
 <li><code>-in</code> [required if you are starting from faa files] Defines the location of the FOLDER containing the genome amino acid files ending with “.faa” to be run by this program</li>
@@ -797,22 +869,6 @@ Note
 <li><code>-p</code> [optional] Defines the prodigal method used to annotate ORFs (“meta” or “single”)(Default: “meta”)</li>
 <li><code>-o</code> [optional] Defines the output directory to be created by the program (Default: current directory)</li>
 </ul>
-<p>Some example files for testing can be found in <code>METABOLIC_test_files/</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>conda activate METABOLIC_v4<span class="fl">.0</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#print the help information</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>perl METABOLIC<span class="op">-</span>C.pl <span class="op">-</span><span class="bu">help</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#run workflow on test data (5 genomes provided as nucleotides)</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>mkdir <span class="op">-</span>p testing<span class="op">/</span>genomes</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>perl METABOLIC<span class="op">-</span>G.pl <span class="op">-</span><span class="kw">in</span><span class="op">-</span>gn METABOLIC_test_files<span class="op">/</span>Guaymas_Basin_genome_files<span class="op">/</span> <span class="op">-</span>o testing<span class="op">/</span>genomes</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#run workflow on metagenomic fastq files</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>perl METABOLIC<span class="op">-</span>C.pl <span class="op">-</span>test true</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>conda deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
 <section id="references" class="level3">
 
@@ -1396,7 +1452,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2024-05-07</p>
+Last modified: 2024-05-13</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/metabolic.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
