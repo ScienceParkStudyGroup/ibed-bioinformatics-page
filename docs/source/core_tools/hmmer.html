@@ -719,6 +719,51 @@ div.csl-indent {
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    KO_db.hmm <span class="dt">\</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    results/prokka/bin5.faa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Let’s do this in an advanced mode and parse a few things afterwards. This assumes that you already have a few genomes ready and that they are found in the folder <code>results/faa</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> results/faa/renamed</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> results/kos/</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#combine proteins from different genomes in one database </span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#add the filename into the fasta header and store them in our new folder</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#combining all genomes into 1 file has the benefit that you only need to run hmmsearch 1x</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#for this to work proberly its a good practice to add the genomeID into the fasta header so that you can easily distinguish from where each protein originally came</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span>  results/faa/<span class="pp">*</span>faa<span class="kw">;</span> <span class="cf">do</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="va">filename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa<span class="va">)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-v</span> fname=<span class="st">"</span><span class="va">$filename</span><span class="st">"</span> <span class="st">'/&gt;/{sub("&gt;","&amp;"fname"-");sub(/\.faa/,x)}1'</span> <span class="va">$i</span> <span class="op">&gt;</span> results/faa/renamed/<span class="va">$filename</span>.faa</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#after ensuring our files have good headers, we can combine the individual faa files </span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> results/faa/renamed/<span class="pp">*</span>.faa <span class="op">&gt;</span> results/faa/combined.faa</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#now we can run the hmmsearch</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="ex">hmmsearch</span> <span class="at">--tblout</span> results/kos/sequence_results.txt <span class="dt">\</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">--domtblout</span> results/kos/domain_results.txt <span class="dt">\</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">--notextw</span> <span class="at">--cpu</span> 20 <span class="dt">\</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/KO_db.hmm <span class="dt">\</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  results/faa/combined.faa</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#format the full table by:</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#remove hash symbols and replacing spaces with a tab</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#retain only the columns with the protein-id, ko-id, e-value, bitscpre</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#and only select hits above a certain e-value</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/ \+ /\t/g'</span> results/kos/sequence_results.txt <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'/^#/d'</span><span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/ /\t/g'</span><span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{print $1, $3, $6, $5}'</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'($4 + 0) &lt;= 1E-3'</span>  <span class="op">&gt;</span> results/kos/sequence_results_red_e_cutoff.txt</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">#get best hit/protein based on bit score, and e-value</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co">#i.e. one protein might hit toward more than 1 HMM, we only want to retain one hit</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k3,3gr</span> <span class="at">-k4,4g</span> results/kos/sequence_results_red_e_cutoff.txt <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">--stable</span> <span class="at">-u</span> <span class="at">-k1,1</span>  <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k3,3gr</span> <span class="at">-k4,4g</span> <span class="op">&gt;</span>  results/kos/sequence_results_red_e_cutoff_best_hit.txt</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co">#merge with KO mapping file </span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co">#ensure that the KOs are in column 2 and 1 of the results and the mapping file</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co">#-o decides what columns are kept after the merge from table 1 and 2. I.e. from the mapping file only columns 2 and 12 are used</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">join</span> <span class="at">-a1</span> <span class="at">-1</span> 2 <span class="at">-2</span> 1 <span class="at">-e</span><span class="st">'-'</span> <span class="at">-t</span> <span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-o1.1,1.2,1.4,1.3,2.2,2.12</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k2</span> results/kos/sequence_results_red_e_cutoff_best_hit.txt<span class="op">)</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k1</span>  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list<span class="op">)</span> <span class="kw">|</span> <span class="va">LC_ALL</span><span class="op">=</span>C  <span class="fu">sort</span> <span class="op">&gt;</span>  results/kos/temp1</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="co">#add in an extra column that lists whether hits have a high confidence score</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span>  <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{ if ($4 &gt; $5){ $7="high_score" }else{ $7="-" } print } '</span> results/kos/temp1 <span class="op">&gt;</span> results/kos/temp2</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co">#add header</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"accession\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence"</span> <span class="kw">|</span> <span class="fu">cat</span> <span class="at">-</span> results/kos/temp2 <span class="op">&gt;</span> results/kos/KO_hmm.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Output:</p>
 <ul>
 <li>The <code>--tblout</code> output option produces the target hits table. The target hits table consists of one line for each different query/target comparison that met the reporting thresholds, ranked by decreasing statistical significance (increasing E-value). Page 67 of the <a href="http://eddylab.org/software/hmmer/Userguide.pdf">User’s guide</a> explains each column in more detail.</li>
@@ -1307,7 +1352,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2024-05-07</p>
+Last modified: 2024-05-13</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/hmmer.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

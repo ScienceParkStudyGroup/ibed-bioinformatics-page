@@ -34,9 +34,12 @@ conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/minicon
 If you want to install it yourself, you can run:
 
 ```{bash}
-mamba create -n prokka_1.14.6 -c conda-forge -c bioconda -c defaults prokka
+mamba create -n prokka -c conda-forge -c bioconda -c defaults prokka
 
 #setup extra databases (optional, but useful for better functional assignments)
+#to do this:
+#cd into whatever folder prokka gets installed followed by db/hmm, 
+#this might look something like this:
 cd /zfs/omics/projects/bioinformatics/software/miniconda3/envs/prokka_1.14.6/db/hmm
 
 wget https://ftp.ncbi.nlm.nih.gov/hmm/TIGRFAMs/release_15.0/TIGRFAMs_15.0_HMM.LIB.gz
@@ -48,6 +51,9 @@ gzip -d Pfam-A.hmm.gz
 mv Pfam-A.hmm 2-Pfam-A.hmm
 
 mv HAMAP.hmm 3-HAMAP.hmm
+
+#ensure that the prokka databases are setup correctly
+conda activate prokka
 
 prokka --setupdb
 

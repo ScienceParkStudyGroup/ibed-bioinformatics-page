@@ -70,6 +70,54 @@ hmmsearch \
 	results/prokka/bin5.faa
 ```
 
+Let's do this in an advanced mode and parse a few things afterwards. This assumes that you already have a few genomes ready and that they are found in the folder `results/faa`
+
+```{bash}
+mkdir results/faa/renamed
+mkdir results/kos/
+
+#combine proteins from different genomes in one database 
+#add the filename into the fasta header and store them in our new folder
+#combining all genomes into 1 file has the benefit that you only need to run hmmsearch 1x
+#for this to work proberly its a good practice to add the genomeID into the fasta header so that you can easily distinguish from where each protein originally came
+for i in  results/faa/*faa; do 
+filename=$(basename $i .faa)
+awk -v fname="$filename" '/>/{sub(">","&"fname"-");sub(/\.faa/,x)}1' $i > results/faa/renamed/$filename.faa
+done
+
+#after ensuring our files have good headers, we can combine the individual faa files 
+cat results/faa/renamed/*.faa > results/faa/combined.faa
+
+#now we can run the hmmsearch
+hmmsearch --tblout results/kos/sequence_results.txt \
+  --domtblout results/kos/domain_results.txt \
+  --notextw --cpu 20 \
+  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/KO_db.hmm \
+  results/faa/combined.faa
+
+#format the full table by:
+#remove hash symbols and replacing spaces with a tab
+#retain only the columns with the protein-id, ko-id, e-value, bitscpre
+#and only select hits above a certain e-value
+sed 's/ \+ /\t/g' results/kos/sequence_results.txt | sed '/^#/d'| sed 's/ /\t/g'| awk -F'\t' -v OFS='\t' '{print $1, $3, $6, $5}' | awk -F'\t' -v OFS='\t' '($4 + 0) <= 1E-3'  > results/kos/sequence_results_red_e_cutoff.txt
+
+#get best hit/protein based on bit score, and e-value
+#i.e. one protein might hit toward more than 1 HMM, we only want to retain one hit
+sort -t$'\t' -k3,3gr -k4,4g results/kos/sequence_results_red_e_cutoff.txt | sort -t$'\t' --stable -u -k1,1  | sort -t$'\t' -k3,3gr -k4,4g >  results/kos/sequence_results_red_e_cutoff_best_hit.txt
+
+#merge with KO mapping file 
+#ensure that the KOs are in column 2 and 1 of the results and the mapping file
+#-o decides what columns are kept after the merge from table 1 and 2. I.e. from the mapping file only columns 2 and 12 are used
+LC_ALL=C join -a1 -1 2 -2 1 -e'-' -t $'\t' -o1.1,1.2,1.4,1.3,2.2,2.12 <(LC_ALL=C sort -k2 results/kos/sequence_results_red_e_cutoff_best_hit.txt) <(LC_ALL=C sort -k1  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list) | LC_ALL=C  sort >  results/kos/temp1
+
+#add in an extra column that lists whether hits have a high confidence score
+awk  -v OFS='\t' '{ if ($4 > $5){ $7="high_score" }else{ $7="-" } print } ' results/kos/temp1 > results/kos/temp2
+
+#add header
+echo -e "accession\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence" | cat - results/kos/temp2 > results/kos/KO_hmm.tsv
+```
+
+
 Output:
 
 -   The `--tblout` output option produces the target hits table. The target hits table consists of one line for each different query/target comparison that met the reporting thresholds, ranked by decreasing statistical significance (increasing E-value). Page 67 of the [User's guide](http://eddylab.org/software/hmmer/Userguide.pdf) explains each column in more detail.
