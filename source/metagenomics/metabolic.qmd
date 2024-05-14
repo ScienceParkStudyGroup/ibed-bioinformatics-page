@@ -25,10 +25,13 @@ Check out [the manual](https://github.com/AnantharamanLab/METABOLIC/wiki) for al
 Available on crunchomics: Yes, 
 
 - Metabolic v4.0 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to  [Nina Dombrowski](n.dombrowski@uva.nl). 
-- Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+-   Additionally, the GTDB r214 database that is used by metabolic is installed on the metatools share. To get access to metatools, send an email with your Uva netID to [Anna Heintz Buschart](a.u.s.heintzbuschart\@uva.nl).
+
+After you were added to the bioinformatics and metatools share, you can add the conda environments that are installed in these shares as follows (if you have already done this in the past, you don't need to run these commands):
 
 ```{bash}
 conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+conda config --add envs_dirs /zfs/omics/projects/metatools/TOOLS/miniconda3/envs/
 ```
 
 If you want to install it yourself, you can run:
@@ -56,36 +59,21 @@ bash run_to_setup.sh
 ```
 
 ::: callout-note
-The command `bash run_to_setup.sh` installs some public databases, which might be useful to use other things. These are:
+The command `bash run_to_setup.sh` installs some public databases, which might be useful for other things. These are:
 
 -   The kofam database: KOfams are a customized HMM database of KEGG Orthologs (KOs). The KO (KEGG Orthology) database is a database of molecular functions represented in terms of functional orthologs and is useful to assign functions to your proteins of interest. The script will download the database from scratch and you will therefore always have the newest version installed when installing METABOLIC.
 -   The dbCAN2 database: A database that can be used for carbohydrate-active enzyme annotation. The script downloads dbCAN v10.
 -   The Meropds database: A database for peptidases (also termed proteases, proteinases and proteolytic enzymes) and the proteins that inhibit them. The script will download the most recent version from the internet.
 :::
 
-#### Link to GTDB database
-
-METABOLIC uses GTDB_tk for taxonomic assignment. This database is very big, so instead of installing this database every single time in a conda environment folder that uses GTDB_tk, it is better to use one global installation.
-
-##### Use global installation
-
-For UvA people using crunchomics, we have a global install of GTDB r207 you can use, which is installed on the metatools share. To get access to the share, please contact Anna Heintz Buschart via [a.u.s.heintzbuschart\@uva.nl](mailto:a.u.s.heintzbuschart@uva.nl){.email} with your UvAnetID and a description why you need access
-
-```{bash}
-#tell conda where the gtdb database is installed
-conda env config vars set GTDBTK_DATA_PATH="/zfs/omics/projects/metatools/DB/GTDB_tk/GTDB_tk_r207"
-
-#reactivate env to make the changes work
-conda deactivate
-conda activate METABOLIC_v4.0
-```
-
-##### Manual installation
-
-If desired, you can install the GTDB database yourself as follows:
+Additionally to these databases, metabolic makes use of the gtdb database. If desired, you can install the GTDB database yourself as follows:
 
 ```{python}
-#Manually download the latest reference data ()
+#go into the folder into which you want to download the database
+cd /path/to/target 
+
+#Manually download the latest reference data
+#Check, if you work with the latest database. When installing Metabolic, you might get some pointers how to set up gtdb and we recommend to follow those
 wget https://data.gtdb.ecogenomic.org/releases/release207/207.0/auxillary_files/gtdbtk_r207_v2_data.tar.gz
 
 #Extract the archive to a target directory:
@@ -96,9 +84,10 @@ tar -xvzf gtdbtk_r207_v2_data.tar.gz -c "/path/to/target/db" --strip 1 > /dev/nu
 rm gtdbtk_r207_v2_data.tar.gz
 
 #while the conda env for METABOLIC is activate link gtdb database
+#change "/path/to/target/db" to wherever you downloaded the database
 conda env config vars set GTDBTK_DATA_PATH="/path/to/target/db"
 
-#reactivate env 
+#reactivate env for the variable to be recognized
 conda deactivate
 conda activate METABOLIC_v4.0
 ```
@@ -135,66 +124,117 @@ conda activate METABOLIC_v4.0
 
 Some example files for testing can be found in `METABOLIC_test_files/`. The steps below show how to get the files and also includes some sanity checks that can be useful to test, whether your files are suitable to be used by metabolic:
 
-```{python}
-conda activate METABOLIC_v4.0
 
-#print the help information (and ensure everything is running ok)
-perl METABOLIC-C.pl -help
+##### Preparing the input files
 
-#prepare the example data that is available in the METABOLIC directory
-mkdir results/fna
-mkdir results/faa
-mkdir data/reads
-mkdir results/metabolic
+We start with downloading proteins from two genomes and do some cleaning, here we:
 
-#get contigs
-cp /zfs/omics/projects/bioinformatics/software/metabolic/v4.0.0/METABOLIC_test_files/Guaymas_Basin_genome_files/*fasta results/fna/
+-   Make sure the file header is concise and does not have ANY spaces and that ideally uses a ‘-’ (or any other unique delimiter) to separate the genome ID from the protein ID. Also avoid any unusual symbols, such as \|, (, ), {, }...
+-   Add not only the protein ID but also the genome ID sequence header
+-   If you have a concise header + the bin ID in the header, it is easy for METABOLIC to concatenate the protein sequences of your genomes into one single file and still easily know from what genome the sequence originally came from
 
-#get proteins
-cp /zfs/omics/projects/bioinformatics/software/metabolic/v4.0.0/METABOLIC_test_files/Guaymas_Basin_genome_files/*faa results/faa/
+```{bash}
+mkdir -p results/faa/renamed
+mkdir results/kos/
 
-#for proteins, ensure that there is no space in the header
-#if there is, we remove everything after the space as follows:
-for i in results/faa/*faa; do
-    cut -f1 -d " " "$i" > "$i.tmp" && mv "$i.tmp" "$i"
+#download some example genomes from NCBI
+wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/008/085/GCA_000008085.1_ASM808v1/GCA_000008085.1_ASM808v1_protein.faa.gz  -P results/faa/
+wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/017/945/GCA_000017945.1_ASM1794v1/GCA_000017945.1_ASM1794v1_protein.faa.gz  -P results/faa/
+gzip -d results/faa/*gz
+
+#view the header of one file
+#we see the header looks like this: >ABU81185.1 translation initiation factor aIF-2 [Ignicoccus hospitalis KIN4/I]
+#this is too long and the extra characters, i.e. spaces, can disrupt downstream analysis, so let's fix that first
+head results/faa/GCA_000017945.1_ASM1794v1_protein.faa 
+
+#remove everything after the space in the fasta headers
+for i in  results/faa/*faa; do 
+filename=$(basename $i .faa)
+sed -i '/^>/ s/ .*$//g' $i
 done
 
-#for proteins, ensure that we don't have duplicate protein IDs, this code should return nothing
-cat results/faa/*faa | grep ">" | sort | uniq -d
+#afterwards, the header looks like this; >ABU81185.1
+head results/faa/GCA_000017945.1_ASM1794v1_protein.faa 
 
-#get reads
-#since the files are larger, we generate a symbolic link
-ln -s /zfs/omics/projects/bioinformatics/software/metabolic/v4.0.
-0/METABOLIC_test_files/METABOLIC_test_reads/SRR3577362_sub_*fastq data/reads/
+#next, we add the filename into the fasta header and store them in our new folder
+#this allows us to combine all genomes into 1 file has the benefit that you only need to run hmmsearch 1x
+#for this to work proberly its a good practice to add the genomeID into the fasta header so that you can easily distinguish from where each protein originally came
+for i in  results/faa/*faa; do 
+filename=$(basename $i .faa | cut -f1 -d ".")
+awk -v fname="$filename" '/>/{sub(">","&"fname"-")}1' $i > results/faa/renamed/$filename.faa
+done
 
-#get file with path to the reads 
-echo "#Read pairs:" > read_location
-find "$(pwd)/data/reads" -name "*fastq.gz" >> read_location
+#afterwards, the header looks like this; >ABU81185.1
+#notice: how using basename with cut made our filename a bit shorter?
+head results/faa/renamed/GCA_000017945.faa 
 ```
 
-Run the G mode with fasta files as input:
-```{bash}
-perl /home/ndombro/personal/software/METABOLIC_4.0/METABOLIC/METABOLIC-G.pl \
-  -in-gn results/fna/ \
-  -o results/metabolic/v1_g_mode_w_fasta
-```
-
-Run the G mode with faa files as input:
-```{bash}
-perl /home/ndombro/personal/software/METABOLIC_4.0/METABOLIC/METABOLIC-G.pl \
-  -in results/faa/ \
-  -o results/metabolic/v2_g_mode_w_faa
-```
-
-Run the C mode, **notice that this mode still seems to be buggy and I recommend to either install Metabolic yourself if you want to use it or start with using the G mode**:
+::: {.callout-tip title="Tip: How does the sed command work" collapse="true"}
+Let's look into how this code works:
 
 ```{bash}
-perl /home/ndombro/personal/software/METABOLIC_4.0/METABOLIC/METABOLIC-C.pl \
-  -in-gn results/fna \
-  -st nanopore \
-  -r read_location \
-  -o results/metabolic/v3_c_mode_w_faa > error.log 2>&1
+for i in  results/faa/*faa; do 
+filename=$(basename $i .faa)
+sed -i '/^>/ s/ .*$//g' $i
+done
 ```
+
+1.  `for i in results/faa/*faa; do`: This line starts a loop that iterates over each file in the directory `results/faa/` that ends with the extension `.faa`. The loop variable `i` will hold the path of each file in turn during each iteration.
+2.  `filename=$(basename $i .faa)`: Inside the loop, this line extracts the base name of the current file (`$i`) by removing the directory path and the `.faa` extension. It assigns this base name to the variable `filename`.
+3.  `sed -i '/^>/ s/ .*$//g' $i`: This line uses the `sed` command to edit the contents of the current file (`$i`). Let's break down the `sed` command:
+    -   `-i`: This flag tells `sed` to edit the file in-place.
+    -   `'/^>/ s/ .*$//g'`: This is a regular expression pattern that `sed` will use to find and replace text in the file.
+        -   `^>`: This part of the pattern matches lines that start with `>`.
+        -   `s/ .*$//g`: This part of the pattern replaces any space character and everything after it on lines that match the pattern with nothing (i.e., it removes everything after the first space). Here, the `s` stands for substitution, and the `.*$` matches any character (`.`) until the end of the line (`$`).
+    -   `$i`: This is the file that `sed` will operate on, which is the current file in the loop.
+4.  `done`: This marks the end of the loop. So, in summary, this code loops through each file in the directory `results/faa/` with the `.faa` extension, extracts the base name of each file, and then edits each file in-place to remove any text after the first space on lines that start with `>`.
+:::
+
+::: {.callout-tip title="Tip: How does the awk command work" collapse="true"}
+Let's look into how this code works:
+
+```{bash}
+for i in  results/faa/*faa; do 
+filename=$(basename $i .faa | cut -f1 -d ".")
+awk -v fname="$filename" '/>/{sub(">","&"fname"-")}1' $i > results/faa/renamed/$filename.faa
+done
+```
+
+1.  `for i in results/faa/*faa; do`: This line initiates a loop that iterates over each file in the directory `results/faa/` with the `.faa` extension. During each iteration, the variable `i` holds the path of the current file.
+2.  `filename=$(basename $i .faa | cut -f1 -d ".")`: Inside the loop, this line extracts the base name of the current file (`$i`) by removing the directory path and the `.faa` extension using `basename`, and then it uses `cut` to split the filename at the "." character and extracts the first part. The extracted base name is stored in the variable `filename`.
+3.  `awk -v fname="$filename" '/>/{sub(">","&"fname"-")}1' $i > results/faa/renamed/$filename.faa`: This line utilizes the `awk` command to process the contents of the current file (`$i`). Let's break down the `awk` command:
+    -   `-v fname="$filename"`: This option passes the value of the shell variable `filename` to `awk` as an `awk` variable named `fname`.
+    -   `/>/`: This part of the pattern matches lines that contain `>`.
+    -   `{sub(">","&"fname"-")}`: This action performs a substitution on lines that match the pattern:
+        -   `sub(">","&"fname"-")`: This substitutes the `>` character with itself (`&`) followed by the value of `fname` and a hyphen (`-`). So, it's essentially appending the value of `fname` followed by a hyphen after the `>` character.
+    -   `1`: This is a condition that always evaluates to true, triggering the default action of `awk`, which is to print the current line.
+    -   `$i`: This is the file that `awk` will operate on.
+    -   `> results/faa/renamed/$filename.faa`: This redirects the output of `awk` to a new file with the same base name as the original file (`$filename.faa`), but located in the `results/faa/renamed/` directory.
+
+So, in summary, this code loops through each file in the directory `results/faa/` with the `.faa` extension, extracts the base name of each file, and then uses `awk` to modify each file's contents. It appends the base name followed by a hyphen after any line that starts with `>`, and saves the modified content to a new file in the `results/faa/renamed/` directory with the same base name as the original file.
+:::
+
+
+#### Run the G mode with faa files as input:
+
+Important:
+
+- Metabolic combines the faa files and generates a file named `total.faa` in the folder with the fasta sequences, if you re-run Metabolic, ensure that you first delete that file!
+- As described above, metabolic runs in different modes and also can take fasta files or raw reads as input. For details on how to do that, please visit [the manual](https://github.com/AnantharamanLab/METABOLIC/wiki/METABOLIC-Usage#Metabolic_usage)
+
+```{bash}
+mkdir results/metabolic/ 
+
+conda activate METABOLIC_v4.0 
+
+perl /zfs/omics/projects/bioinformatics/software/metabolic/v4.0.0/METABOLIC-G.pl \
+  -in results/faa/renamed/ \
+  -t 20 \
+  -o results/metabolic
+
+conda deactivate
+```
+
 
 **Generated outputs** (for more detail, check the [manual](https://github.com/AnantharamanLab/METABOLIC/wiki/METABOLIC-Usage#Metabolic_usage)):
 

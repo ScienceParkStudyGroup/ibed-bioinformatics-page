@@ -641,11 +641,11 @@ div.csl-indent {
   <li><a href="#metabolic" id="toc-metabolic" class="nav-link active" data-scroll-target="#metabolic">Metabolic</a>
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#usage-example" id="toc-usage-example" class="nav-link" data-scroll-target="#usage-example">Usage example</a>
   <ul class="collapse">
-  <li><a href="#link-to-gtdb-database" id="toc-link-to-gtdb-database" class="nav-link" data-scroll-target="#link-to-gtdb-database">Link to GTDB database</a></li>
+  <li><a href="#run-the-g-mode-with-faa-files-as-input" id="toc-run-the-g-mode-with-faa-files-as-input" class="nav-link" data-scroll-target="#run-the-g-mode-with-faa-files-as-input">Run the G mode with faa files as input:</a></li>
   </ul></li>
-  <li><a href="#usage-example" id="toc-usage-example" class="nav-link" data-scroll-target="#usage-example">Usage example</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul></li>
   </ul>
@@ -675,10 +675,12 @@ div.csl-indent {
 <p>Available on crunchomics: Yes,</p>
 <ul>
 <li>Metabolic v4.0 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to <a href="n.dombrowski@uva.nl">Nina Dombrowski</a>.</li>
-<li>Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don’t need to run this command):</li>
+<li>Additionally, the GTDB r214 database that is used by metabolic is installed on the metatools share. To get access to metatools, send an email with your Uva netID to <a href="a.u.s.heintzbuschart@uva.nl">Anna Heintz Buschart</a>.</li>
 </ul>
+<p>After you were added to the bioinformatics and metatools share, you can add the conda environments that are installed in these shares as follows (if you have already done this in the past, you don’t need to run these commands):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/metatools/TOOLS/miniconda3/envs/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If you want to install it yourself, you can run:</p>
 <div class="cell">
@@ -712,7 +714,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The command <code>bash run_to_setup.sh</code> installs some public databases, which might be useful to use other things. These are:</p>
+<p>The command <code>bash run_to_setup.sh</code> installs some public databases, which might be useful for other things. These are:</p>
 <ul>
 <li>The kofam database: KOfams are a customized HMM database of KEGG Orthologs (KOs). The KO (KEGG Orthology) database is a database of molecular functions represented in terms of functional orthologs and is useful to assign functions to your proteins of interest. The script will download the database from scratch and you will therefore always have the newest version installed when installing METABOLIC.</li>
 <li>The dbCAN2 database: A database that can be used for carbohydrate-active enzyme annotation. The script downloads dbCAN v10.</li>
@@ -720,44 +722,30 @@ Note
 </ul>
 </div>
 </div>
-<section id="link-to-gtdb-database" class="level4">
-<h4 class="anchored" data-anchor-id="link-to-gtdb-database">Link to GTDB database</h4>
-<p>METABOLIC uses GTDB_tk for taxonomic assignment. This database is very big, so instead of installing this database every single time in a conda environment folder that uses GTDB_tk, it is better to use one global installation.</p>
-<section id="use-global-installation" class="level5">
-<h5 class="anchored" data-anchor-id="use-global-installation">Use global installation</h5>
-<p>For UvA people using crunchomics, we have a global install of GTDB r207 you can use, which is installed on the metatools share. To get access to the share, please contact Anna Heintz Buschart via <a href="mailto:a.u.s.heintzbuschart@uva.nl" class="email">a.u.s.heintzbuschart@uva.nl</a> with your UvAnetID and a description why you need access</p>
+<p>Additionally to these databases, metabolic makes use of the gtdb database. If desired, you can install the GTDB database yourself as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#tell conda where the gtdb database is installed</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env config vars set GTDBTK_DATA_PATH=<span class="st">"/zfs/omics/projects/metatools/DB/GTDB_tk/GTDB_tk_r207"</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#go into the folder into which you want to download the database</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cd <span class="op">/</span>path<span class="op">/</span>to<span class="op">/</span>target </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#reactivate env to make the changes work</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate METABOLIC_v4.0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Manually download the latest reference data</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Check, if you work with the latest database. When installing Metabolic, you might get some pointers how to set up gtdb and we recommend to follow those</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>wget https:<span class="op">//</span>data.gtdb.ecogenomic.org<span class="op">/</span>releases<span class="op">/</span>release207<span class="op">/</span><span class="fl">207.0</span><span class="op">/</span>auxillary_files<span class="op">/</span>gtdbtk_r207_v2_data.tar.gz</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract the archive to a target directory:</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#change `/path/to/target/db` to whereever you want to install the db</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>tar <span class="op">-</span>xvzf gtdbtk_r207_v2_data.tar.gz <span class="op">-</span>c <span class="st">"/path/to/target/db"</span> <span class="op">--</span>strip <span class="dv">1</span> <span class="op">&gt;</span> <span class="op">/</span>dev<span class="op">/</span>null</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#cleanup</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>rm gtdbtk_r207_v2_data.tar.gz</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#while the conda env for METABOLIC is activate link gtdb database</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#change "/path/to/target/db" to wherever you downloaded the database</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>conda env config <span class="bu">vars</span> <span class="bu">set</span> GTDBTK_DATA_PATH<span class="op">=</span><span class="st">"/path/to/target/db"</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#reactivate env for the variable to be recognized</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>conda deactivate</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>conda activate METABOLIC_v4<span class="fl">.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="manual-installation" class="level5">
-<h5 class="anchored" data-anchor-id="manual-installation">Manual installation</h5>
-<p>If desired, you can install the GTDB database yourself as follows:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Manually download the latest reference data ()</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>wget https:<span class="op">//</span>data.gtdb.ecogenomic.org<span class="op">/</span>releases<span class="op">/</span>release207<span class="op">/</span><span class="fl">207.0</span><span class="op">/</span>auxillary_files<span class="op">/</span>gtdbtk_r207_v2_data.tar.gz</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract the archive to a target directory:</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#change `/path/to/target/db` to whereever you want to install the db</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>tar <span class="op">-</span>xvzf gtdbtk_r207_v2_data.tar.gz <span class="op">-</span>c <span class="st">"/path/to/target/db"</span> <span class="op">--</span>strip <span class="dv">1</span> <span class="op">&gt;</span> <span class="op">/</span>dev<span class="op">/</span>null</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#cleanup</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>rm gtdbtk_r207_v2_data.tar.gz</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#while the conda env for METABOLIC is activate link gtdb database</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>conda env config <span class="bu">vars</span> <span class="bu">set</span> GTDBTK_DATA_PATH<span class="op">=</span><span class="st">"/path/to/target/db"</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#reactivate env </span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>conda deactivate</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>conda activate METABOLIC_v4<span class="fl">.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-</section>
 </section>
 <section id="usage-example" class="level3">
 <h3 class="anchored" data-anchor-id="usage-example">Usage example</h3>
@@ -785,61 +773,144 @@ Note
 <li>If you want to use METABOLIC-C, only “fasta” files and the “-in-gn” flag are allowed to perform the analysis correctly.</li>
 </ul>
 <p>Some example files for testing can be found in <code>METABOLIC_test_files/</code>. The steps below show how to get the files and also includes some sanity checks that can be useful to test, whether your files are suitable to be used by metabolic:</p>
+<section id="preparing-the-input-files" class="level5">
+<h5 class="anchored" data-anchor-id="preparing-the-input-files">Preparing the input files</h5>
+<p>We start with downloading proteins from two genomes and do some cleaning, here we:</p>
+<ul>
+<li>Make sure the file header is concise and does not have ANY spaces and that ideally uses a ‘-’ (or any other unique delimiter) to separate the genome ID from the protein ID. Also avoid any unusual symbols, such as |, (, ), {, }…</li>
+<li>Add not only the protein ID but also the genome ID sequence header</li>
+<li>If you have a concise header + the bin ID in the header, it is easy for METABOLIC to concatenate the protein sequences of your genomes into one single file and still easily know from what genome the sequence originally came from</li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>conda activate METABOLIC_v4<span class="fl">.0</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#print the help information (and ensure everything is running ok)</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>perl METABOLIC<span class="op">-</span>C.pl <span class="op">-</span><span class="bu">help</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#prepare the example data that is available in the METABOLIC directory</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>mkdir results<span class="op">/</span>fna</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>mkdir results<span class="op">/</span>faa</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>mkdir data<span class="op">/</span>reads</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>mkdir results<span class="op">/</span>metabolic</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#get contigs</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>cp <span class="op">/</span>zfs<span class="op">/</span>omics<span class="op">/</span>projects<span class="op">/</span>bioinformatics<span class="op">/</span>software<span class="op">/</span>metabolic<span class="op">/</span>v4<span class="fl">.0.0</span><span class="op">/</span>METABOLIC_test_files<span class="op">/</span>Guaymas_Basin_genome_files<span class="op">/*</span>fasta results<span class="op">/</span>fna<span class="op">/</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#get proteins</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>cp <span class="op">/</span>zfs<span class="op">/</span>omics<span class="op">/</span>projects<span class="op">/</span>bioinformatics<span class="op">/</span>software<span class="op">/</span>metabolic<span class="op">/</span>v4<span class="fl">.0.0</span><span class="op">/</span>METABOLIC_test_files<span class="op">/</span>Guaymas_Basin_genome_files<span class="op">/*</span>faa results<span class="op">/</span>faa<span class="op">/</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#for proteins, ensure that there is no space in the header</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">#if there is, we remove everything after the space as follows:</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> results<span class="op">/</span>faa<span class="op">/*</span>faa<span class="op">;</span> do</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    cut <span class="op">-</span>f1 <span class="op">-</span>d <span class="st">" "</span> <span class="st">"$i"</span> <span class="op">&gt;</span> <span class="st">"$i.tmp"</span> <span class="op">&amp;&amp;</span> mv <span class="st">"$i.tmp"</span> <span class="st">"$i"</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>done</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="co">#for proteins, ensure that we don't have duplicate protein IDs, this code should return nothing</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>cat results<span class="op">/</span>faa<span class="op">/*</span>faa <span class="op">|</span> grep <span class="st">"&gt;"</span> <span class="op">|</span> sort <span class="op">|</span> uniq <span class="op">-</span>d</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="co">#get reads</span></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="co">#since the files are larger, we generate a symbolic link</span></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>ln <span class="op">-</span>s <span class="op">/</span>zfs<span class="op">/</span>omics<span class="op">/</span>projects<span class="op">/</span>bioinformatics<span class="op">/</span>software<span class="op">/</span>metabolic<span class="op">/</span>v4<span class="fl">.0</span>.</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span><span class="op">/</span>METABOLIC_test_files<span class="op">/</span>METABOLIC_test_reads<span class="op">/</span>SRR3577362_sub_<span class="op">*</span>fastq data<span class="op">/</span>reads<span class="op">/</span></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="co">#get file with path to the reads </span></span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"#Read pairs:"</span> <span class="op">&gt;</span> read_location</span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>find <span class="st">"$(pwd)/data/reads"</span> <span class="op">-</span>name <span class="st">"*fastq.gz"</span> <span class="op">&gt;&gt;</span> read_location</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results/faa/renamed</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> results/kos/</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#download some example genomes from NCBI</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/008/085/GCA_000008085.1_ASM808v1/GCA_000008085.1_ASM808v1_protein.faa.gz  <span class="at">-P</span> results/faa/</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/017/945/GCA_000017945.1_ASM1794v1/GCA_000017945.1_ASM1794v1_protein.faa.gz  <span class="at">-P</span> results/faa/</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-d</span> results/faa/<span class="pp">*</span>gz</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#view the header of one file</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#we see the header looks like this: &gt;ABU81185.1 translation initiation factor aIF-2 [Ignicoccus hospitalis KIN4/I]</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#this is too long and the extra characters, i.e. spaces, can disrupt downstream analysis, so let's fix that first</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> results/faa/GCA_000017945.1_ASM1794v1_protein.faa </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#remove everything after the space in the fasta headers</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span>  results/faa/<span class="pp">*</span>faa<span class="kw">;</span> <span class="cf">do</span> </span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="va">filename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa<span class="va">)</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-i</span> <span class="st">'/^&gt;/ s/ .*$//g'</span> <span class="va">$i</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#afterwards, the header looks like this; &gt;ABU81185.1</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> results/faa/GCA_000017945.1_ASM1794v1_protein.faa </span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#next, we add the filename into the fasta header and store them in our new folder</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#this allows us to combine all genomes into 1 file has the benefit that you only need to run hmmsearch 1x</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co">#for this to work proberly its a good practice to add the genomeID into the fasta header so that you can easily distinguish from where each protein originally came</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span>  results/faa/<span class="pp">*</span>faa<span class="kw">;</span> <span class="cf">do</span> </span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="va">filename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1</span> <span class="at">-d</span> <span class="st">"."</span><span class="va">)</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-v</span> fname=<span class="st">"</span><span class="va">$filename</span><span class="st">"</span> <span class="st">'/&gt;/{sub("&gt;","&amp;"fname"-")}1'</span> <span class="va">$i</span> <span class="op">&gt;</span> results/faa/renamed/<span class="va">$filename</span>.faa</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">#afterwards, the header looks like this; &gt;ABU81185.1</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">#notice: how using basename with cut made our filename a bit shorter?</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> results/faa/renamed/GCA_000017945.faa </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Run the G mode with fasta files as input:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">perl</span> /home/ndombro/personal/software/METABOLIC_4.0/METABOLIC/METABOLIC-G.pl <span class="dt">\</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-in-gn</span> results/fna/ <span class="dt">\</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> results/metabolic/v1_g_mode_w_fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tip: How does the sed command work">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p>Run the G mode with faa files as input:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">perl</span> /home/ndombro/personal/software/METABOLIC_4.0/METABOLIC/METABOLIC-G.pl <span class="dt">\</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-in</span> results/faa/ <span class="dt">\</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> results/metabolic/v2_g_mode_w_faa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout-title-container flex-fill">
+Tip: How does the sed command work
 </div>
-<p>Run the C mode, <strong>notice that this mode still seems to be buggy and I recommend to either install Metabolic yourself if you want to use it or start with using the G mode</strong>:</p>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Let’s look into how this code works:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">perl</span> /home/ndombro/personal/software/METABOLIC_4.0/METABOLIC/METABOLIC-C.pl <span class="dt">\</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-in-gn</span> results/fna <span class="dt">\</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-st</span> nanopore <span class="dt">\</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-r</span> read_location <span class="dt">\</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> results/metabolic/v3_c_mode_w_faa <span class="op">&gt;</span> error.log <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span>  results/faa/<span class="pp">*</span>faa<span class="kw">;</span> <span class="cf">do</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="va">filename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa<span class="va">)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-i</span> <span class="st">'/^&gt;/ s/ .*$//g'</span> <span class="va">$i</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li><code>for i in results/faa/*faa; do</code>: This line starts a loop that iterates over each file in the directory <code>results/faa/</code> that ends with the extension <code>.faa</code>. The loop variable <code>i</code> will hold the path of each file in turn during each iteration.</li>
+<li><code>filename=$(basename $i .faa)</code>: Inside the loop, this line extracts the base name of the current file (<code>$i</code>) by removing the directory path and the <code>.faa</code> extension. It assigns this base name to the variable <code>filename</code>.</li>
+<li><code>sed -i '/^&gt;/ s/ .*$//g' $i</code>: This line uses the <code>sed</code> command to edit the contents of the current file (<code>$i</code>). Let’s break down the <code>sed</code> command:
+<ul>
+<li><code>-i</code>: This flag tells <code>sed</code> to edit the file in-place.</li>
+<li><code>'/^&gt;/ s/ .*$//g'</code>: This is a regular expression pattern that <code>sed</code> will use to find and replace text in the file.
+<ul>
+<li><code>^&gt;</code>: This part of the pattern matches lines that start with <code>&gt;</code>.</li>
+<li><code>s/ .*$//g</code>: This part of the pattern replaces any space character and everything after it on lines that match the pattern with nothing (i.e., it removes everything after the first space). Here, the <code>s</code> stands for substitution, and the <code>.*$</code> matches any character (<code>.</code>) until the end of the line (<code>$</code>).</li>
+</ul></li>
+<li><code>$i</code>: This is the file that <code>sed</code> will operate on, which is the current file in the loop.</li>
+</ul></li>
+<li><code>done</code>: This marks the end of the loop. So, in summary, this code loops through each file in the directory <code>results/faa/</code> with the <code>.faa</code> extension, extracts the base name of each file, and then edits each file in-place to remove any text after the first space on lines that start with <code>&gt;</code>.</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tip: How does the awk command work">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip: How does the awk command work
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Let’s look into how this code works:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span>  results/faa/<span class="pp">*</span>faa<span class="kw">;</span> <span class="cf">do</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">filename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1</span> <span class="at">-d</span> <span class="st">"."</span><span class="va">)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-v</span> fname=<span class="st">"</span><span class="va">$filename</span><span class="st">"</span> <span class="st">'/&gt;/{sub("&gt;","&amp;"fname"-")}1'</span> <span class="va">$i</span> <span class="op">&gt;</span> results/faa/renamed/<span class="va">$filename</span>.faa</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li><code>for i in results/faa/*faa; do</code>: This line initiates a loop that iterates over each file in the directory <code>results/faa/</code> with the <code>.faa</code> extension. During each iteration, the variable <code>i</code> holds the path of the current file.</li>
+<li><code>filename=$(basename $i .faa | cut -f1 -d ".")</code>: Inside the loop, this line extracts the base name of the current file (<code>$i</code>) by removing the directory path and the <code>.faa</code> extension using <code>basename</code>, and then it uses <code>cut</code> to split the filename at the “.” character and extracts the first part. The extracted base name is stored in the variable <code>filename</code>.</li>
+<li><code>awk -v fname="$filename" '/&gt;/{sub("&gt;","&amp;"fname"-")}1' $i &gt; results/faa/renamed/$filename.faa</code>: This line utilizes the <code>awk</code> command to process the contents of the current file (<code>$i</code>). Let’s break down the <code>awk</code> command:
+<ul>
+<li><code>-v fname="$filename"</code>: This option passes the value of the shell variable <code>filename</code> to <code>awk</code> as an <code>awk</code> variable named <code>fname</code>.</li>
+<li><code>/&gt;/</code>: This part of the pattern matches lines that contain <code>&gt;</code>.</li>
+<li><code>{sub("&gt;","&amp;"fname"-")}</code>: This action performs a substitution on lines that match the pattern:
+<ul>
+<li><code>sub("&gt;","&amp;"fname"-")</code>: This substitutes the <code>&gt;</code> character with itself (<code>&amp;</code>) followed by the value of <code>fname</code> and a hyphen (<code>-</code>). So, it’s essentially appending the value of <code>fname</code> followed by a hyphen after the <code>&gt;</code> character.</li>
+</ul></li>
+<li><code>1</code>: This is a condition that always evaluates to true, triggering the default action of <code>awk</code>, which is to print the current line.</li>
+<li><code>$i</code>: This is the file that <code>awk</code> will operate on.</li>
+<li><code>&gt; results/faa/renamed/$filename.faa</code>: This redirects the output of <code>awk</code> to a new file with the same base name as the original file (<code>$filename.faa</code>), but located in the <code>results/faa/renamed/</code> directory.</li>
+</ul></li>
+</ol>
+<p>So, in summary, this code loops through each file in the directory <code>results/faa/</code> with the <code>.faa</code> extension, extracts the base name of each file, and then uses <code>awk</code> to modify each file’s contents. It appends the base name followed by a hyphen after any line that starts with <code>&gt;</code>, and saves the modified content to a new file in the <code>results/faa/renamed/</code> directory with the same base name as the original file.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="run-the-g-mode-with-faa-files-as-input" class="level4">
+<h4 class="anchored" data-anchor-id="run-the-g-mode-with-faa-files-as-input">Run the G mode with faa files as input:</h4>
+<p>Important:</p>
+<ul>
+<li>Metabolic combines the faa files and generates a file named <code>total.faa</code> in the folder with the fasta sequences, if you re-run Metabolic, ensure that you first delete that file!</li>
+<li>As described above, metabolic runs in different modes and also can take fasta files or raw reads as input. For details on how to do that, please visit <a href="https://github.com/AnantharamanLab/METABOLIC/wiki/METABOLIC-Usage#Metabolic_usage">the manual</a></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> results/metabolic/ </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate METABOLIC_v4.0 </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">perl</span> /zfs/omics/projects/bioinformatics/software/metabolic/v4.0.0/METABOLIC-G.pl <span class="dt">\</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-in</span> results/faa/renamed/ <span class="dt">\</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">-t</span> 20 <span class="dt">\</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> results/metabolic</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Generated outputs</strong> (for more detail, check the <a href="https://github.com/AnantharamanLab/METABOLIC/wiki/METABOLIC-Usage#Metabolic_usage">manual</a>):</p>
 <ul>
@@ -869,6 +940,7 @@ Note
 <li><code>-p</code> [optional] Defines the prodigal method used to annotate ORFs (“meta” or “single”)(Default: “meta”)</li>
 <li><code>-o</code> [optional] Defines the output directory to be created by the program (Default: current directory)</li>
 </ul>
+</section>
 </section>
 <section id="references" class="level3">
 
@@ -1452,7 +1524,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2024-05-13</p>
+Last modified: 2024-05-14</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/metabolic.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
