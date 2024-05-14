@@ -646,6 +646,7 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#generate-your-own-hmm-for-searches" id="toc-generate-your-own-hmm-for-searches" class="nav-link" data-scroll-target="#generate-your-own-hmm-for-searches">Generate your own hmm for searches</a></li>
   <li><a href="#compare-proteins-of-interest-against-a-hmm-database" id="toc-compare-proteins-of-interest-against-a-hmm-database" class="nav-link" data-scroll-target="#compare-proteins-of-interest-against-a-hmm-database">Compare proteins of interest against a hmm database</a></li>
+  <li><a href="#compare-proteins-of-interest-against-a-hmm-database-advanced" id="toc-compare-proteins-of-interest-against-a-hmm-database-advanced" class="nav-link" data-scroll-target="#compare-proteins-of-interest-against-a-hmm-database-advanced">Compare proteins of interest against a hmm database (advanced)</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -719,51 +720,6 @@ div.csl-indent {
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    KO_db.hmm <span class="dt">\</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    results/prokka/bin5.faa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Let’s do this in an advanced mode and parse a few things afterwards. This assumes that you already have a few genomes ready and that they are found in the folder <code>results/faa</code></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> results/faa/renamed</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> results/kos/</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#combine proteins from different genomes in one database </span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#add the filename into the fasta header and store them in our new folder</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#combining all genomes into 1 file has the benefit that you only need to run hmmsearch 1x</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#for this to work proberly its a good practice to add the genomeID into the fasta header so that you can easily distinguish from where each protein originally came</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span>  results/faa/<span class="pp">*</span>faa<span class="kw">;</span> <span class="cf">do</span> </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="va">filename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa<span class="va">)</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-v</span> fname=<span class="st">"</span><span class="va">$filename</span><span class="st">"</span> <span class="st">'/&gt;/{sub("&gt;","&amp;"fname"-");sub(/\.faa/,x)}1'</span> <span class="va">$i</span> <span class="op">&gt;</span> results/faa/renamed/<span class="va">$filename</span>.faa</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#after ensuring our files have good headers, we can combine the individual faa files </span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> results/faa/renamed/<span class="pp">*</span>.faa <span class="op">&gt;</span> results/faa/combined.faa</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#now we can run the hmmsearch</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="ex">hmmsearch</span> <span class="at">--tblout</span> results/kos/sequence_results.txt <span class="dt">\</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">--domtblout</span> results/kos/domain_results.txt <span class="dt">\</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">--notextw</span> <span class="at">--cpu</span> 20 <span class="dt">\</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/KO_db.hmm <span class="dt">\</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  results/faa/combined.faa</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#format the full table by:</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#remove hash symbols and replacing spaces with a tab</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#retain only the columns with the protein-id, ko-id, e-value, bitscpre</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#and only select hits above a certain e-value</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/ \+ /\t/g'</span> results/kos/sequence_results.txt <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'/^#/d'</span><span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/ /\t/g'</span><span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{print $1, $3, $6, $5}'</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'($4 + 0) &lt;= 1E-3'</span>  <span class="op">&gt;</span> results/kos/sequence_results_red_e_cutoff.txt</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">#get best hit/protein based on bit score, and e-value</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co">#i.e. one protein might hit toward more than 1 HMM, we only want to retain one hit</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k3,3gr</span> <span class="at">-k4,4g</span> results/kos/sequence_results_red_e_cutoff.txt <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">--stable</span> <span class="at">-u</span> <span class="at">-k1,1</span>  <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k3,3gr</span> <span class="at">-k4,4g</span> <span class="op">&gt;</span>  results/kos/sequence_results_red_e_cutoff_best_hit.txt</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co">#merge with KO mapping file </span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co">#ensure that the KOs are in column 2 and 1 of the results and the mapping file</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co">#-o decides what columns are kept after the merge from table 1 and 2. I.e. from the mapping file only columns 2 and 12 are used</span></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">join</span> <span class="at">-a1</span> <span class="at">-1</span> 2 <span class="at">-2</span> 1 <span class="at">-e</span><span class="st">'-'</span> <span class="at">-t</span> <span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-o1.1,1.2,1.4,1.3,2.2,2.12</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k2</span> results/kos/sequence_results_red_e_cutoff_best_hit.txt<span class="op">)</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k1</span>  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list<span class="op">)</span> <span class="kw">|</span> <span class="va">LC_ALL</span><span class="op">=</span>C  <span class="fu">sort</span> <span class="op">&gt;</span>  results/kos/temp1</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="co">#add in an extra column that lists whether hits have a high confidence score</span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span>  <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{ if ($4 &gt; $5){ $7="high_score" }else{ $7="-" } print } '</span> results/kos/temp1 <span class="op">&gt;</span> results/kos/temp2</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co">#add header</span></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"accession\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence"</span> <span class="kw">|</span> <span class="fu">cat</span> <span class="at">-</span> results/kos/temp2 <span class="op">&gt;</span> results/kos/KO_hmm.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <p>Output:</p>
 <ul>
 <li>The <code>--tblout</code> output option produces the target hits table. The target hits table consists of one line for each different query/target comparison that met the reporting thresholds, ranked by decreasing statistical significance (increasing E-value). Page 67 of the <a href="http://eddylab.org/software/hmmer/Userguide.pdf">User’s guide</a> explains each column in more detail.</li>
@@ -771,9 +727,443 @@ div.csl-indent {
 <li><code>--notextw</code>: Unlimits the length of each line in the main output. The default is a limit of 120 characters per line, which helps in displaying the output cleanly on terminals and in editors, but can truncate target profile description lines.</li>
 </ul>
 <p>For more options, check the manual or use <code>hmmsearch -h</code></p>
+</section>
+<section id="compare-proteins-of-interest-against-a-hmm-database-advanced" class="level4">
+<h4 class="anchored" data-anchor-id="compare-proteins-of-interest-against-a-hmm-database-advanced">Compare proteins of interest against a hmm database (advanced)</h4>
+<p>Let’s do this in an advanced mode that goes into preparing the input files well and parsing the hmmsearch results afterwards. This is an advanced mode since we will use a lot of bash commands to format the outputs into what we want. You can easily do this in R or python but this code was added here to show an example for how flexible the command line is.</p>
+<p><strong>Its recommended</strong> to view the file after each step with head or nano in order to understand what the step does. This is the best way to know what the code does and adjust it, if needed, for your ow analyses.</p>
+<section id="preparing-the-input-files" class="level5">
+<h5 class="anchored" data-anchor-id="preparing-the-input-files">Preparing the input files</h5>
+<p>We start with downloading proteins from two genomes and do some cleaning, here we:</p>
+<ul>
+<li>Make sure the file header is concise and does not have ANY spaces and that ideally uses a ‘-’ (or any other unique delimiter) to separate the genome ID from the protein ID. Also avoid any unusual symbols, such as |, (, ), {, }…</li>
+<li>Add not only the protein ID but also the genome ID sequence header</li>
+<li>If you have a concise header + the bin ID in the header, it is easy to concatenate the protein sequences of your genomes into one single file and still easily know from what genome the sequence originally came from</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results/faa/renamed</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> results/kos/</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#download some example genomes from NCBI</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/008/085/GCA_000008085.1_ASM808v1/GCA_000008085.1_ASM808v1_protein.faa.gz  <span class="at">-P</span> results/faa/</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/017/945/GCA_000017945.1_ASM1794v1/GCA_000017945.1_ASM1794v1_protein.faa.gz  <span class="at">-P</span> results/faa/</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-d</span> results/faa/<span class="pp">*</span>gz</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#view the header of one file</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#we see the header looks like this: &gt;ABU81185.1 translation initiation factor aIF-2 [Ignicoccus hospitalis KIN4/I]</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#this is too long and the extra characters, i.e. spaces, can disrupt downstream analysis, so let's fix that first</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> results/faa/GCA_000017945.1_ASM1794v1_protein.faa </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#remove everything after the space in the fasta headers</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span>  results/faa/<span class="pp">*</span>faa<span class="kw">;</span> <span class="cf">do</span> </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="va">filename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa<span class="va">)</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-i</span> <span class="st">'/^&gt;/ s/ .*$//g'</span> <span class="va">$i</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#afterwards, the header looks like this; &gt;ABU81185.1</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> results/faa/GCA_000017945.1_ASM1794v1_protein.faa </span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#next, we add the filename into the fasta header and store them in our new folder</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#this allows us to combine all genomes into 1 file has the benefit that you only need to run hmmsearch 1x</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#for this to work proberly its a good practice to add the genomeID into the fasta header so that you can easily distinguish from where each protein originally came</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span>  results/faa/<span class="pp">*</span>faa<span class="kw">;</span> <span class="cf">do</span> </span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="va">filename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1</span> <span class="at">-d</span> <span class="st">"."</span><span class="va">)</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-v</span> fname=<span class="st">"</span><span class="va">$filename</span><span class="st">"</span> <span class="st">'/&gt;/{sub("&gt;","&amp;"fname"-")}1'</span> <span class="va">$i</span> <span class="op">&gt;</span> results/faa/renamed/<span class="va">$filename</span>.faa</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co">#afterwards, the header looks like this; &gt;ABU81185.1</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> results/faa/renamed/GCA_000017945.faa </span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co">#after ensuring our files have good headers, we can combine the individual faa files </span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> results/faa/renamed/<span class="pp">*</span>.faa <span class="op">&gt;</span> results/faa/combined.faa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tip: How does the sed command work">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip: How does the sed command work
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Let’s look into how this code works:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span>  results/faa/<span class="pp">*</span>faa<span class="kw">;</span> <span class="cf">do</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="va">filename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa<span class="va">)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-i</span> <span class="st">'/^&gt;/ s/ .*$//g'</span> <span class="va">$i</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li><code>for i in results/faa/*faa; do</code>: This line starts a loop that iterates over each file in the directory <code>results/faa/</code> that ends with the extension <code>.faa</code>. The loop variable <code>i</code> will hold the path of each file in turn during each iteration.</li>
+<li><code>filename=$(basename $i .faa)</code>: Inside the loop, this line extracts the base name of the current file (<code>$i</code>) by removing the directory path and the <code>.faa</code> extension. It assigns this base name to the variable <code>filename</code>.</li>
+<li><code>sed -i '/^&gt;/ s/ .*$//g' $i</code>: This line uses the <code>sed</code> command to edit the contents of the current file (<code>$i</code>). Let’s break down the <code>sed</code> command:
+<ul>
+<li><code>-i</code>: This flag tells <code>sed</code> to edit the file in-place.</li>
+<li><code>'/^&gt;/ s/ .*$//g'</code>: This is a regular expression pattern that <code>sed</code> will use to find and replace text in the file.
+<ul>
+<li><code>^&gt;</code>: This part of the pattern matches lines that start with <code>&gt;</code>.</li>
+<li><code>s/ .*$//g</code>: This part of the pattern replaces any space character and everything after it on lines that match the pattern with nothing (i.e., it removes everything after the first space). Here, the <code>s</code> stands for substitution, and the <code>.*$</code> matches any character (<code>.</code>) until the end of the line (<code>$</code>).</li>
+</ul></li>
+<li><code>$i</code>: This is the file that <code>sed</code> will operate on, which is the current file in the loop.</li>
+</ul></li>
+<li><code>done</code>: This marks the end of the loop. So, in summary, this code loops through each file in the directory <code>results/faa/</code> with the <code>.faa</code> extension, extracts the base name of each file, and then edits each file in-place to remove any text after the first space on lines that start with <code>&gt;</code>.</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tip: How does the awk command work">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip: How does the awk command work
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Let’s look into how this code works:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span>  results/faa/<span class="pp">*</span>faa<span class="kw">;</span> <span class="cf">do</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="va">filename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1</span> <span class="at">-d</span> <span class="st">"."</span><span class="va">)</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-v</span> fname=<span class="st">"</span><span class="va">$filename</span><span class="st">"</span> <span class="st">'/&gt;/{sub("&gt;","&amp;"fname"-")}1'</span> <span class="va">$i</span> <span class="op">&gt;</span> results/faa/renamed/<span class="va">$filename</span>.faa</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li><code>for i in results/faa/*faa; do</code>: This line initiates a loop that iterates over each file in the directory <code>results/faa/</code> with the <code>.faa</code> extension. During each iteration, the variable <code>i</code> holds the path of the current file.</li>
+<li><code>filename=$(basename $i .faa | cut -f1 -d ".")</code>: Inside the loop, this line extracts the base name of the current file (<code>$i</code>) by removing the directory path and the <code>.faa</code> extension using <code>basename</code>, and then it uses <code>cut</code> to split the filename at the “.” character and extracts the first part. The extracted base name is stored in the variable <code>filename</code>.</li>
+<li><code>awk -v fname="$filename" '/&gt;/{sub("&gt;","&amp;"fname"-")}1' $i &gt; results/faa/renamed/$filename.faa</code>: This line utilizes the <code>awk</code> command to process the contents of the current file (<code>$i</code>). Let’s break down the <code>awk</code> command:
+<ul>
+<li><code>-v fname="$filename"</code>: This option passes the value of the shell variable <code>filename</code> to <code>awk</code> as an <code>awk</code> variable named <code>fname</code>.</li>
+<li><code>/&gt;/</code>: This part of the pattern matches lines that contain <code>&gt;</code>.</li>
+<li><code>{sub("&gt;","&amp;"fname"-")}</code>: This action performs a substitution on lines that match the pattern:
+<ul>
+<li><code>sub("&gt;","&amp;"fname"-")</code>: This substitutes the <code>&gt;</code> character with itself (<code>&amp;</code>) followed by the value of <code>fname</code> and a hyphen (<code>-</code>). So, it’s essentially appending the value of <code>fname</code> followed by a hyphen after the <code>&gt;</code> character.</li>
+</ul></li>
+<li><code>1</code>: This is a condition that always evaluates to true, triggering the default action of <code>awk</code>, which is to print the current line.</li>
+<li><code>$i</code>: This is the file that <code>awk</code> will operate on.</li>
+<li><code>&gt; results/faa/renamed/$filename.faa</code>: This redirects the output of <code>awk</code> to a new file with the same base name as the original file (<code>$filename.faa</code>), but located in the <code>results/faa/renamed/</code> directory.</li>
+</ul></li>
+</ol>
+<p>So, in summary, this code loops through each file in the directory <code>results/faa/</code> with the <code>.faa</code> extension, extracts the base name of each file, and then uses <code>awk</code> to modify each file’s contents. It appends the base name followed by a hyphen after any line that starts with <code>&gt;</code>, and saves the modified content to a new file in the <code>results/faa/renamed/</code> directory with the same base name as the original file.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="prepare-a-mapping-file-optional" class="level5">
+<h5 class="anchored" data-anchor-id="prepare-a-mapping-file-optional">Prepare a mapping file (optional)</h5>
+<p>Next, we prepare a mapping file that is a two-column file with the genome and the protein name. This mapping file is useful to merge with the results of the hmmsearch since it allows us to (a) keep the proteins in the same order as they occur on the contig and (b) note proteins for which we didn’t find a match during the hmmsearch. If you don’t care about the order or want to list proteins without a KO hit, then you can omit the file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get list of protein accession numbers</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"^&gt;"</span> results/faa/combined.faa  <span class="op">&gt;</span> temp</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#remove the ``&gt;``</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/&gt;//g'</span> temp <span class="op">&gt;</span> temp2</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Modify protein list to add in a column with genome ID</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{split($1,a,"-"); print $1, a[1]}'</span> temp2 <span class="op">&gt;</span> mapping_file.txt</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#check file content: we now have the accession and the binID</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> mapping_file.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tip: How does the awk command work">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip: How does the awk command work
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{split($1,a,"-"); print $1, a[1]}'</span> temp2 <span class="op">&gt;</span> mapping_file.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li><code>awk</code>: This invokes the AWK programming language interpreter.</li>
+<li><code>-F'\t'</code>: This option sets the field separator to tab (<code>\t</code>). It tells AWK to split each input line into fields based on tabs.</li>
+<li><code>-v OFS='\t'</code>: This sets the Output Field Separator (OFS) to tab (<code>\t</code>). It specifies how AWK should separate fields when printing output. Here, it’s set to tab as well.</li>
+<li><code>'{split($1,a,"-"); print $1, a[1]}'</code>: This is the AWK script enclosed within single quotes. Let’s break it down:
+<ul>
+<li><code>split($1,a,"-")</code>: This function splits the first field (<code>$1</code>) of each input line into an array <code>a</code>, using <code>-</code> as the delimiter. After this operation, the array <code>a</code> will contain the substrings of <code>$1</code> separated by <code>-</code>.</li>
+<li><code>print $1, a[1]</code>: This statement prints the first field (<code>$1</code>) of the input line, followed by the first element of the array <code>a</code>. It essentially prints the original first field and the first part of it obtained after splitting by <code>-</code>.</li>
+</ul></li>
+<li><code>temp2</code>: This is the input file for AWK. It represents the file that AWK will process.</li>
+<li><code>&gt; mapping_file.txt</code>: This part redirects the output of AWK to a new file named <code>mapping_file.txt</code>. It creates or overwrites this file with the content generated by AWK.</li>
+</ol>
+<p>So, in summary, this AWK command reads each line from the file <code>temp2</code>, assumes that fields are separated by tabs, splits the first field of each line by the <code>-</code> character, and then prints the original first field along with the first part obtained after splitting. The output is saved to a new file named <code>mapping_file.txt</code>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="running-the-hmmsearch" class="level5">
+<h5 class="anchored" data-anchor-id="running-the-hmmsearch">Running the hmmsearch</h5>
+<p>The next thing is easy, we run hmmsearch:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#now we can run the hmmsearch</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">hmmsearch</span> <span class="at">--tblout</span> results/kos/sequence_results.txt <span class="dt">\</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--domtblout</span> results/kos/domain_results.txt <span class="dt">\</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--notextw</span> <span class="at">--cpu</span> 20 <span class="dt">\</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/KO_db.hmm <span class="dt">\</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  results/faa/combined.faa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="parsing-the-hmmsearch-results" class="level5">
+<h5 class="anchored" data-anchor-id="parsing-the-hmmsearch-results">Parsing the hmmsearch results</h5>
+<p>Next, we want to parse the hmmsearch results and:</p>
+<ol type="1">
+<li>Clean the table by removing rows starting with a # (these are usually comments we don’t need) and ensure that we work with a tab-separated file</li>
+<li>Remove hits with insufficient e-values</li>
+<li>Ensure that for each protein we retain only one hit to the database</li>
+<li>Add some description for the database identifier, here the KO ID.</li>
+<li>Combine the data with our mapping file</li>
+<li>Add a header</li>
+</ol>
+<p>Notice: For this code to work on other databases, i.e.&nbsp;the Pfam database, you need to ensure that you act on the right columns. Below are some tips but read through the detailed code explanations to make this work for other databases.</p>
+<ol type="1">
+<li>The first sed command extract the relevant columns, i.e.&nbsp;protein-id, ko-id, e-value, bitscore, by specifying the right fields. For the KO results, these are columns $1, $3, $6, $5</li>
+<li>The second sort command sorts on the right columns. For the KOs column 3 is the e-value and column 4 the bitscore</li>
+<li>The join command joins the right fields from the KO mapping file. Ensure that
+<ol type="1">
+<li>The ID to merge the two dataframes is in the second column in your results (-1 2) and in the first column in the ko_list (-2 1)</li>
+<li>You add the right columns from the mapping file from the database. I.e. with 2.2 and 2.12 we exact a custom cutoff and a description from the ko_list.</li>
+<li>The sort part acts on the right columns. I.e. We sort ko_list on column 1 (-k1) because that is the column that contains the KO ID that we want to use for merging</li>
+</ol></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1.format the full table by:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#remove hash symbols and replacing spaces with a tab</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#retain only the columns with the protein-id, ko-id, e-value, bitscore</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#and only select hits above a certain e-value</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/ \+ /\t/g'</span> results/kos/sequence_results.txt <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'/^#/d'</span><span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/ /\t/g'</span><span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{print $1, $3, $6, $5}'</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'($4 + 0) &lt;= 1E-3'</span>  <span class="op">&gt;</span> results/kos/sequence_results_red_e_cutoff.txt</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#2.get best hit/protein based on bit score, and e-value</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#i.e. one protein might hit toward more than 1 HMM, we only want to retain one hit</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k3,3gr</span> <span class="at">-k4,4g</span> results/kos/sequence_results_red_e_cutoff.txt <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">--stable</span> <span class="at">-u</span> <span class="at">-k1,1</span>  <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k3,3gr</span> <span class="at">-k4,4g</span> <span class="op">&gt;</span>  results/kos/sequence_results_red_e_cutoff_best_hit.txt</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#3.merge with KO mapping file </span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#ensure that the KOs are in column 2 and 1 of the results and the mapping file</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#-o decides what columns are kept after the merge from table 1 and 2. I.e. from the mapping file only columns 2 and 12 are used</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">join</span> <span class="at">-a1</span> <span class="at">-1</span> 2 <span class="at">-2</span> 1 <span class="at">-e</span><span class="st">'-'</span> <span class="at">-t</span> <span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-o1.1,1.2,1.4,1.3,2.2,2.12</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k2</span> results/kos/sequence_results_red_e_cutoff_best_hit.txt<span class="op">)</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k1</span>  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list<span class="op">)</span> <span class="kw">|</span> <span class="va">LC_ALL</span><span class="op">=</span>C  <span class="fu">sort</span> <span class="op">&gt;</span>  results/kos/temp1</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#4.add in an extra column that lists whether hits have a high confidence score</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span>  <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{ if ($4 &gt; $5){ $7="high_score" }else{ $7="-" } print } '</span> results/kos/temp1 <span class="op">&gt;</span> results/kos/temp2</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">#5.merge with protein mapping file</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">join</span> <span class="at">-a1</span>  <span class="at">-j1</span> <span class="at">-e</span><span class="st">'-'</span> <span class="at">-t</span> <span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-o</span> 0,1.1,2.2,2.3,2.4,2.5,2.6,2.7 <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> mapping_file.txt<span class="op">)</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> results/kos/temp2<span class="op">)</span> <span class="kw">|</span> <span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span>  <span class="op">&gt;</span> results/kos/temp3</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co">#6.add header</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"accession\tBinID\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence"</span> <span class="kw">|</span> <span class="fu">cat</span> <span class="at">-</span> results/kos/temp3 <span class="op">&gt;</span> results/kos/KO_hmm.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tip: What does the 1st command do">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip: What does the 1st command do
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/ \+ /\t/g'</span> results/kos/sequence_results.txt <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'/^#/d'</span><span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/ /\t/g'</span><span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{print $1, $3, $6, $5}'</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'($4 + 0) &lt;= 1E-3'</span>  <span class="op">&gt;</span> results/kos/sequence_results_red_e_cutoff.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here, we use a pipe to combine multiple smaller commands into one:</p>
+<ol type="1">
+<li><code>sed 's/ \+ /\t/g' results/kos/sequence_results.txt</code>: This command replaces one or more spaces with a single tab character in the file <code>sequence_results.txt</code> located in the <code>results/kos/</code> directory.</li>
+<li><code>| sed '/^#/d'</code>: This command pipes the output of the previous <code>sed</code> command to another <code>sed</code> command, which deletes lines that start with <code>#</code>. This is commonly used to remove comments from files.</li>
+<li><code>| sed 's/ /\t/g'</code>: This command pipes the output of the previous <code>sed</code> command to another <code>sed</code> command, which replaces all spaces with tab characters.</li>
+<li><code>| awk -F'\t' -v OFS='\t' '{print $1, $3, $6, $5}'</code>: This command pipes the output of the previous <code>sed</code> command to an AWK command. Let’s break it down:
+<ul>
+<li><code>awk -F'\t'</code>: This sets the input field separator to tab.</li>
+<li><code>-v OFS='\t'</code>: This sets the output field separator to tab.</li>
+<li><code>'{print $1, $3, $6, $5}'</code>: This prints the first, third, sixth, and fifth fields of each line, separated by tabs. This selects specific columns from the data.</li>
+</ul></li>
+<li><code>| awk -F'\t' -v OFS='\t' '($4 + 0) &lt;= 1E-3'</code>: This command pipes the output of the previous AWK command to another AWK command. Let’s break it down:
+<ul>
+<li><code>awk -F'\t'</code>: This sets the input field separator to tab.</li>
+<li><code>-v OFS='\t'</code>: This sets the output field separator to tab.</li>
+<li><code>'($4 + 0) &lt;= 1E-3'</code>: This is a condition that filters the output. It checks if the numerical value of the fourth field (<code>$4</code>) is less than or equal to 1E-3 (0.001). If true, the line is printed.</li>
+</ul></li>
+</ol>
+<p>So, in summary, this command sequence manipulates and filters the content of the <code>sequence_results.txt</code> file, and the filtered output is saved to a new file named <code>sequence_results_red_e_cutoff.txt</code>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tip: What does the 2nd command do">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip: What does the 2nd command do
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k3,3gr</span> <span class="at">-k4,4g</span> results/kos/sequence_results_red_e_cutoff.txt <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">--stable</span> <span class="at">-u</span> <span class="at">-k1,1</span>  <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k3,3gr</span> <span class="at">-k4,4g</span> <span class="op">&gt;</span>  results/kos/sequence_results_red_e_cutoff_best_hit.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This command sequence performs several sorting operations on the file <code>sequence_results_red_e_cutoff.txt</code> in the <code>results/kos/</code> directory.</p>
+<ol type="1">
+<li><code>sort -t$'\t' -k3,3gr -k4,4g results/kos/sequence_results_red_e_cutoff.txt</code>: This command sorts the content of the file <code>sequence_results_red_e_cutoff.txt</code> based on multiple fields:
+<ul>
+<li><code>-t$'\t'</code>: Specifies that the field separator is a tab character.</li>
+<li><code>-k3,3gr</code>: Sorts based on the third field (column) in descending numerical order (<code>-r</code> flag indicates reverse order).</li>
+<li><code>-k4,4g</code>: If values in the third field are equal, it sorts based on the fourth field in ascending numerical order (<code>g</code> flag indicates general numerical sorting).</li>
+</ul></li>
+<li><code>| sort -t$'\t' --stable -u -k1,1</code>: This command pipes the output of the previous <code>sort</code> command to another <code>sort</code> command, which performs the following operations:
+<ul>
+<li><code>-t$'\t'</code>: Specifies that the field separator is a tab character.</li>
+<li><code>--stable</code>: Ensures that the original order of records with equal keys is preserved.</li>
+<li><code>-u</code>: Specifies unique mode, keeping only the first occurrence of lines with identical keys.</li>
+<li><code>-k1,1</code>: Sorts based on the first field (column) only.</li>
+</ul></li>
+<li><code>| sort -t$'\t' -k3,3gr -k4,4g</code>: This command pipes the output of the previous <code>sort</code> command to another <code>sort</code> command, which performs the same sorting operations as the first command:
+<ul>
+<li><code>-t$'\t'</code>: Specifies that the field separator is a tab character.</li>
+<li><code>-k3,3gr</code>: Sorts based on the third field (column) in descending numerical order (<code>-r</code> flag indicates reverse order).</li>
+<li><code>-k4,4g</code>: If values in the third field are equal, it sorts based on the fourth field in ascending numerical order (<code>g</code> flag indicates general numerical sorting).</li>
+</ul></li>
+</ol>
+<p>So, in summary, this command sequence sorts the content of the file <code>sequence_results_red_e_cutoff.txt</code> based on specific fields and criteria, removes duplicate records based on the first field, and then performs another sorting based on different fields before saving the final sorted output to a new file named <code>sequence_results_red_e_cutoff_best_hit.txt</code>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tip: What does the 3rd command do">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip: What does the 3rd command do
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">join</span> <span class="at">-a1</span> <span class="at">-1</span> 2 <span class="at">-2</span> 1 <span class="at">-e</span><span class="st">'-'</span> <span class="at">-t</span> <span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-o1.1,1.2,1.4,1.3,2.2,2.12</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k2</span> results/kos/sequence_results_red_e_cutoff_best_hit.txt<span class="op">)</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k1</span>  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list<span class="op">)</span> <span class="kw">|</span> <span class="va">LC_ALL</span><span class="op">=</span>C  <span class="fu">sort</span> <span class="op">&gt;</span>  results/kos/temp1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li><code>LC_ALL=C sort -k2 results/kos/sequence_results_red_e_cutoff_best_hit.txt</code>: This command sorts the content of the file <code>sequence_results_red_e_cutoff_best_hit.txt</code> located in the <code>results/kos/</code> directory based on the second column (<code>-k2</code>) using the <code>sort</code> command. The <code>LC_ALL=C</code> part ensures that the sorting is done based on byte values, which is useful when dealing with non-English characters or locales.</li>
+<li><code>LC_ALL=C sort -k1 /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list</code>: This command sorts the content of the file <code>/zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list</code> based on the first column (<code>-k1</code>) using the <code>sort</code> command. Similar to the previous sort command, <code>LC_ALL=C</code> ensures byte-based sorting.</li>
+<li><code>join -a1 -1 2 -2 1 -e'-' -t $'\t' -o1.1,1.2,1.4,1.3,2.2,2.12</code>: This command performs a join operation on the sorted files. Let’s break down the options:
+<ul>
+<li><code>-a1</code>: Specifies to output unpairable lines from the first file.</li>
+<li><code>-1 2</code>: Specifies that the join field in the first file is the second column.</li>
+<li><code>-2 1</code>: Specifies that the join field in the second file is the first column.</li>
+<li><code>-e'-'</code>: Specifies the string to replace missing input fields with.</li>
+<li><code>-t $'\t'</code>: Specifies the field separator as a tab character.</li>
+<li><code>-o1.1,1.2,1.4,1.3,2.2,2.12</code>: Specifies the output format. It selects specific columns from both files to be included in the output.</li>
+</ul></li>
+<li><code>&lt;(...)</code>: This is process substitution. It allows the output of a command to be used as the input to another command.</li>
+<li><code>&gt; results/kos/temp1</code>: This part redirects the output of the entire command sequence to a new file named <code>temp1</code> in the <code>results/kos/</code> directory.</li>
+<li><code>LC_ALL=C sort</code>: Finally, the output of the entire command sequence is piped to another <code>sort</code> command to ensure the final output is sorted. The <code>LC_ALL=C</code> part ensures byte-based sorting.</li>
+</ol>
+<p>So, in summary, this command sequence sorts two files, performs a join operation based on specific columns, and then sorts the joined output again before saving it to a new file named <code>temp1</code> in the <code>results/kos/</code> directory.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tip: What does the 4th command do">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip: What does the 4th command do
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span>  <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{ if ($4 &gt; $5){ $7="high_score" }else{ $7="-" } print } '</span> results/kos/temp1 <span class="op">&gt;</span> results/kos/temp2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li><code>awk -v OFS='\t'</code>: This invokes the AWK programming language interpreter and sets the Output Field Separator (OFS) to tab (<code>\t</code>).</li>
+<li><code>'{ if ($4 &gt; $5){ $7="high_score" }else{ $7="-" } print }'</code>: This is the AWK script enclosed within single quotes. Let’s break it down:
+<ul>
+<li><code>if ($4 &gt; $5)</code>: This is an if condition that checks if the value in the fourth field (<code>$4</code>) is greater than the value in the fifth field (<code>$5</code>).</li>
+<li><code>{ $7="high_score" }</code>: If the condition is true, it sets the value of the seventh field (<code>$7</code>) to “high_score”.</li>
+<li><code>else { $7="-" }</code>: If the condition is false, it sets the value of the seventh field (<code>$7</code>) to “-”.</li>
+<li><code>print</code>: This command prints the modified line.</li>
+</ul></li>
+<li><code>'results/kos/temp1 &gt; results/kos/temp2'</code>: This redirects the output of the AWK command to a new file named <code>temp2</code> in the <code>results/kos/</code> directory. So, in summary, this AWK command processes each line of the file <code>temp1</code>. If the value in the fourth field is greater than the value in the fifth field, it sets the seventh field to “high_score”; otherwise, it sets the seventh field to “-”. The modified content is then saved to a new file named <code>temp2</code> in the <code>results/kos/</code> directory.</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tip: What does the 5th command do">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip: What does the 5th command do
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">join</span> <span class="at">-a1</span>  <span class="at">-j1</span> <span class="at">-e</span><span class="st">'-'</span> <span class="at">-t</span> <span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-o</span> 0,1.1,2.2,2.3,2.4,2.5,2.6,2.7 <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> mapping_file.txt<span class="op">)</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> results/kos/temp2<span class="op">)</span> <span class="kw">|</span> <span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span>  <span class="op">&gt;</span> results/kos/temp3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li><code>LC_ALL=C join -a1 -j1 -e'-' -t $'\t' -o 0,1.1,2.2,2.3,2.4,2.5,2.6,2.7</code>: This part executes the <code>join</code> command with the following options:
+<ul>
+<li><code>-a1</code>: Specifies to output unpairable lines from the first file.</li>
+<li><code>-j1</code>: Specifies the join field for the first file is the first field.</li>
+<li><code>-e'-'</code>: Specifies the string to replace missing input fields with.</li>
+<li><code>-t $'\t'</code>: Specifies the field separator as a tab character.</li>
+<li><code>-o 0,1.1,2.2,2.3,2.4,2.5,2.6,2.7</code>: Specifies the output format. It selects specific columns from both files to be included in the output. Here, <code>0</code> represents the join field, <code>1.1</code> represents the first field from the first file, and <code>2.2</code> to <code>2.7</code> represent the second to seventh fields from the second file.</li>
+</ul></li>
+<li><code>&lt;(...)</code>: This is process substitution. It allows the output of a command to be used as the input to another command. In this case, it is used to sort the contents of <code>mapping_file.txt</code> and <code>temp2</code> before passing them to <code>join</code>.</li>
+<li><code>| LC_ALL=C sort</code>: This part pipes the output of the <code>join</code> command to another <code>sort</code> command. <code>LC_ALL=C</code> ensures byte-based sorting.</li>
+<li><code>&gt; results/kos/temp3</code>: This part redirects the output of the entire command sequence to a new file named <code>temp3</code> in the <code>results/kos/</code> directory.</li>
+</ol>
+<p>So, in summary, this command sequence sorts two files, performs a join operation based on the first column of the first file, and then sorts the joined output before saving it to a new file named <code>temp3</code>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tip: What does the 6th command do">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip: What does the 6th command do
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"accession\tBinID\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence"</span> <span class="kw">|</span> <span class="fu">cat</span> <span class="at">-</span> results/kos/temp3 <span class="op">&gt;</span> results/kos/KO_hmm.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This command concatenates the specified header line with the contents of the file <code>temp2</code> located in the <code>results/kos/</code> directory and saves the combined output to a new file named <code>KO_hmm.tsv</code> in the same directory. Let’s break it down:</p>
+<ol type="1">
+<li><code>echo -e "accession\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence"</code>: This part prints the specified header line to the standard output. The <code>-e</code> option allows interpretation of backslash escapes, and <code>\t</code> represents a tab character, effectively creating a tab-separated header line.</li>
+<li><code>| cat - results/kos/temp2</code>: This pipes the output of the <code>echo</code> command (the header line) and the content of the file <code>temp2</code> into the <code>cat</code> command for concatenation.</li>
+<li><code>&gt; results/kos/KO_hmm.tsv</code>: This redirects the concatenated output to a new file named <code>KO_hmm.tsv</code> in the <code>results/kos/</code> directory.</li>
+</ol>
+<p>So, in summary, this command generates a TSV (tab-separated values) file named <code>KO_hmm.tsv</code> with a header line and the contents of <code>temp2</code>, effectively creating a table with the specified column headers and the data from <code>temp2</code>.</p>
+</div>
+</div>
+</div>
 
 
 
+</section>
 </section>
 </section>
 </section>
@@ -1352,7 +1742,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2024-05-13</p>
+Last modified: 2024-05-14</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/hmmer.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

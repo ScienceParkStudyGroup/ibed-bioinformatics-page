@@ -70,54 +70,6 @@ hmmsearch \
 	results/prokka/bin5.faa
 ```
 
-Let's do this in an advanced mode and parse a few things afterwards. This assumes that you already have a few genomes ready and that they are found in the folder `results/faa`
-
-```{bash}
-mkdir results/faa/renamed
-mkdir results/kos/
-
-#combine proteins from different genomes in one database 
-#add the filename into the fasta header and store them in our new folder
-#combining all genomes into 1 file has the benefit that you only need to run hmmsearch 1x
-#for this to work proberly its a good practice to add the genomeID into the fasta header so that you can easily distinguish from where each protein originally came
-for i in  results/faa/*faa; do 
-filename=$(basename $i .faa)
-awk -v fname="$filename" '/>/{sub(">","&"fname"-");sub(/\.faa/,x)}1' $i > results/faa/renamed/$filename.faa
-done
-
-#after ensuring our files have good headers, we can combine the individual faa files 
-cat results/faa/renamed/*.faa > results/faa/combined.faa
-
-#now we can run the hmmsearch
-hmmsearch --tblout results/kos/sequence_results.txt \
-  --domtblout results/kos/domain_results.txt \
-  --notextw --cpu 20 \
-  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/KO_db.hmm \
-  results/faa/combined.faa
-
-#format the full table by:
-#remove hash symbols and replacing spaces with a tab
-#retain only the columns with the protein-id, ko-id, e-value, bitscpre
-#and only select hits above a certain e-value
-sed 's/ \+ /\t/g' results/kos/sequence_results.txt | sed '/^#/d'| sed 's/ /\t/g'| awk -F'\t' -v OFS='\t' '{print $1, $3, $6, $5}' | awk -F'\t' -v OFS='\t' '($4 + 0) <= 1E-3'  > results/kos/sequence_results_red_e_cutoff.txt
-
-#get best hit/protein based on bit score, and e-value
-#i.e. one protein might hit toward more than 1 HMM, we only want to retain one hit
-sort -t$'\t' -k3,3gr -k4,4g results/kos/sequence_results_red_e_cutoff.txt | sort -t$'\t' --stable -u -k1,1  | sort -t$'\t' -k3,3gr -k4,4g >  results/kos/sequence_results_red_e_cutoff_best_hit.txt
-
-#merge with KO mapping file 
-#ensure that the KOs are in column 2 and 1 of the results and the mapping file
-#-o decides what columns are kept after the merge from table 1 and 2. I.e. from the mapping file only columns 2 and 12 are used
-LC_ALL=C join -a1 -1 2 -2 1 -e'-' -t $'\t' -o1.1,1.2,1.4,1.3,2.2,2.12 <(LC_ALL=C sort -k2 results/kos/sequence_results_red_e_cutoff_best_hit.txt) <(LC_ALL=C sort -k1  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list) | LC_ALL=C  sort >  results/kos/temp1
-
-#add in an extra column that lists whether hits have a high confidence score
-awk  -v OFS='\t' '{ if ($4 > $5){ $7="high_score" }else{ $7="-" } print } ' results/kos/temp1 > results/kos/temp2
-
-#add header
-echo -e "accession\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence" | cat - results/kos/temp2 > results/kos/KO_hmm.tsv
-```
-
-
 Output:
 
 -   The `--tblout` output option produces the target hits table. The target hits table consists of one line for each different query/target comparison that met the reporting thresholds, ranked by decreasing statistical significance (increasing E-value). Page 67 of the [User's guide](http://eddylab.org/software/hmmer/Userguide.pdf) explains each column in more detail.
@@ -125,3 +77,307 @@ Output:
 -   `--notextw`: Unlimits the length of each line in the main output. The default is a limit of 120 characters per line, which helps in displaying the output cleanly on terminals and in editors, but can truncate target profile description lines.
 
 For more options, check the manual or use `hmmsearch -h`
+
+#### Compare proteins of interest against a hmm database (advanced)
+
+Let's do this in an advanced mode that goes into preparing the input files well and parsing the hmmsearch results afterwards. This is an advanced mode since we will use a lot of bash commands to format the outputs into what we want. You can easily do this in R or python but this code was added here to show an example for how flexible the command line is.
+
+**Its recommended** to view the file after each step with head or nano in order to understand what the step does. This is the best way to know what the code does and adjust it, if needed, for your ow analyses.
+
+##### Preparing the input files
+
+We start with downloading proteins from two genomes and do some cleaning, here we:
+
+-   Make sure the file header is concise and does not have ANY spaces and that ideally uses a ‘-’ (or any other unique delimiter) to separate the genome ID from the protein ID. Also avoid any unusual symbols, such as \|, (, ), {, }...
+-   Add not only the protein ID but also the genome ID sequence header
+-   If you have a concise header + the bin ID in the header, it is easy to concatenate the protein sequences of your genomes into one single file and still easily know from what genome the sequence originally came from
+
+```{bash}
+mkdir -p results/faa/renamed
+mkdir results/kos/
+
+#download some example genomes from NCBI
+wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/008/085/GCA_000008085.1_ASM808v1/GCA_000008085.1_ASM808v1_protein.faa.gz  -P results/faa/
+wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/017/945/GCA_000017945.1_ASM1794v1/GCA_000017945.1_ASM1794v1_protein.faa.gz  -P results/faa/
+gzip -d results/faa/*gz
+
+#view the header of one file
+#we see the header looks like this: >ABU81185.1 translation initiation factor aIF-2 [Ignicoccus hospitalis KIN4/I]
+#this is too long and the extra characters, i.e. spaces, can disrupt downstream analysis, so let's fix that first
+head results/faa/GCA_000017945.1_ASM1794v1_protein.faa 
+
+#remove everything after the space in the fasta headers
+for i in  results/faa/*faa; do 
+filename=$(basename $i .faa)
+sed -i '/^>/ s/ .*$//g' $i
+done
+
+#afterwards, the header looks like this; >ABU81185.1
+head results/faa/GCA_000017945.1_ASM1794v1_protein.faa 
+
+#next, we add the filename into the fasta header and store them in our new folder
+#this allows us to combine all genomes into 1 file has the benefit that you only need to run hmmsearch 1x
+#for this to work proberly its a good practice to add the genomeID into the fasta header so that you can easily distinguish from where each protein originally came
+for i in  results/faa/*faa; do 
+filename=$(basename $i .faa | cut -f1 -d ".")
+awk -v fname="$filename" '/>/{sub(">","&"fname"-")}1' $i > results/faa/renamed/$filename.faa
+done
+
+#afterwards, the header looks like this; >ABU81185.1
+head results/faa/renamed/GCA_000017945.faa 
+
+#after ensuring our files have good headers, we can combine the individual faa files 
+cat results/faa/renamed/*.faa > results/faa/combined.faa
+```
+
+::: {.callout-tip title="Tip: How does the sed command work" collapse="true"}
+Let's look into how this code works:
+
+```{bash}
+for i in  results/faa/*faa; do 
+filename=$(basename $i .faa)
+sed -i '/^>/ s/ .*$//g' $i
+done
+```
+
+1.  `for i in results/faa/*faa; do`: This line starts a loop that iterates over each file in the directory `results/faa/` that ends with the extension `.faa`. The loop variable `i` will hold the path of each file in turn during each iteration.
+2.  `filename=$(basename $i .faa)`: Inside the loop, this line extracts the base name of the current file (`$i`) by removing the directory path and the `.faa` extension. It assigns this base name to the variable `filename`.
+3.  `sed -i '/^>/ s/ .*$//g' $i`: This line uses the `sed` command to edit the contents of the current file (`$i`). Let's break down the `sed` command:
+    -   `-i`: This flag tells `sed` to edit the file in-place.
+    -   `'/^>/ s/ .*$//g'`: This is a regular expression pattern that `sed` will use to find and replace text in the file.
+        -   `^>`: This part of the pattern matches lines that start with `>`.
+        -   `s/ .*$//g`: This part of the pattern replaces any space character and everything after it on lines that match the pattern with nothing (i.e., it removes everything after the first space). Here, the `s` stands for substitution, and the `.*$` matches any character (`.`) until the end of the line (`$`).
+    -   `$i`: This is the file that `sed` will operate on, which is the current file in the loop.
+4.  `done`: This marks the end of the loop. So, in summary, this code loops through each file in the directory `results/faa/` with the `.faa` extension, extracts the base name of each file, and then edits each file in-place to remove any text after the first space on lines that start with `>`.
+:::
+
+::: {.callout-tip title="Tip: How does the awk command work" collapse="true"}
+Let's look into how this code works:
+
+```{bash}
+for i in  results/faa/*faa; do 
+filename=$(basename $i .faa | cut -f1 -d ".")
+awk -v fname="$filename" '/>/{sub(">","&"fname"-")}1' $i > results/faa/renamed/$filename.faa
+done
+```
+
+1.  `for i in results/faa/*faa; do`: This line initiates a loop that iterates over each file in the directory `results/faa/` with the `.faa` extension. During each iteration, the variable `i` holds the path of the current file.
+2.  `filename=$(basename $i .faa | cut -f1 -d ".")`: Inside the loop, this line extracts the base name of the current file (`$i`) by removing the directory path and the `.faa` extension using `basename`, and then it uses `cut` to split the filename at the "." character and extracts the first part. The extracted base name is stored in the variable `filename`.
+3.  `awk -v fname="$filename" '/>/{sub(">","&"fname"-")}1' $i > results/faa/renamed/$filename.faa`: This line utilizes the `awk` command to process the contents of the current file (`$i`). Let's break down the `awk` command:
+    -   `-v fname="$filename"`: This option passes the value of the shell variable `filename` to `awk` as an `awk` variable named `fname`.
+    -   `/>/`: This part of the pattern matches lines that contain `>`.
+    -   `{sub(">","&"fname"-")}`: This action performs a substitution on lines that match the pattern:
+        -   `sub(">","&"fname"-")`: This substitutes the `>` character with itself (`&`) followed by the value of `fname` and a hyphen (`-`). So, it's essentially appending the value of `fname` followed by a hyphen after the `>` character.
+    -   `1`: This is a condition that always evaluates to true, triggering the default action of `awk`, which is to print the current line.
+    -   `$i`: This is the file that `awk` will operate on.
+    -   `> results/faa/renamed/$filename.faa`: This redirects the output of `awk` to a new file with the same base name as the original file (`$filename.faa`), but located in the `results/faa/renamed/` directory.
+
+So, in summary, this code loops through each file in the directory `results/faa/` with the `.faa` extension, extracts the base name of each file, and then uses `awk` to modify each file's contents. It appends the base name followed by a hyphen after any line that starts with `>`, and saves the modified content to a new file in the `results/faa/renamed/` directory with the same base name as the original file.
+:::
+
+##### Prepare a mapping file (optional)
+
+Next, we prepare a mapping file that is a two-column file with the genome and the protein name. This mapping file is useful to merge with the results of the hmmsearch since it allows us to (a) keep the proteins in the same order as they occur on the contig and (b) note proteins for which we didn't find a match during the hmmsearch. If you don't care about the order or want to list proteins without a KO hit, then you can omit the file.
+
+```{bash}
+#get list of protein accession numbers
+grep "^>" results/faa/combined.faa  > temp
+
+#remove the ``>``
+sed 's/>//g' temp > temp2
+
+#Modify protein list to add in a column with genome ID
+awk -F'\t' -v OFS='\t' '{split($1,a,"-"); print $1, a[1]}' temp2 > mapping_file.txt
+
+#check file content: we now have the accession and the binID
+head mapping_file.txt
+```
+
+::: {.callout-tip title="Tip: How does the awk command work" collapse="true"}
+```{bash}
+awk -F'\t' -v OFS='\t' '{split($1,a,"-"); print $1, a[1]}' temp2 > mapping_file.txt
+```
+
+1.  `awk`: This invokes the AWK programming language interpreter.
+2.  `-F'\t'`: This option sets the field separator to tab (`\t`). It tells AWK to split each input line into fields based on tabs.
+3.  `-v OFS='\t'`: This sets the Output Field Separator (OFS) to tab (`\t`). It specifies how AWK should separate fields when printing output. Here, it's set to tab as well.
+4.  `'{split($1,a,"-"); print $1, a[1]}'`: This is the AWK script enclosed within single quotes. Let's break it down:
+    -   `split($1,a,"-")`: This function splits the first field (`$1`) of each input line into an array `a`, using `-` as the delimiter. After this operation, the array `a` will contain the substrings of `$1` separated by `-`.
+    -   `print $1, a[1]`: This statement prints the first field (`$1`) of the input line, followed by the first element of the array `a`. It essentially prints the original first field and the first part of it obtained after splitting by `-`.
+5.  `temp2`: This is the input file for AWK. It represents the file that AWK will process.
+6.  `> mapping_file.txt`: This part redirects the output of AWK to a new file named `mapping_file.txt`. It creates or overwrites this file with the content generated by AWK.
+
+So, in summary, this AWK command reads each line from the file `temp2`, assumes that fields are separated by tabs, splits the first field of each line by the `-` character, and then prints the original first field along with the first part obtained after splitting. The output is saved to a new file named `mapping_file.txt`.
+:::
+
+##### Running the hmmsearch
+
+The next thing is easy, we run hmmsearch:
+
+```{bash}
+#now we can run the hmmsearch
+hmmsearch --tblout results/kos/sequence_results.txt \
+  --domtblout results/kos/domain_results.txt \
+  --notextw --cpu 20 \
+  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/KO_db.hmm \
+  results/faa/combined.faa
+```
+
+##### Parsing the hmmsearch results
+
+Next, we want to parse the hmmsearch results and:
+
+1.  Clean the table by removing rows starting with a \# (these are usually comments we don't need) and ensure that we work with a tab-separated file
+2.  Remove hits with insufficient e-values
+3.  Ensure that for each protein we retain only one hit to the database
+4.  Add some description for the database identifier, here the KO ID.
+5.  Combine the data with our mapping file
+6.  Add a header
+
+Notice: For this code to work on other databases, i.e. the Pfam database, you need to ensure that you act on the right columns. Below are some tips but read through the detailed code explanations to make this work for other databases.
+
+1.  The first sed command extract the relevant columns, i.e. protein-id, ko-id, e-value, bitscore, by specifying the right fields. For the KO results, these are columns \$1, \$3, \$6, \$5
+2.  The second sort command sorts on the right columns. For the KOs column 3 is the e-value and column 4 the bitscore
+3.  The join command joins the right fields from the KO mapping file. Ensure that
+    1.  The ID to merge the two dataframes is in the second column in your results (-1 2) and in the first column in the ko_list (-2 1)
+    2.  You add the right columns from the mapping file from the database. I.e. with 2.2 and 2.12 we exact a custom cutoff and a description from the ko_list.
+    3.  The sort part acts on the right columns. I.e. We sort ko_list on column 1 (-k1) because that is the column that contains the KO ID that we want to use for merging
+
+```{bash}
+#1.format the full table by:
+#remove hash symbols and replacing spaces with a tab
+#retain only the columns with the protein-id, ko-id, e-value, bitscore
+#and only select hits above a certain e-value
+sed 's/ \+ /\t/g' results/kos/sequence_results.txt | sed '/^#/d'| sed 's/ /\t/g'| awk -F'\t' -v OFS='\t' '{print $1, $3, $6, $5}' | awk -F'\t' -v OFS='\t' '($4 + 0) <= 1E-3'  > results/kos/sequence_results_red_e_cutoff.txt
+
+#2.get best hit/protein based on bit score, and e-value
+#i.e. one protein might hit toward more than 1 HMM, we only want to retain one hit
+sort -t$'\t' -k3,3gr -k4,4g results/kos/sequence_results_red_e_cutoff.txt | sort -t$'\t' --stable -u -k1,1  | sort -t$'\t' -k3,3gr -k4,4g >  results/kos/sequence_results_red_e_cutoff_best_hit.txt
+
+#3.merge with KO mapping file 
+#ensure that the KOs are in column 2 and 1 of the results and the mapping file
+#-o decides what columns are kept after the merge from table 1 and 2. I.e. from the mapping file only columns 2 and 12 are used
+LC_ALL=C join -a1 -1 2 -2 1 -e'-' -t $'\t' -o1.1,1.2,1.4,1.3,2.2,2.12 <(LC_ALL=C sort -k2 results/kos/sequence_results_red_e_cutoff_best_hit.txt) <(LC_ALL=C sort -k1  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list) | LC_ALL=C  sort >  results/kos/temp1
+
+#4.add in an extra column that lists whether hits have a high confidence score
+awk  -v OFS='\t' '{ if ($4 > $5){ $7="high_score" }else{ $7="-" } print } ' results/kos/temp1 > results/kos/temp2
+
+#5.merge with protein mapping file
+LC_ALL=C join -a1  -j1 -e'-' -t $'\t' -o 0,1.1,2.2,2.3,2.4,2.5,2.6,2.7 <(LC_ALL=C sort mapping_file.txt) <(LC_ALL=C sort results/kos/temp2) | LC_ALL=C sort  > results/kos/temp3
+
+#6.add header
+echo -e "accession\tBinID\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence" | cat - results/kos/temp3 > results/kos/KO_hmm.tsv
+```
+
+::: {.callout-tip title="Tip: What does the 1st command do" collapse="true"}
+```{bash}
+sed 's/ \+ /\t/g' results/kos/sequence_results.txt | sed '/^#/d'| sed 's/ /\t/g'| awk -F'\t' -v OFS='\t' '{print $1, $3, $6, $5}' | awk -F'\t' -v OFS='\t' '($4 + 0) <= 1E-3'  > results/kos/sequence_results_red_e_cutoff.txt
+```
+
+Here, we use a pipe to combine multiple smaller commands into one:
+
+1.  `sed 's/ \+ /\t/g' results/kos/sequence_results.txt`: This command replaces one or more spaces with a single tab character in the file `sequence_results.txt` located in the `results/kos/` directory.
+2.  `| sed '/^#/d'`: This command pipes the output of the previous `sed` command to another `sed` command, which deletes lines that start with `#`. This is commonly used to remove comments from files.
+3.  `| sed 's/ /\t/g'`: This command pipes the output of the previous `sed` command to another `sed` command, which replaces all spaces with tab characters.
+4.  `| awk -F'\t' -v OFS='\t' '{print $1, $3, $6, $5}'`: This command pipes the output of the previous `sed` command to an AWK command. Let's break it down:
+    -   `awk -F'\t'`: This sets the input field separator to tab.
+    -   `-v OFS='\t'`: This sets the output field separator to tab.
+    -   `'{print $1, $3, $6, $5}'`: This prints the first, third, sixth, and fifth fields of each line, separated by tabs. This selects specific columns from the data.
+5.  `| awk -F'\t' -v OFS='\t' '($4 + 0) <= 1E-3'`: This command pipes the output of the previous AWK command to another AWK command. Let's break it down:
+    -   `awk -F'\t'`: This sets the input field separator to tab.
+    -   `-v OFS='\t'`: This sets the output field separator to tab.
+    -   `'($4 + 0) <= 1E-3'`: This is a condition that filters the output. It checks if the numerical value of the fourth field (`$4`) is less than or equal to 1E-3 (0.001). If true, the line is printed.
+
+So, in summary, this command sequence manipulates and filters the content of the `sequence_results.txt` file, and the filtered output is saved to a new file named `sequence_results_red_e_cutoff.txt`.
+:::
+
+::: {.callout-tip title="Tip: What does the 2nd command do" collapse="true"}
+```{bash}
+sort -t$'\t' -k3,3gr -k4,4g results/kos/sequence_results_red_e_cutoff.txt | sort -t$'\t' --stable -u -k1,1  | sort -t$'\t' -k3,3gr -k4,4g >  results/kos/sequence_results_red_e_cutoff_best_hit.txt
+```
+
+This command sequence performs several sorting operations on the file `sequence_results_red_e_cutoff.txt` in the `results/kos/` directory.
+
+1.  `sort -t$'\t' -k3,3gr -k4,4g results/kos/sequence_results_red_e_cutoff.txt`: This command sorts the content of the file `sequence_results_red_e_cutoff.txt` based on multiple fields:
+    -   `-t$'\t'`: Specifies that the field separator is a tab character.
+    -   `-k3,3gr`: Sorts based on the third field (column) in descending numerical order (`-r` flag indicates reverse order).
+    -   `-k4,4g`: If values in the third field are equal, it sorts based on the fourth field in ascending numerical order (`g` flag indicates general numerical sorting).
+2.  `| sort -t$'\t' --stable -u -k1,1`: This command pipes the output of the previous `sort` command to another `sort` command, which performs the following operations:
+    -   `-t$'\t'`: Specifies that the field separator is a tab character.
+    -   `--stable`: Ensures that the original order of records with equal keys is preserved.
+    -   `-u`: Specifies unique mode, keeping only the first occurrence of lines with identical keys.
+    -   `-k1,1`: Sorts based on the first field (column) only.
+3.  `| sort -t$'\t' -k3,3gr -k4,4g`: This command pipes the output of the previous `sort` command to another `sort` command, which performs the same sorting operations as the first command:
+    -   `-t$'\t'`: Specifies that the field separator is a tab character.
+    -   `-k3,3gr`: Sorts based on the third field (column) in descending numerical order (`-r` flag indicates reverse order).
+    -   `-k4,4g`: If values in the third field are equal, it sorts based on the fourth field in ascending numerical order (`g` flag indicates general numerical sorting).
+
+So, in summary, this command sequence sorts the content of the file `sequence_results_red_e_cutoff.txt` based on specific fields and criteria, removes duplicate records based on the first field, and then performs another sorting based on different fields before saving the final sorted output to a new file named `sequence_results_red_e_cutoff_best_hit.txt`.
+:::
+
+::: {.callout-tip title="Tip: What does the 3rd command do" collapse="true"}
+```{bash}
+LC_ALL=C join -a1 -1 2 -2 1 -e'-' -t $'\t' -o1.1,1.2,1.4,1.3,2.2,2.12 <(LC_ALL=C sort -k2 results/kos/sequence_results_red_e_cutoff_best_hit.txt) <(LC_ALL=C sort -k1  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list) | LC_ALL=C  sort >  results/kos/temp1
+```
+
+1.  `LC_ALL=C sort -k2 results/kos/sequence_results_red_e_cutoff_best_hit.txt`: This command sorts the content of the file `sequence_results_red_e_cutoff_best_hit.txt` located in the `results/kos/` directory based on the second column (`-k2`) using the `sort` command. The `LC_ALL=C` part ensures that the sorting is done based on byte values, which is useful when dealing with non-English characters or locales.
+2.  `LC_ALL=C sort -k1 /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list`: This command sorts the content of the file `/zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list` based on the first column (`-k1`) using the `sort` command. Similar to the previous sort command, `LC_ALL=C` ensures byte-based sorting.
+3.  `join -a1 -1 2 -2 1 -e'-' -t $'\t' -o1.1,1.2,1.4,1.3,2.2,2.12`: This command performs a join operation on the sorted files. Let's break down the options:
+    -   `-a1`: Specifies to output unpairable lines from the first file.
+    -   `-1 2`: Specifies that the join field in the first file is the second column.
+    -   `-2 1`: Specifies that the join field in the second file is the first column.
+    -   `-e'-'`: Specifies the string to replace missing input fields with.
+    -   `-t $'\t'`: Specifies the field separator as a tab character.
+    -   `-o1.1,1.2,1.4,1.3,2.2,2.12`: Specifies the output format. It selects specific columns from both files to be included in the output.
+4.  `<(...)`: This is process substitution. It allows the output of a command to be used as the input to another command.
+5.  `> results/kos/temp1`: This part redirects the output of the entire command sequence to a new file named `temp1` in the `results/kos/` directory.
+6.  `LC_ALL=C sort`: Finally, the output of the entire command sequence is piped to another `sort` command to ensure the final output is sorted. The `LC_ALL=C` part ensures byte-based sorting.
+
+So, in summary, this command sequence sorts two files, performs a join operation based on specific columns, and then sorts the joined output again before saving it to a new file named `temp1` in the `results/kos/` directory.
+:::
+
+::: {.callout-tip title="Tip: What does the 4th command do" collapse="true"}
+```{bash}
+awk  -v OFS='\t' '{ if ($4 > $5){ $7="high_score" }else{ $7="-" } print } ' results/kos/temp1 > results/kos/temp2
+```
+
+1.  `awk -v OFS='\t'`: This invokes the AWK programming language interpreter and sets the Output Field Separator (OFS) to tab (`\t`).
+2.  `'{ if ($4 > $5){ $7="high_score" }else{ $7="-" } print }'`: This is the AWK script enclosed within single quotes. Let's break it down:
+    -   `if ($4 > $5)`: This is an if condition that checks if the value in the fourth field (`$4`) is greater than the value in the fifth field (`$5`).
+    -   `{ $7="high_score" }`: If the condition is true, it sets the value of the seventh field (`$7`) to "high_score".
+    -   `else { $7="-" }`: If the condition is false, it sets the value of the seventh field (`$7`) to "-".
+    -   `print`: This command prints the modified line.
+3.  `'results/kos/temp1 > results/kos/temp2'`: This redirects the output of the AWK command to a new file named `temp2` in the `results/kos/` directory. So, in summary, this AWK command processes each line of the file `temp1`. If the value in the fourth field is greater than the value in the fifth field, it sets the seventh field to "high_score"; otherwise, it sets the seventh field to "-". The modified content is then saved to a new file named `temp2` in the `results/kos/` directory.
+:::
+
+::: {.callout-tip title="Tip: What does the 5th command do" collapse="true"}
+```{bash}
+LC_ALL=C join -a1  -j1 -e'-' -t $'\t' -o 0,1.1,2.2,2.3,2.4,2.5,2.6,2.7 <(LC_ALL=C sort mapping_file.txt) <(LC_ALL=C sort results/kos/temp2) | LC_ALL=C sort  > results/kos/temp3
+```
+
+1.  `LC_ALL=C join -a1 -j1 -e'-' -t $'\t' -o 0,1.1,2.2,2.3,2.4,2.5,2.6,2.7`: This part executes the `join` command with the following options:
+    -   `-a1`: Specifies to output unpairable lines from the first file.
+    -   `-j1`: Specifies the join field for the first file is the first field.
+    -   `-e'-'`: Specifies the string to replace missing input fields with.
+    -   `-t $'\t'`: Specifies the field separator as a tab character.
+    -   `-o 0,1.1,2.2,2.3,2.4,2.5,2.6,2.7`: Specifies the output format. It selects specific columns from both files to be included in the output. Here, `0` represents the join field, `1.1` represents the first field from the first file, and `2.2` to `2.7` represent the second to seventh fields from the second file.
+2.  `<(...)`: This is process substitution. It allows the output of a command to be used as the input to another command. In this case, it is used to sort the contents of `mapping_file.txt` and `temp2` before passing them to `join`.
+3.  `| LC_ALL=C sort`: This part pipes the output of the `join` command to another `sort` command. `LC_ALL=C` ensures byte-based sorting.
+4.  `> results/kos/temp3`: This part redirects the output of the entire command sequence to a new file named `temp3` in the `results/kos/` directory.
+
+So, in summary, this command sequence sorts two files, performs a join operation based on the first column of the first file, and then sorts the joined output before saving it to a new file named `temp3`.
+:::
+
+::: {.callout-tip title="Tip: What does the 6th command do" collapse="true"}
+```{bash}
+echo -e "accession\tBinID\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence" | cat - results/kos/temp3 > results/kos/KO_hmm.tsv
+```
+
+This command concatenates the specified header line with the contents of the file `temp2` located in the `results/kos/` directory and saves the combined output to a new file named `KO_hmm.tsv` in the same directory. Let's break it down:
+
+1.  `echo -e "accession\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence"`: This part prints the specified header line to the standard output. The `-e` option allows interpretation of backslash escapes, and `\t` represents a tab character, effectively creating a tab-separated header line.
+2.  `| cat - results/kos/temp2`: This pipes the output of the `echo` command (the header line) and the content of the file `temp2` into the `cat` command for concatenation.
+3.  `> results/kos/KO_hmm.tsv`: This redirects the concatenated output to a new file named `KO_hmm.tsv` in the `results/kos/` directory.
+
+So, in summary, this command generates a TSV (tab-separated values) file named `KO_hmm.tsv` with a header line and the contents of `temp2`, effectively creating a table with the specified column headers and the data from `temp2`.
+:::
