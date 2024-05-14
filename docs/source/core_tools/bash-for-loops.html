@@ -643,8 +643,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#building-the-core-structure" id="toc-building-the-core-structure" class="nav-link" data-scroll-target="#building-the-core-structure">Building the core structure</a></li>
   <li><a href="#adding-the-first-variable" id="toc-adding-the-first-variable" class="nav-link" data-scroll-target="#adding-the-first-variable">Adding the first variable</a></li>
   <li><a href="#removing-the-extension-from-the-basename" id="toc-removing-the-extension-from-the-basename" class="nav-link" data-scroll-target="#removing-the-extension-from-the-basename">Removing the extension from the basename</a></li>
+  <li><a href="#simplifying-the-basename" id="toc-simplifying-the-basename" class="nav-link" data-scroll-target="#simplifying-the-basename">Simplifying the basename</a></li>
   <li><a href="#adding-a-variable-for-the-output-file" id="toc-adding-a-variable-for-the-output-file" class="nav-link" data-scroll-target="#adding-a-variable-for-the-output-file">Adding a variable for the output file</a></li>
   <li><a href="#finalizing-the-loop" id="toc-finalizing-the-loop" class="nav-link" data-scroll-target="#finalizing-the-loop">Finalizing the loop</a></li>
+  <li><a href="#alternative-syntax" id="toc-alternative-syntax" class="nav-link" data-scroll-target="#alternative-syntax">Alternative syntax</a></li>
   <li><a href="#error-handling-or-why-my-loop-does-not-work" id="toc-error-handling-or-why-my-loop-does-not-work" class="nav-link" data-scroll-target="#error-handling-or-why-my-loop-does-not-work">Error handling or why my loop does not work?</a>
   <ul class="collapse">
   <li><a href="#general-recommendations" id="toc-general-recommendations" class="nav-link" data-scroll-target="#general-recommendations">0. General recommendations</a></li>
@@ -701,8 +703,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Here:</p>
 <ul>
-<li>{01..10} is a Bash brace expansion. Brace expansion is a feature in Bash that generates strings at runtime based on a specified pattern. In the case of {01..10}, it expands to 01 02 03 04 05 06 07 08 09 10. So, the for loop iterates over each of these values.</li>
-<li>echo $i: This command prints the value of the loop variable i to the terminal.</li>
+<li><code>{01..10}</code> is a Bash brace expansion. Brace expansion is a feature in Bash that generates strings based on a specified pattern. In the case of {01..10}, it expands to 01 02 03 04 05 06 07 08 09 10. The for loop itself then iterates over each of these values.</li>
+<li><code>echo $i</code>: This command prints the value of the loop variable i to the terminal.</li>
 </ul>
 <p>We can add some spaces to enhance readability. Although this formatting is optional, it’s a good practice to improve code clarity. Personally, I prefer using a tab (or 4 spaces) for indentation, but feel free to adopt your preferred style.</p>
 <div class="cell">
@@ -711,24 +713,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="va">$i</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>You might also see something like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="dt">{</span><span class="dv">01</span><span class="dt">..</span><span class="dv">10</span><span class="dt">}</span><span class="kw">;</span>  <span class="cf">do</span>  <span class="bu">echo</span> <span class="va">$i</span><span class="kw">;</span> <span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This is the same code as above condensed into a single line. For more complex loops its useful to display the code in multiple lines for readability but you might encounter this syntax in the wild as well.</p>
 </section>
 <section id="preparing-some-example-files" class="level2">
 <h2 class="anchored" data-anchor-id="preparing-some-example-files">Preparing some example files</h2>
 <p>Let’s explore a more practical example that you might encounter in biology, such as working with genome files and modifying their headers. First, let’s download some example genome files from the NCBI database:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> data </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#download some example genomes from NCBI</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/008/085/GCA_000008085.1_ASM808v1/GCA_000008085.1_ASM808v1_protein.faa.gz  <span class="at">-P</span> data</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/017/945/GCA_000017945.1_ASM1794v1/GCA_000017945.1_ASM1794v1_protein.faa.gz  <span class="at">-P</span> data</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-d</span> data/<span class="pp">*</span>gz</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#view the header of one file</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> data/GCA_000017945.1_ASM1794v1_protein.faa </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> data </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#download some example genomes from NCBI</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/008/085/GCA_000008085.1_ASM808v1/GCA_000008085.1_ASM808v1_protein.faa.gz  <span class="at">-P</span> data</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/017/945/GCA_000017945.1_ASM1794v1/GCA_000017945.1_ASM1794v1_protein.faa.gz  <span class="at">-P</span> data</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-d</span> data/<span class="pp">*</span>gz</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#view the header of one file</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> data/GCA_000017945.1_ASM1794v1_protein.faa </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Upon opening the file, you’ll notice that the header looks something like this: &gt;ABU81185.1 translation initiation factor aIF-2 [Ignicoccus hospitalis KIN4/I]. The header cotnains unnecessary characters, such as spaces, which can potentially disrupt downstream analysis. We can remedy this using the cut command.</p>
+<p>Upon opening the file, you’ll notice that the header looks something like this: &gt;ABU81185.1 translation initiation factor aIF-2 [Ignicoccus hospitalis KIN4/I]. The header contains unnecessary characters, such as spaces, which can potentially disrupt downstream analyses. We can remedy this using the cut command.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f1</span> <span class="at">-d</span> <span class="st">" "</span> data/GCA_000017945.1_ASM1794v1_protein.faa <span class="kw">|</span> <span class="fu">head</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f1</span> <span class="at">-d</span> <span class="st">" "</span> data/GCA_000017945.1_ASM1794v1_protein.faa <span class="kw">|</span> <span class="fu">head</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Running this command shortens the header to &gt;ABU81185.1.</p>
 <p>In bioinformatics, it might be useful to modify your files that way since downstream processes, such as functional annotation, might not run successfully if there are special symbols (i.e.&nbsp;spaces) in the fasta header or if the fasta header is too long. Generally, its recommended to:</p>
@@ -737,16 +744,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>If you work with more than one genome, it might be useful to not only have the protein ID but also the genome ID in the sequence header</li>
 <li>If you have a concise header + the bin ID in the header, it is easy to concatenate the protein sequences of your genomes into one single file and still easily know from what genome the sequence originally came from</li>
 </ul>
-<p>Now, let’s learn how to apply this operation to multiple files, ranging from 2 to 100, using a loop.</p>
+<p>Now, let’s learn how to apply this operation to multiple files, ranging from 2 to 100 (or more), using a loop.</p>
 </section>
 <section id="building-the-core-structure" class="level2">
 <h2 class="anchored" data-anchor-id="building-the-core-structure">Building the core structure</h2>
-<p>Let’s lay the groundwork for our loop by starting with the most basic command: printing the files that we want to iterate over. Once we confirm that this works, we’ll gradually build up the loop step by step.</p>
+<p>Let’s lay the groundwork for our loop by starting with the most basic command: printing a list for the files that we want to iterate over. Once we confirm that this works, we’ll gradually build up the loop step by step.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> data/<span class="pp">*</span>faa<span class="kw">;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$i</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> data/<span class="pp">*</span>faa<span class="kw">;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$i</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>When we execute this code snippet, we observe that both files, along with their relative paths, are printed:</p>
 <pre><code>data/GCA_000008085.1_ASM808v1_protein.faa
@@ -755,53 +762,54 @@ data/GCA_000017945.1_ASM1794v1_protein.faa</code></pre>
 </section>
 <section id="adding-the-first-variable" class="level2">
 <h2 class="anchored" data-anchor-id="adding-the-first-variable">Adding the first variable</h2>
-<p>To ensure flexibility in naming the output files, let’s extract the file names (excluding the extension) using the basename command:</p>
+<p>To ensure flexibility in naming the output files, let’s extract the file names using the basename command and storing the output in a variable. We will see why this really is useful once we made it to the final command:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> data/<span class="pp">*</span>faa<span class="kw">;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="va">basename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i)</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$basename</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> data/<span class="pp">*</span>faa<span class="kw">;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="va">basename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i)</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$basename</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Executing this code snippet should yield the following names:</p>
+<p>Executing this code snippet should yield the following names without the relative path. Making this change is extremely useful to later store our output files somewhere else than the data folder:</p>
 <pre><code>GCA_000008085.1_ASM808v1_protein.faa
 GCA_000017945.1_ASM1794v1_protein.faa</code></pre>
-<p>To ensure flexibility in naming the output files, let’s extract the file names (excluding the extension) using the basename command:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> data/<span class="pp">*</span>faa<span class="kw">;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="va">basename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa<span class="va">)</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$basename</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Executing this code snippet should yield the following names:</p>
-<pre><code>GCA_000008085.1_ASM808v1_protein.faa 
-GCA_000017945.1_ASM1794v1_protein.faa</code></pre>
-<p>Additionally, let’s delve into some new syntax:</p>
+<p>Let’s delve into some new syntax we have used in this section:</p>
 <ul>
+<li>In bash a <strong>variable</strong> acts as temporary storage for a string or a number. Here, we want to store a file name in the variable called basename.</li>
+<li>The <strong>$(..)</strong> syntax represents command substitution, where Bash executes a command in a subshell environment and then replaces the command substitution with the standard output of the command. In other words, whatever the basename command prints gets stored in the basename variable.</li>
 <li>Defining variables and the use of quotes:
 <ul>
 <li>variable_name=“xxx”: This assigns the string “xxx” to the variable variable_name.</li>
 <li>variable_name=xxx: This assigns the value of the expression xxx to the variable variable_name. If xxx is a command, the result of that command will be assigned to variable_name. If xxx is a variable or literal string, its value will be assigned to variable_name.</li>
 <li>In our example, we use command substitution to assign the result of the basename command to the basename variable, which is why no quotes are used.</li>
-<li>It’s important not to add spaces between the variable name, =, and variable assignment, as it’s part of the syntax that Bash uses for variables.</li>
+<li>It’s important NOT to add spaces between the variable name, =, and variable assignment, as it’s part of the syntax that Bash uses for variables.</li>
 </ul></li>
-<li>The $(..) syntax represents command substitution, where Bash executes a command in a subshell environment and then replaces the command substitution with the standard output of the command. In other words, whatever the basename command prints gets stored in the basename variable.</li>
 </ul>
 </section>
 <section id="removing-the-extension-from-the-basename" class="level2">
 <h2 class="anchored" data-anchor-id="removing-the-extension-from-the-basename">Removing the extension from the basename</h2>
-<p>I dont like the .faa in the basename and that the basename is so long. We can change this by</p>
-<ul>
-<li>Specify in the basename command that we want to remove the extension</li>
-<li>Combine this with a pipe and shorten the basename by cutting everything off after the second underscore</li>
-</ul>
+<p>To ensure flexibility in naming the output files, let’s extract the file names AND exclude the extension by using the basename command with a slight modification:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> data/<span class="pp">*</span>faa<span class="kw">;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="va">basename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1-2</span> <span class="at">-d</span> <span class="st">"_"</span><span class="va">)</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$basename</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> data/<span class="pp">*</span>faa<span class="kw">;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="va">basename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa<span class="va">)</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$basename</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Executing this code snippet should yield the following names:</p>
+<pre><code>GCA_000008085.1_ASM808v1_protein 
+GCA_000017945.1_ASM1794v1_protein</code></pre>
+</section>
+<section id="simplifying-the-basename" class="level2">
+<h2 class="anchored" data-anchor-id="simplifying-the-basename">Simplifying the basename</h2>
+<p>Now the basename looks cleaner, however, I don’t like that it is so long. When naming files its generatelly good to keep the filenames short and precise. We can do this by combining the basename command with a pipe.</p>
+<p>Put simply, a pipe allows us to chain the output of the basename command into the cut command to further modify the filename. Here, we use <code>cut</code> to shorten the basename by cutting everything off after the second underscore using cut.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> data/<span class="pp">*</span>faa<span class="kw">;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="va">basename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1-2</span> <span class="at">-d</span> <span class="st">"_"</span><span class="va">)</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$basename</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Executing this code snippet should yield the following names:</p>
 <pre><code>GCA_000008085.1 
@@ -809,28 +817,29 @@ GCA_000017945.1</code></pre>
 <p>Additionally, let’s delve into some new syntax:</p>
 <ul>
 <li>The cut command is used to extract sections from each line of input (or from files) and write the result to standard output.</li>
-<li>In our example, -f1-2 specifies that we want to retain fields 1 to 2 from each line, and -d “<em>” specifies that the field delimiter is underscore</em> .</li>
+<li>In our example, -f1-2 specifies that we want to retain fields 1 to 2 from each line, and -d “_” specifies that the field delimiter is underscore .</li>
 <li>So, the cut command ensures that only the part of the basename before the second underscore is retained, effectively shortening the basename.</li>
 <li>You would need to adjust this for your own file names, but hopefully this gives you an idea about how flexible the command line is</li>
 </ul>
 </section>
 <section id="adding-a-variable-for-the-output-file" class="level2">
 <h2 class="anchored" data-anchor-id="adding-a-variable-for-the-output-file">Adding a variable for the output file</h2>
-<p>To facilitate the creation of output file names, let’s introduce a variable named outfile_name. We’ll use this variable to specify the path and name for the renamed files:</p>
+<p>To facilitate the creation of output file names, let’s introduce a variable named outfile_name. We’ll use this variable to specify the path and name for the modified files:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> data/renamed </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> data/<span class="pp">*</span>faa<span class="kw">;</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="va">basename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1-2</span> <span class="at">-d</span> <span class="st">"_"</span><span class="va">)</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="va">outfile_name</span><span class="op">=</span><span class="st">"data/renamed/</span><span class="va">${basename}</span><span class="st">.faa"</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$outfile_name</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> data/renamed </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> data/<span class="pp">*</span>faa<span class="kw">;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="va">basename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1-2</span> <span class="at">-d</span> <span class="st">"_"</span><span class="va">)</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="va">outfile_name</span><span class="op">=</span><span class="st">"data/renamed/</span><span class="va">${basename}</span><span class="st">.faa"</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$outfile_name</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This should print:</p>
 <pre><code>data/renamed/GCA_000008085.1.faa 
 data/renamed/GCA_000017945.1.faa</code></pre>
-<p>Notice how we now use quotes to assign a string to the variable outfile_name.</p>
+<p>Now, we can finally see how this whole exercise becomes useful. We were able to (a) simplify the file name itself by making it shorter and (b) ensure that we can store the modified file in a new directory.</p>
+<p>Also, notice how we now use quotes to assign a string to the variable outfile_name?</p>
 <p>Let’s also discuss a new syntax: using brackets {} around our variable:</p>
 <ul>
 <li>We enclose variables in {} whenever they are part of a string that includes other text, as demonstrated in the line with the outfile_name variable. This is especially important when the variable is adjacent to other characters that might be confused as part of the variable name.</li>
@@ -839,18 +848,18 @@ data/renamed/GCA_000017945.1.faa</code></pre>
 </section>
 <section id="finalizing-the-loop" class="level2">
 <h2 class="anchored" data-anchor-id="finalizing-the-loop">Finalizing the loop</h2>
-<p>Let’s complete the loop by implementing the desired modifications to the files:</p>
+<p>Let’s complete the loop by implementing the desired modifications to the files.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> data/<span class="pp">*</span>faa<span class="kw">;</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="va">basename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1-2</span> <span class="at">-d</span> <span class="st">"_"</span><span class="va">)</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="va">outfile_name</span><span class="op">=</span><span class="st">"data/renamed/</span><span class="va">${basename}</span><span class="st">.faa"</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f1</span> <span class="at">-d</span> <span class="st">" "</span> <span class="va">$i</span> <span class="op">&gt;</span> <span class="va">$outfile_name</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">#check if that worked </span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data/renamed/</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> data/renamed/GCA_000008085.1.faa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> data/<span class="pp">*</span>faa<span class="kw">;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="va">basename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1-2</span> <span class="at">-d</span> <span class="st">"_"</span><span class="va">)</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="va">outfile_name</span><span class="op">=</span><span class="st">"data/renamed/</span><span class="va">${basename}</span><span class="st">.faa"</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f1</span> <span class="at">-d</span> <span class="st">" "</span> <span class="va">$i</span> <span class="op">&gt;</span> <span class="va">$outfile_name</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">#check if that worked </span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data/renamed/</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> data/renamed/GCA_000008085.1.faa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>After running this code, you should observe two new files in the data/renamed folder, each with a shortened file name compared to the original:</p>
 <pre><code>GCA_000008085.1.faa
@@ -866,19 +875,51 @@ MKKPQPYKDEEIYSILEEPVKQWFKEKYKTFTPPQRYAIMEIHKRNNVLISSPTGSGKTLAAFLAIINELIKLSHKGKLE
 NRVYAIYVSPLRSLNNDVKKNLETPLKEIKEKAKELNYYIGDIRIAVRTSDTKESEKAKMLKQPPHILITTPESLAIILS
 TKKFREHIKKVEFVVVDEIHALAESKRGTHLALSLERLNYLTNFVRIGLSATIHPLEEVAKFLFGYENGKPREGYIIDVS
 FEKPIEIQVYSPVDDIIYSSQEELMRNLYKFIGEQLKKYRTILIFTNTRHGAESVAYHLKKAFPDLEKYIAVHHSSLSRE</code></pre>
+<p>Do you see how we elegantly use <code>$outfile_name</code> to create a new file with a cleaner name in a different folder compared to the imput file? This is a very good example for how flexible you can be with your files with some small bash knowledge.</p>
+</section>
+<section id="alternative-syntax" class="level2">
+<h2 class="anchored" data-anchor-id="alternative-syntax">Alternative syntax</h2>
+<p>For more complex code, it might be useful to break things up for readability. Consider this command (the details are not important here, however, see how we use exactly the same loop structure to run a completely different command?):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> results/prokka/<span class="pp">*</span>/bin<span class="pp">*</span>/<span class="pp">*</span>.gbk<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">base_name</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="st">"</span><span class="va">$i</span><span class="st">"</span> .gbk<span class="va">)</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">outdir</span><span class="op">=</span><span class="st">"results/pseudofinder/</span><span class="va">${base_name}</span><span class="st">"</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">pseudofinder.py</span> annotate <span class="at">-g</span> <span class="va">$i</span> <span class="at">-op</span> <span class="va">$outdir</span> <span class="at">-db</span> /zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta <span class="at">-t</span> 20</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The line that runs the tool <code>pseudofinder.py</code> is becoming longer, and for readability, we might want to break this command down and display each option on an individual line. We can do this as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> results/prokka/<span class="pp">*</span>/bin<span class="pp">*</span>/<span class="pp">*</span>.gbk<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">base_name</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="st">"</span><span class="va">$i</span><span class="st">"</span> .gbk<span class="va">)</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">outdir</span><span class="op">=</span><span class="st">"results/pseudofinder/</span><span class="va">${base_name}</span><span class="st">"</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">pseudofinder.py</span> annotate <span class="dt">\</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">-g</span> <span class="va">$i</span> <span class="dt">\</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">-op</span> <span class="va">$outdir</span> <span class="dt">\</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">-db</span> /zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta <span class="dt">\</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">-t</span> 20</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here, we use the <code>\</code> to split a long line into two shorter lines, without signifying an end of the statement. If you use this, be careful with the syntax, as <code>\</code> needs to be immediately followed by a new line. So don’t add any spaces afterwards.</p>
 </section>
 <section id="error-handling-or-why-my-loop-does-not-work" class="level2">
 <h2 class="anchored" data-anchor-id="error-handling-or-why-my-loop-does-not-work">Error handling or why my loop does not work?</h2>
 <p>While writing and executing loops in Bash can greatly streamline your workflow, it’s essential to anticipate and handle potential errors that may arise during script execution. Here are some common issues you might encounter and strategies for troubleshooting them:</p>
 <section id="general-recommendations" class="level3">
 <h3 class="anchored" data-anchor-id="general-recommendations">0. General recommendations</h3>
-<p>When getting started with loops I recommend to start as simple as possible and build your why up, same as we did in this workflow. For example, your workflow can look like this:</p>
+<p>When getting started with loops, I recommend starting as simple as possible and building your way up, similar to the approach used in this workflow. Here’s a suggested workflow to follow:</p>
 <ol type="1">
-<li>Start with running your command or software on a single file. Explore what outputs are generated and how they are named to be able to judge how you need to build your loop.</li>
-<li>Build the most basic loop by simply printing the names of the files you want to loop over</li>
-<li>Extend the loop structure step-by-step.</li>
+<li>Begin by running your command or software on a single file. Explore the outputs generated and observe how they are named. Understanding these outputs will help you determine how to structure your loop effectively.</li>
+<li>Build the most basic loop by simply printing the names of the files you want to iterate over. This step allows you to verify that your loop is correctly identifying the files you intend to process.</li>
+<li>Extend the loop structure step-by-step, adding functionality incrementally. This iterative approach enables you to catch mistakes early, as it’s easier to debug a simple command compared to a complex loop.</li>
 </ol>
-<p>This procedure should help you catch mistakes early as its easier to catch a mistake if your command is still simple compare to having a complex loop.</p>
+<p>Additionally, keep in mind that syntax matters a lot in Bash scripting. Common syntax-related mistakes to avoid include:</p>
+<ol type="1">
+<li>Using straight quotes (“), as opposed to curly quotes (“), which may not be recognized by the shell. Depending on your text editor, you might inadvertently use curly quotes, causing syntax errors. Be mindful of this difference and adjust your editor settings if necessary. For example, for Mac users, check out the 3rd comment in <a href="https://community.folivora.ai/t/script-editor-changing-normal-quotes-to-curly-unicode-quotes/22479/2">this post</a></li>
+<li>When defining variables ensure to use proper syntax and not use spaces between the variable name and variable content. I.e. <code>variable="hello"</code>.</li>
+<li>Whitespace and Indentation: Ensure consistent whitespace and indentation in your Bash scripts to enhance readability and maintainability. Pay attention to spaces around operators and arguments to commands within your script to avoid syntax errors or unexpected behavior. Also ensure that you always use spaces after command names and command options.</li>
+<li>Forgetting to Quote Variables or Use Brackets Around Variables: Properly quote variables, especially when dealing with filenames or strings containing spaces or special characters, to ensure their values are interpreted correctly by the shell. Additionally, use brackets <code>{}</code> around variables when they are part of a string with other text to avoid ambiguity and potential issues.</li>
+<li>Failure to Handle Empty or Missing Files: Be vigilant about handling scenarios where files might be empty or missing in your loops. Implement checks within your script to gracefully handle such situations, either by skipping empty or missing files or by providing appropriate error messages or default values.</li>
+</ol>
 </section>
 <section id="file-not-found" class="level3">
 <h3 class="anchored" data-anchor-id="file-not-found">1. File Not Found</h3>
@@ -921,10 +962,10 @@ FEKPIEIQVYSPVDDIIYSSQEELMRNLYKFIGEQLKKYRTILIFTNTRHGAESVAYHLKKAFPDLEKYIAVHHSSLSRE
 <li><p>Use utilities like <code>dos2unix</code> to convert DOS-formatted text files to Unix format before processing them in your loop. This command removes any extraneous carriage return characters, ensuring consistent line endings.</p></li>
 <li><p>If dos2unix is not available, you can use tr (translate or delete characters) to remove carriage return characters from DOS-formatted files. Here’s how you can accomplish this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Remove carriage return characters from DOS-formatted files</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> file <span class="kw">in</span> <span class="pp">*</span>.txt<span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tr</span> <span class="at">-d</span> <span class="st">'\r'</span> <span class="op">&lt;</span> <span class="st">"</span><span class="va">$file</span><span class="st">"</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">$file</span><span class="st">.tmp"</span> <span class="kw">&amp;&amp;</span> <span class="fu">mv</span> <span class="st">"</span><span class="va">$file</span><span class="st">.tmp"</span> <span class="st">"</span><span class="va">$file</span><span class="st">"</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Remove carriage return characters from DOS-formatted files</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> file <span class="kw">in</span> <span class="pp">*</span>.txt<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tr</span> <span class="at">-d</span> <span class="st">'\r'</span> <span class="op">&lt;</span> <span class="st">"</span><span class="va">$file</span><span class="st">"</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">$file</span><span class="st">.tmp"</span> <span class="kw">&amp;&amp;</span> <span class="fu">mv</span> <span class="st">"</span><span class="va">$file</span><span class="st">.tmp"</span> <span class="st">"</span><span class="va">$file</span><span class="st">"</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p>This loop iterates over all .txt files in the current directory, removes carriage return characters ( using tr, and then overwrites the original files with the processed versions. This approach achieves the same result as dos2unix, but using built-in Bash functionality instead.</p></li>
 <li><p>You can modify the file extension (*.txt) to match the specific file types you’re working with in your environment.</p></li>

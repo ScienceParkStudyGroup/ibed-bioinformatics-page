@@ -48,8 +48,8 @@ done
 
 Here:
 
--   {01..10} is a Bash brace expansion. Brace expansion is a feature in Bash that generates strings at runtime based on a specified pattern. In the case of {01..10}, it expands to 01 02 03 04 05 06 07 08 09 10. So, the for loop iterates over each of these values.
--   echo \$i: This command prints the value of the loop variable i to the terminal.
+-   `{01..10}` is a Bash brace expansion. Brace expansion is a feature in Bash that generates strings based on a specified pattern. In the case of {01..10}, it expands to 01 02 03 04 05 06 07 08 09 10. The for loop itself then iterates over each of these values.
+-   `echo $i`: This command prints the value of the loop variable i to the terminal.
 
 We can add some spaces to enhance readability. Although this formatting is optional, it's a good practice to improve code clarity. Personally, I prefer using a tab (or 4 spaces) for indentation, but feel free to adopt your preferred style.
 
@@ -59,6 +59,15 @@ do
     echo $i
 done
 ```
+
+You might also see something like this:
+
+```{bash}
+for i in {01..10};  do  echo $i; done
+```
+
+This is the same code as above condensed into a single line. For more complex loops its useful to display the code in multiple lines for readability but you might encounter this syntax in the wild as well.
+
 
 ## Preparing some example files
 
@@ -76,7 +85,7 @@ gzip -d data/*gz
 head data/GCA_000017945.1_ASM1794v1_protein.faa 
 ```
 
-Upon opening the file, you'll notice that the header looks something like this: \>ABU81185.1 translation initiation factor aIF-2 \[Ignicoccus hospitalis KIN4/I\]. The header cotnains unnecessary characters, such as spaces, which can potentially disrupt downstream analysis. We can remedy this using the cut command.
+Upon opening the file, you'll notice that the header looks something like this: \>ABU81185.1 translation initiation factor aIF-2 \[Ignicoccus hospitalis KIN4/I\]. The header contains unnecessary characters, such as spaces, which can potentially disrupt downstream analyses. We can remedy this using the cut command.
 
 ```{bash}
 cut -f1 -d " " data/GCA_000017945.1_ASM1794v1_protein.faa | head
@@ -90,11 +99,11 @@ In bioinformatics, it might be useful to modify your files that way since downst
 -   If you work with more than one genome, it might be useful to not only have the protein ID but also the genome ID in the sequence header
 -   If you have a concise header + the bin ID in the header, it is easy to concatenate the protein sequences of your genomes into one single file and still easily know from what genome the sequence originally came from
 
-Now, let's learn how to apply this operation to multiple files, ranging from 2 to 100, using a loop.
+Now, let's learn how to apply this operation to multiple files, ranging from 2 to 100 (or more), using a loop.
 
 ## Building the core structure
 
-Let's lay the groundwork for our loop by starting with the most basic command: printing the files that we want to iterate over. Once we confirm that this works, we'll gradually build up the loop step by step.
+Let's lay the groundwork for our loop by starting with the most basic command: printing a list for the files that we want to iterate over. Once we confirm that this works, we'll gradually build up the loop step by step.
 
 ```{bash}
 for i in data/*faa;
@@ -114,7 +123,7 @@ This output confirms that the loop is correctly identifying the files we want to
 
 ## Adding the first variable
 
-To ensure flexibility in naming the output files, let's extract the file names (excluding the extension) using the basename command:
+To ensure flexibility in naming the output files, let's extract the file names using the basename command and storing the output in a variable. We will see why this really is useful once we made it to the final command:
 
 ```{bash}
 for i in data/*faa;
@@ -124,14 +133,27 @@ echo $basename
 done
 ```
 
-Executing this code snippet should yield the following names:
+Executing this code snippet should yield the following names without the relative path. Making this change is extremely useful to later store our output files somewhere else than the data folder:
 
 ```         
 GCA_000008085.1_ASM808v1_protein.faa
 GCA_000017945.1_ASM1794v1_protein.faa
 ```
 
-To ensure flexibility in naming the output files, let's extract the file names (excluding the extension) using the basename command:
+Let's delve into some new syntax we have used in this section:
+
+- In bash a **variable** acts as temporary storage for a string or a number. Here, we want to store a file name in the variable called basename.
+- The **\$(..)** syntax represents command substitution, where Bash executes a command in a subshell environment and then replaces the command substitution with the standard output of the command. In other words, whatever the basename command prints gets stored in the basename variable.
+-   Defining variables and the use of quotes:
+    -   variable_name="xxx": This assigns the string "xxx" to the variable variable_name.
+    -   variable_name=xxx: This assigns the value of the expression xxx to the variable variable_name. If xxx is a command, the result of that command will be assigned to variable_name. If xxx is a variable or literal string, its value will be assigned to variable_name.
+    -   In our example, we use command substitution to assign the result of the basename command to the basename variable, which is why no quotes are used.
+    -   It's important NOT to add spaces between the variable name, =, and variable assignment, as it's part of the syntax that Bash uses for variables.
+
+
+## Removing the extension from the basename
+
+To ensure flexibility in naming the output files, let's extract the file names AND exclude the extension by using the basename command with a slight modification:
 
 ```{bash}
 for i in data/*faa;
@@ -144,25 +166,15 @@ done
 Executing this code snippet should yield the following names:
 
 ```         
-GCA_000008085.1_ASM808v1_protein.faa 
-GCA_000017945.1_ASM1794v1_protein.faa
+GCA_000008085.1_ASM808v1_protein 
+GCA_000017945.1_ASM1794v1_protein
 ```
 
-Additionally, let's delve into some new syntax:
+## Simplifying the basename
 
--   Defining variables and the use of quotes:
-    -   variable_name="xxx": This assigns the string "xxx" to the variable variable_name.
-    -   variable_name=xxx: This assigns the value of the expression xxx to the variable variable_name. If xxx is a command, the result of that command will be assigned to variable_name. If xxx is a variable or literal string, its value will be assigned to variable_name.
-    -   In our example, we use command substitution to assign the result of the basename command to the basename variable, which is why no quotes are used.
-    -   It's important not to add spaces between the variable name, =, and variable assignment, as it's part of the syntax that Bash uses for variables.
--   The \$(..) syntax represents command substitution, where Bash executes a command in a subshell environment and then replaces the command substitution with the standard output of the command. In other words, whatever the basename command prints gets stored in the basename variable.
+Now the basename looks cleaner, however, I don't like that it is so long. When naming files its generatelly good to keep the filenames short and precise. We can do this by combining the basename command with a pipe. 
 
-## Removing the extension from the basename
-
-I dont like the .faa in the basename and that the basename is so long. We can change this by
-
--   Specify in the basename command that we want to remove the extension
--   Combine this with a pipe and shorten the basename by cutting everything off after the second underscore
+Put simply, a pipe allows us to chain the output of the basename command into the cut command to further modify the filename. Here, we use `cut` to shorten the basename by cutting everything off after the second underscore using cut.
 
 ```{bash}
 for i in data/*faa;
@@ -182,13 +194,13 @@ GCA_000017945.1
 Additionally, let's delve into some new syntax:
 
 -   The cut command is used to extract sections from each line of input (or from files) and write the result to standard output.
--   In our example, -f1-2 specifies that we want to retain fields 1 to 2 from each line, and -d "*" specifies that the field delimiter is underscore* .
+-   In our example, -f1-2 specifies that we want to retain fields 1 to 2 from each line, and -d "_" specifies that the field delimiter is underscore .
 -   So, the cut command ensures that only the part of the basename before the second underscore is retained, effectively shortening the basename.
 -   You would need to adjust this for your own file names, but hopefully this gives you an idea about how flexible the command line is
 
 ## Adding a variable for the output file
 
-To facilitate the creation of output file names, let's introduce a variable named outfile_name. We'll use this variable to specify the path and name for the renamed files:
+To facilitate the creation of output file names, let's introduce a variable named outfile_name. We'll use this variable to specify the path and name for the modified files:
 
 ```{bash}
 mkdir data/renamed 
@@ -209,7 +221,9 @@ data/renamed/GCA_000008085.1.faa
 data/renamed/GCA_000017945.1.faa
 ```
 
-Notice how we now use quotes to assign a string to the variable outfile_name.
+Now, we can finally see how this whole exercise becomes useful. We were able to (a) simplify the file name itself by making it shorter and (b) ensure that we can store the modified file in a new directory.
+
+Also, notice how we now use quotes to assign a string to the variable outfile_name?
 
 Let's also discuss a new syntax: using brackets {} around our variable:
 
@@ -218,8 +232,7 @@ Let's also discuss a new syntax: using brackets {} around our variable:
 
 ## Finalizing the loop
 
-Let's complete the loop by implementing the desired modifications to the files:
-
+Let's complete the loop by implementing the desired modifications to the files. 
 ```{bash}
 for i in data/*faa;
 do
@@ -255,19 +268,57 @@ TKKFREHIKKVEFVVVDEIHALAESKRGTHLALSLERLNYLTNFVRIGLSATIHPLEEVAKFLFGYENGKPREGYIIDVS
 FEKPIEIQVYSPVDDIIYSSQEELMRNLYKFIGEQLKKYRTILIFTNTRHGAESVAYHLKKAFPDLEKYIAVHHSSLSRE
 ```
 
+Do you see how we elegantly use `$outfile_name` to create a new file with a cleaner name in a different folder compared to the imput file? This is a very good example for how flexible you can be with your files with some small bash knowledge.
+
+
+## Alternative syntax
+
+For more complex code, it might be useful to break things up for readability. Consider this command (the details are not important here, however, see how we use exactly the same loop structure to run a completely different command?):
+
+```{bash}
+for i in results/prokka/*/bin*/*.gbk; do
+    base_name=$(basename "$i" .gbk)
+    outdir="results/pseudofinder/${base_name}"
+    pseudofinder.py annotate -g $i -op $outdir -db /zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta -t 20
+done
+```
+
+The line that runs the tool `pseudofinder.py` is becoming longer, and for readability, we might want to break this command down and display each option on an individual line. We can do this as follows:
+
+```{bash}
+for i in results/prokka/*/bin*/*.gbk; do
+    base_name=$(basename "$i" .gbk)
+    outdir="results/pseudofinder/${base_name}"
+    pseudofinder.py annotate \
+      -g $i \
+      -op $outdir \
+      -db /zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta \
+      -t 20
+done
+```
+
+Here, we use the `\` to split a long line into two shorter lines, without signifying an end of the statement. If you use this, be careful with the syntax, as `\` needs to be immediately followed by a new line. So don't add any spaces afterwards.
+
+
 ## Error handling or why my loop does not work?
 
 While writing and executing loops in Bash can greatly streamline your workflow, it's essential to anticipate and handle potential errors that may arise during script execution. Here are some common issues you might encounter and strategies for troubleshooting them:
 
 ### 0. General recommendations
 
-When getting started with loops I recommend to start as simple as possible and build your why up, same as we did in this workflow. For example, your workflow can look like this:
+When getting started with loops, I recommend starting as simple as possible and building your way up, similar to the approach used in this workflow. Here's a suggested workflow to follow:
 
-1. Start with running your command or software on a single file. Explore what outputs are generated and how they are named to be able to judge how you need to build your loop.
-2. Build the most basic loop by simply printing the names of the files you want to loop over
-3. Extend the loop structure step-by-step.
+1. Begin by running your command or software on a single file. Explore the outputs generated and observe how they are named. Understanding these outputs will help you determine how to structure your loop effectively.
+2. Build the most basic loop by simply printing the names of the files you want to iterate over. This step allows you to verify that your loop is correctly identifying the files you intend to process.
+3. Extend the loop structure step-by-step, adding functionality incrementally. This iterative approach enables you to catch mistakes early, as it's easier to debug a simple command compared to a complex loop.
 
-This procedure should help you catch mistakes early as its easier to catch a mistake if your command is still simple compare to having a complex loop.
+Additionally, keep in mind that syntax matters a lot in Bash scripting. Common syntax-related mistakes to avoid include:
+
+1. Using straight quotes ("), as opposed to curly quotes (“), which may not be recognized by the shell. Depending on your text editor, you might inadvertently use curly quotes, causing syntax errors. Be mindful of this difference and adjust your editor settings if necessary. For example, for Mac users, check out the 3rd comment in [this post](https://community.folivora.ai/t/script-editor-changing-normal-quotes-to-curly-unicode-quotes/22479/2)
+2. When defining variables ensure to use proper syntax and not use spaces between the variable name and variable content. I.e. `variable="hello"`.
+3. Whitespace and Indentation: Ensure consistent whitespace and indentation in your Bash scripts to enhance readability and maintainability. Pay attention to spaces around operators and arguments to commands within your script to avoid syntax errors or unexpected behavior. Also ensure that you always use spaces after command names and command options.
+4. Forgetting to Quote Variables or Use Brackets Around Variables: Properly quote variables, especially when dealing with filenames or strings containing spaces or special characters, to ensure their values are interpreted correctly by the shell. Additionally, use brackets `{}` around variables when they are part of a string with other text to avoid ambiguity and potential issues.
+5. Failure to Handle Empty or Missing Files: Be vigilant about handling scenarios where files might be empty or missing in your loops. Implement checks within your script to gracefully handle such situations, either by skipping empty or missing files or by providing appropriate error messages or default values.
 
 
 ### 1. File Not Found
