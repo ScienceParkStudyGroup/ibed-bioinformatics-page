@@ -85,6 +85,12 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 -   [Trinity](source/metatranscriptomics/trinity.qmd): A tool to assemble transcript sequences from Illumina RNA-Seq data   
 
 
+
+## Bioinformatic toolbox
+
+- [For-loops-in-bash](source/core_tools/bash-for-loops.qmd): How can I scale my research and run software not only on one but multiple files?
+
+
 ## Useful databases A-Z
 
 - [KOfam](source/core_tools/kegg_db.qmd)

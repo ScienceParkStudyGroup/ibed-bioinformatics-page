@@ -1,0 +1,322 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+# For-loops in bash
+
+## What are we talking about?
+
+A for loop in Bash is a control structure that allows you to execute a sequence of commands repeatedly. It's particularly useful when you need to perform an operation a fixed number of times or iterate over a list of items.
+
+In its simplest form, a for loop in Bash has the following syntax:
+
+``` bash
+for item in list
+do
+    # commands to execute for each item
+done
+```
+
+Here's what each part of the for loop means:
+
+-   `for`: This keyword indicates the start of the loop.
+-   `item`: This is a variable that will hold each item from the list in each iteration of the loop.
+-   `in`: This keyword separates the variable name from the list of items.
+-   `list`: This is a list of items over which the loop will iterate. It can be specified explicitly (e.g., `1 2 3`) or through a command substitution (e.g., `$(ls)` to loop over files in a directory).
+-   `do`: This keyword indicates the start of the block of commands to execute in each iteration.
+-   `done`: This keyword marks the end of the loop.
+
+During each iteration of the loop, the variable `item` takes on the value of the next item in the list, and the commands within the loop are executed with this value. The loop continues until all items in the list have been processed.
+
+## A for loop to get started
+
+Let's delve into a basic example to kickstart your understanding of for loops in Bash. Imagine the task is to print numbers from 01 to 10, each on a separate line. Here's how you can achieve this with a for loop:
+
+```{bash}
+for i in {01..10};
+do
+echo $i
+done
+```
+
+Here:
+
+-   {01..10} is a Bash brace expansion. Brace expansion is a feature in Bash that generates strings at runtime based on a specified pattern. In the case of {01..10}, it expands to 01 02 03 04 05 06 07 08 09 10. So, the for loop iterates over each of these values.
+-   echo \$i: This command prints the value of the loop variable i to the terminal.
+
+We can add some spaces to enhance readability. Although this formatting is optional, it's a good practice to improve code clarity. Personally, I prefer using a tab (or 4 spaces) for indentation, but feel free to adopt your preferred style.
+
+```{bash}
+for i in {01..10};
+do
+    echo $i
+done
+```
+
+## Preparing some example files
+
+Let's explore a more practical example that you might encounter in biology, such as working with genome files and modifying their headers. First, let's download some example genome files from the NCBI database:
+
+```{bash}
+mkdir data 
+
+#download some example genomes from NCBI
+wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/008/085/GCA_000008085.1_ASM808v1/GCA_000008085.1_ASM808v1_protein.faa.gz  -P data
+wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/017/945/GCA_000017945.1_ASM1794v1/GCA_000017945.1_ASM1794v1_protein.faa.gz  -P data
+gzip -d data/*gz
+
+#view the header of one file
+head data/GCA_000017945.1_ASM1794v1_protein.faa 
+```
+
+Upon opening the file, you'll notice that the header looks something like this: \>ABU81185.1 translation initiation factor aIF-2 \[Ignicoccus hospitalis KIN4/I\]. The header cotnains unnecessary characters, such as spaces, which can potentially disrupt downstream analysis. We can remedy this using the cut command.
+
+```{bash}
+cut -f1 -d " " data/GCA_000017945.1_ASM1794v1_protein.faa | head
+```
+
+Running this command shortens the header to \>ABU81185.1.
+
+In bioinformatics, it might be useful to modify your files that way since downstream processes, such as functional annotation, might not run successfully if there are special symbols (i.e. spaces) in the fasta header or if the fasta header is too long. Generally, its recommended to:
+
+-   Make sure the file header is concise and does not have ANY spaces and that ideally uses a ‘-’ (or any other unique delimiter) to separate the genome ID from the protein ID. Also avoid any unusual symbols, such as \|, (, ), {, }…
+-   If you work with more than one genome, it might be useful to not only have the protein ID but also the genome ID in the sequence header
+-   If you have a concise header + the bin ID in the header, it is easy to concatenate the protein sequences of your genomes into one single file and still easily know from what genome the sequence originally came from
+
+Now, let's learn how to apply this operation to multiple files, ranging from 2 to 100, using a loop.
+
+## Building the core structure
+
+Let's lay the groundwork for our loop by starting with the most basic command: printing the files that we want to iterate over. Once we confirm that this works, we'll gradually build up the loop step by step.
+
+```{bash}
+for i in data/*faa;
+do
+echo $i
+done
+```
+
+When we execute this code snippet, we observe that both files, along with their relative paths, are printed:
+
+```         
+data/GCA_000008085.1_ASM808v1_protein.faa
+data/GCA_000017945.1_ASM1794v1_protein.faa
+```
+
+This output confirms that the loop is correctly identifying the files we want to process.
+
+## Adding the first variable
+
+To ensure flexibility in naming the output files, let's extract the file names (excluding the extension) using the basename command:
+
+```{bash}
+for i in data/*faa;
+do
+basename=$(basename $i)
+echo $basename
+done
+```
+
+Executing this code snippet should yield the following names:
+
+```         
+GCA_000008085.1_ASM808v1_protein.faa
+GCA_000017945.1_ASM1794v1_protein.faa
+```
+
+To ensure flexibility in naming the output files, let's extract the file names (excluding the extension) using the basename command:
+
+```{bash}
+for i in data/*faa;
+do
+basename=$(basename $i .faa)
+echo $basename
+done
+```
+
+Executing this code snippet should yield the following names:
+
+```         
+GCA_000008085.1_ASM808v1_protein.faa 
+GCA_000017945.1_ASM1794v1_protein.faa
+```
+
+Additionally, let's delve into some new syntax:
+
+-   Defining variables and the use of quotes:
+    -   variable_name="xxx": This assigns the string "xxx" to the variable variable_name.
+    -   variable_name=xxx: This assigns the value of the expression xxx to the variable variable_name. If xxx is a command, the result of that command will be assigned to variable_name. If xxx is a variable or literal string, its value will be assigned to variable_name.
+    -   In our example, we use command substitution to assign the result of the basename command to the basename variable, which is why no quotes are used.
+    -   It's important not to add spaces between the variable name, =, and variable assignment, as it's part of the syntax that Bash uses for variables.
+-   The \$(..) syntax represents command substitution, where Bash executes a command in a subshell environment and then replaces the command substitution with the standard output of the command. In other words, whatever the basename command prints gets stored in the basename variable.
+
+## Removing the extension from the basename
+
+I dont like the .faa in the basename and that the basename is so long. We can change this by
+
+-   Specify in the basename command that we want to remove the extension
+-   Combine this with a pipe and shorten the basename by cutting everything off after the second underscore
+
+```{bash}
+for i in data/*faa;
+do
+basename=$(basename $i .faa | cut -f1-2 -d "_")
+echo $basename
+done
+```
+
+Executing this code snippet should yield the following names:
+
+```         
+GCA_000008085.1 
+GCA_000017945.1
+```
+
+Additionally, let's delve into some new syntax:
+
+-   The cut command is used to extract sections from each line of input (or from files) and write the result to standard output.
+-   In our example, -f1-2 specifies that we want to retain fields 1 to 2 from each line, and -d "*" specifies that the field delimiter is underscore* .
+-   So, the cut command ensures that only the part of the basename before the second underscore is retained, effectively shortening the basename.
+-   You would need to adjust this for your own file names, but hopefully this gives you an idea about how flexible the command line is
+
+## Adding a variable for the output file
+
+To facilitate the creation of output file names, let's introduce a variable named outfile_name. We'll use this variable to specify the path and name for the renamed files:
+
+```{bash}
+mkdir data/renamed 
+
+for i in data/*faa;
+do
+basename=$(basename $i .faa | cut -f1-2 -d "_")
+outfile_name="data/renamed/${basename}.faa"
+echo $outfile_name
+done
+
+```
+
+This should print:
+
+```         
+data/renamed/GCA_000008085.1.faa 
+data/renamed/GCA_000017945.1.faa
+```
+
+Notice how we now use quotes to assign a string to the variable outfile_name.
+
+Let's also discuss a new syntax: using brackets {} around our variable:
+
+-   We enclose variables in {} whenever they are part of a string that includes other text, as demonstrated in the line with the outfile_name variable. This is especially important when the variable is adjacent to other characters that might be confused as part of the variable name.
+-   However, if the variable is not surrounded by other characters, as in the echo command, we don't need to use the brackets.
+
+## Finalizing the loop
+
+Let's complete the loop by implementing the desired modifications to the files:
+
+```{bash}
+for i in data/*faa;
+do
+basename=$(basename $i .faa | cut -f1-2 -d "_")
+outfile_name="data/renamed/${basename}.faa"
+cut -f1 -d " " $i > $outfile_name
+done
+
+#check if that worked 
+ls data/renamed/
+head data/renamed/GCA_000008085.1.faa
+```
+
+After running this code, you should observe two new files in the data/renamed folder, each with a shortened file name compared to the original:
+
+```         
+GCA_000008085.1.faa
+GCA_000017945.1.faa
+```
+
+Furthermore, you'll notice that the fasta headers have been shortened:
+
+```         
+>AAR38856.1
+MRLLLELKALNSIDKKQLSNYLIQGFIYNILKNTEYSWLHNWKKEKYFNFTLIPKKDIIENKRYYLIISSPDKRFIEVLH
+NKIKDLDIITIGLAQFQLRKTKKFDPKLRFPWVTITPIVLREGKIVILKGDKYYKVFVKRLEELKKYNLIKKKEPILEEP
+IEISLNQIKDGWKIIDVKDRYYDFRNKSFSAFSNWLRDLKEQSLRKYNNFCGKNFYFEEAIFEGFTFYKTVSIRIRINRG
+EAVYIGTLWKELNVYRKLDKEEREFYKFLYDCGLGSLNSMGFGFVNTKKNSAR
+>AAR38857.1
+MKKPQPYKDEEIYSILEEPVKQWFKEKYKTFTPPQRYAIMEIHKRNNVLISSPTGSGKTLAAFLAIINELIKLSHKGKLE
+NRVYAIYVSPLRSLNNDVKKNLETPLKEIKEKAKELNYYIGDIRIAVRTSDTKESEKAKMLKQPPHILITTPESLAIILS
+TKKFREHIKKVEFVVVDEIHALAESKRGTHLALSLERLNYLTNFVRIGLSATIHPLEEVAKFLFGYENGKPREGYIIDVS
+FEKPIEIQVYSPVDDIIYSSQEELMRNLYKFIGEQLKKYRTILIFTNTRHGAESVAYHLKKAFPDLEKYIAVHHSSLSRE
+```
+
+## Error handling or why my loop does not work?
+
+While writing and executing loops in Bash can greatly streamline your workflow, it's essential to anticipate and handle potential errors that may arise during script execution. Here are some common issues you might encounter and strategies for troubleshooting them:
+
+### 0. General recommendations
+
+When getting started with loops I recommend to start as simple as possible and build your why up, same as we did in this workflow. For example, your workflow can look like this:
+
+1. Start with running your command or software on a single file. Explore what outputs are generated and how they are named to be able to judge how you need to build your loop.
+2. Build the most basic loop by simply printing the names of the files you want to loop over
+3. Extend the loop structure step-by-step.
+
+This procedure should help you catch mistakes early as its easier to catch a mistake if your command is still simple compare to having a complex loop.
+
+
+### 1. File Not Found
+
+If your loop is not working as expected, one common issue could be that the specified files are not found in the designated directory. This could occur due to incorrect file paths or missing files. To address this:
+
+-   Double-check the file paths specified in your loop to ensure they are accurate and point to the correct directory.
+-   Simplify your command and use echo to see if the correct filename is printed and
+-   Verify that the files you intend to process actually exist in the specified directory. You can do this using the `ls` command or by manually inspecting the directory with nano or head.
+
+### 2. Incorrect File Format
+
+Another potential issue is if the files you're attempting to process are not in the expected format. For example, if your loop expects fasta files but encounters files in a different format, it may not function correctly. To handle this:
+
+-   Confirm that the files in the specified directory are in the expected format. You can examine file contents using commands like `head` or `cat` to verify their format.
+-   Implement checks within your loop to validate file formats before processing them. This can help prevent errors and ensure that only compatible files are processed.
+
+### 3. Permissions
+
+Permissions issues can also prevent your loop from executing properly, particularly if you're attempting to write output to a directory where you don't have sufficient permissions. To resolve this:
+
+-   Ensure that you have the necessary permissions to read input files and write output files to the designated directories. You can use the `ls -l` command to view file permissions and ownership.
+-   If necessary, adjust file permissions using the `chmod` command to grant yourself the required access.
+
+### 4. Syntax Errors
+
+Syntax errors in your loop script can also cause it to fail. Common syntax errors include missing semicolons, incorrect variable assignments, or mismatched quotes. To address syntax errors:
+
+-   Carefully review your loop script for any syntax errors or typos. Pay close attention to variable assignments, loop syntax, usage of spaces and command usage.
+
+### 5. Handling DOS File Format Issues
+
+In some cases, you may encounter issues related to the file format when working with loops in Bash, particularly if your files originate from a Windows environment. DOS (or Windows) text files use different line-ending characters compared to Unix-based systems, which can lead to unexpected behavior when processing files in Bash.
+
+DOS text files typically use a combination of carriage return (\r) and line feed (\n) characters to denote line endings, whereas Unix-based systems use only a line feed character. When processing DOS files in Bash, the presence of extra carriage return characters can cause issues, such as unexpected line breaks or syntax errors.
+
+To handle DOS line endings:
+
+-   Use utilities like `dos2unix` to convert DOS-formatted text files to Unix format before processing them in your loop. This command removes any extraneous carriage return characters, ensuring consistent line endings.
+
+-   If dos2unix is not available, you can use tr (translate or delete characters) to remove carriage return characters from DOS-formatted files. Here's how you can accomplish this:
+
+    ```{bash}
+      #Remove carriage return characters from DOS-formatted files
+      for file in *.txt; do
+      tr -d '\r' < "$file" > "$file.tmp" && mv "$file.tmp" "$file"
+      done
+    ```
+
+-   This loop iterates over all .txt files in the current directory, removes carriage return characters (\r) using tr, and then overwrites the original files with the processed versions. This approach achieves the same result as dos2unix, but using built-in Bash functionality instead.
+
+-   You can modify the file extension (\*.txt) to match the specific file types you're working with in your environment.

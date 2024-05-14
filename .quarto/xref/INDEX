@@ -206,5 +206,11 @@
   },
   "source/metagenomics/dnaapler.qmd": {
     "dnaapler.html": "9b9646b5"
+  },
+  "source/core_tools/bash-for-loops.qmd": {
+    "bash-for-loops.html": "739e4dd4"
+  },
+  "source/core_tools/toolbox-readme.qmd": {
+    "toolbox-readme.html": "3d8967c2"
   }
 }

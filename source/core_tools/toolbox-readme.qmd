@@ -1,0 +1,7 @@
+<div style="text-align: justify">
+
+## Bioinformatic toolbox
+
+In this section, you will find a collection of tutorials and resources designed to equip you with essential tools and techniques for bioinformatics analysis. The aim of these tutorials is offer step-by-step guidance and practical insights to enhance your proficiency in bioinformatics. 
+
+Please note that this is a growing resources and will be extended over time.

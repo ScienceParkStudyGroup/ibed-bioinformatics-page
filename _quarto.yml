@@ -143,7 +143,12 @@ website:
             contents:
               - source/ITSx/itsx_readme.qmd
               - source/nanopore/nanoITS.qmd
-          
+
+      - section: "Bioinformatics toolbox"
+        href: source/core_tools/toolbox-readme.qmd
+        contents:
+          - source/core_tools/bash-for-loops.qmd
+
       - section: "Bioinformatic databases"
         contents:
           - source/core_tools/kegg_db.qmd
