@@ -270,9 +270,6 @@ FEKPIEIQVYSPVDDIIYSSQEELMRNLYKFIGEQLKKYRTILIFTNTRHGAESVAYHLKKAFPDLEKYIAVHHSSLSRE
 
 Do you see how we elegantly use `$outfile_name` to create a new file with a cleaner name in a different folder compared to the imput file? This is a very good example for how flexible you can be with your files with some small bash knowledge.
 
-Certainly! Here's the section explaining how to use loops with files, along with a description of why this approach might be useful:
-
----
 
 ### Using Loops with Files
 

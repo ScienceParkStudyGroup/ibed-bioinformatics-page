@@ -282,6 +282,6 @@ So what do we do about this when we analyse our own genomes? There are a few thi
 2. Review raw output data (if possible) to assess the reliability of individual predictions. In the section about [Hmmsearch](../core_tools/hmmer.qmd) you also find some code how you could run a hmmsearch against the KOs yourself.
 3. Instead of relying solely on one database, cross-reference findings from multiple sources such as Pfam, PGAP, COG, or arCOG. Consistency across databases enhances confidence in the results.
 4.  Compare your findings against functional annotations of closely related genomes. For example, you can check the literature or check whether your organisms is part of the [KEGG genome database](https://www.genome.jp/dbget-bin/www_bfind_sub?mode=bfind&max_hit=1000&locale=en&serv=kegg&dbkey=genome&keywords=ignicoccus&page=1).
-5.  VValidate specific protein functions using specialized tools like [Blast](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE=Proteins) or [interproscan](https://www.ebi.ac.uk/interpro/search/sequence/)
+5.  Validate specific protein functions using specialized tools like [Blast](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE=Proteins) or [interproscan](https://www.ebi.ac.uk/interpro/search/sequence/)
 
 ### References
