@@ -270,8 +270,39 @@ FEKPIEIQVYSPVDDIIYSSQEELMRNLYKFIGEQLKKYRTILIFTNTRHGAESVAYHLKKAFPDLEKYIAVHHSSLSRE
 
 Do you see how we elegantly use `$outfile_name` to create a new file with a cleaner name in a different folder compared to the imput file? This is a very good example for how flexible you can be with your files with some small bash knowledge.
 
+Certainly! Here's the section explaining how to use loops with files, along with a description of why this approach might be useful:
 
-## Alternative syntax
+---
+
+### Using Loops with Files
+
+In addition to iterating over files directly within a directory using wildcard patterns (e.g., `*.txt`), Bash also allows you to iterate over a list of filenames stored in a file. This can be achieved by using command substitution to capture the output of a command that generates the list of filenames. Here's how you can use this approach:
+
+```{bash}
+# Assume 'list' is a file containing a list of filenames, with each filename on a separate line
+# Iterate over each filename in the list
+for filename in $(cat list); do
+    # Perform operations on each filename
+    echo "Processing file: $filename"
+    # Add more commands here
+done
+```
+
+In this example, `cat list` is used within command substitution `$(...)` to generate the list of filenames stored in the file named `list`. The loop then iterates over each filename in the list, performing operations as needed.
+
+**Why This Might Be Useful:**
+
+Using loops with files allows for greater flexibility and automation in handling sets of files that may not follow a consistent naming pattern or reside in different directories. This approach is particularly useful in scenarios where:
+
+1. **Dynamic File Lists**: The list of files to process may vary over time or depend on external factors. By storing filenames in a separate file, you can easily update the list without modifying the loop structure.
+2. **Complex Filtering**: You need to filter files based on specific criteria or conditions that cannot be expressed using wildcard patterns alone. For example, you may need to select files based on metadata stored in another file or database. Imagine that part of your genomes are eukaryotic, the other are bacteria. Maybe you need to process them separately because eukaryotes require the use of different options compared to bacteria.
+3. **Integration with External Tools**: The filenames need to be processed or transformed before being used in the loop. You can leverage command-line tools or scripting languages to generate the list of filenames dynamically based on certain criteria or conditions.
+4. **Improved Readability and Maintainability**: Storing filenames in a separate file can make your scripts more readable and maintainable, especially when dealing with large sets of files or complex directory structures. It also allows for easier collaboration and sharing of scripts among team members.
+
+By leveraging loops with files, you can streamline your workflow and efficiently process large sets of files with ease and flexibility.
+
+
+## Addon: Alternative syntax
 
 For more complex code, it might be useful to break things up for readability. Consider this command (the details are not important here, however, see how we use exactly the same loop structure to run a completely different command?):
 

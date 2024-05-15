@@ -645,8 +645,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#removing-the-extension-from-the-basename" id="toc-removing-the-extension-from-the-basename" class="nav-link" data-scroll-target="#removing-the-extension-from-the-basename">Removing the extension from the basename</a></li>
   <li><a href="#simplifying-the-basename" id="toc-simplifying-the-basename" class="nav-link" data-scroll-target="#simplifying-the-basename">Simplifying the basename</a></li>
   <li><a href="#adding-a-variable-for-the-output-file" id="toc-adding-a-variable-for-the-output-file" class="nav-link" data-scroll-target="#adding-a-variable-for-the-output-file">Adding a variable for the output file</a></li>
-  <li><a href="#finalizing-the-loop" id="toc-finalizing-the-loop" class="nav-link" data-scroll-target="#finalizing-the-loop">Finalizing the loop</a></li>
-  <li><a href="#alternative-syntax" id="toc-alternative-syntax" class="nav-link" data-scroll-target="#alternative-syntax">Alternative syntax</a></li>
+  <li><a href="#finalizing-the-loop" id="toc-finalizing-the-loop" class="nav-link" data-scroll-target="#finalizing-the-loop">Finalizing the loop</a>
+  <ul class="collapse">
+  <li><a href="#using-loops-with-files" id="toc-using-loops-with-files" class="nav-link" data-scroll-target="#using-loops-with-files">Using Loops with Files</a></li>
+  </ul></li>
+  <li><a href="#addon-alternative-syntax" id="toc-addon-alternative-syntax" class="nav-link" data-scroll-target="#addon-alternative-syntax">Addon: Alternative syntax</a></li>
   <li><a href="#error-handling-or-why-my-loop-does-not-work" id="toc-error-handling-or-why-my-loop-does-not-work" class="nav-link" data-scroll-target="#error-handling-or-why-my-loop-does-not-work">Error handling or why my loop does not work?</a>
   <ul class="collapse">
   <li><a href="#general-recommendations" id="toc-general-recommendations" class="nav-link" data-scroll-target="#general-recommendations">0. General recommendations</a></li>
@@ -876,28 +879,53 @@ NRVYAIYVSPLRSLNNDVKKNLETPLKEIKEKAKELNYYIGDIRIAVRTSDTKESEKAKMLKQPPHILITTPESLAIILS
 TKKFREHIKKVEFVVVDEIHALAESKRGTHLALSLERLNYLTNFVRIGLSATIHPLEEVAKFLFGYENGKPREGYIIDVS
 FEKPIEIQVYSPVDDIIYSSQEELMRNLYKFIGEQLKKYRTILIFTNTRHGAESVAYHLKKAFPDLEKYIAVHHSSLSRE</code></pre>
 <p>Do you see how we elegantly use <code>$outfile_name</code> to create a new file with a cleaner name in a different folder compared to the imput file? This is a very good example for how flexible you can be with your files with some small bash knowledge.</p>
-</section>
-<section id="alternative-syntax" class="level2">
-<h2 class="anchored" data-anchor-id="alternative-syntax">Alternative syntax</h2>
-<p>For more complex code, it might be useful to break things up for readability. Consider this command (the details are not important here, however, see how we use exactly the same loop structure to run a completely different command?):</p>
+<p>Certainly! Here’s the section explaining how to use loops with files, along with a description of why this approach might be useful:</p>
+<hr>
+<section id="using-loops-with-files" class="level3">
+<h3 class="anchored" data-anchor-id="using-loops-with-files">Using Loops with Files</h3>
+<p>In addition to iterating over files directly within a directory using wildcard patterns (e.g., <code>*.txt</code>), Bash also allows you to iterate over a list of filenames stored in a file. This can be achieved by using command substitution to capture the output of a command that generates the list of filenames. Here’s how you can use this approach:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> results/prokka/<span class="pp">*</span>/bin<span class="pp">*</span>/<span class="pp">*</span>.gbk<span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">base_name</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="st">"</span><span class="va">$i</span><span class="st">"</span> .gbk<span class="va">)</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">outdir</span><span class="op">=</span><span class="st">"results/pseudofinder/</span><span class="va">${base_name}</span><span class="st">"</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">pseudofinder.py</span> annotate <span class="at">-g</span> <span class="va">$i</span> <span class="at">-op</span> <span class="va">$outdir</span> <span class="at">-db</span> /zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta <span class="at">-t</span> 20</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assume 'list' is a file containing a list of filenames, with each filename on a separate line</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate over each filename in the list</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> filename <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> list<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Perform operations on each filename</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Processing file: </span><span class="va">$filename</span><span class="st">"</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add more commands here</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The line that runs the tool <code>pseudofinder.py</code> is becoming longer, and for readability, we might want to break this command down and display each option on an individual line. We can do this as follows:</p>
+<p>In this example, <code>cat list</code> is used within command substitution <code>$(...)</code> to generate the list of filenames stored in the file named <code>list</code>. The loop then iterates over each filename in the list, performing operations as needed.</p>
+<p><strong>Why This Might Be Useful:</strong></p>
+<p>Using loops with files allows for greater flexibility and automation in handling sets of files that may not follow a consistent naming pattern or reside in different directories. This approach is particularly useful in scenarios where:</p>
+<ol type="1">
+<li><strong>Dynamic File Lists</strong>: The list of files to process may vary over time or depend on external factors. By storing filenames in a separate file, you can easily update the list without modifying the loop structure.</li>
+<li><strong>Complex Filtering</strong>: You need to filter files based on specific criteria or conditions that cannot be expressed using wildcard patterns alone. For example, you may need to select files based on metadata stored in another file or database. Imagine that part of your genomes are eukaryotic, the other are bacteria. Maybe you need to process them separately because eukaryotes require the use of different options compared to bacteria.</li>
+<li><strong>Integration with External Tools</strong>: The filenames need to be processed or transformed before being used in the loop. You can leverage command-line tools or scripting languages to generate the list of filenames dynamically based on certain criteria or conditions.</li>
+<li><strong>Improved Readability and Maintainability</strong>: Storing filenames in a separate file can make your scripts more readable and maintainable, especially when dealing with large sets of files or complex directory structures. It also allows for easier collaboration and sharing of scripts among team members.</li>
+</ol>
+<p>By leveraging loops with files, you can streamline your workflow and efficiently process large sets of files with ease and flexibility.</p>
+</section>
+</section>
+<section id="addon-alternative-syntax" class="level2">
+<h2 class="anchored" data-anchor-id="addon-alternative-syntax">Addon: Alternative syntax</h2>
+<p>For more complex code, it might be useful to break things up for readability. Consider this command (the details are not important here, however, see how we use exactly the same loop structure to run a completely different command?):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> results/prokka/<span class="pp">*</span>/bin<span class="pp">*</span>/<span class="pp">*</span>.gbk<span class="kw">;</span> <span class="cf">do</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">base_name</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="st">"</span><span class="va">$i</span><span class="st">"</span> .gbk<span class="va">)</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">outdir</span><span class="op">=</span><span class="st">"results/pseudofinder/</span><span class="va">${base_name}</span><span class="st">"</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">pseudofinder.py</span> annotate <span class="dt">\</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">-g</span> <span class="va">$i</span> <span class="dt">\</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">-op</span> <span class="va">$outdir</span> <span class="dt">\</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">-db</span> /zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta <span class="dt">\</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">-t</span> 20</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">pseudofinder.py</span> annotate <span class="at">-g</span> <span class="va">$i</span> <span class="at">-op</span> <span class="va">$outdir</span> <span class="at">-db</span> /zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta <span class="at">-t</span> 20</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The line that runs the tool <code>pseudofinder.py</code> is becoming longer, and for readability, we might want to break this command down and display each option on an individual line. We can do this as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> results/prokka/<span class="pp">*</span>/bin<span class="pp">*</span>/<span class="pp">*</span>.gbk<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">base_name</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="st">"</span><span class="va">$i</span><span class="st">"</span> .gbk<span class="va">)</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">outdir</span><span class="op">=</span><span class="st">"results/pseudofinder/</span><span class="va">${base_name}</span><span class="st">"</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">pseudofinder.py</span> annotate <span class="dt">\</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">-g</span> <span class="va">$i</span> <span class="dt">\</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">-op</span> <span class="va">$outdir</span> <span class="dt">\</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">-db</span> /zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta <span class="dt">\</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">-t</span> 20</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here, we use the <code>\</code> to split a long line into two shorter lines, without signifying an end of the statement. If you use this, be careful with the syntax, as <code>\</code> needs to be immediately followed by a new line. So don’t add any spaces afterwards.</p>
 </section>
@@ -962,10 +990,10 @@ FEKPIEIQVYSPVDDIIYSSQEELMRNLYKFIGEQLKKYRTILIFTNTRHGAESVAYHLKKAFPDLEKYIAVHHSSLSRE
 <li><p>Use utilities like <code>dos2unix</code> to convert DOS-formatted text files to Unix format before processing them in your loop. This command removes any extraneous carriage return characters, ensuring consistent line endings.</p></li>
 <li><p>If dos2unix is not available, you can use tr (translate or delete characters) to remove carriage return characters from DOS-formatted files. Here’s how you can accomplish this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Remove carriage return characters from DOS-formatted files</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> file <span class="kw">in</span> <span class="pp">*</span>.txt<span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tr</span> <span class="at">-d</span> <span class="st">'\r'</span> <span class="op">&lt;</span> <span class="st">"</span><span class="va">$file</span><span class="st">"</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">$file</span><span class="st">.tmp"</span> <span class="kw">&amp;&amp;</span> <span class="fu">mv</span> <span class="st">"</span><span class="va">$file</span><span class="st">.tmp"</span> <span class="st">"</span><span class="va">$file</span><span class="st">"</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Remove carriage return characters from DOS-formatted files</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> file <span class="kw">in</span> <span class="pp">*</span>.txt<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tr</span> <span class="at">-d</span> <span class="st">'\r'</span> <span class="op">&lt;</span> <span class="st">"</span><span class="va">$file</span><span class="st">"</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">$file</span><span class="st">.tmp"</span> <span class="kw">&amp;&amp;</span> <span class="fu">mv</span> <span class="st">"</span><span class="va">$file</span><span class="st">.tmp"</span> <span class="st">"</span><span class="va">$file</span><span class="st">"</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p>This loop iterates over all .txt files in the current directory, removes carriage return characters ( using tr, and then overwrites the original files with the processed versions. This approach achieves the same result as dos2unix, but using built-in Bash functionality instead.</p></li>
 <li><p>You can modify the file extension (*.txt) to match the specific file types you’re working with in your environment.</p></li>

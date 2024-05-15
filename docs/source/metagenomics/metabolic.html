@@ -595,13 +595,30 @@ div.csl-indent {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true">
- <span class="menu-text">Bioinformatic databases</span></a>
+            <a href="../../source/core_tools/toolbox-readme.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bioinformatics toolbox</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bash-for-loops.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">For-loops in bash</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="true">
+ <span class="menu-text">Bioinformatic databases</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/kegg_db.html" class="sidebar-item-text sidebar-link">
@@ -646,6 +663,7 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#run-the-g-mode-with-faa-files-as-input" id="toc-run-the-g-mode-with-faa-files-as-input" class="nav-link" data-scroll-target="#run-the-g-mode-with-faa-files-as-input">Run the G mode with faa files as input:</a></li>
   </ul></li>
+  <li><a href="#addon-verifying-your-results" id="toc-addon-verifying-your-results" class="nav-link" data-scroll-target="#addon-verifying-your-results">Addon: Verifying your results</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul></li>
   </ul>
@@ -910,7 +928,11 @@ Tip: How does the awk command work
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">-t</span> 20 <span class="dt">\</span></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> results/metabolic</span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#get a table with the raw results </span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#this table is good to use for sanity checks and for example test if your protein is really absent</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> results/metabolic/intermediate_files/Hmmsearch_Outputs/<span class="pp">*</span>hmmsearch_result.txt <span class="kw">|</span> <span class="fu">sed</span> <span class="at">-n</span> <span class="st">'/^#/!p'</span> <span class="op">&gt;</span> results/metabolic/hmmer_raw.txt</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Generated outputs</strong> (for more detail, check the <a href="https://github.com/AnantharamanLab/METABOLIC/wiki/METABOLIC-Usage#Metabolic_usage">manual</a>):</p>
 <ul>
@@ -941,6 +963,25 @@ Tip: How does the awk command work
 <li><code>-o</code> [optional] Defines the output directory to be created by the program (Default: current directory)</li>
 </ul>
 </section>
+</section>
+<section id="addon-verifying-your-results" class="level3">
+<h3 class="anchored" data-anchor-id="addon-verifying-your-results">Addon: Verifying your results</h3>
+<p>In bioinformatics, it’s important to look at your results with a critical eye. This is particularly crucial in functional assignments, where reliance on automated tools may yield inaccuracies. Let’s delve into this with a practical example:</p>
+<p>Consider Ignicoccus hospitalis (GCA_000017945), a genome purported to lack an ATPase according to our analysis. However, upon closer inspection of the literature, we discover that Ignicoccus does indeed possess an ATPase. This dissonance underscores the importance of critically evaluating computational findings.</p>
+<p><img src="../..\img/anno_sanity_check.png" class="img-fluid" width="851"></p>
+<p>If we make a list of the IDs that are required to make up an V/ATPase in prokaryotes and search the raw hmm results, we actually see that most KOs are found albeit some with lower bitscores.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-f</span> atp_list results/metabolic/hmmer_raw.txt <span class="kw">|</span> <span class="fu">grep</span> <span class="st">"GCA_000017945"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For each hit, Metabolic uses specific bitscore cutoff values to decide whether it sees a hit as present or absent. This approach usually works well but can be too stringent as seen in our example. Due to that we can not be completely sure if a gene/module/pathway that is labelled as absent is truly absent.</p>
+<p>So what do we do about this when we analyse our own genomes? There are a few things that can help:</p>
+<ol type="1">
+<li>Utilize multiple annotation tools and compare their outcomes. Discrepancies among results can flag potential errors or ambiguities.</li>
+<li>Review raw output data (if possible) to assess the reliability of individual predictions. In the section about <a href="../../source/core_tools/hmmer.html">Hmmsearch</a> you also find some code how you could run a hmmsearch against the KOs yourself.</li>
+<li>Instead of relying solely on one database, cross-reference findings from multiple sources such as Pfam, PGAP, COG, or arCOG. Consistency across databases enhances confidence in the results.</li>
+<li>Compare your findings against functional annotations of closely related genomes. For example, you can check the literature or check whether your organisms is part of the <a href="https://www.genome.jp/dbget-bin/www_bfind_sub?mode=bfind&amp;max_hit=1000&amp;locale=en&amp;serv=kegg&amp;dbkey=genome&amp;keywords=ignicoccus&amp;page=1">KEGG genome database</a>.</li>
+<li>VValidate specific protein functions using specialized tools like <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE=Proteins">Blast</a> or <a href="https://www.ebi.ac.uk/interpro/search/sequence/">interproscan</a></li>
+</ol>
 </section>
 <section id="references" class="level3">
 
@@ -1524,7 +1565,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2024-05-14</p>
+Last modified: 2024-05-15</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/metabolic.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

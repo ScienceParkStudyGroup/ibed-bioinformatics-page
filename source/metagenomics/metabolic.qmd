@@ -13,19 +13,18 @@ bibliography: references.bib
 
 ### Introduction
 
-Metabolic is a workflow developed by the AnantharamanLab. This software enables the prediction of metabolic and biogeochemical functional trait profiles to any given genome datasets. These genome datasets can either be metagenome-assembled genomes (MAGs), single-cell amplified genomes (SAGs) or isolated strain sequenced genomes. 
+Metabolic is a workflow developed by the AnantharamanLab. This software enables the prediction of metabolic and biogeochemical functional trait profiles to any given genome datasets. These genome datasets can either be metagenome-assembled genomes (MAGs), single-cell amplified genomes (SAGs) or isolated strain sequenced genomes.
 
-METABOLIC has two main implementations, which are METABOLIC-G and METABOLIC-C. METABOLIC-G.pl allows for generation of metabolic profiles and biogeochemical cycling diagrams of input genomes and does not require input of sequencing reads. METABOLIC-C.pl generates the same output as METABOLIC-G.pl, but as it allows for the input of metagenomic read data, it will generate information pertaining to community metabolism. 
+METABOLIC has two main implementations, which are METABOLIC-G and METABOLIC-C. METABOLIC-G.pl allows for generation of metabolic profiles and biogeochemical cycling diagrams of input genomes and does not require input of sequencing reads. METABOLIC-C.pl generates the same output as METABOLIC-G.pl, but as it allows for the input of metagenomic read data, it will generate information pertaining to community metabolism.
 
 Check out [the manual](https://github.com/AnantharamanLab/METABOLIC/wiki) for all usage options and more details about what the software exactly does [@zhou2022].
 
-
 ### Installation
 
-Available on crunchomics: Yes, 
+Available on crunchomics: Yes,
 
-- Metabolic v4.0 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to  [Nina Dombrowski](n.dombrowski@uva.nl). 
--   Additionally, the GTDB r214 database that is used by metabolic is installed on the metatools share. To get access to metatools, send an email with your Uva netID to [Anna Heintz Buschart](a.u.s.heintzbuschart\@uva.nl).
+-   Metabolic v4.0 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).
+-   Additionally, the GTDB r214 database that is used by metabolic is installed on the metatools share. To get access to metatools, send an email with your Uva netID to [Anna Heintz Buschart](a.u.s.heintzbuschart@uva.nl).
 
 After you were added to the bioinformatics and metatools share, you can add the conda environments that are installed in these shares as follows (if you have already done this in the past, you don't need to run these commands):
 
@@ -92,8 +91,7 @@ conda deactivate
 conda activate METABOLIC_v4.0
 ```
 
-
-### Usage example 
+### Usage example
 
 **METABOLIC has two scripts:**
 
@@ -106,7 +104,7 @@ conda activate METABOLIC_v4.0
 -   Protein faa files (use `-in` in the perl script)
 -   Illumina reads (use `-r` flag in the metabolic-c perl script) provided as un-compressed fastq files. This option requires you to provide the full path to your paired reads. Note that the two different sets of paired reads are separated by a line return (new line), and two reads in each line are separated by a "," but not " ," or " , " (no spaces before or after comma). Blank lines are not allowed
 -   Nanopore/PacBio long-reds (use `r` togher with `-st illumina/pacbio/pacbio_hifi/nanopore` to provide information about the sequencing type)
-- If you provide the raw reads, the should be given as a text file with the absolute paths that looks something like this: 
+-   If you provide the raw reads, the should be given as a text file with the absolute paths that looks something like this:
 
 ```         
 #Read pairs: 
@@ -116,14 +114,12 @@ conda activate METABOLIC_v4.0
 
 **Important**:
 
-- Ensure that the fasta headers of each ".fasta" or ".faa" file is unique (all fasta or faa files will be concatenated together to make a "total.fasta" or "total.faa" file; be sure that all sequence headers are unique)
-- that your file names do not contain spaces (suggest to only use alphanumeric characters and underscores in the file names)
--  be sure that in the genomes folder, only the genomes are placed but not other files, for example, non-genome metagenomic assemblies, since METABOLIC will take in all the files within the folder as genomes. 
--  If you want to use METABOLIC-C, only "fasta" files and the "-in-gn" flag are allowed to perform the analysis correctly.
-
+-   Ensure that the fasta headers of each ".fasta" or ".faa" file is unique (all fasta or faa files will be concatenated together to make a "total.fasta" or "total.faa" file; be sure that all sequence headers are unique)
+-   that your file names do not contain spaces (suggest to only use alphanumeric characters and underscores in the file names)
+-   be sure that in the genomes folder, only the genomes are placed but not other files, for example, non-genome metagenomic assemblies, since METABOLIC will take in all the files within the folder as genomes.
+-   If you want to use METABOLIC-C, only "fasta" files and the "-in-gn" flag are allowed to perform the analysis correctly.
 
 Some example files for testing can be found in `METABOLIC_test_files/`. The steps below show how to get the files and also includes some sanity checks that can be useful to test, whether your files are suitable to be used by metabolic:
-
 
 ##### Preparing the input files
 
@@ -214,13 +210,12 @@ done
 So, in summary, this code loops through each file in the directory `results/faa/` with the `.faa` extension, extracts the base name of each file, and then uses `awk` to modify each file's contents. It appends the base name followed by a hyphen after any line that starts with `>`, and saves the modified content to a new file in the `results/faa/renamed/` directory with the same base name as the original file.
 :::
 
-
 #### Run the G mode with faa files as input:
 
 Important:
 
-- Metabolic combines the faa files and generates a file named `total.faa` in the folder with the fasta sequences, if you re-run Metabolic, ensure that you first delete that file!
-- As described above, metabolic runs in different modes and also can take fasta files or raw reads as input. For details on how to do that, please visit [the manual](https://github.com/AnantharamanLab/METABOLIC/wiki/METABOLIC-Usage#Metabolic_usage)
+-   Metabolic combines the faa files and generates a file named `total.faa` in the folder with the fasta sequences, if you re-run Metabolic, ensure that you first delete that file!
+-   As described above, metabolic runs in different modes and also can take fasta files or raw reads as input. For details on how to do that, please visit [the manual](https://github.com/AnantharamanLab/METABOLIC/wiki/METABOLIC-Usage#Metabolic_usage)
 
 ```{bash}
 mkdir results/metabolic/ 
@@ -232,9 +227,12 @@ perl /zfs/omics/projects/bioinformatics/software/metabolic/v4.0.0/METABOLIC-G.pl
   -t 20 \
   -o results/metabolic
 
+#get a table with the raw results 
+#this table is good to use for sanity checks and for example test if your protein is really absent
+cat results/metabolic/intermediate_files/Hmmsearch_Outputs/*hmmsearch_result.txt | sed -n '/^#/!p' > results/metabolic/hmmer_raw.txt
+
 conda deactivate
 ```
-
 
 **Generated outputs** (for more detail, check the [manual](https://github.com/AnantharamanLab/METABOLIC/wiki/METABOLIC-Usage#Metabolic_usage)):
 
@@ -261,5 +259,29 @@ conda deactivate
 -   `-tax` \[optional\] To calculate MW-score contribution of microbial groups at the resolution of which taxonomical level (default: "phylum"; other options: "class", "order", "family", "genus", "species", and "bin" (MAG itself)). Only required when using METABOLIC-C
 -   `-p` \[optional\] Defines the prodigal method used to annotate ORFs ("meta" or "single")(Default: "meta")
 -   `-o` \[optional\] Defines the output directory to be created by the program (Default: current directory)
+
+### Addon: Verifying your results
+
+In bioinformatics, it's important to look at your results with a critical eye. This is particularly crucial in functional assignments, where reliance on automated tools may yield inaccuracies. Let's delve into this with a practical example:
+
+Consider Ignicoccus hospitalis (GCA_000017945), a genome purported to lack an ATPase according to our analysis. However, upon closer inspection of the literature, we discover that Ignicoccus does indeed possess an ATPase. This dissonance underscores the importance of critically evaluating computational findings.
+
+![](/img/anno_sanity_check.png){width="851"}
+
+If we make a list of the IDs that are required to make up an V/ATPase in prokaryotes and search the raw hmm results, we actually see that most KOs are found albeit some with lower bitscores.
+
+```{bash}
+grep -f atp_list results/metabolic/hmmer_raw.txt | grep "GCA_000017945"
+```
+
+For each hit, Metabolic uses specific bitscore cutoff values to decide whether it sees a hit as present or absent. This approach usually works well but can be too stringent as seen in our example. Due to that we can not be completely sure if a gene/module/pathway that is labelled as absent is truly absent.
+
+So what do we do about this when we analyse our own genomes? There are a few things that can help:
+
+1. Utilize multiple annotation tools and compare their outcomes. Discrepancies among results can flag potential errors or ambiguities.
+2. Review raw output data (if possible) to assess the reliability of individual predictions. In the section about [Hmmsearch](../core_tools/hmmer.qmd) you also find some code how you could run a hmmsearch against the KOs yourself.
+3. Instead of relying solely on one database, cross-reference findings from multiple sources such as Pfam, PGAP, COG, or arCOG. Consistency across databases enhances confidence in the results.
+4.  Compare your findings against functional annotations of closely related genomes. For example, you can check the literature or check whether your organisms is part of the [KEGG genome database](https://www.genome.jp/dbget-bin/www_bfind_sub?mode=bfind&max_hit=1000&locale=en&serv=kegg&dbkey=genome&keywords=ignicoccus&page=1).
+5.  VValidate specific protein functions using specialized tools like [Blast](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE=Proteins) or [interproscan](https://www.ebi.ac.uk/interpro/search/sequence/)
 
 ### References
