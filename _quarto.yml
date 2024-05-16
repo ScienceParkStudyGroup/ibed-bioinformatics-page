@@ -111,6 +111,7 @@ website:
           - section: "(Meta)genomics"
             contents:
               - source/nanopore/nanophase_how_to.qmd
+              - source/metagenomics/atlas.qmd
               - source/metagenomics/flye.qmd
               - source/metagenomics/checkm2.qmd
               - source/metagenomics/gtdb.qmd

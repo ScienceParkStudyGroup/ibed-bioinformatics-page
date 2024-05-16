@@ -212,5 +212,8 @@
   },
   "source/core_tools/toolbox-readme.qmd": {
     "toolbox-readme.html": "3d8967c2"
+  },
+  "source/metagenomics/atlas.qmd": {
+    "atlas.html": "d75bd4d5"
   }
 }

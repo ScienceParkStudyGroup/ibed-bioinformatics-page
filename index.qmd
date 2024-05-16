@@ -51,7 +51,8 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 
 ## Bioinformatic tools A-Z
 
--   [Bowtie 2](source/core_tools/bowtie.qmd):  A tool for aligning sequencing reads to genomes and other reference sequences
+-   [ATLAS](source/metagenomics/atlas.qmd): a metagenomic pipeline for QC, assembly binning and annotation
+-   [Bowtie2](source/core_tools/bowtie.qmd):  A tool for aligning sequencing reads to genomes and other reference sequences
 -   [CheckM2](source/metagenomics/checkm2.qmd): A tool to assess the quality of a genome assembly 
 -   [Chopper](source/nanopore/chopper.qmd): A tool for quality filtering of long read data
 -   [DeSeq2](source/metatranscriptomics/DSEq2.qmd): Analyse gene expression data in R

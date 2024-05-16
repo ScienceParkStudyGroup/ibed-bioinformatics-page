@@ -1,0 +1,181 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## Atlas
+
+### Introduction
+
+Metagenome-atlas is a easy-to-use metagenomic pipeline based on snakemake. It handles all steps from QC, Assembly, Binning, to Annotation [@kieser2019].
+
+This workflow is best used for short-read Illumina data. Hybrid assembly of long and short reads is supported with spades and metaSpades. However metaSpades needs a paired-end short-read library.
+
+For more information, visit the tools [github page](https://github.com/metagenome-atlas/atlas) and [manual](https://metagenome-atlas.readthedocs.io/en/latest/index.html)
+
+### Installation
+
+Installed on crunchomics: Yes,
+
+-   Atlas v2.18.1 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl). 
+-   **Notice**: This share only includes the atlas software but NOT the databases. Due to the size of the databases you will need to download these yourself
+-   After getting added to the bioinformatics share you can access the software by running the following command (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install Atlas yourself, you can run:
+
+```{bash}
+mamba create --name atlas -c bioconda -c conda-forge metagenome-atlas
+```
+
+### Usage
+
+To test the software, we provide some example data and a minimal example describing how to run Atlas. For more details on running Atlas with specific settings, please consult the [manual](https://metagenome-atlas.readthedocs.io/en/latest/index.html).
+
+To run Atlas, you will need:
+
+- enough memory. It is recommended to use a minimum of ~50GB but an assembly usually requires up to 250GB of memory.
+- enough space. Atlas will download some larger databases. If you don't have the space, you can also omit some steps by editing the config.yaml file (more on that below). The databases downloaded are the following:
+  - Software needed by Atlas to run: 8G
+  - CheckM2: 3G
+  - GUNC database: 13G
+  - DRAM database: 66G
+  - GTDB r214 database: 85G
+
+#### Download example data
+
+To run Atlas, you will need a folder with your raw reads, if you don't have any available then you can download some example data as outlined below.
+
+```{bash}
+cd <path_to_analysis_folder>
+
+#download example data
+wget https://zenodo.org/records/6518160/files/0_assembly_and_reads.tar.gz
+tar -xzvf 0_assembly_and_reads.tar.gz
+
+#remove unneccessary files
+rm 0_assembly_and_reads.tar.gz
+rm 0_assembly_and_reads/1_reads/*unpaired*
+rm -r 0_assembly_and_reads/2_assembly/
+```
+
+
+#### Atlas initialization
+
+The first step when running Atlas is to initialize the environment, by telling Atlas the following:
+
+- Where we want to install the databases needed to run Atlas (here: databases). This is the directory in which all databases are installed so choose it wisely. (here: databases)
+- Where the reads are located (here: 0_assembly_and_reads/1_reads/)
+
+```{bash}
+conda activate atlas_2.18.1
+
+#prepare database from the raw reads 
+atlas init --db-dir databases 0_assembly_and_reads/1_reads/
+```
+
+This command parses the folder for fastq files (extension `.fastq(.gz)` or `.fq(.gz)` , gzipped or not). fastq files can be arranged in subfolders, in which case the subfolder name will be used as a sample name. If you have paired-end reads the files are usually distinguishable by `_R1/_R2` or simple `_1/_2` in the file names. Atlas searches for these patterns and lists the paired-end files for each sample.
+
+The command creates a `samples.tsv` and a `config.yaml` in the working directory.
+
+Have a look at `samples.tsv` and check if the samples names are inferred correctly. The sample names are used for the naming of contigs, genes, and genomes. Therefore, the sample names should consist only form digits and letters and start with a letter (Even though one `-` is allowed). Atlas tries to simplify the file name to obtain unique sample names, if it doesn’t succeed it simply puts S1, S2, … as sample names.
+
+The `BinGroup` parameter is used during the genomic binning. In short: If you have between 5 and 150 samples the default (putting everything in one group) is fine. If you have less than 5 samples, put every sample in an individual BinGroup and use metabat as final binner. If you have more samples see the co-binning section for more details.
+
+You should also check the `config.yaml` file, especially:
+
+-   You may want to add ad host genomes to be removed.
+-   You may want to change the resources configuration, depending on the system you run atlas on
+-   In order to decrease the runtime and space requirements, you can omit the taxonomy assignment (and thus not downloading the GTDB database) or DRAM functional assignment by removing the relevant lines in the section `# Annotations section`.
+
+You can run `atlas init` with the following options: 
+
+- `-d`, `--db-dir` PATH location to store databases (need \~50GB) 
+- `-w`, `--working-dir` PATH location to run atlas 
+- `--assembler` megahit\|spades assembler \[default: spades\] 
+- `--data-type` metagenome\|metatranscriptome: sample data type \[default: metagenome\] 
+- `--interleaved-fastq` : fastq files are paired-end in one files: (interleaved) 
+- `--threads` INTEGER : number of threads to use per multi-threaded job 
+- `--skip-qc` : Skip QC, if reads are already pre-processed 
+- `-h`, `--help`: Show this message and exit.
+
+
+#### Installing the required software
+
+Atlas will first download all required software via conda. Since v2.18.1 there is a small issue with one of the software scripts. To circumvent running into an error further down the line we will first install all required software without running Atlas further and then editing the problematic script:
+
+```{bash}
+#set conda channels to strict (recommended by snakemake)
+conda config --set channel_priority strict
+
+#setip the required conda environments
+atlas run all --use-conda --conda-create-envs-only
+
+#set conda channel priority back to the default
+conda config --set channel_priority flexible
+```
+
+Next, we need to edit one of the scripts. In the command below change `databases` to the location you used in the atlas init command after the `--db-dir` option. 
+
+```
+nano databases/conda_envs/*/lib/python3.11/site-packages/mag_annotator/database_processing.py
+```
+
+Press `Ctrl+w` and search for this line of text:
+
+```         
+merge_files(glob(path.join(hmm_dir, 'VOG*.hmm')), vog_hmms)
+```
+
+change this line to (don't change the syntax while doing this, i.e. you still want to keep 4 spaces in front of `merge_files` ):
+
+```         
+merge_files(glob(path.join(hmm_dir, 'hmm', 'VOG*.hmm')), vog_hmms)
+```
+
+Then:
+
+- Press `Ctr+x`
+- Type `Y` to save
+- Press `enter` to save the changes without changing the file name
+
+
+#### Running Atlas
+
+Next, we start the actual pipeline which will do multiple steps, including quality-control, assembly binning and annotation. 
+
+```{bash}
+#run atlas 
+srun --cpus-per-task 20 --mem=100G atlas run all -j 20 --max-mem 100
+
+conda deactivate
+```
+
+The output files are in more detail described [here](https://metagenome-atlas.readthedocs.io/en/latest/usage/output.html).
+
+You can run `atlas run all` with the following options: 
+
+- `-w`, `--working-dir` PATH location to run atlas 
+-  `-c`, `--config-file` PATH  config-file generated with 'atlas init'
+- `-j`, `--jobs` INTEGER use at most this many jobs in parallel (see the manual for mor details).  [default: 64]
+- `--max-mem` FLOAT Specify maximum virtual memory to use by atlas.
+- `--profile` TEXT: snakemake profile e.g. for cluster execution
+- `-n`, `--dryrun` Test execution.
+- `-h`, `--help`: Show this message and exit.
+
+
+
+
+### Common Issues and Solutions
+
+-  **Issue 1:** I am running out of memory/space
+   -  Solution 1: Some steps are quite memory intensive or might need large (\~80GB) databases. You can edit the config.yaml file for example using `nano` to omit these steps. To do this, go to the `# Annotations section` and remove the lines starting with gtdb to omit the taxonomy annotation. You can also delete the line with dram if you run out of space as this requires a larger database
