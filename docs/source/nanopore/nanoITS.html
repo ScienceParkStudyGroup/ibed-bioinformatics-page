@@ -400,6 +400,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/atlas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Atlas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/flye.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Flye</span></a>
   </div>
@@ -575,13 +581,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true">
- <span class="menu-text">Bioinformatic databases</span></a>
+            <a href="../../source/core_tools/toolbox-readme.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bioinformatics toolbox</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bash-for-loops.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">For-loops in bash</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="true">
+ <span class="menu-text">Bioinformatic databases</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/kegg_db.html" class="sidebar-item-text sidebar-link">
@@ -622,6 +645,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#quick-start" id="toc-quick-start" class="nav-link" data-scroll-target="#quick-start">Quick start</a></li>
+  <li><a href="#nanoits-on-crunchomics" id="toc-nanoits-on-crunchomics" class="nav-link" data-scroll-target="#nanoits-on-crunchomics">NanoITS on Crunchomics</a>
+  <ul class="collapse">
+  <li><a href="#preparing-the-configuration-file" id="toc-preparing-the-configuration-file" class="nav-link" data-scroll-target="#preparing-the-configuration-file">Preparing the configuration file</a></li>
+  <li><a href="#preparing-the-mapping-file" id="toc-preparing-the-mapping-file" class="nav-link" data-scroll-target="#preparing-the-mapping-file">Preparing the mapping file</a></li>
+  <li><a href="#preparing-a-dry-run" id="toc-preparing-a-dry-run" class="nav-link" data-scroll-target="#preparing-a-dry-run">Preparing a dry-run</a></li>
+  <li><a href="#submit-a-sbatch-job" id="toc-submit-a-sbatch-job" class="nav-link" data-scroll-target="#submit-a-sbatch-job">Submit a sbatch job</a></li>
+  </ul></li>
+  <li><a href="#common-issues-and-solutions" id="toc-common-issues-and-solutions" class="nav-link" data-scroll-target="#common-issues-and-solutions">Common Issues and Solutions</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/nanopore/nanoITS.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -645,10 +676,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>When giving the tool some nanopore long-read data it will:</p>
 <ul>
 <li>Provide a quality report of the raw reads</li>
-<li>Check the reads for adaptors and barcodes and if present trim the reads</li>
+<li>Check the reads for adapters and barcodes and if present trim the reads</li>
 <li>Remove low-quality and short reads</li>
 <li>Provide a quality report for the cleaned reads</li>
-<li>Identify and separate both the ITS1 and 18S rRNA gene</li>
+<li>Identify and separate both the ITS1 and 18S rRNA gene using the Uniprot and Silva database, respectively</li>
 <li>Classify the SSU and/or ITS1 gene using kraken2 and/or minimap2</li>
 <li>Generate taxonomic barplots and OTU tables</li>
 </ul>
@@ -658,21 +689,160 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="quick-start" class="level3">
 <h3 class="anchored" data-anchor-id="quick-start">Quick start</h3>
-<p>To run NanoITs, install conda and snakemake and clone the directory from github via:</p>
+<p>To run NanoITs, install snakemake via conda and the clone the directory from github via:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>git clone https:<span class="op">//</span>github.com<span class="op">/</span>ndombrowski<span class="op">/</span>NanoITS.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mamba create <span class="op">--</span>name snakemake_f_NanoITS <span class="op">-</span>c conda<span class="op">-</span>forge <span class="op">-</span>c bioconda snakemake<span class="op">=</span><span class="fl">7.32.4</span> python<span class="op">=</span><span class="fl">3.11.6</span> tabulate<span class="op">=</span><span class="fl">0.8</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>cd <span class="op">&lt;</span>path_to_install_software<span class="op">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>git clone https:<span class="op">//</span>github.com<span class="op">/</span>ndombrowski<span class="op">/</span>NanoITS.git</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>mv NanoITS<span class="op">/</span> NanoITS_0<span class="fl">.2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Provide your sample names and path to the samples as a comma-separated file, for example, a file looking similar as the one provided in <code>example_files/mapping.csv</code>. Sample names should be unique and consist of letter, numbers and <code>-</code> only. The barcode column can be left empty as it is not yet implemented. The path should contain the path to your demultiplexed, compressed fastq file.</p>
-<p>Adjust <code>config/config.yaml</code> to configure the location of your mapping file as well as specificy the parameters used by NanoITs.</p>
+<p>Adjust <code>config/config.yaml</code> to configure the location of your mapping file as well as specify the parameters used by NanoITs.</p>
 <p>NanoITs can then be run with:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>snakemake <span class="op">--</span>use<span class="op">-</span>conda <span class="op">--</span>cores <span class="op">&lt;</span>nr_cores<span class="op">&gt;</span> <span class="op">\</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span>s <span class="op">&lt;</span>path_to_NanoITS_install<span class="op">&gt;/</span>workflow<span class="op">/</span>Snakefile <span class="op">\</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">--</span>configfile config<span class="op">/</span>config.yaml <span class="op">\</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">--</span>conda<span class="op">-</span>prefix <span class="op">&lt;</span>path_to_NanoITS_install<span class="op">&gt;/</span>workflow<span class="op">/</span>.snakemake<span class="op">/</span>conda  <span class="op">\</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">--</span>rerun<span class="op">-</span>incomplete <span class="op">--</span>nolock <span class="op">-</span>np </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>conda activate snakemake_f_NanoITS</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>snakemake <span class="op">--</span>use<span class="op">-</span>conda <span class="op">--</span>cores <span class="op">&lt;</span>nr_cores<span class="op">&gt;</span> <span class="op">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">-</span>s <span class="op">&lt;</span>path_to_NanoITS_install<span class="op">&gt;/</span>workflow<span class="op">/</span>Snakefile <span class="op">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="op">--</span>configfile config<span class="op">/</span>config.yaml <span class="op">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="op">--</span>conda<span class="op">-</span>prefix <span class="op">&lt;</span>path_to_NanoITS_install<span class="op">&gt;/</span>workflow<span class="op">/</span>.snakemake<span class="op">/</span>conda  <span class="op">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="op">--</span>rerun<span class="op">-</span>incomplete <span class="op">--</span>nolock </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For a more detailed explanation, check out <a href="https://ndombrowski.github.io/NanoITS/">the manual</a>.</p>
+</section>
+<section id="nanoits-on-crunchomics" class="level3">
+<h3 class="anchored" data-anchor-id="nanoits-on-crunchomics">NanoITS on Crunchomics</h3>
+<p>NanoITS is installed on the UvA crunchomics HPC. If you have access to crunchomics you can be added to the amplicomics share in which NanoITS is set up. To be added, please send an email with your Uva netID to <a href="n.dombrowski@uva.nl">Nina Dombrowski</a>.</p>
+<p>To be able to use software installed on the amplicomics share, you first need to ensure that conda is installed. If it is, then you can run the following command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/amplicomics/miniconda3/envs/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This command will add pre-installed conda environments in the amplicomics share to your <code>conda env list</code>. After you run <code>conda env list</code> you should see several tools from amplicomics, including QIIME2 and Snakemake. Snakemake is what we need to run NanoITS.</p>
+<p>Next, you can setup your working environment. Change the path of the working directory to wherever you want to analyze your data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#define the directory in which you want to run your analyses</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="va">wdir</span><span class="op">=</span><span class="st">"/home/</span><span class="va">$USER</span><span class="st">/personal/my_folder"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#go into the working directory</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$wdir</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="preparing-the-configuration-file" class="level4">
+<h4 class="anchored" data-anchor-id="preparing-the-configuration-file">Preparing the configuration file</h4>
+<p>Get the config.yaml file:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#copy config yaml (comes with NanoITS) </span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /zfs/omics/projects/amplicomics/bin/NanoITS_0.2/config/config.yaml .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The config.yaml tells NanoITS how you want to run the software and how to find the sequencing data. <strong>Start by opening the config.yaml with an editor, such as nano. There are several things you can modify:</strong></p>
+<p><strong>The project name</strong></p>
+<p>You can provide the project name in <code>project: "run_v1"</code>. Your results will be generated in the folder you start the snakemake workflow in and the results will be generated in <code>results/&lt;project_name&gt;</code> (<code>results/run_v1</code> if you use the default settings). Your project name can contain letters, numbers, <code>_</code> and <code>-</code>. Do not use other symbols, such as spaces or dots.</p>
+<p><strong>The mapping file</strong></p>
+<p>Here, you need to provide the path to a comma-separated mapping file that describes the samples you want to analyse, i.e.&nbsp;<code>samples_file: "input/mapping.csv"</code>. In this example, the mapping file should be located in the input folder. If the mapping file is in your working directory, use <code>samples_file: "mapping.csv"</code>.</p>
+<p><strong>The classifiers to use</strong></p>
+<p>You can choose what classifiers you want to use in <code>classifiers: ["minimap2", "kraken2"]</code>. Currently, two classifiers are implemented: (a) the alignment-based classifier minimap2 and (b) the kmer-based classifier kraken2. You can use both or either of the two classifiers.</p>
+<p><strong>The markers to investigate</strong></p>
+<p>You can select what markers you want to analyse in <code>markers: ["SSU", "ITS1"]</code>. The workflow was developed for primers targeting both the SSU and ITS1 but the workflow will also run for either option selected and we plan to in the future extend the workflow to also accept the LSU and ITS2.</p>
+<p><strong>Other parameters</strong></p>
+<p>Finally, you can change tool specific parameters: If desired, there are several parameters that can be changed by the user, such as the numbers of threads to use, the settings for the read filtering or the classification and so on. The configuration file provides more information on each parameter.</p>
+<p>To save and close the nano screen:</p>
+<ul>
+<li>Press <code>Ctr+x</code></li>
+<li>Type <code>Y</code> to save</li>
+<li>Press <code>enter</code> to save the changes without changing the file name</li>
+</ul>
+</section>
+<section id="preparing-the-mapping-file" class="level4">
+<h4 class="anchored" data-anchor-id="preparing-the-mapping-file">Preparing the mapping file</h4>
+<p>Next, you need to write a mapping file with <code>nano mapping.csv</code>. This file gives each sample a unique name and also tells NanoITS were to find the sequencing data. Ensure that were you generate the mapping file is consistent with the location that you gave in the config.yaml.</p>
+<p>The mapping file should look something like this and needs to contain the following columns:</p>
+<ol type="1">
+<li><code>sample</code>: The names of your sample. This id will be used to label all files created in subsequent steps. Your sample names should be unique and only contain letters, numbers and <code>-</code>. Do not use other symbols, such as spaces, dots or underscores in your sample names.</li>
+<li><code>barcode</code>: The barcode ID. Can be empty as it is not actively used in the workflow as of now</li>
+<li><code>path</code>: Path to the fastq.gz files. You can provide the relative path (i.e.&nbsp;relative to the working directory you start the snakemake workflow in) or absolute path (i.e.&nbsp;the location of a file or directory from the root directory(<code>/</code>)). The workflow accepts one file per barcode, so if you have more than one file merge these files first, for example using the <code>cat</code> command.</li>
+</ol>
+<pre><code>sample,barcode,path
+bc01,barcode01,data/barcode01.fastq.gz
+bc02,barcode02,data/barcode02.fastq.gz
+bc03,barcode03,data/barcode03.fastq.gz</code></pre>
+<p>To save and close the nano screen:</p>
+<ul>
+<li>Press <code>Ctr+x</code></li>
+<li>Type <code>Y</code> to save</li>
+<li>Press <code>enter</code> to save the changes without changing the file name</li>
+</ul>
+</section>
+<section id="preparing-a-dry-run" class="level4">
+<h4 class="anchored" data-anchor-id="preparing-a-dry-run">Preparing a dry-run</h4>
+<p>To test whether the workflow is defined properly do a dry-run first. You don’t need to change anything if you use the Crunchomics install. If you have installed the software on your own system, ensure that you:</p>
+<ol type="1">
+<li>Provide the path to where you installed NanoITS afer <code>--s</code></li>
+<li>Provide the path to the edited config file after <code>--configfile</code></li>
+<li>Provide the path to where you want snakemake to install all program dependencies after <code>--conda-prefix</code>. We recommend to install these into the folder in which you downloaded NanoITS but you can change this if desired</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#activate conda environment with your snakemake installation, i.e. </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate snakemake_f_NanoITS</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#test if everything runs as extended (edit as described above)</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--use-conda</span> <span class="at">--cores</span> 1 <span class="dt">\</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-s</span> /zfs/omics/projects/amplicomics/bin/NanoITS_0.2/workflow/Snakefile <span class="dt">\</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--configfile</span> config.yaml <span class="dt">\</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--conda-prefix</span> /zfs/omics/projects/amplicomics/bin/NanoITS_0.2/workflow/.snakemake/conda  <span class="dt">\</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">-np</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If the above command works and you see <code>This was a dry-run (flag -n). The order of jobs does not reflect the order of execution.</code> all is good and you can submit things to a compute node.</p>
+</section>
+<section id="submit-a-sbatch-job" class="level4">
+<h4 class="anchored" data-anchor-id="submit-a-sbatch-job">Submit a sbatch job</h4>
+<p>The NanoITS installation comes with an example sbatch script that you can move over to where you do your analyses. This script allows you to submit the job to the compute nodes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#cp template batch script (comes with NanoITS) </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /zfs/omics/projects/amplicomics/bin/NanoITS_0.2/jobscript.sh .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The jobscript is setup to work with NanoITS in the amplicomics environment and you should not need to change anything if your config.yaml is set up correctly.</p>
+<p>The script does the following:</p>
+<ul>
+<li>Requests 20 crunchomics cpus and 200G of memory. One can set this lower, but for testing purposes you might keep these values. The can be changed with <code>#SBATCH --cpus-per-task=20</code> and <code>#SBATCH --mem=200</code>. <strong>Depending on the size of the dataset</strong> you can try increasing the number of CPUs.</li>
+<li>Ensures that conda is loaded properly by running <code>source ~/.bashrc</code>. The bashrc is a script executed once a user logs in and holds special configurations, such as telling the shell where conda is installed. If you run into issues that are related to conda/mamba not being found then open the this file with <code>nano ~/.bashrc</code> and check that you have a section with text similar to <code># &gt;&gt;&gt; conda initialize &gt;&gt;&gt;</code>. If this is not present you might need to run <code>conda init bash</code> to add it.</li>
+<li>Activates the snakemake conda environment that is found in the amplicomics share with <code>conda activate snakemake_f_NanoITS</code></li>
+<li>Runs NanoITS. When using the script as is, the script assumes that NanoITS is installed at this path <code>/zfs/omics/projects/amplicomics/bin/NanoITS_0.2</code> and that the config.yaml is located in the folder from which you analyse the data. If that is not the case, change the paths accordingly</li>
+</ul>
+<p>Next, you can submit the script with:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> jobscript.sh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This will generate a log file that should something like this <code>NanoITS-ndombro-50633-4294967294.log</code>. You can check the progress with <code>tail NanoITS-ndombro-50633-4294967294.log</code>. If you see a comment that your job finished, then NanoITS finished successfully.</p>
+<p>In the results folder, you will find different files generated for each step, the most useful ones are the <code>otu_table.txt</code> in the <code>tables</code> folder or the fasta files for the extracted SSU and ITS1 region. If you run into errors its worth inspecting the other files as well. A full list of generated output files can be found <a href="https://ndombrowski.github.io/NanoITS/source/output.html">here</a>.</p>
+<p>Additionally, you can generate a small report as follows. To view the report, download the <code>report.html</code> to your own computer and view it in your favorite browser.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--report</span> report.html <span class="dt">\</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--configfile</span> config.yaml <span class="dt">\</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-s</span> /zfs/omics/projects/amplicomics/bin/NanoITS_0.2/workflow/Snakefile</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="common-issues-and-solutions" class="level3">
+<h3 class="anchored" data-anchor-id="common-issues-and-solutions">Common Issues and Solutions</h3>
+<ul>
+<li><strong>Issue 1:</strong> My run stops with an error while running kraken or minimap2
+<ul>
+<li>Solution 1: Check the output in the itsx folder for each sample and ensure that ITS1_final.fasta and SSU_final.fasta are not empty. The classifiers with crash if that is the case. If this happens you could try lowering the <code>min_its_length</code> in the <code>Separate ITS1 and SSU</code> or change <code>markers:             ["SSU", "ITS1"]</code> to only those markers that were successfully separated</li>
+</ul></li>
+<li><strong>Issue 2:</strong> My run stops with an error when generating the generate_barplots.
+<ul>
+<li>Solution 1: Check that the merged.outmat.tsv OTU tables in results/run_v1/classification/kraken2 and minimap2 are not empty.</li>
+</ul></li>
+<li><strong>Issue 3:</strong> My run stops at the first step
+<ul>
+<li>Solution 3: If NanoITS stops at the beginning and does not even read in the data that in most of the cases has to do with errors in the mapping or config file. Ensure that
+<ul>
+<li>You have unique IDs in the mapping file and that you don’t use any special symbol</li>
+<li>Ensure that the path to your sequencing data is correct (you can check the path with ls)</li>
+<li>Ensure that the format of the config file is still intact. I.e. do not remove any quotes or brackets around the parameters (i.e.&nbsp;<code>project: "run_v1"</code>, <code>classifiers:         ["minimap2", "kraken2"]</code>) and keep the extra spaces in front of some parameters as for example in the <code>filtering</code> section. These syntax elements are important for the script to work</li>
+</ul></li>
+</ul></li>
+</ul>
 
 
 </section>
@@ -1248,7 +1418,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2023-11-15</p>
+Last modified: 2024-05-17</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/nanopore/nanoITS.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
