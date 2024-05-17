@@ -420,6 +420,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/atlas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Atlas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/flye.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Flye</span></a>
   </div>
@@ -801,38 +807,40 @@ Note
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results/faa/renamed</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> results/kos/</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#download some example genomes from NCBI</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/008/085/GCA_000008085.1_ASM808v1/GCA_000008085.1_ASM808v1_protein.faa.gz  <span class="at">-P</span> results/faa/</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/017/945/GCA_000017945.1_ASM1794v1/GCA_000017945.1_ASM1794v1_protein.faa.gz  <span class="at">-P</span> results/faa/</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-d</span> results/faa/<span class="pp">*</span>gz</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#view the header of one file</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#we see the header looks like this: &gt;ABU81185.1 translation initiation factor aIF-2 [Ignicoccus hospitalis KIN4/I]</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#this is too long and the extra characters, i.e. spaces, can disrupt downstream analysis, so let's fix that first</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> results/faa/GCA_000017945.1_ASM1794v1_protein.faa </span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#remove everything after the space in the fasta headers</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span>  results/faa/<span class="pp">*</span>faa<span class="kw">;</span> <span class="cf">do</span> </span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="va">filename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa<span class="va">)</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-i</span> <span class="st">'/^&gt;/ s/ .*$//g'</span> <span class="va">$i</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#afterwards, the header looks like this; &gt;ABU81185.1</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> results/faa/GCA_000017945.1_ASM1794v1_protein.faa </span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#next, we add the filename into the fasta header and store them in our new folder</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#this allows us to combine all genomes into 1 file has the benefit that you only need to run hmmsearch 1x</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co">#for this to work proberly its a good practice to add the genomeID into the fasta header so that you can easily distinguish from where each protein originally came</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span>  results/faa/<span class="pp">*</span>faa<span class="kw">;</span> <span class="cf">do</span> </span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="va">filename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1</span> <span class="at">-d</span> <span class="st">"."</span><span class="va">)</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-v</span> fname=<span class="st">"</span><span class="va">$filename</span><span class="st">"</span> <span class="st">'/&gt;/{sub("&gt;","&amp;"fname"-")}1'</span> <span class="va">$i</span> <span class="op">&gt;</span> results/faa/renamed/<span class="va">$filename</span>.faa</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">#afterwards, the header looks like this; &gt;ABU81185.1</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">#notice: how using basename with cut made our filename a bit shorter?</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> results/faa/renamed/GCA_000017945.faa </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#download some example genomes from NCBI</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/008/085/GCA_000008085.1_ASM808v1/GCA_000008085.1_ASM808v1_protein.faa.gz  <span class="at">-P</span> results/faa/</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/017/945/GCA_000017945.1_ASM1794v1/GCA_000017945.1_ASM1794v1_protein.faa.gz  <span class="at">-P</span> results/faa/</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-d</span> results/faa/<span class="pp">*</span>gz</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#view the header of one file</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#we see the header looks like this: &gt;ABU81185.1 translation initiation factor aIF-2 [Ignicoccus hospitalis KIN4/I]</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#this is too long and the extra characters, i.e. spaces, can disrupt downstream analysis, so let's fix that first</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> results/faa/GCA_000017945.1_ASM1794v1_protein.faa </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#remove everything after the space in the fasta headers</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> results/faa/<span class="pp">*</span>faa<span class="kw">;</span> <span class="cf">do</span> </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="va">filename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa<span class="va">)</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'/^&gt;/ s/ .*$//g'</span> <span class="va">$i</span> <span class="op">&gt;</span> results/faa/<span class="va">${filename}</span>_temp.faa</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#afterwards, the header looks like this; &gt;ABU81185.1</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> results/faa/GCA_000017945.1_ASM1794v1_protein_temp.faa </span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#next, we add the filename into the fasta header and store them in our new folder</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#this allows us to combine all genomes into 1 file has the benefit that you only need to run hmmsearch 1x</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#for this to work proberly its a good practice to add the genomeID into the fasta header so that you can easily distinguish from where each protein originally came</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> results/faa/<span class="pp">*</span>_temp.faa<span class="kw">;</span> <span class="cf">do</span> </span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="va">filename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> _temp.faa <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1</span> <span class="at">-d</span> <span class="st">"."</span><span class="va">)</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-v</span> fname=<span class="st">"</span><span class="va">$filename</span><span class="st">"</span> <span class="st">'/&gt;/{sub("&gt;","&amp;"fname"-")}1'</span> <span class="va">$i</span> <span class="op">&gt;</span> results/faa/renamed/<span class="va">$filename</span>.faa</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co">#afterwards, the header looks like this; &gt;ABU81185.1</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">#notice: how using basename with cut made our filename a bit shorter?</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> results/faa/renamed/GCA_000017945.faa </span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co">#cleanup the temporary files we made</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> results/faa/<span class="pp">*</span>temp.faa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Tip: How does the sed command work">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
@@ -848,17 +856,16 @@ Tip: How does the sed command work
 <div class="callout-body-container callout-body">
 <p>Let’s look into how this code works:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span>  results/faa/<span class="pp">*</span>faa<span class="kw">;</span> <span class="cf">do</span> </span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> results/faa/<span class="pp">*</span>faa<span class="kw">;</span> <span class="cf">do</span> </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="va">filename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa<span class="va">)</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-i</span> <span class="st">'/^&gt;/ s/ .*$//g'</span> <span class="va">$i</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'/^&gt;/ s/ .*$//g'</span> <span class="va">$i</span> <span class="op">&gt;</span> results/faa/<span class="va">${filename}</span>_temp.faa</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol type="1">
 <li><code>for i in results/faa/*faa; do</code>: This line starts a loop that iterates over each file in the directory <code>results/faa/</code> that ends with the extension <code>.faa</code>. The loop variable <code>i</code> will hold the path of each file in turn during each iteration.</li>
 <li><code>filename=$(basename $i .faa)</code>: Inside the loop, this line extracts the base name of the current file (<code>$i</code>) by removing the directory path and the <code>.faa</code> extension. It assigns this base name to the variable <code>filename</code>.</li>
-<li><code>sed -i '/^&gt;/ s/ .*$//g' $i</code>: This line uses the <code>sed</code> command to edit the contents of the current file (<code>$i</code>). Let’s break down the <code>sed</code> command:
+<li><code>sed '/^&gt;/ s/ .*$//g' $i</code>: This line uses the <code>sed</code> command to edit the contents of the current file (<code>$i</code>). Let’s break down the <code>sed</code> command:
 <ul>
-<li><code>-i</code>: This flag tells <code>sed</code> to edit the file in-place.</li>
 <li><code>'/^&gt;/ s/ .*$//g'</code>: This is a regular expression pattern that <code>sed</code> will use to find and replace text in the file.
 <ul>
 <li><code>^&gt;</code>: This part of the pattern matches lines that start with <code>&gt;</code>.</li>
@@ -866,6 +873,8 @@ Tip: How does the sed command work
 </ul></li>
 <li><code>$i</code>: This is the file that <code>sed</code> will operate on, which is the current file in the loop.</li>
 </ul></li>
+<li>We then store the output to a new file with <code>&gt; results/faa/${filename}_temp.faa</code>. This makes use of the filename variable to flexibly edit the filename.<br>
+</li>
 <li><code>done</code>: This marks the end of the loop. So, in summary, this code loops through each file in the directory <code>results/faa/</code> with the <code>.faa</code> extension, extracts the base name of each file, and then edits each file in-place to remove any text after the first space on lines that start with <code>&gt;</code>.</li>
 </ol>
 </div>
@@ -885,14 +894,14 @@ Tip: How does the awk command work
 <div class="callout-body-container callout-body">
 <p>Let’s look into how this code works:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span>  results/faa/<span class="pp">*</span>faa<span class="kw">;</span> <span class="cf">do</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">filename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .faa <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1</span> <span class="at">-d</span> <span class="st">"."</span><span class="va">)</span></span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> results/faa/<span class="pp">*</span>_temp.faa<span class="kw">;</span> <span class="cf">do</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">filename</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> _temp.faa <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1</span> <span class="at">-d</span> <span class="st">"."</span><span class="va">)</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-v</span> fname=<span class="st">"</span><span class="va">$filename</span><span class="st">"</span> <span class="st">'/&gt;/{sub("&gt;","&amp;"fname"-")}1'</span> <span class="va">$i</span> <span class="op">&gt;</span> results/faa/renamed/<span class="va">$filename</span>.faa</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol type="1">
-<li><code>for i in results/faa/*faa; do</code>: This line initiates a loop that iterates over each file in the directory <code>results/faa/</code> with the <code>.faa</code> extension. During each iteration, the variable <code>i</code> holds the path of the current file.</li>
-<li><code>filename=$(basename $i .faa | cut -f1 -d ".")</code>: Inside the loop, this line extracts the base name of the current file (<code>$i</code>) by removing the directory path and the <code>.faa</code> extension using <code>basename</code>, and then it uses <code>cut</code> to split the filename at the “.” character and extracts the first part. The extracted base name is stored in the variable <code>filename</code>.</li>
+<li><code>for i in  results/faa/*_temp.faa; do</code>: This line initiates a loop that iterates over each file in the directory <code>results/faa/</code> with the <code>_temp.faa</code> extension. During each iteration, the variable <code>i</code> holds the path of the current file.</li>
+<li><code>filename=$(basename $i _temp.faa | cut -f1 -d ".")</code>: Inside the loop, this line extracts the base name of the current file (<code>$i</code>) by removing the directory path and the <code>_temp.faa</code> extension using <code>basename</code>, and then it uses <code>cut</code> to split the filename at the “.” character and extracts the first part. The extracted base name is stored in the variable <code>filename</code>.</li>
 <li><code>awk -v fname="$filename" '/&gt;/{sub("&gt;","&amp;"fname"-")}1' $i &gt; results/faa/renamed/$filename.faa</code>: This line utilizes the <code>awk</code> command to process the contents of the current file (<code>$i</code>). Let’s break down the <code>awk</code> command:
 <ul>
 <li><code>-v fname="$filename"</code>: This option passes the value of the shell variable <code>filename</code> to <code>awk</code> as an <code>awk</code> variable named <code>fname</code>.</li>
@@ -1565,7 +1574,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2024-05-15</p>
+Last modified: 2024-05-17</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/metabolic.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

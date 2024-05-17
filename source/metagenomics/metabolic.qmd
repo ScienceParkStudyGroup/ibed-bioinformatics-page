@@ -131,7 +131,6 @@ We start with downloading proteins from two genomes and do some cleaning, here w
 
 ```{bash}
 mkdir -p results/faa/renamed
-mkdir results/kos/
 
 #download some example genomes from NCBI
 wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/008/085/GCA_000008085.1_ASM808v1/GCA_000008085.1_ASM808v1_protein.faa.gz  -P results/faa/
@@ -144,60 +143,63 @@ gzip -d results/faa/*gz
 head results/faa/GCA_000017945.1_ASM1794v1_protein.faa 
 
 #remove everything after the space in the fasta headers
-for i in  results/faa/*faa; do 
+for i in results/faa/*faa; do 
 filename=$(basename $i .faa)
-sed -i '/^>/ s/ .*$//g' $i
+sed '/^>/ s/ .*$//g' $i > results/faa/${filename}_temp.faa
 done
 
 #afterwards, the header looks like this; >ABU81185.1
-head results/faa/GCA_000017945.1_ASM1794v1_protein.faa 
+head results/faa/GCA_000017945.1_ASM1794v1_protein_temp.faa 
 
 #next, we add the filename into the fasta header and store them in our new folder
 #this allows us to combine all genomes into 1 file has the benefit that you only need to run hmmsearch 1x
 #for this to work proberly its a good practice to add the genomeID into the fasta header so that you can easily distinguish from where each protein originally came
-for i in  results/faa/*faa; do 
-filename=$(basename $i .faa | cut -f1 -d ".")
+for i in results/faa/*_temp.faa; do 
+filename=$(basename $i _temp.faa | cut -f1 -d ".")
 awk -v fname="$filename" '/>/{sub(">","&"fname"-")}1' $i > results/faa/renamed/$filename.faa
 done
 
 #afterwards, the header looks like this; >ABU81185.1
 #notice: how using basename with cut made our filename a bit shorter?
 head results/faa/renamed/GCA_000017945.faa 
+
+#cleanup the temporary files we made
+rm results/faa/*temp.faa
 ```
 
 ::: {.callout-tip title="Tip: How does the sed command work" collapse="true"}
 Let's look into how this code works:
 
 ```{bash}
-for i in  results/faa/*faa; do 
+for i in results/faa/*faa; do 
 filename=$(basename $i .faa)
-sed -i '/^>/ s/ .*$//g' $i
+sed '/^>/ s/ .*$//g' $i > results/faa/${filename}_temp.faa
 done
 ```
 
 1.  `for i in results/faa/*faa; do`: This line starts a loop that iterates over each file in the directory `results/faa/` that ends with the extension `.faa`. The loop variable `i` will hold the path of each file in turn during each iteration.
 2.  `filename=$(basename $i .faa)`: Inside the loop, this line extracts the base name of the current file (`$i`) by removing the directory path and the `.faa` extension. It assigns this base name to the variable `filename`.
-3.  `sed -i '/^>/ s/ .*$//g' $i`: This line uses the `sed` command to edit the contents of the current file (`$i`). Let's break down the `sed` command:
-    -   `-i`: This flag tells `sed` to edit the file in-place.
+3.  `sed '/^>/ s/ .*$//g' $i `: This line uses the `sed` command to edit the contents of the current file (`$i`). Let's break down the `sed` command:
     -   `'/^>/ s/ .*$//g'`: This is a regular expression pattern that `sed` will use to find and replace text in the file.
         -   `^>`: This part of the pattern matches lines that start with `>`.
         -   `s/ .*$//g`: This part of the pattern replaces any space character and everything after it on lines that match the pattern with nothing (i.e., it removes everything after the first space). Here, the `s` stands for substitution, and the `.*$` matches any character (`.`) until the end of the line (`$`).
     -   `$i`: This is the file that `sed` will operate on, which is the current file in the loop.
-4.  `done`: This marks the end of the loop. So, in summary, this code loops through each file in the directory `results/faa/` with the `.faa` extension, extracts the base name of each file, and then edits each file in-place to remove any text after the first space on lines that start with `>`.
+4. We then store the output to a new file with `> results/faa/${filename}_temp.faa`. This makes use of the filename variable to flexibly edit the filename.   
+1.  `done`: This marks the end of the loop. So, in summary, this code loops through each file in the directory `results/faa/` with the `.faa` extension, extracts the base name of each file, and then edits each file in-place to remove any text after the first space on lines that start with `>`.
 :::
 
 ::: {.callout-tip title="Tip: How does the awk command work" collapse="true"}
 Let's look into how this code works:
 
 ```{bash}
-for i in  results/faa/*faa; do 
-filename=$(basename $i .faa | cut -f1 -d ".")
+for i in results/faa/*_temp.faa; do 
+filename=$(basename $i _temp.faa | cut -f1 -d ".")
 awk -v fname="$filename" '/>/{sub(">","&"fname"-")}1' $i > results/faa/renamed/$filename.faa
 done
 ```
 
-1.  `for i in results/faa/*faa; do`: This line initiates a loop that iterates over each file in the directory `results/faa/` with the `.faa` extension. During each iteration, the variable `i` holds the path of the current file.
-2.  `filename=$(basename $i .faa | cut -f1 -d ".")`: Inside the loop, this line extracts the base name of the current file (`$i`) by removing the directory path and the `.faa` extension using `basename`, and then it uses `cut` to split the filename at the "." character and extracts the first part. The extracted base name is stored in the variable `filename`.
+1.  `for i in  results/faa/*_temp.faa; do`: This line initiates a loop that iterates over each file in the directory `results/faa/` with the `_temp.faa` extension. During each iteration, the variable `i` holds the path of the current file.
+2.  `filename=$(basename $i _temp.faa | cut -f1 -d ".")`: Inside the loop, this line extracts the base name of the current file (`$i`) by removing the directory path and the `_temp.faa` extension using `basename`, and then it uses `cut` to split the filename at the "." character and extracts the first part. The extracted base name is stored in the variable `filename`.
 3.  `awk -v fname="$filename" '/>/{sub(">","&"fname"-")}1' $i > results/faa/renamed/$filename.faa`: This line utilizes the `awk` command to process the contents of the current file (`$i`). Let's break down the `awk` command:
     -   `-v fname="$filename"`: This option passes the value of the shell variable `filename` to `awk` as an `awk` variable named `fname`.
     -   `/>/`: This part of the pattern matches lines that contain `>`.
