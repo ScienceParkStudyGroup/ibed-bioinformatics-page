@@ -400,6 +400,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/atlas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Atlas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/flye.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Flye</span></a>
   </div>
@@ -575,13 +581,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true">
- <span class="menu-text">Bioinformatic databases</span></a>
+            <a href="../../source/core_tools/toolbox-readme.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bioinformatics toolbox</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bash-for-loops.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">For-loops in bash</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="true">
+ <span class="menu-text">Bioinformatic databases</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/kegg_db.html" class="sidebar-item-text sidebar-link">
@@ -658,10 +681,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Restart the shell (exit the terminal and use ssh to log back in) for the changes to take effect</li>
 <li>Check if conda is accessible by running <code>conda -h</code></li>
 </ol>
+<div class="callout callout-style-default callout-caution callout-titled" title="Conda for Mobaxterm users">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Conda for Mobaxterm users
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>To setup conda/mamba on Mobaxterm we need to do some extra steps first.</p>
+<p>MobaXterm is primarily designed as a terminal application for Windows, providing a Unix-like environment through the use of Cygwin or a Windows Subsystem for Linux (WSL) integration. While it offers many Linux-like features and utilities, there are some differences and limitations compared to a native Linux environment. In order to deal with these limitations, we can install WSL in order to get access to a native Linux environment.</p>
+<p>If you want to install and use conda/mamba you need to install WSL first.</p>
+<ol type="1">
+<li>To install WSL, follow <a href="https://learn.microsoft.com/en-us/windows/wsl/install">these instructions</a></li>
+<li>Once you have that installed, you can download and install MobaXterm if you have not done that already: <a href="https://mobaxterm.mobatek.net">https://mobaxterm.mobatek.net</a></li>
+<li>Inside MobaXterm, you will probably will see that your WSL is already listed on the left panel as an available connection. Just double-click it and you will be accessing it via MobaXterm. If you don’t see it you can also run WSL directly.</li>
+<li>By default this home directory is in a temporary folder that gets deleted every time you exit Mobaxterm, To give this folder a persistent home, do the following:
+<ol type="1">
+<li>Settings –&gt; Configuration –&gt; General</li>
+<li>In General set Persistent home directory to a folder of your choice</li>
+</ol></li>
+<li>Follow the installation instructions for conda as listed above</li>
+</ol>
+</div>
+</div>
+</div>
 </section>
 <section id="setting-up-an-environment" class="level3">
 <h3 class="anchored" data-anchor-id="setting-up-an-environment">Setting up an environment</h3>
-<p>Let’s assume we want to install a tool, ITSx, into an environment called fungal_genomics. We can do this as follows:</p>
+<p>Let’s assume we want to install a tool, ITSx, into an environment called fungal_genomics. If you only have conda installed that is completely fine, just replace mamba with conda in the code below.</p>
+<p>We can do this as follows:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#check if the tool is installed (should return command not found)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ITSx</span> <span class="at">-h</span></span>
@@ -1264,7 +1317,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2024-05-08</p>
+Last modified: 2024-05-21</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/conda/conda.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

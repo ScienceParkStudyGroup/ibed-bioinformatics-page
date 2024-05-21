@@ -33,9 +33,30 @@ When running the bash command, you get asked a few questions:
 5. Check if conda is accessible by running `conda -h`
 
 
+::: {.callout-caution collapse="true" title="Conda for Mobaxterm users"}
+To setup conda/mamba on Mobaxterm we need to do some extra steps first.
+
+MobaXterm is primarily designed as a terminal application for Windows, providing a Unix-like environment through the use of Cygwin or a Windows Subsystem for Linux (WSL) integration. While it offers many Linux-like features and utilities, there are some differences and limitations compared to a native Linux environment. In order to deal with these limitations, we can install WSL in order to get access to a native Linux environment.
+
+If you want to install and use conda/mamba you need to install WSL first. 
+
+1. To install WSL, follow [these instructions](https://learn.microsoft.com/en-us/windows/wsl/install)
+2. Once you have that installed, you can download and install MobaXterm if you have not done that already: [https://mobaxterm.mobatek.net](https://mobaxterm.mobatek.net)
+3. Inside MobaXterm, you will probably will see that your WSL is already listed on the left panel as an available connection. Just double-click it and you will be accessing it via MobaXterm. If you don't see it you can also run WSL directly.
+4. By default this home directory is in a temporary folder that gets deleted every time you exit Mobaxterm, To give this folder a persistent home, do the following:
+   1. Settings –> Configuration –> General
+   2. In General set Persistent home directory to a folder of your choice
+5. Follow the installation instructions for conda as listed above
+
+:::
+
+
+
 ### Setting up an environment
 
-Let's assume we want to install a tool, ITSx, into an environment called fungal_genomics. We can do this as follows:
+Let's assume we want to install a tool, ITSx, into an environment called fungal_genomics. If you only have conda installed that is completely fine, just replace mamba with conda in the code below.
+
+We can do this as follows:
 
 ```{bash}
 #check if the tool is installed (should return command not found)
