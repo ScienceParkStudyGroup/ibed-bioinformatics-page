@@ -277,10 +277,13 @@ awk  -v OFS='\t' '{ if ($4 > $5){ $7="high_score" }else{ $7="-" } print } ' resu
 grep ABU82216 results/kos/temp2
 
 #5.merge with protein mapping file
-LC_ALL=C join -a1  -j1 -e'-' -t $'\t' -o 0,1.1,2.2,2.3,2.4,2.5,2.6,2.7 <(LC_ALL=C sort mapping_file.txt) <(LC_ALL=C sort results/kos/temp2) | LC_ALL=C sort  > results/kos/temp3
+LC_ALL=C join -a1  -j1 -e'-' -t $'\t' -o 0,1.2,2.2,2.3,2.4,2.5,2.6,2.7 <(LC_ALL=C sort mapping_file.txt) <(LC_ALL=C sort results/kos/temp2) | LC_ALL=C sort  > results/kos/temp3
 
 #6.add header
 echo -e "accession\tBinID\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence" | cat - results/kos/temp3 > results/kos/KO_hmm.tsv
+
+#sanity check
+grep ABU82216 results/kos/KO_hmm.tsv
 
 #cleanup 
 rm results/kos/temp*  
@@ -398,3 +401,44 @@ This command concatenates the specified header line with the contents of the fil
 
 So, in summary, this command generates a TSV (tab-separated values) file named `KO_hmm.tsv` with a header line and the contents of `temp2`, effectively creating a table with the specified column headers and the data from `temp2`.
 :::
+
+
+##### Creating count tables 
+
+If we work with many genomes, scanning the hmmsearch tables will take a lot of time. We speed things up by summarizing our data a bit. Here, we will 
+
+- Create a table that counts how often each KO is found in each genome. 
+- Combine the count table with the pathway and module metadata tables. This allows us to more quickly check whether, for example, all the genes for Glycolysis are present in our genomes.
+
+The step below require the pandas library. If not available you can install it via `conda install pandas`. To start python, type `python`.
+
+```{python}
+import pandas as pd 
+
+#read in data
+df = pd.read_csv('results/kos/KO_hmm.tsv', sep = '\t')
+pathways = pd.read_csv('/zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/pathway_to_kegg.tsv', sep = '\t')
+modules = pd.read_csv('/zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/modules_to_kegg.tsv', sep = '\t')
+
+#summarize data per bin
+counts = df.groupby(['BinID','KO_hmm']).KO_hmm.agg('count').to_frame('count').reset_index()
+counts_wide =  counts.pivot_table(index='KO_hmm', columns='BinID', values='count', fill_value=0).reset_index()
+counts_wide.rename(columns={'KO_hmm': 'KO_id'}, inplace=True)
+
+#add metadata 
+pathway_df = pathways.merge(counts_wide, how = 'left', left_on = 'KO_id', right_on = 'KO_id').fillna(0)
+module_df = modules.merge(counts_wide, how = 'left', left_on = 'KO_id', right_on = 'KO_id').fillna(0)
+
+#print
+pathway_df.to_csv('results/kos/KO_to_pathway.txt', sep =',', index = False)
+module_df.to_csv('results/kos/KO_to_modules.txt', sep =',', index = False)
+
+exit()
+```
+
+
+A word about modules:
+
+In KEGG, modules are are predefined sets of genes or proteins that represent functional units within biological systems. If we for example look at [Glycolysis](https://www.genome.jp/pathway/map00010), we see that it consists of multiple pathway modules.
+
+One such module, [M00001](https://www.genome.jp/module/M00001), belongs to the Glycolysis module. We also see different KEGG Orthology (KO) entries that can fulfill each step. For example, for step 2, various KOs might perform this step. For step 6, our genome needs to either possess the KOs K00134 or K00150 and K00927 to convert a substrate in a 2-step reaction. Alternatively, genomes might possess K11389 to convert the substrate in a 1-step reaction.

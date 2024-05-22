@@ -420,6 +420,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/atlas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Atlas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/flye.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Flye</span></a>
   </div>
@@ -987,13 +993,16 @@ Tip: How does the awk command work
 <span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ABU82216 results/kos/temp2</span>
 <span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="co">#5.merge with protein mapping file</span></span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">join</span> <span class="at">-a1</span>  <span class="at">-j1</span> <span class="at">-e</span><span class="st">'-'</span> <span class="at">-t</span> <span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-o</span> 0,1.1,2.2,2.3,2.4,2.5,2.6,2.7 <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> mapping_file.txt<span class="op">)</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> results/kos/temp2<span class="op">)</span> <span class="kw">|</span> <span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span>  <span class="op">&gt;</span> results/kos/temp3</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">join</span> <span class="at">-a1</span>  <span class="at">-j1</span> <span class="at">-e</span><span class="st">'-'</span> <span class="at">-t</span> <span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-o</span> 0,1.2,2.2,2.3,2.4,2.5,2.6,2.7 <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> mapping_file.txt<span class="op">)</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> results/kos/temp2<span class="op">)</span> <span class="kw">|</span> <span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span>  <span class="op">&gt;</span> results/kos/temp3</span>
 <span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="co">#6.add header</span></span>
 <span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"accession\tBinID\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence"</span> <span class="kw">|</span> <span class="fu">cat</span> <span class="at">-</span> results/kos/temp3 <span class="op">&gt;</span> results/kos/KO_hmm.tsv</span>
 <span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="co">#cleanup </span></span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> results/kos/temp<span class="pp">*</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="co">#sanity check</span></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ABU82216 results/kos/KO_hmm.tsv</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="co">#cleanup </span></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> results/kos/temp<span class="pp">*</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Tip: What does the 1st command do">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
@@ -1194,6 +1203,41 @@ Tip: What does the 6th command do
 </div>
 </div>
 </div>
+</section>
+<section id="creating-count-tables" class="level5">
+<h5 class="anchored" data-anchor-id="creating-count-tables">Creating count tables</h5>
+<p>If we work with many genomes, scanning the hmmsearch tables will take a lot of time. We speed things up by summarizing our data a bit. Here, we will</p>
+<ul>
+<li>Create a table that counts how often each KO is found in each genome.</li>
+<li>Combine the count table with the pathway and module metadata tables. This allows us to more quickly check whether, for example, all the genes for Glycolysis are present in our genomes.</li>
+</ul>
+<p>The step below require the pandas library. If not available you can install it via <code>conda install pandas</code>. To start python, type <code>python</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#read in data</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'results/kos/KO_hmm.tsv'</span>, sep <span class="op">=</span> <span class="st">'</span><span class="ch">\t</span><span class="st">'</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>pathways <span class="op">=</span> pd.read_csv(<span class="st">'/zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/pathway_to_kegg.tsv'</span>, sep <span class="op">=</span> <span class="st">'</span><span class="ch">\t</span><span class="st">'</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>modules <span class="op">=</span> pd.read_csv(<span class="st">'/zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/modules_to_kegg.tsv'</span>, sep <span class="op">=</span> <span class="st">'</span><span class="ch">\t</span><span class="st">'</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">#summarize data per bin</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> df.groupby([<span class="st">'BinID'</span>,<span class="st">'KO_hmm'</span>]).KO_hmm.agg(<span class="st">'count'</span>).to_frame(<span class="st">'count'</span>).reset_index()</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>counts_wide <span class="op">=</span>  counts.pivot_table(index<span class="op">=</span><span class="st">'KO_hmm'</span>, columns<span class="op">=</span><span class="st">'BinID'</span>, values<span class="op">=</span><span class="st">'count'</span>, fill_value<span class="op">=</span><span class="dv">0</span>).reset_index()</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>counts_wide.rename(columns<span class="op">=</span>{<span class="st">'KO_hmm'</span>: <span class="st">'KO_id'</span>}, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co">#add metadata </span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>pathway_df <span class="op">=</span> pathways.merge(counts_wide, how <span class="op">=</span> <span class="st">'left'</span>, left_on <span class="op">=</span> <span class="st">'KO_id'</span>, right_on <span class="op">=</span> <span class="st">'KO_id'</span>).fillna(<span class="dv">0</span>)</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>module_df <span class="op">=</span> modules.merge(counts_wide, how <span class="op">=</span> <span class="st">'left'</span>, left_on <span class="op">=</span> <span class="st">'KO_id'</span>, right_on <span class="op">=</span> <span class="st">'KO_id'</span>).fillna(<span class="dv">0</span>)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co">#print</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>pathway_df.to_csv(<span class="st">'results/kos/KO_to_pathway.txt'</span>, sep <span class="op">=</span><span class="st">','</span>, index <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>module_df.to_csv(<span class="st">'results/kos/KO_to_modules.txt'</span>, sep <span class="op">=</span><span class="st">','</span>, index <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>exit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A word about modules:</p>
+<p>In KEGG, modules are are predefined sets of genes or proteins that represent functional units within biological systems. If we for example look at <a href="https://www.genome.jp/pathway/map00010">Glycolysis</a>, we see that it consists of multiple pathway modules.</p>
+<p>One such module, <a href="https://www.genome.jp/module/M00001">M00001</a>, belongs to the Glycolysis module. We also see different KEGG Orthology (KO) entries that can fulfill each step. For example, for step 2, various KOs might perform this step. For step 6, our genome needs to either possess the KOs K00134 or K00150 and K00927 to convert a substrate in a 2-step reaction. Alternatively, genomes might possess K11389 to convert the substrate in a 1-step reaction.</p>
 
 
 
@@ -1776,7 +1820,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2024-05-14</p>
+Last modified: 2024-05-22</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/hmmer.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
