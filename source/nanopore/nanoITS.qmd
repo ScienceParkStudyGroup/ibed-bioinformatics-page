@@ -40,7 +40,7 @@ mamba create --name snakemake_f_NanoITS -c conda-forge -c bioconda snakemake=7.3
 
 cd <path_to_install_software>
 git clone https://github.com/ndombrowski/NanoITS.git
-mv NanoITS/ NanoITS_0.2
+mv NanoITS/ NanoITS_0.3
 ```
 
 Provide your sample names and path to the samples as a comma-separated file, for example, a file looking similar as the one provided in `example_files/mapping.csv`. Sample names should be unique and consist of letter, numbers and `-` only. The barcode column can be left empty as it is not yet implemented. The path should contain the path to your demultiplexed, compressed fastq file.
@@ -89,7 +89,7 @@ Get the config.yaml file:
 
 ```{bash}
 #copy config yaml (comes with NanoITS) 
-cp /zfs/omics/projects/amplicomics/bin/NanoITS_0.2/config/config.yaml .
+cp /zfs/omics/projects/amplicomics/bin/NanoITS_0.3/config/config.yaml .
 ```
 
 The config.yaml tells NanoITS how you want to run the software and how to find the sequencing data. **Start by opening the config.yaml with an editor, such as nano. There are several things you can modify:**
@@ -157,9 +157,9 @@ conda activate snakemake_f_NanoITS
 
 #test if everything runs as extended (edit as described above)
 snakemake --use-conda --cores 1 \
-  -s /zfs/omics/projects/amplicomics/bin/NanoITS_0.2/workflow/Snakefile \
+  -s /zfs/omics/projects/amplicomics/bin/NanoITS_0.3/workflow/Snakefile \
   --configfile config.yaml \
-  --conda-prefix /zfs/omics/projects/amplicomics/bin/NanoITS_0.2/workflow/.snakemake/conda  \
+  --conda-prefix /zfs/omics/projects/amplicomics/bin/NanoITS_0.3/workflow/.snakemake/conda  \
   -np 
 ```
 
@@ -171,7 +171,7 @@ The NanoITS installation comes with an example sbatch script that you can move o
 
 ```{bash}
 #cp template batch script (comes with NanoITS) 
-cp /zfs/omics/projects/amplicomics/bin/NanoITS_0.2/jobscript.sh .
+cp /zfs/omics/projects/amplicomics/bin/NanoITS_0.3/jobscript.sh .
 ```
 
 The jobscript is setup to work with NanoITS in the amplicomics environment and you should not need to change anything if your config.yaml is set up correctly.
@@ -181,7 +181,7 @@ The script does the following:
 -   Requests 20 crunchomics cpus and 200G of memory. One can set this lower, but for testing purposes you might keep these values. The can be changed with `#SBATCH --cpus-per-task=20` and `#SBATCH --mem=200`. **Depending on the size of the dataset** you can try increasing the number of CPUs.
 -   Ensures that conda is loaded properly by running `source ~/.bashrc`. The bashrc is a script executed once a user logs in and holds special configurations, such as telling the shell where conda is installed. If you run into issues that are related to conda/mamba not being found then open the this file with `nano ~/.bashrc` and check that you have a section with text similar to `# >>> conda initialize >>>`. If this is not present you might need to run `conda init bash` to add it.
 -   Activates the snakemake conda environment that is found in the amplicomics share with `conda activate snakemake_f_NanoITS`
--   Runs NanoITS. When using the script as is, the script assumes that NanoITS is installed at this path `/zfs/omics/projects/amplicomics/bin/NanoITS_0.2` and that the config.yaml is located in the folder from which you analyse the data. If that is not the case, change the paths accordingly
+-   Runs NanoITS. When using the script as is, the script assumes that NanoITS is installed at this path `/zfs/omics/projects/amplicomics/bin/NanoITS_0.3` and that the config.yaml is located in the folder from which you analyse the data. If that is not the case, change the paths accordingly
 
 Next, you can submit the script with:
 
@@ -198,7 +198,7 @@ Additionally, you can generate a small report as follows. To view the report, do
 ```{bash}
 snakemake --report report.html \
   --configfile config.yaml \
-  -s /zfs/omics/projects/amplicomics/bin/NanoITS_0.2/workflow/Snakefile
+  -s /zfs/omics/projects/amplicomics/bin/NanoITS_0.3/workflow/Snakefile
 ```
 
 ### Common Issues and Solutions
