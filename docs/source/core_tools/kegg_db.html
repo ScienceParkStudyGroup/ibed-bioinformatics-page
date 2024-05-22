@@ -85,7 +85,7 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
 <link href="../../source/core_tools/pfam_db.html" rel="next">
-<link href="../../source/ITSx/itsx_readme.html" rel="prev">
+<link href="../../source/core_tools/bash-for-loops.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -420,6 +420,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/atlas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Atlas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/flye.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Flye</span></a>
   </div>
@@ -595,13 +601,30 @@ div.csl-indent {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true">
- <span class="menu-text">Bioinformatic databases</span></a>
+            <a href="../../source/core_tools/toolbox-readme.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bioinformatics toolbox</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bash-for-loops.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">For-loops in bash</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="true">
+ <span class="menu-text">Bioinformatic databases</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/kegg_db.html" class="sidebar-item-text sidebar-link active">
@@ -642,6 +665,7 @@ div.csl-indent {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#ko-mapping-files" id="toc-ko-mapping-files" class="nav-link" data-scroll-target="#ko-mapping-files">KO mapping files</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/kegg_db.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -715,6 +739,305 @@ div.csl-indent {
 <li>definition … KO definition</li>
 </ul></li>
 </ul>
+</section>
+<section id="ko-mapping-files" class="level3">
+<h3 class="anchored" data-anchor-id="ko-mapping-files">KO mapping files</h3>
+<p>Next, to the <code>ko_list</code> we provide the following mapping files:</p>
+<p><code>/zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/pathway_to_kegg.tsv</code>:</p>
+<p>contains a mapping for each KO to a pathway and looks like this:</p>
+<table class="table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 53%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>pathway_desc</th>
+<th>pathway_map</th>
+<th>KO_id</th>
+<th>KO_desc</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mineral absorption</td>
+<td>map04978</td>
+<td>K00510</td>
+<td>HMOX1; heme oxygenase 1 [EC:1.14.14.18]</td>
+</tr>
+<tr class="even">
+<td>Mineral absorption</td>
+<td>map04978</td>
+<td>K00522</td>
+<td>FTH1; ferritin heavy chain [EC:1.16.3.1]</td>
+</tr>
+<tr class="odd">
+<td>Mineral absorption</td>
+<td>map04978</td>
+<td>K01539</td>
+<td>ATP1A; sodium/potassium-transporting ATPase subunit alpha [EC:7.2.2.13]</td>
+</tr>
+<tr class="even">
+<td>Mineral absorption</td>
+<td>map04978</td>
+<td>K05849</td>
+<td>SLC8A, NCX; solute carrier family 8 (sodium/calcium exchanger)</td>
+</tr>
+<tr class="odd">
+<td>Mineral absorption</td>
+<td>map04978</td>
+<td>K05850</td>
+<td>ATP2B; P-type Ca2+ transporter type 2B [EC:7.2.2.10]</td>
+</tr>
+<tr class="even">
+<td>Mineral absorption</td>
+<td>map04978</td>
+<td>K07213</td>
+<td>ATOX1, ATX1, copZ, golB; copper chaperone</td>
+</tr>
+<tr class="odd">
+<td>Mineral absorption</td>
+<td>map04978</td>
+<td>K08370</td>
+<td>CYBRD1, Dcytb; plasma membrane ascorbate-dependent reductase [EC:7.2.1.3]</td>
+</tr>
+<tr class="even">
+<td>Mineral absorption</td>
+<td>map04978</td>
+<td>K14738</td>
+<td>STEAP2; metalloreductase STEAP2 [EC:1.16.1.-]</td>
+</tr>
+<tr class="odd">
+<td>Mineral absorption</td>
+<td>map04978</td>
+<td>K14739</td>
+<td>MT1_2; metallothionein 1/2</td>
+</tr>
+<tr class="even">
+<td>Mineral absorption</td>
+<td>map04978</td>
+<td>K17686</td>
+<td>copA, ctpA, ATP7; P-type Cu+ transporter [EC:7.2.2.8]</td>
+</tr>
+<tr class="odd">
+<td>Mineral absorption</td>
+<td>map04978</td>
+<td>K21398</td>
+<td>SLC11A2, DMT1, NRAMP2; natural resistance-associated macrophage protein 2</td>
+</tr>
+<tr class="even">
+<td>Mineral absorption</td>
+<td>map04978</td>
+<td>K21418</td>
+<td>HMOX2; heme oxygenase 2 [EC:1.14.14.18]</td>
+</tr>
+<tr class="odd">
+<td>Fatty acid biosynthesis</td>
+<td>map00061</td>
+<td>K00059</td>
+<td>fabG, OAR1; 3-oxoacyl-[acyl-carrier protein] reductase [EC:1.1.1.100]</td>
+</tr>
+<tr class="even">
+<td>Fatty acid biosynthesis</td>
+<td>map00061</td>
+<td>K00208</td>
+<td>fabI; enoyl-[acyl-carrier protein] reductase I [EC:1.3.1.9 1.3.1.10]</td>
+</tr>
+<tr class="odd">
+<td>Fatty acid biosynthesis</td>
+<td>map00061</td>
+<td>K00645</td>
+<td>fabD, MCAT, MCT1; [acyl-carrier-protein] S-malonyltransferase [EC:2.3.1.39]</td>
+</tr>
+<tr class="even">
+<td>Fatty acid biosynthesis</td>
+<td>map00061</td>
+<td>K00647</td>
+<td>fabB; 3-oxoacyl-[acyl-carrier-protein] synthase I [EC:2.3.1.41]</td>
+</tr>
+<tr class="odd">
+<td>Fatty acid biosynthesis</td>
+<td>map00061</td>
+<td>K00648</td>
+<td>fabH; 3-oxoacyl-[acyl-carrier-protein] synthase III [EC:2.3.1.180]</td>
+</tr>
+<tr class="even">
+<td>Fatty acid biosynthesis</td>
+<td>map00061</td>
+<td>K00665</td>
+<td>FASN; fatty acid synthase, animal type [EC:2.3.1.85]</td>
+</tr>
+<tr class="odd">
+<td>Fatty acid biosynthesis</td>
+<td>map00061</td>
+<td>K00667</td>
+<td>FAS2; fatty acid synthase subunit alpha, fungi type [EC:2.3.1.86]</td>
+</tr>
+<tr class="even">
+<td>Fatty acid biosynthesis</td>
+<td>map00061</td>
+<td>K00668</td>
+<td>FAS1; fatty acid synthase subunit beta, fungi type [EC:2.3.1.86]</td>
+</tr>
+<tr class="odd">
+<td>Fatty acid biosynthesis</td>
+<td>map00061</td>
+<td>K01071</td>
+<td>MCH; medium-chain acyl-[acyl-carrier-protein] hydrolase [EC:3.1.2.21]</td>
+</tr>
+</tbody>
+</table>
+<p>…</p>
+<p><code>/zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/modules_to_kegg.tsv</code></p>
+<p>contains all genes that are part of a KEGG module in the order they occur within the module:</p>
+<table class="table">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 30%">
+<col style="width: 3%">
+<col style="width: 2%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module</th>
+<th>module description</th>
+<th>KO id</th>
+<th>Order</th>
+<th>KO desc</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>M00001</td>
+<td>Glycolysis (Embden-Meyerhof pathway), glucose =&gt; pyruvate</td>
+<td>K00844</td>
+<td>1</td>
+<td>HK; hexokinase [EC:2.7.1.1]</td>
+</tr>
+<tr class="even">
+<td>M00001</td>
+<td>Glycolysis (Embden-Meyerhof pathway), glucose =&gt; pyruvate</td>
+<td>K12407</td>
+<td>1</td>
+<td>GCK; glucokinase [EC:2.7.1.2]</td>
+</tr>
+<tr class="odd">
+<td>M00001</td>
+<td>Glycolysis (Embden-Meyerhof pathway), glucose =&gt; pyruvate</td>
+<td>K00845</td>
+<td>1</td>
+<td>glk; glucokinase [EC:2.7.1.2]</td>
+</tr>
+<tr class="even">
+<td>M00001</td>
+<td>Glycolysis (Embden-Meyerhof pathway), glucose =&gt; pyruvate</td>
+<td>K25026</td>
+<td>1</td>
+<td>glk; glucokinase [EC:2.7.1.2]</td>
+</tr>
+<tr class="odd">
+<td>M00001</td>
+<td>Glycolysis (Embden-Meyerhof pathway), glucose =&gt; pyruvate</td>
+<td>K00886</td>
+<td>1</td>
+<td>ppgK; polyphosphate glucokinase [EC:2.7.1.63]</td>
+</tr>
+<tr class="even">
+<td>M00001</td>
+<td>Glycolysis (Embden-Meyerhof pathway), glucose =&gt; pyruvate</td>
+<td>K08074</td>
+<td>1</td>
+<td>ADPGK; ADP-dependent glucokinase [EC:2.7.1.147]</td>
+</tr>
+<tr class="odd">
+<td>M00001</td>
+<td>Glycolysis (Embden-Meyerhof pathway), glucose =&gt; pyruvate</td>
+<td>K00918</td>
+<td>1</td>
+<td>pfkC; ADP-dependent phosphofructokinase/glucokinase [EC:2.7.1.146 2.7.1.147]</td>
+</tr>
+<tr class="even">
+<td>M00001</td>
+<td>Glycolysis (Embden-Meyerhof pathway), glucose =&gt; pyruvate</td>
+<td>K01810</td>
+<td>2</td>
+<td>GPI, pgi; glucose-6-phosphate isomerase [EC:5.3.1.9]</td>
+</tr>
+<tr class="odd">
+<td>M00001</td>
+<td>Glycolysis (Embden-Meyerhof pathway), glucose =&gt; pyruvate</td>
+<td>K06859</td>
+<td>2</td>
+<td>pgi1; glucose-6-phosphate isomerase, archaeal [EC:5.3.1.9]</td>
+</tr>
+<tr class="even">
+<td>M00001</td>
+<td>Glycolysis (Embden-Meyerhof pathway), glucose =&gt; pyruvate</td>
+<td>K13810</td>
+<td>2</td>
+<td>tal-pgi; transaldolase / glucose-6-phosphate isomerase [EC:2.2.1.2 5.3.1.9]</td>
+</tr>
+<tr class="odd">
+<td>M00001</td>
+<td>Glycolysis (Embden-Meyerhof pathway), glucose =&gt; pyruvate</td>
+<td>K15916</td>
+<td>2</td>
+<td>pgi-pmi; glucose/mannose-6-phosphate isomerase [EC:5.3.1.9 5.3.1.8]</td>
+</tr>
+<tr class="even">
+<td>M00001</td>
+<td>Glycolysis (Embden-Meyerhof pathway), glucose =&gt; pyruvate</td>
+<td>K00850</td>
+<td>3</td>
+<td>pfkA, PFK; 6-phosphofructokinase 1 [EC:2.7.1.11]</td>
+</tr>
+<tr class="odd">
+<td>M00001</td>
+<td>Glycolysis (Embden-Meyerhof pathway), glucose =&gt; pyruvate</td>
+<td>K16370</td>
+<td>3</td>
+<td>pfkB; 6-phosphofructokinase 2 [EC:2.7.1.11]</td>
+</tr>
+<tr class="even">
+<td>M00001</td>
+<td>Glycolysis (Embden-Meyerhof pathway), glucose =&gt; pyruvate</td>
+<td>K21071</td>
+<td>3</td>
+<td>pfk, pfp; ATP-dependent phosphofructokinase / diphosphate-dependent phosphofructokinase [EC:2.7.1.11 2.7.1.90]</td>
+</tr>
+<tr class="odd">
+<td>M00001</td>
+<td>Glycolysis (Embden-Meyerhof pathway), glucose =&gt; pyruvate</td>
+<td>K00918</td>
+<td>3</td>
+<td>pfkC; ADP-dependent phosphofructokinase/glucokinase [EC:2.7.1.146 2.7.1.147]</td>
+</tr>
+<tr class="even">
+<td>M00001</td>
+<td>Glycolysis (Embden-Meyerhof pathway), glucose =&gt; pyruvate</td>
+<td>K01623</td>
+<td>4</td>
+<td>ALDO; fructose-bisphosphate aldolase, class I [EC:4.1.2.13]</td>
+</tr>
+<tr class="odd">
+<td>M00001</td>
+<td>Glycolysis (Embden-Meyerhof pathway), glucose =&gt; pyruvate</td>
+<td>K01624</td>
+<td>4</td>
+<td>FBA, fbaA; fructose-bisphosphate aldolase, class II [EC:4.1.2.13]</td>
+</tr>
+<tr class="even">
+<td>M00001</td>
+<td>Glycolysis (Embden-Meyerhof pathway), glucose =&gt; pyruvate</td>
+<td>K11645</td>
+<td>4</td>
+<td>fbaB; fructose-bisphosphate aldolase, class I [EC:4.1.2.13]</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -1277,8 +1600,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/ITSx/itsx_readme.html" class="pagination-link  aria-label=" itsx"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">ITSx</span>
+      <a href="../../source/core_tools/bash-for-loops.html" class="pagination-link  aria-label=" for-loops="" in="" bash"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">For-loops in bash</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
@@ -1295,7 +1618,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2024-05-07</p>
+Last modified: 2024-05-22</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/kegg_db.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

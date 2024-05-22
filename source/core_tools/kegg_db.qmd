@@ -68,3 +68,62 @@ This directory contains the following files.
     -   eff_nseq ... effective number of sequences
     -   re/pos ... relative entropy per position
     -   definition ... KO definition
+
+### KO mapping files
+
+Next, to the `ko_list` we provide the following mapping files:
+
+`/zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/pathway_to_kegg.tsv`:
+
+contains a mapping for each KO to a pathway and looks like this:
+
+| pathway_desc            | pathway_map | KO_id  | KO_desc                                                                         |
+|-----------|-----------|-----------|--------------------------------------|
+| Mineral absorption      | map04978    | K00510 | HMOX1; heme oxygenase 1 \[EC:1.14.14.18\]                                       |
+| Mineral absorption      | map04978    | K00522 | FTH1; ferritin heavy chain \[EC:1.16.3.1\]                                      |
+| Mineral absorption      | map04978    | K01539 | ATP1A; sodium/potassium-transporting ATPase subunit alpha \[EC:7.2.2.13\]       |
+| Mineral absorption      | map04978    | K05849 | SLC8A, NCX; solute carrier family 8 (sodium/calcium exchanger)                  |
+| Mineral absorption      | map04978    | K05850 | ATP2B; P-type Ca2+ transporter type 2B \[EC:7.2.2.10\]                          |
+| Mineral absorption      | map04978    | K07213 | ATOX1, ATX1, copZ, golB; copper chaperone                                       |
+| Mineral absorption      | map04978    | K08370 | CYBRD1, Dcytb; plasma membrane ascorbate-dependent reductase \[EC:7.2.1.3\]     |
+| Mineral absorption      | map04978    | K14738 | STEAP2; metalloreductase STEAP2 \[EC:1.16.1.-\]                                 |
+| Mineral absorption      | map04978    | K14739 | MT1_2; metallothionein 1/2                                                      |
+| Mineral absorption      | map04978    | K17686 | copA, ctpA, ATP7; P-type Cu+ transporter \[EC:7.2.2.8\]                         |
+| Mineral absorption      | map04978    | K21398 | SLC11A2, DMT1, NRAMP2; natural resistance-associated macrophage protein 2       |
+| Mineral absorption      | map04978    | K21418 | HMOX2; heme oxygenase 2 \[EC:1.14.14.18\]                                       |
+| Fatty acid biosynthesis | map00061    | K00059 | fabG, OAR1; 3-oxoacyl-\[acyl-carrier protein\] reductase \[EC:1.1.1.100\]       |
+| Fatty acid biosynthesis | map00061    | K00208 | fabI; enoyl-\[acyl-carrier protein\] reductase I \[EC:1.3.1.9 1.3.1.10\]        |
+| Fatty acid biosynthesis | map00061    | K00645 | fabD, MCAT, MCT1; \[acyl-carrier-protein\] S-malonyltransferase \[EC:2.3.1.39\] |
+| Fatty acid biosynthesis | map00061    | K00647 | fabB; 3-oxoacyl-\[acyl-carrier-protein\] synthase I \[EC:2.3.1.41\]             |
+| Fatty acid biosynthesis | map00061    | K00648 | fabH; 3-oxoacyl-\[acyl-carrier-protein\] synthase III \[EC:2.3.1.180\]          |
+| Fatty acid biosynthesis | map00061    | K00665 | FASN; fatty acid synthase, animal type \[EC:2.3.1.85\]                          |
+| Fatty acid biosynthesis | map00061    | K00667 | FAS2; fatty acid synthase subunit alpha, fungi type \[EC:2.3.1.86\]             |
+| Fatty acid biosynthesis | map00061    | K00668 | FAS1; fatty acid synthase subunit beta, fungi type \[EC:2.3.1.86\]              |
+| Fatty acid biosynthesis | map00061    | K01071 | MCH; medium-chain acyl-\[acyl-carrier-protein\] hydrolase \[EC:3.1.2.21\]       |
+
+...
+
+`/zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/modules_to_kegg.tsv`
+
+contains all genes that are part of a KEGG module in the order they occur within the module:
+
+| Module | module description                                        | KO id  | Order | KO desc                                                                                                        |
+| ------ | --------------------------------------------------------- | ------ | ----- | -------------------------------------------------------------------------------------------------------------- |
+| M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K00844 | 1     | HK; hexokinase [EC:2.7.1.1]                                                                                    |
+| M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K12407 | 1     | GCK; glucokinase [EC:2.7.1.2]                                                                                  |
+| M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K00845 | 1     | glk; glucokinase [EC:2.7.1.2]                                                                                  |
+| M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K25026 | 1     | glk; glucokinase [EC:2.7.1.2]                                                                                  |
+| M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K00886 | 1     | ppgK; polyphosphate glucokinase [EC:2.7.1.63]                                                                  |
+| M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K08074 | 1     | ADPGK; ADP-dependent glucokinase [EC:2.7.1.147]                                                                |
+| M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K00918 | 1     | pfkC; ADP-dependent phosphofructokinase/glucokinase [EC:2.7.1.146 2.7.1.147]                                   |
+| M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K01810 | 2     | GPI, pgi; glucose-6-phosphate isomerase [EC:5.3.1.9]                                                           |
+| M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K06859 | 2     | pgi1; glucose-6-phosphate isomerase, archaeal [EC:5.3.1.9]                                                     |
+| M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K13810 | 2     | tal-pgi; transaldolase / glucose-6-phosphate isomerase [EC:2.2.1.2 5.3.1.9]                                    |
+| M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K15916 | 2     | pgi-pmi; glucose/mannose-6-phosphate isomerase [EC:5.3.1.9 5.3.1.8]                                            |
+| M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K00850 | 3     | pfkA, PFK; 6-phosphofructokinase 1 [EC:2.7.1.11]                                                               |
+| M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K16370 | 3     | pfkB; 6-phosphofructokinase 2 [EC:2.7.1.11]                                                                    |
+| M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K21071 | 3     | pfk, pfp; ATP-dependent phosphofructokinase / diphosphate-dependent phosphofructokinase [EC:2.7.1.11 2.7.1.90] |
+| M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K00918 | 3     | pfkC; ADP-dependent phosphofructokinase/glucokinase [EC:2.7.1.146 2.7.1.147]                                   |
+| M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K01623 | 4     | ALDO; fructose-bisphosphate aldolase, class I [EC:4.1.2.13]                                                    |
+| M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K01624 | 4     | FBA, fbaA; fructose-bisphosphate aldolase, class II [EC:4.1.2.13]                                              |
+| M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K11645 | 4     | fbaB; fructose-bisphosphate aldolase, class I [EC:4.1.2.13]                                                    |
