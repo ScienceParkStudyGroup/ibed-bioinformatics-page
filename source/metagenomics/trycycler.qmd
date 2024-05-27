@@ -1,0 +1,75 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## Trycycler
+
+### Introduction
+
+Trycycler is a tool for generating consensus long-read assemblies for bacterial genomes [@wick2021]. I.e. if you have multiple long-read assemblies for the same isolate, Trycycler can combine them into a single assembly that is better than any of your inputs.
+
+Long-read assembly has come a long way in the last few years, and there are many good assemblers available, including Canu, Flye, Raven and Redbean. Since bacterial genomes are relatively simple (not too large and not too many repeats), a completed assembly (one contig per replicon) is often possible when assembling long reads. But even the best assemblers are not perfect and how do we decide what the best assembler for your purposes is? 
+
+Trycycler is a tool that takes as input multiple separate long-read assemblies of the same genome (e.g. from different assemblers or different read subsets) and produces a consensus long-read assembly.
+
+In brief, Trycycler does the following:
+
+- Clusters the contig sequences, so the user can distinguish complete contigs (i.e. those that correspond to an entire replicon) from spurious and/or incomplete contigs.
+- Reconciles the alternative contig sequences with each other and repairs circularisation issues.
+- Performs a multiple sequence alignment (MSA) of the alternative sequences.
+- Constructs a consensus sequence from the MSA by choosing between variants where the sequences differ.
+
+For a detailed usage information, deeper explanations and more, head over to the [Trycycler wiki](https://github.com/rrwick/Trycycler/wiki).
+
+### Installation
+
+Installed on crunchomics: Yes,
+
+-   Trycycler v0.5.5 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).
+-   This installation also comes with several assemblers: [Flye](https://scienceparkstudygroup.github.io/software_information/source/metagenomics/flye.html), Raven, Unicyler and miniasm/minipolish. If you want to use any of these assemblers independent of Trycycler, you can do so by simply activating the conda environment
+-   You can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+Afterwards, you can activate the environment with:
+
+```{bash}
+conda activate trycycler_0.5.5
+```
+
+If you want to install it yourself, you can run:
+
+```{bash}
+mamba create -c bioconda -c conda-forge --name trycycler_0.5.5 trycycler=0.5.5
+
+#add different assemblers into the conda env
+mamba activate trycycler_0.5.5
+
+mamba install -c bioconda flye
+
+pip3 install git+https://github.com/rrwick/Minipolish.git
+wget https://raw.githubusercontent.com/rrwick/Minipolish/main/miniasm_and_minipolish.sh -O <path-to-trycyler-conda-environment>/trycycler_0.5.5/bin/miniasm_and_minipolish.sh 
+chmod +x /zfs/omics/projects/bioinformatics/software/miniconda3/envs/trycycler_0.5.5/bin/miniasm_and_minipolish.sh
+mamba install -c bioconda any2fasta
+
+mamba install -c bioconda raven-assembler
+
+mamba install -c bioconda unicycler
+
+conda deactivate
+```
+
+### Usage
+
+The Trycyler assembly approach consists of multiple steps, and we strongly recommend that the users follows the [step-by-step manual](https://github.com/rrwick/Trycycler/wiki/How-to-run-Trycycler).
+
+Additionally, you can find an example how a microbial genome was assembled [here](https://github.com/ndombrowski/j4_assembly). This tutorial starts with raw Nanopore data and includes information how to do quality cleaning, assembly with 4 different assemblers, combining the different assemblies with Trycycler, polishing the assembly and assessing the assembly quality.

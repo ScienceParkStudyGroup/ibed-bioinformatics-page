@@ -215,5 +215,8 @@
   },
   "source/metagenomics/atlas.qmd": {
     "atlas.html": "d75bd4d5"
+  },
+  "source/metagenomics/trycycler.qmd": {
+    "trycycler.html": "e6687362"
   }
 }

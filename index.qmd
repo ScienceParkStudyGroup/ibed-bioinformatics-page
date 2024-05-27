@@ -83,6 +83,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 -   [Samtools](source/core_tools/samtools.qmd): A tool to manipulating alignments in SAM/BAM format
 -   [SeqKit](source/core_tools/seqkit.qmd): A tool for FASTA/Q file manipulation
 -   [SortMerNa](source/metatranscriptomics/sortmerna.qmd): A tool to filter ribosomal RNAs in metatranscriptomic data
+-   [Trycyler](source/metagenomics/trycycler.qmd): A tool for generating consensus long-read assemblies for bacterial genomes
 -   [Trinity](source/metatranscriptomics/trinity.qmd): A tool to assemble transcript sequences from Illumina RNA-Seq data   
 
 
