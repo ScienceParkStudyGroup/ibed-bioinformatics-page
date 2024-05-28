@@ -35,6 +35,9 @@ execute:
 engine: knitr
 ---
 
+<div style="text-align: justify">
+
+
 # Analysing OTU tables with R
 
 The goal of this tutorial is to analyse 16S rRNA gene data. Our input file is an OTU/ASV table that already contains some taxa information and will go through the following steps:
@@ -48,11 +51,17 @@ In the example we look at an OTU table of 28 samples. These 28 samples represent
 
 If you want to follow this tutorial, then you can find the required input files [here](https://github.com/ScienceParkStudyGroup/software_information/tree/main/source/Qiime/input). 
 
+::: {.callout-note}
+This tutorial covers only a small fraction of the possible methods for filtering, normalizing, and analyzing OTU tables. There are many alternative approaches and additional steps that can be taken based on your specific data and research questions.
+
+See this tutorial as a starting point for your analyses and ensure that you check out other resources as well!
+:::
+
 ## Setup
 
-We start with setting a seed seed for normalization protocol. 
+We start with setting a seed seed for the normalization protocol. 
 
-Setting a set is not essential but this way we make sure that we get the same results when normalizing our OTU table. If we randomly select some observations for any task in R or in any statistical software it results in different values all the time and this happens because of randomization. If we want to keep the values that are produced at first random selection then we can do this by storing them in an object after randomization or we can fix the randomization procedure so that we get the same results all the time.
+Setting a set is not essential but this way we make sure that we get the same results when normalizing our OTU table. If we randomly select some observations for any task in R, this results in different values all the time because of randomization. If we want to keep the values that are produced at first random selection then we can do this by storing them in an object after randomization or we can fix the randomization procedure so that we get the same results all the time.
 
 ```{r}
 #check if wdir is correct
@@ -97,6 +106,7 @@ library(gridExtra) #organizing multiple plots
 library(scales) #plot aesthetic, comma setting
 library(DAtest) #stats, tba
 library(metagenomeSeq) # stats
+library(dendextend) #control colors for dendrograms
 ```
 
 
@@ -156,6 +166,38 @@ summarize_table <- function(df) {
   cat("Percentage of reads for OTUs with less than 10 seqs:",  sprintf("%.2f%%", perc_reads_less_than_10), "\n")
   
 }
+
+# Flexible function to create a faceted plot for multiple phyloseq objects
+plot_faceted_phyloseq <- function(...) {
+  # Capture the list of phyloseq objects and their method names
+  physeq_list <- list(...)
+  
+  # Initialize an empty data frame to store the combined data
+  combined_df <- data.frame(Sample = character(), Sums = numeric(), Method = character())
+
+  # Iterate over the list and extract sample sums for each phyloseq object
+  for (name in names(physeq_list)) {
+    physeq_obj <- physeq_list[[name]]
+    sample_sums_df <- data.frame(Sample = names(sample_sums(physeq_obj)),
+                                 Sums = sample_sums(physeq_obj),
+                                 Method = name)
+    combined_df <- bind_rows(combined_df, sample_sums_df)
+  }
+
+  # Set the factor levels for 'Method' in the order they were provided
+  combined_df$Method <- factor(combined_df$Method, levels = names(physeq_list))
+
+  # Create the faceted plot
+  p <- ggplot(combined_df, aes(x = Sample, y = Sums)) +
+    geom_bar(stat = "identity") +
+    facet_wrap(~ Method, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+    xlab("Sample") +
+    ylab("Sample Sums") +
+    ggtitle("Faceted Plot of Sample Sums")
+
+  return(p)
+}
 ```
 
 
@@ -172,11 +214,11 @@ An OTU table contains a column with the OTUs (taxonomic ranks in our case) and o
 |Bacteria;Acidobacteria;Acidobacteriia;Solibacterales;Solibacteraceae (Subgroup 3);PAUC26f|0|5|3|1|
 
 ::: {.callout-note}
-If you follow this tutorial, ensure that your otu table is in a folder called input and that this folder is located where your R script is. If your otu table is somewhere else, change the path stored in `filepaths` accordingly.
+If you follow this tutorial, ensure that your OTU table is in a folder called input and that this folder is located where your R script is. If your OTU table is somewhere else, change the path stored in `filepaths` accordingly.
 :::
 
 ```{r}
-#provide the path to the otu table
+#provide the path to the OTU table
 file_paths <- c("input/otu_table.txt")
 
 #read in otu table
@@ -186,7 +228,7 @@ colnames(merged_otu_table)[1] <- "taxid"
 #replace NA with 0
 merged_otu_table[is.na(merged_otu_table)] <- 0
 
-#use the taxon as rownames
+#use the taxonID (or OTU IT) as rownames
 rownames(merged_otu_table) <- merged_otu_table$taxid
 merged_otu_table$taxid <- NULL
 
@@ -269,10 +311,10 @@ head(metadata_combined)
 
 ## Generate taxonomy file
 
-Next, we generate a table that list the taxonomy information for each taxonomic rank. We do this by taking the information from our OTU table. Depending on how you analysed your 16S rRNA gene sequences, you might have: 
+Next, we generate a table that lists the taxonomy information for each taxonomic rank. We do this by taking the information from our OTU table. Depending on how you analysed your 16S rRNA gene sequences, you might have: 
 
-- an OTU table with the taxonomy information as row names instead of IDs. That is what we are working with for this tutorial 
-- an OTU table with IDs (ASV1, ASV2, ... or OTU1, OTU2, ...) and a separate table with the taxonomy information. If that is the case, you can read in the taxonomy information separate  
+- an OTU table with the taxonomy information as row names instead of IDs. That is what we are working with for this tutorial. In our case, the different taxonomic ranks are separated with a semicolon 
+- an OTU table with IDs (ASV1, ASV2, ... or OTU1, OTU2, ...) and a separate table with the taxonomy information. If that is the case, you can read in the taxonomy information separately  
 
 ```{r}
 #extract taxonomy information and convert to separate df
@@ -328,7 +370,7 @@ Notice that another definition of singletons can be as taxa/OTU present in a sin
 In amplicon data analysis it is useful to remove reads with low counts because they are very likely due to sequencing errors. Here, we make the assumption that sequencing errors are independent and randomly distributed and that erroneous sequences will occur much less often than a biologically true sequence. For our analyses not to be affected by potentially erroneous sequences we will remove them during the data filtering step.
 
 
-### Explore the OTU counts
+### Explore the OTU counts (optional)
 
 Next, we calculate the cumulative counts of our reads to get a feeling for how much data we would loose if we remove singletons, doubletons, etc. To do this, we calculate something like this:
 
@@ -496,7 +538,7 @@ Next, we filter the data. Specifically, we:
 - Remove samples with total read counts less than 20. This cutoff is arbitrary and depends a bit on your data. To choose a good value, explore the read counts you have per sample and define a cutoff based on that. In this example, we mainly want to remove the two low read samples we have seen in our plot.  
 - Remove low count OTUs: The threshold is up to you; removing singletons or doubletons is common, but you can be more conservative and remove any counts less than 5 or 10, ... . To decide on a cutoff you can look at the plots we generated before to get a feeling for how many OTUs/reads will be removed.  
 
-In our example, we want to remove samples with 20 or less reads, remove singletons only and remove OTUs that occur in less than 10% of our samples (v1). Since there are many different thoughts about OTU table filtering, you can also find two other options (v2 and v3) on how to filter a table.
+In our example, we want to remove samples with 20 or less reads, remove singletons only and remove OTUs that occur in less than 10% of our samples (v1). Since there are many different thoughts about OTU table filtering, you can also find two other options (v2 and v3) on how to filter a table and feel free to use your own judgement on how to best filter the data.
 
 For most analyses we will work with the filtered data but there are some diversity metrics which rely on the presence of singletons within a sample (richness estimates, i.e. Chao), so you might choose to leave them in for those sorts of analyses only. 
 
@@ -506,13 +548,16 @@ counts_per_sample <- 20
 otu_nr_cutoff <- 1
 min_percentage_samples <- 10
 
-#remove taxa without tax assignment at Phylum rank
-physeq_filt <- subset_taxa(physeq, Phylum != "NA")
-
 #remove samples with less than 20 reads
-physeq_filt <- prune_samples(sample_sums(physeq)>= counts_per_sample, physeq)
+#if we view the physeq_filt, we see that 2 samples get removed because the have a low read count
+physeq_pruned <- prune_samples(sample_sums(physeq)>= counts_per_sample, physeq)
+
+#remove taxa without tax assignment at Phylum rank
+#if we view the physeq_filt, we see that 9 taxa get removed because they are not assigned at Phylum rank
+physeq_filt <- subset_taxa(physeq_pruned, Phylum != "NA")
 
 #calculate the minimum number of samples an otu should be present in
+#in our case, an OTU should be at least be in 3 samples to be considered (notice, that this will remove singletons and doubletons)
 min_samples <- ceiling((min_percentage_samples / 100) * nsamples(physeq_filt))
 
 #remove otus that occur only rarely (v1)
@@ -548,17 +593,20 @@ summarize_table(reads_per_OTU_filt)
 ```
 
 
-
 ## Normalize data
 
 Below, we generate three new phyloseq objects using three different normalization approaches:  
-1. *Compositional**: transforms the data into relative abundance  
-2. *CLR**: stands for centered log-ratio transform and allows us to compare proportions of OTUs within each sample. After this transformation the values will no longer be counts, but rather the dominance (or lack thereof) for each taxa relative to the geometric mean of all taxa on the logarithmic scale  
-3. *Rarefaction**: scales all of your reads down to the lowest total sequencing depth. Notice, that this might drop many OTUs in higher read samples and might lead to under-estimation of low-abundant OTUs. Here, we use the non-filtered data as rarefaction expects singletons, and for that purpose they should be retained, unless you have reason to think they are wrong (and which of them are wrong). Depending on whether you want to filter taxa (such as chloroplast), you might want to filter those before doing rarefaction.
+1. **Compositional**: transforms the data into relative abundance  
+2. **CLR**: stands for centered log-ratio transform and allows us to compare proportions of OTUs within each sample. After this transformation the values will no longer be counts, but rather the dominance (or lack thereof) for each taxa relative to the geometric mean of all taxa on the logarithmic scale  
+3. **Rarefaction**: scales all of your reads down to the lowest total sequencing depth. Notice, that this might drop many OTUs in higher read samples and might lead to under-estimation of low-abundant OTUs. Here, we use the non-filtered data as rarefaction expects singletons, and for that purpose they should be retained, unless you have reason to think they are wrong (and which of them are wrong). Depending on whether you want to filter taxa (such as chloroplast), you might want to filter those before doing rarefaction.
 
 Generating different phyloseq objects for different normalization approaches allows us to easily compare analysis steps with different inputs. 
 
-If you want to familiarize yourself more about why and how to normalize data, feel free to check out the following resources that give some more insights into the topic. As you will see, there is a lot of debate about data treatment and you might want to test and compare different approaches with your data.
+**Important Note**
+
+If you want to familiarize yourself more about why and how to normalize data, feel free to check out the following resources that give some more insights into the topic. As you will see, there are many different ways to normalize OTU tables, and there is a lot of debate about data treatment. It is crucial to test and compare different approaches with your data.
+
+Also keep in mind that this tutorial provides an introduction to some common normalization methods, but it does not cover all possibilities. You might need to explore different methods depending on the specifics of your dataset and research goals.
 
 - [Microbiome Datasets Are Compositional: And This Is Not Optional](https://www.frontiersin.org/articles/10.3389/fmicb.2017.02224)
 - [Understanding sequencing data as compositions: an outlook and review](https://doi.org/10.1093/bioinformatics/bty175)
@@ -570,8 +618,36 @@ If you want to familiarize yourself more about why and how to normalize data, fe
 ```{r, message=FALSE}
 physeq_rel_abundance <- microbiome::transform(physeq_filt, "compositional")
 physeq_clr <- microbiome::transform(physeq_filt, "clr")
-physeq_rarified <- rarefy_even_depth(physeq)
+
+#for physeq we run this one the pruned samples, in which we removed low-count samples
+physeq_rarified <- rarefy_even_depth(physeq_pruned)
 ```
+
+Notice:
+
+If you compare the `physeq_filt` with the newly generated tables, we see that the first two still contain 1016 taxa found across 26 samples. For the rarefied data, we work with ~800 taxa across 26 samples and since we lost some low abundant OTUs we work with less OTUs. We can quickly summarize this as well:
+
+```{r}
+#calculate the number of reads found per otu
+reads_per_OTU_filt <- taxa_sums(physeq_rarified)
+
+#summarize the data
+summarize_table(reads_per_OTU_filt)
+```
+
+If we plot the sums of each sample, we see that the rarefied data normalized to counts of approximately 900 while during  the relative abundance normalization the data was "scaled" to 0-1 (or 0-100%). The CLR-transformed data looks quite different because, after CLR transformation, we no longer work with raw counts. Instead, we focus on the dominance of taxa relative to the geometric mean of all taxa in a sample. This results in values like -2.1, 0.4, and 6.2, which makes plotting sample sums less meaningful. CLR is useful for comparing the relative abundance of taxa within each sample but not for direct comparisons of sample sums.
+
+```{r}
+faceted_plot <- plot_faceted_phyloseq(
+  Raw = physeq_pruned,
+  Rarified = physeq_rarified,
+  `Relative Abundance` = physeq_rel_abundance,
+  CLR = physeq_clr
+)
+
+faceted_plot
+```
+
 
 
 ## Visualize the data
@@ -586,10 +662,11 @@ In our dataset below, we will use the unfiltered data, since rarefaction is high
 
 
 ```{r}
-#create a df from our otu table
-df <- as.data.frame(otu_table(physeq))
+#create a df from the pruned otu table
+df <- as.data.frame(otu_table(physeq_pruned))
 
 #rarefy data with a step size of 50, using tidy = TRUE will return a dataframe instead of a plot
+#the step size in the rarefaction function can affect the smoothness of your curves. A smaller step size provides more detailed curves but increases computation time.
 df_rare <- rarecurve(t(df), step=50, cex=0.5, label = FALSE, tidy = TRUE)
 
 #add metadata
@@ -615,7 +692,26 @@ plot_rare <-
 plot_rare
 ```
 
-In this example we can see that almost none of the sample reach a plateau, RH is the closest but not there yet. This suggests that we mainly sampled the abundant members of our community and might miss many rare taxa. This is something to keep in mind for other analyses, such as alpha diversity analyses.
+In this example we can see that almost none of the samples reach a plateau, RH is the closest but not there yet. This suggests that we mainly sampled the abundant members of our community and might miss many rare taxa. This is something to keep in mind for other analyses, such as alpha diversity analyses.
+
+
+### Hierarchical clustering
+
+Hierarchical clustering allows to examine how samples cluster on some measure of taxonomic (dis)similarity. As always, there are many ways to do this and below we see one way by clustering samples based on their Bray-Curtis dissimilarity. Very simplyy, if a two samples share fewer taxa then we will the dissimilarity will increase. The Bray-Curtis dissimilarity is zero for samples that have the exact same composition and one for those sharing no taxa.
+
+```{r}
+bray <- phyloseq::distance(physeq_rel_abundance, method="bray", type="samples")
+ward <- as.dendrogram(hclust(bray, method = "ward.D2"))
+
+#Provide color codes
+meta <- data.frame(phyloseq::sample_data(physeq_rel_abundance))
+colorCode <- c(wood = "brown", paper = "blue", mix = "black")
+labels_colors(ward) <- colorCode[meta$treatment][order.dendrogram(ward)]
+
+plot(ward)
+```
+
+In this example, we do not see samples from the same treatment clustering together.
 
 
 
@@ -623,14 +719,14 @@ In this example we can see that almost none of the sample reach a plateau, RH is
 
 Alpha diversity measures the diversity within our sample and we distinguish between species richness (i.e. the number of species) and species richness (i.e. how relatively abundant each of the species are). 
 
-Something to keep in mind: Some richness-based alpha diversity metrics require singletons to estimate OTUs/ASVs observed zero times in the data. These methods try to to estimate how many rare things are around that you didn't see, and the rare things you did see (that inform you about the unseen others) will be seen 1 or 2 times. Different methods (e.g. rarefaction or Chao's S1) all have that basic dependence.
+Something to keep in mind: Generally, richness-based alpha diversity metrics require singletons to estimate OTUs/ASVs observed zero times in the data. These methods try to to estimate how many rare things are around that you didn't see, and the rare things you did see (that inform you about the unseen others) will be seen 1 or 2 times. Different methods (e.g. rarefaction or Chao's S1) all have that basic dependence.
 
-However, working with sequencing data we have one caveat: Some sequences are being miss classified as new OTUs/ASVs that simply don't really exist. More specifically, errors/chimeras/artefacts/contaminants get interpreted as real OTUs (because they are different enough) and those show up largely in the singleton/doubletons and can almost entirely drive richness estimates to nonsensical values.
+However, working with sequencing data we have one caveat: Some sequences are being missclassified as new OTUs/ASVs that simply don't really exist. More specifically, errors/chimeras/artefacts/contaminants get interpreted as real OTUs (because they are different enough) and those show up largely in the singleton/doubletons and can almost entirely drive richness estimates to nonsensical values. Therefore, interpret your results carefully when using `physeq_rarified`
 
 
 ```{r, message=FALSE}
 #calculate different alpha diversity indicators
-richness_meta <-microbiome::alpha(physeq_filt, index = "all")
+richness_meta <-microbiome::alpha(physeq_rarified, index = "all")
 
 #add the sample id to table
 richness_meta$sample_id <- rownames(richness_meta)
@@ -642,20 +738,21 @@ richness_meta  <- merge(richness_meta, metadata_combined, by = "sample_id")
 colnames(richness_meta)
 ```
 
-Next, we can generate a plot. Based on our discussion on singletons and since we calculated the diversity estimates after removing singletons, we will look at evenness indices, such as the Shannon index.
+Next, we can generate a plot. Based on our discussion on singletons keep in mind that if you used `physeq_filt` to calculate diversity estimates after removing singletons, then you should focus on evenness indices, such as the Shannon index.
 
 ```{r}
-#generate figure
+#Plot adiv measures
 alpha_plot <-
-  ggplot(richness_meta, aes(x = treatment, y = diversity_shannon)) +
-    geom_boxplot() +
-    geom_jitter(aes(color = Date), width = 0.2, size = 4) +
-    #geom_text(aes(label = sample_id, x = treatment, y = diversity_shannon), 
-    #      position = position_jitter(width = 0.2, height = 0.2), 
-    #      hjust = -0.5, vjust = -0.5, size = 3) +
-    labs(x = "", y = "Shannon index") +
-    custom_theme() +
-    theme(legend.key=element_blank())
+richness_meta %>%
+  gather(key = metric, value = value, c("observed", "evenness_simpson", "diversity_shannon")) %>%
+  mutate(metric = factor(metric, levels = c("observed", "evenness_simpson", "diversity_shannon"))) %>%
+  ggplot(aes(x = treatment, y = value)) +
+  geom_boxplot(outlier.color = NA) +
+  geom_jitter(aes(color = Date), height = 0, width = .2) +
+  labs(x = "", y = "") +
+  facet_wrap(~ metric, scales = "free") +
+  #geom_text(aes(label = sample_id), vjust = -1, hjust = 1, size = 3, color = "black") +
+  theme(legend.position="none")
 
 alpha_plot
 
@@ -663,7 +760,8 @@ alpha_plot
 #ggsave(paste0("results/plots/alpha-div.png"), plot=alpha_plot, device="png")
 ```
 
-We see that there is not a difference in terms of species evenness when comparing our different samples but that we have one sample with a very low shannon index. When we uncommented the code with `geom_text`, we can see that the sample with a low index is BB, one of the samples with the low read counts.
+We see that there is no difference when comparing our different samples but that we have some samples with low indices. When we remove the `#` before the code chunk starting with `geom_text`, we can see that samples with a low index are often the samples with a low read count such as BB in the Shannon plot if we check these via `sample_counts[sample_counts$sampleID == "BB", ]`.
+
 
 
 ### Explore beta diversity
@@ -678,21 +776,22 @@ Commonly used beta-diversity measures include the:
 - Unifrac distance (that takes into account the phylogenetic tree information)  
 - ...  
 
-In general it is best to avoid methods that use Euclidean distance as microbiome data are compositional, sparse datasets and better suited for the above mentioned methods. Aitchison is an exception as it calculates an Euclidean distance only after clr transformation (after which our data is suited for an Euclidean space).  
+In general it is best to avoid methods that use Euclidean distance as microbiome data are compositional and represent sparse datasets that are better suited for the above mentioned methods. Aitchison is an exception as it calculates an Euclidean distance only after clr transformation (after which our data is suited for an Euclidean space).  
 
-The methods above generate distance matrices, which can then be used for ordination,which we use to reduce the dimensionality of our data for a more efficient analysis and visualization. Based on the type of algorithm, ordination methods can be divided in two categories:   
+The methods above generate distance matrices that can be used for ordination, which we use to reduce the dimensionality of our data for a more efficient analysis and visualization. Based on the type of algorithm, ordination methods can be divided in two categories:   
 
 - unsupervised, which measure variation in the data without additional information on co-variates or other supervision of the model, including:  
      - Principal Coordinate Analysis (PCoA)  
      - Principal Component Analysis (PCA)   
      - Uniform Manifold Approximation and Projection for Dimension Reduction (UMAP)  
+     - Non-metric Multidimensional Scaling (NMDS)
 - supervised ordination:   
      - distance-based Redundancy Analysis (dbRDA)  
 
 
 #### Bray-Curtis
 
-For Bray-Curtis our data should not have negative entries, so we will use the relative abundance (alternatively, you could also look at the rarefied) data:
+For Bray-Curtis our data should not have negative entries, so we will use the relative abundance physeq object (alternatively, you could also look at the rarefied) data:
 
 ```{r}
 #calculate PCOA using Phyloseq package
@@ -700,7 +799,7 @@ pcoa_bc <- ordinate(physeq_rel_abundance, "PCoA", "bray")
 evals <- pcoa_bc$values$Eigenvalues
 
 plot_beta <-
-  plot_ordination(physeq_rarified, pcoa_bc, color = "treatment") + 
+  plot_ordination(physeq_rel_abundance, pcoa_bc, color = "treatment") + 
     geom_point(size = 3) +
     labs(x = sprintf("PCoA1 [%s%%]", round(evals/sum(evals)*100,1)[1]),
          y = sprintf("PCoA2 [%s%%]", round(evals/sum(evals)*100, 2)[2])) +
@@ -717,13 +816,36 @@ We can also perform our statistics to confirm this visual finding:
 
 ```{r}
 #Generate distance matrix
-rare_dist_matrix <- phyloseq::distance(physeq_rel_abundance, method = "bray") 
+dist_matrix <- phyloseq::distance(physeq_rel_abundance, method = "bray") 
 
 #ADONIS test
-adonis2(rare_dist_matrix ~ phyloseq::sample_data(physeq_rel_abundance)$treatment, permutations=9999, method="bray")
+adonis2(dist_matrix ~ phyloseq::sample_data(physeq_rel_abundance)$treatment, permutations=9999, method="bray")
 ```
 
-We see that the Pr is greater than 0.005, confirming that there do not seem to be any statistically significant differences between our samples.
+We see that the Pr is greater than 0.05, confirming that there do not seem to be any statistically significant differences between our samples.
+
+
+#### NMDS
+
+```{r, message=FALSE, warning=FALSE, output=FALSE, error=FALSE}
+#NMDS via phyloseq
+ord_nmds <- phyloseq::ordinate(physeq_rel_abundance, method="NMDS", distance = "bray")
+```
+
+```{r}
+#view stress value
+#a value above 0.2 is deemed suspect and a stress value approaching 0.3 indicates that the ordination is arbitrary.
+ord_nmds$stress
+
+plot_nmds <-
+  plot_ordination(physeq_rel_abundance, ord_nmds, color = "treatment") + 
+    geom_point(size = 3) +
+    stat_ellipse(aes(group = treatment), linetype = 2) +
+    custom_theme()
+
+plot_nmds
+```
+
 
 
 #### Aitchison
@@ -733,7 +855,7 @@ Next, we generate a beta-diversity ordination using the Aitchison distance as an
 ```{r}
 #PCA via phyloseq
 #RDA without constraints is a PCA
-ord_clr <- phyloseq::ordinate(physeq_clr, "RDA")
+ord_clr <- phyloseq::ordinate(physeq_clr, method = "RDA", distance = "bray")
 
 #Plot scree plot to plot eigenvalues, i.e.the total amount of variance that can be explained by a given principal component
 phyloseq::plot_scree(ord_clr) + 
@@ -766,6 +888,9 @@ clr_dist_matrix <- phyloseq::distance(physeq_clr, method = "euclidean")
 #ADONIS test
 adonis2(clr_dist_matrix ~ phyloseq::sample_data(physeq_clr)$treatment, permutations=9999, method="bray")
 ```
+
+
+
 
 
 
