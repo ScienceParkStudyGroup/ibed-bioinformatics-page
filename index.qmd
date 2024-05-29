@@ -71,6 +71,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 -   [METABOLIC](source/metagenomics/metabolic.qmd): A tool to predict functional trait profiles in genome datasets
 -   [MOTUS](source/metagenomics/motus.qmd): A tool to estimate microbial abundances in Illumina and Nanopore sequencing data
 -   [Minimap2](source/classification/minimap2.qmd): A program to align DNA or mRNA sequences against a reference database
+-   [MultiQC](source/metagenomics/multiqc.qmd): A program to summarize analysis reports
 -   [NanoClass2](source/nanopore/nanoclass.qmd): A taxonomic meta-classifier for long-read 16S/18S rRNA gene sequencing data
 -   [NanoITS](source/nanopore/nanoITS.qmd): A taxonomic meta-classifier for long-read ITS operon sequencing data
 -   [Nanophase](source/nanopore/nanophase_how_to.qmd): A pipeline to generate MAGs using Nanopore long and Illumina short reads from metagenomes

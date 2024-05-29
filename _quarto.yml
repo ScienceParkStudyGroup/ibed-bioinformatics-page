@@ -88,6 +88,7 @@ website:
           - section: "Quality control"
             contents:
               - source/metagenomics/fastqc_readme.qmd
+              - source/metagenomics/multiqc.qmd
               - source/metatranscriptomics/fastp.qmd
 
           - section: "Sequence alignment"

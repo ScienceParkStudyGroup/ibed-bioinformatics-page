@@ -218,5 +218,8 @@
   },
   "source/metagenomics/trycycler.qmd": {
     "trycycler.html": "e6687362"
+  },
+  "source/metagenomics/multiqc.qmd": {
+    "multiqc.html": "6b553fb1"
   }
 }
