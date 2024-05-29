@@ -18,11 +18,18 @@ FastP is a tool designed to provide fast all-in-one preprocessing for FastQ file
 -   [Manual](https://github.com/OpenGene/fastp)
 -   [Paper](https://doi.org/10.1093/bioinformatics/bty560). Please do not forget to cite the paper whenever you use the software [@chen2023].
 
-Available on Crunchomics: Yes, v0.23.2
-
 ### Installation
 
-FastP can be easily installed with conda/mamba
+Installed on crunchomics: Yes,
+
+- FastP v0.23.4 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to  [Nina Dombrowski](n.dombrowski@uva.nl). 
+- Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run:
 
 ```{bash}
 mamba create -n fastp
@@ -72,4 +79,3 @@ fastp \
 mamba deactivate
 ```
 
-### References
