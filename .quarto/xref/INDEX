@@ -221,5 +221,8 @@
   },
   "source/metagenomics/multiqc.qmd": {
     "multiqc.html": "6b553fb1"
+  },
+  "source/metatranscriptomics/ribodetector.qmd": {
+    "ribodetector.html": "e8663707"
   }
 }

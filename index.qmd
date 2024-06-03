@@ -81,6 +81,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 -   [Prokka](source/core_tools/prokka.qmd): A tool to annotate bacterial, archaeal and viral genomes
 -   [Pseudofinder](source/metagenomics/pseudofinder.qmd): A tool that detects pseudogene candidates from annotated genbank files of bacterial and archaeal genomes
 -   [QUAST](source/metagenomics/quast.qmd): A Quality Assessment Tool for Genome Assemblies
+-   [Ribodetector](source/metatranscriptomics/ribodetector.qmd): Detect and remove rRNA sequences from metagenomic, metatranscriptomic, and ncRNA sequencing data
 -   [Samtools](source/core_tools/samtools.qmd): A tool to manipulating alignments in SAM/BAM format
 -   [SeqKit](source/core_tools/seqkit.qmd): A tool for FASTA/Q file manipulation
 -   [SortMerNa](source/metatranscriptomics/sortmerna.qmd): A tool to filter ribosomal RNAs in metatranscriptomic data

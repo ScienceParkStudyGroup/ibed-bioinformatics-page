@@ -125,6 +125,7 @@ website:
           - section: "(Meta)transcriptomics"
             contents:
               - source/metatranscriptomics/sortmerna.qmd
+              - source/metatranscriptomics/ribodetector.qmd
               - source/metatranscriptomics/trinity.qmd
               - source/core_tools/bowtie.qmd
               - source/core_tools/samtools.qmd

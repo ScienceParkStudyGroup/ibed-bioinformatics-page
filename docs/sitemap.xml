@@ -114,7 +114,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
-    <lastmod>2024-05-29T05:41:59.232Z</lastmod>
+    <lastmod>2024-06-03T11:59:34.721Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/Qiime/3_evelyn_tutorial_notes.html</loc>
@@ -243,5 +243,9 @@
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/multiqc.html</loc>
     <lastmod>2024-05-29T05:37:13.979Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metatranscriptomics/ribodetector.html</loc>
+    <lastmod>2024-06-03T11:59:30.795Z</lastmod>
   </url>
 </urlset>
