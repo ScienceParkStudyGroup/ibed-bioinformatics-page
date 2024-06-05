@@ -296,6 +296,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/multiqc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MultiQC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/metatranscriptomics/fastp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FastP</span></a>
   </div>
@@ -412,6 +418,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/trycycler.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trycycler</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/checkm2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">CheckM2</span></a>
   </div>
@@ -461,6 +473,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../source/metatranscriptomics/sortmerna.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SortMeRNA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/ribodetector.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ribodetector</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -672,15 +690,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="nanoits">NanoITS</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>NanoITS is a classifier for long-read Oxford Nanopore data of the eukaryotic 18S/SSU-ITS1 operon.</p>
+<p>NanoITS is a classifier for long-read Oxford Nanopore data of the eukaryotic 18S/SSU-ITS1/2 operon.</p>
 <p>When giving the tool some nanopore long-read data it will:</p>
 <ul>
 <li>Provide a quality report of the raw reads</li>
 <li>Check the reads for adapters and barcodes and if present trim the reads</li>
 <li>Remove low-quality and short reads</li>
 <li>Provide a quality report for the cleaned reads</li>
-<li>Identify and separate both the ITS1 and 18S rRNA gene using the Uniprot and Silva database, respectively</li>
-<li>Classify the SSU and/or ITS1 gene using kraken2 and/or minimap2</li>
+<li>Identify and separate the ITS1, ITS2 and 18S rRNA gene using the Uniprot and Silva database, respectively</li>
+<li>Classify the SSU, ITS2 and/or ITS1 gene using kraken2 and/or minimap2</li>
 <li>Generate taxonomic barplots and OTU tables</li>
 </ul>
 <p>For a more detailed explanation, check out <a href="https://ndombrowski.github.io/NanoITS/">the manual</a>.</p>
@@ -695,7 +713,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>cd <span class="op">&lt;</span>path_to_install_software<span class="op">&gt;</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>git clone https:<span class="op">//</span>github.com<span class="op">/</span>ndombrowski<span class="op">/</span>NanoITS.git</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>mv NanoITS<span class="op">/</span> NanoITS_0<span class="fl">.3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>mv NanoITS<span class="op">/</span> NanoITS_0<span class="fl">.4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Provide your sample names and path to the samples as a comma-separated file, for example, a file looking similar as the one provided in <code>example_files/mapping.csv</code>. Sample names should be unique and consist of letter, numbers and <code>-</code> only. The barcode column can be left empty as it is not yet implemented. The path should contain the path to your demultiplexed, compressed fastq file.</p>
 <p>Adjust <code>config/config.yaml</code> to configure the location of your mapping file as well as specify the parameters used by NanoITs.</p>
@@ -732,7 +750,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Get the config.yaml file:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#copy config yaml (comes with NanoITS) </span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /zfs/omics/projects/amplicomics/bin/NanoITS_0.3/config/config.yaml .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /zfs/omics/projects/amplicomics/bin/NanoITS_0.4/config/config.yaml .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The config.yaml tells NanoITS how you want to run the software and how to find the sequencing data. <strong>Start by opening the config.yaml with an editor, such as nano. There are several things you can modify:</strong></p>
 <p><strong>The project name</strong></p>
@@ -742,7 +760,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>The classifiers to use</strong></p>
 <p>You can choose what classifiers you want to use in <code>classifiers: ["minimap2", "kraken2"]</code>. Currently, two classifiers are implemented: (a) the alignment-based classifier minimap2 and (b) the kmer-based classifier kraken2. You can use both or either of the two classifiers.</p>
 <p><strong>The markers to investigate</strong></p>
-<p>You can select what markers you want to analyse in <code>markers: ["SSU", "ITS1"]</code>. The workflow was developed for primers targeting both the SSU and ITS1 but the workflow will also run for either option selected and we plan to in the future extend the workflow to also accept the LSU and ITS2.</p>
+<p>You can select what markers you want to analyse in <code>markers: ["SSU", "ITS1", "ITS2"]</code>. The workflow was developed for primers targeting both the SSU, ITS1 and ITS2 but the workflow will also run for either option selected and we plan to in the future extend the workflow to also accept the LSU.</p>
 <p><strong>Other parameters</strong></p>
 <p>Finally, you can change tool specific parameters: If desired, there are several parameters that can be changed by the user, such as the numbers of threads to use, the settings for the read filtering or the classification and so on. The configuration file provides more information on each parameter.</p>
 <p>To save and close the nano screen:</p>
@@ -786,9 +804,9 @@ bc03,barcode03,data/barcode03.fastq.gz</code></pre>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#test if everything runs as extended (edit as described above)</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--use-conda</span> <span class="at">--cores</span> 1 <span class="dt">\</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-s</span> /zfs/omics/projects/amplicomics/bin/NanoITS_0.3/workflow/Snakefile <span class="dt">\</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-s</span> /zfs/omics/projects/amplicomics/bin/NanoITS_0.4/workflow/Snakefile <span class="dt">\</span></span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--configfile</span> config.yaml <span class="dt">\</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--conda-prefix</span> /zfs/omics/projects/amplicomics/bin/NanoITS_0.3/workflow/.snakemake/conda  <span class="dt">\</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--conda-prefix</span> /zfs/omics/projects/amplicomics/bin/NanoITS_0.4/workflow/.snakemake/conda  <span class="dt">\</span></span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">-np</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If the above command works and you see <code>This was a dry-run (flag -n). The order of jobs does not reflect the order of execution.</code> all is good and you can submit things to a compute node.</p>
@@ -798,7 +816,7 @@ bc03,barcode03,data/barcode03.fastq.gz</code></pre>
 <p>The NanoITS installation comes with an example sbatch script that you can move over to where you do your analyses. This script allows you to submit the job to the compute nodes.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#cp template batch script (comes with NanoITS) </span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /zfs/omics/projects/amplicomics/bin/NanoITS_0.3/jobscript.sh .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /zfs/omics/projects/amplicomics/bin/NanoITS_0.4/jobscript.sh .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The jobscript is setup to work with NanoITS in the amplicomics environment and you should not need to change anything if your config.yaml is set up correctly.</p>
 <p>The script does the following:</p>
@@ -806,7 +824,7 @@ bc03,barcode03,data/barcode03.fastq.gz</code></pre>
 <li>Requests 20 crunchomics cpus and 200G of memory. One can set this lower, but for testing purposes you might keep these values. The can be changed with <code>#SBATCH --cpus-per-task=20</code> and <code>#SBATCH --mem=200</code>. <strong>Depending on the size of the dataset</strong> you can try increasing the number of CPUs.</li>
 <li>Ensures that conda is loaded properly by running <code>source ~/.bashrc</code>. The bashrc is a script executed once a user logs in and holds special configurations, such as telling the shell where conda is installed. If you run into issues that are related to conda/mamba not being found then open the this file with <code>nano ~/.bashrc</code> and check that you have a section with text similar to <code># &gt;&gt;&gt; conda initialize &gt;&gt;&gt;</code>. If this is not present you might need to run <code>conda init bash</code> to add it.</li>
 <li>Activates the snakemake conda environment that is found in the amplicomics share with <code>conda activate snakemake_f_NanoITS</code></li>
-<li>Runs NanoITS. When using the script as is, the script assumes that NanoITS is installed at this path <code>/zfs/omics/projects/amplicomics/bin/NanoITS_0.3</code> and that the config.yaml is located in the folder from which you analyse the data. If that is not the case, change the paths accordingly</li>
+<li>Runs NanoITS. When using the script as is, the script assumes that NanoITS is installed at this path <code>/zfs/omics/projects/amplicomics/bin/NanoITS_0.4</code> and that the config.yaml is located in the folder from which you analyse the data. If that is not the case, change the paths accordingly</li>
 </ul>
 <p>Next, you can submit the script with:</p>
 <div class="cell">
@@ -818,7 +836,7 @@ bc03,barcode03,data/barcode03.fastq.gz</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">snakemake</span> <span class="at">--report</span> report.html <span class="dt">\</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--configfile</span> config.yaml <span class="dt">\</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-s</span> /zfs/omics/projects/amplicomics/bin/NanoITS_0.3/workflow/Snakefile</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-s</span> /zfs/omics/projects/amplicomics/bin/NanoITS_0.4/workflow/Snakefile</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -1418,7 +1436,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2024-05-22</p>
+Last modified: 2024-06-05</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/nanopore/nanoITS.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
