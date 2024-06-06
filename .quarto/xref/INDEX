@@ -224,5 +224,8 @@
   },
   "source/metatranscriptomics/ribodetector.qmd": {
     "ribodetector.html": "e8663707"
+  },
+  "source/metatranscriptomics/star.qmd": {
+    "star.html": "f40f59ca"
   }
 }

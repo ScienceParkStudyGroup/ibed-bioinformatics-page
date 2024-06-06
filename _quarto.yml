@@ -127,6 +127,7 @@ website:
               - source/metatranscriptomics/sortmerna.qmd
               - source/metatranscriptomics/ribodetector.qmd
               - source/metatranscriptomics/trinity.qmd
+              - source/metatranscriptomics/star.qmd
               - source/core_tools/bowtie.qmd
               - source/core_tools/samtools.qmd
               - source/core_tools/featurecounts.qmd

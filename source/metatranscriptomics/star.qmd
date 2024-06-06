@@ -1,0 +1,159 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## STAR
+
+### Introduction
+
+STAR (Spliced Transcripts Alignment to a Reference) is an ultra-fast universal RNA-seq aligner that uses sequential maximum mappable seed search in uncompressed suffix arrays followed by seed clustering and stitching procedure [@Dobin2013]. In addition to unbiased *de novo* detection of canonical junctions, STAR can discover non-canonical splices and chimeric (fusion) transcripts, and is also capable of mapping full-length RNA sequences.
+
+For more information, please have a look at [the manual](https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf).
+
+### Installation
+
+Installed on crunchomics: Yes,
+
+-   STAR 2.7.10b_alpha_230301 is installed by default on Crunchomics
+-   STAR v2.7.11b is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).
+-   Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run:
+
+```{bash}
+mamba create --name star -c bioconda star
+```
+
+### Usage
+
+There are many different option you can set for generating the genome index and doing the read mapping. For most cases the default settings are sufficient. However, we recommend that you have a look at [the manual](https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf) to familiarize yourself with the possibly options for each step.
+
+#### Step 1: Generating genome index
+
+STAR requires two inputs: The genome as fasta and gtf files with the annotations. While the annotations, are optional, and STAR can be run without annotations, using annotations is highly recommended whenever they are available.
+
+If you are working with GFF3 formatted annotations then:
+
+1.  `--sjdbGTFtagExonParentTranscript Parent` should be used. In general, for `-sjdbGTFfile` files STAR only processes lines which have `--sjdbGTFfeatureExon` (=exon by default) in the 3rd field. The exons are then assigned to the transcripts using parent-child relationships defined by the `--sjdbGTFtagExonParentTranscript` (=transcript_id by default)
+2.  In most cases it should be fine to convert GFF3 to GTF with gffread via `gffread assembly.gff3 -T -o assembly.gtf`
+
+``` {bash}
+STAR --runThreadN 10 \
+    --runMode genomeGenerate \
+    --genomeDir 06_mapping/star/index \
+    --genomeFastaFiles 03_data/genome_files/assembly.fasta \
+    --sjdbGTFfile 03_data/genome_files/assembly.gtf \
+    --sjdbOverhang 100 \
+    --genomeSAindexNbases 11\
+```
+
+Notice:
+
+-   You might get a warning that says something like " --genomeSAindexNbases 14 is too large for the genome size=56491843, which may cause seg-fault at the mapping step. Re-run genome generation with recommended --genomeSAindexNbases 11". If you see, this, then change the value accordingly
+-   To index the genome with STAR for RNA-seq analysis, the sjdbOverhang option needs to be specified for detecting possible splicing sites. It usually equals to the minimum read size minus 1; it tells STAR what is the maximum possible stretch of sequence that can be found on one side of a spicing site. If you trimmed the data and have longer reads, you can use the default option of 100 as also discussed in [this thread](https://groups.google.com/g/rna-star/c/h9oh10UlvhI/m/BfSPGivUHmsJ)
+
+#### Step 2: Mapping reads to a genome
+
+You can map the reads by either running STAR in a loop when working with multiple input files or alternatively, multiple files can be mapped in one run with a single output.
+
+**Example 1**
+
+Below an example for running STAR on an individual file:
+
+```{bash}
+STAR --genomeDir 06_mapping/star/index \
+	 --runThreadN 6 \
+	 --readFilesIn sample1_R1.fastq.gz sample1_R2.fastq.gz \
+	 --outFileNamePrefix 06_mapping/star/mapping/sample1_ \
+	 --outSAMtype BAM SortedByCoordinate \
+	 --outSAMunmapped Within \
+	 --readFilesCommand zcat \
+	 --outSAMattributes Standard \
+	 --quantMode GeneCounts
+```
+
+Notice:
+
+-   For larger libraries, you might need to limit the amount of RAM used. If you run into an error because of lack of memory, STAR will give you recommendations on how to adjust the `--limitBAMsortRAM` option accordingly
+-   `--readFilesCommand` is used when working with compressed files. For example, for gzipped files use -`-readFilesCommand zcat` OR `--readFilesCommand gunzip -c`. For bzip2-compresse files, use `--readFilesCommand bunzip2 -c`.
+-   `outSAMtype` outputs the alignment directly in bam format and, if desired, sorts the output by coordinate or give an unsorted output.
+-   With `--quantMode` you can output transcript coordinates. Check the manual for the different options that exist.
+-   Unmapped reads can be output into the SAM/BAM Aligned.\* file(s) with `--outSAMunmapped`
+
+**Example 2**
+
+If you work with multiple files, you can map them individually using a for-loop (or an array when using SLURM). To keep the code readable, its recommended to use variables to store different values as follows:
+
+```{bash}
+# Set the input directories and parameters
+input_dir="05_quality_filtering/fastp"
+output_dir="06_mapping/star/mapping"
+genome_dir="06_mapping/star/index"
+threads=6
+
+# Make sure the output directory exists
+mkdir -p $output_dir
+
+# Find all R1 files in the input folder and loop through them
+for R1 in ${input_dir}/*_R1_trim.fastq.gz; do
+    
+    # Derive the corresponding R2 filename by replacing R1 with R2
+    R2=${R1/_R1_/_R2_}
+
+    # Get the sample name by extracting the base name without the path and the suffix
+    sample_name=$(basename ${R1} _R1_trim.fastq.gz)
+
+    # Run STAR for each sample
+    STAR --genomeDir $genome_dir \
+         --runThreadN $threads \
+         --readFilesIn $R1 $R2 \
+         --outFileNamePrefix ${output_dir}/${sample_name}_ \
+         --outSAMtype BAM SortedByCoordinate \
+         --outSAMunmapped Within \
+         --readFilesCommand zcat \
+         --outSAMattributes Standard
+done
+```
+
+**Example 3**
+
+If you work with multiple files, then these samples can be mapped in one run with a single output. Check the section "3.2 Mapping multiple files in one run." in [the manual](https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf) for more information.
+
+The following code should work to dynamically supply the file names but it was not tested, so use with care:
+
+```{bash}
+# Set the input directories and parameters
+input_dir="05_quality_filtering/fastp"
+output_prefix="06_mapping/star/mapping/combined_"
+genome_dir="06_mapping/star/index"
+
+# Find all R1 and R2 files and store them in an array, each element separated with a comma
+R1_files=$(ls ${input_dir}/*_R1_trim.fastq.gz | tr '\n' ',')
+R2_files=$(ls ${input_dir}/*_R2_trim.fastq.gz | tr '\n' ',')
+
+# Remove the trailing comma from the lists
+R1_files=${R1_files%,}
+R2_files=${R2_files%,} 
+
+# Run STAR
+STAR --genomeDir $genome_dir \
+     --runThreadN $threads \
+     --readFilesIn ${R1_files},${R2_files} \
+     --outFileNamePrefix ${output_prefix} \
+     --outSAMtype BAM SortedByCoordinate \
+     --outSAMunmapped Within \
+     --readFilesCommand zcat \
+     --outSAMattributes Standard \
+     --quantMode GeneCounts
+```
