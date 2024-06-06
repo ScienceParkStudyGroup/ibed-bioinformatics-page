@@ -157,3 +157,30 @@ STAR --genomeDir $genome_dir \
      --outSAMattributes Standard \
      --quantMode GeneCounts
 ```
+
+**Example 4**: Mapping reads with a 2-pass procedure
+
+For the most sensitive novel junction discovery, it is recommended to run STAR in the 2-pass mode.
+It does not signifcantly increase the number of detected novel junctions, but allows to detect more
+splices reads mapping to novel junctions. The basic idea is to run 1st pass of STAR mapping with the usual parameters, then collect the junctions detected in the first pass, and use them as "annotated" junctions for the 2nd pass mapping.
+
+Alex Dobin (developer of STAR) usually recommends to use junctions from all samples, not only from one. So first you do normal mapping of all your samples, collect all junctions, and insert them into the second step for each sample.
+
+
+### Interpreting the outputs
+
+STAR will produce different output files, which are briefly described below.
+
+**Log.final.out** contains the summary mapping statistics of the run and can be used to evaluate both the mapping performance and the quality of the RNA-seq library. Notice that by default STAR does not allow any unpaired alignments, i.e. where only one read mapped, or not concordantly mapped pairs, and these alignments are not counted in the summary statistics. 
+
+In here the most important value to look at is the **Uniquely mapped reads %** or mapping rate. This is defined as a proportion of uniquely mapped reads of all the input reads. A  very good library exceeds 90% and for good libraries the value should be above 80%.  Values below 50% indicate problems with either library preparation or processing and might be due to:
+
+- *Insufficient depletion of rRNA*. Most rRNA contains highly sequence-similar paralogues and reads will be mapped to multiple loci. Percentages above 15% of multi-mapping reads can be indicative of insufficient depletion of rRNA
+- *Poor sequence quality.* Sequence error rates can be estimated from the Mismatch rate per base, Deletion rate per base and Insertion rate per base. These metrics includes sequencing errors but also genotype variants. For Illumina typical mismatch error rates are below 0.5% and indel error rates below 0.05%. Another indicator of poor sequence quality is a reduction of the average mapped length with respect to the average input read length.
+- *Exogenous RNA/DNA contamination*. If a large percentage of reads are in the categories unmapped too short or % of reads unmapped other this can indicate contamination. In this case it is recommended to BLAST several of the unmapped reads to the NCBI database to identify possible sources of contamination
+
+**Log.out** contains various run-time information and messages, and is typically used for debugging.
+
+**Aligned.out.sam** is the main output file containing read alignments in the SAM format. If `--outSAMtype BAM` was used, then a unsorted (or sorted, depending on the used settings) BAM file will be given. Notice, converting SAM to BAM is quite time-consuming and also saves disk-space, so its generally recommeded to let STAR convert the SAM to BAM automatically.
+
+**SJ.out.tab** contains high confidence collapsed splice junctions in tab-delimited format (see STAR manual for details).

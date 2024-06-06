@@ -694,6 +694,7 @@ div.csl-indent {
   <li><a href="#step-1-generating-genome-index" id="toc-step-1-generating-genome-index" class="nav-link" data-scroll-target="#step-1-generating-genome-index">Step 1: Generating genome index</a></li>
   <li><a href="#step-2-mapping-reads-to-a-genome" id="toc-step-2-mapping-reads-to-a-genome" class="nav-link" data-scroll-target="#step-2-mapping-reads-to-a-genome">Step 2: Mapping reads to a genome</a></li>
   </ul></li>
+  <li><a href="#interpreting-the-outputs" id="toc-interpreting-the-outputs" class="nav-link" data-scroll-target="#interpreting-the-outputs">Interpreting the outputs</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metatranscriptomics/star.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -842,10 +843,27 @@ div.csl-indent {
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>     <span class="at">--outSAMattributes</span> Standard <span class="dt">\</span></span>
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>     <span class="at">--quantMode</span> GeneCounts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-
-
-
+<p><strong>Example 4</strong>: Mapping reads with a 2-pass procedure</p>
+<p>For the most sensitive novel junction discovery, it is recommended to run STAR in the 2-pass mode. It does not signifcantly increase the number of detected novel junctions, but allows to detect more splices reads mapping to novel junctions. The basic idea is to run 1st pass of STAR mapping with the usual parameters, then collect the junctions detected in the first pass, and use them as “annotated” junctions for the 2nd pass mapping.</p>
+<p>Alex Dobin (developer of STAR) usually recommends to use junctions from all samples, not only from one. So first you do normal mapping of all your samples, collect all junctions, and insert them into the second step for each sample.</p>
 </section>
+</section>
+<section id="interpreting-the-outputs" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-the-outputs">Interpreting the outputs</h3>
+<p>STAR will produce different output files, which are briefly described below.</p>
+<p><strong>Log.final.out</strong> contains the summary mapping statistics of the run and can be used to evaluate both the mapping performance and the quality of the RNA-seq library. Notice that by default STAR does not allow any unpaired alignments, i.e.&nbsp;where only one read mapped, or not concordantly mapped pairs, and these alignments are not counted in the summary statistics.</p>
+<p>In here the most important value to look at is the <strong>Uniquely mapped reads %</strong> or mapping rate. This is defined as a proportion of uniquely mapped reads of all the input reads. A very good library exceeds 90% and for good libraries the value should be above 80%. Values below 50% indicate problems with either library preparation or processing and might be due to:</p>
+<ul>
+<li><em>Insufficient depletion of rRNA</em>. Most rRNA contains highly sequence-similar paralogues and reads will be mapped to multiple loci. Percentages above 15% of multi-mapping reads can be indicative of insufficient depletion of rRNA</li>
+<li><em>Poor sequence quality.</em> Sequence error rates can be estimated from the Mismatch rate per base, Deletion rate per base and Insertion rate per base. These metrics includes sequencing errors but also genotype variants. For Illumina typical mismatch error rates are below 0.5% and indel error rates below 0.05%. Another indicator of poor sequence quality is a reduction of the average mapped length with respect to the average input read length.</li>
+<li><em>Exogenous RNA/DNA contamination</em>. If a large percentage of reads are in the categories unmapped too short or % of reads unmapped other this can indicate contamination. In this case it is recommended to BLAST several of the unmapped reads to the NCBI database to identify possible sources of contamination</li>
+</ul>
+<p><strong>Log.out</strong> contains various run-time information and messages, and is typically used for debugging.</p>
+<p><strong>Aligned.out.sam</strong> is the main output file containing read alignments in the SAM format. If <code>--outSAMtype BAM</code> was used, then a unsorted (or sorted, depending on the used settings) BAM file will be given. Notice, converting SAM to BAM is quite time-consuming and also saves disk-space, so its generally recommeded to let STAR convert the SAM to BAM automatically.</p>
+<p><strong>SJ.out.tab</strong> contains high confidence collapsed splice junctions in tab-delimited format (see STAR manual for details).</p>
+
+
+
 </section>
 </section>
 
