@@ -85,8 +85,6 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 </head>
 <body>
 
-<h2>Bioinformatic Tools A-Z</h2>
-
 <button class="accordion active">A-D</button>
 <div class="panel">
   <ul>
@@ -145,6 +143,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
   <ul>
     <li><a href="source/metagenomics/quast.qmd">QUAST</a>: A Quality Assessment Tool for Genome Assemblies</li>
     <li><a href="source/metatranscriptomics/ribodetector.qmd">Ribodetector</a>: Detect and remove rRNA sequences from metagenomic, metatranscriptomic, and ncRNA sequencing data</li>
+    <li><a href="source/core_tools/rsem.qmd">RSEM</a>: A software package for estimating gene and isoform expression levels from RNA-Seq data</li>
     <li><a href="source/core_tools/samtools.qmd">Samtools</a>: A tool to manipulating alignments in SAM/BAM format</li>
     <li><a href="source/core_tools/seqkit.qmd">SeqKit</a>: A tool for FASTA/Q file manipulation</li>
     <li><a href="source/metatranscriptomics/sortmerna.qmd">SortMerNa</a>: A tool to filter ribosomal RNAs in metatranscriptomic data</li>

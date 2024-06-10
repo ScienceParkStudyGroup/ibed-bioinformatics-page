@@ -230,5 +230,8 @@
   },
   "source/order_a-z.qmd": {
     "order_a-z.html": "01138e84"
+  },
+  "source/core_tools/rsem.qmd": {
+    "rsem.html": "3aab1977"
   }
 }

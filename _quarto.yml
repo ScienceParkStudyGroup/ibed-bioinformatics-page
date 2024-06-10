@@ -131,6 +131,7 @@ website:
               - source/core_tools/bowtie.qmd
               - source/core_tools/samtools.qmd
               - source/core_tools/featurecounts.qmd
+              - source/core_tools/rsem.qmd
               - source/metatranscriptomics/DSEq2.qmd
 
           - section: "Nanopore analyses"
