@@ -20,83 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<link href="../../source/metagenomics/fama_readme.html" rel="next">
-<link href="../../source/core_tools/featurecounts.html" rel="prev">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -126,7 +70,7 @@ div.csl-indent {
 }</script>
 
 
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar docked">
@@ -138,7 +82,9 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/interproscan_readme.html">Functional annotation</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/interproscan_readme.html">Interproscan</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">
+      Bioinformatics guidance page
+      </li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -153,7 +99,7 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../../">Bioinformatics guidance page</a> 
+      <a href="../">Bioinformatics guidance page</a> 
         <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
     <div id="quarto-search" class="quarto-navigation-tool px-1" title="Search"></div>
@@ -164,7 +110,7 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome page</span></a>
   </div>
 </li>
@@ -179,13 +125,13 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/cli/code_doc.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/cli/code_doc.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Code documentation</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../source/cli/cli.html" class="sidebar-item-text sidebar-link">
+            <a href="../source/cli/cli.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using the command line</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -194,19 +140,19 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/cli/cli_installation.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/cli/cli_installation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setting up a bash command line</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/cli/cli_basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/cli/cli_basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Getting started with bash</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/cli/cli_file_manipulation.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/cli/cli_file_manipulation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Manipulating files with bash</span></a>
   </div>
 </li>
@@ -214,19 +160,19 @@ div.csl-indent {
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/conda/conda.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/conda/conda.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Installing software</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/R/readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/R/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using R</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
+            <a href="../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using an HPC</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -235,7 +181,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/cli/slurm_basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/cli/slurm_basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Start working on an HPC</span></a>
   </div>
 </li>
@@ -245,7 +191,7 @@ div.csl-indent {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../source/metagenomics/readme.html" class="sidebar-item-text sidebar-link">
+            <a href="../source/metagenomics/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sequence data analyses</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -263,37 +209,37 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/hmmer.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/core_tools/hmmer.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">HMMER</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/ncbi.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/core_tools/ncbi.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Downloading data from NCBI</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/prokka.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/core_tools/prokka.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prokka</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/seqkit.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/core_tools/seqkit.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Seqkit</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/classification/kraken2.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/classification/kraken2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Kraken2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/classification/minimap2.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/classification/minimap2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Minimap2</span></a>
   </div>
 </li>
@@ -310,19 +256,19 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/fastqc_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/metagenomics/fastqc_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FastQC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/multiqc.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/metagenomics/multiqc.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">MultiQC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metatranscriptomics/fastp.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/metatranscriptomics/fastp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FastP</span></a>
   </div>
 </li>
@@ -339,19 +285,19 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bowtie2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Samtools</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FeatureCounts</span></a>
   </div>
 </li>
@@ -359,28 +305,28 @@ div.csl-indent {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
  <span class="menu-text">Functional annotation</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/interproscan_readme.html" class="sidebar-item-text sidebar-link active">
+  <a href="../source/metagenomics/interproscan_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Interproscan</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/fama_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/metagenomics/fama_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FAMA</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/metabolic.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/metagenomics/metabolic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Metabolic</span></a>
   </div>
 </li>
@@ -388,7 +334,7 @@ div.csl-indent {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../source/Qiime/readme.html" class="sidebar-item-text sidebar-link">
+            <a href="../source/Qiime/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Amplicon analyses</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -397,13 +343,13 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/Qiime/3_evelyn_tutorial_notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/Qiime/3_evelyn_tutorial_notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A short QIIME tutorial</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/Qiime/OTU_table_analysis.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/Qiime/OTU_table_analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Analysing OTU tables with R</span></a>
   </div>
 </li>
@@ -420,61 +366,61 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Nanophase</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/atlas.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/metagenomics/atlas.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Atlas</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/flye.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/metagenomics/flye.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Flye</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/trycycler.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/metagenomics/trycycler.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Trycycler</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/checkm2.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/metagenomics/checkm2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">CheckM2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/gtdb.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/metagenomics/gtdb.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GTDB_tk</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/pseudofinder.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/metagenomics/pseudofinder.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pseudofinder</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/quast.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/metagenomics/quast.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Quast</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/dnaapler.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/metagenomics/dnaapler.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">dnaapler</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/motus.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/metagenomics/motus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">mOTUS</span></a>
   </div>
 </li>
@@ -491,49 +437,49 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metatranscriptomics/sortmerna.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/metatranscriptomics/sortmerna.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SortMeRNA</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metatranscriptomics/ribodetector.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/metatranscriptomics/ribodetector.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Ribodetector</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metatranscriptomics/trinity.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/metatranscriptomics/trinity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Trinity</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metatranscriptomics/star.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/metatranscriptomics/star.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">STAR</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bowtie2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Samtools</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FeatureCounts</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metatranscriptomics/DSEq2.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/metatranscriptomics/DSEq2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">DeSeq2</span></a>
   </div>
 </li>
@@ -550,49 +496,49 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/nanopore/filtlong.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/nanopore/filtlong.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FiltLong</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/nanopore/nanoqc_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/nanopore/nanoqc_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoQC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/nanopore/nanoplot_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/nanopore/nanoplot_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Nanoplot</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/nanopore/porechop_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/nanopore/porechop_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Porechop</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/nanopore/chopper.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/nanopore/chopper.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chopper</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/nanopore/nanoclass.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/nanopore/nanoclass.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoClass2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoITS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Nanophase</span></a>
   </div>
 </li>
@@ -609,13 +555,13 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/ITSx/itsx_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/ITSx/itsx_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ITSx</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoITS</span></a>
   </div>
 </li>
@@ -625,7 +571,7 @@ div.csl-indent {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../source/core_tools/toolbox-readme.html" class="sidebar-item-text sidebar-link">
+            <a href="../source/core_tools/toolbox-readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bioinformatics toolbox</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -634,7 +580,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/bash-for-loops.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/core_tools/bash-for-loops.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">For-loops in bash</span></a>
   </div>
 </li>
@@ -651,25 +597,25 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/kegg_db.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/core_tools/kegg_db.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">KOfam database</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/pfam_db.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/core_tools/pfam_db.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pfam database</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/pgap_db.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/core_tools/pgap_db.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">PGAP</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/tigrfam_db.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/core_tools/tigrfam_db.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">TIGRFAM</span></a>
   </div>
 </li>
@@ -681,22 +627,7 @@ div.csl-indent {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#sec-interproscan" id="toc-sec-interproscan" class="nav-link active" data-scroll-target="#sec-interproscan">Interproscan</a>
-  <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a>
-  <ul class="collapse">
-  <li><a href="#newest-version" id="toc-newest-version" class="nav-link" data-scroll-target="#newest-version">Newest version</a></li>
-  <li><a href="#version-for-crunchomics" id="toc-version-for-crunchomics" class="nav-link" data-scroll-target="#version-for-crunchomics">Version for Crunchomics</a></li>
-  </ul></li>
-  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
-  </ul></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/interproscan_readme.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -707,146 +638,221 @@ div.csl-indent {
 </header>
 
 
-<div style="text-align: justify">
+&lt;!DOCTYPE html&gt;
 
-<section id="sec-interproscan" class="level2">
-<h2 class="anchored" data-anchor-id="sec-interproscan">Interproscan</h2>
-<section id="introduction" class="level3">
-<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p><a href="http://www.ebi.ac.uk/interpro/">InterPro</a> is a database which integrates together predictive information about proteins’ function from a number of partner resources, giving an overview of the families that a protein belongs to and the domains and sites it contains <span class="citation" data-cites="blum2021">(<a href="#ref-blum2021" role="doc-biblioref">Blum et al. 2021</a>)</span>.</p>
-<p>Users who have novel nucleotide or protein sequences that they wish to functionally characterise can use the software package <a href="https://interproscan-docs.readthedocs.io/en/latest/Introduction.html">InterProScan</a> to run the scanning algorithms from the InterPro database in an integrated way. Sequences are submitted in FASTA format. Matches are then calculated against all of the required member database’s signatures and the results are then output in a variety of formats <span class="citation" data-cites="jones2014">(<a href="#ref-jones2014" role="doc-biblioref">Jones et al. 2014</a>)</span>.</p>
-</section>
-<section id="installation" class="level3">
-<h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<section id="newest-version" class="level4">
-<h4 class="anchored" data-anchor-id="newest-version">Newest version</h4>
-<p>Notice: The newest version does NOT run on crunchomics unless you do some extra steps during the isntallation since we need a newer java version and we need to update a tool used to analyse Prosite specific databases.</p>
-<p>These changes require to move a few things around, so if you feel uncomfortable with this feel free to install an older version (for installation, see section <strong>#### Version for Crunchomics</strong> below) that works well with the default java version installed on crunchomics.</p>
-<p>If you want to work with the newest version and are not afraid of some extra steps do the following:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#go into a folder in which you have all your software installed</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> software_dir</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#make a new folder for the interproscan installation and go into the folder</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> interproscan</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> interproscan </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#download software</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.64-96.0/interproscan-5.64-96.0-64-bit.tar.gz</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.64-96.0/interproscan-5.64-96.0-64-bit.tar.gz.md5</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Recommended checksum to confirm the download was success</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Must return *interproscan-5.64-96.0-64-bit.tar.gz: OK*</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">md5sum</span> <span class="at">-c</span> interproscan-5.64-96.0-64-bit.tar.gz.md5</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#decompress the downloaded folder</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-pxvzf</span> interproscan-5.64-96.0-<span class="pp">*</span>-bit.tar.gz</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">#index hmm models</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> interproscan-5.64-96.0</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> setup.py <span class="at">-f</span> interproscan.properties</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">#setup a conda environment with the newest java version</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">--name</span> java_f_iprscan <span class="at">-c</span> conda-forge openjdk</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#activate teh environment and install some more dependencies</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate java_f_iprscan</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install <span class="at">-c</span> conda-forge gfortran</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">#test error outside of iprscan</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">#bin/prosite/pfsearchV3</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">#get new pftools version via conda</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install <span class="at">-c</span> bioconda pftools</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co">#remove old pftools </span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> bin/prosite</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> pfscanV3</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> pfsearchV3</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co">#replace with new pftools we have installed (and which are found in the mamba env folder)</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> ~/personal/mambaforge/envs/java_f_iprscan/bin/pfscan .</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> ~/personal/mambaforge/envs/java_f_iprscan/bin/pfscanV3 .</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> ~/personal/mambaforge/envs/java_f_iprscan/bin/pfsearch .</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> ~/personal/mambaforge/envs/java_f_iprscan/bin/pfsearchV3 .</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="co">#do testrun (ProSiteProfiles and ProSitePatterns not working yet)</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 1 <span class="at">--mem</span><span class="op">=</span>8G ./interproscan.sh <span class="at">-i</span> test_all_appl.fasta <span class="at">-f</span> tsv <span class="at">-dp</span> <span class="at">--appl</span> TIGRFAM,SFLD,SUPERFAMILY,PANTHER,GENE3D,Hamap,Coils,SMART,CDD,PRINTS,PIRSR,AntiFam,Pfam,MobiDBLite,PIRSF,ProSiteProfiles </span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-n</span> 1 <span class="at">--cpus-per-task</span> 1 <span class="at">--mem</span><span class="op">=</span>8G ./interproscan.sh <span class="at">-i</span> test_all_appl.fasta <span class="at">-f</span> tsv</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="version-for-crunchomics" class="level4">
-<h4 class="anchored" data-anchor-id="version-for-crunchomics">Version for Crunchomics</h4>
-<p>On Crunchomics, newer versions of interproscan do not run due to an incompatibility with the installed Java version. To get it running without complicated environmental setups, you can install an older version:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#download software</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>wget https:<span class="op">//</span>ftp.ebi.ac.uk<span class="op">/</span>pub<span class="op">/</span>software<span class="op">/</span>unix<span class="op">/</span>iprscan<span class="op">/</span><span class="dv">5</span><span class="op">/</span><span class="fl">5.36</span><span class="op">-</span><span class="fl">75.0</span><span class="op">/</span>interproscan<span class="op">-</span><span class="fl">5.36</span><span class="op">-</span><span class="fl">75.0</span><span class="op">-</span><span class="dv">64</span><span class="op">-</span>bit.tar.gz</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>wget https:<span class="op">//</span>ftp.ebi.ac.uk<span class="op">/</span>pub<span class="op">/</span>software<span class="op">/</span>unix<span class="op">/</span>iprscan<span class="op">/</span><span class="dv">5</span><span class="op">/</span><span class="fl">5.36</span><span class="op">-</span><span class="fl">75.0</span><span class="op">/</span>interproscan<span class="op">-</span><span class="fl">5.36</span><span class="op">-</span><span class="fl">75.0</span><span class="op">-</span><span class="dv">64</span><span class="op">-</span>bit.tar.gz.md5</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Recommended checksum to confirm the download was success</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Must return *interproscan-5.64-96.0-64-bit.tar.gz: OK*</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>md5sum interproscan<span class="op">-</span><span class="fl">5.36</span><span class="op">-</span><span class="fl">75.0</span><span class="op">-</span><span class="dv">64</span><span class="op">-</span>bit.tar.gz.md5</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#decompress the folder</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>tar <span class="op">-</span>pxvzf interproscan<span class="op">-</span><span class="fl">5.36</span><span class="op">-</span><span class="fl">75.0</span><span class="op">-</span><span class="dv">64</span><span class="op">-</span>bit.tar.gz</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#index hmm models</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>cd interproscan<span class="op">-</span><span class="fl">5.36</span><span class="op">-</span><span class="fl">75.0</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#do a test run to check the installation</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>srun <span class="op">-</span>n1 <span class="op">--</span>cpus<span class="op">-</span>per<span class="op">-</span>task <span class="dv">8</span> <span class="op">--</span>mem<span class="op">=</span><span class="dv">8</span><span class="er">G</span> .<span class="op">/</span>interproscan.sh <span class="op">-</span>i test_proteins.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-</section>
-<section id="usage" class="level3">
-<h3 class="anchored" data-anchor-id="usage">Usage</h3>
-<p>Required inputs:</p>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+Bioinformatic Tools A-Z
+</title>
+<style>
+/* Basic styling for accordion */
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: background-color 0.4s;
+}
+
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  overflow: hidden;
+  display: block; /* Start with panels uncollapsed */
+}
+</style>
+
+
+<h2 class="anchored">
+Bioinformatic Tools A-Z
+</h2>
+<button class="accordion active">
+A-D
+</button>
+<div class="panel">
 <ul>
-<li>Protein fasta file</li>
+<li>
+<a href="source/metagenomics/atlas.qmd">ATLAS</a>: a metagenomic pipeline for QC, assembly binning and annotation
+</li>
+<li>
+<a href="source/core_tools/bowtie.qmd">Bowtie2</a>: A tool for aligning sequencing reads to genomes and other reference sequences
+</li>
+<li>
+<a href="source/metagenomics/checkm2.qmd">CheckM2</a>: A tool to assess the quality of a genome assembly
+</li>
+<li>
+<a href="source/nanopore/chopper.qmd">Chopper</a>: A tool for quality filtering of long read data
+</li>
+<li>
+<a href="source/metatranscriptomics/DSEq2.qmd">DeSeq2</a>: Analyse gene expression data in R
+</li>
+<li>
+<a href="source/metagenomics/dnaapler.qmd">Dnaapler</a>: A tool to re-orient a genome, for example at dnaA
+</li>
 </ul>
-<p>Generated outputs:</p>
+</div>
+<button class="accordion active">
+E-H
+</button>
+<div class="panel">
 <ul>
-<li>TSV: a simple tab-delimited file format</li>
-<li>XML: the new “IMPACT” XML format</li>
-<li>GFF3: The GFF 3.0 format</li>
-<li>JSON</li>
-<li>SVG</li>
-<li>HTML</li>
+<li>
+<a href="source/metagenomics/fama_readme.qmd">FAMA</a>: A fast pipeline for functional and taxonomic analysis of metagenomic sequences
+</li>
+<li>
+<a href="source/metatranscriptomics/fastp.qmd">FastP</a>: A tool for fast all-in-one preprocessing of FastQ files
+</li>
+<li>
+<a href="source/metagenomics/fastqc_readme.qmd">FastQC</a>: A quality control tool for read sequencing data
+</li>
+<li>
+<a href="source/core_tools/featurecounts.qmd">FeatureCounts</a>: A read summarization program that counts mapped reads for genomic features
+</li>
+<li>
+<a href="source/nanopore/filtlong.qmd">Filtlong</a>: A tool for filtering long reads
+</li>
+<li>
+<a href="source/metagenomics/flye.qmd">Flye</a>: A de novo assembler for single-molecule sequencing reads
+</li>
+<li>
+<a href="source/metagenomics/gtdb.qmd">GTDB_tk</a>: A software toolkit for assigning objective taxonomic classifications to bacterial and archaeal genomes
+</li>
+<li>
+<a href="source/core_tools/hmmer.qmd">HMMER</a>: A tool for searching sequence databases for sequence homologs, and for making sequence alignments
+</li>
 </ul>
-<p>Notice:</p>
+</div>
+<button class="accordion active">
+I-L
+</button>
+<div class="panel">
 <ul>
-<li>Interproscan does not like <code>*</code> symbols inside the protein sequence. Some tools for protein calling, like prokka, use <code>*</code> add the end of a protein to indicate that the full protein was found. If your files have such symbols, use the code below to remove it first. Beware: using <code>sed -i</code> overwrites the content of your file. If that behaviour is not wanted use <code>sed 's/*//g' Proteins_of_interest.faa &gt; Proteins_of_interest_new.faa</code> instead.</li>
-<li>If you are on Crunchomics (or most other servers): DO NOT run jobs on the head node, but add something like <code>srun -n 1 --cpus-per-task 4</code> before the actual command</li>
+<li>
+<a href="source/metagenomics/interproscan_readme.qmd">Interproscan</a>: A tool to scan protein and nucleic sequences against InterPro signatures
+</li>
+<li>
+<a href="source/ITSx/itsx_readme.qmd">ITSx</a>: A tool to extract ITS1 and ITS2 subregions from ITS sequences
+</li>
+<li>
+<a href="source/classification/kraken2.qmd">Kraken2</a>: A taxonomic sequence classifier using kmers
+</li>
 </ul>
-<p>Example code:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#clean faa file </span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#remove `*` as interproscan does not like that symbol</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sed <span class="op">-</span>i <span class="st">'s/*//g'</span> Proteins_of_interest.faa</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#run interproscan</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>path_to_install<span class="op">&gt;/</span>interproscan<span class="op">-</span><span class="fl">5.36</span><span class="op">-</span><span class="fl">75.0</span><span class="op">/</span>interproscan.sh <span class="op">--</span>cpu <span class="dv">4</span> <span class="op">-</span>i Proteins_of_interest.faa <span class="op">-</span>d outputfolder <span class="op">-</span>T outputfolder<span class="op">/</span>temp <span class="op">--</span>iprlookup <span class="op">--</span>goterms</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>To check available options use <code>&lt;path_to_install&gt;/interproscan-5.36-75.0/interproscan.sh --help</code> or for more detailed information, see <a href="https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html">the documentation</a>):</p>
-
-
-
-</section>
-</section>
-
-</div><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-blum2021" class="csl-entry" role="listitem">
-Blum, Matthias, Hsin-Yu Chang, Sara Chuguransky, Tiago Grego, Swaathi Kandasaamy, Alex Mitchell, Gift Nuka, et al. 2021. <span>“The InterPro Protein Families and Domains Database: 20 Years On.”</span> <em>Nucleic Acids Research</em> 49 (D1): D344–54. <a href="https://doi.org/10.1093/nar/gkaa977">https://doi.org/10.1093/nar/gkaa977</a>.
+<button class="accordion active">
+M-P
+</button>
+<div class="panel">
+<ul>
+<li>
+<a href="source/metagenomics/metabolic.qmd">METABOLIC</a>: A tool to predict functional trait profiles in genome datasets
+</li>
+<li>
+<a href="source/metagenomics/motus.qmd">MOTUS</a>: A tool to estimate microbial abundances in Illumina and Nanopore sequencing data
+</li>
+<li>
+<a href="source/classification/minimap2.qmd">Minimap2</a>: A program to align DNA or mRNA sequences against a reference database
+</li>
+<li>
+<a href="source/metagenomics/multiqc.qmd">MultiQC</a>: A program to summarize analysis reports
+</li>
+<li>
+<a href="source/nanopore/nanoclass.qmd">NanoClass2</a>: A taxonomic meta-classifier for long-read 16S/18S rRNA gene sequencing data
+</li>
+<li>
+<a href="source/nanopore/nanoITS.qmd">NanoITS</a>: A taxonomic meta-classifier for long-read ITS operon sequencing data
+</li>
+<li>
+<a href="source/nanopore/nanophase_how_to.qmd">Nanophase</a>: A pipeline to generate MAGs using Nanopore long and Illumina short reads from metagenomes
+</li>
+<li>
+<a href="source/nanopore/nanoplot_readme.qmd">NanoPlot</a>: Plotting tool for long read sequencing data
+</li>
+<li>
+<a href="source/nanopore/nanoqc_readme.qmd">NanoQC</a>: A quality control tool for long read sequencing data
+</li>
+<li>
+<a href="source/nanopore/porechop_readme.qmd">Porechop</a>: A tool for finding and removing adapters from Nanopore reads
+</li>
+<li>
+<a href="source/core_tools/prokka.qmd">Prokka</a>: A tool to annotate bacterial, archaeal and viral genomes
+</li>
+<li>
+<a href="source/metagenomics/pseudofinder.qmd">Pseudofinder</a>: A tool that detects pseudogene candidates from annotated genbank files of bacterial and archaeal genomes
+</li>
+</ul>
 </div>
-<div id="ref-jones2014" class="csl-entry" role="listitem">
-Jones, Philip, David Binns, Hsin-Yu Chang, Matthew Fraser, Weizhong Li, Craig McAnulla, Hamish McWilliam, et al. 2014. <span>“InterProScan 5: Genome-Scale Protein Function Classification.”</span> <em>Bioinformatics</em> 30 (9): 1236–40. <a href="https://doi.org/10.1093/bioinformatics/btu031">https://doi.org/10.1093/bioinformatics/btu031</a>.
+<button class="accordion active">
+Q-T
+</button>
+<div class="panel">
+<ul>
+<li>
+<a href="source/metagenomics/quast.qmd">QUAST</a>: A Quality Assessment Tool for Genome Assemblies
+</li>
+<li>
+<a href="source/metatranscriptomics/ribodetector.qmd">Ribodetector</a>: Detect and remove rRNA sequences from metagenomic, metatranscriptomic, and ncRNA sequencing data
+</li>
+<li>
+<a href="source/core_tools/samtools.qmd">Samtools</a>: A tool to manipulating alignments in SAM/BAM format
+</li>
+<li>
+<a href="source/core_tools/seqkit.qmd">SeqKit</a>: A tool for FASTA/Q file manipulation
+</li>
+<li>
+<a href="source/metatranscriptomics/sortmerna.qmd">SortMerNa</a>: A tool to filter ribosomal RNAs in metatranscriptomic data
+</li>
+<li>
+<a href="source/metatranscriptomics/star.qmd">Star</a>: An ultrafast universal RNA-seq aligner
+</li>
+<li>
+<a href="source/metagenomics/trycycler.qmd">Trycyler</a>: A tool for generating consensus long-read assemblies for bacterial genomes
+</li>
+<li>
+<a href="source/metatranscriptomics/trinity.qmd">Trinity</a>: A tool to assemble transcript sequences from Illumina RNA-Seq data
+</li>
+</ul>
 </div>
-</div></section></div></main> <!-- /main -->
+<button class="accordion active">
+U-Z
+</button>
+<div class="panel">
+<ul>
+<!-- Add tools starting with U-Z if available -->
+</ul>
+</div>
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+</script>
+
+
+
+
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1396,18 +1402,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../../source/core_tools/featurecounts.html" class="pagination-link  aria-label=" featurecounts"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">FeatureCounts</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../../source/metagenomics/fama_readme.html" class="pagination-link" aria-label="FAMA">
-        <span class="nav-page-text">FAMA</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -1416,8 +1410,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2023-11-16</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/interproscan_readme.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+Last modified: 2024-06-10</p>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/order_a-z.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

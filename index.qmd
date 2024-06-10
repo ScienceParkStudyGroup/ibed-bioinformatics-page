@@ -51,44 +51,135 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 
 ## Bioinformatic tools A-Z
 
--   [ATLAS](source/metagenomics/atlas.qmd): a metagenomic pipeline for QC, assembly binning and annotation
--   [Bowtie2](source/core_tools/bowtie.qmd):  A tool for aligning sequencing reads to genomes and other reference sequences
--   [CheckM2](source/metagenomics/checkm2.qmd): A tool to assess the quality of a genome assembly 
--   [Chopper](source/nanopore/chopper.qmd): A tool for quality filtering of long read data
--   [DeSeq2](source/metatranscriptomics/DSEq2.qmd): Analyse gene expression data in R
--   [Dnaapler](source/metagenomics/dnaapler.qmd): A tool to re-orient a genome, for example at dnaA
--   [FAMA](source/metagenomics/fama_readme.qmd): A fast pipeline for functional and taxonomic analysis of metagenomic sequences
--   [FastP](source/metatranscriptomics/fastp.qmd): A tool for fast all-in-one preprocessing of FastQ files
--   [FastQC](source/metagenomics/fastqc_readme.qmd): A quality control tool for read sequencing data
--   [FeatureCounts](source/core_tools/featurecounts.qmd): A read summarization program that counts mapped reads for genomic features
--   [Filtlong](source/nanopore/filtlong.qmd): A A tool for filtering long reads
--   [Flye](source/metagenomics/flye.qmd): A de novo assembler for single-molecule sequencing reads 
--   [GTDB_tk](source/metagenomics/gtdb.qmd): A software toolkit for assigning objective taxonomic classifications to bacterial and archaeal genomes
--   [HMMER](source/core_tools/hmmer.qmd): A tool for searching sequence databases for sequence homologs, and for making sequence alignments
--   [Interproscan](source/metagenomics/interproscan_readme.qmd): A tool to scan protein and nucleic sequences against InterPro signatures
--   [ITSx](source/ITSx/itsx_readme.qmd): A tool to extract ITS1 and ITS2 subregions from ITS sequences
--   [Kraken2](source/classification/kraken2.qmd): A taxonomic sequence classifier using kmers
--   [METABOLIC](source/metagenomics/metabolic.qmd): A tool to predict functional trait profiles in genome datasets
--   [MOTUS](source/metagenomics/motus.qmd): A tool to estimate microbial abundances in Illumina and Nanopore sequencing data
--   [Minimap2](source/classification/minimap2.qmd): A program to align DNA or mRNA sequences against a reference database
--   [MultiQC](source/metagenomics/multiqc.qmd): A program to summarize analysis reports
--   [NanoClass2](source/nanopore/nanoclass.qmd): A taxonomic meta-classifier for long-read 16S/18S rRNA gene sequencing data
--   [NanoITS](source/nanopore/nanoITS.qmd): A taxonomic meta-classifier for long-read ITS operon sequencing data
--   [Nanophase](source/nanopore/nanophase_how_to.qmd): A pipeline to generate MAGs using Nanopore long and Illumina short reads from metagenomes
--   [NanoPlot](source/nanopore/nanoplot_readme.qmd): Plotting tool for long read sequencing data
--   [NanoQC](source/nanopore/nanoqc_readme.qmd): A quality control tool for long read sequencing data
--   [Porechop](source/nanopore/porechop_readme.qmd): A tool for finding and removing adapters from Nanopore reads
--   [Prokka](source/core_tools/prokka.qmd): A tool to annotate bacterial, archaeal and viral genomes
--   [Pseudofinder](source/metagenomics/pseudofinder.qmd): A tool that detects pseudogene candidates from annotated genbank files of bacterial and archaeal genomes
--   [QUAST](source/metagenomics/quast.qmd): A Quality Assessment Tool for Genome Assemblies
--   [Ribodetector](source/metatranscriptomics/ribodetector.qmd): Detect and remove rRNA sequences from metagenomic, metatranscriptomic, and ncRNA sequencing data
--   [Samtools](source/core_tools/samtools.qmd): A tool to manipulating alignments in SAM/BAM format
--   [SeqKit](source/core_tools/seqkit.qmd): A tool for FASTA/Q file manipulation
--   [SortMerNa](source/metatranscriptomics/sortmerna.qmd): A tool to filter ribosomal RNAs in metatranscriptomic data
--   [Star](source/metatranscriptomics/star.qmd): An ultrafast universal RNA-seq aligner
--   [Trycyler](source/metagenomics/trycycler.qmd): A tool for generating consensus long-read assemblies for bacterial genomes
--   [Trinity](source/metatranscriptomics/trinity.qmd): A tool to assemble transcript sequences from Illumina RNA-Seq data   
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bioinformatic Tools A-Z</title>
+<style>
+/* Basic styling for accordion */
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 3px 15px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: background-color 0.4s;
+}
 
+.active, .accordion:hover {
+  background-color: #f4f4f4;
+}
+
+.panel {
+  padding: 0 40px;
+  background-color: white;
+  overflow: hidden;
+  display: block; /* Start with panels uncollapsed */
+}
+</style>
+</head>
+<body>
+
+<h2>Bioinformatic Tools A-Z</h2>
+
+<button class="accordion active">A-D</button>
+<div class="panel">
+  <ul>
+    <li><a href="source/metagenomics/atlas.qmd">ATLAS</a>: a metagenomic pipeline for QC, assembly binning and annotation</li>
+    <li><a href="source/core_tools/bowtie.qmd">Bowtie2</a>: A tool for aligning sequencing reads to genomes and other reference sequences</li>
+    <li><a href="source/metagenomics/checkm2.qmd">CheckM2</a>: A tool to assess the quality of a genome assembly</li>
+    <li><a href="source/nanopore/chopper.qmd">Chopper</a>: A tool for quality filtering of long read data</li>
+    <li><a href="source/metatranscriptomics/DSEq2.qmd">DeSeq2</a>: Analyse gene expression data in R</li>
+    <li><a href="source/metagenomics/dnaapler.qmd">Dnaapler</a>: A tool to re-orient a genome, for example at dnaA</li>
+  </ul>
+</div>
+
+<button class="accordion active">E-H</button>
+<div class="panel">
+  <ul>
+    <li><a href="source/metagenomics/fama_readme.qmd">FAMA</a>: A fast pipeline for functional and taxonomic analysis of metagenomic sequences</li>
+    <li><a href="source/metatranscriptomics/fastp.qmd">FastP</a>: A tool for fast all-in-one preprocessing of FastQ files</li>
+    <li><a href="source/metagenomics/fastqc_readme.qmd">FastQC</a>: A quality control tool for read sequencing data</li>
+    <li><a href="source/core_tools/featurecounts.qmd">FeatureCounts</a>: A read summarization program that counts mapped reads for genomic features</li>
+    <li><a href="source/nanopore/filtlong.qmd">Filtlong</a>: A tool for filtering long reads</li>
+    <li><a href="source/metagenomics/flye.qmd">Flye</a>: A de novo assembler for single-molecule sequencing reads</li>
+    <li><a href="source/metagenomics/gtdb.qmd">GTDB_tk</a>: A software toolkit for assigning objective taxonomic classifications to bacterial and archaeal genomes</li>
+    <li><a href="source/core_tools/hmmer.qmd">HMMER</a>: A tool for searching sequence databases for sequence homologs, and for making sequence alignments</li>
+  </ul>
+</div>
+
+<button class="accordion active">I-L</button>
+<div class="panel">
+  <ul>
+    <li><a href="source/metagenomics/interproscan_readme.qmd">Interproscan</a>: A tool to scan protein and nucleic sequences against InterPro signatures</li>
+    <li><a href="source/ITSx/itsx_readme.qmd">ITSx</a>: A tool to extract ITS1 and ITS2 subregions from ITS sequences</li>
+    <li><a href="source/classification/kraken2.qmd">Kraken2</a>: A taxonomic sequence classifier using kmers</li>
+  </ul>
+</div>
+
+<button class="accordion active">M-P</button>
+<div class="panel">
+  <ul>
+    <li><a href="source/metagenomics/metabolic.qmd">METABOLIC</a>: A tool to predict functional trait profiles in genome datasets</li>
+    <li><a href="source/metagenomics/motus.qmd">MOTUS</a>: A tool to estimate microbial abundances in Illumina and Nanopore sequencing data</li>
+    <li><a href="source/classification/minimap2.qmd">Minimap2</a>: A program to align DNA or mRNA sequences against a reference database</li>
+    <li><a href="source/metagenomics/multiqc.qmd">MultiQC</a>: A program to summarize analysis reports</li>
+    <li><a href="source/nanopore/nanoclass.qmd">NanoClass2</a>: A taxonomic meta-classifier for long-read 16S/18S rRNA gene sequencing data</li>
+    <li><a href="source/nanopore/nanoITS.qmd">NanoITS</a>: A taxonomic meta-classifier for long-read ITS operon sequencing data</li>
+    <li><a href="source/nanopore/nanophase_how_to.qmd">Nanophase</a>: A pipeline to generate MAGs using Nanopore long and Illumina short reads from metagenomes</li>
+    <li><a href="source/nanopore/nanoplot_readme.qmd">NanoPlot</a>: Plotting tool for long read sequencing data</li>
+    <li><a href="source/nanopore/nanoqc_readme.qmd">NanoQC</a>: A quality control tool for long read sequencing data</li>
+    <li><a href="source/nanopore/porechop_readme.qmd">Porechop</a>: A tool for finding and removing adapters from Nanopore reads</li>
+    <li><a href="source/core_tools/prokka.qmd">Prokka</a>: A tool to annotate bacterial, archaeal and viral genomes</li>
+    <li><a href="source/metagenomics/pseudofinder.qmd">Pseudofinder</a>: A tool that detects pseudogene candidates from annotated genbank files of bacterial and archaeal genomes</li>
+  </ul>
+</div>
+
+<button class="accordion active">Q-T</button>
+<div class="panel">
+  <ul>
+    <li><a href="source/metagenomics/quast.qmd">QUAST</a>: A Quality Assessment Tool for Genome Assemblies</li>
+    <li><a href="source/metatranscriptomics/ribodetector.qmd">Ribodetector</a>: Detect and remove rRNA sequences from metagenomic, metatranscriptomic, and ncRNA sequencing data</li>
+    <li><a href="source/core_tools/samtools.qmd">Samtools</a>: A tool to manipulating alignments in SAM/BAM format</li>
+    <li><a href="source/core_tools/seqkit.qmd">SeqKit</a>: A tool for FASTA/Q file manipulation</li>
+    <li><a href="source/metatranscriptomics/sortmerna.qmd">SortMerNa</a>: A tool to filter ribosomal RNAs in metatranscriptomic data</li>
+    <li><a href="source/metatranscriptomics/star.qmd">Star</a>: An ultrafast universal RNA-seq aligner</li>
+    <li><a href="source/metagenomics/trycycler.qmd">Trycyler</a>: A tool for generating consensus long-read assemblies for bacterial genomes</li>
+    <li><a href="source/metatranscriptomics/trinity.qmd">Trinity</a>: A tool to assemble transcript sequences from Illumina RNA-Seq data</li>
+  </ul>
+</div>
+
+<button class="accordion active">U-Z</button>
+<div class="panel">
+  <ul>
+    <!-- Add tools starting with U-Z if available -->
+  </ul>
+</div>
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+</script>
+
+</body>
+</html>
 
 
 ## Bioinformatic toolbox
@@ -102,3 +193,6 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 - [Pfam](source/core_tools/pfam_db.qmd)
 - [PGAP database](source/core_tools/pgap_db.qmd)
 - [TIGRFAM](source/core_tools/tigrfam_db.qmd)
+
+
+

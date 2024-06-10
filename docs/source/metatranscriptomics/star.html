@@ -852,7 +852,7 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="interpreting-the-outputs">Interpreting the outputs</h3>
 <p>STAR will produce different output files, which are briefly described below.</p>
 <p><strong>Log.final.out</strong> contains the summary mapping statistics of the run and can be used to evaluate both the mapping performance and the quality of the RNA-seq library. Notice that by default STAR does not allow any unpaired alignments, i.e.&nbsp;where only one read mapped, or not concordantly mapped pairs, and these alignments are not counted in the summary statistics.</p>
-<p>In here the most important value to look at is the <strong>Uniquely mapped reads %</strong> or mapping rate. This is defined as a proportion of uniquely mapped reads of all the input reads. A very good library exceeds 90% and for good libraries the value should be above 80%. Values below 50% indicate problems with either library preparation or processing and might be due to:</p>
+<p>In here the most important value to look at is the <strong>Uniquely mapped reads %</strong> or mapping rate. This is defined as a proportion of uniquely mapped reads of all the input reads. Generall, a very good library exceeds 90% and for good libraries the value should be above 80% (notice, this might differ a bit depending on the organism you are working with). Values below 50% indicate problems with either library preparation or processing and might be due to:</p>
 <ul>
 <li><em>Insufficient depletion of rRNA</em>. Most rRNA contains highly sequence-similar paralogues and reads will be mapped to multiple loci. Percentages above 15% of multi-mapping reads can be indicative of insufficient depletion of rRNA</li>
 <li><em>Poor sequence quality.</em> Sequence error rates can be estimated from the Mismatch rate per base, Deletion rate per base and Insertion rate per base. These metrics includes sequencing errors but also genotype variants. For Illumina typical mismatch error rates are below 0.5% and indel error rates below 0.05%. Another indicator of poor sequence quality is a reduction of the average mapped length with respect to the average input read length.</li>
@@ -1441,7 +1441,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2024-06-06</p>
+Last modified: 2024-06-10</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metatranscriptomics/star.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
