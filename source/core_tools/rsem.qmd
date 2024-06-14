@@ -52,7 +52,7 @@ mkdir -p data/genome_files/rsem_ref
 mkdir -p results/quantification/rsem
 
 #prepare the reference files
-#for this step we need the fasta and gtf files from a reference assembly
+#for this step we need the fasta and gtf files from a reference assembly (the same assembly that was also used when running STAR)
 /zfs/omics/projects/bioinformatics/software/RSEM_1.3.3/bin/rsem-prepare-reference \
     --gtf data/genome_files/assembly.gtf \
     data/genome_files/assembly.fasta \
@@ -90,3 +90,5 @@ Options used in the example (please read the manual for a full set of options!):
 **A note on combining results from different samples**
 
 We provide a small python script o combine the rsem outputs from multiple files. This script can be found on Crunchomics but you are free to combine the files yourself in your favorite computational language. The script `combine_rsem.py` requires that the gene and isoform files are located in a specific folder. Namely, each sample should be have a folder that has the same name as the sample. In the example above, the script expects a folder called sample1 in the target folder specified in the script, i.e. `results/quantification/rsem/`. In the sample1 folder, the script will look for two files, `rsem.genes.results` and `rsem.isoforms.results`.
+
+If you want to use _DESeq2_, then you can import the individual tables into R with [tximport](https://bioconductor.org/packages/release/bioc/vignettes/tximport/inst/doc/tximport.html#RSEM).

@@ -752,7 +752,7 @@ div.csl-indent {
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results/quantification/rsem</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#prepare the reference files</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#for this step we need the fasta and gtf files from a reference assembly</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#for this step we need the fasta and gtf files from a reference assembly (the same assembly that was also used when running STAR)</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">/zfs/omics/projects/bioinformatics/software/RSEM_1.3.3/bin/rsem-prepare-reference</span> <span class="dt">\</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--gtf</span> data/genome_files/assembly.gtf <span class="dt">\</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    data/genome_files/assembly.fasta <span class="dt">\</span></span>
@@ -790,6 +790,7 @@ div.csl-indent {
 </ul>
 <p><strong>A note on combining results from different samples</strong></p>
 <p>We provide a small python script o combine the rsem outputs from multiple files. This script can be found on Crunchomics but you are free to combine the files yourself in your favorite computational language. The script <code>combine_rsem.py</code> requires that the gene and isoform files are located in a specific folder. Namely, each sample should be have a folder that has the same name as the sample. In the example above, the script expects a folder called sample1 in the target folder specified in the script, i.e.&nbsp;<code>results/quantification/rsem/</code>. In the sample1 folder, the script will look for two files, <code>rsem.genes.results</code> and <code>rsem.isoforms.results</code>.</p>
+<p>If you want to use <em>DESeq2</em>, then you can import the individual tables into R with <a href="https://bioconductor.org/packages/release/bioc/vignettes/tximport/inst/doc/tximport.html#RSEM">tximport</a>.</p>
 
 
 
@@ -1370,7 +1371,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2024-06-10</p>
+Last modified: 2024-06-14</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/rsem.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
