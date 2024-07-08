@@ -47,3 +47,27 @@ After you set everything up and opened a terminal you should see something like 
 <p align="center">
   <img width="500"  src="../../img/terminal.png">
 </p>
+
+
+### Putty/GIS study to connect to an HPC
+
+If you don't need Bash on your computer and/or have trouble setting up a Bash terminal but want to analyze your data on an HPC that you already have access to, you can use the SSH-client [Putty](https://www.putty.org/) on the GIS studio computers. 
+
+The [GIS-studio](https://amsuni.sharepoint.com/sites/GIS-Studio) was established in 2003 to serve staff and students of the Institute for Biodiversity and Ecosystem Dynamics (IBED) of the University of Amsterdam and to assist them in their spatial data analysis using Geographical Information Systems (GIS) and remote sensing (RS) software.  You can also use these computers to connect to an HPC.
+
+More information on accessing the IBED Crunchomics HPC can be found [here](https://scienceparkstudygroup.github.io/software_information/source/cli/hpc_usage.html). 
+If its your first time using bash and/or an HPC, it is recommended to look at this [mini-tutorial](https://ndombrowski.github.io/cli_workshop/).
+
+To access to the GIS-studio computers:
+
+1. Go to the [GIS-studio](https://amsuni.sharepoint.com/sites/GIS-Studio) website
+2. Click on [ORS PC reservations](https://amsuni.sharepoint.com/sites/GIS-Studio/SitePages/ORS.aspx) 
+3. Click on "ORS sheet 2024" and request access if you don't already have it 
+4. After reserving a computer and starting it up find the Putty application
+5. In the Host Name field, enter the hostname of the HPC you want to connect to. For example, for the UvA Crunchomics HPC, you would enter: UvanetID@omics-h0.science.uva.nl
+6. Click "open"
+7. Enter your UvanetID passport
+8. You are now connected to the HPC
+
+
+

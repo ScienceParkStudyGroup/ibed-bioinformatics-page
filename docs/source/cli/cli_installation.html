@@ -262,6 +262,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/multiqc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MultiQC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/metatranscriptomics/fastp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FastP</span></a>
   </div>
@@ -366,8 +372,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/atlas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Atlas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/flye.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Flye</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/trycycler.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trycycler</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -425,8 +443,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/ribodetector.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ribodetector</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/metatranscriptomics/trinity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Trinity</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/star.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">STAR</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -445,6 +475,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FeatureCounts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/rsem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RSEM</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -541,13 +577,30 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true">
- <span class="menu-text">Bioinformatic databases</span></a>
+            <a href="../../source/core_tools/toolbox-readme.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bioinformatics toolbox</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bash-for-loops.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">For-loops in bash</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="true">
+ <span class="menu-text">Bioinformatic databases</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/kegg_db.html" class="sidebar-item-text sidebar-link">
@@ -628,6 +681,23 @@ ul.task-list li input[type="checkbox"] {
 <p align="center">
 <img width="500" src="../../img/terminal.png">
 </p>
+</section>
+<section id="puttygis-study-to-connect-to-an-hpc" class="level3">
+<h3 class="anchored" data-anchor-id="puttygis-study-to-connect-to-an-hpc">Putty/GIS study to connect to an HPC</h3>
+<p>If you don’t need Bash on your computer and/or have trouble setting up a Bash terminal but want to analyze your data on an HPC that you already have access to, you can use the SSH-client <a href="https://www.putty.org/">Putty</a> on the GIS studio computers.</p>
+<p>The <a href="https://amsuni.sharepoint.com/sites/GIS-Studio">GIS-studio</a> was established in 2003 to serve staff and students of the Institute for Biodiversity and Ecosystem Dynamics (IBED) of the University of Amsterdam and to assist them in their spatial data analysis using Geographical Information Systems (GIS) and remote sensing (RS) software. You can also use these computers to connect to an HPC.</p>
+<p>More information on accessing the IBED Crunchomics HPC can be found <a href="https://scienceparkstudygroup.github.io/software_information/source/cli/hpc_usage.html">here</a>. If its your first time using bash and/or an HPC, it is recommended to look at this <a href="https://ndombrowski.github.io/cli_workshop/">mini-tutorial</a>.</p>
+<p>To access to the GIS-studio computers:</p>
+<ol type="1">
+<li>Go to the <a href="https://amsuni.sharepoint.com/sites/GIS-Studio">GIS-studio</a> website</li>
+<li>Click on <a href="https://amsuni.sharepoint.com/sites/GIS-Studio/SitePages/ORS.aspx">ORS PC reservations</a></li>
+<li>Click on “ORS sheet 2024” and request access if you don’t already have it</li>
+<li>After reserving a computer and starting it up find the Putty application</li>
+<li>In the Host Name field, enter the hostname of the HPC you want to connect to. For example, for the UvA Crunchomics HPC, you would enter: UvanetID@omics-h0.science.uva.nl</li>
+<li>Click “open”</li>
+<li>Enter your UvanetID passport</li>
+<li>You are now connected to the HPC</li>
+</ol>
 
 
 </section>
@@ -1203,7 +1273,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2024-01-31</p>
+Last modified: 2024-07-08</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/cli_installation.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
