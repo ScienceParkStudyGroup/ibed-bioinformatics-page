@@ -36,6 +36,9 @@ fastqc --help
 
 #run on a single file
 fastqc myfile.fastq.gz -o outputfolder --threads 1
+
+#run on multiple files (assumes that the fastq files are in a folder called my_reads)
+fastqc  my_reads/*gz -o outputfolder --threads 20
 ```
 
 

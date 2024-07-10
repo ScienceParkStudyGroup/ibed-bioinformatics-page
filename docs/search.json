@@ -1950,7 +1950,7 @@
     "href": "source/metagenomics/fastqc_readme.html",
     "title": "Bioinformatics guidance page",
     "section": "",
-    "text": "FastQC is a quality control tool for high throughput sequence data. For help with interpreting the output, please visit the website with some very good examples.\nFastQC can be run both on short- and long-read data.\nAvailable on Crunchomics: Yes\n\n\n\nFastQC already is installed on Crunchomics, if you want to install it on your own system check out the instructions found here.\n\n\n\n\nInputs: FastQC can process bam,sam,bam_mapped,sam_mapped and fastq files\nOutput: An HTML quality report\n\nExample code:\n\n#get help \nfastqc --help\n\n#run on a single file\nfastqc myfile.fastq.gz -o outputfolder --threads 1",
+    "text": "FastQC is a quality control tool for high throughput sequence data. For help with interpreting the output, please visit the website with some very good examples.\nFastQC can be run both on short- and long-read data.\nAvailable on Crunchomics: Yes\n\n\n\nFastQC already is installed on Crunchomics, if you want to install it on your own system check out the instructions found here.\n\n\n\n\nInputs: FastQC can process bam,sam,bam_mapped,sam_mapped and fastq files\nOutput: An HTML quality report\n\nExample code:\n\n#get help \nfastqc --help\n\n#run on a single file\nfastqc myfile.fastq.gz -o outputfolder --threads 1\n\n#run on multiple files (assumes that the fastq files are in a folder called my_reads)\nfastqc  my_reads/*gz -o outputfolder --threads 20",
     "crumbs": [
       "Sequence data analyses",
       "Quality control",
@@ -1962,7 +1962,7 @@
     "href": "source/metagenomics/fastqc_readme.html#fastqc",
     "title": "Bioinformatics guidance page",
     "section": "",
-    "text": "FastQC is a quality control tool for high throughput sequence data. For help with interpreting the output, please visit the website with some very good examples.\nFastQC can be run both on short- and long-read data.\nAvailable on Crunchomics: Yes\n\n\n\nFastQC already is installed on Crunchomics, if you want to install it on your own system check out the instructions found here.\n\n\n\n\nInputs: FastQC can process bam,sam,bam_mapped,sam_mapped and fastq files\nOutput: An HTML quality report\n\nExample code:\n\n#get help \nfastqc --help\n\n#run on a single file\nfastqc myfile.fastq.gz -o outputfolder --threads 1",
+    "text": "FastQC is a quality control tool for high throughput sequence data. For help with interpreting the output, please visit the website with some very good examples.\nFastQC can be run both on short- and long-read data.\nAvailable on Crunchomics: Yes\n\n\n\nFastQC already is installed on Crunchomics, if you want to install it on your own system check out the instructions found here.\n\n\n\n\nInputs: FastQC can process bam,sam,bam_mapped,sam_mapped and fastq files\nOutput: An HTML quality report\n\nExample code:\n\n#get help \nfastqc --help\n\n#run on a single file\nfastqc myfile.fastq.gz -o outputfolder --threads 1\n\n#run on multiple files (assumes that the fastq files are in a folder called my_reads)\nfastqc  my_reads/*gz -o outputfolder --threads 20",
     "crumbs": [
       "Sequence data analyses",
       "Quality control",
