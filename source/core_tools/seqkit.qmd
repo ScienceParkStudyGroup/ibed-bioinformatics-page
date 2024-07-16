@@ -26,7 +26,9 @@ For a full range of what Seqkit can do and some examples, please [visit the manu
 
 ### Installation
 
-Installed on crunchomics: No
+Installed on crunchomics: Yes, seqkit v2.7.0 is installed.
+
+If desired, you can install seqkit yourself with:
 
 ```{bash}
 mamba create -n seqkit

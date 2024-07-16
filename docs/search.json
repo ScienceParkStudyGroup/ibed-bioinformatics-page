@@ -1883,7 +1883,7 @@
     "href": "source/core_tools/seqkit.html",
     "title": "Bioinformatics guidance page",
     "section": "",
-    "text": "SeqKit is a tool for FASTA/Q File Manipulation (Shen et al. 2016). As such it comes with a range of abilities and, among others, can:\n\nTransform sequences\nGenerate statistics\nSub-select sequences\nConvert Fasta/Fastq files\nRemove duplicates\nSplit sequences into multiple files\nEdit the content of fasta files\n…\n\nFor a full range of what Seqkit can do and some examples, please visit the manual. Below, you only find example for some, but not all, usages for Seqkit.\n\n\n\nInstalled on crunchomics: No\n\nmamba create -n seqkit\n\nmamba install -n seqkit -c bioconda seqkit\n\nmamba activate seqkit",
+    "text": "SeqKit is a tool for FASTA/Q File Manipulation (Shen et al. 2016). As such it comes with a range of abilities and, among others, can:\n\nTransform sequences\nGenerate statistics\nSub-select sequences\nConvert Fasta/Fastq files\nRemove duplicates\nSplit sequences into multiple files\nEdit the content of fasta files\n…\n\nFor a full range of what Seqkit can do and some examples, please visit the manual. Below, you only find example for some, but not all, usages for Seqkit.\n\n\n\nInstalled on crunchomics: Yes, seqkit v2.7.0 is installed.\nIf desired, you can install seqkit yourself with:\n\nmamba create -n seqkit\n\nmamba install -n seqkit -c bioconda seqkit\n\nmamba activate seqkit",
     "crumbs": [
       "Sequence data analyses",
       "Core tools",
@@ -1895,7 +1895,7 @@
     "href": "source/core_tools/seqkit.html#seqkit",
     "title": "Bioinformatics guidance page",
     "section": "",
-    "text": "SeqKit is a tool for FASTA/Q File Manipulation (Shen et al. 2016). As such it comes with a range of abilities and, among others, can:\n\nTransform sequences\nGenerate statistics\nSub-select sequences\nConvert Fasta/Fastq files\nRemove duplicates\nSplit sequences into multiple files\nEdit the content of fasta files\n…\n\nFor a full range of what Seqkit can do and some examples, please visit the manual. Below, you only find example for some, but not all, usages for Seqkit.\n\n\n\nInstalled on crunchomics: No\n\nmamba create -n seqkit\n\nmamba install -n seqkit -c bioconda seqkit\n\nmamba activate seqkit",
+    "text": "SeqKit is a tool for FASTA/Q File Manipulation (Shen et al. 2016). As such it comes with a range of abilities and, among others, can:\n\nTransform sequences\nGenerate statistics\nSub-select sequences\nConvert Fasta/Fastq files\nRemove duplicates\nSplit sequences into multiple files\nEdit the content of fasta files\n…\n\nFor a full range of what Seqkit can do and some examples, please visit the manual. Below, you only find example for some, but not all, usages for Seqkit.\n\n\n\nInstalled on crunchomics: Yes, seqkit v2.7.0 is installed.\nIf desired, you can install seqkit yourself with:\n\nmamba create -n seqkit\n\nmamba install -n seqkit -c bioconda seqkit\n\nmamba activate seqkit",
     "crumbs": [
       "Sequence data analyses",
       "Core tools",
