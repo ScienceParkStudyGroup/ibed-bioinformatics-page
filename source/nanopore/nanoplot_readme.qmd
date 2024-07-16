@@ -19,6 +19,15 @@ Available on Crunchomics: Not by default
 
 ### Installation
 
+Installed on crunchomics: Yes,
+
+- Nanoplot v1.42.0 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to  [Nina Dombrowski](n.dombrowski@uva.nl). 
+- Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
 NanoPlot is part of the Nanopack package and I would recommend installing this package to already have other useful tools installed. Therefore, we install a new conda environment called nanopack. If you already have an environment with tools for long-read analyses I suggest adding nanopack there instead.
 
 ```{bash}
