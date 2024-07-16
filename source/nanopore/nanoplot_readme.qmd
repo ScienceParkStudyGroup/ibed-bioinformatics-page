@@ -66,10 +66,12 @@ Example code:
 
 ```{bash}
 #start environment
-conda activate nanopack
+conda activate nanoplot_1.42.0
 
 #run on a single file (if you are using other inputs, check the readme for the appropriate flag)
 NanoPlot --fastq myfile.fastq.gz -o outputfolder --threads 1
+
+conda deactivate
 ```
 
 Useful arguments (for the full version, check the manual):

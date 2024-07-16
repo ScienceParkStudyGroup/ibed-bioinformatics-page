@@ -17,11 +17,20 @@ bibliography: references.bib
 
 Notice: From 2018 on, porechop is not actively maintained anymore. It runs perfectly fine, but that is something to keep in mind when running into bugs.
 
-Available on Crunchomics: Not by default
 
 ### Installation
 
-It is easiest to install porechop with conda:
+Installed on crunchomics: Yes,
+
+- Porechop v0.2.4 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to  [Nina Dombrowski](n.dombrowski@uva.nl). 
+- Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run:
+
 
 ```{bash}
 mamba create --name porechop -c conda-forge -c bioconda porechop=0.2.4
@@ -50,10 +59,14 @@ Output:
 Example code:
 
 ```{bash}
+conda activate porechop_0.2.4
+
 porechop --input myfile.fastq.gz \
   --output outputfolder/myfile_filtered.fastq.gz \
   --threads 1 \
   --discard_middle
+
+conda deactivate
 ```
 
 Useful arguments (for the full version, check the manual):
