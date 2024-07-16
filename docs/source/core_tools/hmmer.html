@@ -316,6 +316,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/multiqc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MultiQC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/metatranscriptomics/fastp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FastP</span></a>
   </div>
@@ -491,8 +497,20 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/ribodetector.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ribodetector</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/metatranscriptomics/trinity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Trinity</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/star.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">STAR</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -511,6 +529,12 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FeatureCounts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/rsem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RSEM</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -800,7 +824,7 @@ div.csl-indent {
 <span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-v</span> fname=<span class="st">"</span><span class="va">$filename</span><span class="st">"</span> <span class="st">'/&gt;/{sub("&gt;","&amp;"fname"-")}1'</span> <span class="va">$i</span> <span class="op">&gt;</span> results/faa/renamed/<span class="va">$filename</span>.faa</span>
 <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
 <span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co">#afterwards, the header looks like this; &gt;ABU81185.1</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co">#afterwards, the header looks like this; GCA_000017945-ABU81186.1</span></span>
 <span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> results/faa/renamed/GCA_000017945.faa </span>
 <span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co">#after ensuring our files have good headers, we can combine the individual faa files </span></span>
@@ -1826,7 +1850,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2024-05-27</p>
+Last modified: 2024-07-16</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/hmmer.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

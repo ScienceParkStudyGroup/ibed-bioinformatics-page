@@ -15,11 +15,18 @@ bibliography: references.bib
 
 [Chopper](https://github.com/wdecoster/chopper) is a tool for quality filtering of long read data. It is a Rust implementation of two other tools for long-read quality filtering, NanoFilt and NanoLyse, both originally written in Python. This tool, intended for long read sequencing such as PacBio or ONT, filters and trims a fastq file [@decoster2023].
 
-Available on Crunchomics: Not by default
-
 ### Installation
 
-It is easiest to install chopper with conda. If you do not have mamba (or conda) installed. Check out the installation instructions for [mamba](https://mamba.readthedocs.io/en/latest/mamba-installation.html#mamba-install) and [conda](https://crunchomics-documentation.readthedocs.io/en/latest/miniconda.html). Mamba is a newer version of conda and from experience faster but since its newer this might mean that not all software can yet be installed with mamba.
+Installed on crunchomics: Yes,
+
+- Chopper v0.8 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to  [Nina Dombrowski](n.dombrowski@uva.nl). 
+- Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run:
 
 ```{bash}
 mamba create --name chopper -c bioconda chopper
@@ -38,12 +45,16 @@ Output:
 Example usage:
 
 ```{bash}
+conda activate chopper0.8.0
+
 gunzip -c results/porechop/my_reads.fastq.gz |\
     chopper -q 10 \
     --headcrop 0 --tailcrop 0  \
     -l 1000 \
     --threads 20 |\
     gzip > results/chopper/my_reads_filtered1000.fastq.gz
+
+conda deactivate
 ```
 
 Useful arguments:

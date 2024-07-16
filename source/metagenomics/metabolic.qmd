@@ -23,8 +23,8 @@ Check out [the manual](https://github.com/AnantharamanLab/METABOLIC/wiki) for al
 
 Available on crunchomics: Yes,
 
--   Metabolic v4.0 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).
--   Additionally, the GTDB r214 database that is used by metabolic is installed on the metatools share. To get access to metatools, send an email with your Uva netID to [Anna Heintz Buschart](a.u.s.heintzbuschart@uva.nl).
+-   Metabolic v4.0 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski@uva.nl.
+-   Additionally, the GTDB r214 database that is used by metabolic is installed on the metatools share. To get access to metatools, send an email with your Uva netID to Anna Heintz Buschart, a.u.s.heintzbuschart@uva.nl.
 
 After you were added to the bioinformatics and metatools share, you can add the conda environments that are installed in these shares as follows (if you have already done this in the past, you don't need to run these commands):
 

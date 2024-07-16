@@ -123,7 +123,7 @@ filename=$(basename $i .faa | cut -f1 -d ".")
 awk -v fname="$filename" '/>/{sub(">","&"fname"-")}1' $i > results/faa/renamed/$filename.faa
 done
 
-#afterwards, the header looks like this; >ABU81185.1
+#afterwards, the header looks like this; GCA_000017945-ABU81186.1
 head results/faa/renamed/GCA_000017945.faa 
 
 #after ensuring our files have good headers, we can combine the individual faa files 
