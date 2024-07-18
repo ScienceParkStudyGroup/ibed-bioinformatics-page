@@ -137,7 +137,11 @@ website:
               - source/nanopore/nanoclass.qmd
               - source/nanopore/nanoITS.qmd
               - source/nanopore/nanophase_how_to.qmd
-              
+
+          - section: "Phylogenomics"
+            contents:
+              - source/phylogenomics/mafft.qmd
+
           - section: "Quality control"
             contents:
               - source/metagenomics/fastqc_readme.qmd

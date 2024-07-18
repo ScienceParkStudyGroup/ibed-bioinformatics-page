@@ -233,5 +233,8 @@
   },
   "source/core_tools/rsem.qmd": {
     "rsem.html": "3aab1977"
+  },
+  "source/phylogenomics/mafft.qmd": {
+    "mafft.html": "f55e23a0"
   }
 }

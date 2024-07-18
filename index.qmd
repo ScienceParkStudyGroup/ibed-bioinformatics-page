@@ -123,6 +123,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 <button class="accordion active">M-P</button>
 <div class="panel">
   <ul>
+    <li><a href="source/phylogenomics/mafft.qmd">Mafft</a>: A multiple sequence alignment program</li>
     <li><a href="source/metagenomics/metabolic.qmd">METABOLIC</a>: A tool to predict functional trait profiles in genome datasets</li>
     <li><a href="source/metagenomics/motus.qmd">MOTUS</a>: A tool to estimate microbial abundances in Illumina and Nanopore sequencing data</li>
     <li><a href="source/classification/minimap2.qmd">Minimap2</a>: A program to align DNA or mRNA sequences against a reference database</li>

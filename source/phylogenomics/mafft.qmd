@@ -1,0 +1,71 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## Mafft
+
+### Introduction
+
+MAFFT [@Katoh2002] is a multiple sequence alignment program for unix-like operating systems. It offers a range of multiple alignment methods, L-INS-i (accurate; for alignment of \<∼200 sequences), FFT-NS-2 (fast; for alignment of \<∼30,000 sequences), and so on. For more information, please visit the [mafft website](https://mafft.cbrc.jp/alignment/software/).
+
+### Installation
+
+Installed on crunchomics: Yes,
+
+-   Mafft v7.525 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski\@uva.nl.
+-   Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run:
+
+```{bash}
+mamba create -p /zfs/omics/projects/bioinformatics/software/miniconda3/envs/mafft -c bioconda mafft
+
+```
+
+### Usage
+
+Example usage:
+
+```{bash}
+conda activate mafft_7.525
+
+mafft-linsi --reorder --thread 20 \
+    my_protein_file.faa > my_protein_file.aln
+
+conda deactivate
+```
+
+Notice:
+
+- linsi is an alias for an accurate option (L-INS-i) for an alignment of up to ∼200-1000 sequences × ∼2,000 sites. 
+- By default, mafft uses a fast option (FFT-NS-2)
+- If unsure what alignment option to use, you can also use `--auto` or check all available options in the [manual](https://mafft.cbrc.jp/alignment/software/manual/manual.html) 
+
+Useful options (for a full list, please visit the [manual](https://mafft.cbrc.jp/alignment/software/manual/manual.html)):
+
+-  `--auto `   Automatically selects an appropriate strategy from L-INS-i, FFT-NS-i and FFT-NS-2, according to data size. Default: off (always FFT-NS-2)  
+-  `--maxiterate number `   number cycles of iterative refinement are performed. Default: 0 
+-   `--reorder`:    Output order: aligned. Default: off (inputorder). This can be useful if you visually inspect the alignments, as outliers tend to appear at the bottom
+-   `--anysymbol`: To be able to allow unusual characters (e.g., U as selenocysteine in protein sequence; i as inosine in nucleotide sequence),we have to use this option
+
+
+If you want to inspect your alignment, we also provide a tool on the bioinformatics server to be able to do this (to better find conserved sites go to Colour --> Clustal):
+
+```{bash}
+conda activate jalview_2.11.3.3)
+
+jalview my_protein_file.aln
+
+conda deactivate
+```
