@@ -236,5 +236,8 @@
   },
   "source/phylogenomics/mafft.qmd": {
     "mafft.html": "f55e23a0"
+  },
+  "source/phylogenomics/bmge.qmd": {
+    "bmge.html": "2c514244"
   }
 }

@@ -29,7 +29,7 @@ conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/minicon
 If you want to install it yourself, you can run:
 
 ```{bash}
-mamba create -p /zfs/omics/projects/bioinformatics/software/miniconda3/envs/mafft -c bioconda mafft
+mamba create -n mafft -c bioconda mafft
 
 ```
 

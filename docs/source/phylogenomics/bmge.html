@@ -84,8 +84,8 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/metagenomics/fastqc_readme.html" rel="next">
-<link href="../../source/phylogenomics/bmge.html" rel="prev">
+<link href="../../source/phylogenomics/mafft.html" rel="next">
+<link href="../../source/nanopore/nanoclass.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -138,7 +138,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/phylogenomics/bmge.html">Phylogenomics</a></li><li class="breadcrumb-item"><a href="../../source/phylogenomics/mafft.html">Mafft</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/phylogenomics/bmge.html">Phylogenomics</a></li><li class="breadcrumb-item"><a href="../../source/phylogenomics/bmge.html">BMGE</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -580,13 +580,13 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/phylogenomics/bmge.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/phylogenomics/bmge.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">BMGE</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/phylogenomics/mafft.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../source/phylogenomics/mafft.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Mafft</span></a>
   </div>
 </li>
@@ -714,14 +714,14 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#mafft" id="toc-mafft" class="nav-link active" data-scroll-target="#mafft">Mafft</a>
+  <li><a href="#bmge" id="toc-bmge" class="nav-link active" data-scroll-target="#bmge">BMGE</a>
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
   <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/phylogenomics/mafft.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/phylogenomics/bmge.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -734,17 +734,17 @@ div.csl-indent {
 
 <div style="text-align: justify">
 
-<section id="mafft" class="level2">
-<h2 class="anchored" data-anchor-id="mafft">Mafft</h2>
+<section id="bmge" class="level2">
+<h2 class="anchored" data-anchor-id="bmge">BMGE</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>MAFFT <span class="citation" data-cites="Katoh2002">(<a href="#ref-Katoh2002" role="doc-biblioref">Katoh 2002</a>)</span> is a multiple sequence alignment program for unix-like operating systems. It offers a range of multiple alignment methods, L-INS-i (accurate; for alignment of &lt;∼200 sequences), FFT-NS-2 (fast; for alignment of &lt;∼30,000 sequences), and so on. For more information, please visit the <a href="https://mafft.cbrc.jp/alignment/software/">mafft website</a>.</p>
+<p>BMGE (Block Mapping and Gathering with Entropy) is a command line program written in Java to select regions in a multiple sequence alignment that are suited for phylogenetic inference <span class="citation" data-cites="Criscuolo2010">(<a href="#ref-Criscuolo2010" role="doc-biblioref">Criscuolo and Gribaldo 2010</a>)</span>. To find out more, visit the tools <a href="https://gitlab.pasteur.fr/GIPhy/BMGE">website</a> and <a href="https://gensoft.pasteur.fr/docs/BMGE/1.12/BMGE_doc.pdf">the manual</a>.</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
 <p>Installed on crunchomics: Yes,</p>
 <ul>
-<li>Mafft v7.525 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski@uva.nl.</li>
+<li>BMGE v1.12 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski@uva.nl.</li>
 <li>Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don’t need to run this command):</li>
 </ul>
 <div class="cell">
@@ -752,42 +752,27 @@ div.csl-indent {
 </div>
 <p>If you want to install it yourself, you can run:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> mafft <span class="at">-c</span> bioconda mafft</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> bmge <span class="at">-c</span> bioconda bmge</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="usage" class="level3">
 <h3 class="anchored" data-anchor-id="usage">Usage</h3>
 <p>Example usage:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate mafft_7.525</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">mafft-linsi</span> <span class="at">--reorder</span> <span class="at">--thread</span> 20 <span class="dt">\</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    my_protein_file.faa <span class="op">&gt;</span> my_protein_file.aln</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bmge</span> <span class="at">-i</span> my_alignment.aln <span class="at">-t</span> AA <span class="at">-m</span> BLOSUM30 <span class="at">-h</span> 0.55 <span class="at">-of</span> my_alignment_trimmed.aln</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Notice:</p>
+<p>Useful options (for a full set of options, please visit <a href="https://gensoft.pasteur.fr/docs/BMGE/1.12/BMGE_doc.pdf">the manual</a>):</p>
 <ul>
-<li>linsi is an alias for an accurate option (L-INS-i) for an alignment of up to ∼200-1000 sequences × ∼2,000 sites.</li>
-<li>By default, mafft uses a fast option (FFT-NS-2)</li>
-<li>If unsure what alignment option to use, you can also use <code>--auto</code> or check all available options in the <a href="https://mafft.cbrc.jp/alignment/software/manual/manual.html">manual</a></li>
-</ul>
-<p>Useful options (for a full list, please visit the <a href="https://mafft.cbrc.jp/alignment/software/manual/manual.html">manual</a>):</p>
+<li><code>-t</code> [AA,DNA,CODON]: sequence coding of the input</li>
+<li>-<code>of</code>: name of output file and generates the selected characters in FASTA format</li>
+<li><code>-m BLOSUMn</code>: Used similarity matrix.
 <ul>
-<li><code>--auto</code> Automatically selects an appropriate strategy from L-INS-i, FFT-NS-i and FFT-NS-2, according to data size. Default: off (always FFT-NS-2)<br>
-</li>
-<li><code>--maxiterate number</code> number cycles of iterative refinement are performed. Default: 0</li>
-<li><code>--reorder</code>: Output order: aligned. Default: off (inputorder). This can be useful if you visually inspect the alignments, as outliers tend to appear at the bottom</li>
-<li><code>--anysymbol</code>: To be able to allow unusual characters (e.g., U as selenocysteine in protein sequence; i as inosine in nucleotide sequence),we have to use this option</li>
+<li>With amino acid input sequences (-t AA), BMGE uses by default the popular BLOSUM62 matrix (Eddy 2004). However, one can use another BLOSUM matrix as shown in the example above. The trimming is progressively more stringent as the BLOSUM index increases (e.g.&nbsp;BLOSUM95); reciprocally, the trimming is progressively more relaxed as the BLOSUM index is lower (e.g.&nbsp;BLOSUM30). In practice, it is recommended to use BLOSUM95 with closely related sequences, and BLOSUM30 with distantly related sequences</li>
+<li>For nucleotide input sequences (-t DNA), BMGE uses PAM matrices with a fixed transition/transition ratio. BMGE can be used with all possible PAM matrices, from the most stringent (i.e.&nbsp;-m DNAPAM1) to highly relaxed ones (e.g.&nbsp;-m DNAPAM500). It is also possible to indicate a transition/transversion ratio to better define the PAM matrices. For example, if one wishes to estimate entropy-like scores with a (relaxed) PAM-250 matrix and a transition/transversion ratio of 4, then one uses the following <code>DNAPAM250:4</code></li>
+</ul></li>
+<li><code>-h</code> n: Entropy cutoff. Following the smoothing operation of the entropy-like score values across characters, BMGE selects characters associated with a score value below a fixed threshold. This cut-off is set to 0.5 by default, but it can be modified with the option -h. In the example above, BMGE estimates stringent entropy-like scores, but it only selects the characters with a score smaller than 0.55</li>
+<li><code>-g</code> col_rate: BMGE allows characters containing too many gaps to be removed with the option -g. By default, BMGE removes all characters with a gap frequency greater than 0.2. For example, to perform default trimming operations and the removal of all characters with more than 5% we can use <code>-g 0.05</code></li>
 </ul>
-<p>If you want to inspect your alignment, we also provide a tool on the bioinformatics server to be able to do this (to better find conserved sites go to Colour –&gt; Clustal):</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate jalview_2.11.3.3<span class="er">)</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">jalview</span> my_protein_file.aln</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 
 
 
@@ -795,8 +780,8 @@ div.csl-indent {
 </section>
 
 </div><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-Katoh2002" class="csl-entry" role="listitem">
-Katoh, K. 2002. <span>“MAFFT: A Novel Method for Rapid Multiple Sequence Alignment Based on Fast Fourier Transform.”</span> <em>Nucleic Acids Research</em> 30 (14): 3059–66. <a href="https://doi.org/10.1093/nar/gkf436">https://doi.org/10.1093/nar/gkf436</a>.
+<div id="ref-Criscuolo2010" class="csl-entry" role="listitem">
+Criscuolo, Alexis, and Simonetta Gribaldo. 2010. <span>“BMGE (Block Mapping and Gathering with Entropy): A New Software for Selection of Phylogenetic Informative Regions from Multiple Sequence Alignments.”</span> <em>BMC Evolutionary Biology</em> 10 (1): 210. <a href="https://doi.org/10.1186/1471-2148-10-210">https://doi.org/10.1186/1471-2148-10-210</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1350,13 +1335,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/phylogenomics/bmge.html" class="pagination-link  aria-label=" bmge"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">BMGE</span>
+      <a href="../../source/nanopore/nanoclass.html" class="pagination-link  aria-label=" nanoclass2"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">NanoClass2</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/metagenomics/fastqc_readme.html" class="pagination-link" aria-label="FastQC">
-        <span class="nav-page-text">FastQC</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/phylogenomics/mafft.html" class="pagination-link" aria-label="Mafft">
+        <span class="nav-page-text">Mafft</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1369,7 +1354,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
 Last modified: 2024-07-18</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/phylogenomics/mafft.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/phylogenomics/bmge.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

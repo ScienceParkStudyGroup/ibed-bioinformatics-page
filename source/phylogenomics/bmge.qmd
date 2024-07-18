@@ -1,0 +1,51 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## BMGE
+
+### Introduction
+
+BMGE (Block Mapping and Gathering with Entropy) is a command line program written in Java to select regions in a multiple sequence alignment that are suited for phylogenetic inference [@Criscuolo2010]. To find out more, visit the tools [website](https://gitlab.pasteur.fr/GIPhy/BMGE) and [the manual](https://gensoft.pasteur.fr/docs/BMGE/1.12/BMGE_doc.pdf).
+
+### Installation
+
+Installed on crunchomics: Yes,
+
+-   BMGE v1.12 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski\@uva.nl.
+-   Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run:
+
+```{bash}
+mamba create -n bmge -c bioconda bmge
+```
+
+### Usage
+
+Example usage:
+
+```{bash}
+bmge -i my_alignment.aln -t AA -m BLOSUM30 -h 0.55 -of my_alignment_trimmed.aln
+```
+
+Useful options (for a full set of options, please visit [the manual](https://gensoft.pasteur.fr/docs/BMGE/1.12/BMGE_doc.pdf)):
+
+- `-t` [AA,DNA,CODON]: sequence coding of the input 
+- -`of`: name of output file and generates the selected characters in FASTA format
+- `-m BLOSUMn`: Used similarity matrix. 
+  - With amino acid input sequences (-t AA), BMGE uses by default the popular BLOSUM62 matrix (Eddy 2004). However, one can use another BLOSUM matrix as shown in the example above. The trimming is progressively more stringent as the BLOSUM index increases (e.g. BLOSUM95); reciprocally, the trimming is progressively more relaxed as the BLOSUM index is lower (e.g. BLOSUM30). In practice, it is recommended to use BLOSUM95 with closely related sequences, and BLOSUM30 with distantly related sequences
+  - For nucleotide input sequences (-t DNA), BMGE uses PAM matrices with a fixed transition/transition ratio.  BMGE can be used with all possible PAM matrices, from the most stringent (i.e. -m DNAPAM1) to highly relaxed ones (e.g. -m DNAPAM500). It is also possible to indicate a transition/transversion ratio to better define the PAM matrices. For example, if one wishes to estimate entropy-like scores with a (relaxed) PAM-250 matrix and a transition/transversion ratio of 4, then one uses the following `DNAPAM250:4`
+- `-h` n: Entropy cutoff. Following the smoothing operation of the entropy-like score values across characters, BMGE selects characters associated with a score value below a fixed threshold. This cut-off is set to 0.5 by default, but it can be modified with the option -h. In the example above, BMGE estimates stringent entropy-like scores, but it only selects the characters with a score smaller than 0.55
+- ` -g` col_rate: BMGE allows characters containing too many gaps to be removed with the option -g. By default, BMGE removes all characters with a gap frequency greater than 0.2. For example, to perform default trimming operations and the removal of all characters with more than 5% we can use `-g 0.05`

@@ -140,6 +140,7 @@ website:
 
           - section: "Phylogenomics"
             contents:
+              - source/phylogenomics/bmge.qmd
               - source/phylogenomics/mafft.qmd
 
           - section: "Quality control"
