@@ -85,17 +85,11 @@ website:
               - source/classification/kraken2.qmd
               - source/classification/minimap2.qmd
 
-          - section: "Quality control"
+          - section: "Amplicon analyses"
+            href: source/Qiime/readme.qmd
             contents:
-              - source/metagenomics/fastqc_readme.qmd
-              - source/metagenomics/multiqc.qmd
-              - source/metatranscriptomics/fastp.qmd
-
-          - section: "Sequence alignment"
-            contents:
-              - source/core_tools/bowtie.qmd
-              - source/core_tools/samtools.qmd
-              - source/core_tools/featurecounts.qmd
+              - source/Qiime/3_evelyn_tutorial_notes.qmd
+              - source/Qiime/OTU_table_analysis.qmd
 
           - section: "Functional annotation"
             contents:
@@ -103,11 +97,10 @@ website:
               - source/metagenomics/fama_readme.qmd
               - source/metagenomics/metabolic.qmd
 
-          - section: "Amplicon analyses"
-            href: source/Qiime/readme.qmd
+          - section: "Fungal genomics"
             contents:
-              - source/Qiime/3_evelyn_tutorial_notes.qmd
-              - source/Qiime/OTU_table_analysis.qmd
+              - source/ITSx/itsx_readme.qmd
+              - source/nanopore/nanoITS.qmd
 
           - section: "(Meta)genomics"
             contents:
@@ -144,11 +137,18 @@ website:
               - source/nanopore/nanoclass.qmd
               - source/nanopore/nanoITS.qmd
               - source/nanopore/nanophase_how_to.qmd
-
-          - section: "Fungal genomics"
+              
+          - section: "Quality control"
             contents:
-              - source/ITSx/itsx_readme.qmd
-              - source/nanopore/nanoITS.qmd
+              - source/metagenomics/fastqc_readme.qmd
+              - source/metagenomics/multiqc.qmd
+              - source/metatranscriptomics/fastp.qmd
+
+          - section: "Sequence alignment"
+            contents:
+              - source/core_tools/bowtie.qmd
+              - source/core_tools/samtools.qmd
+              - source/core_tools/featurecounts.qmd
 
       - section: "Bioinformatics toolbox"
         href: source/core_tools/toolbox-readme.qmd
