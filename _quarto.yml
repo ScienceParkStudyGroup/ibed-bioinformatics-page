@@ -142,6 +142,7 @@ website:
             contents:
               - source/phylogenomics/bmge.qmd
               - source/phylogenomics/mafft.qmd
+              - source/phylogenomics/iqtree2.qmd
 
           - section: "Quality control"
             contents:

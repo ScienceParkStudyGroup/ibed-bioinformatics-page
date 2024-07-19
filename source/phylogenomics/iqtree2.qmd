@@ -1,0 +1,84 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## IQ-TREE2
+
+### Introduction
+
+IQ-TREE was motivated by the rapid accumulation of phylogenomic data, leading to a need for efficient phylogenomic software that can handle a large amount of data and provide more complex models of sequence evolution [@Nguyen2015; @Minh2020]. To this end, IQ-TREE can utilize multicore computers and distributed parallel computing to speed up the analysis. IQ-TREE automatically performs checkpointing to resume an interrupted analysis.
+
+For more information, please visit the [IQ-TREE website](http://www.iqtree.org/doc/Home), which hosts a wealth of information about the software.
+
+### Installation
+
+Installed on Crunchomics: Yes,
+
+-   IQ-TREE v2.3.5 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski\@uva.nl.
+-   Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run:
+
+```{bash}
+mamba create -n iqtree -c bioconda iqtree
+```
+
+### Usage
+
+IQ-TREE offers a wealth of different options and it is not the scope of this page to cover all of this. For a detailed instruction on how to use the software, please visit the [IQ-TREE website](http://www.iqtree.org/doc/Home), which also includes some great beginner tutorials.
+
+Below you find a minimal example on how to generate a phylogenetic tree from an aligned and trimmed protein alignment.
+
+```{bash}
+conda activate iqtree2.3.5
+
+iqtree2 -s  my_alignment.aln \
+    -pre output_folder/my_alignment \
+    -m LG -T AUTO --threads-max 2 -B 1000 -bnni
+
+conda deactivate
+```
+
+**Some general comments:**
+
+-   IQ-TREE is able to detect the **input type** by default and it accepts alignments in phylip, fasta (nucleotide and protein), nexus, clustal and msf alignment files.
+-   Different alignments run best with different **number of threads** (i.e. its hard to predict if it is better to use 5 or 20 threads for different alignments). Therefore, its usually best to use `-T AUTO` that let's IQ-TREE determine the optimal number of threads. To not overload the system we can combine it with `--threads-max`. From personal experience single gene trees generally do not benefit from more threads and you can keep it at 2-5. In contrast, for concatenated alignments, using up to 20 threads can be beneficial.
+-   If your run crashes, because it ran out of the SLURM time limit or memory, you can simply restart the run with the exact same command. IQ-TREE implements **checkpoints** that allow you to restart the analysis from the last checkpoint.
+-   If you want to know more about the protein models to use, you can go [here](http://www.iqtree.org/doc/Substitution-Models).
+    -   In our experience using LG together with a C-series mixture model (i.e. LG+C20) is a good start if you want to analyse some concatenated species tree.
+-   If you are unsure what model to use, then you can make use of the **model test** implemented in IQ-TREE (`-m MFP`).
+    -   To speed up the search, we can define what model to test with different combinations of [substitution models](http://www.iqtree.org/doc/Substitution-Models). I.e. if we work with nuclear proteins, there is no reason to also test for chloroplast protein models. If we just wanted to test LG and WAG, we could use `-m MFP -mset LG,WAG`
+    -   Notice, that the model selection step does not automatically include mixture models as this would create too many combinations to test. From personal experience, it might be useful to look at the C-series and you could test C10 and C20 for shorter proteins and up to C60 for concatenated alignments with `-m MFP -mset LG,WAG -madd LG+C10,LG+C10+G,LG+C10+R,LG+C10+F,LG+C10+R+F,LG+C10+G+F,LG+C20,LG+C20+G,LG+C20+F,LG+C20+G+F,LG+C20+R,LG+C20+R+F --score-diff all `. **Important**: When you want to test mixture models, you have to add `--score-diff all` as otherwise the C-series gets not tested!!! Also, notice how we also have to add all model combinations that we want to check:
+        -   How to model the best rate heterogenetity across sites (+G for the discrete Gamma model, +I for the FreeRate model)
+        -   How to model different kinds of base frequencies (+F stands for empirical base frequencies. This is the default if the model has unequal base frequencies)
+        -   If you run a model selection step, you can open the log file to see the complete list of models tested
+
+**Useful options** (for a full list of options, visit the website or use the help function):
+
+-   `-s` FILE\[,...,FILE\] PHYLIP/FASTA/NEXUS/CLUSTAL/MSF alignment file(s)
+-   `-m` MODEL_NAME Substitution model to use. For a full list of models, go [here](http://www.iqtree.org/doc/Substitution-Models).
+-   `--prefix` STRING Prefix for all output files (default: aln/partition). This also allows you to generate the output in the folder of your choice.
+-   `-T` NUM\|AUTO No. cores/threads or AUTO-detect (default: 1).
+-   `-B`, `--ufboot` NUM Replicates for ultrafast bootstrap (\>=1000 recommended). Notice, that this argument was renamed in newer IQ-TREE versions and you might find documentation in which `-bb` is used for iqtree v1 versions.
+-   `-alrt` specifies the number of bootstrap replicates for SH-aLRT where 1000 is the minimum number recommended. This is an alternative method to the Ufboot method mentioned above
+-   `--bnni` Optimize UFBoot trees by NNI on bootstrap alignment. Useful option to as it reduce the risk of overestimating branch supports with UFBoot (`-B`) due to severe model violations
+-   Let IQ-TREE test for the best model to use
+    -   `-m` TESTONLY Standard model selection (like jModelTest, ProtTest)
+    -   `-m` TEST Standard model selection followed by tree inference
+    -   `-m` MF Extended model selection with FreeRate heterogeneity
+    -   `-m` MFP Extended model selection followed by tree inference
+    -   `--mset` STR,... Comma-separated model list (e.g. -mset WAG,LG,JTT)
+    -   `-madd` STR,... Comma-separated list of mixture models to consider
+
+If you want to view the treefile, there are different options to do this, such as the [ITol webserver](https://itol.embl.de/) or the figtree software which is also installed and can be accessed via the iqtree conda environment you activate above with `figtree my_alignment.treefile`

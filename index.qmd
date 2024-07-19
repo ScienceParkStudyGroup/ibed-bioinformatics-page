@@ -115,6 +115,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 <button class="accordion active">I-L</button>
 <div class="panel">
   <ul>
+    <li><a href="source/phylogenomics/iqtree2.qmd">IQ-TREE</a>: A tool for phylogenomic inferences</li>
     <li><a href="source/metagenomics/interproscan_readme.qmd">Interproscan</a>: A tool to scan protein and nucleic sequences against InterPro signatures</li>
     <li><a href="source/ITSx/itsx_readme.qmd">ITSx</a>: A tool to extract ITS1 and ITS2 subregions from ITS sequences</li>
     <li><a href="source/classification/kraken2.qmd">Kraken2</a>: A taxonomic sequence classifier using kmers</li>

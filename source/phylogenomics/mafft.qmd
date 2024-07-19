@@ -63,7 +63,7 @@ Useful options (for a full list, please visit the [manual](https://mafft.cbrc.jp
 If you want to inspect your alignment, we also provide a tool on the bioinformatics server to be able to do this (to better find conserved sites go to Colour --> Clustal):
 
 ```{bash}
-conda activate jalview_2.11.3.3)
+conda activate jalview_2.11.3.3
 
 jalview my_protein_file.aln
 
