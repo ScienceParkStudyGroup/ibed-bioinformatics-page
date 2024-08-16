@@ -96,6 +96,7 @@ website:
               - source/metagenomics/interproscan_readme.qmd
               - source/metagenomics/fama_readme.qmd
               - source/metagenomics/metabolic.qmd
+              - source/metagenomics/metacerberus.qmd
 
           - section: "Fungal genomics"
             contents:

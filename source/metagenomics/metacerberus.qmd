@@ -1,0 +1,200 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## MetaCerberus
+
+### Introduction
+
+MetaCerberus transforms raw sequencing (i.e. genomic, transcriptomics, metagenomics, metatranscriptomic) data into knowledge [@Figueroa2024]. It is a start to finish python code for versatile analysis of the Functional Ontology Assignments for Metagenomes (FOAM), KEGG, CAZy/dbCAN, VOG, pVOG, PHROG, COG, and a variety of other databases including user customized databases via Hidden Markov Models (HMM) for functional annotation for complete metabolic analysis across the tree of life (i.e., bacteria, archaea, phage, viruses, eukaryotes, and whole ecosystems). MetaCerberus also provides automatic differential statistics using DESeq2/EdgeR, pathway enrichments with GAGE, and pathway visualization with Pathview R.
+
+For more information, please visit the [software's github page](https://github.com/raw-lab/MetaCerberus).
+
+This software contains the following databases as of August 2024:
+
+| Database                                                                                      | Last Update | Version    | Publication                                                                             | MetaCerberus Update Version |
+|-------------|-------------|--------------------|-------------|-------------|
+| [KEGG/KOfams](https://www.genome.jp/ftp/db/kofam/)                                            | 2024-01-01  | Jan24      | [Aramaki et al. 2020](https://doi.org/10.1093/bioinformatics/btz859)                    | beta                        |
+| [FOAM/KOfams](https://osf.io/3uz2j/)                                                          | 2017        | 1          | [Prestat et al. 2014](https://doi.org/10.1093/nar/gku702)                               | beta                        |
+| [COG](https://ftp.ncbi.nlm.nih.gov/pub/COG/COG2020/data/)                                     | 2020        | 2020       | [Galperin et al. 2020](https://doi.org/10.1093/nar/gkaa1018)                            | beta                        |
+| [dbCAN/CAZy](https://bcb.unl.edu/dbCAN2/download/)                                            | 2023-08-02  | 12         | [Yin et al., 2012](https://doi.org/10.1093/nar/gks479)                                  | beta                        |
+| [VOG](https://vogdb.org/download)                                                             | 2017-03-03  | 80         | [Website](https://vogdb.org/)                                                           | beta                        |
+| [pVOG](https://ftp.ncbi.nlm.nih.gov/pub/kristensen/pVOGs/downloads.html#)                     | 2016        | 2016       | [Grazziotin et al. 2017](https://doi.org/10.1093/nar/gkw975)                            | 1.2                         |
+| [PHROG](https://phrogs.lmge.uca.fr/)                                                          | 2022-06-15  | 4          | [Terizan et al., 2021](https://doi.org/10.1093/nargab/lqab067)                          | 1.2                         |
+| [PFAM](http://ftp.ebi.ac.uk/pub/databases/Pfam/current_release)                               | 2023-09-12  | 36         | [Mistry et al. 2020](https://doi.org/10.1093/nar/gkaa913)                               | 1.3                         |
+| [TIGRfams](https://ftp.ncbi.nlm.nih.gov/hmm/TIGRFAMs/release_15.0/)                           | 2018-06-19  | 15         | [Haft et al. 2003](https://doi.org/10.1093/nar/gkg128)                                  | 1.3                         |
+| [PGAPfams](https://ftp.ncbi.nlm.nih.gov/hmm/current/)                                         | 2023-12-21  | 14         | [Tatusova et al. 2016](https://doi.org/10.1093/nar/gkw569)                              | 1.3                         |
+| [AMRFinder-fams](https://ftp.ncbi.nlm.nih.gov/hmm/NCBIfam-AMRFinder/latest/)                  | 2024-02-05  | 2024-02-05 | [Feldgarden et al. 2021](https://doi.org/10.1038/s41598-021-91456-0)                    | 1.3                         |
+| [NFixDB](https://github.com/raw-lab/NFixDB)                                                   | 2024-01-22  | 2          | [Bellanger et al. 2024](https://doi.org/10.1101/2024.03.04.583350)                      | 1.3                         |
+| [GVDB](https://faylward.github.io/GVDB/)                                                      | 2021        | 1          | [Aylward et al. 2021](https://doi.org/10.1371/journal.pbio.3001430)                     | 1.3                         |
+| [Pads Arsenal](https://ngdc.cncb.ac.cn/padsarsenal/download.php)                              | 2019-09-09  | 1          | [Zhang et al. 2020](https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkz916) | Coming soon                 |
+| [efam-XC](https://datacommons.cyverse.org/browse/iplant/home/shared/iVirus/Zayed_efam_2020.1) | 2021-05-21  | 1          | [Zayed et al. 2021](https://doi.org/10.1093/bioinformatics/btab451)                     | Coming soon                 |
+| [NMPFams](https://bib.fleming.gr/NMPFamsDB/downloads)                                         | 2021        | 1          | [Baltoumas et al. 2024](https://doi.org/10.1093/nar/gkad800)                            | Coming soon                 |
+| [MEROPS](https://www.ebi.ac.uk/merops/download_list.shtml)                                    | 2017        | 1          | [Rawlings et al. 2018](https://academic.oup.com/nar/article/46/D1/D624/4626772)         | Coming soon                 |
+| [FESNov](https://zenodo.org/records/10242439)                                                 | 2024        | 1          | [Rodríguez del Río et al. 2024](https://www.nature.com/articles/s41586-023-06955-z)     | Coming soon                 |
+
+### Installation
+
+Installed on crunchomics: Yes,
+
+-   MetaCerberus v1.3.2 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski\@uva.nl.
+-   Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run:
+
+```{bash}
+mamba create -n metacerberus_1.3.2 -c conda-forge -c bioconda metacerberus
+
+conda activate metacerberus_1.3.2 
+
+metacerberus.py --setup #Setting up FragGeneScanRS
+metacerberus.py --download # Downloading required databases
+
+conda deactivate
+```
+
+### Usage
+
+General usage notes:
+
+- MetaCerberus can use three different input files: 
+	1) raw read data from any sequencing platform (Illumina, PacBio, or Oxford Nanopore),
+	2) assembled contigs, as MAGs, vMAGs, isolate genomes, or a collection of contigs,
+	3) amino acid fasta (.faa), previously called pORFs.
+- In QC mode, raw reads are quality controlled via FastQC prior and post trim [FastQC](https://github.com/s-andrews/FastQC). Raw reads are then trimmed via data type; if the data is Illumina or PacBio, [fastp](https://doi.org/10.1093/bioinformatics/bty560) is called, otherwise it assumes the data is Oxford Nanopore then Porechop is utilized [PoreChop](https://github.com/rrwick/Porechop).
+- In the formatting and gene prediction stage, contigs and genomes are checked for N repeats. These N repeats are removed by default.
+- Contigs can be converted to pORFs using [Prodigal](https://anaconda.org/bioconda/prodigal), [FragGeneScanRs](https://github.com/unipept/FragGeneScanRs/), and [Prodigal-gv](https://github.com/apcamargo/prodigal-gv) as specified by user preference.
+
+Example usage on a folder with two protein fasta files:
+
+```{bash}
+conda activate metacerberus_1.3.2 
+
+mkdir metacerberus
+
+# Run MetaCerberus on a folder with two protein files
+metacerberus.py --protein faa/ --hmm ALL --dir_out metacerberus --cpus 20 
+
+conda deactivate
+```
+
+When running this example, the results will be stored in a `metacerberus` folder. Inside this folder, the final folder will contain:
+
+| File Extension | Description Summary |  MetaCerberus Update Version |
+| --------- | ----------- | -------- |
+| .gff | General Feature Format | 1.3 |
+| .gbk | GenBank Format | 1.3 |
+| .fna | Nucleotide FASTA file of the input contig sequences. | 1.3 |
+| .faa | Protein FASTA file of the translated CDS/ORFs sequences. | 1.3 |
+| .ffn | FASTA Feature Nucleotide file, the Nucleotide sequence of translated CDS/ORFs.| 1.3 |
+| .html | Summary statistics and/or visualizations, in step 10 folder | 1.3 |
+| .txt | Statistics relating to the annotated features found. | 1.3 |
+| level.tsv | Various levels of hierachical steps that is tab-separated file from various databases| 1.3 |
+| rollup.tsv | All levels of hierachical steps that is tab-separated file from various databases| 1.3 |
+| .tsv | Final Annotation summary, Tab-separated file of all features from various databases| 1.3 |
+
+Since `final_annotation_summary.tsv` only provides the best hit across all databases, we provide two small scripts that you can run if you want to generate a table that allows you to compare the annotations across all databases for each protein. You can run this as follows (only tested on protein files so far): 
+
+```{bash}
+# Combine results from individual database folders for each protein file
+for i in metacerberus/final/Protein_*_protein; do
+	python /zfs/omics/projects/bioinformatics/scripts/merge_metacerberus_individual_dbs.py -i ${i} -o merged_annotations.tsv
+done
+
+# Concatenate the merged results into one document
+python /zfs/omics/projects/bioinformatics/scripts/combine_metacerberus_annotations.py -b metacerberus/final/ -o combined_annotations.tsv
+```
+
+Options:
+
+```{bash}
+usage: metacerberus.py [--setup] [--update] [--list-db] [--download [DOWNLOAD ...]] [--uninstall] [-c CONFIG] [--prodigal PRODIGAL [PRODIGAL ...]]
+                       [--fraggenescan FRAGGENESCAN [FRAGGENESCAN ...]] [--super SUPER [SUPER ...]] [--prodigalgv PRODIGALGV [PRODIGALGV ...]]
+                       [--phanotate PHANOTATE [PHANOTATE ...]] [--protein PROTEIN [PROTEIN ...]] [--hmmer-tsv HMMER_TSV [HMMER_TSV ...]] [--class CLASS]
+                       [--illumina | --nanopore | --pacbio] [--dir-out DIR_OUT] [--replace] [--keep] [--tmpdir TMPDIR] [--hmm HMM [HMM ...]] [--db-path DB_PATH] [--meta]
+                       [--scaffolds] [--minscore MINSCORE] [--evalue EVALUE] [--skip-decon] [--skip-pca] [--cpus CPUS] [--chunker CHUNKER] [--grouped] [--version] [-h]
+                       [--adapters ADAPTERS] [--qc_seq QC_SEQ]
+
+Setup arguments:
+  --setup               Setup additional dependencies [False]
+  --update              Update downloaded databases [False]
+  --list-db             List available and downloaded databases [False]
+  --download [DOWNLOAD ...]
+                        Downloads selected HMMs. Use the option --list-db for a list of available databases, default is to download all available databases
+  --uninstall           Remove downloaded databases and FragGeneScan+ [False]
+
+Input files
+At least one sequence is required.
+    accepted formats: [.fastq, .fq, .fasta, .fa, .fna, .ffn, .faa]
+Example:
+> metacerberus.py --prodigal file1.fasta
+> metacerberus.py --config file.config
+*Note: If a sequence is given in [.fastq, .fq] format, one of --nanopore, --illumina, or --pacbio is required.:
+  -c CONFIG, --config CONFIG
+                        Path to config file, command line takes priority
+  --prodigal PRODIGAL [PRODIGAL ...]
+                        Prokaryote nucleotide sequence (includes microbes, bacteriophage)
+  --fraggenescan FRAGGENESCAN [FRAGGENESCAN ...]
+                        Eukaryote nucleotide sequence (includes other viruses, works all around for everything)
+  --super SUPER [SUPER ...]
+                        Run sequence in both --prodigal and --fraggenescan modes
+  --prodigalgv PRODIGALGV [PRODIGALGV ...]
+                        Giant virus nucleotide sequence
+  --phanotate PHANOTATE [PHANOTATE ...]
+                        Phage sequence
+  --protein PROTEIN [PROTEIN ...], --amino PROTEIN [PROTEIN ...]
+                        Protein Amino Acid sequence
+  --hmmer-tsv HMMER_TSV [HMMER_TSV ...]
+                        Annotations tsv file from HMMER (experimental)
+  --class CLASS         path to a tsv file which has class information for the samples. If this file is included scripts will be included to run Pathview in R
+  --illumina            Specifies that the given FASTQ files are from Illumina
+  --nanopore            Specifies that the given FASTQ files are from Nanopore
+  --pacbio              Specifies that the given FASTQ files are from PacBio
+
+Output options:
+  --dir-out DIR_OUT     path to output directory, defaults to "results-metacerberus" in current directory. [./results-metacerberus]
+  --replace             Flag to replace existing files. [False]
+  --keep                Flag to keep temporary files. [False]
+  --tmpdir TMPDIR       temp directory for RAY (experimental) [system tmp dir]
+
+Database options:
+  --hmm HMM [HMM ...]   A list of databases for HMMER. Use the option --list-db for a list of available databases [KOFam_all]
+  --db-path DB_PATH     Path to folder of databases [Default: under the library path of MetaCerberus]
+
+optional arguments:
+  --meta                Metagenomic nucleotide sequences (for prodigal) [False]
+  --scaffolds           Sequences are treated as scaffolds [False]
+  --minscore MINSCORE   Score cutoff for parsing HMMER results [60]
+  --evalue EVALUE       E-value cutoff for parsing HMMER results [1e-09]
+  --remove-n-repeats    Remove N repeats, splitting contigs [False]
+  --skip-decon          Skip decontamination step. [False]
+  --skip-pca            Skip PCA. [False]
+  --cpus CPUS           Number of CPUs to use per task. System will try to detect available CPUs if not specified [Auto Detect]
+  --chunker CHUNKER     Split files into smaller chunks, in Megabytes [Disabled by default]
+  --grouped             Group multiple fasta files into a single file before processing. When used with chunker can improve speed
+  --version, -v         show the version number and exit
+  -h, --help            show this help message and exit
+
+  --adapters ADAPTERS   FASTA File containing adapter sequences for trimming
+  --qc_seq QC_SEQ       FASTA File containing control sequences for decontamination
+
+Args that start with '--' can also be set in a config file (specified via -c). Config file syntax allows: key=value, flag=true, stuff=[a,b,c] (for details, see syntax at
+https://goo.gl/R74nmi). In general, command-line values override config file values which override defaults.
+```
+
+
+### Common Issues and Solutions
+
+- **Issue 1:** : The files providing counts have an issue an only provide counts of 1 with v1.3.2
+  - Solution 1:  For now do not use these files, the authors of the software are aware 
