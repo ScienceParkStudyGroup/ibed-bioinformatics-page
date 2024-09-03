@@ -1,0 +1,118 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## SignalP 6.0
+
+### Introduction
+
+SignalP 6.0 predicts the presence of signal peptides and the location of their cleavage sites in proteins from Archaea, Gram-positive Bacteria, Gram-negative Bacteria and Eukarya [@Teufel2022]. In Bacteria and Archaea, SignalP 6.0 can discriminate between five types of signal peptides:
+
+-   Sec/SPI: "standard" secretory signal peptides transported by the Sec translocon and cleaved by Signal Peptidase I (Lep)
+-   Sec/SPII: lipoprotein signal peptides transported by the Sec translocon and cleaved by Signal Peptidase II (Lsp)
+-   Tat/SPI: Tat signal peptides transported by the Tat translocon and cleaved by Signal Peptidase I (Lep)
+-   Tat/SPII: Tat lipoprotein signal peptides transported by the Tat translocon and cleaved by Signal Peptidase II (Lsp)
+-   Sec/SPIII: Pilin and pilin-like signal peptides transported by the Sec translocon and cleaved by Signal Peptidase III (PilD/PibD)
+
+Additionally, SignalP 6.0 predicts the regions of signal peptides. Depending on the type, the positions of n-, h- and c-regions as well as of other distinctive features are predicted.
+
+SignalP 6.0 can be run via the [webserver](https://services.healthtech.dtu.dk/services/SignalP-6.0/) and, for larger sets of proteins, the software can be installed as well.
+
+### Installation
+
+Installed on crunchomics: Yes,
+
+-   SignalP v6.0h is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski\@uva.nl.
+-   Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you need to first request the software by filling out [this page](https://services.healthtech.dtu.dk/cgi-bin/sw_request?software=signalp&version=6.0&packageversion=6.0h&platform=fast). Afterwards, you get an email with a link leading you to the software and installation instructions and you can install things via:
+
+```{bash}
+# Download software
+wget <link_to_tar.gz>
+
+# Decompress the folder you downloaded
+# If downloading a different version, change the name of the tar.gz folder accordingly 
+tar -xzvf signalp-6.0h.fast.tar.gz
+
+# Go into the folder that was just decompressed 
+# If downloading a different version, change the folder name accordingly
+cd signalp6_fast
+
+# Setup a conda environment in which we install the required dependencies and run the software setup 
+mamba create -n signalP6 python=3.6
+
+# Install everything needed in the new conda environment
+conda activate signalP6
+pip install signalp-6-package
+
+# Copy the model files to the location at which the signalP module got installed
+SIGNALP_DIR=$(python3 -c "import signalp; import os; print(os.path.dirname(signalp.__file__))" )
+
+cp -r signalp-6-package/models/* $SIGNALP_DIR/model_weights/
+
+# Check if the general setup is ok
+signalp6 -h
+
+# Note, in some version there is a bug resulting in the error "RuntimeError: set_num_threads expects an int, but got str"
+# To solve this find out the path of the conda environment things are setup 
+cd <path_to_signalp6_conda_env>/lib/python3.6/site-packages/signalp
+
+# Open the predict.py script and exchange `torch.set_num_threads(args.torch_num_threads)` with `torch.set_num_threads(int(args.torch_num_threads))`
+```
+
+### Usage
+
+```{bash}
+conda activate signalP6
+
+signalp6 --fastafile  my_organism.faa \
+  --organism eukarya \
+  --output_dir signalP_output \
+  --write_procs 10 \
+  --torch_num_threads 10 \
+  --format txt --mode fast
+
+conda deactivate
+```
+
+Required options:
+
+-   `--fastafile`, `-ff`, specifies the fasta file with the sequences to be predicted. To prevent invalid file paths, non-alphanumeric characters in fasta headers are replaced with "`_`" for saving the individual sequence output files.
+-   `--output_dir`, `-od`, speicifies the directory in which to save the outputs. If it does not exist, it will be created. Note that repeated calls with the same `--output_dir` will overwrite previous prediction results.
+
+Other useful options:
+
+-   `--organism`, `-org`, is either `other` or `eukarya`. Specifying `eukarya` triggers post-processing of the SP predictions to prevent spurious results (only predicts type Sec/SPI).\
+    Defaults to `other`.
+-   `--format`, `-fmt`, can take the values `txt`, `png`, `eps`, `all`, `none`. It defines what output files are created for individual sequences. `txt` produces a tabular `.gff` file with the per-position predictions for each sequence. `png`, `eps`, `all` additionally produce probability plots in the requested format. `none` only writes the summary prediction files. For larger prediction jobs, plotting will slow down the processing speed significantly.\
+    Defaults to `txt`.
+-   `--mode`, `-m`, is either `fast`, `slow` or `slow-sequential`. Default is `fast`, which uses a smaller model that approximates the performance of the full model, requiring a fraction of the resources and being significantly faster. `slow` runs the full model in parallel, which requires more than 14GB of RAM to be available. `slow-sequential` runs the full model sequentially, taking the same amount of RAM as `fast` but being 6 times slower. If the specified model is not installed, SignalP will abort with an error.\
+    Defaults to `fast`.
+-   `model_dir`, `-md` allows you to specify an alternative directory containing the SignalP 6.0 model weight files. Defaults to the location that is used by the installation commands. Does not need to be specified when following the default installation instructions.
+-   `--bsize`, `-bs` is the integer batch size used for prediction. When running on GPU, this should be adjusted to maximize usage of the available memory. On CPU, the choice usually has only a limited effect on performance. Defaults to `10`.
+-   `--torch_num_threads`, `-tt` is the number of threads used by PyTorch. Defaults to `8`.
+-   `--write_procs`, `-wp` is the integer number of parallel processes launched for writing output files. Using multiple processes significantly speeds up writing the outputs for prediction jobs with many sequences. However, due to the way multiprocessing works in Python, this leads to increased memory usage. By setting to `1`, no additional processes are started. Defaults to the number of available CPUs with `8` processes maximum.
+
+The script will require the following outputs:
+
+-   `prediction_results.txt`: A tab delimited file with one line per prediction. This file has the following columns:
+    -   ID: the sequence ID parsed from the fasta input.
+    -   Prediction: The predicted type. One of \[`OTHER` (No SP), `SP` (Sec/SPI), `LIPO` (Sec/SPII), `TAT` (Tat/SPI), `TATLIPO` (Tat/SPII), `PILIN` (Sec/SPIII)\].
+    -   One column for each possible type with the model's probability.
+    -   CS Position: The cleavage site. The sequence positions between which the SPase cleaves and its predicted probability.
+-   `processed_entries.fasta`: Predicted mature proteins, i.e. sequences with their signal peptides removed.
+-   `output.gff3`: The start and end positions of all predicted signal peptides in GFF3 format.
+-   `region_output.gff3`: The start and end positions of all predicted signal peptide regions in GFF3 format.
+-   `output.json`: The prediction results in JSON format, together with details on the run parameters and paths to the generated output files. Useful for integrating SignalP 6.0 in pipelines.

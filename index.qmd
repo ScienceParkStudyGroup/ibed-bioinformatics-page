@@ -150,6 +150,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
     <li><a href="source/core_tools/rsem.qmd">RSEM</a>: A software package for estimating gene and isoform expression levels from RNA-Seq data</li>
     <li><a href="source/core_tools/samtools.qmd">Samtools</a>: A tool to manipulating alignments in SAM/BAM format</li>
     <li><a href="source/core_tools/seqkit.qmd">SeqKit</a>: A tool for FASTA/Q file manipulation</li>
+    <li><a href="source/metagenomics/signalp6.qmd">SignalP6</a>: A tool to predict the presence of signal peptides</li>
     <li><a href="source/metatranscriptomics/sortmerna.qmd">SortMerNa</a>: A tool to filter ribosomal RNAs in metatranscriptomic data</li>
     <li><a href="source/metatranscriptomics/star.qmd">Star</a>: An ultrafast universal RNA-seq aligner</li>
     <li><a href="source/metagenomics/trycycler.qmd">Trycyler</a>: A tool for generating consensus long-read assemblies for bacterial genomes</li>
