@@ -1,0 +1,92 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## DeepLoc
+
+### Introduction
+
+DeepLoc 2.0 predicts the subcellular localization(s) of eukaryotic proteins [@Thumuluri2022]. DeepLoc 2.0 is a multi-label predictor, which means that is able to predict one or more localizations for any given protein. It can differentiate between 10 different localizations: Nucleus, Cytoplasm, Extracellular, Mitochondrion, Cell membrane, Endoplasmic reticulum, Chloroplast, Golgi apparatus, Lysosome/Vacuole and Peroxisome. Additionally, DeepLoc 2.0 can predict the presence of the sorting signal(s) that had an influence on the prediction of the subcellular localization(s).
+
+Prokaryotic proteins: To predict the locations of proteins in prokaryotes, use [DeepLocPro](https://services.healthtech.dtu.dk/services/DeepLocPro-1.0/). 
+RNA: To predict the locations of RNA, use [DeepLocRNA](https://biolib.com/KU/DeepLocRNA/).
+
+DeepLoc can be used via a [webserver](https://services.healthtech.dtu.dk/services/DeepLoc-2.0/), or, for larger datasets, the software can be installed as well.
+
+### Installation
+
+Installed on crunchomics: Yes,
+
+-   DeepLoc v2.0.0 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski\@uva.nl.
+-   Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can:
+
+-   Fill out form [here](https://services.healthtech.dtu.dk/cgi-bin/sw_request?software=deeploc&version=2.0&packageversion=2.0&platform=All)
+-   Wait for the mail and download software
+
+```{bash}
+cd /zfs/omics/projects/bioinformatics/software
+
+# Download
+wget https://services.healthtech.dtu.dk/download/b8447188-64d9-44f6-a4e3-e4bbd41e6904/deeploc-2.0.All.tar.gz
+
+# Decompress
+tar -xzvf deeploc-2.0.All.tar.gz
+
+# Setup all required dependencies via a conda environment
+mamba create -p /zfs/omics/projects/bioinformatics/software/miniconda3/envs/deeploc_2.0 python=3.6
+
+conda activate deeploc_2.0
+
+cd deeploc2_package/
+pip install .
+
+# Test installation 
+deeploc2 -h
+```
+
+### Usage
+
+**Note when using this with slurm**
+
+-   Deeploc does not have an option to set the number of CPUs used. Instead it will use all CPUs available on the system
+-   Therefore, when running deeplpc with srun or sbatch, ensure that you set the number of CPUs with `--cpus-per-task=n` with n being the number of CPUs you desire.
+
+```{bash}
+conda activate deeploc_2.0
+
+deeploc2 \
+  -f 03_data/annotations/Ochro1393_1_4_GeneCatalog.faa \
+  -o 03_data/annotations/manual/deeploc \
+  -d cpu
+
+conda deactivate
+```
+
+DeepLoc can be run with 4 possible arguments:
+
+-   `-f`, `--fasta`. Input in fasta format of the proteins.
+-   `-o`, `--output`. Output folder name.
+-   `-m`, `--model`. High-quality (Accurate) model or high-throughput (Fast) model. Default: Fast.
+-   `-p`, `--plot`. Plot and save attention values for each individual protein.
+
+The output is a tabular file with the following format:
+
+-   1st column: Protein ID.
+-   2nd column: Predicted localization(s).
+-   3rd column: Predicted sorting signal(s).
+-   4th-13th column: Probability for each of the individual localizations.
+
+If --plot is defined, a plot and a text file with the sorting signal importance for each protein will be generated.

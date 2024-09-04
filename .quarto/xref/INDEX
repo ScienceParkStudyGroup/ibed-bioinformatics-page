@@ -248,5 +248,8 @@
   },
   "source/metagenomics/signalp6.qmd": {
     "signalp6.html": "d072a463"
+  },
+  "source/metagenomics/deeploc.qmd": {
+    "deeploc.html": "65c40380"
   }
 }
