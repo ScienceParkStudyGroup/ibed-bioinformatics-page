@@ -251,5 +251,8 @@
   },
   "source/metagenomics/deeploc.qmd": {
     "deeploc.html": "65c40380"
+  },
+  "source/metagenomics/augustus.qmd": {
+    "augustus.html": "9e6eea3e"
   }
 }

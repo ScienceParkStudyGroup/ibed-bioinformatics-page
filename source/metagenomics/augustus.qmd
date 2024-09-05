@@ -1,0 +1,131 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## Augustus
+
+### Introduction
+
+AUGUSTUS is a program that predicts genes in eukaryotic genomic sequences [@Stanke2008]. It can be run on [this web server](https://bioinf.uni-greifswald.de/augustus/submission.php), on [a new web server for larger input files](https://bioinf.uni-greifswald.de/webaugustus/) or be downloaded and run [locally](https://github.com/Gaius-Augustus/Augustus). If you also have transcriptomic data available, consider to also have a look at [BRAKER](https://github.com/Gaius-Augustus/BRAKER) to optimize the gene prediction process.
+
+Augustus can be used as an ab initio program, which means it bases its prediction purely on the sequence. AUGUSTUS may also incorporate hints on the gene structure coming from extrinsic sources such as EST, MS/MS, protein alignments and syntenic genomic alignments. Since version 3.0 AUGUSTUS can also predict the genes simultaneously in several aligned genomes.
+
+### Installation
+
+Installed on crunchomics: Yes,
+
+-   Augustus v3.5.0 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski\@uva.nl.
+-   Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself via docker or singularity follow the instructions on the [github page](https://github.com/Gaius-Augustus/Augustus). If you lack the tools or necessary permission, it is also possible to setup Augustus via conda:
+
+```{bash}
+# Change the directory to where you want to install augustus
+cd <path_to_augustus_folder>/
+
+# Clone the augustus git repository
+git clone https://github.com/Gaius-Augustus/Augustus.git
+
+# Setup an augustus conda environment
+conda create -n augustus -c conda-forge -c bioconda -y
+
+# Install the required dependencies
+mamba install -c conda-forge -c bioconda gcc_linux-64 gxx_linux-64 wget git autoconf make gsl boost libiconv suitesparse lp_solve sqlite mysql-connector-cpp boost zlib bamtools samtools htslib cdbtools diamond perl-file-which perl-parallel-forkmanager perl-yaml perl-dbd-mysql biopython mysql
+
+# If you encounter the error: fatal error: mysql++/mysql++.h: No such file or directory
+# switch off MySQL usage by setting MYSQL = false in common.mk (found in the Augustus folder, you downloaded with git)
+
+# If you encounter the error: lp_lib.h: No such file or directory
+# switch off lp_solve usage by setting COMPGENEPRED = false in common.mk
+
+# Run make to install augustus itself
+cd Augustus
+make augustus
+
+# Test if everything runs ok 
+<path_to_augustus_folder>/Augustus/bin/augustus -h
+```
+
+### Usage
+
+**AUGUSTUS has 2 mandatory arguments.**
+
+1.  The query file, which contains the DNA input sequence and must be in uncompressed (multiple) fasta format
+2.  The species. AUGUSTUS has currently been trained on species specific training sets to predict genes in a list of species. To find the most appropriate species for your analysis, you can view a full list by running `/zfs/omics/projects/bioinformatics/software/Augustus/bin/augustus --species=help`
+
+**Instructions for fasta headers:**
+
+-   Most problems when running AUGUSTUS are caused by fasta headers in the sequence files. Some of the tools in our pipeline will truncate fasta headers if they are too long or contain spaces, or contain special characters. It is therefore strongly recommend that you adhere to the following rules for fasta headers:
+    -   no whitespaces in the headers
+    -   no special characters in the headers (e.g. !#\@&\|;)
+    -   make the headers as short as possible
+    -   let headers not start with a number but with a letter
+    -   let headers contain letters and numbers, only (and possibly underscores)
+
+```{bash}
+# Activate the augustus conda environment
+conda activate augustus 
+
+# Example for cleaning the fasta headers of the input sequence (adjust as needed for your purposes)
+# 1. Remove everything after a space in the fasta header 
+cut -f1 -d " "   genome_with_wrong_headers.fasta  >  genome.fasta 
+
+# 2. Replace dots with underscores
+sed -i '/^>/s/\./_/g'  genome.fasta 
+
+# Run Augustus
+/zfs/omics/projects/bioinformatics/software/Augustus/bin/augustus \
+    --protein=on \
+    --codingseq=on \
+    --species=amphimedon \
+    genome.fasta \
+    > output.gff
+
+# Extract CDS (output.codingseq) and proteins (output.aa)
+# Note, this only works if augustus is run with `--protein=on` and ` --species=amphimedon`
+perl /zfs/omics/projects/bioinformatics/software/Augustus/scripts/getAnnoFasta.pl output.gff
+
+# Exist the augustus conda environment
+conda deactivate
+```
+
+Useful options, for a full list, go [here](https://github.com/Gaius-Augustus/Augustus/blob/master/docs/RUNNING-AUGUSTUS.md):
+
+-   `--strand=both`, `--strand=forward` or `--strand=backward`: report predicted genes on both strands, just the forward or just the backward strand. default is 'both'
+-   `--genemodel=partial`, `--genemodel=intronless`, `--genemodel=complete`, `--genemodel=atleastone` or `--genemodel=exactlyone`:
+-   partial : allow prediction of incomplete genes at the sequence boundaries (default)
+-   intronless : only predict single-exon genes like in prokaryotes and some eukaryotes
+-   complete : only predict complete genes
+-   atleastone : predict at least one complete gene
+-   exactlyone : predict exactly one complete gene
+-   `--singlestrand=true`: predict genes independently on each strand, allow overlapping genes on opposite strands. This option is turned off by default.
+-   `--hintsfile=hintsfilename`: When this option is used the prediction considering hints (extrinsic information) is turned on. hintsfilename contains the hints in gff format.
+-   `--extrinsicCfgFile=cfgfilename`: Optional. This file contains the list of used sources for the hints and their boni and mali. If not specified the file "extrinsic.cfg" in the config directory \$AUGUSTUS_CONFIG_PATH is used.
+-   `--maxDNAPieceSize=n`: This value specifies the maximal length of the pieces that the sequence is cut into for the core algorithm (Viterbi) to be run. Default is --maxDNAPieceSize=200000. AUGUSTUS tries to place the boundaries of these pieces in the intergenic region, which is inferred by a preliminary prediction. GC-content dependent parameters are chosen for each piece of DNA if /Constant/decomp_num_steps \> 1 for that species. This is why this value should not be set very large, even if you have plenty of memory.
+-   `--protein=on/off`
+-   `--codingseq=on/off`
+-   `--introns=on/off`
+-   `--start=on/off`
+-   `--stop=on/off`
+-   `--cds=on/off`
+-   `--exonnames=on/off`: Output options. Output predicted amino acid sequences or coding sequences. Or toggle the display of the GFF features/lines of type intron, start codon, stop codon, CDS or 'initial', 'internal', 'terminal' and 'single' exon type names. The CDS excludes the stop codon (unless stopCodonExcludedFromCDS=false) whereas the terminal and single exon include the stop codon.
+-   `--AUGUSTUS_CONFIG_PATH=path`: path to config directory (if not specified as environment variable)
+-   `--alternatives-from-evidence=true/false`: report alternative transcripts when they are suggested by hints
+-   `--alternatives-from-sampling=true/false`: report alternative transcripts generated through probabilistic sampling
+-   `--gff3=on/off`: output in gff3 format
+-   `--UTR=on/off`: predict the untranslated regions in addition to the coding sequence. This currently works only for human, galdieria, toxoplasma and caenorhabditis.
+-   `--outfile=filename`: print output to filename instead to standard output. This is useful for computing environments, e.g. parasol jobs, which do not allow shell redirection.
+-   `--noInFrameStop=true/false`: Don't report transcripts with in-frame stop codons. Otherwise, intron-spanning stop codons could occur. Default: false
+-   `--noprediction=true/false`: If true and input is in genbank format, no prediction is made. Useful for getting the annotated protein sequences.
+-   `--contentmodels=on/off`: If 'off' the content models are disabled (all emissions uniformly 1/4). The content models are; coding region Markov chain(emiprobs), initial k-mers in coding region (Pls), intron and intergenic regin Markov chain. This option is intended for special applications that require judging gene structures from the signal models only, e.g. for predicting the effect of SNPs or mutations on splicing. For all typical gene predictions, this should be true. Default: on

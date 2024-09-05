@@ -93,17 +93,11 @@ website:
 
           - section: "Functional annotation"
             contents:
-              - source/metagenomics/deeploc.qmd
               - source/metagenomics/interproscan_readme.qmd
               - source/metagenomics/fama_readme.qmd
               - source/metagenomics/metabolic.qmd
               - source/metagenomics/metacerberus.qmd
               - source/metagenomics/signalp6.qmd
-
-          - section: "Fungal genomics"
-            contents:
-              - source/ITSx/itsx_readme.qmd
-              - source/nanopore/nanoITS.qmd
 
           - section: "(Meta)genomics"
             contents:
@@ -117,6 +111,16 @@ website:
               - source/metagenomics/quast.qmd
               - source/metagenomics/dnaapler.qmd
               - source/metagenomics/motus.qmd
+
+          - section: "Eukaryotic genomics"
+            contents:
+              - source/metagenomics/augustus.qmd
+              - source/metagenomics/deeploc.qmd
+
+          - section: "Fungal genomics"
+            contents:
+              - source/ITSx/itsx_readme.qmd
+              - source/nanopore/nanoITS.qmd
 
           - section: "(Meta)transcriptomics"
             contents:
