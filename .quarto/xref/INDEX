@@ -254,5 +254,8 @@
   },
   "source/metagenomics/augustus.qmd": {
     "augustus.html": "9e6eea3e"
+  },
+  "source/metagenomics/bakta.qmd": {
+    "bakta.html": "cbd4dbbe"
   }
 }
