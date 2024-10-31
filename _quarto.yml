@@ -78,6 +78,7 @@ website:
         contents:
           - section: "Core tools"
             contents:
+              - source/core_tools/diamond.qmd
               - source/core_tools/hmmer.qmd
               - source/core_tools/ncbi.qmd
               - source/core_tools/prokka.qmd

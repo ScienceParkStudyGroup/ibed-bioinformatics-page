@@ -260,5 +260,8 @@
   },
   "source/core_tools/ncbi_nr.qmd": {
     "ncbi_nr.html": "c5f140fb"
+  },
+  "source/core_tools/diamond.qmd": {
+    "diamond.html": "22759836"
   }
 }

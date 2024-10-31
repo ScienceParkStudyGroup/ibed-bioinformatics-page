@@ -84,8 +84,8 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/core_tools/pfam_db.html" rel="next">
-<link href="../../source/core_tools/kegg_db.html" rel="prev">
+<link href="../../source/core_tools/hmmer.html" rel="next">
+<link href="../../source/metagenomics/readme.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -138,7 +138,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/core_tools/kegg_db.html">Bioinformatic databases</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/ncbi_nr.html">NCBI nr</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/diamond.html">Core tools</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/diamond.html">Diamond</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -254,16 +254,16 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
  <span class="menu-text">Core tools</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/diamond.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/diamond.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Diamond</span></a>
   </div>
 </li>
@@ -739,7 +739,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/ncbi_nr.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../source/core_tools/ncbi_nr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NCBI nr</span></a>
   </div>
 </li>
@@ -773,18 +773,18 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#ncbi-nr" id="toc-ncbi-nr" class="nav-link active" data-scroll-target="#ncbi-nr">NCBI nr</a>
+  <li><a href="#diamond" id="toc-diamond" class="nav-link active" data-scroll-target="#diamond">Diamond</a>
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a>
   <ul class="collapse">
-  <li><a href="#get-the-ncbi-nr-database" id="toc-get-the-ncbi-nr-database" class="nav-link" data-scroll-target="#get-the-ncbi-nr-database">Get the NCBI nr database</a></li>
-  <li><a href="#parse-the-taxonomy-files" id="toc-parse-the-taxonomy-files" class="nav-link" data-scroll-target="#parse-the-taxonomy-files">Parse the taxonomy files</a></li>
+  <li><a href="#generating-your-own-diamond-database" id="toc-generating-your-own-diamond-database" class="nav-link" data-scroll-target="#generating-your-own-diamond-database">Generating your own diamond database</a></li>
+  <li><a href="#running-a-diamond-seach" id="toc-running-a-diamond-seach" class="nav-link" data-scroll-target="#running-a-diamond-seach">Running a diamond seach</a></li>
   </ul></li>
-  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/ncbi_nr.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/diamond.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -797,139 +797,156 @@ div.csl-indent {
 
 <div style="text-align: justify">
 
-<section id="ncbi-nr" class="level2">
-<h2 class="anchored" data-anchor-id="ncbi-nr">NCBI nr</h2>
+<section id="diamond" class="level2">
+<h2 class="anchored" data-anchor-id="diamond">Diamond</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>NCBI has several databases that can be used for BLAST searches. One of those is the the non-redundant (nr) protein database. Non-redundant means that identical sequences are represented by a single entry in the database. In the case of protein sequences, sometimes hundreds of sequences may be collapsed into a single entry.</p>
-<p>The default protein database nr contains nearly all protein sequences available at NCBI.</p>
+<p>DIAMOND is a sequence aligner for protein and translated DNA searches, designed for high performance analysis of big sequence data <span class="citation" data-cites="Buchfink2021a">(<a href="#ref-Buchfink2021a" role="doc-biblioref">Buchfink, Reuter, and Drost 2021</a>)</span>. The key features are:</p>
 <ul>
-<li>no patent sequences</li>
-<li>no wgs metagenomes and no transcriptome shotgun assembly proteins</li>
-<li>includes proteins from outside protein-only sources that are also available as separate databases.</li>
+<li>Pairwise alignment of proteins and translated DNA at 100x-10,000x speed of BLAST.</li>
+<li>Protein clustering of up to tens of billions of proteins</li>
+<li>Frameshift alignments for long read analysis.</li>
+<li>Low resource requirements and suitable for running on standard desktops or laptops.</li>
+<li>Various output formats, including BLAST pairwise, tabular and XML, as well as taxonomic classification.</li>
 </ul>
+<p>For a full description, please visit the tools <a href="https://github.com/bbuchfink/diamond">website</a>.</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
 <p>Installed on crunchomics: Yes,</p>
 <ul>
-<li>The NCBI nr database was downloaded on 30th of August 2024 and converted to a diamond database which can be found on the bioinformatics share.</li>
-<li>The database can be found here: <code>/zfs/omics/projects/bioinformatics/databases/ncbi_nr/diamond/</code></li>
-<li>Taxonomy files that link the NCBI taxonomy ID to a taxonomy string can be found at <code>/zfs/omics/projects/bioinformatics/databases/ncbi_tax</code></li>
+<li>Diamond v 2.1.9 is installed by default on the Crunchomics HPC</li>
 </ul>
-<p>If you want to generate the database yourself you can do the following:</p>
-<section id="get-the-ncbi-nr-database" class="level4">
-<h4 class="anchored" data-anchor-id="get-the-ncbi-nr-database">Get the NCBI nr database</h4>
-<p>Comments:</p>
-<ul>
-<li>Please note, the database is quite large (~450 Gb as of Oktober 2024)</li>
-<li>The tool <code>update_blastdb.pl</code> is part of NCBI’s BLAST® Command Line Applications <span class="citation" data-cites="Wang2003">(<a href="#ref-Wang2003" role="doc-biblioref">Wang et al. 2003</a>)</span>. Installation instructions can be found <a href="https://www.ncbi.nlm.nih.gov/books/NBK569861/">here</a>. Additionally, BLAST as well as diamond can also be installed via mamba</li>
-</ul>
+<p>If you want to install the latest version yourself, you can run:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the nr database</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">update_blastdb.pl</span> <span class="at">--decompress</span> nr</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Download taxonomy information</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/accession2taxid/prot.accession2taxid.gz.md5</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/accession2taxid/prot.accession2taxid.gz</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdmp.zip</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span> taxdmp.zip</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare NR for diamond</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ex">diamond</span> prepdb <span class="at">--db</span> nr</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract protein sequences (required to convert BLAST to diamond format)</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># While you can use a BLAST database directly with diamond it is so far not possible to extract the taxonomy information</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># If you require taxonomy information, convert to dmd format as follows</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ex">blastdbcmd</span> <span class="at">-entry</span> <span class="st">'all'</span> <span class="at">-db</span> nr <span class="op">&gt;</span>nr.faa</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate diamond database (the output generated here is called nr.dmnd)</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ex">diamond</span> makedb <span class="at">--in</span> nr.faa <span class="at">--db</span> nr <span class="dt">\</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">--taxonmap</span> prot.accession2taxid.gz <span class="dt">\</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">--taxonnodes</span> nodes.dmp <span class="dt">\</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">--taxonnames</span> names.dmp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> diamond <span class="at">-c</span> bioconda <span class="at">-c</span> conda-forge diamond</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="parse-the-taxonomy-files" class="level4">
-<h4 class="anchored" data-anchor-id="parse-the-taxonomy-files">Parse the taxonomy files</h4>
-<p>The code below outlines how to generate a two-column text file that lists the NCBI taxonomy ID with a taxonomy string. If you use the ncbitax2lin tool, please refer to <a href="https://github.com/zyxue/ncbitax2lin">this github page</a> in your methods.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install ncbitax2lin</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> ncbitax2lin_2.3.2 <span class="at">-c</span> bioconda ncbitax2lin==2.3.2</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run ncbitax2lin on the files in the taxdmp folder we unzipped earlier</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate ncbitax2lin_2.3.2</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">ncbitax2lin</span> <span class="at">--nodes-file</span> nodes.dmp <span class="at">--names-file</span> names.dmp <span class="at">--output</span> ncbi_lineages_31102024.csv.gz </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Parse the results</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-d</span> ncbi_lineages_31102024.csv.gz</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace space with underscore and only print tax level until species</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/ /_/g'</span> ncbi_lineages_31102024.csv <span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">','</span> <span class="at">-v</span> OFS=<span class="st">"\t"</span> <span class="st">'{print $1,$2,</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="st">$3,$4,$5,$6,$7,$8}'</span> <span class="op">&gt;</span> temp1</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Add in “none” whenever a tax level is emtpy</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'BEGIN { FS = OFS = "\t" } { for(i=1; i&lt;=NF; i++) if($i ~ /^ *$/) $i="none"}; 1'</span> temp1 <span class="op">&gt;</span> temp2</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge columns 2-8</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">' BEGIN { FS = OFS = "\t" } {print $1,$2";"$3";"$4";"$5";"$6";"$7";"$8}'</span> temp2 <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'1d'</span> <span class="op">&gt;</span> ncbi_tax_31102024.tsv</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Cleanup </span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> ncbi_lineages_31102024.csv</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> temp<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
 </section>
 <section id="usage" class="level3">
 <h3 class="anchored" data-anchor-id="usage">Usage</h3>
-<p>The code below gives an example for using the NCBI-nr database with diamond <span class="citation" data-cites="Buchfink2021a">(<a href="#ref-Buchfink2021a" role="doc-biblioref">Buchfink, Reuter, and Drost 2021</a>)</span>:</p>
+<section id="generating-your-own-diamond-database" class="level4">
+<h4 class="anchored" data-anchor-id="generating-your-own-diamond-database">Generating your own diamond database</h4>
+<p>To generate your own database, feel free to follow the instructions found <a href="https://github.com/bbuchfink/diamond/wiki/1.-Tutorial">here</a>. Additionally, if you want to build a database using NCBI BLAST database and want to include taxonomy information in your searches, you can follow an example to prepare a diamond database from NCBI nr <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/ncbi_nr.html">here</a>.</p>
+</section>
+<section id="running-a-diamond-seach" class="level4">
+<h4 class="anchored" data-anchor-id="running-a-diamond-seach">Running a diamond seach</h4>
+<p>With diamond you can run a BlastP as well as BlastX search against a diamond (dmnd) database.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run diamond search</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">diamond</span> blastp <span class="at">-q</span> proteins.faa <span class="dt">\</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--more-sensitive</span> <span class="at">--evalue</span> 1e-3 <span class="at">--threads</span> 20 <span class="at">--include-lineage</span> <span class="at">--max-target-seqs</span> 50 <span class="dt">\</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--db</span> /zfs/omics/projects/bioinformatics/databases/ncbi_nr/diamond/nr <span class="dt">\</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--outfmt</span> 6 qseqid qtitle qlen sseqid salltitles slen qstart qend sstart send evalue bitscore length pident staxids sphylums <span class="dt">\</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> results.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic usage using a protein file as query and use nr as database</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">diamond</span> blastp <span class="at">-q</span> proteins.faa <span class="at">-d</span> nr <span class="at">-o</span> out.tsv <span class="at">--very-sensitive</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Running a search against a NCBI database </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">diamond</span> blastp <span class="at">-q</span> proteins.faa <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--more-sensitive</span> <span class="at">--evalue</span> 1e-3 <span class="at">--threads</span> 20 <span class="at">--include-lineage</span> <span class="at">--max-target-seqs</span> 50 <span class="dt">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--db</span> /zfs/omics/projects/bioinformatics/databases/ncbi_nr/diamond/nr <span class="dt">\</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--outfmt</span> 6 qseqid qtitle qlen sseqid salltitles slen qstart qend sstart send evalue bitscore length pident staxids sphylums <span class="dt">\</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> results.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>For a full documentation and list of all available options, please go <a href="https://github.com/bbuchfink/diamond/wiki">here</a>.</p>
-<p>If you want to do some parsing and, for example, find the single-best hit per protein and integrate the taxonomy string, you could do the following:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select columns of interest in diamond output file</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">"\t"</span> <span class="st">'{ print $1, $5, $11, $12, $14, $15, $16 }'</span>  results.txt <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/ /_/g'</span> <span class="op">&gt;</span> temp1</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get single best hit based on bit score, and then e-value</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k4,4gr</span> <span class="at">-k3,3g</span> temp1 <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">--stable</span> <span class="at">-u</span> <span class="at">-k1,1</span>  <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k4,4gr</span> <span class="at">-k3,3g</span> <span class="op">&gt;</span>  temp2</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Add an '-' into empty columns or columns without tax assignment</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">"\t"</span> <span class="st">'{for(i=1;i&lt;=NF;i++) {if($i ~ /^[[:blank:]]*$/) $i="_"; else gsub(/[[:blank:]]/,"_",$i); if($i=="N/A") $i="-"}}1'</span> OFS=<span class="st">"\t"</span> temp2 <span class="op">&gt;</span> temp3</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># In column 2 remove everything after &lt; (otherwise the name can get too long)</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{split($2,a,"&lt;"); print $1, a[1], $3, $4, $5, $6, $7}'</span> temp3 <span class="op">&gt;</span> temp4</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge with taxon names</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">join</span> <span class="at">-a1</span> <span class="at">-1</span> 6 <span class="at">-2</span> 1 <span class="at">-e</span><span class="st">'-'</span> <span class="at">-t</span> <span class="st">$'</span><span class="dt">\t</span><span class="st">'</span>  <span class="at">-o1.1,1.2,1.3,1.4,1.5,1.6,1.7,2.2</span>  <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k6</span>  temp4<span class="op">)</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k1</span> /zfs/omics/projects/bioinformatics/databases/ncbi_tax/ncbi_tax_31102024.tsv<span class="op">)</span> <span class="kw">|</span> <span class="va">LC_ALL</span><span class="op">=</span>C  <span class="fu">sort</span> <span class="op">&gt;</span> temp5</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Add in header</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"accession\tTopHit\te_value\tbitscore\tperc_id\ttax_id\tphylum\tncbi_tax"</span> <span class="kw">|</span> <span class="fu">cat</span> <span class="at">-</span> temp5 <span class="op">&gt;</span> results_parsed.txt</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Cleanup </span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> temp<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>For a full set of options, please visit the <a href="https://github.com/bbuchfink/diamond/wiki/3.-Command-line-options">manual</a>.</p>
+<p>General options:</p>
+<ul>
+<li><code>--threads/-p</code>: Number of CPU threads. By default, the program will auto-detect and use all available virtual cores on the machine</li>
+</ul>
+<p>Input options:</p>
+<ul>
+<li><code>--db/-d &lt;file&gt;</code> : Path to the DIAMOND database file. <strong>Since v2.0.8, a BLAST database can also be used here.</strong> Specify the base path of the database without file extensions. Since v2.0.10, BLAST databases have to be prepared using the <code>prepdb</code> command. <em>Note that for self-made BLAST databases, <code>makeblastdb</code> should be used with the <code>-parse_seqids</code> option.</em></li>
+<li><code>--query/-q &lt;file&gt;</code>: Path to the query input file in FASTA or FASTQ format (may be gzip compressed, or zstd compressed if compiled with zstd support). If this parameter is omitted, the input will be read from <code>stdin</code>.</li>
+<li><code>--taxonlist &lt;list&gt;</code>: Comma-separated list of NCBI taxonomic IDs to filter the database by. Any taxonomic rank can be used, and only reference sequences matching one of the specified taxon ids will be searched against. Using this option requires setting the <code>--taxonmap</code> and <code>--taxonnodes</code> parameters for <code>makedb</code>.</li>
+<li><code>--taxon-exclude &lt;list&gt;</code>: Comma-separated list of NCBI taxonomic IDs to exclude from the database. Using this option requires setting the <code>--taxonmap</code> and <code>--taxonnodes</code> parameters for <code>makedb</code>.</li>
+<li><code>--seqidlist &lt;filename&gt;</code>: Filter the database by a list of accessions provided as a text file. <em>Only supported when using a BLAST database.</em></li>
+<li><code>--query-gencode #</code>: Genetic code used for translation of query in BLASTX mode. A list of possible values can be found at the <a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi">NCBI website</a>. By default, the Standard Code is used. Note: changing the genetic code is currently not fully supported for the DAA format.</li>
+<li><code>--strand {both, plus, minus}</code>: Set strand of query to align for translated searches. By default both strands are searched.</li>
+<li><code>--min-orf/-l #</code> : Ignore translated sequences that do not contain an open reading frame of at least this length. By default this feature is disabled for sequences of length below 30, set to 20 for sequences of length below 100, and set to 40 otherwise. Setting this option to <code>1</code> will disable this feature.</li>
+</ul>
+<p>Sensitivity modes:</p>
+<p>Without using any sensitivity option, the default mode will run which is designed for finding hits of &gt;60% identity and short read alignment.</p>
+<ul>
+<li><code>--fast</code>: Enable the fast sensitivity mode, which runs faster than default and is designed for finding hits of &gt;90% identity. <em>Option supported since v2.0.10</em></li>
+<li><code>--mid-sensitive</code>: Enable the mid-sensitive mode which is between the default mode and the sensitive mode in sensitivity. <em>Option supported since v2.0.3</em></li>
+<li><code>--sensitive</code>: Enable the sensitive mode designed for full sensitivity for hits of &gt;40% identity.</li>
+<li><code>--more-sensitive</code>: This mode is equivalent to the <code>--sensitive</code> mode except for soft-masking of certain motifs being disabled (same as setting <code>--motif-masking 0</code>).</li>
+<li><code>--very-sensitive</code>: Enable the very-sensitive mode designed for best sensitivity including the twilight zone range of &lt;40% identity.</li>
+<li><code>--ultra-sensitive</code>: Enable the ultra-sensitive mode which is yet more sensitive than the <code>--very-sensitive</code> mode. <strong>Available since version 2.0.0.</strong></li>
+</ul>
+<p>Output options:</p>
+<ul>
+<li><code>--out/-o &lt;file&gt;</code>: Path to the output file. If this parameter is omitted, the results will be written to the standard output and all other program output will be suppressed.</li>
+<li><code>--outfmt/-f #</code>: Format of the output file. The following values are accepted:
+<ul>
+<li><code>0</code>: BLAST pairwise format.</li>
+<li><code>5</code>: BLAST XML format.</li>
+<li><code>6</code>: BLAST tabular format (default). This format can be customized, the <code>6</code> may be followed by a space-separated list of the following keywords, each specifying a field of the output. <em>N.B.</em>: these additional arguments should <strong>not</strong> be quoted as is often required for other tools, e.g.&nbsp;use <code>diamond --outfmt 6 qseqid sseqid</code>, <strong>not</strong> <code>diamond --outfmt '6 qseqid sseqid'</code>
+<ul>
+<li><code>qseqid</code>: Query Seq - id</li>
+<li><code>qlen</code>: Query sequence length</li>
+<li><code>sseqid</code>: Subject Seq - id</li>
+<li><code>sallseqid</code>: All subject Seq - id(s), separated by a ’;’</li>
+<li><code>slen</code>: Subject sequence length</li>
+<li><code>qstart</code>: Start of alignment in query*</li>
+<li><code>qend</code>: End of alignment in query*</li>
+<li><code>sstart</code>: Start of alignment in subject*</li>
+<li><code>send</code>: End of alignment in subject*</li>
+<li><code>qseq</code>: Aligned part of query sequence*</li>
+<li><code>qseq_translated</code>: Aligned part of query sequence (translated)* <em>Supported since v2.0.7.</em></li>
+<li><code>full_qseq</code>: Full query sequence</li>
+<li><code>full_qseq_mate</code>: Query sequence of the mate (requires two files for <code>--query</code>) <em>Supported since v2.0.7.</em></li>
+<li><code>sseq</code>: Aligned part of subject sequence*</li>
+<li><code>full_sseq</code>: Full subject sequence</li>
+<li><code>evalue</code>: Expect value</li>
+<li><code>bitscore</code>: Bit score</li>
+<li><code>score</code>: Raw score</li>
+<li><code>length</code>: Alignment length*</li>
+<li><code>pident</code>: Percentage of identical positions*</li>
+<li><code>nident</code>: Number of identical matches*</li>
+<li><code>mismatch</code>: Number of mismatches*</li>
+<li><code>positive</code>: Number of positive - scoring matches*</li>
+<li><code>gapopen</code>: Number of gap openings*</li>
+<li><code>gaps</code>: Total number of gaps*</li>
+<li><code>ppos</code>: Percentage of positive - scoring matches*</li>
+<li><code>qframe</code>: Query frame</li>
+<li><code>btop</code>: Blast traceback operations(BTOP)*</li>
+<li><code>cigar</code>: CIGAR string*</li>
+<li><code>staxids</code>: Unique Subject Taxonomy ID(s), separated by a ’;’ (in numerical order). This field requires setting the <code>--taxonmap</code> parameter for <code>makedb</code>.</li>
+<li><code>sscinames</code>: Unique Subject Scientific Name(s), separated by a ‘;’.</li>
+<li><code>sskingdoms</code>: Unique Subject Super Kingdom(s), separated by a ‘;’.</li>
+<li><code>skingdoms</code>: Unique Subject Kingdom(s), separated by a ‘;’.</li>
+<li><code>sphylums</code>: Unique Subject Phylums(s), separated by a ‘;’.</li>
+<li><code>stitle</code>: Subject Title</li>
+<li><code>salltitles</code>: All Subject Title(s), separated by a ’&lt;&gt;’</li>
+<li><code>qcovhsp</code>: Query Coverage Per HSP*</li>
+<li><code>scovhsp</code>: Subject Coverage Per HSP*</li>
+<li><code>qtitle</code>: Query title<br>
+</li>
+<li><code>qqual</code>: Query quality values for the aligned part of the query*</li>
+<li><code>full_qqual</code>: Query quality values</li>
+<li><code>qstrand</code>: Query strand</li>
+</ul></li>
+</ul></li>
+<li><code>--salltitles</code>: Include full length subject titles into the DAA format. By default, DAA files contain only the shortened sequence id (up to the first blank character).</li>
+<li><code>--sallseqid</code>: Include all subject ids into the DAA file. By default only the first id of each subject is included. As the subject ids are much shorter than the full titles this option will save space compared to the <code>--salltitles</code> option.</li>
+<li><code>--compress (0,1,zstd)</code>: Enable compression of the output file. <code>0</code> (default) means no compression, <code>1</code> means gzip compression, <code>zstd</code> means zstd compression (executable is required to have been compiled with zstd support).</li>
+<li><code>--max-target-seqs/-k #</code> : The maximum number of target sequences per query to reportalignments for (default=25). Setting this to <code>-k0</code> will report all targets for which alignments were found. <em>Note that this parameter does not only affect the reporting, but also the algorithm as it is taken into account for heuristics that eliminate hits prior to full gapped extension.</em></li>
+<li><code>--top #</code>: Report alignments within the given percentage range of the top alignment score for a query (overrides <code>--max-target-seqs</code> option). For example, setting <code>--top 10</code> will report all alignments whose score is at most 10% lower than the best alignment score for a query. Using this option will cause targets to be sorted by bit score instead of e-evalue in the output.</li>
+<li><code>--max-hsps #</code>: The maximum number of HSPs (High-Scoring Segment Pairs) per target sequence to report for each query. The default policy is to report only the highest-scoring HSP for each target, while disregarding alternative, lower-scoring HSPs that are contained in the same target.<strong>This is not to be confused with the <code>--max-target-seqs</code> option.</strong></li>
+<li><code>--range-culling</code>: Enable hit culling with respect to the query range. This feature is designed for long query DNA sequences that may span several genes. In these cases, reporting the overall top N hits can cause hits to a lower-scoring gene to be superseded by a higher-scoring gene.Using this option, hit culling will be performed locally with respect to a hit’s query range, thus reporting the locally top N hits while allowing more hits that span a different region of the query. Using this feature along with <code>-k 25</code> (default), a hit will only be deleted if at least 50% of its query range is spanned by at least 25 higher or equal scoring hits.</li>
+<li><code>--evalue/-e #</code>: Maximum expected value to report an alignment (default=0.001).</li>
+<li><code>--min-score #</code>: Minimum bit score to report an alignment. Setting this option will override the <code>--evalue</code> parameter.</li>
+<li><code>--id #</code>: Report only alignments above the given percentage of sequence identity.<em>Note that using this option reduces performance.</em></li>
+<li><code>--query-cover #</code>: Report only alignments above the given percentage of query cover.<em>Note that using this option reduces performance.</em></li>
+<li><code>--subject-cover #</code>: Report only alignments above the given percentage of subject cover. <em>Note that using this option reduces performance.</em></li>
+<li><code>--unal (0,1)</code>: Report unaligned queries (0=no, 1=yes). By default, unaligned queries are reported for the BLAST pairwise, BLAST XML and SAM format.</li>
+<li><code>--no-self-hits</code>: Suppress reporting of identical self-hits between sequences. The FASTA sequence identifiers as well as the sequences of query and target need to be identical for a hit to be deleted.</li>
+</ul>
 
 
 
+</section>
 </section>
 </section>
 
 </div><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Buchfink2021a" class="csl-entry" role="listitem">
 Buchfink, Benjamin, Klaus Reuter, and Hajk-Georg Drost. 2021. <span>“Sensitive Protein Alignments at Tree-of-Life Scale Using DIAMOND.”</span> <em>Nature Methods</em> 18 (4): 366–68. <a href="https://doi.org/10.1038/s41592-021-01101-x">https://doi.org/10.1038/s41592-021-01101-x</a>.
-</div>
-<div id="ref-Wang2003" class="csl-entry" role="listitem">
-Wang, Hao, Beng Chin Ooi, Kian-Lee Tan, Twee-Hee Ong, and Lei Zhou. 2003. <span>“BLAST++: BLASTing Queries in Batches.”</span> <em>Bioinformatics</em> 19 (17): 2323–24. <a href="https://doi.org/10.1093/bioinformatics/btg310">https://doi.org/10.1093/bioinformatics/btg310</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1483,13 +1500,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/core_tools/kegg_db.html" class="pagination-link  aria-label=" kofam="" database"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">KOfam database</span>
+      <a href="../../source/metagenomics/readme.html" class="pagination-link  aria-label=" sequence="" data="" analyses"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Sequence data analyses</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/core_tools/pfam_db.html" class="pagination-link" aria-label="Pfam database">
-        <span class="nav-page-text">Pfam database</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/core_tools/hmmer.html" class="pagination-link" aria-label="HMMER">
+        <span class="nav-page-text">HMMER</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1502,7 +1519,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
 Last modified: 2024-10-31</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/ncbi_nr.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/diamond.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

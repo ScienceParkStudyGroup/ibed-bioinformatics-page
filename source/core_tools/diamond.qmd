@@ -1,0 +1,159 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## Diamond
+
+### Introduction
+
+DIAMOND is a sequence aligner for protein and translated DNA searches, designed for high performance analysis of big sequence data [@Buchfink2021a]. The key features are:
+
+- Pairwise alignment of proteins and translated DNA at 100x-10,000x speed of BLAST.
+- Protein clustering of up to tens of billions of proteins
+- Frameshift alignments for long read analysis.
+- Low resource requirements and suitable for running on standard desktops or laptops.
+- Various output formats, including BLAST pairwise, tabular and XML, as well as taxonomic classification.
+
+For a full description, please visit the tools [website](https://github.com/bbuchfink/diamond).
+
+### Installation
+
+Installed on crunchomics: Yes,
+
+- Diamond v 2.1.9 is installed by default on the Crunchomics HPC
+
+If you want to install the latest version yourself, you can run:
+
+```{bash}
+mamba create -n diamond -c bioconda -c conda-forge diamond
+```
+
+### Usage
+
+#### Generating your own diamond database
+
+To generate your own database, feel free to follow the instructions found [here](https://github.com/bbuchfink/diamond/wiki/1.-Tutorial). Additionally, if you want to build a database using NCBI BLAST database and want to include taxonomy information in your searches, you can follow an example to prepare a diamond database from NCBI nr [here](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/ncbi_nr.html).
+
+#### Running a diamond seach
+
+With diamond you can run a BlastP as well as BlastX search against a diamond (dmnd) database.
+
+```{bash}
+# Basic usage using a protein file as query and use nr as database
+diamond blastp -q proteins.faa -d nr -o out.tsv --very-sensitive
+
+# Running a search against a NCBI database 
+diamond blastp -q proteins.faa \
+    --more-sensitive --evalue 1e-3 --threads 20 --include-lineage --max-target-seqs 50 \
+    --db /zfs/omics/projects/bioinformatics/databases/ncbi_nr/diamond/nr \
+    --outfmt 6 qseqid qtitle qlen sseqid salltitles slen qstart qend sstart send evalue bitscore length pident staxids sphylums \
+    --out results.txt
+```
+
+For a full set of options, please visit the [manual](https://github.com/bbuchfink/diamond/wiki/3.-Command-line-options). 
+
+General options:
+
+- `--threads/-p`: Number of CPU threads. By default, the program will auto-detect and use all available virtual cores on the machine
+
+Input options:
+
+- `--db/-d <file>` : Path to the DIAMOND database file. **Since v2.0.8, a BLAST database can also be used here.** Specify the base path of the database without file extensions. Since v2.0.10, BLAST databases have to be prepared using the `prepdb` command. *Note that for self-made BLAST databases,     `makeblastdb` should be used with the `-parse_seqids` option.*
+- `--query/-q <file>`: Path to the query input file in FASTA or FASTQ format (may be gzip compressed, or zstd compressed if compiled with zstd support). If this parameter is omitted, the input will be read from `stdin`.
+- `--taxonlist <list>`: Comma-separated list of NCBI taxonomic IDs to filter the database by. Any taxonomic rank can be used, and only reference sequences matching one of the specified taxon ids will be searched against. Using this option requires setting the `--taxonmap` and `--taxonnodes` parameters for `makedb`.
+- `--taxon-exclude <list>`: Comma-separated list of NCBI taxonomic IDs to exclude from the database. Using this option requires setting the `--taxonmap` and `--taxonnodes` parameters for `makedb`.
+- `--seqidlist <filename>`: Filter the database by a list of accessions provided as a text file. *Only supported when using a BLAST database.*
+- `--query-gencode #`: Genetic code used for translation of query in BLASTX mode. A list of possible values can be found at the [NCBI website](https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi). By default, the Standard Code is used. Note: changing the genetic code is currently not fully supported for the DAA format. 
+- `--strand {both, plus, minus}`: Set strand of query to align for translated searches. By default both strands are searched.
+- `--min-orf/-l #` : Ignore translated sequences that do not contain an open reading frame of at least this length. By default this feature is disabled for sequences of length below 30, set to 20 for sequences of length below 100, and set to 40 otherwise. Setting this option to `1` will
+disable this feature. 
+
+Sensitivity modes: 
+
+Without using any sensitivity option, the default mode will run which
+is designed for finding hits of >60% identity and short read alignment.
+
+- `--fast`: Enable the fast sensitivity mode, which runs faster than default and is designed for finding hits of >90% identity. *Option supported since v2.0.10*
+- `--mid-sensitive`: Enable the mid-sensitive mode which is between the default mode and the sensitive mode in sensitivity. *Option supported since v2.0.3*
+- `--sensitive`: Enable the sensitive mode designed for full sensitivity for hits of >40% identity.
+- `--more-sensitive`: This mode is equivalent to the `--sensitive` mode except for soft-masking of certain motifs being disabled (same as setting `--motif-masking 0`).
+- `--very-sensitive`: Enable the very-sensitive mode designed for best sensitivity including the twilight zone range of <40% identity.
+- `--ultra-sensitive`: Enable the ultra-sensitive mode which is yet more sensitive than the `--very-sensitive` mode. **Available since version 2.0.0.**
+  
+Output options:
+
+- `--out/-o <file>`:  Path to the output file. If this parameter is omitted, the results   will be written to the standard output and all other program output  will be suppressed.
+- `--outfmt/-f #`: Format of the output file. The following values are accepted:
+  - `0`: BLAST pairwise format.
+  - `5`: BLAST XML format.
+  - `6`: BLAST tabular format (default). This format can be customized, the `6` may be followed by a space-separated list of the
+      following keywords, each specifying a field of the output. *N.B.*: these  additional arguments should **not** be quoted as is often required for other tools, e.g. use `diamond --outfmt 6 qseqid sseqid`, **not** `diamond --outfmt '6 qseqid sseqid'`
+      - `qseqid`: Query Seq - id
+      - `qlen`: Query sequence length
+      - `sseqid`: Subject Seq - id
+      - `sallseqid`: All subject Seq - id(s), separated by a ’;’
+      - `slen`: Subject sequence length
+      - `qstart`: Start of alignment in query*
+      - `qend`: End of alignment in query*
+      - `sstart`: Start of alignment in subject*
+      - `send`: End of alignment in subject*
+      - `qseq`: Aligned part of query sequence*
+      - `qseq_translated`: Aligned part of query sequence (translated)* *Supported since v2.0.7.*
+      - `full_qseq`: Full query sequence
+      - `full_qseq_mate`: Query sequence of the mate (requires two files for `--query`) *Supported since v2.0.7.*
+      - `sseq`: Aligned part of subject sequence*
+      - `full_sseq`: Full subject sequence
+      - `evalue`: Expect value
+      - `bitscore`: Bit score
+      - `score`: Raw score
+      - `length`: Alignment length*
+      - `pident`: Percentage of identical positions*
+      - `nident`: Number of identical matches*
+      - `mismatch`: Number of mismatches*
+      - `positive`: Number of positive - scoring matches*
+      - `gapopen`: Number of gap openings*
+      - `gaps`: Total number of gaps*
+      - `ppos`: Percentage of positive - scoring matches*
+      - `qframe`: Query frame
+      - `btop`: Blast traceback operations(BTOP)*
+      - `cigar`: CIGAR string*
+      - `staxids`: Unique Subject Taxonomy ID(s), separated by a ’;’ (in numerical order). This field requires setting the `--taxonmap` parameter for `makedb`.
+      - `sscinames`: Unique Subject Scientific Name(s), separated by a ';'.
+      - `sskingdoms`: Unique Subject Super Kingdom(s), separated by a ';'. 
+      - `skingdoms`: Unique Subject Kingdom(s), separated by a ';'.
+      - `sphylums`: Unique Subject Phylums(s), separated by a ';'. 
+      - `stitle`: Subject Title
+      - `salltitles`: All Subject Title(s), separated by a ’\<\>’
+      - `qcovhsp`: Query Coverage Per HSP*
+      - `scovhsp`: Subject Coverage Per HSP*
+      - `qtitle`: Query title          
+      - `qqual`: Query quality values for the aligned part of the query*
+      - `full_qqual`: Query quality values
+      - `qstrand`: Query strand
+- `--salltitles`:  Include full length subject titles into the DAA format. By default, DAA files contain only the shortened sequence id (up to the first
+  blank character).
+- `--sallseqid`: Include all subject ids into the DAA file. By default only the first id of each subject is included. As the subject ids are much shorter
+  than the full titles this option will save space compared to the  `--salltitles` option.
+- `--compress (0,1,zstd)`:  Enable compression of the output file. `0` (default) means no   compression, `1` means gzip compression, `zstd` means zstd compression (executable is required to have been compiled with zstd support).
+- `--max-target-seqs/-k #` : The maximum number of target sequences per query to reportalignments for (default=25). Setting this to `-k0` will report all
+  targets for which alignments were found. *Note that this parameter does not only affect the reporting, but also the algorithm as it is taken into account for heuristics that eliminate hits prior to full gapped extension.*
+- `--top #`: Report alignments within the given percentage range of the top   alignment score for a query (overrides `--max-target-seqs` option).
+  For example, setting `--top 10` will report all alignments whose score is at most 10% lower than the best alignment score for a
+  query. Using this option will cause targets to be sorted by bit score instead of e-evalue in the output.
+- `--max-hsps #`: The maximum number of HSPs (High-Scoring Segment Pairs) per target sequence to report for each query. The default policy is to report
+  only the highest-scoring HSP for each target, while disregarding alternative, lower-scoring HSPs that are contained in the same target.**This is not to be confused with the `--max-target-seqs` option.**
+- `--range-culling`: Enable hit culling with respect to the query range. This feature is designed for long query DNA sequences that may span several genes. In these cases, reporting the overall top N hits can cause hits to a lower-scoring gene to be superseded by a higher-scoring gene.Using this option, hit culling will be performed locally with respect to a hit's query range, thus reporting the locally top N hits while allowing more hits that span a different region of the query. Using this feature along with `-k 25` (default), a hit will only be deleted if at least 50% of its query range is spanned by at least 25 higher or equal scoring hits.
+- `--evalue/-e #`: Maximum expected value to report an alignment (default=0.001).
+- `--min-score #`: Minimum bit score to report an alignment. Setting this option will override the `--evalue` parameter.
+- `--id #`: Report only alignments above the given percentage of sequence identity.*Note that using this option reduces performance.*
+- `--query-cover #`: Report only alignments above the given percentage of query cover.*Note that using this option reduces performance.*
+- `--subject-cover #`: Report only alignments above the given percentage of subject cover. *Note that using this option reduces performance.*
+- `--unal (0,1)`: Report unaligned queries (0=no, 1=yes). By default, unaligned queries are reported for the BLAST pairwise, BLAST XML and SAM format.
+- `--no-self-hits`: Suppress reporting of identical self-hits between sequences. The FASTA sequence identifiers as well as the sequences of query and target need to be identical for a hit to be deleted.
