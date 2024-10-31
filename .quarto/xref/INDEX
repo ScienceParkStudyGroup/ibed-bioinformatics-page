@@ -257,5 +257,8 @@
   },
   "source/metagenomics/bakta.qmd": {
     "bakta.html": "cbd4dbbe"
+  },
+  "source/core_tools/ncbi_nr.qmd": {
+    "ncbi_nr.html": "c5f140fb"
   }
 }

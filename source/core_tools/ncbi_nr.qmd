@@ -1,0 +1,138 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## NCBI nr
+
+### Introduction
+
+NCBI has several databases that can be used for BLAST searches. One of those is the the non-redundant (nr) protein database. Non-redundant means that identical sequences are represented by a single entry in the database. In the case of protein sequences, sometimes hundreds of sequences may be collapsed into a single entry.
+
+The default protein database nr contains nearly all protein sequences available at NCBI.
+
+-   no patent sequences
+-   no wgs metagenomes and no transcriptome shotgun assembly proteins
+-   includes proteins from outside protein-only sources that are also available as separate databases.
+
+### Installation
+
+Installed on crunchomics: Yes,
+
+-   The NCBI nr database was downloaded on 30th of August 2024 and converted to a diamond database which can be found on the bioinformatics share.
+-   The database can be found here: `/zfs/omics/projects/bioinformatics/databases/ncbi_nr/diamond/`
+-   Taxonomy files that link the NCBI taxonomy ID to a taxonomy string can be found at `/zfs/omics/projects/bioinformatics/databases/ncbi_tax`
+
+If you want to generate the database yourself you can do the following:
+
+#### Get the NCBI nr database
+
+Comments:
+
+-   Please note, the database is quite large (\~450 Gb as of Oktober 2024)
+-   The tool `update_blastdb.pl` is part of NCBI's BLAST® Command Line Applications [@Wang2003]. Installation instructions can be found [here](https://www.ncbi.nlm.nih.gov/books/NBK569861/). Additionally, BLAST as well as diamond can also be installed via mamba
+
+```{bash}
+# Download the nr database
+update_blastdb.pl --decompress nr
+
+# Download taxonomy information
+wget https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/accession2taxid/prot.accession2taxid.gz.md5
+wget https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/accession2taxid/prot.accession2taxid.gz
+wget https://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdmp.zip
+unzip taxdmp.zip
+rm taxdmp.zip 
+
+# Prepare NR for diamond
+diamond prepdb --db nr
+
+# Extract protein sequences (required to convert BLAST to diamond format)
+# While you can use a BLAST database directly with diamond it is so far not possible to extract the taxonomy information
+# If you require taxonomy information, convert to dmd format as follows
+blastdbcmd -entry 'all' -db nr >nr.faa
+
+# Generate diamond database (the output generated here is called nr.dmnd)
+diamond makedb --in nr.faa --db nr \
+    --taxonmap prot.accession2taxid.gz \
+    --taxonnodes nodes.dmp \
+    --taxonnames names.dmp
+```
+
+#### Parse the taxonomy files
+
+The code below outlines how to generate a two-column text file that lists the NCBI taxonomy ID with a taxonomy string. If you use the ncbitax2lin tool, please refer to [this github page](https://github.com/zyxue/ncbitax2lin) in your methods.
+
+```{bash}
+# Install ncbitax2lin
+mamba create -n ncbitax2lin_2.3.2 -c bioconda ncbitax2lin==2.3.2
+
+# Run ncbitax2lin on the files in the taxdmp folder we unzipped earlier
+conda activate ncbitax2lin_2.3.2
+
+ncbitax2lin --nodes-file nodes.dmp --names-file names.dmp --output ncbi_lineages_31102024.csv.gz 
+
+conda deactivate
+
+# Parse the results
+gzip -d ncbi_lineages_31102024.csv.gz
+
+# Replace space with underscore and only print tax level until species
+sed 's/ /_/g' ncbi_lineages_31102024.csv | awk -F',' -v OFS="\t" '{print $1,$2,
+$3,$4,$5,$6,$7,$8}' > temp1
+
+# Add in “none” whenever a tax level is emtpy
+awk 'BEGIN { FS = OFS = "\t" } { for(i=1; i<=NF; i++) if($i ~ /^ *$/) $i="none"}; 1' temp1 > temp2
+
+# Merge columns 2-8
+awk ' BEGIN { FS = OFS = "\t" } {print $1,$2";"$3";"$4";"$5";"$6";"$7";"$8}' temp2 | sed '1d' > ncbi_tax_31102024.tsv
+
+# Cleanup 
+gzip ncbi_lineages_31102024.csv
+rm temp*
+```
+
+### Usage
+
+The code below gives an example for using the NCBI-nr database with diamond [@Buchfink2021a]:
+
+```{bash}
+# Run diamond search
+diamond blastp -q proteins.faa \
+	--more-sensitive --evalue 1e-3 --threads 20 --include-lineage --max-target-seqs 50 \
+	--db /zfs/omics/projects/bioinformatics/databases/ncbi_nr/diamond/nr \
+	--outfmt 6 qseqid qtitle qlen sseqid salltitles slen qstart qend sstart send evalue bitscore length pident staxids sphylums \
+	--out results.txt
+```
+
+For a full documentation and list of all available options, please go [here](https://github.com/bbuchfink/diamond/wiki).
+
+If you want to do some parsing and, for example, find the single-best hit per protein and integrate the taxonomy string, you could do the following:
+
+```{bash}
+# Select columns of interest in diamond output file
+awk -F'\t' -v OFS="\t" '{ print $1, $5, $11, $12, $14, $15, $16 }'  results.txt | sed 's/ /_/g' > temp1
+
+# Get single best hit based on bit score, and then e-value
+sort -t$'\t' -k4,4gr -k3,3g temp1 | sort -t$'\t' --stable -u -k1,1  | sort -t$'\t' -k4,4gr -k3,3g >  temp2
+
+# Add an '-' into empty columns or columns without tax assignment
+awk -F"\t" '{for(i=1;i<=NF;i++) {if($i ~ /^[[:blank:]]*$/) $i="_"; else gsub(/[[:blank:]]/,"_",$i); if($i=="N/A") $i="-"}}1' OFS="\t" temp2 > temp3
+
+# In column 2 remove everything after < (otherwise the name can get too long)
+awk -F'\t' -v OFS='\t' '{split($2,a,"<"); print $1, a[1], $3, $4, $5, $6, $7}' temp3 > temp4
+
+# Merge with taxon names
+LC_ALL=C join -a1 -1 6 -2 1 -e'-' -t $'\t'  -o1.1,1.2,1.3,1.4,1.5,1.6,1.7,2.2  <(LC_ALL=C sort -k6  temp4) <(LC_ALL=C sort -k1 /zfs/omics/projects/bioinformatics/databases/ncbi_tax/ncbi_tax_31102024.tsv) | LC_ALL=C  sort > temp5
+
+# Add in header
+echo -e "accession\tTopHit\te_value\tbitscore\tperc_id\ttax_id\tphylum\tncbi_tax" | cat - temp5 > results_parsed.txt
+
+# Cleanup 
+rm temp*
+```

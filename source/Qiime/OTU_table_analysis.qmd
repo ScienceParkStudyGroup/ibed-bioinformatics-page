@@ -855,7 +855,8 @@ Next, we generate a beta-diversity ordination using the Aitchison distance as an
 ```{r}
 #PCA via phyloseq
 #RDA without constraints is a PCA
-ord_clr <- phyloseq::ordinate(physeq_clr, method = "RDA", distance = "bray")
+distance_matrix <- phyloseq::distance(physeq_clr, method = "euclidean")
+ord_clr <- phyloseq::ordinate(physeq_clr, method = "RDA", distance = "euclidian")
 
 #Plot scree plot to plot eigenvalues, i.e.the total amount of variance that can be explained by a given principal component
 phyloseq::plot_scree(ord_clr) + 
@@ -878,6 +879,7 @@ phyloseq::plot_ordination(physeq_filt, ord_clr, color = "treatment") +
   custom_theme() 
   
 ```
+
 
 While PCA is an exploratory data visualization tool, we can test whether the samples cluster beyond that expected by sampling variability using permutational multivariate analysis of variance (PERMANOVA) with the adonis package. 
 
