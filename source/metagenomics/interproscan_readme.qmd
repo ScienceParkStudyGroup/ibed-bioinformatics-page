@@ -21,21 +21,21 @@ Users who have novel nucleotide or protein sequences that they wish to functiona
 
 #### Newest version
 
-Notice: The newest version does NOT run on crunchomics unless you do some extra steps during the isntallation since we need a newer java version and we need to update a tool used to analyse Prosite specific databases. 
+Notice: The newest version does NOT run on crunchomics unless you do some extra steps during the installation since we need a newer java version and we need to update a tool used to analyse Prosite specific databases. 
 
-These changes require to move a few things around, so if you feel uncomfortable with this feel free to install an older version (for installation, see section **#### Version for Crunchomics** below) that works well with the default java version installed on crunchomics.
+These changes require to move a few things around, so if you feel uncomfortable with this feel free to install an older version (for installation, see section **#### Version for Crunchomics** below) that works well with the default java version installed on Crunchomics.
 
 If you want to work with the newest version and are not afraid of some extra steps do the following:
 
 ```{bash}
-#go into a folder in which you have all your software installed
+# Go into a folder in which you have all your software installed
 cd software_dir
 
-#make a new folder for the interproscan installation and go into the folder
+# Make a new folder for the interproscan installation and go into the folder
 mkdir interproscan
 cd interproscan 
 
-#download software
+# Download software
 wget https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.64-96.0/interproscan-5.64-96.0-64-bit.tar.gz
 wget https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.64-96.0/interproscan-5.64-96.0-64-bit.tar.gz.md5
 
@@ -43,54 +43,52 @@ wget https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.64-96.0/interproscan-5.
 # Must return *interproscan-5.64-96.0-64-bit.tar.gz: OK*
 md5sum -c interproscan-5.64-96.0-64-bit.tar.gz.md5
 
-#decompress the downloaded folder
+# Decompress the downloaded folder
 tar -pxvzf interproscan-5.64-96.0-*-bit.tar.gz
 
-#index hmm models
+# Index hmm models
 cd interproscan-5.64-96.0
 python3 setup.py -f interproscan.properties
 
-#setup a conda environment with the newest java version
+# Setup a conda environment with the newest java version
 conda deactivate
 mamba create --name java_f_iprscan -c conda-forge openjdk
 
-#activate teh environment and install some more dependencies
+# Activate the environment and install some more dependencies
 conda activate java_f_iprscan
 mamba install -c conda-forge gfortran
 
-#test error outside of iprscan
-#bin/prosite/pfsearchV3
-
-#get new pftools version via conda
+# The default installation will give an error with pfsearchV3 to solve this:
+# Get new pftools version via conda (v3.2.12)
 mamba install -c bioconda pftools
 
-#remove old pftools 
+# Remove old pftools that came with interprocscan
 cd bin/prosite
 rm pfscanV3
 rm pfsearchV3
 
-#replace with new pftools we have installed (and which are found in the mamba env folder)
+# Replace with new pftools we have installed via mamba (and which are found in the mamba env folder)
+# !!! exchange <~/personal/mambaforge/> with where your conda environments are installed!!!
 cp ~/personal/mambaforge/envs/java_f_iprscan/bin/pfscan .
 cp ~/personal/mambaforge/envs/java_f_iprscan/bin/pfscanV3 .
 cp ~/personal/mambaforge/envs/java_f_iprscan/bin/pfsearch .
 cp ~/personal/mambaforge/envs/java_f_iprscan/bin/pfsearchV3 .
-cd ..
+cd ../..
 
-
-#do testrun (ProSiteProfiles and ProSitePatterns not working yet)
+# Do testrun (ProSiteProfiles and ProSitePatterns not working yet, therefore this works best when setting what applications to run manually)
+#srun -n 1 --cpus-per-task 1 --mem=8G ./interproscan.sh -i test_all_appl.fasta -f tsv
 srun -n 1 --cpus-per-task 1 --mem=8G ./interproscan.sh -i test_all_appl.fasta -f tsv -dp --appl TIGRFAM,SFLD,SUPERFAMILY,PANTHER,GENE3D,Hamap,Coils,SMART,CDD,PRINTS,PIRSR,AntiFam,Pfam,MobiDBLite,PIRSF,ProSiteProfiles 
 
-srun -n 1 --cpus-per-task 1 --mem=8G ./interproscan.sh -i test_all_appl.fasta -f tsv
 conda deactivate
 ```
 
 
 #### Version for Crunchomics
 
-On Crunchomics, newer versions of interproscan do not run due to an incompatibility with the installed Java version. To get it running without complicated environmental setups, you can install an older version:
+On Crunchomics, newer versions of interproscan do not run due to an incompatibility with the installed Java version. However, this version has an incompatibility with the local blast install, so some additional steps are also needed to get things working as well.
 
 ```{python}
-#download software
+# Download software
 wget https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.36-75.0/interproscan-5.36-75.0-64-bit.tar.gz
 wget https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.36-75.0/interproscan-5.36-75.0-64-bit.tar.gz.md5
 
@@ -98,14 +96,30 @@ wget https://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/5.36-75.0/interproscan-5.
 # Must return *interproscan-5.64-96.0-64-bit.tar.gz: OK*
 md5sum interproscan-5.36-75.0-64-bit.tar.gz.md5
 
-#decompress the folder
+# Decompress the folder
 tar -pxvzf interproscan-5.36-75.0-64-bit.tar.gz
 
-#index hmm models
+# Index hmm models
 cd interproscan-5.36-75.0
 
-#do a test run to check the installation
+#fix a dependency issue with the blast install that comes with this version of interproscan
+## Setup new blast env (installed blast 2.16.0)
+mamba create -n python3.6.8 -c conda-forge python=3.6.8
+conda activate python3.6.8
+
+## Install a working version of blast
+mamba install -c bioconda blast=2.16.0
+
+## Replace problematic blast versions via symlinking
+## !!! Replace </zfs/omics/personal/ndombro/mambaforge/> with the path to your conda environments!!!
+rm bin/blast/ncbi-blast-2.9.0+/rpsblast
+ln -s /zfs/omics/personal/ndombro/mambaforge/envs/python3.6.8/bin/rpsblast bin/blast/ncbi-blast-2.9.0+/rpsblast
+
+# Do a test run to check the installation
 srun -n1 --cpus-per-task 8 --mem=8G ./interproscan.sh -i test_proteins.fasta
+
+# Close the environment
+conda deactivate
 ```
 
 
@@ -138,7 +152,6 @@ sed -i 's/*//g' Proteins_of_interest.faa
 
 #run interproscan
 <path_to_install>/interproscan-5.36-75.0/interproscan.sh --cpu 4 -i Proteins_of_interest.faa -d outputfolder -T outputfolder/temp --iprlookup --goterms
-
 ```
 
 To check available options use `<path_to_install>/interproscan-5.36-75.0/interproscan.sh --help` or for more detailed information, see [the documentation](https://interproscan-docs.readthedocs.io/en/latest/HowToRun.html)):
