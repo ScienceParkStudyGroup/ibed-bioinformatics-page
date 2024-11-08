@@ -263,5 +263,8 @@
   },
   "source/core_tools/diamond.qmd": {
     "diamond.html": "22759836"
+  },
+  "source/core_tools/busco.qmd": {
+    "busco.html": "3b6d81a6"
   }
 }
