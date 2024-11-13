@@ -114,7 +114,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
-    <lastmod>2024-11-08T13:17:53.418Z</lastmod>
+    <lastmod>2024-11-13T12:06:05.679Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/Qiime/3_evelyn_tutorial_notes.html</loc>
@@ -303,5 +303,9 @@
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/busco.html</loc>
     <lastmod>2024-11-08T13:17:51.454Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/cog.html</loc>
+    <lastmod>2024-11-13T12:05:08.296Z</lastmod>
   </url>
 </urlset>

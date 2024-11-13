@@ -266,5 +266,8 @@
   },
   "source/core_tools/busco.qmd": {
     "busco.html": "3b6d81a6"
+  },
+  "source/core_tools/cog.qmd": {
+    "cog.html": "26112b9d"
   }
 }

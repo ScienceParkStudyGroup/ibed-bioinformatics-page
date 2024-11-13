@@ -198,6 +198,7 @@ for (i = 0; i < acc.length; i++) {
 
 ## Useful databases A-Z
 
+- [COG](source/core_tools/cog.qmd)
 - [KOfam](source/core_tools/kegg_db.qmd)
 - [NCBI-nr](source/core_tools/ncbi_nr.qmd)
 - [Pfam](source/core_tools/pfam_db.qmd)

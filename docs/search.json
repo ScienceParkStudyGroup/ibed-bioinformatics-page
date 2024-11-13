@@ -1191,7 +1191,7 @@
     "href": "index.html#useful-databases-a-z",
     "title": "Bioinformatics guidance page",
     "section": "Useful databases A-Z",
-    "text": "Useful databases A-Z\n\nKOfam\nNCBI-nr\nPfam\nPGAP database\nTIGRFAM",
+    "text": "Useful databases A-Z\n\nCOG\nKOfam\nNCBI-nr\nPfam\nPGAP database\nTIGRFAM",
     "crumbs": [
       "Welcome page"
     ]
@@ -2886,6 +2886,28 @@
       "Sequence data analyses",
       "Core tools",
       "BUSCO"
+    ]
+  },
+  {
+    "objectID": "source/core_tools/cog.html",
+    "href": "source/core_tools/cog.html",
+    "title": "Bioinformatics guidance page",
+    "section": "",
+    "text": "The Clusters of Orthologous Genes (COG) database provides a comprehensive functional annotation of widespread bacterial and archaeal genes by clustering their protein products by sequence similarity reflecting their common evolutionary origin (Tatusov, Koonin, and Lipman 1997; Galperin et al. 2024) . The current versions was generated based on genomes from 2103 bacteria and 193 archaea, in most cases, with a single representative genome per genus.\nFor more information, please also have a look at the NCBI COG website.\n\n\n\nAvailable on crunchomics: Yes,\n\nA COG HMM database is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics share you can send an email with your Uva netID to Nina Dombrowski.\nHMMER is installed on Crunchomics by default\n\nThe COG database can be found here:\n\n/zfs/omics/projects/bioinformatics/databases/cog/2024_release\nThe original data can be found here.\nIf you want to generate your own HMM database, instructions can be found at /zfs/omics/projects/bioinformatics/databases/cog/scripts/generate_COG_hmms.md\n\n\n\n\nThe COG database can be used against a query of proteins using HMMER. For example, if you have protein-coding genes of a genome of interest (GCF_003697165_2.faa) you could do the following:\n\n# Define location of COG HMM and mapping file \ncog_mapping=\"/zfs/omics/projects/bioinformatics/databases/cog/2024_release/cog-24.def.tab\" \ncog_hmmdb=\"/zfs/omics/projects/bioinformatics/databases/cog/2024_release/hmm/NCBI_COGs_Nov2024.hmm\"\n\n# Generate output folders\nmkdir -p results/cog/\n\n# Run hmmsearch against all COGs \nhmmsearch \\\n    --tblout results/cog/sequence_results.txt \\\n    --domtblout results/cog/domain_results.txt \\\n    --notextw --cpu 20 \\\n    $cog_hmmdb \\\n    data/GCF_003697165_2.faa\n\nThe resulting table of per-sequence hits (tblout) and table of per-domain hits (domtblout) contain several hits per query with no e-value or bit-score cutoff. You can further parse the output using your favorite coding language. A brief bash example, that makes also use of a COG to description mapping file is outlined below:\n\n# Format the full table and only select hits above a certain e-value\nsed 's/ \\+ /\\t/g' results/cog/sequence_results.txt | \\\n    sed '/^#/d'| sed 's/ /\\t/g'| \\\n    awk -F'\\t' -v OFS='\\t' '{print $1, $3, $6, $5}' | \\\n    awk -F'\\t' -v OFS='\\t' '($4 + 0) &lt;= 1E-3'  &gt; results/cog/sequence_results_red_e_cutoff.txt\n\n# Get best hit/protein based on bit score, and e-value\nsort -t$'\\t' -k3,3gr -k4,4g  results/cog/sequence_results_red_e_cutoff.txt | \\\n    sort -t$'\\t' --stable -u -k1,1  | \\\n    sort -t$'\\t' -k3,3gr -k4,4g &gt;  results/cog/temp1\n\n# Merge with COG mapping file \nLC_ALL=C join -a1 -1 2 -2 1 -e'-' -t $'\\t' -o1.1,0,2.3,2.2,2.5,1.4,1.3 &lt;(LC_ALL=C sort -k2 results/cog/temp1) &lt;(LC_ALL=C sort -k1 $cog_mapping) | LC_ALL=C  sort &gt; results/cog/temp2\n\n# Add a header\necho -e \"accession\\tCOG\\tCOG_Description\\tCOG_PathwayID\\tCOG_Pathway\\tCOG_evalue\\tCOG_bitscore\" | \\\n    cat - results/cog/temp2 &gt; results/cog/NCBI_COGs2024.tsv\n\n# Cleanup\nrm results/cog/temp*",
+    "crumbs": [
+      "Bioinformatic databases",
+      "COG database"
+    ]
+  },
+  {
+    "objectID": "source/core_tools/cog.html#cog-database",
+    "href": "source/core_tools/cog.html#cog-database",
+    "title": "Bioinformatics guidance page",
+    "section": "",
+    "text": "The Clusters of Orthologous Genes (COG) database provides a comprehensive functional annotation of widespread bacterial and archaeal genes by clustering their protein products by sequence similarity reflecting their common evolutionary origin (Tatusov, Koonin, and Lipman 1997; Galperin et al. 2024) . The current versions was generated based on genomes from 2103 bacteria and 193 archaea, in most cases, with a single representative genome per genus.\nFor more information, please also have a look at the NCBI COG website.\n\n\n\nAvailable on crunchomics: Yes,\n\nA COG HMM database is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics share you can send an email with your Uva netID to Nina Dombrowski.\nHMMER is installed on Crunchomics by default\n\nThe COG database can be found here:\n\n/zfs/omics/projects/bioinformatics/databases/cog/2024_release\nThe original data can be found here.\nIf you want to generate your own HMM database, instructions can be found at /zfs/omics/projects/bioinformatics/databases/cog/scripts/generate_COG_hmms.md\n\n\n\n\nThe COG database can be used against a query of proteins using HMMER. For example, if you have protein-coding genes of a genome of interest (GCF_003697165_2.faa) you could do the following:\n\n# Define location of COG HMM and mapping file \ncog_mapping=\"/zfs/omics/projects/bioinformatics/databases/cog/2024_release/cog-24.def.tab\" \ncog_hmmdb=\"/zfs/omics/projects/bioinformatics/databases/cog/2024_release/hmm/NCBI_COGs_Nov2024.hmm\"\n\n# Generate output folders\nmkdir -p results/cog/\n\n# Run hmmsearch against all COGs \nhmmsearch \\\n    --tblout results/cog/sequence_results.txt \\\n    --domtblout results/cog/domain_results.txt \\\n    --notextw --cpu 20 \\\n    $cog_hmmdb \\\n    data/GCF_003697165_2.faa\n\nThe resulting table of per-sequence hits (tblout) and table of per-domain hits (domtblout) contain several hits per query with no e-value or bit-score cutoff. You can further parse the output using your favorite coding language. A brief bash example, that makes also use of a COG to description mapping file is outlined below:\n\n# Format the full table and only select hits above a certain e-value\nsed 's/ \\+ /\\t/g' results/cog/sequence_results.txt | \\\n    sed '/^#/d'| sed 's/ /\\t/g'| \\\n    awk -F'\\t' -v OFS='\\t' '{print $1, $3, $6, $5}' | \\\n    awk -F'\\t' -v OFS='\\t' '($4 + 0) &lt;= 1E-3'  &gt; results/cog/sequence_results_red_e_cutoff.txt\n\n# Get best hit/protein based on bit score, and e-value\nsort -t$'\\t' -k3,3gr -k4,4g  results/cog/sequence_results_red_e_cutoff.txt | \\\n    sort -t$'\\t' --stable -u -k1,1  | \\\n    sort -t$'\\t' -k3,3gr -k4,4g &gt;  results/cog/temp1\n\n# Merge with COG mapping file \nLC_ALL=C join -a1 -1 2 -2 1 -e'-' -t $'\\t' -o1.1,0,2.3,2.2,2.5,1.4,1.3 &lt;(LC_ALL=C sort -k2 results/cog/temp1) &lt;(LC_ALL=C sort -k1 $cog_mapping) | LC_ALL=C  sort &gt; results/cog/temp2\n\n# Add a header\necho -e \"accession\\tCOG\\tCOG_Description\\tCOG_PathwayID\\tCOG_Pathway\\tCOG_evalue\\tCOG_bitscore\" | \\\n    cat - results/cog/temp2 &gt; results/cog/NCBI_COGs2024.tsv\n\n# Cleanup\nrm results/cog/temp*",
+    "crumbs": [
+      "Bioinformatic databases",
+      "COG database"
     ]
   }
 ]
