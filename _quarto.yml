@@ -114,6 +114,7 @@ website:
               - source/metagenomics/dnaapler.qmd
               - source/metagenomics/bakta.qmd
               - source/metagenomics/motus.qmd
+              - source/metagenomics/pycirclize.qmd
 
           - section: "Eukaryotic genomics"
             contents:

@@ -269,5 +269,8 @@
   },
   "source/core_tools/cog.qmd": {
     "cog.html": "26112b9d"
+  },
+  "source/metagenomics/pycirclize.qmd": {
+    "pycirclize.html": "ecc3bd12"
   }
 }
