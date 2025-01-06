@@ -143,6 +143,7 @@ website:
               - source/nanopore/filtlong.qmd
               - source/nanopore/nanoqc_readme.qmd
               - source/nanopore/nanoplot_readme.qmd
+              - source/nanopore/ngspeciesid.qmd
               - source/nanopore/porechop_readme.qmd
               - source/nanopore/chopper.qmd
               - source/nanopore/nanoclass.qmd

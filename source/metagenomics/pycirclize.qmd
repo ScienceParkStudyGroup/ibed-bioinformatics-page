@@ -7,8 +7,7 @@ engine: knitr
 bibliography: references.bib
 ---
 
-<div style="text-align: justify">
-
+::: {style="text-align: justify"}
 ## pycirclize
 
 ### Introduction
@@ -58,3 +57,4 @@ Settings:
 -   `-o` OUTPUT, `--output` OUTPUT Output PDF file (.pdf)
 -   `-g` GENES, `--genes` GENES Text file containing prokka IDs of genes of interest that should be added to the plot (one gene per line). This setting is optional.
 -   `--version` show program's version number and exit
+:::

@@ -272,5 +272,8 @@
   },
   "source/metagenomics/pycirclize.qmd": {
     "pycirclize.html": "ecc3bd12"
+  },
+  "source/nanopore/ngspeciesid.qmd": {
+    "ngspeciesid.html": "b1434803"
   }
 }

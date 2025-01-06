@@ -16,7 +16,7 @@ bibliography: references.bib
 
 ### Installation
 
-Installed on crunchomics: Yes,
+Installed on Crunchomics: Yes,
 
 - Prokka v1.14.6 is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics share, then you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski@uva.nl. 
 - Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):

@@ -141,6 +141,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
     <li><a href="source/nanopore/nanophase_how_to.qmd">Nanophase</a>: A pipeline to generate MAGs using Nanopore long and Illumina short reads from metagenomes</li>
     <li><a href="source/nanopore/nanoplot_readme.qmd">NanoPlot</a>: Plotting tool for long read sequencing data</li>
     <li><a href="source/nanopore/nanoqc_readme.qmd">NanoQC</a>: A quality control tool for long read sequencing data</li>
+    <li><a href="source/nanopore/ngspeciesid.qmd">NGSpeciesID</a>: A tool for clustering and consensus forming of long-read amplicon sequencing data </li>
     <li><a href="source/nanopore/porechop_readme.qmd">Porechop</a>: A tool for finding and removing adapters from Nanopore reads</li>
     <li><a href="source/core_tools/prokka.qmd">Prokka</a>: A tool to annotate bacterial, archaeal and viral genomes</li>
     <li><a href="source/metagenomics/pseudofinder.qmd">Pseudofinder</a>: A tool that detects pseudogene candidates from annotated genbank files of bacterial and archaeal genomes</li>

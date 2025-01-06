@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/template.html</loc>
-    <lastmod>2024-11-08T13:09:12.330Z</lastmod>
+    <lastmod>2025-01-06T08:10:12.297Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/readme.html</loc>
@@ -114,7 +114,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
-    <lastmod>2024-11-20T12:59:08.390Z</lastmod>
+    <lastmod>2025-01-06T08:40:17.304Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/Qiime/3_evelyn_tutorial_notes.html</loc>
@@ -310,6 +310,10 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/pycirclize.html</loc>
-    <lastmod>2024-11-20T13:02:18.888Z</lastmod>
+    <lastmod>2025-01-06T08:40:13.778Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/ngspeciesid.html</loc>
+    <lastmod>2025-01-06T08:41:43.799Z</lastmod>
   </url>
 </urlset>
