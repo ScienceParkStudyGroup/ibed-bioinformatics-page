@@ -1,0 +1,164 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+::: {style="text-align: justify"}
+## Autocycler
+
+### Introduction
+
+Autocycler is a tool for generating consensus long-read assemblies for microbial genomes [@wick2025]. It is the successor to <a href="../../source/metagenomics/trycycler.qmd">Trycyler</a>, and for most users it is recommended to Autocycler over Trycycler. If you want to use Autocycler, keep in mind that the input assemblies need to mostly be complete: one sequence per piece of DNA in the genome. Therefore, its best used for microbial genomes (archaea, bacteria, mitochondria, chloroplast).
+
+For installation instructions, usage, deeper explanations and more, head over to the [Autocycler wiki](https://github.com/rrwick/Autocycler/wiki)!
+
+### Installation
+
+Installed on Crunchomics: Yes,
+
+-   Autocycler v0.1.2 is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics share, then you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski\@uva.nl.
+-   Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run the following to install the tool from source:
+
+```{bash}
+# Change to directory you want to download the github repository to
+cd software/
+
+# Create an empty conda env 
+mamba create -p /zfs/omics/projects/bioinformatics/software/miniconda3/envs/autocycler_0.1.2 
+conda activate autocycler_0.1.2
+
+# Install autocycler
+# This will build an executable in ``target/release/autocycler``
+git clone https://github.com/rrwick/Autocycler.git
+cd Autocycler
+cargo build --release 
+
+# Install various different assemblers 
+# for this first remove the name field to install it in our empty conda environment we setup before
+# ensure that you run mamba env update only after you activated the autocycler_0.1.2 environment
+grep -v "name" scripts/environment.yml > scripts/environment_edit.yml
+mamba env update --file scripts/environment_edit.yml
+
+# Check that all packages exist
+conda list 
+
+# Copy scripts to conda bin folder to be able to access them without having to write out the path path
+cp target/release/autocycler "$CONDA_PREFIX"/bin/
+cp scripts/*.py scripts/*.sh "$CONDA_PREFIX"/bin/
+```
+
+### Usage
+
+#### Single sample, one assembly at a time
+
+If you want to know what is happening at each step, please visit the [tools wiki](https://github.com/rrwick/Autocycler/wiki/).
+
+```{bash}
+# Activate the right conda environment
+conda activate autocycler_0.1.2
+
+# Go to the project directory in which you also have the sequencing data
+cd autocyler_analysis
+
+# Define necessary input variables
+# The genome size can also be set manually if you know the value
+reads=data/my_data.fastq.gz
+threads=8  
+genome_size=$(genome_size_raven.sh "$reads" "$threads") 
+
+# View estimated genome size:
+# In this example, we have an estimated genome size of 4,497,636 bp
+echo $genome_size
+
+# Step 1: subsample the long-read set into multiple files. This generates 4 sub-sampled read sets by default
+# Make sure to record some of the useful statistics such as: used default for min_read_depth 25, input fastq read count: 213459 and N50 length: 3760 bp; Total read depth: 131.5x; Mean read length: 2770 bp
+autocycler subsample --reads "$reads" --out_dir subsampled_reads --genome_size "$genome_size"
+
+# Step 2: assemble each of the 4 subsampled files with 6 different assemblers (this can take a bit, for suggestions to speed this up, see below)
+# Adjust in case you could not install all assemblers or don't want to use any of the listed assemblers
+mkdir assemblies
+for assembler in canu flye miniasm necat nextdenovo raven; do
+    for i in 01 02 03 04; do
+        srun --cpus-per-task $threads --mem=50G \
+	        "$assembler".sh subsampled_reads/sample_"$i".fastq assemblies/"$assembler"_"$i" "$threads" "$genome_size"
+    done
+done
+
+# Sanity check: Count number of contigs/assembly
+grep -c ">" assemblies/*fasta
+
+# Optional step: remove the subsampled reads to save space
+rm subsampled_reads/*.fastq
+
+# Step 3: compress the input assemblies into a unitig graph
+autocycler compress -i assemblies -a autocycler_out
+
+# Step 4: cluster the input contigs into putative genomic sequences
+autocycler cluster -a autocycler_out
+
+# Steps 5 and 6: trim and resolve each QC-pass cluster
+for c in autocycler_out/clustering/qc_pass/cluster_*; do
+    autocycler trim -c "$c"
+    autocycler resolve -c "$c"
+done
+
+# Step 7: combine resolved clusters into a final assembly
+# Record assembly statistics: 1 unitig, 1 link, total length:  4491993 bp
+# The final consensus assembly will be named: autocycler_out/consensus_assembly.fasta
+autocycler combine -a autocycler_out -i autocycler_out/clustering/qc_pass/cluster_*/5_final.gfa
+
+# Optional: generate a TSV line from the various metrix
+autocycler table > metrics.tsv
+autocycler table -a autocycler_out >> metrics.tsv
+```
+
+#### Single sample, several assemblies run in parallel
+
+To speed things up we can run the assembly (Step 2), which is the most time intensive step, with GNU parallel. This allows us to run several assemblies at the same time.
+
+```{bash}
+# Define our input variables
+# Ensure that this works with your computer specs, i.e. here we run 4 jobs in parallel each with 8 cpus
+# So here we need to have 4x8 = 24 threads available for things to run
+jobs=4
+threads=8 
+
+mkdir -p assemblies
+rm -f assemblies/jobs.txt
+
+for assembler in canu flye miniasm necat nextdenovo raven; do
+    for i in 01 02 03 04; do
+        echo "srun --cpus-per-task $threads --mem=50G $assembler.sh subsampled_reads/sample_$i.fastq assemblies/${assembler}_$i $threads $genome_size" >> assemblies/jobs.txt
+    done
+done
+
+parallel --jobs "$jobs" --joblog assemblies/joblog.txt --results assemblies/logs < assemblies/jobs.txt
+```
+
+#### Several samples run in parallel
+
+tba
+
+### Things to keep in mind
+
+-   **When to use autocycler**: For Autocycler to work, the input assemblies need to mostly be complete: one sequence per piece of DNA in the genome. Therefore, its best used for microbial genomes (archaea, bacteria, mitochondria, chloroplast). However, if you sequence eukaryotes and if T2T assemblies are possible, then Autocycler should work as well.
+-   **Polishing**: Since Autocycler assemblies are long-read-only, they may still contain errors. If assembling Oxford Nanopore reads you can consider polishing with for example Medaka. If you also have short reads Polypolish and Pypolca are options to consider
+-   **Genome orientation**: Autocycler does not rotate circular sequences to start at a particular gene (e.g. *dnaA*). To do this, check out Dnaapler.
+-   **Assessing the assembly**
+    -   The Autocycler combine command produces a final assembly by combining all of the clusters. Hopefully, each cluster resolved to a single contig, in which case it will print this at the end of its stderr output: Consensus assembly is fully resolved. The Metrics page describes all of the assembly metrics generated by Autocycler, but for assessment purposes, the most useful is likely the consensus_assembly_fully_resolved metric, which can be true or false. You can find this metric in the consensus_assembly.yaml file made by Autocycler combine in your Autocycler output directory.
+    -   If your assembly went poorly you can consider doing the following:
+        -   Try using other assemblers
+        -   Try different parameters when making your input assemblies. Some assemblers (e.g. Canu) have a large number of parameters that can influence the result.
+        -   [Manually curate your input assemblies](https://github.com/rrwick/Autocycler/wiki/Generating-input-assemblies#optional-manual-intervention) before using them with Autocycler. Specifically, discard any assemblies that appear to be incomplete.
+        -   If none of the above work well, then your read set is likely insufficient, in which case you may need to sequence again aiming for deeper and longer reads.
+:::

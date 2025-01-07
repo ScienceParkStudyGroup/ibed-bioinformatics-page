@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Bioinformatics guidance page</title>
+<title>autocycler – Bioinformatics guidance page</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,28 +20,83 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./source/cli/code_doc.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-b663525e4b92bb903b2199e2d401bf36.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-a1e4c769dfb8ba454fda448df42b92ec.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a2679e3cf752e8512b94174c75263f45.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-b1fe020641d9e027af31aa447621ea1c.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../source/metagenomics/checkm2.html" rel="next">
+<link href="../../source/metagenomics/trycycler.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-b663525e4b92bb903b2199e2d401bf36.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-a1e4c769dfb8ba454fda448df42b92ec.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-6496adc557b19836bea0c12d56c642a3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-40b65a04ac5980c70dee9a726d2e9747.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -71,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-sidebar docked">
@@ -83,7 +138,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome page</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/nanopore/nanophase_how_to.html">(Meta)genomics</a></li><li class="breadcrumb-item"><a href="../../source/nanopore/autocycler.html">Autocycler</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -98,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Bioinformatics guidance page</a> 
+      <a href="../../">Bioinformatics guidance page</a> 
         <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
     <div id="quarto-search" class="quarto-navigation-tool px-1" title="Search"></div>
@@ -109,7 +164,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome page</span></a>
   </div>
 </li>
@@ -124,13 +179,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/cli/code_doc.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/code_doc.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Code documentation</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./source/cli/cli.html" class="sidebar-item-text sidebar-link">
+            <a href="../../source/cli/cli.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using the command line</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -139,19 +194,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/cli/cli_installation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/cli_installation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setting up a bash command line</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/cli/cli_basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/cli_basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Getting started with bash</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/cli/cli_file_manipulation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/cli_file_manipulation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Manipulating files with bash</span></a>
   </div>
 </li>
@@ -159,19 +214,19 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/conda/conda.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/conda/conda.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Installing software</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/R/readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/R/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using R</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
+            <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using an HPC</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -180,7 +235,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/cli/slurm_basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/slurm_basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Start working on an HPC</span></a>
   </div>
 </li>
@@ -190,7 +245,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./source/metagenomics/readme.html" class="sidebar-item-text sidebar-link">
+            <a href="../../source/metagenomics/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sequence data analyses</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -208,49 +263,49 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/busco.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/busco.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">BUSCO</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/diamond.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/diamond.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Diamond</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/hmmer.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/hmmer.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">HMMER</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/ncbi.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/ncbi.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Downloading data from NCBI</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/prokka.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/prokka.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prokka</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/seqkit.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/seqkit.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Seqkit</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/classification/kraken2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/classification/kraken2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Kraken2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/classification/minimap2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/classification/minimap2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Minimap2</span></a>
   </div>
 </li>
@@ -258,7 +313,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./source/Qiime/readme.html" class="sidebar-item-text sidebar-link">
+            <a href="../../source/Qiime/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Amplicon analyses</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -267,13 +322,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/Qiime/3_evelyn_tutorial_notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/Qiime/3_evelyn_tutorial_notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A short QIIME tutorial</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/Qiime/OTU_table_analysis.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/Qiime/OTU_table_analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Analysing OTU tables with R</span></a>
   </div>
 </li>
@@ -290,31 +345,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/interproscan_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/interproscan_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Interproscan</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/fama_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/fama_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FAMA</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/metabolic.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/metabolic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Metabolic</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/metacerberus.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/metacerberus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">MetaCerberus</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/signalp6.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/signalp6.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SignalP 6.0</span></a>
   </div>
 </li>
@@ -322,88 +377,88 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
  <span class="menu-text">(Meta)genomics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Nanophase</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/atlas.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/atlas.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Atlas</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/flye.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/flye.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Flye</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/trycycler.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/trycycler.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Trycycler</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/autocycler.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/autocycler.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Autocycler</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/checkm2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/checkm2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">CheckM2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/gtdb.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/gtdb.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GTDB_tk</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/pseudofinder.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/pseudofinder.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pseudofinder</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/quast.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/quast.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Quast</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/dnaapler.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/dnaapler.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">dnaapler</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/bakta.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/bakta.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bakta</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/motus.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/motus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">mOTUS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/pycirclize.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/pycirclize.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">pycirclize</span></a>
   </div>
 </li>
@@ -420,13 +475,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/augustus.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/augustus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Augustus</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/deeploc.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/deeploc.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">DeepLoc</span></a>
   </div>
 </li>
@@ -443,13 +498,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/ITSx/itsx_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/ITSx/itsx_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ITSx</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoITS</span></a>
   </div>
 </li>
@@ -466,55 +521,55 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/sortmerna.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/sortmerna.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SortMeRNA</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/ribodetector.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/ribodetector.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Ribodetector</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/trinity.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/trinity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Trinity</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/star.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/star.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">STAR</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bowtie2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Samtools</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FeatureCounts</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/rsem.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/rsem.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">RSEM</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/DSEq2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/DSEq2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">DeSeq2</span></a>
   </div>
 </li>
@@ -531,55 +586,55 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/filtlong.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/filtlong.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FiltLong</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanoqc_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanoqc_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoQC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanoplot_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanoplot_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Nanoplot</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/ngspeciesid.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/ngspeciesid.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NGSpeciesID</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/porechop_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/porechop_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Porechop</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/chopper.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/chopper.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chopper</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanoclass.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanoclass.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoClass2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoITS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Nanophase</span></a>
   </div>
 </li>
@@ -596,19 +651,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/phylogenomics/bmge.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/phylogenomics/bmge.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">BMGE</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/phylogenomics/mafft.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/phylogenomics/mafft.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Mafft</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/phylogenomics/iqtree2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/phylogenomics/iqtree2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">IQ-TREE2</span></a>
   </div>
 </li>
@@ -625,19 +680,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/fastqc_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/fastqc_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FastQC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/multiqc.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/multiqc.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">MultiQC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/fastp.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/fastp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FastP</span></a>
   </div>
 </li>
@@ -654,19 +709,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bowtie2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Samtools</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FeatureCounts</span></a>
   </div>
 </li>
@@ -676,7 +731,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./source/core_tools/toolbox-readme.html" class="sidebar-item-text sidebar-link">
+            <a href="../../source/core_tools/toolbox-readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bioinformatics toolbox</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -685,7 +740,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/bash-for-loops.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/bash-for-loops.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">For-loops in bash</span></a>
   </div>
 </li>
@@ -702,37 +757,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/cog.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/cog.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">COG database</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/kegg_db.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/kegg_db.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">KOfam database</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/ncbi_nr.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/ncbi_nr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NCBI nr</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/pfam_db.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/pfam_db.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pfam database</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/pgap_db.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/pgap_db.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">PGAP</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/tigrfam_db.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/tigrfam_db.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">TIGRFAM</span></a>
   </div>
 </li>
@@ -743,11 +798,28 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#autocycler" id="toc-autocycler" class="nav-link active" data-scroll-target="#autocycler">Autocycler</a>
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a>
+  <ul class="collapse">
+  <li><a href="#single-sample-one-assembly-at-a-time" id="toc-single-sample-one-assembly-at-a-time" class="nav-link" data-scroll-target="#single-sample-one-assembly-at-a-time">Single sample, one assembly at a time</a></li>
+  <li><a href="#single-sample-several-assemblies-run-in-parallel" id="toc-single-sample-several-assemblies-run-in-parallel" class="nav-link" data-scroll-target="#single-sample-several-assemblies-run-in-parallel">Single sample, several assemblies run in parallel</a></li>
+  <li><a href="#several-samples-run-in-parallel" id="toc-several-samples-run-in-parallel" class="nav-link" data-scroll-target="#several-samples-run-in-parallel">Several samples run in parallel</a></li>
+  </ul></li>
+  <li><a href="#things-to-keep-in-mind" id="toc-things-to-keep-in-mind" class="nav-link" data-scroll-target="#things-to-keep-in-mind">Things to keep in mind</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/nanopore/autocycler.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/nanopore/nanophase_how_to.html">(Meta)genomics</a></li><li class="breadcrumb-item"><a href="../../source/nanopore/autocycler.html">Autocycler</a></li></ol></nav></header>
 
 <header id="title-block-header">
 
@@ -755,329 +827,172 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><img src="img/banner-min.png" class="img-fluid"></p>
-<div style="text-align: justify">
-<p>On this website you can find documentation about software commonly used in bioinformatic data analyses as well as tutorials about various bioinformatic subjects. On this webpage you can find software organized by topic and for each topic you find a list of commonly used software tools.</p>
-<p>If you are working at the University of Amsterdam (UvA) Institute for Biodiversity and Ecosystem Dynamics (IBED) and want to know more about what computational resources are available, please also visit the <a href="https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html">computational support teams website</a> and our website with more <a href="https://computational-resources-uva-ibed-cs-general-20079b9f20f96949e05.gitlab.io/">computation resources</a></p>
-<p>Please, be aware that this page is a work in progress and will be slowly updated over time. If you want to add additional information or feel that something is missing feel free to send an email to <a href="mailto:n.dombrowski@uva.nl" class="email">n.dombrowski@uva.nl</a>.</p>
-<section id="useful-tutorials" class="level2">
-<h2 class="anchored" data-anchor-id="useful-tutorials">Useful tutorials</h2>
-<p>The Carpentries teaches workshops around the world on the foundational skills to work effectively and reproducibly with data and code and they are an excellent resource to check out if you want to get started with bioinformatics</p>
+<section id="autocycler" class="level2" style="text-align: justify">
+<h2 class="anchored" data-anchor-id="autocycler">Autocycler</h2>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>Autocycler is a tool for generating consensus long-read assemblies for microbial genomes <span class="citation" data-cites="wick2025">(<a href="#ref-wick2025" role="doc-biblioref">Wick 2025</a>)</span>. It is the successor to <a href="../../source/metagenomics/trycycler.html">Trycyler</a>, and for most users it is recommended to Autocycler over Trycycler. If you want to use Autocycler, keep in mind that the input assemblies need to mostly be complete: one sequence per piece of DNA in the genome. Therefore, its best used for microbial genomes (archaea, bacteria, mitochondria, chloroplast).</p>
+<p>For installation instructions, usage, deeper explanations and more, head over to the <a href="https://github.com/rrwick/Autocycler/wiki">Autocycler wiki</a>!</p>
+</section>
+<section id="installation" class="level3">
+<h3 class="anchored" data-anchor-id="installation">Installation</h3>
+<p>Installed on Crunchomics: Yes,</p>
 <ul>
-<li><a href="https://software-carpentry.org/lessons/">The software carpentries</a> provides tutorials on:
+<li>Autocycler v0.1.2 is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics share, then you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski@uva.nl.</li>
+<li>Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don’t need to run this command):</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you want to install it yourself, you can run the following to install the tool from source:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change to directory you want to download the github repository to</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> software/</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an empty conda env </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-p</span> /zfs/omics/projects/bioinformatics/software/miniconda3/envs/autocycler_0.1.2 </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate autocycler_0.1.2</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Install autocycler</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># This will build an executable in ``target/release/autocycler``</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/rrwick/Autocycler.git</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> Autocycler</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ex">cargo</span> build <span class="at">--release</span> </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Install various different assemblers </span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># for this first remove the name field to install it in our empty conda environment we setup before</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ensure that you run mamba env update only after you activated the autocycler_0.1.2 environment</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-v</span> <span class="st">"name"</span> scripts/environment.yml <span class="op">&gt;</span> scripts/environment_edit.yml</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> env update <span class="at">--file</span> scripts/environment_edit.yml</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that all packages exist</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> list </span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy scripts to conda bin folder to be able to access them without having to write out the path path</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> target/release/autocycler <span class="st">"</span><span class="va">$CONDA_PREFIX</span><span class="st">"</span>/bin/</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> scripts/<span class="pp">*</span>.py scripts/<span class="pp">*</span>.sh <span class="st">"</span><span class="va">$CONDA_PREFIX</span><span class="st">"</span>/bin/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="usage" class="level3">
+<h3 class="anchored" data-anchor-id="usage">Usage</h3>
+<section id="single-sample-one-assembly-at-a-time" class="level4">
+<h4 class="anchored" data-anchor-id="single-sample-one-assembly-at-a-time">Single sample, one assembly at a time</h4>
+<p>If you want to know what is happening at each step, please visit the <a href="https://github.com/rrwick/Autocycler/wiki/">tools wiki</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Activate the right conda environment</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate autocycler_0.1.2</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Go to the project directory in which you also have the sequencing data</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> autocyler_analysis</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Define necessary input variables</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># The genome size can also be set manually if you know the value</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="va">reads</span><span class="op">=</span>data/my_data.fastq.gz</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="va">threads</span><span class="op">=</span>8  </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="va">genome_size</span><span class="op">=</span><span class="va">$(</span><span class="ex">genome_size_raven.sh</span> <span class="st">"</span><span class="va">$reads</span><span class="st">"</span> <span class="st">"</span><span class="va">$threads</span><span class="st">"</span><span class="va">)</span> </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># View estimated genome size:</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># In this example, we have an estimated genome size of 4,497,636 bp</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$genome_size</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: subsample the long-read set into multiple files. This generates 4 sub-sampled read sets by default</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sure to record some of the useful statistics such as: used default for min_read_depth 25, input fastq read count: 213459 and N50 length: 3760 bp; Total read depth: 131.5x; Mean read length: 2770 bp</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="ex">autocycler</span> subsample <span class="at">--reads</span> <span class="st">"</span><span class="va">$reads</span><span class="st">"</span> <span class="at">--out_dir</span> subsampled_reads <span class="at">--genome_size</span> <span class="st">"</span><span class="va">$genome_size</span><span class="st">"</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: assemble each of the 4 subsampled files with 6 different assemblers (this can take a bit, for suggestions to speed this up, see below)</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust in case you could not install all assemblers or don't want to use any of the listed assemblers</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> assemblies</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> assembler <span class="kw">in</span> canu flye miniasm necat nextdenovo raven<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> 01 02 03 04<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        <span class="ex">srun</span> <span class="at">--cpus-per-task</span> <span class="va">$threads</span> <span class="at">--mem</span><span class="op">=</span>50G <span class="dt">\</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">"</span><span class="va">$assembler</span><span class="st">"</span>.sh subsampled_reads/sample_<span class="st">"</span><span class="va">$i</span><span class="st">"</span>.fastq assemblies/<span class="st">"</span><span class="va">$assembler</span><span class="st">"</span>_<span class="st">"</span><span class="va">$i</span><span class="st">"</span> <span class="st">"</span><span class="va">$threads</span><span class="st">"</span> <span class="st">"</span><span class="va">$genome_size</span><span class="st">"</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">done</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Sanity check: Count number of contigs/assembly</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-c</span> <span class="st">"&gt;"</span> assemblies/<span class="pp">*</span>fasta</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional step: remove the subsampled reads to save space</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> subsampled_reads/<span class="pp">*</span>.fastq</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: compress the input assemblies into a unitig graph</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="ex">autocycler</span> compress <span class="at">-i</span> assemblies <span class="at">-a</span> autocycler_out</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: cluster the input contigs into putative genomic sequences</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="ex">autocycler</span> cluster <span class="at">-a</span> autocycler_out</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Steps 5 and 6: trim and resolve each QC-pass cluster</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> autocycler_out/clustering/qc_pass/cluster_<span class="pp">*</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="ex">autocycler</span> trim <span class="at">-c</span> <span class="st">"</span><span class="va">$c</span><span class="st">"</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    <span class="ex">autocycler</span> resolve <span class="at">-c</span> <span class="st">"</span><span class="va">$c</span><span class="st">"</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 7: combine resolved clusters into a final assembly</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Record assembly statistics: 1 unitig, 1 link, total length:  4491993 bp</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="co"># The final consensus assembly will be named: autocycler_out/consensus_assembly.fasta</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="ex">autocycler</span> combine <span class="at">-a</span> autocycler_out <span class="at">-i</span> autocycler_out/clustering/qc_pass/cluster_<span class="pp">*</span>/5_final.gfa</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional: generate a TSV line from the various metrix</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="ex">autocycler</span> table <span class="op">&gt;</span> metrics.tsv</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="ex">autocycler</span> table <span class="at">-a</span> autocycler_out <span class="op">&gt;&gt;</span> metrics.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="single-sample-several-assemblies-run-in-parallel" class="level4">
+<h4 class="anchored" data-anchor-id="single-sample-several-assemblies-run-in-parallel">Single sample, several assemblies run in parallel</h4>
+<p>To speed things up we can run the assembly (Step 2), which is the most time intensive step, with GNU parallel. This allows us to run several assemblies at the same time.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define our input variables</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure that this works with your computer specs, i.e. here we run 4 jobs in parallel each with 8 cpus</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># So here we need to have 4x8 = 24 threads available for things to run</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="va">jobs</span><span class="op">=</span>4</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="va">threads</span><span class="op">=</span>8 </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> assemblies</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-f</span> assemblies/jobs.txt</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> assembler <span class="kw">in</span> canu flye miniasm necat nextdenovo raven<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> 01 02 03 04<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">"srun --cpus-per-task </span><span class="va">$threads</span><span class="st"> --mem=50G </span><span class="va">$assembler</span><span class="st">.sh subsampled_reads/sample_</span><span class="va">$i</span><span class="st">.fastq assemblies/</span><span class="va">${assembler}</span><span class="st">_</span><span class="va">$i</span><span class="st"> </span><span class="va">$threads</span><span class="st"> </span><span class="va">$genome_size</span><span class="st">"</span> <span class="op">&gt;&gt;</span> assemblies/jobs.txt</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">done</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="ex">parallel</span> <span class="at">--jobs</span> <span class="st">"</span><span class="va">$jobs</span><span class="st">"</span> <span class="at">--joblog</span> assemblies/joblog.txt <span class="at">--results</span> assemblies/logs <span class="op">&lt;</span> assemblies/jobs.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="several-samples-run-in-parallel" class="level4">
+<h4 class="anchored" data-anchor-id="several-samples-run-in-parallel">Several samples run in parallel</h4>
+<p>tba</p>
+</section>
+</section>
+<section id="things-to-keep-in-mind" class="level3">
+<h3 class="anchored" data-anchor-id="things-to-keep-in-mind">Things to keep in mind</h3>
 <ul>
-<li>Bash</li>
-<li>Git</li>
-<li>Python</li>
-<li>R</li>
+<li><strong>When to use autocycler</strong>: For Autocycler to work, the input assemblies need to mostly be complete: one sequence per piece of DNA in the genome. Therefore, its best used for microbial genomes (archaea, bacteria, mitochondria, chloroplast). However, if you sequence eukaryotes and if T2T assemblies are possible, then Autocycler should work as well.</li>
+<li><strong>Polishing</strong>: Since Autocycler assemblies are long-read-only, they may still contain errors. If assembling Oxford Nanopore reads you can consider polishing with for example Medaka. If you also have short reads Polypolish and Pypolca are options to consider</li>
+<li><strong>Genome orientation</strong>: Autocycler does not rotate circular sequences to start at a particular gene (e.g.&nbsp;<em>dnaA</em>). To do this, check out Dnaapler.</li>
+<li><strong>Assessing the assembly</strong>
+<ul>
+<li>The Autocycler combine command produces a final assembly by combining all of the clusters. Hopefully, each cluster resolved to a single contig, in which case it will print this at the end of its stderr output: Consensus assembly is fully resolved. The Metrics page describes all of the assembly metrics generated by Autocycler, but for assessment purposes, the most useful is likely the consensus_assembly_fully_resolved metric, which can be true or false. You can find this metric in the consensus_assembly.yaml file made by Autocycler combine in your Autocycler output directory.</li>
+<li>If your assembly went poorly you can consider doing the following:
+<ul>
+<li>Try using other assemblers</li>
+<li>Try different parameters when making your input assemblies. Some assemblers (e.g.&nbsp;Canu) have a large number of parameters that can influence the result.</li>
+<li><a href="https://github.com/rrwick/Autocycler/wiki/Generating-input-assemblies#optional-manual-intervention">Manually curate your input assemblies</a> before using them with Autocycler. Specifically, discard any assemblies that appear to be incomplete.</li>
+<li>If none of the above work well, then your read set is likely insufficient, in which case you may need to sequence again aiming for deeper and longer reads.</li>
 </ul></li>
-<li><a href="https://datacarpentry.org/lessons/">Data carpentries</a> provides domain-specific tutorials, such as for ecology or genomics</li>
-<li><a href="https://librarycarpentry.org/lessons/">Library carpentries</a> contain some useful tutorials if you want to transform data frames, map data to each other and work effectively with data</li>
-</ul>
-<p>Next, to the carpentries you will find a list of tutorials for more specific topics below.</p>
-<section id="getting-started-with-bash" class="level3">
-<h3 class="anchored" data-anchor-id="getting-started-with-bash">Getting started with bash</h3>
-<ul>
-<li><a href="https://ndombrowski.github.io/cli_workshop/">A tutorial on using bash and an HPC</a></li>
-<li><a href="https://github.com/fkariminejadasl/ml-notebooks/blob/main/tutorial/git.md">Version control with git</a></li>
-<li><a href="https://ndombrowski.github.io/AWK_tutorial/">A tutorial on using AWK</a>, a command line tool for filtering tables, extracting patterns, etc… If you want to follow this tutorial then you can download the required input files from <a href="https://github.com/ndombrowski/AWK_tutorial/tree/main/1_Inputfiles">here</a></li>
-</ul>
-</section>
-<section id="using-r" class="level3">
-<h3 class="anchored" data-anchor-id="using-r">Using R</h3>
-<ul>
-<li><a href="https://ndombrowski.github.io/R_cookbook/">An R cookbook</a> including some <a href="https://github.com/ndombrowski/R_cookbook/tree/main/data">example files</a> if you want to code along</li>
-<li><a href="https://ndombrowski.github.io/Tidyverse_tutorial/">Tutorial on data manipulation with dplyr</a></li>
-<li><a href="https://ndombrowski.github.io/Ggplot_tutorial/">Tutorial on data visualization with ggplot2</a></li>
-</ul>
-</section>
-<section id="bioinformatic-workflows" class="level3">
-<h3 class="anchored" data-anchor-id="bioinformatic-workflows">Bioinformatic workflows</h3>
-<ul>
-<li><a href="./source/Qiime/3_evelyn_tutorial_notes.html">From sequence file to OTU table with Qiime</a></li>
-<li><a href="./source/Qiime/OTU_table_analysis.html">Analysing an OTU table with R</a></li>
-<li><a href="https://ndombrowski.github.io/Assembly_tutorial/">Assembling a metagenome</a></li>
-<li><a href="https://ndombrowski.github.io/Binning_tutorial//">Metagenomic binning</a></li>
-<li><a href="https://github.com/ndombrowski/Annotation_workflow">Annotating microbial genomes</a></li>
-<li><a href="https://ndombrowski.github.io/Phylogeny_tutorial/">How to do generate a species tree</a></li>
-<li><a href="./source/core_tools/ncbi.html">Accessing data from NCBI</a></li>
+</ul></li>
 </ul>
 </section>
 </section>
-<section id="bioinformatic-tools-a-z" class="level2">
-<h2 class="anchored" data-anchor-id="bioinformatic-tools-a-z">Bioinformatic tools A-Z</h2>
 
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>
-Bioinformatic Tools A-Z
-</title>
-<style>
-/* Basic styling for accordion */
-.accordion {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 3px 15px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-  transition: background-color 0.4s;
-}
-
-.active, .accordion:hover {
-  background-color: #f4f4f4;
-}
-
-.panel {
-  padding: 0 40px;
-  background-color: white;
-  overflow: hidden;
-  display: block; /* Start with panels uncollapsed */
-}
-</style>
 
 
-<button class="accordion active">
-A-D
-</button>
-<div class="panel">
-<ul>
-<li>
-<a href="./source/metagenomics/atlas.html">ATLAS</a>: A metagenomic pipeline for QC, assembly binning and annotation
-</li>
-<li>
-<a href="./source/metagenomics/augustus.html">Augustus</a>: A program that predicts genes in eukaryotic genomic sequences
-</li>
-<li>
-<a href="./source/nanopore/autocycler.html">Autocycler</a>: A tool for generating consensus long-read assemblies for microbial genomes
-</li>
-<li>
-<a href="./source/metagenomics/bakta.html">Bakta</a>: A tool for the rapid &amp; standardized annotation of bacterial genomes and plasmids from both isolates and MAGs
-</li>
-<li>
-<a href="./source/phylogenomics/bmge.html">BMGE</a>: A program to select regions in a multiple sequence alignment that are suited for phylogenetic inference
-</li>
-<li>
-<a href="./source/core_tools/bowtie.html">Bowtie2</a>: A tool for aligning sequencing reads to genomes and other reference sequences
-</li>
-<li>
-<a href="./source/core_tools/busco.html">BUSCO</a>: Quality assessment of (meta)genomes, transcriptomes and proteomes
-</li>
-<li>
-<a href="./source/metagenomics/checkm2.html">CheckM2</a>: A tool to assess the quality of a genome assembly
-</li>
-<li>
-<a href="./source/nanopore/chopper.html">Chopper</a>: A tool for quality filtering of long read data
-</li>
-<li>
-<a href="./source/metagenomics/deeploc.html">DeepLoc</a>: A tool to predict the subcellular localization(s) of eukaryotic proteins
-</li>
-<li>
-<a href="./source/core_tools/diamond.html">Diamond</a>: A sequence aligner for protein and translated DNA searches
-</li>
-<li>
-<a href="./source/metagenomics/dnaapler.html">Dnaapler</a>: A tool to re-orient a genome, for example at dnaA
-</li>
-<li>
-<a href="./source/metatranscriptomics/DSEq2.html">DeSeq2</a>: Analyse gene expression data in R
-</li>
-</ul>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-wick2025" class="csl-entry" role="listitem">
+Wick, Ryan. 2025. <em>Rrwick/Autocycler</em>. <a href="https://github.com/rrwick/Autocycler">https://github.com/rrwick/Autocycler</a>.
 </div>
-<button class="accordion active">
-E-H
-</button>
-<div class="panel">
-<ul>
-<li>
-<a href="./source/metagenomics/fama_readme.html">FAMA</a>: A fast pipeline for functional and taxonomic analysis of metagenomic sequences
-</li>
-<li>
-<a href="./source/metatranscriptomics/fastp.html">FastP</a>: A tool for fast all-in-one preprocessing of FastQ files
-</li>
-<li>
-<a href="./source/metagenomics/fastqc_readme.html">FastQC</a>: A quality control tool for read sequencing data
-</li>
-<li>
-<a href="./source/core_tools/featurecounts.html">FeatureCounts</a>: A read summarization program that counts mapped reads for genomic features
-</li>
-<li>
-<a href="./source/nanopore/filtlong.html">Filtlong</a>: A tool for filtering long reads
-</li>
-<li>
-<a href="./source/metagenomics/flye.html">Flye</a>: A de novo assembler for single-molecule sequencing reads
-</li>
-<li>
-<a href="./source/metagenomics/gtdb.html">GTDB_tk</a>: A software toolkit for assigning objective taxonomic classifications to bacterial and archaeal genomes
-</li>
-<li>
-<a href="./source/core_tools/hmmer.html">HMMER</a>: A tool for searching sequence databases for sequence homologs, and for making sequence alignments
-</li>
-</ul>
-</div>
-<button class="accordion active">
-I-L
-</button>
-<div class="panel">
-<ul>
-<li>
-<a href="./source/phylogenomics/iqtree2.html">IQ-TREE</a>: A tool for phylogenomic inferences
-</li>
-<li>
-<a href="./source/metagenomics/interproscan_readme.html">Interproscan</a>: A tool to scan protein and nucleic sequences against InterPro signatures
-</li>
-<li>
-<a href="./source/ITSx/itsx_readme.html">ITSx</a>: A tool to extract ITS1 and ITS2 subregions from ITS sequences
-</li>
-<li>
-<a href="./source/classification/kraken2.html">Kraken2</a>: A taxonomic sequence classifier using kmers
-</li>
-</ul>
-</div>
-<button class="accordion active">
-M-P
-</button>
-<div class="panel">
-<ul>
-<li>
-<a href="./source/phylogenomics/mafft.html">Mafft</a>: A multiple sequence alignment program
-</li>
-<li>
-<a href="./source/metagenomics/metabolic.html">METABOLIC</a>: A tool to predict functional trait profiles in genome datasets
-</li>
-<li>
-<a href="./source/metagenomics/metacerberus.html">MetaCerberus</a>: A tool for functional assignment
-</li>
-<li>
-<a href="./source/metagenomics/motus.html">MOTUS</a>: A tool to estimate microbial abundances in Illumina and Nanopore sequencing data
-</li>
-<li>
-<a href="./source/classification/minimap2.html">Minimap2</a>: A program to align DNA or mRNA sequences against a reference database
-</li>
-<li>
-<a href="./source/metagenomics/multiqc.html">MultiQC</a>: A program to summarize analysis reports
-</li>
-<li>
-<a href="./source/nanopore/nanoclass.html">NanoClass2</a>: A taxonomic meta-classifier for long-read 16S/18S rRNA gene sequencing data
-</li>
-<li>
-<a href="./source/nanopore/nanoITS.html">NanoITS</a>: A taxonomic meta-classifier for long-read ITS operon sequencing data
-</li>
-<li>
-<a href="./source/nanopore/nanophase_how_to.html">Nanophase</a>: A pipeline to generate MAGs using Nanopore long and Illumina short reads from metagenomes
-</li>
-<li>
-<a href="./source/nanopore/nanoplot_readme.html">NanoPlot</a>: Plotting tool for long read sequencing data
-</li>
-<li>
-<a href="./source/nanopore/nanoqc_readme.html">NanoQC</a>: A quality control tool for long read sequencing data
-</li>
-<li>
-<a href="./source/nanopore/ngspeciesid.html">NGSpeciesID</a>: A tool for clustering and consensus forming of long-read amplicon sequencing data
-</li>
-<li>
-<a href="./source/nanopore/porechop_readme.html">Porechop</a>: A tool for finding and removing adapters from Nanopore reads
-</li>
-<li>
-<a href="./source/core_tools/prokka.html">Prokka</a>: A tool to annotate bacterial, archaeal and viral genomes
-</li>
-<li>
-<a href="./source/metagenomics/pseudofinder.html">Pseudofinder</a>: A tool that detects pseudogene candidates from annotated genbank files of bacterial and archaeal genomes
-</li>
-<li>
-<a href="./source/metagenomics/pycirclize.html">pyCirclize</a>: A tool for circular visualization, i.e.&nbsp;genome plots, in python
-</li>
-</ul>
-</div>
-<button class="accordion active">
-Q-T
-</button>
-<div class="panel">
-<ul>
-<li>
-<a href="./source/metagenomics/quast.html">QUAST</a>: A Quality Assessment Tool for Genome Assemblies
-</li>
-<li>
-<a href="./source/metatranscriptomics/ribodetector.html">Ribodetector</a>: Detect and remove rRNA sequences from metagenomic, metatranscriptomic, and ncRNA sequencing data
-</li>
-<li>
-<a href="./source/core_tools/rsem.html">RSEM</a>: A software package for estimating gene and isoform expression levels from RNA-Seq data
-</li>
-<li>
-<a href="./source/core_tools/samtools.html">Samtools</a>: A tool to manipulating alignments in SAM/BAM format
-</li>
-<li>
-<a href="./source/core_tools/seqkit.html">SeqKit</a>: A tool for FASTA/Q file manipulation
-</li>
-<li>
-<a href="./source/metagenomics/signalp6.html">SignalP6</a>: A tool to predict the presence of signal peptides
-</li>
-<li>
-<a href="./source/metatranscriptomics/sortmerna.html">SortMerNa</a>: A tool to filter ribosomal RNAs in metatranscriptomic data
-</li>
-<li>
-<a href="./source/metatranscriptomics/star.html">Star</a>: An ultrafast universal RNA-seq aligner
-</li>
-<li>
-<a href="./source/metagenomics/trycycler.html">Trycyler</a>: A tool for generating consensus long-read assemblies for bacterial genomes
-</li>
-<li>
-<a href="./source/metatranscriptomics/trinity.html">Trinity</a>: A tool to assemble transcript sequences from Illumina RNA-Seq data
-</li>
-</ul>
-</div>
-<button class="accordion active">
-U-Z
-</button>
-<div class="panel">
-<ul>
-<!-- Add tools starting with U-Z if available -->
-</ul>
-</div>
-<script>
-var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.display === "block") {
-      panel.style.display = "none";
-    } else {
-      panel.style.display = "block";
-    }
-  });
-}
-</script>
-
-
-</section>
-<section id="bioinformatic-toolbox" class="level2">
-<h2 class="anchored" data-anchor-id="bioinformatic-toolbox">Bioinformatic toolbox</h2>
-<ul>
-<li><a href="./source/core_tools/bash-for-loops.html">For-loops-in-bash</a>: How can I scale my research and run software not only on one but multiple files?</li>
-</ul>
-</section>
-<section id="useful-databases-a-z" class="level2">
-<h2 class="anchored" data-anchor-id="useful-databases-a-z">Useful databases A-Z</h2>
-<ul>
-<li><a href="./source/core_tools/cog.html">COG</a></li>
-<li><a href="./source/core_tools/kegg_db.html">KOfam</a></li>
-<li><a href="./source/core_tools/ncbi_nr.html">NCBI-nr</a></li>
-<li><a href="./source/core_tools/pfam_db.html">Pfam</a></li>
-<li><a href="./source/core_tools/pgap_db.html">PGAP database</a></li>
-<li><a href="./source/core_tools/tigrfam_db.html">TIGRFAM</a></li>
-</ul>
-
-
-</section>
-</div>
-
-</main> <!-- /main -->
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1646,10 +1561,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../../source/metagenomics/trycycler.html" class="pagination-link" aria-label="Trycycler">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Trycycler</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./source/cli/code_doc.html" class="pagination-link" aria-label="Code documentation">
-        <span class="nav-page-text">Code documentation</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/metagenomics/checkm2.html" class="pagination-link" aria-label="CheckM2">
+        <span class="nav-page-text">CheckM2</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1662,7 +1580,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
 Last modified: 2025-01-07</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/nanopore/autocycler.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

@@ -90,6 +90,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
   <ul>
     <li><a href="source/metagenomics/atlas.qmd">ATLAS</a>: A metagenomic pipeline for QC, assembly binning and annotation</li>
     <li><a href="source/metagenomics/augustus.qmd">Augustus</a>: A program that predicts genes in eukaryotic genomic sequences</li>
+    <li><a href="source/nanopore/autocycler.qmd">Autocycler</a>: A tool for generating consensus long-read assemblies for microbial genomes</li>
     <li><a href="source/metagenomics/bakta.qmd">Bakta</a>: A tool for the rapid & standardized annotation of bacterial genomes and plasmids from both isolates and MAGs</li>
     <li><a href="source/phylogenomics/bmge.qmd">BMGE</a>: A program to select regions in a multiple sequence alignment that are suited for phylogenetic inference</li>
     <li><a href="source/core_tools/bowtie.qmd">Bowtie2</a>: A tool for aligning sequencing reads to genomes and other reference sequences</li>

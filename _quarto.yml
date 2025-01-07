@@ -107,6 +107,7 @@ website:
               - source/metagenomics/atlas.qmd
               - source/metagenomics/flye.qmd
               - source/metagenomics/trycycler.qmd
+              - source/nanopore/autocycler.qmd
               - source/metagenomics/checkm2.qmd
               - source/metagenomics/gtdb.qmd
               - source/metagenomics/pseudofinder.qmd
