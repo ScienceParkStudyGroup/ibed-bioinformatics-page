@@ -49,6 +49,9 @@ cargo build --release
 grep -v "name" scripts/environment.yml > scripts/environment_edit.yml
 mamba env update --file scripts/environment_edit.yml
 
+# Optional but recommended: Install GNU parallel
+mamba install conda-forge::parallel 
+
 # Check that all packages exist
 conda list 
 

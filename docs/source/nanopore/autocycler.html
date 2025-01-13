@@ -865,12 +865,15 @@ div.csl-indent {
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-v</span> <span class="st">"name"</span> scripts/environment.yml <span class="op">&gt;</span> scripts/environment_edit.yml</span>
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> env update <span class="at">--file</span> scripts/environment_edit.yml</span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that all packages exist</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> list </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional but recommended: Install GNU parallel</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install conda-forge::parallel </span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy scripts to conda bin folder to be able to access them without having to write out the path path</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> target/release/autocycler <span class="st">"</span><span class="va">$CONDA_PREFIX</span><span class="st">"</span>/bin/</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> scripts/<span class="pp">*</span>.py scripts/<span class="pp">*</span>.sh <span class="st">"</span><span class="va">$CONDA_PREFIX</span><span class="st">"</span>/bin/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that all packages exist</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> list </span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy scripts to conda bin folder to be able to access them without having to write out the path path</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> target/release/autocycler <span class="st">"</span><span class="va">$CONDA_PREFIX</span><span class="st">"</span>/bin/</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> scripts/<span class="pp">*</span>.py scripts/<span class="pp">*</span>.sh <span class="st">"</span><span class="va">$CONDA_PREFIX</span><span class="st">"</span>/bin/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="usage" class="level3">
