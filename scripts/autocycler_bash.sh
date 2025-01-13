@@ -34,19 +34,19 @@ done
 
 # Check if required parameters are provided
 if [ -z "$data_folder" ] || [ -z "$THREADS" ] || [ -z "$MIN_CPUS_PER_ASSEMBLY" ]; then
-    echo "Error: Missing required parameters."
-    usage
+    echo "Error: Missing required parameters." | tee -a logs/error.log
+    usage | tee -a logs/error.log
     exit 1
 fi
 
 # Check if autocycler and GNU parallel are available
 if ! command -v autocycler &> /dev/null; then
-    echo "Error: autocycler is not installed or not in your PATH. Please install autocycler or add it to your PATH."
+    echo "Error: autocycler is not installed or not in your PATH. Please install autocycler or add it to your PATH." | tee -a logs/error.log
     exit 1
 fi
 
 if ! command -v parallel &> /dev/null; then
-    echo "Error: GNU parallel is not installed or not in your PATH. Please install GNU parallel or add it to your PATH."
+    echo "Error: GNU parallel is not installed or not in your PATH. Please install GNU parallel or add it to your PATH." | tee -a logs/error.log
     exit 1
 fi
 
@@ -55,7 +55,7 @@ MAX_JOBS=$((THREADS / MIN_CPUS_PER_ASSEMBLY))
 
 # Ensure at least one parallel job can be run
 if [ "$MAX_JOBS" -lt 1 ]; then
-    echo "Error: Not enough CPUs for at least one assembly. Exiting ..."
+    echo "Error: Not enough CPUs for at least one assembly. Exiting ..." | tee -a logs/error.log
     exit 1
 fi
 
@@ -67,29 +67,31 @@ READS_FILES=($(ls "$data_folder"/*.fastq.gz))
 
 # Check if any files were found; if not, exit with an error message
 if [ ${#READS_FILES[@]} -eq 0 ]; then
-    echo "Error: No .fastq.gz files found in the folder '$data_folder'. Exiting..."
+    echo "Error: No .fastq.gz files found in the folder '$data_folder'. Exiting..." | tee -a logs/error.log
     exit 1
 fi
-
-# Print the list of detected files
-echo "Detected input files:"
-for file in "${READS_FILES[@]}"; do
-    echo "$file"
-done
 
 # Process each genome
 for READS in "${READS_FILES[@]}"; do
     # Extract genome name from the input file for unique output directories
     GENOME_NAME=$(basename "$READS" .fastq.gz)
+    
+    # Create a log file specific to the genome
+    LOG_FILE="logs/${GENOME_NAME}.log"
+
+    # Redirect all output (including echo and errors) to the specific log file
+    exec &> >(tee -a "$LOG_FILE")
+
+    echo "Processing genome: $GENOME_NAME" | tee -a "$LOG_FILE"
 
     # Step 1: Estimate genome size
     GENOME_SIZE=$(genome_size_raven.sh "$READS" "$THREADS")
-    echo "Genome size for $GENOME_NAME: $GENOME_SIZE"
+    echo "Genome size for $GENOME_NAME: $GENOME_SIZE" | tee -a "$LOG_FILE"
 
     # Step 2: Subsample the reads
     SUBSAMPLED_DIR="results/${GENOME_NAME}/subsampled_reads"
     mkdir -p "$SUBSAMPLED_DIR"
-    autocycler subsample --reads "$READS" --out_dir "$SUBSAMPLED_DIR" --genome_size "$GENOME_SIZE"
+    autocycler subsample --reads "$READS" --out_dir "$SUBSAMPLED_DIR" --genome_size "$GENOME_SIZE" | tee -a "$LOG_FILE"
 
     # Step 3: Prepare assemblies directory and jobs file
     ASSEMBLIES_DIR="results/${GENOME_NAME}/assemblies"
@@ -111,21 +113,21 @@ for READS in "${READS_FILES[@]}"; do
 
     # Step 5: Compress assemblies into a unitig graph
     AUTOCYCLER_OUT="results/${GENOME_NAME}/autocycler_out"
-    autocycler compress -i "$ASSEMBLIES_DIR" -a "$AUTOCYCLER_OUT"
+    autocycler compress -i "$ASSEMBLIES_DIR" -a "$AUTOCYCLER_OUT" | tee -a "$LOG_FILE"
 
     # Step 6: Cluster contigs
-    autocycler cluster -a "$AUTOCYCLER_OUT"
+    autocycler cluster -a "$AUTOCYCLER_OUT" | tee -a "$LOG_FILE"
 
     # Step 7: Trim and resolve QC-pass clusters
     for CLUSTER in ${AUTOCYCLER_OUT}/clustering/qc_pass/cluster_*; do
-        echo "$CLUSTER"
-        autocycler trim -c "$CLUSTER"
-        autocycler resolve -c "$CLUSTER"
+        echo "$CLUSTER" | tee -a "$LOG_FILE"
+        autocycler trim -c "$CLUSTER" | tee -a "$LOG_FILE"
+        autocycler resolve -c "$CLUSTER" | tee -a "$LOG_FILE"
     done
 
     # Step 8: Combine resolved clusters into a final assembly
-    autocycler combine -a "$AUTOCYCLER_OUT" -i ${AUTOCYCLER_OUT}/clustering/qc_pass/cluster_*/5_final.gfa
+    autocycler combine -a "$AUTOCYCLER_OUT" -i ${AUTOCYCLER_OUT}/clustering/qc_pass/cluster_*/5_final.gfa | tee -a "$LOG_FILE"
 
     # Write completion message
-    echo "Genome assembly for $GENOME_NAME completed successfully."
+    echo "Genome assembly for $GENOME_NAME completed successfully." | tee -a "$LOG_FILE"
 done

@@ -182,6 +182,29 @@ for i in data/*fastq.gz; do
 done
 
 conda deactivate
+
+# Optional: The scripts generates a log file for each genome in the log folder, we can extract some key information as follows 
+for i in logs/*log; do 
+  sample=$(basename $i .log)
+  
+  echo -e "\nInformation on Assembly $sample"
+  echo "----------------------------------------"
+  echo "Estimated $(grep "Genome size for" $i | uniq)"
+  
+  echo -e "\nInformation on Input FastQ for $sample"
+  grep "Read count:" $i | sed 's/^[ \t]*//'
+  grep "Read bases:" $i | sed 's/^[ \t]*//'
+  grep "Read N50 length:" $i | sed 's/^[ \t]*//'
+  grep "Total read depth:" $i
+  grep "Mean read length:" $i
+  grep "reads per subset" $i | sed 's/^[ \t]*//'
+
+  echo -e "\nInformation on the assembled genome for $sample"
+  grep -E "[0-9]* unitig, [0-9]* link"  $i | tail -n1 | sed 's/^[ \t]*//'
+  grep "total length:" logs/Genome1.log | tail -n1 | sed 's/^[ \t]*//'
+  grep "fully resolv" $i
+done 
+
 ```
 
 ##### Version 2: With the SLURM scheduler
@@ -218,6 +241,29 @@ for i in data/*fastq.gz; do
 done
 
 conda deactivate
+
+# Optional: The scripts generates a log file for each genome in the log folder, we can extract some key information as follows 
+for i in logs/*log; do 
+  sample=$(basename $i .log)
+  
+  echo -e "\nInformation on Assembly $sample"
+  echo "----------------------------------------"
+  echo "Estimated $(grep "Genome size for" $i | uniq)"
+  
+  echo -e "\nInformation on Input FastQ for $sample"
+  grep "Read count:" $i | sed 's/^[ \t]*//'
+  grep "Read bases:" $i | sed 's/^[ \t]*//'
+  grep "Read N50 length:" $i | sed 's/^[ \t]*//'
+  grep "Total read depth:" $i
+  grep "Mean read length:" $i
+  grep "reads per subset" $i | sed 's/^[ \t]*//'
+
+  echo -e "\nInformation on the assembled genome for $sample"
+  grep -E "[0-9]* unitig, [0-9]* link"  $i | tail -n1 | sed 's/^[ \t]*//'
+  grep "total length:" logs/Genome1.log | tail -n1 | sed 's/^[ \t]*//'
+  grep "fully resolv" $i
+done 
+
 ```
 
 ### Things to keep in mind

@@ -992,7 +992,29 @@ div.csl-indent {
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="ex">autocycler</span> table <span class="at">-a</span> results/<span class="va">${sample}</span>/autocycler_out <span class="at">-n</span> <span class="va">${sample}</span> <span class="op">&gt;&gt;</span> metrics.tsv  <span class="co"># append a TSV row</span></span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional: The scripts generates a log file for each genome in the log folder, we can extract some key information as follows </span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> logs/<span class="pp">*</span>log<span class="kw">;</span> <span class="cf">do</span> </span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="va">sample</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .log<span class="va">)</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\nInformation on Assembly </span><span class="va">$sample</span><span class="st">"</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="bu">echo</span> <span class="st">"----------------------------------------"</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  <span class="bu">echo</span> <span class="st">"Estimated </span><span class="va">$(</span><span class="fu">grep</span> <span class="st">"Genome size for"</span> <span class="va">$i</span> <span class="kw">|</span> <span class="fu">uniq</span><span class="va">)</span><span class="st">"</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\nInformation on Input FastQ for </span><span class="va">$sample</span><span class="st">"</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span> <span class="st">"Read count:"</span> <span class="va">$i</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/^[ \t]*//'</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span> <span class="st">"Read bases:"</span> <span class="va">$i</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/^[ \t]*//'</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span> <span class="st">"Read N50 length:"</span> <span class="va">$i</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/^[ \t]*//'</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span> <span class="st">"Total read depth:"</span> <span class="va">$i</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span> <span class="st">"Mean read length:"</span> <span class="va">$i</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span> <span class="st">"reads per subset"</span> <span class="va">$i</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/^[ \t]*//'</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\nInformation on the assembled genome for </span><span class="va">$sample</span><span class="st">"</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span> <span class="at">-E</span> <span class="st">"[0-9]* unitig, [0-9]* link"</span>  <span class="va">$i</span> <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n1</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/^[ \t]*//'</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span> <span class="st">"total length:"</span> logs/Genome1.log <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n1</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/^[ \t]*//'</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span> <span class="st">"fully resolv"</span> <span class="va">$i</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="version-2-with-the-slurm-scheduler" class="level5">
@@ -1025,7 +1047,29 @@ div.csl-indent {
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="ex">autocycler</span> table <span class="at">-a</span> results/<span class="va">${sample}</span>/autocycler_out <span class="at">-n</span> <span class="va">${sample}</span> <span class="op">&gt;&gt;</span> metrics.tsv  <span class="co"># append a TSV row</span></span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional: The scripts generates a log file for each genome in the log folder, we can extract some key information as follows </span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> logs/<span class="pp">*</span>log<span class="kw">;</span> <span class="cf">do</span> </span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="va">sample</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .log<span class="va">)</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\nInformation on Assembly </span><span class="va">$sample</span><span class="st">"</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="bu">echo</span> <span class="st">"----------------------------------------"</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="bu">echo</span> <span class="st">"Estimated </span><span class="va">$(</span><span class="fu">grep</span> <span class="st">"Genome size for"</span> <span class="va">$i</span> <span class="kw">|</span> <span class="fu">uniq</span><span class="va">)</span><span class="st">"</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\nInformation on Input FastQ for </span><span class="va">$sample</span><span class="st">"</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span> <span class="st">"Read count:"</span> <span class="va">$i</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/^[ \t]*//'</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span> <span class="st">"Read bases:"</span> <span class="va">$i</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/^[ \t]*//'</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span> <span class="st">"Read N50 length:"</span> <span class="va">$i</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/^[ \t]*//'</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span> <span class="st">"Total read depth:"</span> <span class="va">$i</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span> <span class="st">"Mean read length:"</span> <span class="va">$i</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span> <span class="st">"reads per subset"</span> <span class="va">$i</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/^[ \t]*//'</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>  <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\nInformation on the assembled genome for </span><span class="va">$sample</span><span class="st">"</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span> <span class="at">-E</span> <span class="st">"[0-9]* unitig, [0-9]* link"</span>  <span class="va">$i</span> <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n1</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/^[ \t]*//'</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span> <span class="st">"total length:"</span> logs/Genome1.log <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n1</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/^[ \t]*//'</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grep</span> <span class="st">"fully resolv"</span> <span class="va">$i</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>

@@ -10,13 +10,16 @@
 # Define general parameters
 # 1data_folder should provide the path in which the fastq.gz files are stored
 data_folder="data" 
-THREADS=$SLURM_CPUS_PER_TASK
 MIN_CPUS_PER_ASSEMBLY=8
+THREADS=$SLURM_CPUS_PER_TASK
 
 # ! User input required: !
 # Activate conda environment (edit name as needed)
 source ~/.bashrc
 conda activate autocycler_0.1.2
+
+# Generate log folder
+mkdir logs
 
 # Write usage function
 usage() {
@@ -58,9 +61,6 @@ if [ "$MAX_JOBS" -lt 1 ]; then
     exit 1
 fi
 
-# Generate log folder
-mkdir logs
-
 # Dynamically generate a list of fastq.gz files in the specified data folder
 READS_FILES=($(ls "$data_folder"/*.fastq.gz))
 
@@ -82,14 +82,18 @@ READS="${READS_FILES[$SLURM_ARRAY_TASK_ID-1]}"
 # Extract genome name from the input file for unique output directories
 GENOME_NAME=$(basename "$READS" .fastq.gz)
 
+# Create a log file specific to the genome
+LOG_FILE="logs/${GENOME_NAME}.log"
+exec &> >(tee -a "$LOG_FILE")
+
 # Step 1: Estimate genome size
 GENOME_SIZE=$(genome_size_raven.sh "$READS" "$THREADS")
-echo "Genome size for $GENOME_NAME: $GENOME_SIZE"
+echo "Genome size for $GENOME_NAME: $GENOME_SIZE" | tee -a "$LOG_FILE"
 
 # Step 2: Subsample the reads
 SUBSAMPLED_DIR="results/${GENOME_NAME}/subsampled_reads"
 mkdir -p "$SUBSAMPLED_DIR"
-autocycler subsample --reads "$READS" --out_dir "$SUBSAMPLED_DIR" --genome_size "$GENOME_SIZE"
+autocycler subsample --reads "$READS" --out_dir "$SUBSAMPLED_DIR" --genome_size "$GENOME_SIZE" | tee -a "$LOG_FILE"
 
 # Step 3: Prepare assemblies directory and jobs file
 ASSEMBLIES_DIR="results/${GENOME_NAME}/assemblies"
@@ -111,20 +115,20 @@ parallel --jobs "$MAX_JOBS" --joblog "$ASSEMBLIES_LOG_DIR/parallel_exec.log" \
 
 # Step 5: Compress assemblies into a unitig graph
 AUTOCYCLER_OUT="results/${GENOME_NAME}/autocycler_out"
-autocycler compress -i "$ASSEMBLIES_DIR" -a "$AUTOCYCLER_OUT"
+autocycler compress -i "$ASSEMBLIES_DIR" -a "$AUTOCYCLER_OUT" | tee -a "$LOG_FILE"
 
 # Step 6: Cluster contigs
-autocycler cluster -a "$AUTOCYCLER_OUT"
+autocycler cluster -a "$AUTOCYCLER_OUT" | tee -a "$LOG_FILE"
 
 # Step 7: Trim and resolve QC-pass clusters
 for CLUSTER in ${AUTOCYCLER_OUT}/clustering/qc_pass/cluster_*; do
     echo "$CLUSTER"
-    autocycler trim -c "$CLUSTER"
-    autocycler resolve -c "$CLUSTER"
+    autocycler trim -c "$CLUSTER" | tee -a "$LOG_FILE"
+    autocycler resolve -c "$CLUSTER" | tee -a "$LOG_FILE"
 done
 
 # Step 8: Combine resolved clusters into a final assembly
-autocycler combine -a "$AUTOCYCLER_OUT" -i ${AUTOCYCLER_OUT}/clustering/qc_pass/cluster_*/5_final.gfa
+autocycler combine -a "$AUTOCYCLER_OUT" -i ${AUTOCYCLER_OUT}/clustering/qc_pass/cluster_*/5_final.gfa | tee -a "$LOG_FILE"
 
 # Write completion message
-echo "Genome assembly for $GENOME_NAME completed successfully."
+echo "Genome assembly for $GENOME_NAME completed successfully." | tee -a "$LOG_FILE"
