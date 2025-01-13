@@ -961,7 +961,73 @@ div.csl-indent {
 </section>
 <section id="several-samples-run-in-parallel" class="level4">
 <h4 class="anchored" data-anchor-id="several-samples-run-in-parallel">Several samples run in parallel</h4>
-<p>tba</p>
+<p>To run Autocycler on more than one genome you can run the code above with either a for loop or with a job scheduler, such as SLURM. To do so, we provide two bash scripts.</p>
+<p>For these to work ensure that both Autocycler and GNU parallel are installed on your system (when running this outside of Crunchomics).</p>
+<section id="version-1-without-a-job-scheduler" class="level5">
+<h5 class="anchored" data-anchor-id="version-1-without-a-job-scheduler">Version 1: Without a job scheduler</h5>
+<p>To run Autocycler on several genomes when you have no job scheduler available you can use <a href="https://github.com/ScienceParkStudyGroup/ibed-bioinformatics-page/tree/main/scripts/autocycler_bash.sh">autocycler_bash.sh</a>. This scripts requires the following arguments to run:</p>
+<ul>
+<li><code>-d</code>: The path to the folder with the raw read in .fastq.gz format. Note, that the name of the file will be used as the sample name throughout the script, so name those files accordingly.</li>
+<li><code>-t</code>: The number of threads to use</li>
+<li><code>-m</code>: The minimum number of CPUs per assembly. These assemblies will be run in parallel based on that number so set this accordingly. For example, if you use a total of 16 threads and want to run at least four assemblies in parallel you would set this to 4.</li>
+</ul>
+<p>The results of this script will be generated in the results folder which will contain a sub-directory for each genome. The final assembly will be found in <code>results/&lt;Genome_name&gt;/autocycler_out/consensus_assembly.fasta</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> project_dir</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the bash script executable (needs to be run only once if you run this outside of Crunchomics)</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x scripts/autocycler_bash.sh </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Run Autocycler on several genomes</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate autocycler_0.1.2</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="ex">autocycler_bash.sh</span> <span class="at">-d</span> data <span class="at">-t</span> 32 <span class="at">-m</span> 8</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate metrics file</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="ex">autocycler</span> table <span class="op">&gt;</span> metrics.tsv </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> data/<span class="pp">*</span>fastq.gz<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="va">sample</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .fastq.gz<span class="va">)</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="va">$sample</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="ex">autocycler</span> table <span class="at">-a</span> results/<span class="va">${sample}</span>/autocycler_out <span class="at">-n</span> <span class="va">${sample}</span> <span class="op">&gt;&gt;</span> metrics.tsv  <span class="co"># append a TSV row</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="version-2-with-the-slurm-scheduler" class="level5">
+<h5 class="anchored" data-anchor-id="version-2-with-the-slurm-scheduler">Version 2: With the SLURM scheduler</h5>
+<p>If you want to run Autocycler on an HPC with SLURM, such as Crunchomics, you can use <code>autocycler_array.sh</code> which is available on Crunchomics at <code>/zfs/omics/projects/bioinformatics/scripts/</code> or can be downloaded <a href="https://github.com/ScienceParkStudyGroup/ibed-bioinformatics-page/tree/main/scripts/autocycler_array.sh">here</a>.</p>
+<p>This is the recommended option when working with many genomes, since some assemblers, such as CANU, can take some time to finish.</p>
+<p>Before running the script, you should open the script once and adjust the following:</p>
+<ol type="1">
+<li><code>#SBATCH --cpus-per-task=32</code>: Provide the number of threads to use, adjust based on what the system has available.</li>
+<li><code>#SBATCH --array=1-2</code>: Define the job array size, i.e.&nbsp;the number of genomes to run this script on. Set the second number to the total number of genomes that you want to analyse (here: 2). If you have many genomes to analyse it is recommended to not start all at once to leave resources for others. For example, if you have 100 genomes and want to start them in batches of five, you would set this to <code>#SBATCH --array=1-100%5</code></li>
+<li><code>data_folder="data"</code>: Provide the path to the folder that contains the assemblies (here: data). Note, that the name of the file will be used as the sample name throughout the script, so name those files accordingly.</li>
+<li><code>MIN_CPUS_PER_ASSEMBLY=8</code>. Provide the minimum number of CPUs per assembly. These assemblies will be run in parallel based on that number so set this accordingly. For example, if you use a total of 32 threads and want to run at least four assemblies in parallel you would set this to 8.</li>
+<li><code>conda activate autocycler_0.1.2</code>: Defines the name of the conda environment that has autocycler and GNU parallel installed. If you have these tools installed outside of a conda environment you can delete this line.</li>
+</ol>
+<p>The results of this script will be generated in the results folder which will contain a sub-directory for each genome. The final assembly will be found in <code>results/&lt;Genome_name&gt;/autocycler_out/consensus_assembly.fasta</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> project_dir</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Run Autocycler on several genomes using SLURM</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> scripts/autocycler_array.sh</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate metrics file</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate autocycler_0.1.2</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="ex">autocycler</span> table <span class="op">&gt;</span> metrics.tsv </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> data/<span class="pp">*</span>fastq.gz<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="va">sample</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$i</span> .fastq.gz<span class="va">)</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="va">$sample</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="ex">autocycler</span> table <span class="at">-a</span> results/<span class="va">${sample}</span>/autocycler_out <span class="at">-n</span> <span class="va">${sample}</span> <span class="op">&gt;&gt;</span> metrics.tsv  <span class="co"># append a TSV row</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 </section>
 </section>
 <section id="things-to-keep-in-mind" class="level3">
@@ -1579,7 +1645,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2025-01-07</p>
+Last modified: 2025-01-13</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/nanopore/autocycler.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

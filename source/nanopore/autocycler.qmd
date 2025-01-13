@@ -147,7 +147,78 @@ parallel --jobs "$jobs" --joblog assemblies/joblog.txt --results assemblies/logs
 
 #### Several samples run in parallel
 
-tba
+To run Autocycler on more than one genome you can run the code above with either a for loop or with a job scheduler, such as SLURM. To do so, we provide two bash scripts.
+
+For these to work ensure that both Autocycler and GNU parallel are installed on your system (when running this outside of Crunchomics).
+
+##### Version 1: Without a job scheduler 
+
+To run Autocycler on several genomes when you have no job scheduler available you can use [autocycler_bash.sh](https://github.com/ScienceParkStudyGroup/ibed-bioinformatics-page/tree/main/scripts/autocycler_bash.sh). This scripts requires the following arguments to run:
+
+- `-d`: The path to the folder with the raw read in .fastq.gz format. Note, that the name of the file will be used as the sample name throughout the script, so name those files accordingly. 
+- `-t`: The number of threads to use 
+- `-m`: The minimum number of CPUs per assembly. These assemblies will be run in parallel based on that number so set this accordingly. For example, if you use a total of 16 threads and want to run at least four assemblies in parallel you would set this to 4.
+
+The results of this script will be generated in the results folder which will contain a sub-directory for each genome. The final assembly will be found in `results/<Genome_name>/autocycler_out/consensus_assembly.fasta`.
+
+```{bash}
+cd project_dir
+
+# Make the bash script executable (needs to be run only once if you run this outside of Crunchomics)
+chmod +x scripts/autocycler_bash.sh 
+
+# Run Autocycler on several genomes
+conda activate autocycler_0.1.2
+
+autocycler_bash.sh -d data -t 32 -m 8
+
+# Generate metrics file
+autocycler table > metrics.tsv 
+
+for i in data/*fastq.gz; do
+    sample=$(basename $i .fastq.gz)
+    echo $sample
+    autocycler table -a results/${sample}/autocycler_out -n ${sample} >> metrics.tsv  # append a TSV row
+done
+
+conda deactivate
+```
+
+##### Version 2: With the SLURM scheduler
+
+If you want to run Autocycler on an HPC with SLURM, such as Crunchomics, you can use `autocycler_array.sh` which is available on Crunchomics at `/zfs/omics/projects/bioinformatics/scripts/` or can be downloaded [here](https://github.com/ScienceParkStudyGroup/ibed-bioinformatics-page/tree/main/scripts/autocycler_array.sh).
+
+This is the recommended option when working with many genomes, since some assemblers, such as CANU, can take some time to finish.
+
+Before running the script, you should open the script once and adjust the following:
+
+1. `#SBATCH --cpus-per-task=32`: Provide the number of threads to use, adjust based on what the system has available.
+2. `#SBATCH --array=1-2`: Define the job array size, i.e. the number of genomes to run this script on. Set the second number to the total number of genomes that you want to analyse (here: 2). If you have many genomes to analyse it is recommended to not start all at once to leave resources for others. For example, if you have 100 genomes and want to start them in batches of five, you would set this to `#SBATCH --array=1-100%5`
+3. `data_folder="data"`: Provide the path to the folder that contains the assemblies (here: data). Note, that the name of the file will be used as the sample name throughout the script, so name those files accordingly. 
+4. `MIN_CPUS_PER_ASSEMBLY=8`. Provide the minimum number of CPUs per assembly. These assemblies will be run in parallel based on that number so set this accordingly. For example, if you use a total of 32 threads and want to run at least four assemblies in parallel you would set this to 8.
+5. `conda activate autocycler_0.1.2`: Defines the name of the conda environment that has autocycler and GNU parallel installed. If you have these tools installed outside of a conda environment you can delete this line.
+
+The results of this script will be generated in the results folder which will contain a sub-directory for each genome. The final assembly will be found in `results/<Genome_name>/autocycler_out/consensus_assembly.fasta`.
+
+```{bash}
+cd project_dir
+
+# Run Autocycler on several genomes using SLURM
+sbatch scripts/autocycler_array.sh
+
+# Generate metrics file
+conda activate autocycler_0.1.2
+
+autocycler table > metrics.tsv 
+
+for i in data/*fastq.gz; do
+    sample=$(basename $i .fastq.gz)
+    echo $sample
+    autocycler table -a results/${sample}/autocycler_out -n ${sample} >> metrics.tsv  # append a TSV row
+done
+
+conda deactivate
+```
 
 ### Things to keep in mind
 
