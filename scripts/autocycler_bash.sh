@@ -111,6 +111,12 @@ for READS in "${READS_FILES[@]}"; do
     parallel --jobs "$MAX_JOBS" --joblog "$ASSEMBLIES_LOG_DIR/parallel_exec.log" \
         --results "$ASSEMBLIES_LOG_DIR/{%}_{1}_{2}_output.log" < "$JOBS_FILE"
 
+    # Check the exit code from parallel to ensure all jobs completed successfully
+    if [ $? -ne 0 ]; then
+        echo "Error: One or more jobs failed. Check the logs for more information." | tee -a "$LOG_FILE"
+        exit 1
+    fi
+
     # Step 5: Compress assemblies into a unitig graph
     AUTOCYCLER_OUT="results/${GENOME_NAME}/autocycler_out"
     autocycler compress -i "$ASSEMBLIES_DIR" -a "$AUTOCYCLER_OUT" | tee -a "$LOG_FILE"
