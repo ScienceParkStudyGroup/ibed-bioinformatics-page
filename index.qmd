@@ -147,6 +147,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
     <li><a href="source/core_tools/prokka.qmd">Prokka</a>: A tool to annotate bacterial, archaeal and viral genomes</li>
     <li><a href="source/metagenomics/pseudofinder.qmd">Pseudofinder</a>: A tool that detects pseudogene candidates from annotated genbank files of bacterial and archaeal genomes</li>
     <li><a href="source/metagenomics/pycirclize.qmd">pyCirclize</a>: A tool for circular visualization, i.e. genome plots, in python</li>
+    <li><a href="source/metagenomics/pygenometracks.qmd">pyGenomeTracks</a>: A tool to produce high-quality genome browser tracks</li>
   </ul>
 </div>
 

@@ -116,6 +116,7 @@ website:
               - source/metagenomics/bakta.qmd
               - source/metagenomics/motus.qmd
               - source/metagenomics/pycirclize.qmd
+              - source/metagenomics/pygenometracks.qmd
 
           - section: "Eukaryotic genomics"
             contents:

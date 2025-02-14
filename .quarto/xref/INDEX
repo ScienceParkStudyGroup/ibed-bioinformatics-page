@@ -284,5 +284,8 @@
   },
   "source/metatranscriptomics/stringtie.qmd": {
     "stringtie.html": "49587402"
+  },
+  "source/metagenomics/pygenometracks.qmd": {
+    "pygenometracks.html": "882135d7"
   }
 }
