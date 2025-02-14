@@ -39,7 +39,10 @@ mamba create --name rseq_5.0.3-1 -c bioconda rseqc
 
 This program is used to infer the strandedness of RNA-seq libraries by comparing the orientation of sequenced reads with the annotated strand of transcripts. It is particularly useful when the library preparation protocol is unknown or unclear.
 
-This script requires an alignment as SAM or BAM file and a reference genome model in bed format.
+This script requires the following inputs:
+
+- A bam file (we usually get this from mappers like STAR. If you only have a sam file you can use samtools to convert sam to bam)
+- A bed file, a text file format used to store genomic regions as coordinates and associated annotations. Often times you have other formats available, i.e. gff. In such cases you can use gff2bed or gffread to convert between different file formats.
 
 Example running RSeQC on several bam files:
 

@@ -281,5 +281,8 @@
   },
   "source/metatranscriptomics/rseqc.qmd": {
     "rseqc.html": "f680d1d2"
+  },
+  "source/metatranscriptomics/stringtie.qmd": {
+    "stringtie.html": "49587402"
   }
 }

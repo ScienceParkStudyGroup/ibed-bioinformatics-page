@@ -1,0 +1,106 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+::: {style="text-align: justify"}
+
+## StringTie
+
+### Introduction
+
+StringTie is a fast and highly efficient assembler of RNA-Seq alignments into potential transcripts [@Pertea2015]. It uses a novel network flow algorithm as well as an optional de novo assembly step to assemble and quantitate full-length transcripts representing multiple splice variants for each gene locus. Its input can include not only alignments of short reads that can also be used by other transcript assemblers, but also alignments of longer sequences that have been assembled from those reads. In order to identify differentially expressed genes between experiments, StringTie's output can be processed by specialized software like Ballgown, Cuffdiff or other programs (DESeq2, edgeR, etc.).
+
+For a full set of options, please visit [the manual](https://ccb.jhu.edu/software/stringtie/index.shtml?t=manual).
+
+### Installation
+
+Installed on Crunchomics: Yes,
+
+-   StringTie v3.0.0 is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics share, then you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski\@uva.nl.
+-   Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run:
+
+```{bash}
+mamba create --name stringtie_3.0.0 -c bioconda -c conda-forge stringtie=3.0.0
+```
+
+### Usage
+
+Main input:
+
+-   a SAM, BAM or CRAM file with RNA-Seq read alignments sorted by their genomic location. For unsorted data, you can run `samtools sort -o alnst.sorted.bam alns.sam`
+    -   Any SAM record with a spliced alignment (i.e. having a read alignment across at least one junction) should have the XS tag (or the ts tag, see below) which indicates the transcription strand, the genomic strand from which the RNA that produced the read originated. TopHat and HISAT2 alignments already include this tag, but for other read mappers one should check that this tag is also included for spliced alignment records. For example the STAR aligner should be run with the option `--outSAMstrandField intronMotif` in order to generate this tag.
+    -   The XS tags are not necessary in the case of long RNA-seq reads aligned with minimap2 using the `-ax splice` option. minimap2 adds the ts tags to spliced alignments to indicate the transcription strand (albeit in a different manner than the XS tag) and StringTie can make use of the ts tag as well if the XS tag is missing.
+-   Optionally, you can also provide a reference annotation file (in GTF or GFF3 format) to guide the assembly process. The output will include expressed reference transcripts as well as any novel transcripts that are assembled. This option is required by options `-B`, `-b`, `-e` and `-C`
+
+#### Example usage: Assemble with StringTie
+
+```{bash}
+conda activate stringtie_3.0.0
+
+# Assemble transcripts with a reference gtf (useful when investigating alternative splicing)
+# When working with multiple samples, run this for each sample, for example in a for loop.
+stringtie sample1_sorted.bam \
+    -G my_genome.gff3 \
+    --rf -p 8 -v --conservative \
+    -o results/${sample_id}_stringtie_assembly.gtf
+
+conda deactivate
+```
+
+Used settings (for a full list of settings, visit [the manual](https://ccb.jhu.edu/software/stringtie/index.shtml?t=manual)):
+
+-   `-G <ref_ann.gff>`: Use a reference annotation file (in GTF or GFF3 format) to guide the assembly process.
+-   `--rf`: Assumes a stranded library fr-firststrand/RF/reverse stranded. For secondstrand libraries use `--fr`. Omit for unstranded data
+-   `-p <int>`: Specify the number of processing threads (CPUs) to use for transcript assembly. The default is 1.
+-   `-v`: Turns on verbose mode, printing bundle processing details.
+-   `--conservative`: Assembles transcripts in a conservative mode. Same as -t -c 1.5 -f 0.05
+    -   `-t`: This parameter disables trimming at the ends of the assembled transcripts. By default StringTie adjusts the predicted transcript's start and/or stop coordinates based on sudden drops in coverage of the assembled transcript.
+    -   `-c <float>`: Sets the minimum read coverage allowed for the predicted transcripts. A transcript with a lower coverage than this value is not shown in the output. Default: 1
+    -   `-f <0.0-1.0>`: Sets the minimum isoform abundance of the predicted transcripts as a fraction of the most abundant transcript assembled at a given locus. Lower abundance transcripts are often artifacts of incompletely spliced precursors of processed transcripts. Default: 0.01
+
+Main output:
+
+-   a GTF file containing the structural definitions of the transcripts assembled by StringTie from the read alignment data
+
+#### Example usage: Merge transcripts with StringTie
+
+Transcript merge mode is a special usage mode of StringTie, distinct from the assembly usage mode described above. In the merge mode, StringTie takes as input a list of GTF/GFF files and merges/assembles these transcripts into a non-redundant set of transcripts. This mode is used in the new differential analysis pipeline to generate a global, unified set of transcripts (isoforms) across multiple RNA-Seq samples.
+
+```{bash}
+conda activate stringtie_3.0.0
+
+# Generate a list of all generated gtf files
+ls results/*gtf > gtf_list.txt
+wc -l results/gtf_list.txt
+
+# Merge individual gtf files 
+stringtie --merge -p 8 -g 100 -f 0.05 -G my_genome.gff3 \
+    -o results/merged_transcripts.gtf \
+    results/gtf_list.txt
+
+conda deactivate
+```
+
+Settings:
+
+-   `-G <guide_gff>`: reference annotation to include in the merging (GTF/GFF3)
+-   `-o <out_gtf>`: output file name for the merged transcripts GTF (default: stdout)
+-   `-m <min_len>`: minimum input transcript length to include in the merge (default: 50)
+-   `-c <min_cov>`: minimum input transcript coverage to include in the merge (default: 0)
+-   `-F <min_fpkm>`: minimum input transcript FPKM to include in the merge (default: 0)
+-   `-T <min_tpm>`: minimum input transcript TPM to include in the merge (default: 0)
+-   `-f <min_iso>`: minimum isoform fraction (default: 0.01)
+-   `-i`: keep merged transcripts with retained introns (default: these are not kept unless there is strong evidence for them)
+-   `-l <label>`: name prefix for output transcripts (default: MSTRG)
+:::

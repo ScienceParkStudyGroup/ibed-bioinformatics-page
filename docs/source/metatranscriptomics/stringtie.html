@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>rseqc – Bioinformatics guidance page</title>
+<title>stringtie – Bioinformatics guidance page</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -85,7 +85,7 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
 <link href="../../source/metatranscriptomics/trinity.html" rel="next">
-<link href="../../source/metatranscriptomics/ribodetector.html" rel="prev">
+<link href="../../source/metatranscriptomics/rseqc.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -138,7 +138,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metatranscriptomics/sortmerna.html">(Meta)transcriptomics</a></li><li class="breadcrumb-item"><a href="../../source/metatranscriptomics/rseqc.html">RSeQC</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metatranscriptomics/sortmerna.html">(Meta)transcriptomics</a></li><li class="breadcrumb-item"><a href="../../source/metatranscriptomics/stringtie.html">StringTie</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -533,8 +533,14 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metatranscriptomics/rseqc.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../source/metatranscriptomics/rseqc.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">RSeQC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/stringtie.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">StringTie</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -809,20 +815,21 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#rseqc" id="toc-rseqc" class="nav-link active" data-scroll-target="#rseqc">RSeQC</a>
+  <li><a href="#stringtie" id="toc-stringtie" class="nav-link active" data-scroll-target="#stringtie">StringTie</a>
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
   <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a>
   <ul class="collapse">
-  <li><a href="#infer_experiment.py" id="toc-infer_experiment.py" class="nav-link" data-scroll-target="#infer_experiment.py">infer_experiment.py</a></li>
+  <li><a href="#example-usage-assemble-with-stringtie" id="toc-example-usage-assemble-with-stringtie" class="nav-link" data-scroll-target="#example-usage-assemble-with-stringtie">Example usage: Assemble with StringTie</a></li>
+  <li><a href="#example-usage-merge-transcripts-with-stringtie" id="toc-example-usage-merge-transcripts-with-stringtie" class="nav-link" data-scroll-target="#example-usage-merge-transcripts-with-stringtie">Example usage: Merge transcripts with StringTie</a></li>
   </ul></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metatranscriptomics/rseqc.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metatranscriptomics/stringtie.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metatranscriptomics/sortmerna.html">(Meta)transcriptomics</a></li><li class="breadcrumb-item"><a href="../../source/metatranscriptomics/rseqc.html">RSeQC</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metatranscriptomics/sortmerna.html">(Meta)transcriptomics</a></li><li class="breadcrumb-item"><a href="../../source/metatranscriptomics/stringtie.html">StringTie</a></li></ol></nav></header>
 
 <header id="title-block-header">
 
@@ -830,18 +837,18 @@ div.csl-indent {
 </header>
 
 
-<section id="rseqc" class="level2" style="text-align: justify">
-<h2 class="anchored" data-anchor-id="rseqc">RSeQC</h2>
+<section id="stringtie" class="level2" style="text-align: justify">
+<h2 class="anchored" data-anchor-id="stringtie">StringTie</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>The RSeQC package provides a number of useful modules that can comprehensively evaluate high throughput sequence data especially RNA-seq data <span class="citation" data-cites="Wang2012">(<a href="#ref-Wang2012" role="doc-biblioref">Wang, Wang, and Li 2012</a>)</span>. Some basic modules quickly inspect sequence quality, nucleotide composition bias, PCR bias and GC bias, while RNA-seq specific modules evaluate sequencing saturation, mapped reads distribution, coverage uniformity, strand specificity, transcript level RNA integrity etc.</p>
-<p>This page will only give very specific usage examples, to find out more about all available options, please visit the tools <a href="https://rseqc.sourceforge.net/">manual</a>.</p>
+<p>StringTie is a fast and highly efficient assembler of RNA-Seq alignments into potential transcripts <span class="citation" data-cites="Pertea2015">(<a href="#ref-Pertea2015" role="doc-biblioref">Pertea et al. 2015</a>)</span>. It uses a novel network flow algorithm as well as an optional de novo assembly step to assemble and quantitate full-length transcripts representing multiple splice variants for each gene locus. Its input can include not only alignments of short reads that can also be used by other transcript assemblers, but also alignments of longer sequences that have been assembled from those reads. In order to identify differentially expressed genes between experiments, StringTie’s output can be processed by specialized software like Ballgown, Cuffdiff or other programs (DESeq2, edgeR, etc.).</p>
+<p>For a full set of options, please visit <a href="https://ccb.jhu.edu/software/stringtie/index.shtml?t=manual">the manual</a>.</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
 <p>Installed on Crunchomics: Yes,</p>
 <ul>
-<li>RSeQC v5.0.3-1 is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics share, then you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski@uva.nl.</li>
+<li>StringTie v3.0.0 is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics share, then you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski@uva.nl.</li>
 <li>Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don’t need to run this command):</li>
 </ul>
 <div class="cell">
@@ -849,80 +856,80 @@ div.csl-indent {
 </div>
 <p>If you want to install it yourself, you can run:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">--name</span> rseq_5.0.3-1 <span class="at">-c</span> bioconda rseqc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">--name</span> stringtie_3.0.0 <span class="at">-c</span> bioconda <span class="at">-c</span> conda-forge stringtie=3.0.0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="usage" class="level3">
 <h3 class="anchored" data-anchor-id="usage">Usage</h3>
-<section id="infer_experiment.py" class="level4">
-<h4 class="anchored" data-anchor-id="infer_experiment.py">infer_experiment.py</h4>
-<p>This program is used to infer the strandedness of RNA-seq libraries by comparing the orientation of sequenced reads with the annotated strand of transcripts. It is particularly useful when the library preparation protocol is unknown or unclear.</p>
-<p>This script requires the following inputs:</p>
+<p>Main input:</p>
 <ul>
-<li>A bam file (we usually get this from mappers like STAR. If you only have a sam file you can use samtools to convert sam to bam)</li>
-<li>A bed file, a text file format used to store genomic regions as coordinates and associated annotations. Often times you have other formats available, i.e.&nbsp;gff. In such cases you can use gff2bed or gffread to convert between different file formats.</li>
+<li>a SAM, BAM or CRAM file with RNA-Seq read alignments sorted by their genomic location. For unsorted data, you can run <code>samtools sort -o alnst.sorted.bam alns.sam</code>
+<ul>
+<li>Any SAM record with a spliced alignment (i.e.&nbsp;having a read alignment across at least one junction) should have the XS tag (or the ts tag, see below) which indicates the transcription strand, the genomic strand from which the RNA that produced the read originated. TopHat and HISAT2 alignments already include this tag, but for other read mappers one should check that this tag is also included for spliced alignment records. For example the STAR aligner should be run with the option <code>--outSAMstrandField intronMotif</code> in order to generate this tag.</li>
+<li>The XS tags are not necessary in the case of long RNA-seq reads aligned with minimap2 using the <code>-ax splice</code> option. minimap2 adds the ts tags to spliced alignments to indicate the transcription strand (albeit in a different manner than the XS tag) and StringTie can make use of the ts tag as well if the XS tag is missing.</li>
+</ul></li>
+<li>Optionally, you can also provide a reference annotation file (in GTF or GFF3 format) to guide the assembly process. The output will include expressed reference transcripts as well as any novel transcripts that are assembled. This option is required by options <code>-B</code>, <code>-b</code>, <code>-e</code> and <code>-C</code></li>
 </ul>
-<p>Example running RSeQC on several bam files:</p>
+<section id="example-usage-assemble-with-stringtie" class="level4">
+<h4 class="anchored" data-anchor-id="example-usage-assemble-with-stringtie">Example usage: Assemble with StringTie</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate rseq_5.0.3-1</span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate stringtie_3.0.0</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> results/star/mapping/<span class="pp">*</span>_Aligned.sortedByCoord.out.bam<span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">sample_name</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="st">"</span><span class="va">$i</span><span class="st">"</span> _Aligned.sortedByCoord.out.bam<span class="va">)</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="va">${sample_name}</span> <span class="op">&gt;</span> results/star/mapping/<span class="va">${sample_name}</span>_strand.txt</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">infer_experiment.py</span> <span class="dt">\</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">--i</span> <span class="va">${i}</span> <span class="dt">\</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">-r</span> results/genome_files/my_genome.bed <span class="dt">\</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">&gt;&gt;</span>  results/star/mapping/<span class="va">${sample_name}</span>_strand.txt</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span> </span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> results/star/mapping/<span class="pp">*</span>_strand.txt <span class="op">&gt;</span> results/star/mapping/all_strand.txt</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Assemble transcripts with a reference gtf (useful when investigating alternative splicing)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># When working with multiple samples, run this for each sample, for example in a for loop.</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">stringtie</span> sample1_sorted.bam <span class="dt">\</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">-G</span> my_genome.gff3 <span class="dt">\</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--rf</span> <span class="at">-p</span> 8 <span class="at">-v</span> <span class="at">--conservative</span> <span class="dt">\</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">-o</span> results/<span class="va">${sample_id}</span>_stringtie_assembly.gtf</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Outputs:</p>
-<p>For paired-end RNA-seq, there are two common stranded library preparation protocols (e.g., Illumina ScriptSeq)</p>
+<p>Used settings (for a full list of settings, visit <a href="https://ccb.jhu.edu/software/stringtie/index.shtml?t=manual">the manual</a>):</p>
 <ul>
-<li><code>1++,1--,2+-,2-+,</code> library preparation: FR/fr-secondstrand/forward stranded
+<li><code>-G &lt;ref_ann.gff&gt;</code>: Use a reference annotation file (in GTF or GFF3 format) to guide the assembly process.</li>
+<li><code>--rf</code>: Assumes a stranded library fr-firststrand/RF/reverse stranded. For secondstrand libraries use <code>--fr</code>. Omit for unstranded data</li>
+<li><code>-p &lt;int&gt;</code>: Specify the number of processing threads (CPUs) to use for transcript assembly. The default is 1.</li>
+<li><code>-v</code>: Turns on verbose mode, printing bundle processing details.</li>
+<li><code>--conservative</code>: Assembles transcripts in a conservative mode. Same as -t -c 1.5 -f 0.05
 <ul>
-<li>read1 mapped to ‘+’ strand indicates parental gene on ‘+’ strand, i.e.&nbsp;read 1 mapped to the + strand when the gene itself is on the plus strand</li>
-<li>read1 mapped to ‘-’ strand indicates parental gene on ‘-’ strand</li>
-<li>read2 mapped to ‘+’ strand indicates parental gene on ‘-’ strand</li>
-<li>read2 mapped to ‘-’ strand indicates parental gene on ‘+’ strand</li>
-</ul></li>
-<li><code>1+-,1-+,2++,2--</code> , library preparation: RF/fr-firststrand/reverse stranded
-<ul>
-<li>read1 mapped to ‘+’ strand indicates parental gene on ‘-’ strand</li>
-<li>read1 mapped to ‘-’ strand indicates parental gene on ‘+’ strand</li>
-<li>read2 mapped to ‘+’ strand indicates parental gene on ‘+’ strand</li>
-<li>read2 mapped to ‘-’ strand indicates parental gene on ‘-’ strand</li>
+<li><code>-t</code>: This parameter disables trimming at the ends of the assembled transcripts. By default StringTie adjusts the predicted transcript’s start and/or stop coordinates based on sudden drops in coverage of the assembled transcript.</li>
+<li><code>-c &lt;float&gt;</code>: Sets the minimum read coverage allowed for the predicted transcripts. A transcript with a lower coverage than this value is not shown in the output. Default: 1</li>
+<li><code>-f &lt;0.0-1.0&gt;</code>: Sets the minimum isoform abundance of the predicted transcripts as a fraction of the most abundant transcript assembled at a given locus. Lower abundance transcripts are often artifacts of incompletely spliced precursors of processed transcripts. Default: 0.01</li>
 </ul></li>
 </ul>
-<p>Example output for non-strand specific data:</p>
-<pre><code>This is PairEnd Data
-Fraction of reads failed to determine: 0.0172
-Fraction of reads explained by "1++,1--,2+-,2-+": 0.4903
-Fraction of reads explained by "1+-,1-+,2++,2--": 0.4925</code></pre>
-<p>Example output for fr-firststrand data:</p>
-<pre><code>This is PairEnd Data
-Fraction of reads failed to determine: 0.0292
-Fraction of reads explained by "1++,1--,2+-,2-+": 0.0062
-Fraction of reads explained by "1+-,1-+,2++,2--": 0.9646</code></pre>
-<p>You can also confirm these results with IGV by:</p>
+<p>Main output:</p>
 <ul>
-<li>Open IGV and load sorted bam files and reference gtf file</li>
-<li>Right click on the alignment track and select the option “Colour Alignments By -&gt; First-of-Pair Strand”
+<li>a GTF file containing the structural definitions of the transcripts assembled by StringTie from the read alignment data</li>
+</ul>
+</section>
+<section id="example-usage-merge-transcripts-with-stringtie" class="level4">
+<h4 class="anchored" data-anchor-id="example-usage-merge-transcripts-with-stringtie">Example usage: Merge transcripts with StringTie</h4>
+<p>Transcript merge mode is a special usage mode of StringTie, distinct from the assembly usage mode described above. In the merge mode, StringTie takes as input a list of GTF/GFF files and merges/assembles these transcripts into a non-redundant set of transcripts. This mode is used in the new differential analysis pipeline to generate a global, unified set of transcripts (isoforms) across multiple RNA-Seq samples.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate stringtie_3.0.0</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a list of all generated gtf files</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> results/<span class="pp">*</span>gtf <span class="op">&gt;</span> gtf_list.txt</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> results/gtf_list.txt</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge individual gtf files </span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">stringtie</span> <span class="at">--merge</span> <span class="at">-p</span> 8 <span class="at">-g</span> 100 <span class="at">-f</span> 0.05 <span class="at">-G</span> my_genome.gff3 <span class="dt">\</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">-o</span> results/merged_transcripts.gtf <span class="dt">\</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    results/gtf_list.txt</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Settings:</p>
 <ul>
-<li>First-of-pair colors both reads of a read pair with the color of the direction of mapping (forward of reverse) of Read1</li>
-<li>if Read1 is forward, the pair “Read 1”+“Read 2” is colored red</li>
-<li>If Read1 is reverse, both members are coloured blue</li>
-</ul></li>
-<li>To determine the strandedness
-<ul>
-<li>For a given transcript, non-stranded libraries will show an equal mix of red and blue reads aligning to the locus, as there is no preservation of strand information</li>
-<li>In the case of <strong>forward-stranded (secondstrand)</strong>, Read 1 aligns to the same strand as the gene. For a gene on the forward (plus) strand, Read 1 will be forward (red), and for a gene on the reverse (minus) strand, Read 1 will be reverse (blue).</li>
-<li>In the case of <strong>reverse-stranded (firststrand)</strong>, Read 1 aligns to the opposite strand of the gene. For a gene on the forward (plus) strand, Read 1 will be reverse (blue), and for a gene on the reverse (minus) strand, Read 1 will be forward (red).</li>
-</ul></li>
+<li><code>-G &lt;guide_gff&gt;</code>: reference annotation to include in the merging (GTF/GFF3)</li>
+<li><code>-o &lt;out_gtf&gt;</code>: output file name for the merged transcripts GTF (default: stdout)</li>
+<li><code>-m &lt;min_len&gt;</code>: minimum input transcript length to include in the merge (default: 50)</li>
+<li><code>-c &lt;min_cov&gt;</code>: minimum input transcript coverage to include in the merge (default: 0)</li>
+<li><code>-F &lt;min_fpkm&gt;</code>: minimum input transcript FPKM to include in the merge (default: 0)</li>
+<li><code>-T &lt;min_tpm&gt;</code>: minimum input transcript TPM to include in the merge (default: 0)</li>
+<li><code>-f &lt;min_iso&gt;</code>: minimum isoform fraction (default: 0.01)</li>
+<li><code>-i</code>: keep merged transcripts with retained introns (default: these are not kept unless there is strong evidence for them)</li>
+<li><code>-l &lt;label&gt;</code>: name prefix for output transcripts (default: MSTRG)</li>
 </ul>
 </section>
 </section>
@@ -932,8 +939,8 @@ Fraction of reads explained by "1+-,1-+,2++,2--": 0.9646</code></pre>
 
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-Wang2012" class="csl-entry" role="listitem">
-Wang, Liguo, Shengqin Wang, and Wei Li. 2012. <span>“RSeQC: Quality Control of RNA-Seq Experiments.”</span> <em>Bioinformatics</em> 28 (16): 2184–85. <a href="https://doi.org/10.1093/bioinformatics/bts356">https://doi.org/10.1093/bioinformatics/bts356</a>.
+<div id="ref-Pertea2015" class="csl-entry" role="listitem">
+Pertea, Mihaela, Geo M Pertea, Corina M Antonescu, Tsung-Cheng Chang, Joshua T Mendell, and Steven L Salzberg. 2015. <span>“StringTie Enables Improved Reconstruction of a Transcriptome from RNA-Seq Reads.”</span> <em>Nature Biotechnology</em> 33 (3): 290–95. <a href="https://doi.org/10.1038/nbt.3122">https://doi.org/10.1038/nbt.3122</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1504,8 +1511,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/metatranscriptomics/ribodetector.html" class="pagination-link" aria-label="Ribodetector">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Ribodetector</span>
+      <a href="../../source/metatranscriptomics/rseqc.html" class="pagination-link" aria-label="RSeQC">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">RSeQC</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
@@ -1523,7 +1530,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
 Last modified: 2025-02-14</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metatranscriptomics/rseqc.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metatranscriptomics/stringtie.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

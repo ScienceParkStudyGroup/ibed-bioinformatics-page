@@ -161,7 +161,8 @@ Next, to the carpentries you will find a list of tutorials for more specific top
     <li><a href="source/core_tools/seqkit.qmd">SeqKit</a>: A tool for FASTA/Q file manipulation</li>
     <li><a href="source/metagenomics/signalp6.qmd">SignalP6</a>: A tool to predict the presence of signal peptides</li>
     <li><a href="source/metatranscriptomics/sortmerna.qmd">SortMerNa</a>: A tool to filter ribosomal RNAs in metatranscriptomic data</li>
-    <li><a href="source/metatranscriptomics/star.qmd">Star</a>: An ultrafast universal RNA-seq aligner</li>
+    <li><a href="source/metatranscriptomics/star.qmd">STAR</a>: An ultrafast universal RNA-seq aligner</li>
+    <li><a href="source/metatranscriptomics/stringtie.qmd">StringTie</a>: A a fast and highly efficient assembler of RNA-Seq alignments into potential transcripts</li>
     <li><a href="source/metagenomics/trycycler.qmd">Trycyler</a>: A tool for generating consensus long-read assemblies for bacterial genomes</li>
     <li><a href="source/metatranscriptomics/trinity.qmd">Trinity</a>: A tool to assemble transcript sequences from Illumina RNA-Seq data</li>
   </ul>

@@ -164,6 +164,7 @@ STAR --genomeDir $genome_dir \
      --quantMode GeneCounts
 ```
 
+
 ##### Example 4: Mapping reads with a 2-pass procedure
 
 For the most sensitive novel junction discovery, it is recommended to run STAR in 2-pass mode.

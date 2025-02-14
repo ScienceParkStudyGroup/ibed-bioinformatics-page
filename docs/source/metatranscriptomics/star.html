@@ -533,6 +533,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/rseqc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RSeQC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/metatranscriptomics/trinity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Trinity</span></a>
   </div>
@@ -815,7 +821,7 @@ div.csl-indent {
   <li><a href="#example-1-run-star-on-an-individual-file" id="toc-example-1-run-star-on-an-individual-file" class="nav-link" data-scroll-target="#example-1-run-star-on-an-individual-file">Example 1: Run Star on an individual file</a></li>
   <li><a href="#example-2-multiple-files-in-a-for-loop" id="toc-example-2-multiple-files-in-a-for-loop" class="nav-link" data-scroll-target="#example-2-multiple-files-in-a-for-loop">Example 2: Multiple files in a for-loop</a></li>
   <li><a href="#example-3-multiple-files-with-a-single-output" id="toc-example-3-multiple-files-with-a-single-output" class="nav-link" data-scroll-target="#example-3-multiple-files-with-a-single-output">Example 3: Multiple files with a single output</a></li>
-  <li><a href="#example-3-mapping-reads-with-a-2-pass-procedure" id="toc-example-3-mapping-reads-with-a-2-pass-procedure" class="nav-link" data-scroll-target="#example-3-mapping-reads-with-a-2-pass-procedure">Example 3: Mapping reads with a 2-pass procedure</a></li>
+  <li><a href="#example-4-mapping-reads-with-a-2-pass-procedure" id="toc-example-4-mapping-reads-with-a-2-pass-procedure" class="nav-link" data-scroll-target="#example-4-mapping-reads-with-a-2-pass-procedure">Example 4: Mapping reads with a 2-pass procedure</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#interpreting-the-outputs" id="toc-interpreting-the-outputs" class="nav-link" data-scroll-target="#interpreting-the-outputs">Interpreting the outputs</a></li>
@@ -870,9 +876,9 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">STAR</span> <span class="at">--runThreadN</span> 10 <span class="dt">\</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--runMode</span> genomeGenerate <span class="dt">\</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--genomeDir</span> 06_mapping/star/index <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--genomeDir</span> results/star/index <span class="dt">\</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--genomeFastaFiles</span> 03_data/genome_files/assembly.fasta <span class="dt">\</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--sjdbGTFfile</span> 03_data/genome_files/assembly.gtf <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--sjdbGTFfile</span> data/genome_files/assembly.gtf <span class="dt">\</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--sjdbOverhang</span> 100 <span class="dt">\</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--genomeSAindexNbases</span> 11<span class="dt">\</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -889,10 +895,10 @@ div.csl-indent {
 <h5 class="anchored" data-anchor-id="example-1-run-star-on-an-individual-file">Example 1: Run Star on an individual file</h5>
 <p>Below an example for running STAR on an individual file:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">STAR</span> <span class="at">--genomeDir</span> 06_mapping/star/index <span class="dt">\</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">STAR</span> <span class="at">--genomeDir</span> results/star/index <span class="dt">\</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">--runThreadN</span> 6 <span class="dt">\</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">--readFilesIn</span> sample1_R1.fastq.gz sample1_R2.fastq.gz <span class="dt">\</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">--outFileNamePrefix</span> 06_mapping/star/mapping/sample1_ <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">--outFileNamePrefix</span> results/star/mapping/sample1_ <span class="dt">\</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">--outSAMtype</span> BAM SortedByCoordinate <span class="dt">\</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">--outSAMunmapped</span> Within <span class="dt">\</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">--readFilesCommand</span> zcat <span class="dt">\</span></span>
@@ -910,12 +916,12 @@ div.csl-indent {
 </section>
 <section id="example-2-multiple-files-in-a-for-loop" class="level5">
 <h5 class="anchored" data-anchor-id="example-2-multiple-files-in-a-for-loop">Example 2: Multiple files in a for-loop</h5>
-<p>If you work with multiple files, you can map them individually using a for-loop (or an array when using SLURM). To keep the code readable, its recommended to use variables to store different values as follows:</p>
+<p>If you work with multiple files, you can map them individually using a for-loop (or an <a href="https://github.com/ndombrowski/script-inventory-vault/blob/main/scripts/workflow_management/slurm_array_example.sh">array</a> when using SLURM). To keep the code readable, its recommended to use variables to store different values as follows:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the input directories and parameters</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="va">input_dir</span><span class="op">=</span><span class="st">"05_quality_filtering/fastp"</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="va">output_dir</span><span class="op">=</span><span class="st">"06_mapping/star/mapping"</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="va">genome_dir</span><span class="op">=</span><span class="st">"06_mapping/star/index"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="va">input_dir</span><span class="op">=</span><span class="st">"results/fastp"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="va">output_dir</span><span class="op">=</span><span class="st">"results/star/mapping"</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="va">genome_dir</span><span class="op">=</span><span class="st">"results/star/index"</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="va">threads</span><span class="op">=</span>6</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sure the output directory exists</span></span>
@@ -948,9 +954,9 @@ div.csl-indent {
 <p>The following code should work to dynamically supply the file names but it was not tested, so use with care:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the input directories and parameters</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="va">input_dir</span><span class="op">=</span><span class="st">"05_quality_filtering/fastp"</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="va">output_prefix</span><span class="op">=</span><span class="st">"06_mapping/star/mapping/combined_"</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="va">genome_dir</span><span class="op">=</span><span class="st">"06_mapping/star/index"</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="va">input_dir</span><span class="op">=</span><span class="st">"results/fastp"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="va">output_prefix</span><span class="op">=</span><span class="st">"results/star/mapping/combined_"</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="va">genome_dir</span><span class="op">=</span><span class="st">"results/star/index"</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Find all R1 and R2 files and store them in an array, each element separated with a comma</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="va">R1_files</span><span class="op">=</span><span class="va">$(</span><span class="fu">ls</span> <span class="va">${input_dir}</span>/<span class="pp">*</span>_R1_trim.fastq.gz <span class="kw">|</span> <span class="fu">tr</span> <span class="st">'\n'</span> <span class="st">','</span><span class="va">)</span></span>
@@ -972,10 +978,10 @@ div.csl-indent {
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>     <span class="at">--quantMode</span> GeneCounts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="example-3-mapping-reads-with-a-2-pass-procedure" class="level5">
-<h5 class="anchored" data-anchor-id="example-3-mapping-reads-with-a-2-pass-procedure">Example 3: Mapping reads with a 2-pass procedure</h5>
-<p>For the most sensitive novel junction discovery, it is recommended to run STAR in the 2-pass mode. It does not significantly increase the number of detected novel junctions, but allows to detect more splices reads mapping to novel junctions. The basic idea is to run 1st pass of STAR mapping with the usual parameters, then collect the splice junctions (SJ) detected in the first pass, and use them as “annotated” junctions for the 2nd pass mapping.</p>
-<p>Alex Dobin (developer of STAR) usually recommends to use junctions from all samples, not only from one. So first you do normal mapping of all your samples, collect all junctions, and insert them into the second step for each sample. Note, that the BAM files in the 1st pass are irrelevant and since they are very large you can avoid them with <code>--outSAMtype None</code>.</p>
+<section id="example-4-mapping-reads-with-a-2-pass-procedure" class="level5">
+<h5 class="anchored" data-anchor-id="example-4-mapping-reads-with-a-2-pass-procedure">Example 4: Mapping reads with a 2-pass procedure</h5>
+<p>For the most sensitive novel junction discovery, it is recommended to run STAR in 2-pass mode. It does not significantly increase the number of detected novel junctions, but allows to detect more splices reads mapping to novel junctions. The basic idea is to run 1st pass of STAR mapping with the usual parameters, then collect the splice junctions (SJ) detected in the first pass, and use them as “annotated” junctions for the 2nd pass mapping.</p>
+<p>If working with more than one sample, Alex Dobin (developer of STAR) recommends to use junctions from all samples, not only from one. So first you do normal mapping of all your samples, collect all junctions, and insert them into the second step for each sample. Note, that the BAM files in the 1st pass are irrelevant and since they are very large you can avoid them with <code>--outSAMtype None</code>.</p>
 <p>Before running the second pass, you might want to filter the splice junction files to remove low-confidence hits.</p>
 <p>Example:</p>
 <div class="cell">
