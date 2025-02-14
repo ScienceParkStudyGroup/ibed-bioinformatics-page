@@ -1,0 +1,108 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+::: {style="text-align: justify"}
+## RSeQC
+
+### Introduction
+
+The RSeQC package provides a number of useful modules that can comprehensively evaluate high throughput sequence data especially RNA-seq data [@Wang2012]. Some basic modules quickly inspect sequence quality, nucleotide composition bias, PCR bias and GC bias, while RNA-seq specific modules evaluate sequencing saturation, mapped reads distribution, coverage uniformity, strand specificity, transcript level RNA integrity etc.
+
+This page will only give very specific usage examples, to find out more about all available options, please visit the tools [manual](https://rseqc.sourceforge.net/).
+
+### Installation
+
+Installed on Crunchomics: Yes,
+
+-   RSeQC v5.0.3-1 is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics share, then you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski\@uva.nl.
+-   Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run:
+
+```{bash}
+mamba create --name rseq_5.0.3-1 -c bioconda rseqc
+```
+
+### Usage
+
+#### infer_experiment.py
+
+This program is used to infer the strandedness of RNA-seq libraries by comparing the orientation of sequenced reads with the annotated strand of transcripts. It is particularly useful when the library preparation protocol is unknown or unclear.
+
+This script requires an alignment as SAM or BAM file and a reference genome model in bed format.
+
+Example running RSeQC on several bam files:
+
+```{bash}
+conda activate rseq_5.0.3-1
+
+for i in results/star/mapping/*_Aligned.sortedByCoord.out.bam; do
+    sample_name=$(basename "$i" _Aligned.sortedByCoord.out.bam)
+    echo ${sample_name} > results/star/mapping/${sample_name}_strand.txt
+
+    infer_experiment.py \
+        --i ${i} \
+        -r results/genome_files/my_genome.bed \
+        >>  results/star/mapping/${sample_name}_strand.txt
+done 
+
+cat results/star/mapping/*_strand.txt > results/star/mapping/all_strand.txt
+
+conda deactivate
+```
+
+Outputs:
+
+For paired-end RNA-seq, there are two common stranded library preparation protocols (e.g., Illumina ScriptSeq)
+
+-   `1++,1--,2+-,2-+,` library preparation: FR/fr-secondstrand/forward stranded
+    -   read1 mapped to '+' strand indicates parental gene on '+' strand, i.e. read 1 mapped to the + strand when the gene itself is on the plus strand
+    -   read1 mapped to '-' strand indicates parental gene on '-' strand
+    -   read2 mapped to '+' strand indicates parental gene on '-' strand
+    -   read2 mapped to '-' strand indicates parental gene on '+' strand
+-   `1+-,1-+,2++,2--` , library preparation: RF/fr-firststrand/reverse stranded
+    -   read1 mapped to '+' strand indicates parental gene on '-' strand
+    -   read1 mapped to '-' strand indicates parental gene on '+' strand
+    -   read2 mapped to '+' strand indicates parental gene on '+' strand
+    -   read2 mapped to '-' strand indicates parental gene on '-' strand
+
+Example output for non-strand specific data:
+
+```         
+This is PairEnd Data
+Fraction of reads failed to determine: 0.0172
+Fraction of reads explained by "1++,1--,2+-,2-+": 0.4903
+Fraction of reads explained by "1+-,1-+,2++,2--": 0.4925
+```
+
+Example output for fr-firststrand data:
+
+```         
+This is PairEnd Data
+Fraction of reads failed to determine: 0.0292
+Fraction of reads explained by "1++,1--,2+-,2-+": 0.0062
+Fraction of reads explained by "1+-,1-+,2++,2--": 0.9646
+```
+
+You can also confirm these results with IGV by:
+
+-   Open IGV and load sorted bam files and reference gtf file
+-   Right click on the alignment track and select the option "Colour Alignments By -\> First-of-Pair Strand"
+    -   First-of-pair colors both reads of a read pair with the color of the direction of mapping (forward of reverse) of Read1
+    -   if Read1 is forward, the pair "Read 1"+"Read 2" is colored red
+    -   If Read1 is reverse, both members are coloured blue
+-   To determine the strandedness
+    -   For a given transcript, non-stranded libraries will show an equal mix of red and blue reads aligning to the locus, as there is no preservation of strand information
+    -   In the case of **forward-stranded (secondstrand)**, Read 1 aligns to the same strand as the gene. For a gene on the forward (plus) strand, Read 1 will be forward (red), and for a gene on the reverse (minus) strand, Read 1 will be reverse (blue).
+    -   In the case of **reverse-stranded (firststrand)**, Read 1 aligns to the opposite strand of the gene. For a gene on the forward (plus) strand, Read 1 will be reverse (blue), and for a gene on the reverse (minus) strand, Read 1 will be forward (red).
+:::

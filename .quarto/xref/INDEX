@@ -278,5 +278,8 @@
   },
   "source/nanopore/autocycler.qmd": {
     "autocycler.html": "ce9dfaa3"
+  },
+  "source/metatranscriptomics/rseqc.qmd": {
+    "rseqc.html": "f680d1d2"
   }
 }

@@ -131,6 +131,7 @@ website:
             contents:
               - source/metatranscriptomics/sortmerna.qmd
               - source/metatranscriptomics/ribodetector.qmd
+              - source/metatranscriptomics/rseqc.qmd
               - source/metatranscriptomics/trinity.qmd
               - source/metatranscriptomics/star.qmd
               - source/core_tools/bowtie.qmd
