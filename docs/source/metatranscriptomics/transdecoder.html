@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Bioinformatics guidance page</title>
+<title>transdecoder – Bioinformatics guidance page</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,28 +20,83 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./source/cli/code_doc.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-b663525e4b92bb903b2199e2d401bf36.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-a1e4c769dfb8ba454fda448df42b92ec.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a2679e3cf752e8512b94174c75263f45.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-b1fe020641d9e027af31aa447621ea1c.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../source/core_tools/featurecounts.html" rel="next">
+<link href="../../source/metatranscriptomics/trinity.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-b663525e4b92bb903b2199e2d401bf36.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-a1e4c769dfb8ba454fda448df42b92ec.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-6496adc557b19836bea0c12d56c642a3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-40b65a04ac5980c70dee9a726d2e9747.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -71,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-sidebar docked">
@@ -83,7 +138,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome page</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metatranscriptomics/sortmerna.html">(Meta)transcriptomics</a></li><li class="breadcrumb-item"><a href="../../source/metatranscriptomics/transdecoder.html">TransDecoder</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -98,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Bioinformatics guidance page</a> 
+      <a href="../../">Bioinformatics guidance page</a> 
         <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
     <div id="quarto-search" class="quarto-navigation-tool px-1" title="Search"></div>
@@ -109,7 +164,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome page</span></a>
   </div>
 </li>
@@ -124,13 +179,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/cli/code_doc.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/code_doc.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Code documentation</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./source/cli/cli.html" class="sidebar-item-text sidebar-link">
+            <a href="../../source/cli/cli.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using the command line</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -139,19 +194,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/cli/cli_installation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/cli_installation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setting up a bash command line</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/cli/cli_basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/cli_basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Getting started with bash</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/cli/cli_file_manipulation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/cli_file_manipulation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Manipulating files with bash</span></a>
   </div>
 </li>
@@ -159,19 +214,19 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/conda/conda.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/conda/conda.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Installing software</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/R/readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/R/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using R</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
+            <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using an HPC</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -180,7 +235,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/cli/slurm_basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/slurm_basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Start working on an HPC</span></a>
   </div>
 </li>
@@ -190,7 +245,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./source/metagenomics/readme.html" class="sidebar-item-text sidebar-link">
+            <a href="../../source/metagenomics/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sequence data analyses</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -208,49 +263,49 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/busco.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/busco.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">BUSCO</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/diamond.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/diamond.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Diamond</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/hmmer.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/hmmer.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">HMMER</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/ncbi.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/ncbi.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Downloading data from NCBI</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/prokka.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/prokka.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prokka</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/seqkit.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/seqkit.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Seqkit</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/classification/kraken2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/classification/kraken2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Kraken2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/classification/minimap2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/classification/minimap2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Minimap2</span></a>
   </div>
 </li>
@@ -258,7 +313,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./source/Qiime/readme.html" class="sidebar-item-text sidebar-link">
+            <a href="../../source/Qiime/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Amplicon analyses</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -267,13 +322,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/Qiime/3_evelyn_tutorial_notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/Qiime/3_evelyn_tutorial_notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A short QIIME tutorial</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/Qiime/OTU_table_analysis.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/Qiime/OTU_table_analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Analysing OTU tables with R</span></a>
   </div>
 </li>
@@ -290,31 +345,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/interproscan_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/interproscan_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Interproscan</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/fama_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/fama_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FAMA</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/metabolic.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/metabolic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Metabolic</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/metacerberus.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/metacerberus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">MetaCerberus</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/signalp6.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/signalp6.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SignalP 6.0</span></a>
   </div>
 </li>
@@ -331,85 +386,85 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Nanophase</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/atlas.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/atlas.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Atlas</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/flye.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/flye.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Flye</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/trycycler.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/trycycler.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Trycycler</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/autocycler.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/autocycler.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Autocycler</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/checkm2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/checkm2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">CheckM2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/gtdb.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/gtdb.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GTDB_tk</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/pseudofinder.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/pseudofinder.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pseudofinder</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/quast.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/quast.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Quast</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/dnaapler.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/dnaapler.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">dnaapler</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/bakta.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/bakta.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bakta</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/motus.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/motus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">mOTUS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/pycirclize.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/pycirclize.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">pycirclize</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/pygenometracks.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/pygenometracks.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">pyGenomeTracks</span></a>
   </div>
 </li>
@@ -426,13 +481,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/augustus.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/augustus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Augustus</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/deeploc.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/deeploc.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">DeepLoc</span></a>
   </div>
 </li>
@@ -449,13 +504,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/ITSx/itsx_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/ITSx/itsx_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ITSx</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoITS</span></a>
   </div>
 </li>
@@ -463,82 +518,82 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
  <span class="menu-text">(Meta)transcriptomics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/sortmerna.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/sortmerna.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SortMeRNA</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/ribodetector.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/ribodetector.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Ribodetector</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/rseqc.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/rseqc.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">RSeQC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/star.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/star.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">STAR</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bowtie2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Samtools</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/stringtie.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/stringtie.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">StringTie</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/trinity.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/trinity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Trinity</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/transdecoder.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/transdecoder.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">TransDecoder</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FeatureCounts</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/rsem.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/rsem.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">RSEM</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/DSEq2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/DSEq2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">DeSeq2</span></a>
   </div>
 </li>
@@ -555,55 +610,55 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/filtlong.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/filtlong.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FiltLong</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanoqc_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanoqc_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoQC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanoplot_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanoplot_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Nanoplot</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/ngspeciesid.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/ngspeciesid.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NGSpeciesID</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/porechop_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/porechop_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Porechop</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/chopper.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/chopper.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chopper</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanoclass.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanoclass.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoClass2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoITS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Nanophase</span></a>
   </div>
 </li>
@@ -620,19 +675,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/phylogenomics/bmge.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/phylogenomics/bmge.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">BMGE</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/phylogenomics/mafft.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/phylogenomics/mafft.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Mafft</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/phylogenomics/iqtree2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/phylogenomics/iqtree2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">IQ-TREE2</span></a>
   </div>
 </li>
@@ -649,19 +704,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/fastqc_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/fastqc_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FastQC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/multiqc.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/multiqc.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">MultiQC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/fastp.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/fastp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FastP</span></a>
   </div>
 </li>
@@ -678,19 +733,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bowtie2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Samtools</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FeatureCounts</span></a>
   </div>
 </li>
@@ -700,7 +755,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./source/core_tools/toolbox-readme.html" class="sidebar-item-text sidebar-link">
+            <a href="../../source/core_tools/toolbox-readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bioinformatics toolbox</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -709,7 +764,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/bash-for-loops.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/bash-for-loops.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">For-loops in bash</span></a>
   </div>
 </li>
@@ -726,37 +781,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/cog.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/cog.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">COG database</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/kegg_db.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/kegg_db.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">KOfam database</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/ncbi_nr.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/ncbi_nr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NCBI nr</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/pfam_db.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/pfam_db.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pfam database</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/pgap_db.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/pgap_db.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">PGAP</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/tigrfam_db.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/tigrfam_db.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">TIGRFAM</span></a>
   </div>
 </li>
@@ -767,11 +822,27 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#transdecoder" id="toc-transdecoder" class="nav-link active" data-scroll-target="#transdecoder">TransDecoder</a>
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a>
+  <ul>
+  <li><a href="#basic-usage" id="toc-basic-usage" class="nav-link" data-scroll-target="#basic-usage">Basic usage</a></li>
+  <li><a href="#starting-from-a-genome-based-transcript-structure-gtf-file" id="toc-starting-from-a-genome-based-transcript-structure-gtf-file" class="nav-link" data-scroll-target="#starting-from-a-genome-based-transcript-structure-gtf-file">Starting from a genome-based transcript structure GTF file</a></li>
+  <li><a href="#include-homology-searches-as-orf-retention-criteria" id="toc-include-homology-searches-as-orf-retention-criteria" class="nav-link" data-scroll-target="#include-homology-searches-as-orf-retention-criteria">Include homology searches as ORF retention criteria</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metatranscriptomics/transdecoder.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metatranscriptomics/sortmerna.html">(Meta)transcriptomics</a></li><li class="breadcrumb-item"><a href="../../source/metatranscriptomics/transdecoder.html">TransDecoder</a></li></ol></nav></header>
 
 <header id="title-block-header">
 
@@ -779,341 +850,160 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><img src="img/banner-min.png" class="img-fluid"></p>
-<div style="text-align: justify">
-<p>On this website you can find documentation about software commonly used in bioinformatic data analyses as well as tutorials about various bioinformatic subjects. On this webpage you can find software organized by topic and for each topic you find a list of commonly used software tools.</p>
-<p>If you are working at the University of Amsterdam (UvA) Institute for Biodiversity and Ecosystem Dynamics (IBED) and want to know more about what computational resources are available, please also visit the <a href="https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html">computational support teams website</a> and our website with more <a href="https://computational-resources-uva-ibed-cs-general-20079b9f20f96949e05.gitlab.io/">computation resources</a></p>
-<p>Please, be aware that this page is a work in progress and will be slowly updated over time. If you want to add additional information or feel that something is missing feel free to send an email to <a href="mailto:n.dombrowski@uva.nl" class="email">n.dombrowski@uva.nl</a>.</p>
-<section id="useful-tutorials" class="level2">
-<h2 class="anchored" data-anchor-id="useful-tutorials">Useful tutorials</h2>
-<p>The Carpentries teaches workshops around the world on the foundational skills to work effectively and reproducibly with data and code and they are an excellent resource to check out if you want to get started with bioinformatics</p>
+<section id="transdecoder" class="level2" style="text-align: justify">
+<h2 class="anchored" data-anchor-id="transdecoder">TransDecoder</h2>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>TransDecoder identifies candidate coding regions within transcript sequences, such as those generated by de novo RNA-Seq transcript assembly using Trinity, or constructed based on RNA-Seq alignments to the genome using StringTie <span class="citation" data-cites="haas2025">(<a href="#ref-haas2025" role="doc-biblioref">Haas 2025</a>)</span>.</p>
+<p>TransDecoder is applied to an entire transcriptome for a single organism involving thousands of transcript sequences as input. Therefore, TransDecoder is unlikely to work if you provide a small number of sequences as input, as it requires training a species-specific model based on hundreds of candidates derived from the inputs.</p>
+<p>TransDecoder identifies likely coding sequences based on the following criteria:</p>
 <ul>
-<li><a href="https://software-carpentry.org/lessons/">The software carpentries</a> provides tutorials on:
-<ul>
-<li>Bash</li>
-<li>Git</li>
-<li>Python</li>
-<li>R</li>
-</ul></li>
-<li><a href="https://datacarpentry.org/lessons/">Data carpentries</a> provides domain-specific tutorials, such as for ecology or genomics</li>
-<li><a href="https://librarycarpentry.org/lessons/">Library carpentries</a> contain some useful tutorials if you want to transform data frames, map data to each other and work effectively with data</li>
+<li>a minimum length open reading frame (ORF) is found in a transcript sequence</li>
+<li>a log-likelihood score similar to what is computed by the <a href="https://genome.cshlp.org/content/10/4/511.long">GeneID</a> software is &gt; 0.</li>
+<li>the above coding score is greatest when the ORF is scored in the 1st reading frame as compared to scores in the other 2 forward reading frames.</li>
+<li>if a candidate ORF is found fully encapsulated by the coordinates of another candidate ORF, the longer one is reported. However, a single transcript can report multiple ORFs (allowing for operons, chimeras, etc).</li>
+<li>a PSSM is built/trained/used to refine the start codon prediction.</li>
+<li><strong>optional:</strong> the putative peptide has a match to a Pfam/Uniprot domain above the noise cutoff score.</li>
 </ul>
-<p>Next, to the carpentries you will find a list of tutorials for more specific topics below.</p>
-<section id="getting-started-with-bash" class="level3">
-<h3 class="anchored" data-anchor-id="getting-started-with-bash">Getting started with bash</h3>
+<p><strong>Important</strong>: As of March 2024, TransDecoder is no longer actively supported by the developer. Please continue to use as it fits your needs.</p>
+</section>
+<section id="installation" class="level3">
+<h3 class="anchored" data-anchor-id="installation">Installation</h3>
+<p>Installed on Crunchomics: Yes,</p>
 <ul>
-<li><a href="https://ndombrowski.github.io/cli_workshop/">A tutorial on using bash and an HPC</a></li>
-<li><a href="https://github.com/fkariminejadasl/ml-notebooks/blob/main/tutorial/git.md">Version control with git</a></li>
-<li><a href="https://ndombrowski.github.io/AWK_tutorial/">A tutorial on using AWK</a>, a command line tool for filtering tables, extracting patterns, etc… If you want to follow this tutorial then you can download the required input files from <a href="https://github.com/ndombrowski/AWK_tutorial/tree/main/1_Inputfiles">here</a></li>
+<li>TransDecoder v5.7.1 is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics share, then you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski@uva.nl.</li>
+<li>Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don’t need to run this command):</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you want to install it yourself, you can run:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">--name</span> transdecoder_5.7.1 <span class="at">-c</span> bioconda transdecoder=5.7.1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="usage" class="level3">
+<h3 class="anchored" data-anchor-id="usage">Usage</h3>
+<section id="basic-usage" class="level4">
+<h4 class="anchored" data-anchor-id="basic-usage">Basic usage</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate transdecoder_5.7.1</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the long open reading frames</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">TransDecoder.LongOrfs</span> <span class="at">-t</span> target_transcripts.fasta <span class="at">--output_dir</span> results</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict the likely coding regions</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># The final set of candidate coding regions can be found as files '.transdecoder.' where extensions include .pep, .cds, .gff3, and .bed</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">TransDecoder.Predict</span> <span class="at">-t</span> target_transcripts.fasta <span class="at">--output_dir</span> results</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Output files generated:</p>
+<ul>
+<li>transcripts.fasta.transdecoder.pep : peptide sequences for the final candidate ORFs; all shorter candidates within longer ORFs were removed.</li>
+<li>transcripts.fasta.transdecoder.cds : nucleotide sequences for coding regions of the final candidate ORFs</li>
+<li>transcripts.fasta.transdecoder.gff3 : positions within the target transcripts of the final selected ORFs</li>
+<li>transcripts.fasta.transdecoder.bed : bed-formatted file describing ORF positions, best for viewing using GenomeView or IGV.</li>
+</ul>
+<p>Useful options:</p>
+<p><code>TransDecoder.LongOrfs</code>:</p>
+<ul>
+<li><code>-t</code>: Transcripts fasta file</li>
+<li><code>--gene_trans_map</code>: gene-to-transcript identifier mapping file (tab-delimited, gene_id<tab>trans_id<return> )</return></tab></li>
+<li><code>-m &lt;int&gt;</code> : minimum protein length (default: 100)</li>
+<li><code>--genetic_code</code> | <code>-G &lt;string&gt;</code>: genetic code (default: universal). View help for all options</li>
+<li><code>--complete_orfs_only</code>: yields only complete ORFs (peps start with Met (M), end with stop (*))</li>
+</ul>
+<p><code>TransDecoder.Predict</code>:</p>
+<ul>
+<li><code>--single_best_only</code>: Retain only the single best orf per transcript (prioritized by homology then orf length)</li>
+<li><code>--retain_long_orfs_mode &lt;string&gt;</code>: ‘dynamic’ or ‘strict’ (default: dynamic). In dynamic mode, sets range according to 1%FDR in random sequence of same GC content.</li>
+<li><code>--retain_long_orfs_length &lt;int&gt;</code>: under ‘strict’ mode, retain all ORFs found that are equal or longer than these many nucleotides even if no other evidence marks it as coding (default: 1000000) so essentially turned off by default.</li>
+<li><code>--retain_pfam_hits &lt;string&gt;</code>: domain table output file from running hmmscan to search Pfam (see transdecoder.github.io for info)Any ORF with a pfam domain hit will be retained in the final output.</li>
+<li><code>--retain_blastp_hits &lt;string&gt;</code>: blastp output in ‘-outfmt 6’ format. Any ORF with a blast match will be retained in the final output.</li>
+<li><code>--no_refine_starts</code>: start refinement identifies potential start codons for 5’ partial ORFs using a PWM, process on by default</li>
+<li><code>-T &lt;int&gt;</code>: Top longest ORFs to train Markov Model (hexamer stats) (default: 500). Note, 10x this value are first selected for removing redundancies, and then this -T value of longest ORFs are selected from the non-redundant set.</li>
 </ul>
 </section>
-<section id="using-r" class="level3">
-<h3 class="anchored" data-anchor-id="using-r">Using R</h3>
-<ul>
-<li><a href="https://ndombrowski.github.io/R_cookbook/">An R cookbook</a> including some <a href="https://github.com/ndombrowski/R_cookbook/tree/main/data">example files</a> if you want to code along</li>
-<li><a href="https://ndombrowski.github.io/Tidyverse_tutorial/">Tutorial on data manipulation with dplyr</a></li>
-<li><a href="https://ndombrowski.github.io/Ggplot_tutorial/">Tutorial on data visualization with ggplot2</a></li>
-</ul>
+<section id="starting-from-a-genome-based-transcript-structure-gtf-file" class="level4">
+<h4 class="anchored" data-anchor-id="starting-from-a-genome-based-transcript-structure-gtf-file">Starting from a genome-based transcript structure GTF file</h4>
+<p>The process here is identical to the above with the exception that we must first generate a fasta file corresponding to the transcript sequences, and in the end, we recompute a genome annotation file in GFF3 format that describes the predicted coding regions in the context of the genome.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct the transcript fasta file using the genome and the transcripts.gtf </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gtf_genome_to_cdna_fasta.pl</span> stringtie.gtf genome.fasta <span class="op">&gt;</span> transcripts.fasta</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert gtf to gff</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">gtf_to_alignment_gff3.pl</span> stringtie.gtf <span class="op">&gt;</span> stringtie.gff3</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract open reading frames</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">TransDecoder.LongOrfs</span> <span class="at">-t</span> transcripts.fasta <span class="at">--output_dir</span> results</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict the likely coding regions</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="ex">TransDecoder.Predict</span> <span class="at">-t</span> transcripts.fasta <span class="at">--output_dir</span> results</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a genome-based coding region annotation file</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="ex">cdna_alignment_orf_to_genome_orf.pl</span> results/transcripts.fasta.transdecoder.gff3 <span class="dt">\</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>   stringtie.gff3 <span class="dt">\</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>   transcripts.fasta <span class="op">&gt;</span> results/transcripts.fasta.transdecoder.genome.gff3   </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to gtf as companion to the gff3 file</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="ex">gff3_gene_to_gtf_format.pl</span> results/transcripts.fasta.transdecoder.genome.gff3  <span class="dt">\</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  genome.fasta <span class="op">&gt;</span> <span class="dt">\</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  results/transcripts.fasta.transdecoder.genome.gtf</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional: Clean the gtf file </span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> /zfs/omics/projects/bioinformatics/scripts/edit_transdecoder_gtf.py <span class="dt">\</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">--input</span> results/transcripts.fasta.transdecoder.genome.gtf <span class="dt">\</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">--output</span> results/transcripts.fasta.transdecoder.genome.clean.gtf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="bioinformatic-workflows" class="level3">
-<h3 class="anchored" data-anchor-id="bioinformatic-workflows">Bioinformatic workflows</h3>
-<ul>
-<li><a href="./source/Qiime/3_evelyn_tutorial_notes.html">From sequence file to OTU table with Qiime</a></li>
-<li><a href="./source/Qiime/OTU_table_analysis.html">Analysing an OTU table with R</a></li>
-<li><a href="https://ndombrowski.github.io/Assembly_tutorial/">Assembling a metagenome</a></li>
-<li><a href="https://ndombrowski.github.io/Binning_tutorial//">Metagenomic binning</a></li>
-<li><a href="https://github.com/ndombrowski/Annotation_workflow">Annotating microbial genomes</a></li>
-<li><a href="https://ndombrowski.github.io/Phylogeny_tutorial/">How to do generate a species tree</a></li>
-<li><a href="./source/core_tools/ncbi.html">Accessing data from NCBI</a></li>
-</ul>
+<section id="include-homology-searches-as-orf-retention-criteria" class="level4">
+<h4 class="anchored" data-anchor-id="include-homology-searches-as-orf-retention-criteria">Include homology searches as ORF retention criteria</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the long open reading frames</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">TransDecoder.LongOrfs</span> <span class="at">-t</span> target_transcripts.fasta <span class="at">--output_dir</span> results</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Blastp Against uniprot database</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">blastp</span> <span class="at">-query</span> results/transcripts.fasta.transdecoder_dir/longest_orfs.pep  <span class="dt">\</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">-db</span> /zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta  <span class="at">-max_target_seqs</span> 1 <span class="dt">\</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">-outfmt</span> 6 <span class="at">-evalue</span> 1e-5 <span class="at">-num_threads</span> 30 <span class="op">&gt;</span> results/blastp.outfmt6</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Hmmsearch against PFAM </span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="ex">hmmsearch</span> <span class="at">--cpu</span> 30 <span class="at">-E</span> 1e-10 <span class="at">--domtblout</span> results/pfam.domtblout <span class="dt">\</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  /zfs/omics/projects/bioinformatics/databases/pfam/release_36.0/2-Pfam-A.hmm <span class="dt">\</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  results/transcripts.fasta.transdecoder_dir/longest_orfs.pep</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Integrate the homology searches in the prediction step</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="ex">TransDecoder.Predict</span> <span class="at">-t</span> target_transcripts.fasta <span class="at">--output_dir</span> results <span class="dt">\</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">--retain_pfam_hits</span> results/pfam.domtblout <span class="dt">\</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">--retain_blastp_hits</span> results/blastp.outfmt6</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you want to generate your own databases, you can do the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the Uniprot database</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="va">today</span><span class="op">=</span><span class="va">$(</span><span class="fu">date</span> <span class="at">-I</span><span class="va">)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-d</span> uniprot_sprot.fasta.gz</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> uniprot_sprot.fasta uniprot_sprot_<span class="va">${today}</span>.fasta</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">makeblastdb</span> <span class="at">-in</span> uniprot_sprot_<span class="va">${today}</span>.fasta <span class="at">-parse_seqids</span> <span class="at">-dbtype</span> prot</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the Pfam database</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.gz</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.clans.tsv.gz</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-d</span> <span class="pp">*</span>gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 </section>
-<section id="bioinformatic-tools-a-z" class="level2">
-<h2 class="anchored" data-anchor-id="bioinformatic-tools-a-z">Bioinformatic tools A-Z</h2>
-
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>
-Bioinformatic Tools A-Z
-</title>
-<style>
-/* Basic styling for accordion */
-.accordion {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 3px 15px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-  transition: background-color 0.4s;
-}
-
-.active, .accordion:hover {
-  background-color: #f4f4f4;
-}
-
-.panel {
-  padding: 0 40px;
-  background-color: white;
-  overflow: hidden;
-  display: block; /* Start with panels uncollapsed */
-}
-</style>
-
-
-<button class="accordion active">
-A-D
-</button>
-<div class="panel">
-<ul>
-<li>
-<a href="./source/metagenomics/atlas.html">ATLAS</a>: A metagenomic pipeline for QC, assembly binning and annotation
-</li>
-<li>
-<a href="./source/metagenomics/augustus.html">Augustus</a>: A program that predicts genes in eukaryotic genomic sequences
-</li>
-<li>
-<a href="./source/nanopore/autocycler.html">Autocycler</a>: A tool for generating consensus long-read assemblies for microbial genomes
-</li>
-<li>
-<a href="./source/metagenomics/bakta.html">Bakta</a>: A tool for the rapid &amp; standardized annotation of bacterial genomes and plasmids from both isolates and MAGs
-</li>
-<li>
-<a href="./source/phylogenomics/bmge.html">BMGE</a>: A program to select regions in a multiple sequence alignment that are suited for phylogenetic inference
-</li>
-<li>
-<a href="./source/core_tools/bowtie.html">Bowtie2</a>: A tool for aligning sequencing reads to genomes and other reference sequences
-</li>
-<li>
-<a href="./source/core_tools/busco.html">BUSCO</a>: Quality assessment of (meta)genomes, transcriptomes and proteomes
-</li>
-<li>
-<a href="./source/metagenomics/checkm2.html">CheckM2</a>: A tool to assess the quality of a genome assembly
-</li>
-<li>
-<a href="./source/nanopore/chopper.html">Chopper</a>: A tool for quality filtering of long read data
-</li>
-<li>
-<a href="./source/metagenomics/deeploc.html">DeepLoc</a>: A tool to predict the subcellular localization(s) of eukaryotic proteins
-</li>
-<li>
-<a href="./source/core_tools/diamond.html">Diamond</a>: A sequence aligner for protein and translated DNA searches
-</li>
-<li>
-<a href="./source/metagenomics/dnaapler.html">Dnaapler</a>: A tool to re-orient a genome, for example at dnaA
-</li>
-<li>
-<a href="./source/metatranscriptomics/DSEq2.html">DeSeq2</a>: Analyse gene expression data in R
-</li>
-</ul>
-</div>
-<button class="accordion active">
-E-H
-</button>
-<div class="panel">
-<ul>
-<li>
-<a href="./source/metagenomics/fama_readme.html">FAMA</a>: A fast pipeline for functional and taxonomic analysis of metagenomic sequences
-</li>
-<li>
-<a href="./source/metatranscriptomics/fastp.html">FastP</a>: A tool for fast all-in-one preprocessing of FastQ files
-</li>
-<li>
-<a href="./source/metagenomics/fastqc_readme.html">FastQC</a>: A quality control tool for read sequencing data
-</li>
-<li>
-<a href="./source/core_tools/featurecounts.html">FeatureCounts</a>: A read summarization program that counts mapped reads for genomic features
-</li>
-<li>
-<a href="./source/nanopore/filtlong.html">Filtlong</a>: A tool for filtering long reads
-</li>
-<li>
-<a href="./source/metagenomics/flye.html">Flye</a>: A de novo assembler for single-molecule sequencing reads
-</li>
-<li>
-<a href="./source/metagenomics/gtdb.html">GTDB_tk</a>: A software toolkit for assigning objective taxonomic classifications to bacterial and archaeal genomes
-</li>
-<li>
-<a href="./source/core_tools/hmmer.html">HMMER</a>: A tool for searching sequence databases for sequence homologs, and for making sequence alignments
-</li>
-</ul>
-</div>
-<button class="accordion active">
-I-L
-</button>
-<div class="panel">
-<ul>
-<li>
-<a href="./source/phylogenomics/iqtree2.html">IQ-TREE</a>: A tool for phylogenomic inferences
-</li>
-<li>
-<a href="./source/metagenomics/interproscan_readme.html">Interproscan</a>: A tool to scan protein and nucleic sequences against InterPro signatures
-</li>
-<li>
-<a href="./source/ITSx/itsx_readme.html">ITSx</a>: A tool to extract ITS1 and ITS2 subregions from ITS sequences
-</li>
-<li>
-<a href="./source/classification/kraken2.html">Kraken2</a>: A taxonomic sequence classifier using kmers
-</li>
-</ul>
-</div>
-<button class="accordion active">
-M-P
-</button>
-<div class="panel">
-<ul>
-<li>
-<a href="./source/phylogenomics/mafft.html">Mafft</a>: A multiple sequence alignment program
-</li>
-<li>
-<a href="./source/metagenomics/metabolic.html">METABOLIC</a>: A tool to predict functional trait profiles in genome datasets
-</li>
-<li>
-<a href="./source/metagenomics/metacerberus.html">MetaCerberus</a>: A tool for functional assignment
-</li>
-<li>
-<a href="./source/metagenomics/motus.html">MOTUS</a>: A tool to estimate microbial abundances in Illumina and Nanopore sequencing data
-</li>
-<li>
-<a href="./source/classification/minimap2.html">Minimap2</a>: A program to align DNA or mRNA sequences against a reference database
-</li>
-<li>
-<a href="./source/metagenomics/multiqc.html">MultiQC</a>: A program to summarize analysis reports
-</li>
-<li>
-<a href="./source/nanopore/nanoclass.html">NanoClass2</a>: A taxonomic meta-classifier for long-read 16S/18S rRNA gene sequencing data
-</li>
-<li>
-<a href="./source/nanopore/nanoITS.html">NanoITS</a>: A taxonomic meta-classifier for long-read ITS operon sequencing data
-</li>
-<li>
-<a href="./source/nanopore/nanophase_how_to.html">Nanophase</a>: A pipeline to generate MAGs using Nanopore long and Illumina short reads from metagenomes
-</li>
-<li>
-<a href="./source/nanopore/nanoplot_readme.html">NanoPlot</a>: Plotting tool for long read sequencing data
-</li>
-<li>
-<a href="./source/nanopore/nanoqc_readme.html">NanoQC</a>: A quality control tool for long read sequencing data
-</li>
-<li>
-<a href="./source/nanopore/ngspeciesid.html">NGSpeciesID</a>: A tool for clustering and consensus forming of long-read amplicon sequencing data
-</li>
-<li>
-<a href="./source/nanopore/porechop_readme.html">Porechop</a>: A tool for finding and removing adapters from Nanopore reads
-</li>
-<li>
-<a href="./source/core_tools/prokka.html">Prokka</a>: A tool to annotate bacterial, archaeal and viral genomes
-</li>
-<li>
-<a href="./source/metagenomics/pseudofinder.html">Pseudofinder</a>: A tool that detects pseudogene candidates from annotated genbank files of bacterial and archaeal genomes
-</li>
-<li>
-<a href="./source/metagenomics/pycirclize.html">pyCirclize</a>: A tool for circular visualization, i.e.&nbsp;genome plots, in python
-</li>
-<li>
-<a href="./source/metagenomics/pygenometracks.html">pyGenomeTracks</a>: A tool to produce high-quality genome browser tracks
-</li>
-</ul>
-</div>
-<button class="accordion active">
-Q-T
-</button>
-<div class="panel">
-<ul>
-<li>
-<a href="./source/metagenomics/quast.html">QUAST</a>: A Quality Assessment Tool for Genome Assemblies
-</li>
-<li>
-<a href="./source/metatranscriptomics/ribodetector.html">Ribodetector</a>: Detect and remove rRNA sequences from metagenomic, metatranscriptomic, and ncRNA sequencing data
-</li>
-<li>
-<a href="./source/metatranscriptomics/rseqc.html">RSeQC</a>: A tool to evaluate high throughput sequence data especially RNA-seq data
-</li>
-<li>
-<a href="./source/core_tools/rsem.html">RSEM</a>: A software package for estimating gene and isoform expression levels from RNA-Seq data
-</li>
-<li>
-<a href="./source/core_tools/samtools.html">Samtools</a>: A tool to manipulating alignments in SAM/BAM format
-</li>
-<li>
-<a href="./source/core_tools/seqkit.html">SeqKit</a>: A tool for FASTA/Q file manipulation
-</li>
-<li>
-<a href="./source/metagenomics/signalp6.html">SignalP6</a>: A tool to predict the presence of signal peptides
-</li>
-<li>
-<a href="./source/metatranscriptomics/sortmerna.html">SortMerNa</a>: A tool to filter ribosomal RNAs in metatranscriptomic data
-</li>
-<li>
-<a href="./source/metatranscriptomics/star.html">STAR</a>: An ultrafast universal RNA-seq aligner
-</li>
-<li>
-<a href="./source/metatranscriptomics/stringtie.html">StringTie</a>: A a fast and highly efficient assembler of RNA-Seq alignments into potential transcripts
-</li>
-<li>
-<a href="./source/metatranscriptomics/transdecoder.html">TransDecoder</a>: A tool to identify candidate coding regions within transcript sequences
-</li>
-<li>
-<a href="./source/metagenomics/trycycler.html">Trycyler</a>: A tool for generating consensus long-read assemblies for bacterial genomes
-</li>
-<li>
-<a href="./source/metatranscriptomics/trinity.html">Trinity</a>: A tool to assemble transcript sequences from Illumina RNA-Seq data
-</li>
-</ul>
-</div>
-<button class="accordion active">
-U-Z
-</button>
-<div class="panel">
-<ul>
-<!-- Add tools starting with U-Z if available -->
-</ul>
-</div>
-<script>
-var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.display === "block") {
-      panel.style.display = "none";
-    } else {
-      panel.style.display = "block";
-    }
-  });
-}
-</script>
-
-
 </section>
-<section id="bioinformatic-toolbox" class="level2">
-<h2 class="anchored" data-anchor-id="bioinformatic-toolbox">Bioinformatic toolbox</h2>
-<ul>
-<li><a href="./source/core_tools/bash-for-loops.html">For-loops-in-bash</a>: How can I scale my research and run software not only on one but multiple files?</li>
-</ul>
-</section>
-<section id="useful-databases-a-z" class="level2">
-<h2 class="anchored" data-anchor-id="useful-databases-a-z">Useful databases A-Z</h2>
-<ul>
-<li><a href="./source/core_tools/cog.html">COG</a></li>
-<li><a href="./source/core_tools/kegg_db.html">KOfam</a></li>
-<li><a href="./source/core_tools/ncbi_nr.html">NCBI-nr</a></li>
-<li><a href="./source/core_tools/pfam_db.html">Pfam</a></li>
-<li><a href="./source/core_tools/pgap_db.html">PGAP database</a></li>
-<li><a href="./source/core_tools/tigrfam_db.html">TIGRFAM</a></li>
-</ul>
 
 
-</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-haas2025" class="csl-entry" role="listitem">
+Haas, BJ. 2025. <em>TransDecoder/TransDecoder</em>. TransDecoder. <a href="https://github.com/TransDecoder/TransDecoder">https://github.com/TransDecoder/TransDecoder</a>.
 </div>
-
-</main> <!-- /main -->
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1682,10 +1572,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../../source/metatranscriptomics/trinity.html" class="pagination-link" aria-label="Trinity">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Trinity</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./source/cli/code_doc.html" class="pagination-link" aria-label="Code documentation">
-        <span class="nav-page-text">Code documentation</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/core_tools/featurecounts.html" class="pagination-link" aria-label="FeatureCounts">
+        <span class="nav-page-text">FeatureCounts</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1698,7 +1591,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
 Last modified: 2025-02-17</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metatranscriptomics/transdecoder.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

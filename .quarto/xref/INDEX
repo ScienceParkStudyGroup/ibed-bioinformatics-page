@@ -287,5 +287,8 @@
   },
   "source/metagenomics/pygenometracks.qmd": {
     "pygenometracks.html": "882135d7"
+  },
+  "source/metatranscriptomics/transdecoder.qmd": {
+    "transdecoder.html": "c0efe607"
   }
 }

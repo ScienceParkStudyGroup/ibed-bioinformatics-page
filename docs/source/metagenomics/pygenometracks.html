@@ -545,18 +545,6 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metatranscriptomics/stringtie.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">StringTie</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/metatranscriptomics/trinity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Trinity</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../source/metatranscriptomics/star.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">STAR</span></a>
   </div>
@@ -571,6 +559,24 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Samtools</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/stringtie.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">StringTie</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/trinity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trinity</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/transdecoder.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">TransDecoder</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -888,8 +894,8 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="usage">Usage</h3>
 <section id="optional-convert-bam-files" class="level4">
 <h4 class="anchored" data-anchor-id="optional-convert-bam-files">Optional: Convert bam files</h4>
-<p>pyGenomeTracks can work with bam files but for some applications it can be useful to generate other output formats, for example if we wanted to depict coverage information separately for each strand..</p>
-<p>To convert bam to bedgraph format with one file for each strand you can use <a href="https://deeptools.readthedocs.io/en/latest/content/tools/bamCoverage.html">bamCoverage</a> of the deepTools software:</p>
+<p>pyGenomeTracks can work with bam files but for some applications it can be useful to generate other output formats, for example if we wanted to depict coverage information separately for each strand.</p>
+<p>To convert bam to bedgraph format with one file for each strand you can use <a href="https://deeptools.readthedocs.io/en/latest/content/tools/bamCoverage.html">bamCoverage</a> from the deepTools software:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bamCoverage</span> <span class="at">--bam</span> sample1.bam <span class="dt">\</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--outFileFormat</span> bedgraph <span class="dt">\</span></span>
@@ -902,8 +908,8 @@ div.csl-indent {
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">--filterRNAstrand</span> reverse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Generated output:</p>
-<p>Bed files provide the coordinates of regions in a genome, mostly chr, start and end. Bedgraph files give coordinate information (chr, start and end) as well as a numerical 4th column coverage information. The coverage is calculated as the number of reads per bin, where bins are short consecutive counting windows of a defined size. It is possible to extended the length of the reads to better reflect the actual fragment length. bamCoverage offers normalization by scaling factor, Reads Per Kilobase per Million mapped reads (RPKM), counts per million (CPM), bins per million mapped reads (BPM) and 1x depth (reads per genome coverage, RPGC).</p>
-<p>By default the output is not normalized, if this is desired, few the <a href="https://deeptools.readthedocs.io/en/latest/content/tools/bamCoverage.html">bamCoverage manual</a> for more information.</p>
+<p>Bedgraph files give coordinate information (chr, start and end) as well as a numerical 4th column coverage information. The coverage is calculated as the number of reads per bin, where bins are short consecutive counting windows of a defined size. It is possible to extended the length of the reads to better reflect the actual fragment length. bamCoverage offers normalization by scaling factor, Reads Per Kilobase per Million mapped reads (RPKM), counts per million (CPM), bins per million mapped reads (BPM) and 1x depth (reads per genome coverage, RPGC).</p>
+<p>By default the output is not normalized, if this is desired, visit the <a href="https://deeptools.readthedocs.io/en/latest/content/tools/bamCoverage.html">bamCoverage manual</a> for more information.</p>
 </section>
 <section id="generate-a-configuration-file" class="level4">
 <h4 class="anchored" data-anchor-id="generate-a-configuration-file">Generate a configuration file</h4>

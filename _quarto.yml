@@ -133,11 +133,12 @@ website:
               - source/metatranscriptomics/sortmerna.qmd
               - source/metatranscriptomics/ribodetector.qmd
               - source/metatranscriptomics/rseqc.qmd
-              - source/metatranscriptomics/stringtie.qmd
-              - source/metatranscriptomics/trinity.qmd
               - source/metatranscriptomics/star.qmd
               - source/core_tools/bowtie.qmd
               - source/core_tools/samtools.qmd
+              - source/metatranscriptomics/stringtie.qmd
+              - source/metatranscriptomics/trinity.qmd
+              - source/metatranscriptomics/transdecoder.qmd
               - source/core_tools/featurecounts.qmd
               - source/core_tools/rsem.qmd
               - source/metatranscriptomics/DSEq2.qmd
