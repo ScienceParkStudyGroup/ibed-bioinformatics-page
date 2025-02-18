@@ -1,0 +1,102 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+::: {style="text-align: justify"}
+## Homopolish
+
+### Introduction
+
+Homopolish is a genome polisher originally developed for Nanopore and subsequently extended for PacBio CLR [@Huang2021]. It generates a high-quality genome (\>Q50) for viruses, bacteria, and fungi. Nanopore/PacBio systematic errors can be corrected by retrieving homologs from closely-related genomes and polished by an support vector machine (SVM). When paired with Racon and Medaka, the genome quality can reach Q50-90 (\>99.999%) on Nanopore R9.4/10.3 flowcells (Guppy \>3.4). For PacBio CLR, Homopolish also improves the majority of Flye-assembled genomes to Q90
+
+For more information, please visit the tools [github page](https://github.com/ythuang0522/homopolish).
+
+### Installation
+
+Installed on Crunchomics: Yes,
+
+-   Homopolish v0.4.1 is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics share, then you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski\@uva.nl.
+-   Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run:
+
+```{bash}
+# Download git folder
+cd software_folder 
+git clone https://github.com/ythuang0522/homopolish.git
+cd homopolish
+
+# Install dependencies 
+mamba env create -f environment.yml
+
+# Homopolish retrieves homologous sequences by scanning microbial genomes compressed in (Mash) sketches. 
+# Three sketches, bacteria (3.3Gb) , virus (74Mb), and fungi (74Mb) can be downloaded
+wget http://bioinfo.cs.ccu.edu.tw/bioinfo/downloads/Homopolish_Sketch/bacteria.msh.gz
+#wget http://bioinfo.cs.ccu.edu.tw/bioinfo/downloads/Homopolish_Sketch/virus.msh.gz 
+#wget http://bioinfo.cs.ccu.edu.tw/bioinfo/downloads/Homopolish_Sketch/fungi.msh.gz
+
+# Extract data 
+gzip -d bacteria.msh.gz
+```
+
+### Usage
+
+Homopolish should be run with a pre-trained model (R9.4.pkl/R10.3.pkl for Nanopore and pb.pkl for PacBio CLR) and one sketch (virus, bacteria, or fungi). For Nanopore sequencing, Homopolish should be run after the Racon-Medaka pipeline as it only removes indel errors. For PacBio CLR sequencing, it can be invoked directly after Flye assembly.
+
+```{bash}
+conda activate homopolish
+
+# Polish a genome (data sequenced with a R9.4 flowcell)
+python3 /zfs/omics/projects/bioinformatics/software/homopolish/homopolish.py polish \
+  -a my_genome.fasta \
+  -m R9.4.pkl \
+  -o results \
+  -s /zfs/omics/projects/bioinformatics/software/homopolish/data/bacteria.msh \
+  -t 20
+```
+
+Homopolish will automatically search the most closely related strains to your genome. For cases where this fails you can specify a genus with `-g genusname_speciesname`
+
+Keep in mind that polishing can, but does not have to, improve a genome assembly. Therefore it is advised to compare the original and polished genome to a close reference genome, or, if not available, look at assembly parameters, number of proteins or number of pseudogenes.
+
+Useful options:
+
+```         
+  -h, --help            show this help message and exit
+  -m MODEL_PATH, --model_path MODEL_PATH
+                        [REQUIRED] Path to a trained model (pkl file). Please
+                        see our github page to see options.
+  -a ASSEMBLY, --assembly ASSEMBLY
+                        [REQUIRED] Path to a assembly genome.
+  -s SKETCH_PATH, --sketch_path SKETCH_PATH
+                        Path to a mash sketch file.
+  -g GENUS, --genus GENUS
+                        Genus name
+  -l LOCAL_DB_PATH, --local_DB_path LOCAL_DB_PATH
+                        Path to your local DB (ex: cat closely-related_genomes1.fasta closely-related_genomes2.fasta> DB.fasta)
+  -t THREADS, --threads THREADS
+                        Number of threads to use. [1]
+  -o OUTPUT_DIR, --output_dir OUTPUT_DIR
+                        Path to the output directory. [output]
+  --minimap_args MINIMAP_ARGS
+                        Minimap2 -x argument. [asm5]
+  --mash_threshold MASH_THRESHOLD
+                        Mash output threshold. [0.95]
+  --ani                 Ani identity [99%]
+  --download_contig_nums DOWNLOAD_CONTIG_NUMS
+                        How much contig to download from NCBI. [20]
+  -d, --debug           Keep the information of every contig after mash, such
+                        as homologous sequences and its identity infomation.
+                        [no]
+  --mash_screen         Use mash screen. [mash dist]
+```
+:::
