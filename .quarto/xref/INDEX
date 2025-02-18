@@ -293,5 +293,8 @@
   },
   "source/metagenomics/homopolish.qmd": {
     "homopolish.html": "8f59a088"
+  },
+  "source/metagenomics/medaka.qmd": {
+    "medaka.html": "cc6769a7"
   }
 }

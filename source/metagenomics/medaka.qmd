@@ -1,0 +1,95 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+::: {style="text-align: justify"}
+
+## Medaka
+
+### Introduction
+
+Medaka is a tool to create consensus sequences and variant calls from nanopore sequencing data [@nanopore2024]. This task is performed using neural networks applied a pileup of individual sequencing reads against a reference sequence, mostly commonly either a draft assembly or a database reference sequence. It provides state-of-the-art results outperforming sequence-graph based methods and signal-based methods, whilst also being faster.
+
+Note: Medaka has been trained to correct draft sequences output from the [Flye](https://github.com/fenderglass/Flye) assembler. Processing a draft sequence from alternative sources (e.g. the output of [canu](https://github.com/marbl/canu) or [wtdbg2](https://github.com/ruanjue/wtdbg2)) may lead to different results.
+
+For a full set of options, please visit the tools [github page](https://github.com/nanoporetech/medaka).
+
+### Installation
+
+Installed on Crunchomics: Yes,
+
+-   Medaka v2.0.1 is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics share, then you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski\@uva.nl.
+-   Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run:
+
+```{bash}
+# Create empty conda environment and use PyPI/pip for installation
+# Python versions that are supported:  python 3.6-3.9 
+mamba create -p /zfs/omics/projects/bioinformatics/software/miniconda3/envs/medaka_2.0.1 -c conda-forge python=3.9
+
+# Install CPU version (use the other option, if you have a GPU)
+conda activate medaka_2.0.1
+#pip install medaka
+pip install medaka-cpu --extra-index-url https://download.pytorch.org/whl/cpu
+
+# Optional: Solve an issue with a missing dependency
+# Run this if you encounter the error "error while loading shared libraries: libcrypto.so.10"
+mamba install -c bioconda pyabpoa
+mamba install -c conda-forge -c bioconda htslib==1.16
+
+# Optional: Update any outdated dependency
+# When running medaka for the first time, it might notify you that tools are missing or outdated, if that is the case, you can add them with
+mamba install -c bioconda samtools=1.11
+
+conda deactivate
+```
+
+### Usage
+
+```{bash}
+conda activate medaka_2.0.1 
+
+# For best results it is important to specify the correct inference model, according to the basecaller used
+# You can list all available models 
+medaka tools list\_models
+
+# The command medaka inference will attempt to automatically determine a correct model by inspecting its BAM input file. The helper scripts medaka_consensus and medaka_variant will make similar attempts from their FASTQ input.
+# Note: If your model is not listed then  users are encouraged to rebasecall their data with a more recent basecaller version 
+medaka tools resolve_model --auto_model consensus data/sample.fastq.gz
+
+# Often, you also can find the model in the sequence header
+zcat data/sample.fastq.gz | head -n1
+
+# Run medaka 
+medaka_consensus -i data/sample.fastq.gz \
+    -d data/initial_assembly.fasta \
+    -o results \
+    -m r941_min_fast_g507 \
+    -t 20 
+
+conda deactivate
+```
+
+Useful options:
+
+- For native data with bacterial modifications, such as bacterial isolates, metagenomic samples, or plasmids expressed in bacteria, there is a research model that shows improved consensus accuracy. This model is compatible with several basecaller versions for the R10 chemistries. By adding the flag `--bacteria` the bacterial model will be selected if it is compatible with the input basecallers
+- For a full overview of all possible options, please visit the tools [github page](https://github.com/nanoporetech/medaka)
+
+
+**How to assess the output**
+
+Polishing tools can, but do not have to, improve an assembly. Therefore, it is important to evaluate the results. While, there is no perfect answer on how to do you can consider to compare the genome to a close reference (if available). Alternatively, you can look at genome statistics such as mean length of predicted proteins. Finally, you can also visualize the medaka results (original genome and calls_to_draft.bam) in genome browsers, such as IGV. 
+
+For more information, also have a look at this [blog post from Ryan Wick](https://rrwick.github.io/2024/10/17/medaka-v2.html). 
+
+:::
