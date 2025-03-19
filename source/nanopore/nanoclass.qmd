@@ -13,17 +13,15 @@ bibliography: references.bib
 
 ### Introduction
 
-NanoClass2 build upon NanoClass, a snakemake workflow originally developed by IBED's former bioinformatician Evelien Jongepier.
+NanoClass2 is an updated version of NanoClass, a snakemake workflow originally developed by IBED's former bioinformatician Evelien Jongepier.
 
 NanoClass2 is a taxonomic meta-classifier for meta-barcoding 16S/18S rRNA gene sequencing data generated with the Oxford Nanopore Technology. With a single command, this Snakemake pipeline installs all programs and databases and will do the following:
-
-NanoClass2 is a snakemake workflow that will:
 
 -   Remove adapters with porechop
 -   Perform quality filtering with chopper
 -   Generate read quality plots post quality cleaning with pistis
 -   Subsample reads to compare different classifiers (can be turned of)
--   Classify reads with any one of these tools: blastn, centrifuge, dcmegablast, idtaxa, megablast, minimap, mothur, qiime, rdp, spingo, kraken. By default NanoClass2 will use the SILVA_138.1_SSURef_NR99 database to classify reads. If you are interested in using other bases, check out [these instructions](https://ndombrowski.github.io/NanoClass2/source/other_dbs.html).
+-   Classify reads with any one of these tools: blastn, centrifuge, dcmegablast, idtaxa, megablast, minimap, mothur, qiime, rdp, spingo, kraken. By default NanoClass2 will use the SILVA_138.1_SSURef_NR99 database to classify reads. If you are interested in using other databases, check out [these instructions](https://ndombrowski.github.io/NanoClass2/source/other_dbs.html).
 
 For more details, feel free to also have a look at [the manual](https://ndombrowski.github.io/NanoClass2/).
 
@@ -31,7 +29,7 @@ For more details, feel free to also have a look at [the manual](https://ndombrow
 
 #### Getting started
 
-NanoClass2 is installed on the UvA crunchomics HPC. If you have access to crunchomics you can be added to the amplicomics share in which NanoClass2 is set up. To be added, please send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).
+NanoClass2 is installed on the amplicomics share on the UvA Crunchomics HPC. If you have access to Crunchomics you can be added to the amplicomics share in which NanoClass2 is set up. To be added, please send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).
 
 If you want or need to set up NanoClass2 by yourself, expand the code below to view an example on how to install the software:
 
@@ -39,57 +37,61 @@ If you want or need to set up NanoClass2 by yourself, expand the code below to v
 #| code-fold: true
 #| code-summary: "Show the code"
 
-#install snakemake as a conda/mamba environment
+# Install snakemake as a conda/mamba environment
 mamba create -c conda-forge -c bioconda --prefix /zfs/omics/projects/amplicomics/miniconda3/envs/snakemake_nanoclass2 python=3.9.7 snakemake=6.8.0 tabulate=0.8
 
-#go to folder in which to install software 
+# Change directory to folder in which to install software 
 cd /zfs/omics/projects/amplicomics/bin
 
-#install NanoClass2
+# Install NanoClass2
 git clone https://github.com/ndombrowski/NanoClass2.git
 ```
 
-To be able to use software installed on the amplicomics share, you first need to ensure that conda is installed. If it is, then you can run the following command:
+To be able to use software installed on the amplicomics share, you first need to ensure that [conda is installed](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/conda/conda.html). If it is, then you can run the following command:
 
 ```{bash}
 conda config --add envs_dirs /zfs/omics/projects/amplicomics/miniconda3/envs/
 ```
 
-This command will add pre-installed conda environments in the amplicomics share to your `conda env list`. After you run `conda env list` you should see several tools from amplicomics, including QIIME2 and Snakemake. Snakemake is what we need to run NanoClass2.
+This command will add pre-installed conda environments in the amplicomics share to your `conda env list`. After you run `conda env list` you should see several tools from amplicomics, including QIIME2 and Snakemake. Snakemake is the software that we need in order to run NanoClass2.
 
-Next, you can setup your working environment. Change the path of the working directory to wherever you want to analyze your data:
-
-```{bash}
-#define the directory in which you want to run your analyses
-wdir="/home/$USER/personal/testing/amplicomics_test"
-
-#go into the working directory
-cd $wdir
-
-#activate the snakemake conda environment 
-conda activate snakemake_nanoclass2
-```
 
 #### Setup a testrun
 
 The test run will be performed with some example data provided with NanoClass2. The test run will subsample the reads and use the subsetted reads to test all classifiers available with NanoClass2.
 
+First, we set up a working environment. Change the path of the working directory to wherever you want to analyze your data:
+
 ```{bash}
-#cp some test data over (comes with NanoClass2) 
+# Define the directory in which you want to run your analyses
+wdir="/home/${USER}/personal/testing/amplicomics_test"
+
+# Change to the working directory
+cd $wdir
+
+# Activate the snakemake conda environment 
+conda activate snakemake_nanoclass2
+```
+
+Next, we copy over the test data, the mapping file, and the config file that comes with NanoClass2.
+
+```{bash}
+# Copy some test data over (comes with NanoClass2) 
 mkdir data 
 cp /zfs/omics/projects/amplicomics/bin/NanoClass2/example_files/*fastq.gz data/
 
-#copy the mapping file (comes with NanoClass2) 
+# Copy the mapping file (comes with NanoClass2) 
 cp /zfs/omics/projects/amplicomics/bin/NanoClass2/example_files/mapping.csv .
 
-#ensure that the path to the fastq data is correct in mapping.csv
-#exchange the path in `replace` with wherever you copied the fastq.gz files
+# Ensure that the path to the fastq data is correct in mapping.csv
+# you can keep the text in the `search` variable as is
+# you need to change the path in `replace` and add the path to where you copied the fastq.gz files
 search='your_path/example_files/'
 replace='/home/ndombro/personal/testing/amplicomics_test/data/'
 
 sed -i -e  "s|$search|$replace|" mapping.csv
 
-#copy config yaml (comes with NanoClass2) 
+# Copy config yaml (comes with NanoClass2) 
 cp /zfs/omics/projects/amplicomics/bin/NanoClass2/config.yaml .
 ```
 
@@ -102,8 +104,11 @@ In the `config.yaml` file we can tell NanoClass2 where the data is located and h
 
 By default the config.yaml is setup to run NanoClass2 as follows:
 
--   Subsample the fastq files to only work with 100 reads per sample. To turn this of, set `skip: true`
--   Run NanoClass2 using all 11 classifiers. If you already have a favorite classifier you can only select the tools that you want to use.
+-   Subsample the fastq files to only work with 100 reads per sample. 
+    -   This allows to test all or a subset of classifiers with a subset of the data.
+    -   To turn this of, set `skip: true`. 
+    -   **Important:** Once you decided on a final classifier you want to turn subsampling off by setting `skip:true` in order to run NanoClass2 on all reads.
+-   Run NanoClass2 using all 11 classifiers. If you already have a favorite classifier you can only select the tool that you want to use.
 -   Quality filter the samples:
     -   Discard reads shorter than 1400 bp (minlen)
     -   Discard reads longer than 1600bp (maxlen)
@@ -117,7 +122,7 @@ By default the config.yaml is setup to run NanoClass2 as follows:
 When running snakemake with `-np` this will not run NanoClass itself but only perform a dry-run, which is useful to ensure that everything works correctly. The command below should work as it is as long as the `config.yaml` is located in the same directory from which you start the analysis.
 
 ```{bash}
-#perform a dry-run
+# Perform a dry-run
 snakemake --cores 1 \
     -s /zfs/omics/projects/amplicomics/bin/NanoClass2/Snakefile \
     --configfile config.yaml \
@@ -132,7 +137,7 @@ If the above command works and you see `This was a dry-run (flag -n). The order 
 The NanoClass2 installation comes with an example sbatch script that you can move over to where you do your analyses. This script allows you to submit the job to the compute nodes.
 
 ```{bash}
-#cp template batch script (comes with NanoClass2) 
+# Copy a template batch script (comes with NanoClass2) 
 cp /zfs/omics/projects/amplicomics/bin/NanoClass2/jobscript.sh .
 ```
 
@@ -148,14 +153,14 @@ The script does the following:
 Next, we can submit the job as follows:
 
 ```{bash}
-#Submitted batch job 427090
+# Submit a batch job
 sbatch jobscript.sh
 
-#for checking how far things are along:
-#check the end of the log file i.e. 
+# For checking how far things are along:
+# check the end of the log file i.e. 
 tail *.log 
 
-#check if sbatch script is still running 
+# Check if sbatch script is still running 
 squeue
 ```
 
@@ -184,3 +189,10 @@ If you want to work with a custom database, users will need to:
 - Provide the databases themselves and store them in the db/common/ subdirectory of the NanoClass2 directory. These will then be automatically detected once NanoClass2 is started and NanoClass2 will create and reformat all tools-specific databases based on this user-provided database.
 
 For an example on how to format a custom database, check out [these instructions](https://ndombrowski.github.io/NanoClass2/source/other_dbs.html).
+
+
+#### Additional Resources for UvA Users: Cyanoseq database
+
+For UvA researchers, the [Cyanoseq](https://github.com/flefler/CyanoSeq) with [GSR-DB](https://manichanh.vhir.org/gsrdb/index.php) as the bacterial database is available on the amplicomics share. This database is a curated database of 16S rRNA gene sequences from cyanobacteria. 
+
+To run NanoClass2 with Cyanoseq, you can follow the notes of this tutorial. However, instead of using the Nanoclass2 installation in ```/zfs/omics/projects/amplicomics/bin/NanoClass2/```, you should use the installation in ```/zfs/omics/projects/amplicomics/bin/NanoClass2_CyanoSeq/```.
