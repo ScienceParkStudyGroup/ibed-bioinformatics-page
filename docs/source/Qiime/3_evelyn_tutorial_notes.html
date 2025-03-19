@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.6.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Bioinformatics guidance page</title>
+<title>evelyn_tutorial_notes – Bioinformatics guidance page</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -71,12 +71,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-b663525e4b92bb903b2199e2d401bf36.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-a1e4c769dfb8ba454fda448df42b92ec.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-a2679e3cf752e8512b94174c75263f45.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-b1fe020641d9e027af31aa447621ea1c.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -115,13 +115,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/Qiime/readme.html">Amplicon analyses</a></li><li class="breadcrumb-item"><a href="../../source/Qiime/3_evelyn_tutorial_notes.html">A short QIIME tutorial</a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -150,9 +150,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Getting Started</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -167,7 +167,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../source/cli/cli.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using the command line</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -208,7 +208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using an HPC</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -227,20 +227,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../source/metagenomics/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sequence data analyses</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
  <span class="menu-text">Core tools</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/busco.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BUSCO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/diamond.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diamond</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/hmmer.html" class="sidebar-item-text sidebar-link">
@@ -283,7 +295,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../source/Qiime/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Amplicon analyses</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -304,9 +316,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
  <span class="menu-text">Functional annotation</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -345,9 +357,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
  <span class="menu-text">(Meta)genomics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -374,6 +386,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/trycycler.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Trycycler</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/nanopore/autocycler.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Autocycler</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/medaka.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Medaka</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/homopolish.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homopolish</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -418,13 +448,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">mOTUS</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/pycirclize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">pycirclize</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/pygenometracks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">pyGenomeTracks</span></a>
+  </div>
+</li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
  <span class="menu-text">Eukaryotic genomics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -445,9 +487,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
  <span class="menu-text">Fungal genomics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -468,9 +510,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false">
  <span class="menu-text">(Meta)transcriptomics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -489,8 +531,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metatranscriptomics/trinity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Trinity</span></a>
+  <a href="../../source/metatranscriptomics/rseqc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RSeQC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -509,6 +551,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Samtools</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/stringtie.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">StringTie</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/trinity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trinity</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/transdecoder.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">TransDecoder</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -533,9 +593,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false">
  <span class="menu-text">Nanopore analyses</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -556,6 +616,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../source/nanopore/nanoplot_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Nanoplot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/nanopore/ngspeciesid.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NGSpeciesID</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -592,9 +658,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false">
  <span class="menu-text">Phylogenomics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -621,9 +687,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
  <span class="menu-text">Quality control</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -650,9 +716,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false">
  <span class="menu-text">Sequence alignment</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -683,7 +749,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../source/core_tools/toolbox-readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bioinformatics toolbox</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -698,13 +764,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="true">
  <span class="menu-text">Bioinformatic databases</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/cog.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">COG database</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/kegg_db.html" class="sidebar-item-text sidebar-link">
@@ -746,27 +818,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
     <h2 id="toc-title">On this page</h2>
    
-  <ul class="collapse">
+  <ul>
   <li><a href="#a-short-qiime-tutorial" id="toc-a-short-qiime-tutorial" class="nav-link active" data-scroll-target="#a-short-qiime-tutorial">A short QIIME tutorial</a>
   <ul class="collapse">
   <li><a href="#qiime2-terminology" id="toc-qiime2-terminology" class="nav-link" data-scroll-target="#qiime2-terminology">QIIME2 terminology</a></li>
-  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
-  <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data">Import data</a></li>
-  <li><a href="#quality-controls" id="toc-quality-controls" class="nav-link" data-scroll-target="#quality-controls">Quality controls</a></li>
-  <li><a href="#generate-asvs-using-deblur-or-dada2" id="toc-generate-asvs-using-deblur-or-dada2" class="nav-link" data-scroll-target="#generate-asvs-using-deblur-or-dada2">Generate ASVs using Deblur or DADA2</a></li>
-  <li><a href="#taxonomic-classification-naive-bayes" id="toc-taxonomic-classification-naive-bayes" class="nav-link" data-scroll-target="#taxonomic-classification-naive-bayes">Taxonomic classification (Naive Bayes)</a></li>
-  <li><a href="#filtering" id="toc-filtering" class="nav-link" data-scroll-target="#filtering">Filtering</a></li>
-  <li><a href="#phylogenetic-tree-construction" id="toc-phylogenetic-tree-construction" class="nav-link" data-scroll-target="#phylogenetic-tree-construction">Phylogenetic tree construction</a></li>
-  <li><a href="#identifying-an-even-sampling-depth-for-use-in-diversity-metrics" id="toc-identifying-an-even-sampling-depth-for-use-in-diversity-metrics" class="nav-link" data-scroll-target="#identifying-an-even-sampling-depth-for-use-in-diversity-metrics">Identifying an even sampling depth for use in diversity metrics</a></li>
-  <li><a href="#computing-diversity-metrics" id="toc-computing-diversity-metrics" class="nav-link" data-scroll-target="#computing-diversity-metrics">Computing diversity metrics</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a>
+  <ul class="collapse">
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#download-the-example-data" id="toc-download-the-example-data" class="nav-link" data-scroll-target="#download-the-example-data">Download the example data</a></li>
+  <li><a href="#set-environmental-variables" id="toc-set-environmental-variables" class="nav-link" data-scroll-target="#set-environmental-variables">Set environmental variables</a></li>
+  <li><a href="#getting-help" id="toc-getting-help" class="nav-link" data-scroll-target="#getting-help">Getting help</a></li>
+  </ul></li>
+  <li><a href="#quality-controls" id="toc-quality-controls" class="nav-link" data-scroll-target="#quality-controls">Quality controls</a>
+  <ul class="collapse">
+  <li><a href="#fastqc" id="toc-fastqc" class="nav-link" data-scroll-target="#fastqc">FastQC</a></li>
+  </ul></li>
+  <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data">Import data</a>
+  <ul class="collapse">
+  <li><a href="#the-manifest-file" id="toc-the-manifest-file" class="nav-link" data-scroll-target="#the-manifest-file">The manifest file</a></li>
+  <li><a href="#data-import" id="toc-data-import" class="nav-link" data-scroll-target="#data-import">Data import</a></li>
+  <li><a href="#primer-removal" id="toc-primer-removal" class="nav-link" data-scroll-target="#primer-removal">Primer removal</a></li>
+  </ul></li>
+  <li><a href="#generate-asvs-using-deblur-or-dada2" id="toc-generate-asvs-using-deblur-or-dada2" class="nav-link" data-scroll-target="#generate-asvs-using-deblur-or-dada2">Generate ASVs using Deblur or DADA2</a>
+  <ul class="collapse">
+  <li><a href="#deblur" id="toc-deblur" class="nav-link" data-scroll-target="#deblur">Deblur</a></li>
+  <li><a href="#qiime-tools-validate-code-for-sanity-checking" id="toc-qiime-tools-validate-code-for-sanity-checking" class="nav-link" data-scroll-target="#qiime-tools-validate-code-for-sanity-checking"><code>qiime tools validate</code>: Code for sanity checking</a></li>
+  <li><a href="#dada2" id="toc-dada2" class="nav-link" data-scroll-target="#dada2">Dada2</a></li>
+  </ul></li>
+  <li><a href="#taxonomic-classification-naive-bayes" id="toc-taxonomic-classification-naive-bayes" class="nav-link" data-scroll-target="#taxonomic-classification-naive-bayes">Taxonomic classification (Naive Bayes)</a>
+  <ul class="collapse">
+  <li><a href="#import-the-database" id="toc-import-the-database" class="nav-link" data-scroll-target="#import-the-database">Import the database</a></li>
+  <li><a href="#extract-reference-reads" id="toc-extract-reference-reads" class="nav-link" data-scroll-target="#extract-reference-reads">Extract reference reads</a></li>
+  <li><a href="#train-the-classifier" id="toc-train-the-classifier" class="nav-link" data-scroll-target="#train-the-classifier">Train the classifier</a></li>
+  <li><a href="#taxonomic-classification" id="toc-taxonomic-classification" class="nav-link" data-scroll-target="#taxonomic-classification">Taxonomic classification</a></li>
+  <li><a href="#plot-data" id="toc-plot-data" class="nav-link" data-scroll-target="#plot-data">Plot data</a></li>
+  </ul></li>
+  <li><a href="#filtering" id="toc-filtering" class="nav-link" data-scroll-target="#filtering">Filtering</a>
+  <ul class="collapse">
+  <li><a href="#filtering-the-feature-table" id="toc-filtering-the-feature-table" class="nav-link" data-scroll-target="#filtering-the-feature-table">Filtering the feature table</a></li>
+  <li><a href="#filtering-the-sequences" id="toc-filtering-the-sequences" class="nav-link" data-scroll-target="#filtering-the-sequences">Filtering the sequences</a></li>
+  <li><a href="#filter-by-taxonomy" id="toc-filter-by-taxonomy" class="nav-link" data-scroll-target="#filter-by-taxonomy">Filter by taxonomy</a></li>
+  </ul></li>
+  <li><a href="#phylogenetic-tree-construction" id="toc-phylogenetic-tree-construction" class="nav-link" data-scroll-target="#phylogenetic-tree-construction">Phylogenetic tree construction</a>
+  <ul class="collapse">
+  <li><a href="#basics" id="toc-basics" class="nav-link" data-scroll-target="#basics">Basics</a></li>
+  <li><a href="#runing-the-qiime-pipeline" id="toc-runing-the-qiime-pipeline" class="nav-link" data-scroll-target="#runing-the-qiime-pipeline">Runing the Qiime pipeline</a></li>
+  <li><a href="#run-things-step-by-step" id="toc-run-things-step-by-step" class="nav-link" data-scroll-target="#run-things-step-by-step">Run things step by step</a></li>
+  </ul></li>
+  <li><a href="#identifying-an-even-sampling-depth-for-use-in-diversity-metrics" id="toc-identifying-an-even-sampling-depth-for-use-in-diversity-metrics" class="nav-link" data-scroll-target="#identifying-an-even-sampling-depth-for-use-in-diversity-metrics">Identifying an even sampling depth for use in diversity metrics</a>
+  <ul class="collapse">
+  <li><a href="#notes-on-rarefication" id="toc-notes-on-rarefication" class="nav-link" data-scroll-target="#notes-on-rarefication">Notes on rarefication</a></li>
+  <li><a href="#alpha-rarefaction-plots" id="toc-alpha-rarefaction-plots" class="nav-link" data-scroll-target="#alpha-rarefaction-plots">Alpha rarefaction plots</a></li>
+  </ul></li>
+  <li><a href="#computing-diversity-metrics" id="toc-computing-diversity-metrics" class="nav-link" data-scroll-target="#computing-diversity-metrics">Computing diversity metrics</a>
+  <ul class="collapse">
+  <li><a href="#alpha-diversity" id="toc-alpha-diversity" class="nav-link" data-scroll-target="#alpha-diversity">Alpha diversity</a></li>
+  </ul></li>
   <li><a href="#differential-abundance-testing" id="toc-differential-abundance-testing" class="nav-link" data-scroll-target="#differential-abundance-testing">Differential abundance testing</a></li>
-  <li><a href="#sec-crunchomics" id="toc-sec-crunchomics" class="nav-link" data-scroll-target="#sec-crunchomics">Analyses on crunchomics</a></li>
+  <li><a href="#sec-crunchomics" id="toc-sec-crunchomics" class="nav-link" data-scroll-target="#sec-crunchomics">Analyses on crunchomics</a>
+  <ul class="collapse">
+  <li><a href="#get-access-to-qiime-on-crunchomics" id="toc-get-access-to-qiime-on-crunchomics" class="nav-link" data-scroll-target="#get-access-to-qiime-on-crunchomics">Get access to QIIME on crunchomics</a></li>
+  <li><a href="#download-the-data" id="toc-download-the-data" class="nav-link" data-scroll-target="#download-the-data">Download the data</a></li>
+  <li><a href="#setting-your-working-environment" id="toc-setting-your-working-environment" class="nav-link" data-scroll-target="#setting-your-working-environment">Setting your working environment</a></li>
+  <li><a href="#setup-folders-to-store-our-outputs" id="toc-setup-folders-to-store-our-outputs" class="nav-link" data-scroll-target="#setup-folders-to-store-our-outputs">Setup folders to store our outputs</a></li>
+  <li><a href="#import-data-1" id="toc-import-data-1" class="nav-link" data-scroll-target="#import-data-1">Import data</a></li>
+  <li><a href="#primer-removal-1" id="toc-primer-removal-1" class="nav-link" data-scroll-target="#primer-removal-1">Primer removal</a></li>
+  <li><a href="#feature-table-construction" id="toc-feature-table-construction" class="nav-link" data-scroll-target="#feature-table-construction">Feature table construction</a></li>
+  <li><a href="#taxonomic-classification-1" id="toc-taxonomic-classification-1" class="nav-link" data-scroll-target="#taxonomic-classification-1">Taxonomic classification</a></li>
+  <li><a href="#download-qzvs" id="toc-download-qzvs" class="nav-link" data-scroll-target="#download-qzvs">Download qzvs</a></li>
+  </ul></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul class="collapse"><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/Qiime/3_evelyn_tutorial_notes.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/Qiime/3_evelyn_tutorial_notes.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/Qiime/readme.html">Amplicon analyses</a></li><li class="breadcrumb-item"><a href="../../source/Qiime/3_evelyn_tutorial_notes.html">A short QIIME tutorial</a></li></ol></nav></header>
 
 <header id="title-block-header">
 
@@ -774,11 +900,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div style="text-align: justify">
-
-<section id="a-short-qiime-tutorial" class="level1">
+<section id="a-short-qiime-tutorial" class="level1" style="text-align: justify">
 <h1>A short QIIME tutorial</h1>
-<p>These tutorial closely follows <a href="https://ejongepier.github.io/metabarcoding-qiime2-workshop/genintro.html">the tutorial</a> from IBEDs former bioinformatician, Evelyn Jongepier. A large part of the text found here was taken directly from this tutorial but extended as was seen fit and updated to work with a newer QIIME version.</p>
+<p>This tutorial closely follows <a href="https://ejongepier.github.io/metabarcoding-qiime2-workshop/genintro.html">the tutorial</a> from IBEDs former bioinformatician, Evelyn Jongepier. A large part of the text found here was taken directly from this tutorial but extended as was seen fit and updated to work with a newer QIIME version.</p>
 <p>A test data set is provided with this tutorial and consists of already demultiplexed sequencing data. The files we are working with are:</p>
 <ul>
 <li>The forward, R1, reads</li>
@@ -791,7 +915,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Each read is 250 bp long</li>
 <li>The primers used are called 515F and 926R and target the V4 region of the 16S SSU rRNA resulting in a <strong>fragment length</strong> or <strong>amplicon size</strong> of 411 bp</li>
 <li>When removing the primer, we have a <strong>target region</strong> of around 371 bp</li>
-<li>How to calculating whether or not there is an overlap between our forward and reverse read: (length of forward read) + (length of reverse read) − (length of amplicon) = length of overlap
+<li>We can calculate whether or not there is an overlap between our forward and reverse read: (length of forward read) + (length of reverse read) − (length of amplicon) = length of overlap
 <ul>
 <li>250 + 250 - 411 = ~90 bp overlap</li>
 </ul></li>
@@ -861,6 +985,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
+<section id="quality-controls" class="level2">
+<h2 class="anchored" data-anchor-id="quality-controls">Quality controls</h2>
+<section id="fastqc" class="level3">
+<h3 class="anchored" data-anchor-id="fastqc">FastQC</h3>
+<p>Before running any analysis, it is important to check the quality of the data.</p>
+<p><a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a> is a tool to judge the quality of sequencing data (in a visual way). It is installed on Crunchomics and if you want to install it on your own machine follow the instructions found <a href="https://www.bioinformatics.babraham.ac.uk/projects/download.html#fastqc">here</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> prep/fastqc</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> data/<span class="pp">*</span>gz <span class="at">-o</span> prep/fastqc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you want to know what the output means, you can look at <a href="https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/qc_fastqc_assessment.html">this tutorial</a> explaining each plot in detail.</p>
+<p>With the data at hand we won’t encounter any problems, but if you do, you might want to consider quality filtering. This can be done with tools like <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/metatranscriptomics/fastp.html">FastP</a> or <a href="http://www.usadellab.org/cms/?page=trimmomatic">Trimmomatic</a>.</p>
+</section>
+</section>
 <section id="import-data" class="level2">
 <h2 class="anchored" data-anchor-id="import-data">Import data</h2>
 <section id="the-manifest-file" class="level3">
@@ -883,27 +1021,27 @@ DUMMY12,$PWD/data/Sample-DUMMY12_R2.fastq.gz,reverse</code></pre>
 <h3 class="anchored" data-anchor-id="data-import">Data import</h3>
 <p>We can import our data into QIIME as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#prepare a folder in which we store our imported data</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> prep</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#import the fastq files into QIIME</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> tools import <span class="dt">\</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--type</span> <span class="st">'SampleData[PairedEndSequencesWithQuality]'</span> <span class="dt">\</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--input-path</span> data/MANIFEST.csv <span class="dt">\</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--input-format</span> PairedEndFastqManifestPhred33 <span class="dt">\</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output-path</span> prep/demux-seqs.qza</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#check artifact type</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> tools peek prep/demux-seqs.qza </span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#generate summary</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> demux summarize <span class="dt">\</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">--i-data</span> prep/demux-seqs.qza <span class="dt">\</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">--o-visualization</span> prep/demux-seqs.qzv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#prepare a folder in which we store our imported data</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> prep</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#import the fastq files into QIIME</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> tools import <span class="dt">\</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--type</span> <span class="st">'SampleData[PairedEndSequencesWithQuality]'</span> <span class="dt">\</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--input-path</span> data/MANIFEST.csv <span class="dt">\</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--input-format</span> PairedEndFastqManifestPhred33 <span class="dt">\</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output-path</span> prep/demux-seqs.qza</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#check artifact type</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> tools peek prep/demux-seqs.qza </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#generate summary</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> demux summarize <span class="dt">\</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">--i-data</span> prep/demux-seqs.qza <span class="dt">\</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">--o-visualization</span> prep/demux-seqs.qzv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>If we visualize <code>prep/demux-seqs.qzv</code> with QIIME view, we get an overview about our samples:</p>
+<p>We can visualize <code>prep/demux-seqs.qzv</code> with <a href="https://view.qiime2.org/">QIIME view</a> to get an overview about our samples. Below is an example of what you might see:</p>
 <p><img src="../../img/qiime_read_sum.png" class="img-fluid"></p>
-<p>Some additonal comments on importing data:</p>
+<p>Some additional comments on importing data:</p>
 <ul>
 <li>A general tutorial on importing data can be found <a href="https://docs.qiime2.org/2023.7/tutorials/importing/">here</a></li>
 <li>You can import data by:
@@ -921,17 +1059,6 @@ DUMMY12,$PWD/data/Sample-DUMMY12_R2.fastq.gz,reverse</code></pre>
 <li><code>--input-format</code> {TEXT} The format of the data to be imported. If not provided, data must be in the format expected by the semantic type provided via –type.</li>
 <li><code>--show-importable-types</code> Show the semantic types that can be supplied to –type to import data into an artifact.</li>
 </ul>
-</section>
-</section>
-<section id="quality-controls" class="level2">
-<h2 class="anchored" data-anchor-id="quality-controls">Quality controls</h2>
-<section id="fastqc" class="level3">
-<h3 class="anchored" data-anchor-id="fastqc">FastQC</h3>
-<p><a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a> is a tool to judge the quality of sequencing data (in a visual way). It is installed on Crunchomics and if you want to install it on your own machine follow the instructions found <a href="https://www.bioinformatics.babraham.ac.uk/projects/download.html#fastqc">here</a>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> prep/fastqc</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> data/<span class="pp">*</span>gz <span class="at">-o</span> prep/fastqc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
 <section id="primer-removal" class="level3">
 <h3 class="anchored" data-anchor-id="primer-removal">Primer removal</h3>
@@ -1148,7 +1275,15 @@ Statistics of merged reads:
 </section>
 <section id="dada2" class="level3">
 <h3 class="anchored" data-anchor-id="dada2">Dada2</h3>
-<p>The <code>denoise_paired</code> action requires a few parameters that you’ll set based on the sequence quality score plots that you previously generated in the summary of the demultiplex reads. You should review those plots to: - identify where the quality begins to decrease, and use that information to set the <code>trunc_len_*</code> parameters. You’ll set that for both the forward and reverse reads using the <code>trunc_len_f</code> and <code>trunc_len_r</code> parameters, respectively. - If you notice a region of lower quality in the beginning of the forward and/or reverse reads, you can optionally trim bases from the beginning of the reads using the <code>trim_left_f</code> and <code>trim_left_r</code> parameters for the forward and reverse reads, respectively. - If you want to speed up downstream computation, consider tightening <code>maxEE</code>. If too few reads are passing the filter, consider relaxing maxEE, perhaps especially on the reverse reads - <a href="https://github.com/Zymo-Research/figaro#figaro">Figaro</a> is a tool to automatically choose the trunc_len - <strong>Chimeric sequences</strong> are identified if they can be exactly reconstructed by combining a left-segment and a right-segment from two more abundant “parent” sequences. Most of your reads should remain after chimera removal (it is not uncommon for a majority of sequence variants to be removed though). If most of your reads were removed as chimeric, upstream processing may need to be revisited. In almost all cases this is caused by primer sequences with ambiguous nucleotides that were not removed prior to running DADA2 - Your reads must still overlap after truncation in order to merge them later!</p>
+<p>The <code>denoise_paired</code> action requires a few parameters that you’ll set based on the sequence quality score plots that you previously generated in the summary of the demultiplex reads. You should review those plots to:</p>
+<ul>
+<li>identify where the quality begins to decrease, and use that information to set the <code>trunc_len_*</code> parameters. You’ll set that for both the forward and reverse reads using the <code>trunc_len_f</code> and <code>trunc_len_r</code> parameters, respectively.</li>
+<li>If you notice a region of lower quality in the beginning of the forward and/or reverse reads, you can optionally trim bases from the beginning of the reads using the <code>trim_left_f</code> and <code>trim_left_r</code> parameters for the forward and reverse reads, respectively.</li>
+<li>If you want to speed up downstream computation, consider tightening <code>maxEE</code>. If too few reads are passing the filter, consider relaxing maxEE, perhaps especially on the reverse reads</li>
+<li><a href="https://github.com/Zymo-Research/figaro#figaro">Figaro</a> is a tool to automatically choose the trunc_len</li>
+<li><strong>Chimeric sequences</strong> are identified if they can be exactly reconstructed by combining a left-segment and a right-segment from two more abundant “parent” sequences. Most of your reads should remain after chimera removal (it is not uncommon for a majority of sequence variants to be removed though). If most of your reads were removed as chimeric, upstream processing may need to be revisited. In almost all cases this is caused by primer sequences with ambiguous nucleotides that were not removed prior to running DADA2</li>
+<li>Your reads must still overlap after truncation in order to merge them later!</li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qiime</span> dada2 denoise-paired <span class="dt">\</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--i-demultiplexed-seqs</span> prep/trimmed-seqs.qza <span class="dt">\</span></span>
@@ -1162,6 +1297,14 @@ Statistics of merged reads:
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-denoising-stats</span> dada2/dada2-stats.qza <span class="dt">\</span></span>
 <span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>A word of caution: The <code>--p-trunc-len-f</code> and <code>--p-trunc-len-r</code> parameters are the most important parameters to set correctly. If you set these too high, you will lose too many reads. If you set them too low, you will have too many errors in your reads. The <code>--p-trim-left-f</code> and <code>--p-trim-left-r</code> parameters are less important, but can be useful if you have low quality bases at the beginning of your reads.</p>
+<p>Let’s look at the impact of the <code>--p-trunc-len-r/f</code> settings in our example:</p>
+<ul>
+<li>In our calculation at the start of the tutorial, we said that the overlap was ~90 bp.</li>
+<li>In the example below, we set the truncation length to 230 and 220 for the forward and reverse reads, respectively.</li>
+<li>If we now calculate the overlap with (length of forward read)+(length of reverse read)−(amplicon length) we get 230 + 220 - 411 = 39 bp.</li>
+<li>Dada2 requires a minimum overlap of 12 bp, so we are good to go.</li>
+</ul>
 <p>Useful options:</p>
 <ul>
 <li><code>--p-trunc-len-f</code> INTEGER Position at which forward read sequences should be truncated due to decrease in quality. This truncates the 3’ end of the of the input sequences, which will be the bases that were sequenced in the last cycles. Reads that are shorter than this value will be discarded. After this parameter is applied there must still be at least a 12 nucleotide overlap between the forward and reverse reads. If 0 is provided, no truncation or length filtering will be performed [required]</li>
@@ -1212,7 +1355,11 @@ Statistics of merged reads:
 <li>most samples at 10,000 frequency/sample peak, histrogram looks closer to normal distribution, 1 sample with ~37 000 frequencies</li>
 </ul></li>
 </ul>
-<p>Overal Dada2 seems beneficial in that less reads are lost but without some deeper dive into the data the qzv files are not informative enough to decide what happened to the sequences. The reason why more DADA2 retains more reads is related to the quality filtering steps. To better compare sequences, we could compare them at a sampling depth of 2000 and should see: - Retained 94,000 (32.34%) features in 47 (100.00%) samples (deblur) instead of 290,671 (100.00%) features in 47 (100.00%) - Retained 94,000 (14.49%) features in 47 (95.92%) samples (dada2) instead of 648,666 (100.00%) features in 49 (100.00%)</p>
+<p>Overal Dada2 seems beneficial in that less reads are lost but without some deeper dive into the data the qzv files are not informative enough to decide what happened to the sequences. The reason why more DADA2 retains more reads is related to the quality filtering steps. To better compare sequences, we could compare them at a sampling depth of 2000 and should see:</p>
+<ul>
+<li>Retained 94,000 (32.34%) features in 47 (100.00%) samples (deblur) instead of 290,671 (100.00%) features in 47 (100.00%)</li>
+<li>Retained 94,000 (14.49%) features in 47 (95.92%) samples (dada2) instead of 648,666 (100.00%) features in 49 (100.00%)</li>
+</ul>
 <p>Based on that both methods produce very similar results.</p>
 </section>
 </section>
@@ -1788,7 +1935,7 @@ Total   1554929     1554929</code></pre>
 <span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-front-r</span> <span class="va">$PRIMREV</span> <span class="dt">\</span></span>
 <span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-error-rate</span> 0 <span class="dt">\</span></span>
 <span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--o-trimmed-sequences</span> prep/trimmed-seqs.qza <span class="dt">\</span></span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-cores</span> 2 <span class="dt">\</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--p-cores</span> 4 <span class="dt">\</span></span>
 <span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--verbose</span> <span class="dt">\</span></span>
 <span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="fu">tee</span> logs/qiime-cutadapt-trim-paired.log</span>
 <span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a></span>
@@ -1801,6 +1948,9 @@ Total   1554929     1554929</code></pre>
 <span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>   <span class="at">--input-path</span> prep/trimmed-seqs.qzv <span class="dt">\</span></span>
 <span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>   <span class="at">--output-path</span> visualizations/trimmed-seqs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><strong>Important</strong>:</p>
+<p>When increasing <code>srun --cpus-per-task 1</code> to a higher number you need to ensure that the actual qiime command also uses the same number of cores with <code>--p-cores</code>. If you don’t do this the job will still run but it will be slower than it could be.</p>
+<p>More information about the used command:</p>
 <ul>
 <li>Information about the 2&gt;&amp;1 is a redirection operator :
 <ul>
@@ -2053,13 +2203,13 @@ Total   1346501</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> crunchomics:<span class="st">'/home/ndombro/tutorials/evelyn_qiime/*/*.qzv'</span> crunchomics_files/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-
-
 </section>
 </section>
 </section>
 
-</div></main> <!-- /main -->
+
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -2239,18 +2389,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -2282,7 +2421,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp("https:\/\/scienceparkstudygroup\.github\.io\/software_information\/");
@@ -2290,10 +2449,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
           // target, if specified
           link.setAttribute("target", "_blank");
           if (link.getAttribute("rel") === null) {
@@ -2335,7 +2499,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -2383,7 +2551,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
@@ -2611,7 +2778,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/Qiime/readme.html" class="pagination-link  aria-label=" amplicon="" analyses"="">
+      <a href="../../source/Qiime/readme.html" class="pagination-link" aria-label="Amplicon analyses">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Amplicon analyses</span>
       </a>          
   </div>
@@ -2629,7 +2796,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2023-11-16</p>
+Last modified: 2025-03-19</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/Qiime/3_evelyn_tutorial_notes.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

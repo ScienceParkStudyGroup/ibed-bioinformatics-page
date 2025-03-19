@@ -3,7 +3,7 @@ format:
   html:
     toc: true
     toc-expand: true
-    toc-depth: 2
+    toc-depth: 3
 
 execute:
   eval: false
@@ -14,7 +14,7 @@ engine: knitr
 
 # A short QIIME tutorial
 
-These tutorial closely follows [the tutorial](https://ejongepier.github.io/metabarcoding-qiime2-workshop/genintro.html) from IBEDs former bioinformatician, Evelyn Jongepier. A large part of the text found here was taken directly from this tutorial but extended as was seen fit and updated to work with a newer QIIME version.
+This tutorial closely follows [the tutorial](https://ejongepier.github.io/metabarcoding-qiime2-workshop/genintro.html) from IBEDs former bioinformatician, Evelyn Jongepier. A large part of the text found here was taken directly from this tutorial but extended as was seen fit and updated to work with a newer QIIME version.
 
 A test data set is provided with this tutorial and consists of already demultiplexed sequencing data. The files we are working with are:
 
@@ -28,7 +28,7 @@ Other comments on the files:
 - Each read is 250 bp long
 - The primers used are called 515F and 926R and target the V4 region of the 16S SSU rRNA resulting in a **fragment length** or **amplicon size** of 411 bp
 - When removing the primer, we have a **target region** of around 371 bp
-- How to calculating whether or not there is an overlap between our forward and reverse read: (length of forward read) + (length of reverse read) − (length of amplicon) = length of overlap
+- We can calculate whether or not there is an overlap between our forward and reverse read: (length of forward read) + (length of reverse read) − (length of amplicon) = length of overlap
   - 250 + 250 - 411 = ~90 bp overlap
 
 
@@ -108,6 +108,23 @@ qiime diversity alpha-phylogenetic --help
 ```
 
 
+## Quality controls
+
+### FastQC
+
+Before running any analysis, it is important to check the quality of the data.
+
+[FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) is a tool to judge the quality of sequencing data (in a visual way). It is installed on Crunchomics and if you want to install it on your own machine follow the instructions found [here](https://www.bioinformatics.babraham.ac.uk/projects/download.html#fastqc).
+
+```{bash}
+mkdir -p prep/fastqc
+fastqc data/*gz -o prep/fastqc
+```
+
+If you want to know what the output means, you can look at [this tutorial](https://hbctraining.github.io/Intro-to-rnaseq-hpc-salmon/lessons/qc_fastqc_assessment.html) explaining each plot in detail.
+
+With the data at hand we won't encounter any problems, but if you do, you might want to consider quality filtering. This can be done with tools like [FastP](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/metatranscriptomics/fastp.html) or [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic).
+
 
 ## Import data
 
@@ -154,11 +171,11 @@ qiime demux summarize \
     --o-visualization prep/demux-seqs.qzv
 ```
 
-If we visualize `prep/demux-seqs.qzv`  with QIIME view, we get an overview about our samples:
+We can visualize `prep/demux-seqs.qzv` with [QIIME view](https://view.qiime2.org/) to get an overview about our samples. Below is an example of what you might see:
 
 ![](../../img/qiime_read_sum.png)
 
-Some additonal comments on importing data:
+Some additional comments on importing data:
 
 - A general tutorial on importing data can be found [here](https://docs.qiime2.org/2023.7/tutorials/importing/)
 - You can import data by: 
@@ -181,19 +198,6 @@ Useful Options:
                           semantic type provided via --type.
 -  `--show-importable-types` Show the semantic types that can be supplied to
                           --type to import data into an artifact.
-
-
-## Quality controls
-
-### FastQC
-
-[FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) is a tool to judge the quality of sequencing data (in a visual way). It is installed on Crunchomics and if you want to install it on your own machine follow the instructions found [here](https://www.bioinformatics.babraham.ac.uk/projects/download.html#fastqc).
-
-```{bash}
-mkdir prep/fastqc
-fastqc data/*gz -o prep/fastqc
-```
-
 
 
 ### Primer removal
@@ -351,13 +355,11 @@ Notice that if we look at `deblur/joined-seqs.qzv` with QIIME view we see an inc
 
 ![](../../img/qiime_merge.png)
 
-
 When merging reads with tools like vsearch, the quality scores often increase, not decrease, in the region of overlap. The reason being, if the forward and reverse read call the same base at the same position (even if both are low quality), then the quality estimate for the base in that position goes up. That is, you have two independent observations of that base in that position. This is often the benefit of being able to merge paired reads, as you can recover / increase your confidence of the sequence in the region of overlap.
 
 
 
 #### 2. Quality filtering
-
 
 Notice: Both DADA and deblur will do some quality filtering, so we do not need to be too strict here. One could consider whether to even include this step, however, running this might be useful to reduce the dataset site.
 
@@ -394,7 +396,6 @@ Default settings:
 
 
 #### 3. Create ASVs with deblur
-
 
 ```{bash}
 #default settings
@@ -487,6 +488,7 @@ qiime tools validate deblur/filt-seqs.qza
 ### Dada2
 
 The `denoise_paired` action requires a few parameters that you'll set based on the sequence quality score plots that you previously generated in the summary of the demultiplex reads. You should review those plots to:
+
 - identify where the quality begins to decrease, and use that information to set the `trunc_len_*` parameters. You'll set that for both the forward and reverse reads using the `trunc_len_f` and `trunc_len_r` parameters, respectively. 
 - If you notice a region of lower quality in the beginning of the forward and/or reverse reads, you can optionally trim bases from the beginning of the reads using the `trim_left_f` and `trim_left_r` parameters for the forward and reverse reads, respectively. 
 - If you want to speed up downstream computation, consider tightening `maxEE`. If too few reads are passing the filter, consider relaxing maxEE, perhaps especially on the reverse reads
@@ -507,6 +509,15 @@ qiime dada2 denoise-paired \
   --o-denoising-stats dada2/dada2-stats.qza \
   --verbose
 ```
+
+A word of caution: The `--p-trunc-len-f` and `--p-trunc-len-r` parameters are the most important parameters to set correctly. If you set these too high, you will lose too many reads. If you set them too low, you will have too many errors in your reads. The `--p-trim-left-f` and `--p-trim-left-r` parameters are less important, but can be useful if you have low quality bases at the beginning of your reads. 
+
+Let's look at the impact of the `--p-trunc-len-r/f` settings in our example:
+
+- In our calculation at the start of the tutorial, we said that the overlap was ~90 bp. 
+- In the example below, we set the truncation length to 230 and 220 for the forward and reverse reads, respectively.
+- If we now calculate the overlap with (length of forward read)+(length of reverse read)−(amplicon length) we get 230 + 220 - 411 = 39 bp.
+- Dada2 requires a minimum overlap of 12 bp, so we are good to go.
 
 Useful options:
 
@@ -590,9 +601,7 @@ Useful options:
                                                             [default: 1000000]
 
 
-  
 Let's now summarize the DADA2 output:
-
 
 ```{bash}
 qiime metadata tabulate \
@@ -625,6 +634,7 @@ If we compare the two tools, we should see something like this:
   -  most samples at 10,000 frequency/sample peak, histrogram looks closer to normal distribution, 1 sample with ~37 000 frequencies
 
 Overal Dada2 seems beneficial in that less reads are lost but without some deeper dive into the data the qzv files are not informative enough to decide what happened to the sequences. The reason why more DADA2 retains more reads is related to the quality filtering steps. To better compare sequences, we could compare them at a sampling depth of 2000 and should see:
+
   - Retained 94,000 (32.34%) features in 47 (100.00%) samples  (deblur) instead of 290,671 (100.00%) features in 47 (100.00%)
   - Retained 94,000 (14.49%) features in 47 (95.92%) samples (dada2) instead of  648,666 (100.00%) features in 49 (100.00%) 
 
@@ -681,9 +691,7 @@ qiime tools import \
   --input-format HeaderlessTSVTaxonomyFormat \
   --input-path db/SILVA_138_99_16S-ref-taxonomy.txt \
   --output-path db/SILVA_138_99_16S-ref-taxonomy.qza
-
 ```
-
 
 
 
@@ -1305,7 +1313,7 @@ srun -n 1 --cpus-per-task 4 qiime cutadapt trim-paired \
   --p-front-r $PRIMREV \
   --p-error-rate 0 \
   --o-trimmed-sequences prep/trimmed-seqs.qza \
-  --p-cores 2 \
+  --p-cores 4 \
   --verbose \
   2>&1 | tee logs/qiime-cutadapt-trim-paired.log
 
@@ -1318,6 +1326,12 @@ srun -n 1 --cpus-per-task 1 qiime tools extract \
    --input-path prep/trimmed-seqs.qzv \
    --output-path visualizations/trimmed-seqs
 ```
+
+**Important**:
+
+When increasing `srun --cpus-per-task 1` to a higher number you need to ensure that the actual qiime command also uses the same number of cores with `--p-cores`. If you don't do this the job will still run but it will be slower than it could be.
+
+More information about the used command:
 
 - Information about the 2>&1 is a redirection operator :
   - It says to "redirect stderr (file descriptor 2) to the same location as stdout (file descriptor 1)." This means that both stdout and stderr will be combined and sent to the same destination
@@ -1601,3 +1615,5 @@ qiime taxa barplot \
 ```{bash}
 scp crunchomics:'/home/ndombro/tutorials/evelyn_qiime/*/*.qzv' crunchomics_files/
 ```
+
+</div>
