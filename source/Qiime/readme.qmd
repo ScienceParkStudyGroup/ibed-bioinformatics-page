@@ -6,6 +6,10 @@ QIIME 2 is a platform for microbial community analysis such as 16S rRNA gene amp
 
 - [Installation instructions](https://docs.qiime2.org/2023.7/install/native/)
 - [The QIIME 2 documentation](https://docs.qiime2.org/2023.7/). 
-- [The cancer microbiome tutorial](cancer-microbiome-intervention-tutorial)
+- [The cancer microbiome tutorial]([cancer-microbiome-intervention-tutorial](https://docs.qiime2.org/jupyterbooks/cancer-microbiome-intervention-tutorial/))
 - [q2book](https://gregcaporaso.github.io/q2book/front-matter/preface.html) a very detailed, but still unfinished, tutorial on QIIME 2.
 
+Additionally, we also provide some tutorials:
+
+- [A short QIIME tutorial](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/Qiime/3_evelyn_tutorial_notes.html)
+- [Analysing an OTU table with R](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/Qiime/OTU_table_analysis.html)

@@ -103,22 +103,23 @@ website:
 
           - section: "(Meta)genomics"
             contents:
-              - source/nanopore/nanophase_how_to.qmd
               - source/metagenomics/atlas.qmd
-              - source/metagenomics/flye.qmd
-              - source/metagenomics/trycycler.qmd
-              - source/nanopore/autocycler.qmd
-              - source/metagenomics/medaka.qmd
-              - source/metagenomics/homopolish.qmd
-              - source/metagenomics/checkm2.qmd
-              - source/metagenomics/gtdb.qmd
-              - source/metagenomics/pseudofinder.qmd
-              - source/metagenomics/quast.qmd
-              - source/metagenomics/dnaapler.qmd
               - source/metagenomics/bakta.qmd
+              - source/metagenomics/barrnap.qmd
+              - source/metagenomics/checkm2.qmd
+              - source/metagenomics/dnaapler.qmd
+              - source/metagenomics/flye.qmd
+              - source/metagenomics/gtdb.qmd
+              - source/metagenomics/homopolish.qmd
+              - source/metagenomics/medaka.qmd
               - source/metagenomics/motus.qmd
+              - source/metagenomics/pseudofinder.qmd
               - source/metagenomics/pycirclize.qmd
               - source/metagenomics/pygenometracks.qmd
+              - source/metagenomics/quast.qmd
+              - source/metagenomics/trycycler.qmd
+              - source/nanopore/autocycler.qmd
+              - source/nanopore/nanophase_how_to.qmd
 
           - section: "Eukaryotic genomics"
             contents:
@@ -132,30 +133,30 @@ website:
 
           - section: "(Meta)transcriptomics"
             contents:
-              - source/metatranscriptomics/sortmerna.qmd
-              - source/metatranscriptomics/ribodetector.qmd
-              - source/metatranscriptomics/rseqc.qmd
-              - source/metatranscriptomics/star.qmd
               - source/core_tools/bowtie.qmd
-              - source/core_tools/samtools.qmd
-              - source/metatranscriptomics/stringtie.qmd
-              - source/metatranscriptomics/trinity.qmd
-              - source/metatranscriptomics/transdecoder.qmd
-              - source/core_tools/featurecounts.qmd
-              - source/core_tools/rsem.qmd
               - source/metatranscriptomics/DSEq2.qmd
+              - source/core_tools/featurecounts.qmd
+              - source/metatranscriptomics/ribodetector.qmd
+              - source/core_tools/rsem.qmd
+              - source/metatranscriptomics/rseqc.qmd
+              - source/core_tools/samtools.qmd    
+              - source/metatranscriptomics/sortmerna.qmd
+              - source/metatranscriptomics/star.qmd
+              - source/metatranscriptomics/stringtie.qmd
+              - source/metatranscriptomics/transdecoder.qmd
+              - source/metatranscriptomics/trinity.qmd
 
           - section: "Nanopore analyses"
             contents:
-              - source/nanopore/filtlong.qmd
-              - source/nanopore/nanoqc_readme.qmd
-              - source/nanopore/nanoplot_readme.qmd
-              - source/nanopore/ngspeciesid.qmd
-              - source/nanopore/porechop_readme.qmd
               - source/nanopore/chopper.qmd
+              - source/nanopore/filtlong.qmd
               - source/nanopore/nanoclass.qmd
               - source/nanopore/nanoITS.qmd
               - source/nanopore/nanophase_how_to.qmd
+              - source/nanopore/nanoplot_readme.qmd
+              - source/nanopore/nanoqc_readme.qmd
+              - source/nanopore/ngspeciesid.qmd
+              - source/nanopore/porechop_readme.qmd
 
           - section: "Phylogenomics"
             contents:

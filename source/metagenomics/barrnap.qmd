@@ -1,0 +1,75 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+## Barrnap
+
+### Introduction
+
+[Barrnap ](https://github.com/tseemann/barrnap) predicts the location of ribosomal RNA genes in genomes. It supports bacteria (5S, 23S, 16S), archaea (5S, 5.8S, 23S, 16S), metazoan mitochondria (12S,16S) and eukaryotes (5S,5.8S,28S,18S).
+
+It takes FASTA DNA sequence as input, and write GFF3 as output. It uses the nhmmer tool that comes with HMMER 3.1 for HMM searching in RNA:DNA style. Multithreading is supported and one can expect roughly linear speed-ups with more CPUs.
+
+### Installation
+
+Installed on Crunchomics: Yes,
+
+-   Barrnap v0.9 is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics share, then you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski\@uva.nl.
+-   Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run:
+
+```{bash}
+mamba create --name barrnap_0.9 -c bioconda barrnap=0.9
+```
+
+### Usage
+
+Barrnap takes as input a genome.fna file that NEEDS to have the fna extension. With other extensions you will encounter the following error: ERROR: No input file on command line or stdin.
+
+#### Single genome
+
+```{bash}
+conda activate barrnap_0.9 
+
+barrnap \
+  --kingdom bac --threads 20 \
+  --outseq results/barrnap/genome_barrnap.fasta my_genome.fna
+```
+
+#### Multiple genomes
+
+```{bash}
+# Several genomes
+for i in $(ls genome_folder/*fna); do 
+  genome=$(basename $i .fna)
+
+  barrnap \
+  --kingdom bac --threads 20 \
+  --outseq results/barrnap/${genome}_barrnap.fasta \
+  ${i}
+done
+```
+
+Useful options:
+
+-   `--help` show help and exit
+-   `--version` print version in form `barrnap X.Y` and exit
+-   `--citation` print a citation and exit
+-   `--kingdom` is the database to use: Bacteria:`bac`, Archaea:`arc`, Eukaryota:`euk`, Metazoan Mitochondria:`mito`
+-   `--threads` is how many CPUs to assign to `nhmmer` search
+-   `--evalue` is the cut-off for `nhmmer` reporting, before further scrutiny
+-   `--lencutoff` is the proportion of the full length that qualifies as `partial` match
+-   `--reject` will not include hits below this proportion of the expected length
+-   `--quiet` will not print any messages to `stderr`
+-   `--incseq` will include the full input sequences in the output GFF
+-   `--outseq` creates a FASTA file with the hit sequences

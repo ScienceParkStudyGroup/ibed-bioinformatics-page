@@ -296,5 +296,8 @@
   },
   "source/metagenomics/medaka.qmd": {
     "medaka.html": "cc6769a7"
+  },
+  "source/metagenomics/barrnap.qmd": {
+    "barrnap.html": "4623caba"
   }
 }
