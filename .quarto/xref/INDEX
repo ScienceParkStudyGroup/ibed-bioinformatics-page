@@ -299,5 +299,8 @@
   },
   "source/metagenomics/barrnap.qmd": {
     "barrnap.html": "4623caba"
+  },
+  "source/metagenomics/coverm.qmd": {
+    "coverm.html": "fb757fb3"
   }
 }

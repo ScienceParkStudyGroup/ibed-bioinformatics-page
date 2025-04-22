@@ -114,7 +114,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
-    <lastmod>2025-04-22T08:43:43.757Z</lastmod>
+    <lastmod>2025-04-22T09:01:17.304Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/Qiime/3_evelyn_tutorial_notes.html</loc>
@@ -347,5 +347,9 @@
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/barrnap.html</loc>
     <lastmod>2025-04-22T08:41:29.894Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/coverm.html</loc>
+    <lastmod>2025-04-22T09:01:01.678Z</lastmod>
   </url>
 </urlset>

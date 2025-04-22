@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>diamond – Bioinformatics guidance page</title>
+<title>coverm – Bioinformatics guidance page</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -84,8 +84,8 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/core_tools/hmmer.html" rel="next">
-<link href="../../source/core_tools/busco.html" rel="prev">
+<link href="../../source/metagenomics/dnaapler.html" rel="next">
+<link href="../../source/metagenomics/checkm2.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -138,7 +138,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/busco.html">Core tools</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/diamond.html">Diamond</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/atlas.html">(Meta)genomics</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/coverm.html">CoverM</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -254,13 +254,13 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
  <span class="menu-text">Core tools</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/busco.html" class="sidebar-item-text sidebar-link">
@@ -269,7 +269,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/diamond.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../source/core_tools/diamond.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Diamond</span></a>
   </div>
 </li>
@@ -377,13 +377,13 @@ div.csl-indent {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
  <span class="menu-text">(Meta)genomics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/atlas.html" class="sidebar-item-text sidebar-link">
@@ -410,7 +410,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/coverm.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/coverm.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">CoverM</span></a>
   </div>
 </li>
@@ -851,21 +851,18 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#diamond" id="toc-diamond" class="nav-link active" data-scroll-target="#diamond">Diamond</a>
+  <li><a href="#coverm" id="toc-coverm" class="nav-link active" data-scroll-target="#coverm">CoverM</a>
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
-  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a>
-  <ul class="collapse">
-  <li><a href="#generating-your-own-diamond-database" id="toc-generating-your-own-diamond-database" class="nav-link" data-scroll-target="#generating-your-own-diamond-database">Generating your own diamond database</a></li>
-  <li><a href="#running-a-diamond-search" id="toc-running-a-diamond-search" class="nav-link" data-scroll-target="#running-a-diamond-search">Running a diamond search</a></li>
-  </ul></li>
+  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
+  <li><a href="#trouble-shooting" id="toc-trouble-shooting" class="nav-link" data-scroll-target="#trouble-shooting">Trouble shooting</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/diamond.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/coverm.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/busco.html">Core tools</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/diamond.html">Diamond</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/atlas.html">(Meta)genomics</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/coverm.html">CoverM</a></li></ol></nav></header>
 
 <header id="title-block-header">
 
@@ -873,156 +870,75 @@ div.csl-indent {
 </header>
 
 
-<section id="diamond" class="level2" style="text-align: justify">
-<h2 class="anchored" data-anchor-id="diamond">Diamond</h2>
+<section id="coverm" class="level2" style="text-align: justify">
+<h2 class="anchored" data-anchor-id="coverm">CoverM</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>DIAMOND is a sequence aligner for protein and translated DNA searches, designed for high performance analysis of big sequence data <span class="citation" data-cites="Buchfink2021a">(<a href="#ref-Buchfink2021a" role="doc-biblioref">Buchfink, Reuter, and Drost 2021</a>)</span>. The key features are:</p>
-<ul>
-<li>Pairwise alignment of proteins and translated DNA at 100x-10,000x speed of BLAST.</li>
-<li>Protein clustering of up to tens of billions of proteins</li>
-<li>Frameshift alignments for long read analysis.</li>
-<li>Low resource requirements and suitable for running on standard desktops or laptops.</li>
-<li>Various output formats, including BLAST pairwise, tabular and XML, as well as taxonomic classification.</li>
-</ul>
-<p>For a full description, please visit the tools <a href="https://github.com/bbuchfink/diamond">website</a>.</p>
+<p>CoverM aims to be a configurable, easy to use and fast DNA read coverage and relative abundance calculator focused on metagenomics applications <span class="citation" data-cites="Aroney2025">(<a href="#ref-Aroney2025" role="doc-biblioref">Aroney et al. 2025</a>)</span>.</p>
+<p>CoverM calculates coverage of genomes/MAGs via <code>coverm genome</code> (<a href="https://wwood.github.io/CoverM/coverm-genome.html">help</a>) or individual contigs via <code>coverm contig</code> (<a href="https://wwood.github.io/CoverM/coverm-contig.html">help</a>). Calculating coverage by read mapping, its input can either be BAM files sorted by reference, or raw reads and reference genomes in various formats.</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>Installed on crunchomics: Yes,</p>
+<p>Installed on Crunchomics: Yes,</p>
 <ul>
-<li>Diamond v 2.1.9 is installed by default on the Crunchomics HPC</li>
+<li>CoverM v0.7.0 is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics share, then you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski@uva.nl.</li>
+<li>Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don’t need to run this command):</li>
 </ul>
-<p>If you want to install the latest version yourself, you can run:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> diamond <span class="at">-c</span> bioconda <span class="at">-c</span> conda-forge diamond</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you want to install it yourself, you can run:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">--name</span> coverm_0.7.0 <span class="at">-c</span> bioconda coverm=0.7.0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="usage" class="level3">
 <h3 class="anchored" data-anchor-id="usage">Usage</h3>
-<section id="generating-your-own-diamond-database" class="level4">
-<h4 class="anchored" data-anchor-id="generating-your-own-diamond-database">Generating your own diamond database</h4>
-<p>To generate your own database, feel free to follow the instructions found <a href="https://github.com/bbuchfink/diamond/wiki/1.-Tutorial">here</a>. Additionally, if you want to build a database using NCBI BLAST database and want to include taxonomy information in your searches, you can follow an example to prepare a diamond database from NCBI nr <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/ncbi_nr.html">here</a>.</p>
-</section>
-<section id="running-a-diamond-search" class="level4">
-<h4 class="anchored" data-anchor-id="running-a-diamond-search">Running a diamond search</h4>
-<p>With diamond you can run a BlastP as well as BlastX search against a diamond (dmnd) database.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic usage using a protein file as query and use nr as database</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">diamond</span> blastp <span class="at">-q</span> proteins.faa <span class="at">-d</span> nr <span class="at">-o</span> out.tsv <span class="at">--very-sensitive</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Running a search against a NCBI database </span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">diamond</span> blastp <span class="at">-q</span> proteins.faa <span class="dt">\</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--more-sensitive</span> <span class="at">--evalue</span> 1e-3 <span class="at">--threads</span> 20 <span class="at">--include-lineage</span> <span class="at">--max-target-seqs</span> 50 <span class="dt">\</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--db</span> /zfs/omics/projects/bioinformatics/databases/ncbi_nr/diamond/nr <span class="dt">\</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--outfmt</span> 6 qseqid qtitle qlen sseqid salltitles slen qstart qend sstart send evalue bitscore length pident staxids sphylums <span class="dt">\</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> results.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate coverm_0.7.0</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> results/coverm/</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  Calculate read coverage per-genome</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">coverm</span> genome <span class="dt">\</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--interleaved</span> data/sample1.fastq.gz data/sample2.fastq.gz data/sample3.fastq.gz <span class="dt">\</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--genome-fasta-directory</span> genome_folder <span class="dt">\</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--genome-fasta-extension</span> fasta <span class="dt">\</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">-t</span> 8 <span class="dt">\</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">-m</span> mean relative_abundance covered_fraction <span class="dt">\</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> results/coverm/output_coverm.tsv</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>For a full set of options, please visit the <a href="https://github.com/bbuchfink/diamond/wiki/3.-Command-line-options">manual</a>.</p>
-<p>General options:</p>
+<p>Useful settings:</p>
 <ul>
-<li><code>--threads/-p</code>: Number of CPU threads. By default, the program will auto-detect and use all available virtual cores on the machine</li>
+<li><code>-1 PATH ..</code>: Forward FASTA/Q file(s) for mapping. These may be gzipped or not.</li>
+<li><code>-2 PATH ..</code>: Reverse FASTA/Q file(s) for mapping. These may be gzipped or not.</li>
+<li><code>-c</code>, <code>--coupled PATH ..</code>: One or more pairs of forward and reverse possibly gzipped FASTA/Q files for mapping in order &lt;sample1_R1.fq.gz&gt; &lt;sample1_R2.fq.gz&gt; &lt;sample2_R1.fq.gz&gt; &lt;sample2_R2.fq.gz&gt; ..</li>
+<li><code>--interleaved PATH ..</code>: Interleaved FASTA/Q files(s) for mapping. These may be gzipped or not.</li>
+<li><code>--single PATH ..</code>: Unpaired FASTA/Q files(s) for mapping. These may be gzipped or not.</li>
+<li><code>-f</code>, <code>--genome-fasta-files PATH ..</code>: Path(s) to FASTA files of each genome e.g.&nbsp;pathA/genome1.fna pathB/genome2.fa.</li>
+<li><code>-d</code>, <code>--genome-fasta-directory PATH</code>: Directory containing FASTA files of each genome.</li>
+<li><code>-x</code>, <code>--genome-fasta-extension EXT</code>: File extension of genomes in the directory specified with -d/–genome-fasta-directory. [default: fna]</li>
+<li><code>--genome-fasta-list PATH</code>: File containing FASTA file paths, one per line.</li>
+<li><code>-p,</code> <code>--mapper NAME</code>: Underlying mapping software used [default: minimap2-sr]. minimap2-sr, bwa-mem, bwa-mem2, minimap2-ont, minimap2-pb, minimap2-hifi, minimap2-no-preset</li>
+<li><code>-m</code>, <code>--methods METHOD</code>: Method(s) for calculating coverage [default: relative_abundance]. A more thorough description of the different methods is available at <a href="https://github.com/wwood/CoverM#calculation-methods">here</a>.</li>
 </ul>
-<p>Input options:</p>
-<ul>
-<li><code>--db/-d &lt;file&gt;</code> : Path to the DIAMOND database file. <strong>Since v2.0.8, a BLAST database can also be used here.</strong> Specify the base path of the database without file extensions. Since v2.0.10, BLAST databases have to be prepared using the <code>prepdb</code> command. <em>Note that for self-made BLAST databases, <code>makeblastdb</code> should be used with the <code>-parse_seqids</code> option.</em></li>
-<li><code>--query/-q &lt;file&gt;</code>: Path to the query input file in FASTA or FASTQ format (may be gzip compressed, or zstd compressed if compiled with zstd support). If this parameter is omitted, the input will be read from <code>stdin</code>.</li>
-<li><code>--taxonlist &lt;list&gt;</code>: Comma-separated list of NCBI taxonomic IDs to filter the database by. Any taxonomic rank can be used, and only reference sequences matching one of the specified taxon ids will be searched against. Using this option requires setting the <code>--taxonmap</code> and <code>--taxonnodes</code> parameters for <code>makedb</code>.</li>
-<li><code>--taxon-exclude &lt;list&gt;</code>: Comma-separated list of NCBI taxonomic IDs to exclude from the database. Using this option requires setting the <code>--taxonmap</code> and <code>--taxonnodes</code> parameters for <code>makedb</code>.</li>
-<li><code>--seqidlist &lt;filename&gt;</code>: Filter the database by a list of accessions provided as a text file. <em>Only supported when using a BLAST database.</em></li>
-<li><code>--query-gencode #</code>: Genetic code used for translation of query in BLASTX mode. A list of possible values can be found at the <a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi">NCBI website</a>. By default, the Standard Code is used. Note: changing the genetic code is currently not fully supported for the DAA format.</li>
-<li><code>--strand {both, plus, minus}</code>: Set strand of query to align for translated searches. By default both strands are searched.</li>
-<li><code>--min-orf/-l #</code> : Ignore translated sequences that do not contain an open reading frame of at least this length. By default this feature is disabled for sequences of length below 30, set to 20 for sequences of length below 100, and set to 40 otherwise. Setting this option to <code>1</code> will disable this feature.</li>
-</ul>
-<p>Sensitivity modes:</p>
-<p>Without using any sensitivity option, the default mode will run which is designed for finding hits of &gt;60% identity and short read alignment.</p>
-<ul>
-<li><code>--fast</code>: Enable the fast sensitivity mode, which runs faster than default and is designed for finding hits of &gt;90% identity. <em>Option supported since v2.0.10</em></li>
-<li><code>--mid-sensitive</code>: Enable the mid-sensitive mode which is between the default mode and the sensitive mode in sensitivity. <em>Option supported since v2.0.3</em></li>
-<li><code>--sensitive</code>: Enable the sensitive mode designed for full sensitivity for hits of &gt;40% identity.</li>
-<li><code>--more-sensitive</code>: This mode is equivalent to the <code>--sensitive</code> mode except for soft-masking of certain motifs being disabled (same as setting <code>--motif-masking 0</code>).</li>
-<li><code>--very-sensitive</code>: Enable the very-sensitive mode designed for best sensitivity including the twilight zone range of &lt;40% identity.</li>
-<li><code>--ultra-sensitive</code>: Enable the ultra-sensitive mode which is yet more sensitive than the <code>--very-sensitive</code> mode. <strong>Available since version 2.0.0.</strong></li>
-</ul>
-<p>Output options:</p>
-<ul>
-<li><code>--out/-o &lt;file&gt;</code>: Path to the output file. If this parameter is omitted, the results will be written to the standard output and all other program output will be suppressed.</li>
-<li><code>--outfmt/-f #</code>: Format of the output file. The following values are accepted:
-<ul>
-<li><code>0</code>: BLAST pairwise format.</li>
-<li><code>5</code>: BLAST XML format.</li>
-<li><code>6</code>: BLAST tabular format (default). This format can be customized, the <code>6</code> may be followed by a space-separated list of the following keywords, each specifying a field of the output. <em>N.B.</em>: these additional arguments should <strong>not</strong> be quoted as is often required for other tools, e.g.&nbsp;use <code>diamond --outfmt 6 qseqid sseqid</code>, <strong>not</strong> <code>diamond --outfmt '6 qseqid sseqid'</code>
-<ul>
-<li><code>qseqid</code>: Query Seq - id</li>
-<li><code>qlen</code>: Query sequence length</li>
-<li><code>sseqid</code>: Subject Seq - id</li>
-<li><code>sallseqid</code>: All subject Seq - id(s), separated by a ’;’</li>
-<li><code>slen</code>: Subject sequence length</li>
-<li><code>qstart</code>: Start of alignment in query*</li>
-<li><code>qend</code>: End of alignment in query*</li>
-<li><code>sstart</code>: Start of alignment in subject*</li>
-<li><code>send</code>: End of alignment in subject*</li>
-<li><code>qseq</code>: Aligned part of query sequence*</li>
-<li><code>qseq_translated</code>: Aligned part of query sequence (translated)* <em>Supported since v2.0.7.</em></li>
-<li><code>full_qseq</code>: Full query sequence</li>
-<li><code>full_qseq_mate</code>: Query sequence of the mate (requires two files for <code>--query</code>) <em>Supported since v2.0.7.</em></li>
-<li><code>sseq</code>: Aligned part of subject sequence*</li>
-<li><code>full_sseq</code>: Full subject sequence</li>
-<li><code>evalue</code>: Expect value</li>
-<li><code>bitscore</code>: Bit score</li>
-<li><code>score</code>: Raw score</li>
-<li><code>length</code>: Alignment length*</li>
-<li><code>pident</code>: Percentage of identical positions*</li>
-<li><code>nident</code>: Number of identical matches*</li>
-<li><code>mismatch</code>: Number of mismatches*</li>
-<li><code>positive</code>: Number of positive - scoring matches*</li>
-<li><code>gapopen</code>: Number of gap openings*</li>
-<li><code>gaps</code>: Total number of gaps*</li>
-<li><code>ppos</code>: Percentage of positive - scoring matches*</li>
-<li><code>qframe</code>: Query frame</li>
-<li><code>btop</code>: Blast traceback operations(BTOP)*</li>
-<li><code>cigar</code>: CIGAR string*</li>
-<li><code>staxids</code>: Unique Subject Taxonomy ID(s), separated by a ’;’ (in numerical order). This field requires setting the <code>--taxonmap</code> parameter for <code>makedb</code>.</li>
-<li><code>sscinames</code>: Unique Subject Scientific Name(s), separated by a ‘;’.</li>
-<li><code>sskingdoms</code>: Unique Subject Super Kingdom(s), separated by a ‘;’.</li>
-<li><code>skingdoms</code>: Unique Subject Kingdom(s), separated by a ‘;’.</li>
-<li><code>sphylums</code>: Unique Subject Phylums(s), separated by a ‘;’.</li>
-<li><code>stitle</code>: Subject Title</li>
-<li><code>salltitles</code>: All Subject Title(s), separated by a ’&lt;&gt;’</li>
-<li><code>qcovhsp</code>: Query Coverage Per HSP*</li>
-<li><code>scovhsp</code>: Subject Coverage Per HSP*</li>
-<li><code>qtitle</code>: Query title<br>
-</li>
-<li><code>qqual</code>: Query quality values for the aligned part of the query*</li>
-<li><code>full_qqual</code>: Query quality values</li>
-<li><code>qstrand</code>: Query strand</li>
-</ul></li>
-</ul></li>
-<li><code>--salltitles</code>: Include full length subject titles into the DAA format. By default, DAA files contain only the shortened sequence id (up to the first blank character).</li>
-<li><code>--sallseqid</code>: Include all subject ids into the DAA file. By default only the first id of each subject is included. As the subject ids are much shorter than the full titles this option will save space compared to the <code>--salltitles</code> option.</li>
-<li><code>--compress (0,1,zstd)</code>: Enable compression of the output file. <code>0</code> (default) means no compression, <code>1</code> means gzip compression, <code>zstd</code> means zstd compression (executable is required to have been compiled with zstd support).</li>
-<li><code>--max-target-seqs/-k #</code> : The maximum number of target sequences per query to reportalignments for (default=25). Setting this to <code>-k0</code> will report all targets for which alignments were found. <em>Note that this parameter does not only affect the reporting, but also the algorithm as it is taken into account for heuristics that eliminate hits prior to full gapped extension.</em></li>
-<li><code>--top #</code>: Report alignments within the given percentage range of the top alignment score for a query (overrides <code>--max-target-seqs</code> option). For example, setting <code>--top 10</code> will report all alignments whose score is at most 10% lower than the best alignment score for a query. Using this option will cause targets to be sorted by bit score instead of e-evalue in the output.</li>
-<li><code>--max-hsps #</code>: The maximum number of HSPs (High-Scoring Segment Pairs) per target sequence to report for each query. The default policy is to report only the highest-scoring HSP for each target, while disregarding alternative, lower-scoring HSPs that are contained in the same target.<strong>This is not to be confused with the <code>--max-target-seqs</code> option.</strong></li>
-<li><code>--range-culling</code>: Enable hit culling with respect to the query range. This feature is designed for long query DNA sequences that may span several genes. In these cases, reporting the overall top N hits can cause hits to a lower-scoring gene to be superseded by a higher-scoring gene.Using this option, hit culling will be performed locally with respect to a hit’s query range, thus reporting the locally top N hits while allowing more hits that span a different region of the query. Using this feature along with <code>-k 25</code> (default), a hit will only be deleted if at least 50% of its query range is spanned by at least 25 higher or equal scoring hits.</li>
-<li><code>--evalue/-e #</code>: Maximum expected value to report an alignment (default=0.001).</li>
-<li><code>--min-score #</code>: Minimum bit score to report an alignment. Setting this option will override the <code>--evalue</code> parameter.</li>
-<li><code>--id #</code>: Report only alignments above the given percentage of sequence identity.<em>Note that using this option reduces performance.</em></li>
-<li><code>--query-cover #</code>: Report only alignments above the given percentage of query cover.<em>Note that using this option reduces performance.</em></li>
-<li><code>--subject-cover #</code>: Report only alignments above the given percentage of subject cover. <em>Note that using this option reduces performance.</em></li>
-<li><code>--unal (0,1)</code>: Report unaligned queries (0=no, 1=yes). By default, unaligned queries are reported for the BLAST pairwise, BLAST XML and SAM format.</li>
-<li><code>--no-self-hits</code>: Suppress reporting of identical self-hits between sequences. The FASTA sequence identifiers as well as the sequences of query and target need to be identical for a hit to be deleted.</li>
-</ul>
+<p>For a full set of options visit the <a href="https://wwood.github.io/CoverM/coverm-genome.html">coverm genome manual</a>.</p>
+<p>If you want to run CoverM on contigs, visit the <a href="https://wwood.github.io/CoverM/coverm-contig.html">coverm contig manual</a>.</p>
+</section>
+<section id="trouble-shooting" class="level3">
+<h3 class="anchored" data-anchor-id="trouble-shooting">Trouble shooting</h3>
+<p>CoverM is quite memory intensive and might not run efficiently on many samples. For such cases, it might be preferable to run CoverM on a single sample at a time and optimize the run by using <a href="https://ndombrowski.github.io/cli_workshop/source/hpc_howto.html">bash arrays</a> or tools like GNU parallel.</p>
+</section>
+</section>
 
 
-</section>
-</section>
-</section>
 
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-Buchfink2021a" class="csl-entry" role="listitem">
-Buchfink, Benjamin, Klaus Reuter, and Hajk-Georg Drost. 2021. <span>“Sensitive Protein Alignments at Tree-of-Life Scale Using DIAMOND.”</span> <em>Nature Methods</em> 18 (4): 366–68. <a href="https://doi.org/10.1038/s41592-021-01101-x">https://doi.org/10.1038/s41592-021-01101-x</a>.
+<div id="ref-Aroney2025" class="csl-entry" role="listitem">
+Aroney, Samuel T N, Rhys J P Newell, Jakob N Nissen, Antonio Pedro Camargo, Gene W Tyson, and Ben J Woodcroft. 2025. <span>“CoverM: Read Alignment Statistics for Metagenomics.”</span> Edited by Can Alkan. <em>Bioinformatics</em> 41 (4). <a href="https://doi.org/10.1093/bioinformatics/btaf147">https://doi.org/10.1093/bioinformatics/btaf147</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1593,13 +1509,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/core_tools/busco.html" class="pagination-link" aria-label="BUSCO">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">BUSCO</span>
+      <a href="../../source/metagenomics/checkm2.html" class="pagination-link" aria-label="CheckM2">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">CheckM2</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/core_tools/hmmer.html" class="pagination-link" aria-label="HMMER">
-        <span class="nav-page-text">HMMER</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/metagenomics/dnaapler.html" class="pagination-link" aria-label="dnaapler">
+        <span class="nav-page-text">dnaapler</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1611,8 +1527,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2025-04-16</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/diamond.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+Last modified: 2025-04-22</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/coverm.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

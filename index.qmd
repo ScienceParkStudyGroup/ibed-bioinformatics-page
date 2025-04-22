@@ -98,6 +98,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
     <li><a href="source/core_tools/busco.qmd">BUSCO</a>: Quality assessment of (meta)genomes, transcriptomes and proteomes</li>
     <li><a href="source/metagenomics/checkm2.qmd">CheckM2</a>: A tool to assess the quality of a genome assembly</li>
     <li><a href="source/nanopore/chopper.qmd">Chopper</a>: A tool for quality filtering of long read data</li>
+    <li><a href="source/metagenomics/coverm.qmd">CoverM</a>: A  DNA read coverage and relative abundance calculator focused on metagenomics applications</li>
     <li><a href="source/metagenomics/deeploc.qmd">DeepLoc</a>: A tool to predict the subcellular localization(s) of eukaryotic proteins</li>
     <li><a href="source/core_tools/diamond.qmd">Diamond</a>: A sequence aligner for protein and translated DNA searches</li>
     <li><a href="source/metagenomics/dnaapler.qmd">Dnaapler</a>: A tool to re-orient a genome, for example at dnaA</li>
