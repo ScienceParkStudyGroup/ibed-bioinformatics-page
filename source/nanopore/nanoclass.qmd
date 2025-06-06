@@ -78,10 +78,10 @@ Next, we copy over the test data, the mapping file, and the config file that com
 ```{bash}
 # Copy some test data over (comes with NanoClass2) 
 mkdir data 
-cp /zfs/omics/projects/amplicomics/bin/NanoClass2/example_files/*fastq.gz data/
+cp /zfs/omics/projects/amplicomics/bin/NanoClass2_Silva_1.0/example_files/*fastq.gz data/
 
 # Copy the mapping file (comes with NanoClass2) 
-cp /zfs/omics/projects/amplicomics/bin/NanoClass2/example_files/mapping.csv .
+cp /zfs/omics/projects/amplicomics/bin/NanoClass2_Silva_1.0/example_files/mapping.csv .
 
 # Ensure that the path to the fastq data is correct in mapping.csv
 # you can keep the text in the `search` variable as is
@@ -92,7 +92,7 @@ replace='/home/ndombro/personal/testing/amplicomics_test/data/'
 sed -i -e  "s|$search|$replace|" mapping.csv
 
 # Copy config yaml (comes with NanoClass2) 
-cp /zfs/omics/projects/amplicomics/bin/NanoClass2/config.yaml .
+cp /zfs/omics/projects/amplicomics/bin/NanoClass2_Silva_1.0/config.yaml .
 ```
 
 When setting up `mapping.csv` for your own samples, make sure to **use the absolute path**. In the example above, we use `/home/ndombro/personal/testing/amplicomics_test/data/` and not `data/`. Don't use the relative path, as NanoClass2 will look for the input files relative to where it is installed and not to where your working directory is (or from where you want to execute NanoClass2).
@@ -124,9 +124,9 @@ When running snakemake with `-np` this will not run NanoClass itself but only pe
 ```{bash}
 # Perform a dry-run
 snakemake --cores 1 \
-    -s /zfs/omics/projects/amplicomics/bin/NanoClass2/Snakefile \
+    -s /zfs/omics/projects/amplicomics/bin/NanoClass2_Silva_1.0/Snakefile \
     --configfile config.yaml \
-    --use-conda --conda-prefix /zfs/omics/projects/amplicomics/bin/NanoClass2/.snakemake/conda \
+    --use-conda --conda-prefix /zfs/omics/projects/amplicomics/bin/NanoClass2_Silva_1.0/.snakemake/conda \
     --nolock --rerun-incomplete -np
 ```
 
@@ -138,7 +138,7 @@ The NanoClass2 installation comes with an example sbatch script that you can mov
 
 ```{bash}
 # Copy a template batch script (comes with NanoClass2) 
-cp /zfs/omics/projects/amplicomics/bin/NanoClass2/jobscript.sh .
+cp /zfs/omics/projects/amplicomics/bin/NanoClass2_Silva_1.0/jobscript.sh .
 ```
 
 The jobscript is setup to work with NanoClass2 in the amplicomics environment and you should not need to change anything if your config.yaml is set up correctly.
@@ -148,7 +148,7 @@ The script does the following:
 -   Requests 58 crunchomics cpus and 460G of memory. One can set this lower, but for testing purposes you might keep these values. The can be changed with `#SBATCH --cpus-per-task=58` and `#SBATCH --mem=460G`
 -   Ensures that conda is loaded properly by running `source ~/.bashrc`. The bashrc is a script executed once a user logs in and holds special configurations, such as telling the shell where conda is installed. If you run into issues that are related to conda/mamba not being found then open the this file with `nano ~/.bashrc` and check that you have a section with text similar to `# >>> conda initialize >>>`. If this is not present you might need to run `conda init bash` to add it.
 -   Activates the snakemake conda environment that is found in the amplicomics share with `conda activate /zfs/omics/projects/amplicomics/miniconda3/envs/snakemake_nanoclass2`
--   Runs NanoClass2. When using the script as is, the script assumes that NanoClass2 is installed at this path `/zfs/omics/projects/amplicomics/bin/NanoClass2/` and that the config.yaml is located in the folder from which you analyse the data. If that is not the case, change the paths accordingly
+-   Runs NanoClass2. When using the script as is, the script assumes that NanoClass2 is installed at this path `/zfs/omics/projects/amplicomics/bin/NanoClass2_Silva_1.0/` and that the config.yaml is located in the folder from which you analyse the data. If that is not the case, change the paths accordingly
 
 Next, we can submit the job as follows:
 
@@ -171,7 +171,7 @@ Finally, we can create a report with the following command:
 ```{bash}
 snakemake --report report.html \
   --configfile config.yaml \
-  -s /zfs/omics/projects/amplicomics/bin/NanoClass2/Snakefile
+  -s /zfs/omics/projects/amplicomics/bin/NanoClass2_Silva_1.0/Snakefile
 ```
 
 To view the report, its best to copy the html to your computer and open it via any web browser.
@@ -195,4 +195,4 @@ For an example on how to format a custom database, check out [these instructions
 
 For UvA researchers, the [Cyanoseq](https://github.com/flefler/CyanoSeq) with [GSR-DB](https://manichanh.vhir.org/gsrdb/index.php) as the bacterial database is available on the amplicomics share. This database is a curated database of 16S rRNA gene sequences from cyanobacteria. 
 
-To run NanoClass2 with Cyanoseq, you can follow the notes of this tutorial. However, instead of using the Nanoclass2 installation in ```/zfs/omics/projects/amplicomics/bin/NanoClass2/```, you should use the installation in ```/zfs/omics/projects/amplicomics/bin/NanoClass2_CyanoSeq/```.
+To run NanoClass2 with Cyanoseq, you can follow the notes of this tutorial. However, instead of using the Nanoclass2 installation in ```/zfs/omics/projects/amplicomics/bin/NanoClass2_Silva_1.0/```, you should use the installation in ```/zfs/omics/projects/amplicomics/bin/NanoClass2_CyanoSeq_1.0/```.
