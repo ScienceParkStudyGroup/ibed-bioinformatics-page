@@ -302,5 +302,8 @@
   },
   "source/metagenomics/coverm.qmd": {
     "coverm.html": "fb757fb3"
+  },
+  "source/metagenomics/singlem.qmd": {
+    "singlem.html": "bacaa0c5"
   }
 }
