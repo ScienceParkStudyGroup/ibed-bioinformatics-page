@@ -67,6 +67,8 @@ conda activate singlem_0.19.0
 export SINGLEM_METAPACKAGE_PATH='/zfs/omics/projects/bioinformatics/databases/singlem/S5.4.0.GTDB_r226.metapackage_20250331.smpkg.zb'
 
 # Generate OTU tables with GTDB taxonomic profiles
+mkdir results 
+
 singlem pipe \
 	-1 data/NIOZ114_R1.fastq.gz \
 	-2 data/NIOZ114_R2.fastq.gz \
@@ -105,34 +107,38 @@ export SINGLEM_METAPACKAGE_PATH='/zfs/omics/projects/bioinformatics/databases/si
 
 # Generate OTU tables with GTDB taxonomic profiles
 # Loop through all R1 files found in the data folder (assumes that the sample name is part of the file name)
+mkdir results 
+
 for R1 in data/*_R1.fastq.gz; do
-    # Derive corresponding R2 file and sample name
+    # Derive corresponding R2 file name by replacing _R1 with _R2
     R2="${R1/_R1/_R2}"
+
+    # Extract the sample name from the file name
     SAMPLE=$(basename "$R1" | sed 's/_R1.fastq.gz//')
 
     # Run singlem pipe
     singlem pipe \
         -1 "$R1" -2 "$R2" \
-        -p "output.${SAMPLE}.profile.tsv" \
-        --otu-table "output.${SAMPLE}.table.tsv"
-        --threads 10 
+        -p results/output.${SAMPLE}.profile.tsv \
+        --otu-table results/output.${SAMPLE}.table.tsv
+        --threads 20 
 done
 
 # Generate one single otu table in long format
-singlem summarise --input-otu-tables output.*.table.tsv \
-    --output-otu-table combined.otu_table.csv
+singlem summarise --input-otu-tables results/output.*.table.tsv \
+    --output-otu-table results/combined.otu_table.csv
 
 # Generate Krona plots 
-singlem summarise --input-taxonomic-profile output.*.profile.tsv \
-    --output-taxonomic-profile-krona doco_example.profile.html
+singlem summarise --input-taxonomic-profile results/output.*.profile.tsv \
+    --output-taxonomic-profile-krona results/doco_example.profile.html
 
 # Generate relative abundance and species by site tbles (for each taxonomic level)
-singlem summarise --input-taxonomic-profile output.*.profile.tsv \
-    --output-species-by-site-relative-abundance-prefix myprefix
+singlem summarise --input-taxonomic-profile results/output.*.profile.tsv \
+    --output-species-by-site-relative-abundance-prefix results/myprefix
 
 # Store data in long format with additional columns 
 singlem summarise --input-taxonomic-profile output.*.profile.tsv \
-    --output-taxonomic-profile-with-extras doco_example.with_extras.tsv
+    --output-taxonomic-profile-with-extras results/doco_example.with_extras.tsv
 ```
 
 

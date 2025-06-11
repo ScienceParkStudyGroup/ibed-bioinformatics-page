@@ -931,12 +931,14 @@ div.csl-indent {
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">SINGLEM_METAPACKAGE_PATH</span><span class="op">=</span><span class="st">'/zfs/omics/projects/bioinformatics/databases/singlem/S5.4.0.GTDB_r226.metapackage_20250331.smpkg.zb'</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate OTU tables with GTDB taxonomic profiles</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">singlem</span> pipe <span class="dt">\</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">-1</span> data/NIOZ114_R1.fastq.gz <span class="dt">\</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">-2</span> data/NIOZ114_R2.fastq.gz <span class="dt">\</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">-p</span> results/output.profile.tsv <span class="dt">\</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">--otu-table</span> results/output.table.tsv <span class="dt">\</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> results </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ex">singlem</span> pipe <span class="dt">\</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">-1</span> data/NIOZ114_R1.fastq.gz <span class="dt">\</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">-2</span> data/NIOZ114_R2.fastq.gz <span class="dt">\</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">-p</span> results/output.profile.tsv <span class="dt">\</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">--otu-table</span> results/output.table.tsv <span class="dt">\</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Useful options (for a full list use the tools help function or visit the documentation):</p>
 <p>SingleM pipe:</p>
@@ -963,34 +965,38 @@ div.csl-indent {
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate OTU tables with GTDB taxonomic profiles</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop through all R1 files found in the data folder (assumes that the sample name is part of the file name)</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> R1 <span class="kw">in</span> data/<span class="pp">*</span>_R1.fastq.gz<span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Derive corresponding R2 file and sample name</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="va">R2</span><span class="op">=</span><span class="st">"</span><span class="va">${R1</span><span class="op">/</span><span class="ss">_R1</span><span class="op">/</span>_R2<span class="va">}</span><span class="st">"</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="va">SAMPLE</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="st">"</span><span class="va">$R1</span><span class="st">"</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/_R1.fastq.gz//'</span><span class="va">)</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Run singlem pipe</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="ex">singlem</span> pipe <span class="dt">\</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">-1</span> <span class="st">"</span><span class="va">$R1</span><span class="st">"</span> <span class="at">-2</span> <span class="st">"</span><span class="va">$R2</span><span class="st">"</span> <span class="dt">\</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">-p</span> <span class="st">"output.</span><span class="va">${SAMPLE}</span><span class="st">.profile.tsv"</span> <span class="dt">\</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">--otu-table</span> <span class="st">"output.</span><span class="va">${SAMPLE}</span><span class="st">.table.tsv"</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="ex">--threads</span> 10 </span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate one single otu table in long format</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="ex">singlem</span> summarise <span class="at">--input-otu-tables</span> output.<span class="pp">*</span>.table.tsv <span class="dt">\</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">--output-otu-table</span> combined.otu_table.csv</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> results </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> R1 <span class="kw">in</span> data/<span class="pp">*</span>_R1.fastq.gz<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Derive corresponding R2 file name by replacing _R1 with _R2</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="va">R2</span><span class="op">=</span><span class="st">"</span><span class="va">${R1</span><span class="op">/</span><span class="ss">_R1</span><span class="op">/</span>_R2<span class="va">}</span><span class="st">"</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Extract the sample name from the file name</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="va">SAMPLE</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="st">"</span><span class="va">$R1</span><span class="st">"</span> <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/_R1.fastq.gz//'</span><span class="va">)</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Run singlem pipe</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="ex">singlem</span> pipe <span class="dt">\</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">-1</span> <span class="st">"</span><span class="va">$R1</span><span class="st">"</span> <span class="at">-2</span> <span class="st">"</span><span class="va">$R2</span><span class="st">"</span> <span class="dt">\</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">-p</span> results/output.<span class="va">${SAMPLE}</span>.profile.tsv <span class="dt">\</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">--otu-table</span> results/output.<span class="va">${SAMPLE}</span>.table.tsv</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        <span class="ex">--threads</span> 20 </span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate Krona plots </span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="ex">singlem</span> summarise <span class="at">--input-taxonomic-profile</span> output.<span class="pp">*</span>.profile.tsv <span class="dt">\</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">--output-taxonomic-profile-krona</span> doco_example.profile.html</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate one single otu table in long format</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="ex">singlem</span> summarise <span class="at">--input-otu-tables</span> results/output.<span class="pp">*</span>.table.tsv <span class="dt">\</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">--output-otu-table</span> results/combined.otu_table.csv</span>
 <span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate relative abundance and species by site tbles (for each taxonomic level)</span></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="ex">singlem</span> summarise <span class="at">--input-taxonomic-profile</span> output.<span class="pp">*</span>.profile.tsv <span class="dt">\</span></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">--output-species-by-site-relative-abundance-prefix</span> myprefix</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate Krona plots </span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="ex">singlem</span> summarise <span class="at">--input-taxonomic-profile</span> results/output.<span class="pp">*</span>.profile.tsv <span class="dt">\</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">--output-taxonomic-profile-krona</span> results/doco_example.profile.html</span>
 <span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Store data in long format with additional columns </span></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="ex">singlem</span> summarise <span class="at">--input-taxonomic-profile</span> output.<span class="pp">*</span>.profile.tsv <span class="dt">\</span></span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">--output-taxonomic-profile-with-extras</span> doco_example.with_extras.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate relative abundance and species by site tbles (for each taxonomic level)</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="ex">singlem</span> summarise <span class="at">--input-taxonomic-profile</span> results/output.<span class="pp">*</span>.profile.tsv <span class="dt">\</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">--output-species-by-site-relative-abundance-prefix</span> results/myprefix</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Store data in long format with additional columns </span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="ex">singlem</span> summarise <span class="at">--input-taxonomic-profile</span> output.<span class="pp">*</span>.profile.tsv <span class="dt">\</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">--output-taxonomic-profile-with-extras</span> results/doco_example.with_extras.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
