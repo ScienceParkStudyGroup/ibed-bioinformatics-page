@@ -120,8 +120,8 @@ for R1 in data/*_R1.fastq.gz; do
     singlem pipe \
         -1 "$R1" -2 "$R2" \
         -p results/output.${SAMPLE}.profile.tsv \
-        --otu-table results/output.${SAMPLE}.table.tsv
-        --threads 20 
+        --otu-table results/output.${SAMPLE}.table.tsv \
+        --threads 10 
 done
 
 # Generate one single otu table in long format
