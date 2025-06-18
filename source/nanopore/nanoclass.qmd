@@ -193,6 +193,6 @@ For an example on how to format a custom database, check out [these instructions
 
 #### Additional Resources for UvA Users: Cyanoseq database
 
-For UvA researchers, the [Cyanoseq](https://github.com/flefler/CyanoSeq) with [GSR-DB](https://manichanh.vhir.org/gsrdb/index.php) as the bacterial database is available on the amplicomics share. This database is a curated database of 16S rRNA gene sequences from cyanobacteria. 
+For UvA researchers, the [Cyanoseq](https://github.com/flefler/CyanoSeq) v1.3 database with [GSR-DB](https://manichanh.vhir.org/gsrdb/index.php) as the bacterial database is available on the amplicomics share. This database is a curated database of 16S rRNA gene sequences from cyanobacteria. 
 
 To run NanoClass2 with Cyanoseq, you can follow the notes of this tutorial. However, instead of using the Nanoclass2 installation in ```/zfs/omics/projects/amplicomics/bin/NanoClass2_Silva_1.0/```, you should use the installation in ```/zfs/omics/projects/amplicomics/bin/NanoClass2_CyanoSeq_1.0/```.
