@@ -95,13 +95,13 @@ gtt-get-accessions-from-GTDB -t Alteromonas --GTDB-representatives-only
 ls results/faa/*faa > results/faa/aa_files.txt
 
 # Run gtotree on your genome of interest an all Alteromonas reference genomes
-GToTree \
+srun --cpus-per-task 10 --mem=50G GToTree \
   -A results/faa/aa_files.txt \
   -a GTDB-Alteromonas-genus-GTDB-rep-accs.txt \
   -D -T IQ-TREE -j 10 \
+  -L Phylum,Class,Order,Family,Genus,Species \
   -H Universal \
   -o results/gtotree
-
 ```
 
 Useful options:
@@ -276,6 +276,46 @@ Useful options:
                   Provide this flag with no arguments if you'd like to keep the
                   temporary directory. (Mostly useful for debugging.)
 ```
+
+#### Generating an annotation file
+
+If you want to color the tips differently when viewing the treefile in [Figtree](http://tree.bio.ed.ac.uk/software/figtree/) or [iTOL](https://itol.embl.de/) for your genomes of interest you can use the code below.
+
+##### Figtree
+
+```{bash}
+# This uses the same command as before but also adds a header and a second column that we can use to color the MAGs of interest 
+# In this case the file only contains the Alteromonas genome of interest, so this will be the only genome that gets colored differently
+{
+    echo -e "taxa\tcolor" # add header
+    for f in results/faa/*.faa; do
+        echo -e "$(basename "$f" .faa)\tred"
+    done
+} > results/gtotree/MAG-labels_figree.txt
+
+```
+
+When you open your tree file in figree, you can do the following to color your tip labels:
+
+1. Click File --> Import Annotations and read in `results/gtotree/MAG-labels_figree.txt`
+2. Expand the tip labels and color by 'color', i.e. the second column of the text file
+
+##### iTOL 
+
+```{bash}
+# Extract the basename for your genomes of interest
+# The command below removes any folder name and the file extension (as long as the extension is .faa)
+for f in results/faa/*.faa; do
+        echo -e "$(basename "$f" .faa)"
+done > results/gtotree/MAG-labels.txt
+
+# Use a GToTree helper stript to generate a color annotation file for iTol
+gtt-gen-itol-map -w labels -o results/gtotree/iToL-label-colors.txt -g results/gtotree/MAG-labels.txt
+```
+
+You can load both the treefile and the annotations by drag-and-drop.
+
+
 
 ### Important considerations
 

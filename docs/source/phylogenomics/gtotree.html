@@ -871,6 +871,7 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#finding-suitable-reference-genomes" id="toc-finding-suitable-reference-genomes" class="nav-link" data-scroll-target="#finding-suitable-reference-genomes">Finding suitable reference genomes</a></li>
   <li><a href="#running-gtotree" id="toc-running-gtotree" class="nav-link" data-scroll-target="#running-gtotree">Running GToTree</a></li>
+  <li><a href="#generating-an-annotation-file" id="toc-generating-an-annotation-file" class="nav-link" data-scroll-target="#generating-an-annotation-file">Generating an annotation file</a></li>
   </ul></li>
   <li><a href="#important-considerations" id="toc-important-considerations" class="nav-link" data-scroll-target="#important-considerations">Important considerations</a>
   <ul class="collapse">
@@ -969,12 +970,13 @@ div.csl-indent {
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> results/faa/<span class="pp">*</span>faa <span class="op">&gt;</span> results/faa/aa_files.txt</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Run gtotree on your genome of interest an all Alteromonas reference genomes</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">GToTree</span> <span class="dt">\</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span> 10 <span class="at">--mem</span><span class="op">=</span>50G GToTree <span class="dt">\</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-A</span> results/faa/aa_files.txt <span class="dt">\</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">-a</span> GTDB-Alteromonas-genus-GTDB-rep-accs.txt <span class="dt">\</span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">-D</span> <span class="at">-T</span> IQ-TREE <span class="at">-j</span> 10 <span class="dt">\</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> Universal <span class="dt">\</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> results/gtotree</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">-L</span> Phylum,Class,Order,Family,Genus,Species <span class="dt">\</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> Universal <span class="dt">\</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> results/gtotree</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Useful options:</p>
 <pre><code> -------------------------------  REQUIRED INPUTS  ------------------------------- 
@@ -1146,6 +1148,42 @@ div.csl-indent {
                   Provide this flag with no arguments if you'd like to keep the
                   temporary directory. (Mostly useful for debugging.)</code></pre>
 </section>
+<section id="generating-an-annotation-file" class="level4">
+<h4 class="anchored" data-anchor-id="generating-an-annotation-file">Generating an annotation file</h4>
+<p>If you want to color the tips differently when viewing the treefile in <a href="http://tree.bio.ed.ac.uk/software/figtree/">Figtree</a> or <a href="https://itol.embl.de/">iTOL</a> for your genomes of interest you can use the code below.</p>
+<section id="figtree" class="level5">
+<h5 class="anchored" data-anchor-id="figtree">Figtree</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This uses the same command as before but also adds a header and a second column that we can use to color the MAGs of interest </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># In this case the file only contains the Alteromonas genome of interest, so this will be the only genome that gets colored differently</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">{</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"taxa\tcolor"</span> <span class="co"># add header</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> f <span class="kw">in</span> results/faa/<span class="pp">*</span>.faa<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"</span><span class="va">$(</span><span class="fu">basename</span> <span class="st">"</span><span class="va">$f</span><span class="st">"</span> .faa<span class="va">)</span><span class="st">\tred"</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">done</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span> <span class="op">&gt;</span> results/gtotree/MAG-labels_figree.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>When you open your tree file in figree, you can do the following to color your tip labels:</p>
+<ol type="1">
+<li>Click File –&gt; Import Annotations and read in <code>results/gtotree/MAG-labels_figree.txt</code></li>
+<li>Expand the tip labels and color by ‘color’, i.e.&nbsp;the second column of the text file</li>
+</ol>
+</section>
+<section id="itol" class="level5">
+<h5 class="anchored" data-anchor-id="itol">iTOL</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the basename for your genomes of interest</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The command below removes any folder name and the file extension (as long as the extension is .faa)</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> results/faa/<span class="pp">*</span>.faa<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"</span><span class="va">$(</span><span class="fu">basename</span> <span class="st">"</span><span class="va">$f</span><span class="st">"</span> .faa<span class="va">)</span><span class="st">"</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span> <span class="op">&gt;</span> results/gtotree/MAG-labels.txt</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a GToTree helper stript to generate a color annotation file for iTol</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="ex">gtt-gen-itol-map</span> <span class="at">-w</span> labels <span class="at">-o</span> results/gtotree/iToL-label-colors.txt <span class="at">-g</span> results/gtotree/MAG-labels.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can load both the treefile and the annotations by drag-and-drop.</p>
+</section>
+</section>
 </section>
 <section id="important-considerations" class="level3">
 <h3 class="anchored" data-anchor-id="important-considerations">Important considerations</h3>
@@ -1154,14 +1192,14 @@ div.csl-indent {
 <p>Phylogenetics is an incredibly complicated and well-researched field, and things become even more complicated when working with many concatenated genes as is the case with phylogenomics. This workflow is great to get you started but only applies one alignment tool and gives limited options for adjusting the settings for tree constructions. When this example was run on the Alteromonas example discussed above, IQ-TREE ran a model selection step, which decided the best model to use was a insect-specific model. Since that is not what you want for a final analysis, always check the chosen model in the log file and</p>
 <p>The above is one example for restricting the <a href="https://iqtree.github.io/doc/Substitution-Models">model selection</a> to WAG, LG and JTT and additionally testing amino acid mixture models. There is no good answer what the best model for your research question is, however, to get an idea about models to use you can check what is commonly used by researchers in your field.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run IQ-TREE version 3.0.1 (part of the gtotree_1.8.16 conda environment)</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span> 20 <span class="at">--mem</span><span class="op">=</span>50G iqtree <span class="at">-s</span> Aligned_SCGs_mod_names.faa <span class="dt">\</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-m</span> MFP <span class="dt">\</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-mset</span> WAG,LG,JTT <span class="dt">\</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-madd</span> LG+C10,LG+C10+R+F,LG+C10+R,LG+C10+F <span class="dt">\</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--score-diff</span> all <span class="dt">\</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">-B</span> 1000 <span class="at">-nt</span> 20 <span class="dt">\</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">-pre</span> iqtree_v2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run IQ-TREE version 3.0.1 (part of the gtotree_1.8.16 conda environment)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span> 20 <span class="at">--mem</span><span class="op">=</span>50G iqtree <span class="at">-s</span> Aligned_SCGs_mod_names.faa <span class="dt">\</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-m</span> MFP <span class="dt">\</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-mset</span> WAG,LG,JTT <span class="dt">\</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-madd</span> LG+C10,LG+C10+R+F,LG+C10+R,LG+C10+F <span class="dt">\</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--score-diff</span> all <span class="dt">\</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">-B</span> 1000 <span class="at">-nt</span> 20 <span class="dt">\</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">-pre</span> iqtree_v2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="choosing-marker-genes" class="level4">
