@@ -305,5 +305,8 @@
   },
   "source/metagenomics/singlem.qmd": {
     "singlem.html": "bacaa0c5"
+  },
+  "source/phylogenomics/gtotree.qmd": {
+    "gtotree.html": "bbeb681c"
   }
 }
