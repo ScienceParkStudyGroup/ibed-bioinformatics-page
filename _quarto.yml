@@ -145,6 +145,7 @@ website:
               - source/metatranscriptomics/sortmerna.qmd
               - source/metatranscriptomics/star.qmd
               - source/metatranscriptomics/stringtie.qmd
+              - source/metatranscriptomics/td2.qmd
               - source/metatranscriptomics/transdecoder.qmd
               - source/metatranscriptomics/trinity.qmd
 

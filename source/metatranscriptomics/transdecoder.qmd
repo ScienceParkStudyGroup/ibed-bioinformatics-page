@@ -26,7 +26,7 @@ TransDecoder identifies likely coding sequences based on the following criteria:
 -   a PSSM is built/trained/used to refine the start codon prediction.
 -   **optional:** the putative peptide has a match to a Pfam/Uniprot domain above the noise cutoff score.
 
-**Important**: As of March 2024, TransDecoder is no longer actively supported by the developer. Please continue to use as it fits your needs.
+**Important**: As of March 2024, TransDecoder is no longer actively supported by the developer. Please continue to use as it fits your needs. You can also use its successor, TD2, instead.
 
 ### Installation
 

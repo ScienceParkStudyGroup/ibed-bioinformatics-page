@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
-    <lastmod>2025-07-28T09:17:16.301Z</lastmod>
+    <lastmod>2025-07-29T07:01:24.574Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/template.html</loc>
@@ -42,7 +42,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/metatranscriptomics/transdecoder.html</loc>
-    <lastmod>2025-02-17T10:45:52.420Z</lastmod>
+    <lastmod>2025-07-29T07:07:51.282Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/metatranscriptomics/star.html</loc>
@@ -311,5 +311,9 @@
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/phylogenomics/gtotree.html</loc>
     <lastmod>2025-07-29T05:02:09.244Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metatranscriptomics/td2.html</loc>
+    <lastmod>2025-07-29T07:06:00.324Z</lastmod>
   </url>
 </urlset>
