@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
-    <lastmod>2025-07-29T07:01:24.574Z</lastmod>
+    <lastmod>2025-08-11T06:48:52.416Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/template.html</loc>
@@ -315,5 +315,17 @@
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/metatranscriptomics/td2.html</loc>
     <lastmod>2025-07-29T07:06:00.324Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/scratch.html</loc>
+    <lastmod>2025-08-11T06:48:47.095Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/slurm_basics.html</loc>
+    <lastmod>2024-01-31T12:54:49.691Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/hpc_usage.html</loc>
+    <lastmod>2024-02-02T09:31:11.152Z</lastmod>
   </url>
 </urlset>

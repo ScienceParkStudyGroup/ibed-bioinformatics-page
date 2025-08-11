@@ -71,6 +71,8 @@ website:
             contents:
               - text: "Start working on an HPC"
                 href: source/cli/slurm_basics.qmd
+              - text: "Using scratch on Crunchomics"
+                href: source/cli/scratch.qmd
 
       - section: "Sequence data analyses"
         href: source/metagenomics/readme.qmd

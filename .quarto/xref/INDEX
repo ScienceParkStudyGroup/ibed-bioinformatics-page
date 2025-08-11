@@ -311,5 +311,8 @@
   },
   "source/metatranscriptomics/td2.qmd": {
     "td2.html": "287bdf2f"
+  },
+  "source/cli/scratch.qmd": {
+    "scratch.html": "62ace251"
   }
 }

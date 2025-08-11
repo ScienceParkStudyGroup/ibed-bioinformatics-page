@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>hpc_usage – Bioinformatics guidance page</title>
+<title>scratch – Bioinformatics guidance page</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/cli/slurm_basics.html" rel="next">
-<link href="../../source/R/readme.html" rel="prev">
+<link href="../../source/metagenomics/readme.html" rel="next">
+<link href="../../source/cli/slurm_basics.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -84,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../../source/cli/hpc_usage.html">Using an HPC</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../../source/cli/hpc_usage.html">Using an HPC</a></li><li class="breadcrumb-item"><a href="../../source/cli/scratch.html">Using scratch on Crunchomics</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -172,7 +206,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link active">
+            <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using an HPC</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -183,6 +217,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../../source/cli/slurm_basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Start working on an HPC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/scratch.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Using scratch on Crunchomics</span></a>
   </div>
 </li>
       </ul>
@@ -422,6 +462,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/singlem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SingleM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/trycycler.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Trycycler</span></a>
   </div>
@@ -557,6 +603,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/td2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">TD2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/metatranscriptomics/transdecoder.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">TransDecoder</span></a>
   </div>
@@ -647,6 +699,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../../source/phylogenomics/bmge.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">BMGE</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/phylogenomics/gtotree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GToTree</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -796,18 +854,19 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
     <h2 id="toc-title">On this page</h2>
    
-  <ul>
-  <li><a href="#using-an-hpc" id="toc-using-an-hpc" class="nav-link active" data-scroll-target="#using-an-hpc">Using an HPC</a>
-  <ul>
-  <li><a href="#using-an-hpc-at-uva" id="toc-using-an-hpc-at-uva" class="nav-link" data-scroll-target="#using-an-hpc-at-uva">Using an HPC at UvA</a></li>
-  <li><a href="#how-does-an-hpc-work" id="toc-how-does-an-hpc-work" class="nav-link" data-scroll-target="#how-does-an-hpc-work">How does an HPC work?</a></li>
-  <li><a href="#basic-information-about-uvas-crunchomics-hpc" id="toc-basic-information-about-uvas-crunchomics-hpc" class="nav-link" data-scroll-target="#basic-information-about-uvas-crunchomics-hpc">Basic information about UvA’s Crunchomics HPC</a></li>
+  <ul class="collapse">
+  <li><a href="#using-scratch-on-crunchomics" id="toc-using-scratch-on-crunchomics" class="nav-link active" data-scroll-target="#using-scratch-on-crunchomics">Using scratch on Crunchomics</a>
+  <ul class="collapse">
+  <li><a href="#basics" id="toc-basics" class="nav-link" data-scroll-target="#basics">Basics</a></li>
+  <li><a href="#working-on-a-compute-node-interactively" id="toc-working-on-a-compute-node-interactively" class="nav-link" data-scroll-target="#working-on-a-compute-node-interactively">Working on a compute node interactively</a></li>
+  <li><a href="#moving-around-data" id="toc-moving-around-data" class="nav-link" data-scroll-target="#moving-around-data">Moving around data</a></li>
+  <li><a href="#running-a-job-script-on-a-specific-node" id="toc-running-a-job-script-on-a-specific-node" class="nav-link" data-scroll-target="#running-a-job-script-on-a-specific-node">Running a job script on a specific node</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/hpc_usage.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul class="collapse"><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/scratch.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../../source/cli/hpc_usage.html">Using an HPC</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../../source/cli/hpc_usage.html">Using an HPC</a></li><li class="breadcrumb-item"><a href="../../source/cli/scratch.html">Using scratch on Crunchomics</a></li></ol></nav></header>
 
 <header id="title-block-header">
 
@@ -815,78 +874,115 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="using-an-hpc" class="level2" style="text-align: justify">
-<h2 class="anchored" data-anchor-id="using-an-hpc">Using an HPC</h2>
-<section id="using-an-hpc-at-uva" class="level3">
-<h3 class="anchored" data-anchor-id="using-an-hpc-at-uva">Using an HPC at UvA</h3>
-<p>On the next pages you find some documentation on getting started with High Performance Computing (HPC). These pages are tailored towards researchers working at UvA but might be also useful for people working on an HPC with a SLURM job management system.</p>
-<p>If you work at IBED and want to use the cli on the Crunchomics HPC, the Genomics Compute Environment for SILS and IBED, please check out <a href="https://crunchomics-documentation.readthedocs.io/en/latest/index.html">this documentation</a>. If you need access to Crunchomics, send an email to Wim de Leeuw <a href="mailto:w.c.deleeuw@uva.nl" class="email">w.c.deleeuw@uva.nl</a> to get an account set up by giving him your uva-net id.</p>
-<p>For information about other computational resources please visit the <a href="https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html">computational support teams website</a> under <strong>Scientific programming and HPC</strong>.</p>
+<section id="using-scratch-on-crunchomics" class="level1" style="text-align: justify">
+<h1>Using scratch on Crunchomics</h1>
+<section id="basics" class="level2">
+<h2 class="anchored" data-anchor-id="basics">Basics</h2>
+<p>Crunchomics has one login node (h0) and 5 compute nodes, cn001-cn005 and can be accessed via <code>cd /scratch</code>. Each compute node has its own local scratch storage with around ~8 TB of storage space that is shared with everyone. The scratch of a compute note is only accessible when running on that node, which means that files written to scratch on node cn002 are not visible from cn003 or the login node. So either data has to be synchronized over all nodes, or jobs have to be fixed on particular nodes using the -w flag. More information on this can be found below as well as on the Crunchomics website <a href="https://crunchomics-documentation.readthedocs.io/en/latest/nvme_clusters.html?highlight=scratch">here</a>.</p>
+<p>Please note that this is temporary storage space and files will automatically be deleted after one month of file inactivity.</p>
 </section>
-<section id="how-does-an-hpc-work" class="level3">
-<h3 class="anchored" data-anchor-id="how-does-an-hpc-work">How does an HPC work?</h3>
-<p>Using an HPC works a bit differently than running jobs on your computer, below you find a simplified shematic:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../../img/crunchomics1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-</figure>
+<section id="working-on-a-compute-node-interactively" class="level2">
+<h2 class="anchored" data-anchor-id="working-on-a-compute-node-interactively">Working on a compute node interactively</h2>
+<p>We can log into a compute node to work interactively as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span> 1 <span class="at">-t</span> 00:30:00 <span class="at">--mem</span><span class="op">=</span>50G <span class="at">-w</span> omics-cn002 <span class="at">--pty</span> bash <span class="at">-i</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Very briefly, the purpose of a <strong>login node</strong>, sometimes also called head node, is to prepare to run a program (e.g., moving and editing files and compiling, preparing a job script). The <strong>compute nodes</strong> on the other hand are used to actually run a program and we submit jobs from the login to the compute nodes via Slurm. <strong>Slurm</strong> is an open-source workload manager/scheduler that is used on many big HPCs. Slurm has three key functions:</p>
-<ul>
-<li>provide the users access to the resources on the compute nodes for a certain amount of time to perform any computation</li>
-<li>provide a framework to start, execute, and check the work on the set of allocated compute nodes</li>
-<li>mange the queue of submitted jobs based on the availability of resources</li>
-</ul>
+<p>Here, we are using the Slurm Workflow manager srun to request 1 CPU (<code>--cpus-per-task 1</code>), 50G of memory (<code>--mem=50G</code>) for 30 minutes (<code>-t 00:30:00</code>). We use <code>--pty bash -i</code> in order to open an interactive bash shell and use <code>-w omics-cn002</code> to reserve space on compute node 002. After running this, the prompt should show <code>uvanetID@omics-cn002 testing</code> confirming that we are now logged into the compute node 002.</p>
+<p>First, we should test whether the scratch still has enough available space for our analysis. For this, we can use the <code>df</code> command, which shows the following information: Filesystem, Size, Used, Avail, Use%, Mounted on. We can search for the resources available on the scratch with:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the list, search for scratch or ssdstorage. This is a mount point to the scratch and we need to look for this term to find out how much space we have available. We should see something like this telling us that 28% of space is in use and that we still have 5.2T available:</p>
+<pre><code>ssdstorage 7.2T  2.0T  5.2T  28% /ssdstorage</code></pre>
+<p>This is enough for our analysis, so we can now generate a project folder for our analysis. <strong>Important:</strong> The scratch is used by all Crunchomics users, therefore, it is advisable to clean up any temporary files you don’t need after your analysis is done. When following this workflow, replace the <code>userid</code> with your actual user name.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a project directory</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the -p argument allows us to generate subfolders in one go </span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /scratch/userid/climate</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Change into that project folder </span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /scratch/userid/climate</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Run your analysis</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">## Download some data (this is now done interactively with the requested resources on the compute node)</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> data</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/027/325/GCF_000027325.1_ASM2732v1/GCF_000027325.1_ASM2732v1_genomic.fna.gz <span class="at">-P</span> data</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">## Check if the data is really available on the scratch of compute node cn002</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="basic-information-about-uvas-crunchomics-hpc" class="level3">
-<h3 class="anchored" data-anchor-id="basic-information-about-uvas-crunchomics-hpc">Basic information about UvA’s Crunchomics HPC</h3>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="moving-around-data" class="level2">
+<h2 class="anchored" data-anchor-id="moving-around-data">Moving around data</h2>
+<section id="to-the-personal-folder" class="level3">
+<h3 class="anchored" data-anchor-id="to-the-personal-folder">To the personal folder</h3>
+<p>As said before, as each scratch is stored locally it can be only accessed on a particular node. However, we could easily move the downloaded data to our personal folder with:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> data/<span class="pp">*</span>gz /zfs/omics/personal/userid/testing/data/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-title-container flex-fill">
-Important
+</section>
+<section id="move-data-between-local-scratches" class="level3">
+<h3 class="anchored" data-anchor-id="move-data-between-local-scratches">Move data between local scratches</h3>
+<p>If you do not have space anymore on your personal folder there is a slightly convoluted way to communicate with the scratch on the login node.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exit from the compute node if you are still logged in</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Go to scratch on head node</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /scratch/userid/</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy a file from node002 to the login node</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># This command is a bit tricky but it creates a tar stream on node 002 and extracts this data on the login node</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-N1</span> <span class="at">-w</span> omics-cn002 bash <span class="at">-c</span> <span class="st">'cd /scratch/userid/climate/data &amp;&amp; tar -cf - *fna.gz'</span> <span class="kw">|</span> <span class="fu">tar</span> <span class="at">-xf</span> <span class="at">-</span> <span class="at">-C</span> /scratch/userid/ </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Reverse: Move a file from the login node scratch to a compute node 002 </span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> test.txt <span class="co"># make an empty dummy file</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-cf</span> <span class="at">-</span> test.txt <span class="kw">|</span> <span class="ex">srun</span> <span class="at">-N1</span> <span class="at">-w</span> omics-cn002 bash <span class="at">-c</span> <span class="st">'mkdir -p /scratch/userid/climate &amp;&amp; cd /scratch/userid/climate &amp;&amp; tar -xf -'</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if the file is there </span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span>  <span class="at">-w</span> omics-cn002 ls <span class="at">-lh</span> /scratch/userid/climate </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+</section>
+<section id="running-a-job-script-on-a-specific-node" class="level2">
+<h2 class="anchored" data-anchor-id="running-a-job-script-on-a-specific-node">Running a job script on a specific node</h2>
+<p>For longer running or more complex jobs, a job script might be better than using srun. Here is an example that can be copied into a new jobscript with <code>nano script.sh</code>. You exit nano by typing <code>ctrl+x</code>. We can see that a job script is useful for longer running jobs that contain multiple steps. If you wanted to execute an R script called my_code.R, you can add <code>Rscript my_code.R</code> into an sbatch script.</p>
+<pre><code>#!/bin/bash
+#
+#SBATCH --job-name=align_Mycoplasma
+#SBATCH --output=res_alignjob.txt
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --time=10:00
+#SBATCH --mem-per-cpu=2G
+
+# Prepare a working folder on scratch
+WD="/scratch/userid/alignment"
+mkdir -p $WD
+cd $WD
+
+# Download Mycoplasma genome and build the index
+# this and all following steps will download and process the data in the working directory":
+# `/scratch/userid/alignment`
+wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/027/325/GCF_000027325.1_ASM2732v1/GCF_000027325.1_ASM2732v1_genomic.fna.gz -P ./
+bowtie2-build GCF_000027325.1_ASM2732v1_genomic.fna.gz MG37
+
+# Only download the 2 illumina files
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR486/ERR486828/ERR486828_1.fastq.gz -P ./
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR486/ERR486828/ERR486828_2.fastq.gz -P ./
+
+# Run the alignment
+bowtie2 -x MG37 -1 ERR486828_1.fastq.gz -2 ERR486828_2.fastq.gz --very-fast -p $SLURM_CPUS_PER_TASK -S result_ERR486828.sam</code></pre>
+<p>You submit the job to a specific node with:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">-w</span> omics-cn002 script.sh</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># You can check if the job is still running with </span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># We can check if files are generated with </span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span>  <span class="at">-w</span> omics-cn002 ls <span class="at">-lh</span> /scratch/userid/alignment</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-body-container callout-body">
-<p><strong>Crunchomics etiquette</strong></p>
-<p>You share the HPC with other people, therefore, take care to only ask for the resources you actually use. Some general rules:</p>
-<ul>
-<li>There are no hard limits on resource usage, instead we expect you to keep in mind you are sharing the system with other users. Some rules of thumb:
-<ul>
-<li>Don’t run jobs that request many cpus and lots of memory on the head-node (omics-h0), use the compute nodes (omics-cn001 - omics-cn005) for this</li>
-<li>Don’t allocate more than 20% (cpu or memory) of the cluster for more than a day</li>
-<li>Do not leave allocations unused and set reasonable time limits on you jobs</li>
-</ul></li>
-<li>For large compute jobs a job queuing system (SLURM) is available. Interactive usage is possible but is discouraged for larger jobs. We will learn how to use the queue during this tutorial</li>
-<li>Close applications when not in use, i.e.&nbsp;when running R interactively</li>
-</ul>
-</div>
-</div>
-<p>On crunchomics you:</p>
-<ul>
-<li>are granted a storage of 500 GB. After the duration of your grant, or when your UvAnetID expires, your data will be removed from the HPC. If you need more storage space, contact the Crunchomics team.</li>
-<li>have a 25 G quotum on your home directory which is on a fast NVMe ssd-drive. You can store up to 500 GB data in /zfs/omics/personal/$USER</li>
-<li>you are in charge of backing up your own data and Crunchomics is NOT an archiving system. To learn about data archiving options at UvA visit the <a href="https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html">website of the computational support team</a></li>
-<li>find information and documentation about the cluster <a href="https://crunchomics-documentation.readthedocs.io/en/latest">here</a></li>
-</ul>
-<p>Crunchomics gives you access to:</p>
-<ul>
-<li>5 compute nodes</li>
-<li>Each compute node has 512 GB of memory and 64 CPUs</li>
-<li>If you need more resources (or access to GPUs), visit the <a href="https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html">website of the computational support team</a> for more information</li>
-<li>Access to two directories:
-<ul>
-<li>The home directory with 25 GB of storage</li>
-<li>your personal directory, with 500 GB of storage</li>
-</ul></li>
-</ul>
-<p>Some information about storage:</p>
-<ul>
-<li>Snapshots are made daily at 00.00.00 and kept for 2 weeks. This means that if you accidentally remove a file it can be restored up to 2 weeks after removal.</li>
-<li>Data on Crunchomics is stored on multiple disks. Therefore, there is protection against disk failure. However, the data is not replicated and you are responsible for backing up and/or archiving your data.</li>
-</ul>
 
 
 </section>
@@ -1461,13 +1557,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/R/readme.html" class="pagination-link" aria-label="Using R">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Using R</span>
+      <a href="../../source/cli/slurm_basics.html" class="pagination-link" aria-label="Start working on an HPC">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Start working on an HPC</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/cli/slurm_basics.html" class="pagination-link" aria-label="Start working on an HPC">
-        <span class="nav-page-text">Start working on an HPC</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/metagenomics/readme.html" class="pagination-link" aria-label="Sequence data analyses">
+        <span class="nav-page-text">Sequence data analyses</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1479,8 +1575,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2024-02-02</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/hpc_usage.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+Last modified: 2025-08-11</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/scratch.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

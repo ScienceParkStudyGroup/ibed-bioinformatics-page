@@ -1,0 +1,139 @@
+---
+toc-depth: 2
+
+execute:
+  eval: false
+
+engine: knitr
+---
+
+<div style="text-align: justify">
+
+# Using scratch on Crunchomics
+
+## Basics
+
+Crunchomics has one login node (h0) and 5 compute nodes, cn001-cn005 and can be accessed via `cd /scratch`. Each compute node has its own local scratch storage with around ~8 TB of storage space that is shared with everyone. The scratch of a compute note is only accessible when running on that node, which means that files written to scratch on node cn002 are not visible from cn003 or the login node. So either data has to be synchronized over all nodes, or jobs have to be fixed on particular nodes using the -w flag. More information on this can be found below as well as on the Crunchomics website [here](https://crunchomics-documentation.readthedocs.io/en/latest/nvme_clusters.html?highlight=scratch).
+
+Please note that this is temporary storage space and files will automatically be deleted after one month of file inactivity.
+
+## Working on a compute node interactively
+
+We can log into a compute node to work interactively as follows:
+
+```{bash}
+srun --cpus-per-task 1 -t 00:30:00 --mem=50G -w omics-cn002 --pty bash -i
+``` 
+
+Here, we are using the Slurm Workflow manager srun to request 1 CPU (`--cpus-per-task 1`), 50G of memory (`--mem=50G`) for 30 minutes (`-t 00:30:00`). We use `--pty bash -i ` in order to open an interactive bash shell and use `-w omics-cn002` to reserve space on compute node 002. After running this, the prompt should show `uvanetID@omics-cn002 testing` confirming that we are now logged into the compute node 002. 
+
+First, we should test whether the scratch still has enough available space for our analysis. For this, we can use the `df` command, which shows the following information: Filesystem, Size, Used, Avail, Use%, Mounted on. We can search for the resources available on the scratch with:
+
+```{bash}
+df -h
+```
+
+In the list, search for scratch or ssdstorage. This is a mount point to the scratch and we need to look for this term to find out how much space we have available. We should see something like this telling us that 28% of space is in use and that we still have 5.2T available:
+
+```
+ssdstorage 7.2T  2.0T  5.2T  28% /ssdstorage
+```
+
+This is enough for our analysis, so we can now generate a project folder for our analysis. **Important:** The scratch is used by all Crunchomics users, therefore, it is advisable to clean up any temporary files you don't need after your analysis is done. When following this workflow, replace the `userid` with your actual user name.
+
+```{bash}
+# Generate a project directory
+# the -p argument allows us to generate subfolders in one go 
+mkdir -p /scratch/userid/climate
+
+# Change into that project folder 
+cd /scratch/userid/climate
+
+# Run your analysis
+## Download some data (this is now done interactively with the requested resources on the compute node)
+mkdir data
+wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/027/325/GCF_000027325.1_ASM2732v1/GCF_000027325.1_ASM2732v1_genomic.fna.gz -P data
+
+## Check if the data is really available on the scratch of compute node cn002
+ls data
+```
+
+
+## Moving around data
+
+### To the personal folder
+
+As said before, as each scratch is stored locally it can be only accessed on a particular node. However, we could easily move the downloaded data to our personal folder with:
+
+```{bash}
+cp data/*gz /zfs/omics/personal/userid/testing/data/
+```
+
+### Move data between local scratches
+
+If you do not have space anymore on your personal folder there is a slightly convoluted way to communicate with the scratch on the login node.
+
+```{bash}
+# Exit from the compute node if you are still logged in
+exit 
+
+# Go to scratch on head node
+cd /scratch/userid/
+
+# Copy a file from node002 to the login node
+# This command is a bit tricky but it creates a tar stream on node 002 and extracts this data on the login node
+srun -N1 -w omics-cn002 bash -c 'cd /scratch/userid/climate/data && tar -cf - *fna.gz' | tar -xf - -C /scratch/userid/ 
+
+# Reverse: Move a file from the login node scratch to a compute node 002 
+touch test.txt # make an empty dummy file
+tar -cf - test.txt | srun -N1 -w omics-cn002 bash -c 'mkdir -p /scratch/userid/climate && cd /scratch/userid/climate && tar -xf -'
+
+# Check if the file is there 
+srun  -w omics-cn002 ls -lh /scratch/userid/climate 
+```
+
+
+## Running a job script on a specific node
+
+For longer running or more complex jobs, a job script might be better than using srun. Here is an example that can be copied into a new jobscript with `nano script.sh`. You exit nano by typing `ctrl+x`. We can see that a job script is useful for longer running jobs that contain multiple steps. If you wanted to execute an R script called my_code.R, you can add `Rscript my_code.R` into an sbatch script.
+
+```
+#!/bin/bash
+#
+#SBATCH --job-name=align_Mycoplasma
+#SBATCH --output=res_alignjob.txt
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --time=10:00
+#SBATCH --mem-per-cpu=2G
+
+# Prepare a working folder on scratch
+WD="/scratch/userid/alignment"
+mkdir -p $WD
+cd $WD
+
+# Download Mycoplasma genome and build the index
+# this and all following steps will download and process the data in the working directory":
+# `/scratch/userid/alignment`
+wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/027/325/GCF_000027325.1_ASM2732v1/GCF_000027325.1_ASM2732v1_genomic.fna.gz -P ./
+bowtie2-build GCF_000027325.1_ASM2732v1_genomic.fna.gz MG37
+
+# Only download the 2 illumina files
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR486/ERR486828/ERR486828_1.fastq.gz -P ./
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR486/ERR486828/ERR486828_2.fastq.gz -P ./
+
+# Run the alignment
+bowtie2 -x MG37 -1 ERR486828_1.fastq.gz -2 ERR486828_2.fastq.gz --very-fast -p $SLURM_CPUS_PER_TASK -S result_ERR486828.sam
+```
+
+You submit the job to a specific node with:
+
+```{bash}
+sbatch -w omics-cn002 script.sh
+
+# You can check if the job is still running with 
+squeue
+
+# We can check if files are generated with 
+srun  -w omics-cn002 ls -lh /scratch/userid/alignment
+```
