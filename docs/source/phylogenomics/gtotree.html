@@ -239,6 +239,12 @@ div.csl-indent {
  <span class="menu-text">Start working on an HPC</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/scratch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using scratch on Crunchomics</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -617,6 +623,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/td2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">TD2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/metatranscriptomics/transdecoder.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">TransDecoder</span></a>
   </div>
@@ -873,10 +885,11 @@ div.csl-indent {
   <li><a href="#running-gtotree" id="toc-running-gtotree" class="nav-link" data-scroll-target="#running-gtotree">Running GToTree</a></li>
   <li><a href="#generating-an-annotation-file" id="toc-generating-an-annotation-file" class="nav-link" data-scroll-target="#generating-an-annotation-file">Generating an annotation file</a></li>
   </ul></li>
-  <li><a href="#important-considerations" id="toc-important-considerations" class="nav-link" data-scroll-target="#important-considerations">Important considerations</a>
+  <li><a href="#sec-considerations" id="toc-sec-considerations" class="nav-link" data-scroll-target="#sec-considerations">Important considerations</a>
   <ul class="collapse">
-  <li><a href="#running-iq-tree-on-the-concatenated-alignment" id="toc-running-iq-tree-on-the-concatenated-alignment" class="nav-link" data-scroll-target="#running-iq-tree-on-the-concatenated-alignment">Running IQ-TREE on the concatenated alignment</a></li>
+  <li><a href="#choosing-the-right-taxon-set" id="toc-choosing-the-right-taxon-set" class="nav-link" data-scroll-target="#choosing-the-right-taxon-set">Choosing the right taxon set</a></li>
   <li><a href="#choosing-marker-genes" id="toc-choosing-marker-genes" class="nav-link" data-scroll-target="#choosing-marker-genes">Choosing marker genes</a></li>
+  <li><a href="#phylogenetic-models-in-iq-tree" id="toc-phylogenetic-models-in-iq-tree" class="nav-link" data-scroll-target="#phylogenetic-models-in-iq-tree">Phylogenetic models in IQ-TREE</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -896,6 +909,14 @@ div.csl-indent {
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 <p>GToTree is a user-friendly workflow for phylogenomics intended to give more researchers the capability to easily create phylogenomic trees <span class="citation" data-cites="Lee2019">(<a href="#ref-Lee2019" role="doc-biblioref">Lee 2019</a>)</span>. Documentation and examples can be found at the wiki <a href="https://github.com/AstrobioMike/GToTree/wiki/">here</a>.</p>
+<p><strong>Important:</strong></p>
+<p>Phylogenomics is a complex task and there are many different ways to generate a phylogenetic tree. Among others, you should think about:</p>
+<ul>
+<li>How many genomes you want/have to include</li>
+<li>What markers to should use</li>
+<li>What the best phylogenetic model for your data is</li>
+</ul>
+<p>While not extensive <a href="#sec-considerations" class="quarto-xref">Section&nbsp;1.4</a> can give you some pointers to get started.</p>
 <p><img src="../../img/GToTree-Overview.png" class="img-fluid"></p>
 </section>
 <section id="installation" class="level3">
@@ -1185,31 +1206,16 @@ div.csl-indent {
 </section>
 </section>
 </section>
-<section id="important-considerations" class="level3">
-<h3 class="anchored" data-anchor-id="important-considerations">Important considerations</h3>
-<section id="running-iq-tree-on-the-concatenated-alignment" class="level4">
-<h4 class="anchored" data-anchor-id="running-iq-tree-on-the-concatenated-alignment">Running IQ-TREE on the concatenated alignment</h4>
-<p>Phylogenetics is an incredibly complicated and well-researched field, and things become even more complicated when working with many concatenated genes as is the case with phylogenomics. This workflow is great to get you started but only applies one alignment tool and gives limited options for adjusting the settings for tree constructions. When this example was run on the Alteromonas example discussed above, IQ-TREE ran a model selection step, which decided the best model to use was a insect-specific model. Since that is not what you want for a final analysis, always check the chosen model in the log file and consider running IQ-TREE separately on the concatenated alignment with a more suited model.</p>
-<p>The code below gives one example for restricting the <a href="https://iqtree.github.io/doc/Substitution-Models">model selection</a> to WAG, LG and JTT and additionally testing amino acid mixture models. There is no good answer what the best model for your research question is, however, to get an idea about models to use you can check what is commonly used by researchers in your field.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run IQ-TREE version 3.0.1 (part of the gtotree_1.8.16 conda environment)</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">iqtree</span> <span class="at">-s</span> Aligned_SCGs_mod_names.faa <span class="dt">\</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-m</span> MFP <span class="dt">\</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-mset</span> WAG,LG,JTT <span class="dt">\</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-madd</span> LG+C10,LG+C10+R+F,LG+C10+R,LG+C10+F <span class="dt">\</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--score-diff</span> all <span class="dt">\</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">-B</span> 1000 <span class="at">-nt</span> 5 <span class="dt">\</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">-pre</span> results/gtotree/iqtree_v2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Using a “simple” concatenated alignment is suited for the universal marker gene set, which consists of ribosomal proteins. However, for species-specific marker sets that often contain genes with different evolutionary histories that might not be the appropriate approach. There are different ways to instead run a phylogeny, one option is to run a partitioned analysis using the <code>run_files/Partitions.nex</code> file that gets generated by GToTree.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span> 5 <span class="at">--mem</span><span class="op">=</span>50G iqtree <span class="at">-s</span> results/gtotree/Aligned_SCGs_mod_names.faa <span class="dt">\</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-m</span> MFP <span class="dt">\</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-p</span> results/gtotree/run_files/Partitions.nex <span class="dt">\</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-mset</span> LG <span class="dt">\</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-B</span> 1000 <span class="at">-nt</span> 5 <span class="dt">\</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-pre</span> results/gtotree/iqtree_v3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="sec-considerations" class="level3">
+<h3 class="anchored" data-anchor-id="sec-considerations">Important considerations</h3>
+<section id="choosing-the-right-taxon-set" class="level4">
+<h4 class="anchored" data-anchor-id="choosing-the-right-taxon-set">Choosing the right taxon set</h4>
+<p>The GToTree helper script <code>gtt-get-accessions-from-GTDB</code> should be useful to get you started with selecting reference genomes to start with. However, there might be cases where you run into problems, for example, if your taxonomic group of interest has too many genomes then you could consider to:</p>
+<ul>
+<li>Subset your selection further by only <a href="https://github.com/AstrobioMike/GToTree/wiki/things-to-consider#subsetting-the-GTDB-further">keeping one representative per order</a></li>
+<li>If that leaves too few genomes you could consider running GToTree with the full set using the FastTree option, manually down-sample the tree and then rerun the tree with a better model on the downsampled set</li>
+</ul>
+<p>If you want to generate a tree of life with representatives from both the archaea and bacteria you can check this code <a href="https://github.com/AstrobioMike/GToTree/wiki/example-usage#tol-example">here</a>. Just keep in mind that by adding filters, such as only working with representative genomes might omit genomes from candidate phyla.</p>
 </section>
 <section id="choosing-marker-genes" class="level4">
 <h4 class="anchored" data-anchor-id="choosing-marker-genes">Choosing marker genes</h4>
@@ -1286,6 +1292,30 @@ div.csl-indent {
 </table>
 <p>More information on each is provided in the “hmm-sources-and-info.tsv” file found <a href="https://github.com/AstrobioMike/GToTree/blob/master/hmm_sets/hmm-sources-and-info.tsv">here</a>.</p>
 <p>For general usage, the universal dataset by <span class="citation" data-cites="Hug2016">Hug et al. (<a href="#ref-Hug2016" role="doc-biblioref">2016</a>)</span> is a good starting point but you can also consider taxon-specific HMM sets.</p>
+</section>
+<section id="phylogenetic-models-in-iq-tree" class="level4">
+<h4 class="anchored" data-anchor-id="phylogenetic-models-in-iq-tree">Phylogenetic models in IQ-TREE</h4>
+<p>Phylogenetics is an incredibly complicated and well-researched field, and things become even more complicated when working with many concatenated genes as is the case with phylogenomics. This workflow is great to get you started but only applies one alignment tool and gives limited options for adjusting the settings for tree constructions. When this example was run on the Alteromonas example discussed above, IQ-TREE ran a model selection step, which decided the best model to use was a insect-specific model. Since that is not what you want for a final analysis, always check the chosen model in the log file and consider running IQ-TREE separately on the concatenated alignment with a more suited model.</p>
+<p>The code below gives one example for restricting the <a href="https://iqtree.github.io/doc/Substitution-Models">model selection</a> to WAG, LG and JTT and additionally testing amino acid mixture models. There is no good answer what the best model for your research question is, however, to get an idea about models to use you can check what is commonly used by researchers in your field.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run IQ-TREE version 3.0.1 (part of the gtotree_1.8.16 conda environment)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">iqtree</span> <span class="at">-s</span> Aligned_SCGs_mod_names.faa <span class="dt">\</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-m</span> MFP <span class="dt">\</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-mset</span> WAG,LG,JTT <span class="dt">\</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-madd</span> LG+C10,LG+C10+R+F,LG+C10+R,LG+C10+F <span class="dt">\</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--score-diff</span> all <span class="dt">\</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">-B</span> 1000 <span class="at">-nt</span> 5 <span class="dt">\</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">-pre</span> results/gtotree/iqtree_v2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Using a “simple” concatenated alignment is suited for the universal marker gene set, which consists of ribosomal proteins. However, for species-specific marker sets that often contain genes with different evolutionary histories that might not be the appropriate approach. There are different ways to instead run a phylogeny, one option is to run a partitioned analysis using the <code>run_files/Partitions.nex</code> file that gets generated by GToTree.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span> 5 <span class="at">--mem</span><span class="op">=</span>50G iqtree <span class="at">-s</span> results/gtotree/Aligned_SCGs_mod_names.faa <span class="dt">\</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">-m</span> MFP <span class="dt">\</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-p</span> results/gtotree/run_files/Partitions.nex <span class="dt">\</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-mset</span> LG <span class="dt">\</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-B</span> 1000 <span class="at">-nt</span> 5 <span class="dt">\</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-pre</span> results/gtotree/iqtree_v3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 </section>
 </section>
@@ -1887,7 +1917,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2025-07-29</p>
+Last modified: 2025-08-18</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/phylogenomics/gtotree.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

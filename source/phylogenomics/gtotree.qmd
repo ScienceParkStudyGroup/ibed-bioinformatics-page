@@ -14,6 +14,17 @@ bibliography: references.bib
 
 GToTree is a user-friendly workflow for phylogenomics intended to give more researchers the capability to easily create phylogenomic trees [@Lee2019]. Documentation and examples can be found at the wiki [here](https://github.com/AstrobioMike/GToTree/wiki/).
 
+**Important:**
+
+Phylogenomics is a complex task and there are many different ways to generate a phylogenetic tree. Among others, you should think about:
+
+-  How many genomes you want/have to include
+-  What markers to should use
+-  What the best phylogenetic model for your data is
+
+While not extensive @sec-considerations can give you some pointers to get started.
+
+
 ![](../../img/GToTree-Overview.png)
 
 ### Installation
@@ -317,9 +328,44 @@ You can load both the treefile and the annotations by drag-and-drop.
 
 
 
-### Important considerations
+### Important considerations {#sec-considerations}
 
-#### Running IQ-TREE on the concatenated alignment
+#### Choosing the right taxon set
+
+The GToTree helper script `gtt-get-accessions-from-GTDB` should be useful to get you started with selecting reference genomes to start with. However, there might be cases where you run into problems, for example, if your taxonomic group of interest has too many genomes then you could consider to:
+
+- Subset your selection further by only [keeping one representative per order](https://github.com/AstrobioMike/GToTree/wiki/things-to-consider#subsetting-the-GTDB-further)
+- If that leaves too few genomes you could consider running GToTree with the full set using the FastTree option, manually down-sample the tree and then rerun the tree with a better model on the downsampled set
+
+If you want to generate a tree of life with representatives from both the archaea and bacteria you can check this code [here](https://github.com/AstrobioMike/GToTree/wiki/example-usage#tol-example). Just keep in mind that by adding filters, such as only working with representative genomes might omit genomes from candidate phyla.
+
+#### Choosing marker genes
+
+GToTree also needs to know which SCG-set to use – passed with the -H flag. There are 14 provided with the program.
+
+| HMM set                | Number of gene targets |
+|------------------------|------------------------|
+| Actinobacteria         | 138                    |
+| Alphaproteobacteria    | 117                    |
+| Archaea                | 76                     |
+| Bacteria               | 74                     |
+| Bacteria_and_Archaea   | 25                     |
+| Bacteroidetes          | 90                     |
+| Betaproteobacteria     | 203                    |
+| Chlamydiae             | 286                    |
+| Cyanobacteria          | 251                    |
+| Epsilonproteobacteria  | 260                    |
+| Firmicutes             | 119                    |
+| Gammaproteobacteria    | 172                    |
+| Proteobacteria         | 119                    |
+| Tenericutes            | 99                     |
+| Universal (Hug et al.) | 16                     |
+
+More information on each is provided in the "hmm-sources-and-info.tsv" file found [here](https://github.com/AstrobioMike/GToTree/blob/master/hmm_sets/hmm-sources-and-info.tsv).
+
+For general usage, the universal dataset by @Hug2016 is a good starting point but you can also consider taxon-specific HMM sets.
+
+#### Phylogenetic models in IQ-TREE
 
 Phylogenetics is an incredibly complicated and well-researched field, and things become even more complicated when working with many concatenated genes as is the case with phylogenomics. This workflow is great to get you started but only applies one alignment tool and gives limited options for adjusting the settings for tree constructions. When this example was run on the Alteromonas example discussed above, IQ-TREE ran a model selection step, which decided the best model to use was a insect-specific model. Since that is not what you want for a final analysis, always check the chosen model in the log file and consider running IQ-TREE separately on the concatenated alignment with a more suited model.
 
@@ -348,29 +394,4 @@ srun --cpus-per-task 5 --mem=50G iqtree -s results/gtotree/Aligned_SCGs_mod_name
 ```
 
 
-#### Choosing marker genes
-
-GToTree also needs to know which SCG-set to use – passed with the -H flag. There are 14 provided with the program.
-
-| HMM set                | Number of gene targets |
-|------------------------|------------------------|
-| Actinobacteria         | 138                    |
-| Alphaproteobacteria    | 117                    |
-| Archaea                | 76                     |
-| Bacteria               | 74                     |
-| Bacteria_and_Archaea   | 25                     |
-| Bacteroidetes          | 90                     |
-| Betaproteobacteria     | 203                    |
-| Chlamydiae             | 286                    |
-| Cyanobacteria          | 251                    |
-| Epsilonproteobacteria  | 260                    |
-| Firmicutes             | 119                    |
-| Gammaproteobacteria    | 172                    |
-| Proteobacteria         | 119                    |
-| Tenericutes            | 99                     |
-| Universal (Hug et al.) | 16                     |
-
-More information on each is provided in the "hmm-sources-and-info.tsv" file found [here](https://github.com/AstrobioMike/GToTree/blob/master/hmm_sets/hmm-sources-and-info.tsv).
-
-For general usage, the universal dataset by @Hug2016 is a good starting point but you can also consider taxon-specific HMM sets.
 :::
