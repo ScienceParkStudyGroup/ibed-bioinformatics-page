@@ -60,11 +60,8 @@ website:
               - text: "Manipulating files with bash"
                 href: source/cli/cli_file_manipulation.qmd
 
-          - text: "Installing software"
+          - text: "Installing software with conda"
             href: source/conda/conda.qmd
-
-          - text: "Using R"
-            href: source/R/readme.qmd
 
           - section: "Using an HPC"
             href: source/cli/hpc_usage.qmd
@@ -74,6 +71,9 @@ website:
               - text: "Using scratch on Crunchomics"
                 href: source/cli/scratch.qmd
 
+          - text: "Using R"
+            href: source/R/readme.qmd
+            
       - section: "Sequence data analyses"
         href: source/metagenomics/readme.qmd
 

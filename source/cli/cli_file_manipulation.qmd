@@ -1,6 +1,4 @@
 ---
-toc-depth: 2
-
 execute:
   eval: false
 

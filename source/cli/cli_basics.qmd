@@ -1,6 +1,4 @@
 ---
-toc-depth: 2
-
 execute:
   eval: false
 
@@ -383,3 +381,5 @@ ls to_compress
 ```
 
 We can see that there is one folder in to_compress, our downloads folder.
+
+</div>

@@ -1,10 +1,12 @@
 ---
-toc-depth: 2
+engine: knitr
 ---
 
 <div style="text-align: justify">
 
-## Documenting code
+# Code documentation
+
+## Basics
 
 Documenting your code is crucial for both your future self and anyone else who might work with your code. Documentation serves as a roadmap for your code. It helps others (and your future self) understand the purpose, functionality, and usage of your code.
 

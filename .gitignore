@@ -9,3 +9,5 @@ img
 to_compress
 !docs/img
 !/data/*/*txt
+
+**/*.quarto_ipynb

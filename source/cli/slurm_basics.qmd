@@ -1,12 +1,13 @@
 ---
-code-block-bg: true
-code-block-border-left: "#31BAE9"
 execute:
   eval: false
+
 engine: knitr
 ---
 
 <div style="text-align: justify">
+
+# Start working on an HPC
 
 ## Getting started
 
