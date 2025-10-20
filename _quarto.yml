@@ -154,6 +154,7 @@ website:
           - section: "Nanopore analyses"
             contents:
               - source/nanopore/chopper.qmd
+              - source/nanopore/fastplong.qmd
               - source/nanopore/filtlong.qmd
               - source/nanopore/nanoclass.qmd
               - source/nanopore/nanoITS.qmd

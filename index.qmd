@@ -114,6 +114,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
     <li><a href="source/metatranscriptomics/fastp.qmd">FastP</a>: A tool for fast all-in-one preprocessing of FastQ files</li>
     <li><a href="source/metagenomics/fastqc_readme.qmd">FastQC</a>: A quality control tool for read sequencing data</li>
     <li><a href="source/core_tools/featurecounts.qmd">FeatureCounts</a>: A read summarization program that counts mapped reads for genomic features</li>
+    <li><a href="source/nanopore/fastplong.qmd">fastplong</a>: A tool for ultrafast preprocessing and quality control for long reads </li>
     <li><a href="source/nanopore/filtlong.qmd">Filtlong</a>: A tool for filtering long reads</li>
     <li><a href="source/metagenomics/flye.qmd">Flye</a>: A de novo assembler for single-molecule sequencing reads</li>
     <li><a href="source/metagenomics/gtdb.qmd">GTDB_tk</a>: A software toolkit for assigning objective taxonomic classifications to bacterial and archaeal genomes</li>

@@ -186,7 +186,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
-    <lastmod>2025-08-18T11:39:39.008Z</lastmod>
+    <lastmod>2025-10-20T12:13:30.707Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/Qiime/3_evelyn_tutorial_notes.html</loc>
@@ -367,5 +367,9 @@
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/snakemake/tutorial.html</loc>
     <lastmod>2023-09-15T10:04:19.554Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/nanopore/fastplong.html</loc>
+    <lastmod>2025-10-20T12:13:05.586Z</lastmod>
   </url>
 </urlset>

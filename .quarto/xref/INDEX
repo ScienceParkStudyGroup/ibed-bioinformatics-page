@@ -314,5 +314,8 @@
   },
   "source/cli/scratch.qmd": {
     "scratch.html": "62ace251"
+  },
+  "source/nanopore/fastplong.qmd": {
+    "fastplong.html": "2aac69ee"
   }
 }
