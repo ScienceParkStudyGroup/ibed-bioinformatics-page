@@ -15,6 +15,16 @@ bibliography: references.bib
 
 A tool for ultrafast preprocessing and quality control for long reads (Nanopore, PacBio, Cyclone, etc.). For full usage information, please visit the tool's [manual](https://github.com/OpenGene/fastplong).
 
+::: {.callout-warning}
+## Warning
+
+<br>
+fastplong seems to overestimate the average quality phred score (see a discussion on this [here](https://github.com/OpenGene/fastplong/issues/20)). For this reason it for now is recommended to use tools like <a href="../../source/nanopore/chopper.qmd">Chopper</a> if you want to perform quality filtering based on the quality score. 
+
+:::
+
+
+
 ### Installation
 
 Installed on Crunchomics: Yes,
