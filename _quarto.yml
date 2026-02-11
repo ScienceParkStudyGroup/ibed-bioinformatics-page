@@ -191,6 +191,7 @@ website:
       - section: "Bioinformatic databases"
         contents:
           - source/core_tools/cog.qmd
+          - source/core_tools/dbcan.qmd
           - source/core_tools/kegg_db.qmd
           - source/core_tools/ncbi_nr.qmd
           - source/core_tools/pfam_db.qmd

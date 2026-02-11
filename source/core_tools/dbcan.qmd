@@ -1,0 +1,81 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+::: {style="text-align: justify"}
+## dbCAN database
+
+### Introduction
+
+[dbCAN3](http://dbcan-hcc.unl.edu/) server is a web server for automated Carbohydrate-active enzyme ANnotation [@Zheng2023]. This webserver allows users predict glycan substrates for CAZymes by searching against dbCAN-sub, and for CAZyme gene clusters (CGCs). You can submit data for entire genomes or proteomes, however, you can also use the dbDAN HMM database as outlines below. This database is based on the [Carbohydrate-Active enZYmes Database (CAZy)](https://www.cazy.org/).
+
+### Installation
+
+Available on crunchomics: Yes,
+
+-   The dbCAN database is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).
+
+The database can be found here:
+
+-   `/zfs/omics/projects/bioinformatics/databases/dbCAN`.
+
+If you want to download the database yourself, you can do:
+
+```{bash}
+# Download database and mapping file 
+wget http://dbcan-hcc.unl.edu/download/dbCAN-HMMdb-V14.txt
+wget http://dbcan-hcc.unl.edu/download/Databases/fam-substrate-mapping-08262025.tsv
+
+# Clean mapping file
+sed -i 's/ /_/g' fam-substrate-mapping-08262025.tsv
+```
+
+### Example usage
+
+The database can be used with hmmsearch and we provide a small [python script](https://github.com/ndombrowski/script-inventory-vault/tree/main/scripts/data_processing) to parse the output:
+
+```{bash}
+## Run search
+hmmsearch \
+    --tblout results/sequence_results.txt \
+    --domtblout results/domain_results.txt \
+    --notextw \
+    --cpu 4 \
+    /zfs/omics/projects/bioinformatics/databases/dbCAN/dbCAN-HMMdb-V14.txt \
+    GCF_000970205.faa
+
+## Parse the result (example)
+python /zfs/omics/projects/bioinformatics/databases/dbCAN/parse_dbCAN.py  \
+	-i results/domain_results.txt \
+	-m /zfs/omics/projects/bioinformatics/databases/dbCAN/fam-substrate-mapping-08262025.tsv \
+	-o results \
+	-e 1e-5 -c 0.30
+```
+
+The python script filters by E-value and coverage, removes overlapping domains, and provides both detailed and summary outputs. It has the following options:
+
+```         
+options:
+  -h, --help            show this help message and exit
+  -i INPUT, --input INPUT
+                        Input hmmsearch domtblout file
+  -m METADATA, --metadata METADATA
+                        dbCAN family-substrate mapping file (TSV)
+  -o OUTDIR, --outdir OUTDIR
+                        Output directory for results
+  -e EVALUE, --evalue EVALUE
+                        E-value threshold for filtering hits
+                        Default: 1e-15
+  -c COVERAGE, --coverage COVERAGE
+                        Coverage threshold for filtering hits (0-1)
+                        Default: 0.35
+  --overlap-threshold OVERLAP_THRESHOLD
+                        Overlap threshold for removing redundant hits (0-1)
+                        Default: 0.5
+```
+:::

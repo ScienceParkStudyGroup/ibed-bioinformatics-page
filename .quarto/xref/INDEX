@@ -317,5 +317,8 @@
   },
   "source/nanopore/fastplong.qmd": {
     "fastplong.html": "2aac69ee"
+  },
+  "source/core_tools/dbcan.qmd": {
+    "dbcan.html": "cfbd5f20"
   }
 }
