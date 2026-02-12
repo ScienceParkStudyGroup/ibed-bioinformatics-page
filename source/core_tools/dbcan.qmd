@@ -12,7 +12,7 @@ bibliography: references.bib
 
 ### Introduction
 
-[dbCAN3](http://dbcan-hcc.unl.edu/) server is a web server for automated Carbohydrate-active enzyme ANnotation [@Zheng2023]. This webserver allows users predict glycan substrates for CAZymes by searching against dbCAN-sub, and for CAZyme gene clusters (CGCs). You can submit data for entire genomes or proteomes, however, you can also use the dbDAN HMM database as outlines below. This database is based on the [Carbohydrate-Active enZYmes Database (CAZy)](https://www.cazy.org/).
+[dbCAN3](http://dbcan-hcc.unl.edu/) server is a web server for automated Carbohydrate-active enzyme ANnotation [@Zheng2023]. This webserver allows users predict glycan substrates for CAZymes by searching against dbCAN-sub, and for CAZyme gene clusters (CGCs). You can submit data for entire genomes or proteomes, however, you can also use the dbDAN HMM database as outlined below. This database is based on the [Carbohydrate-Active enZYmes Database (CAZy)](https://www.cazy.org/).
 
 ### Installation
 
@@ -37,7 +37,7 @@ sed -i 's/ /_/g' fam-substrate-mapping-08262025.tsv
 
 ### Example usage
 
-The database can be used with hmmsearch and we provide a small [python script](https://github.com/ndombrowski/script-inventory-vault/tree/main/scripts/data_processing) to parse the output:
+The database can be searched with hmmsearch and we provide a small [python script](https://github.com/ndombrowski/script-inventory-vault/tree/main/scripts/data_processing) to parse the output:
 
 ```{bash}
 ## Run search

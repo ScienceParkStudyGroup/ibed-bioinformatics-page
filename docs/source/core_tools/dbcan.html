@@ -85,7 +85,7 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/core_tools/kegg_db.html" rel="next">
+<link href="../../source/core_tools/hyddb.html" rel="next">
 <link href="../../source/core_tools/cog.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -1013,6 +1013,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/hyddb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HydDB database</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/kegg_db.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">KOfam database</span></a>
   </div>
@@ -1076,7 +1082,7 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="dbcan-database">dbCAN database</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p><a href="http://dbcan-hcc.unl.edu/">dbCAN3</a> server is a web server for automated Carbohydrate-active enzyme ANnotation <span class="citation" data-cites="Zheng2023">(<a href="#ref-Zheng2023" role="doc-biblioref">Zheng et al. 2023</a>)</span>. This webserver allows users predict glycan substrates for CAZymes by searching against dbCAN-sub, and for CAZyme gene clusters (CGCs). You can submit data for entire genomes or proteomes, however, you can also use the dbDAN HMM database as outlines below. This database is based on the <a href="https://www.cazy.org/">Carbohydrate-Active enZYmes Database (CAZy)</a>.</p>
+<p><a href="http://dbcan-hcc.unl.edu/">dbCAN3</a> server is a web server for automated Carbohydrate-active enzyme ANnotation <span class="citation" data-cites="Zheng2023">(<a href="#ref-Zheng2023" role="doc-biblioref">Zheng et al. 2023</a>)</span>. This webserver allows users predict glycan substrates for CAZymes by searching against dbCAN-sub, and for CAZyme gene clusters (CGCs). You can submit data for entire genomes or proteomes, however, you can also use the dbDAN HMM database as outlined below. This database is based on the <a href="https://www.cazy.org/">Carbohydrate-Active enZYmes Database (CAZy)</a>.</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
@@ -1100,7 +1106,7 @@ div.csl-indent {
 </section>
 <section id="example-usage" class="level3">
 <h3 class="anchored" data-anchor-id="example-usage">Example usage</h3>
-<p>The database can be used with hmmsearch and we provide a small <a href="https://github.com/ndombrowski/script-inventory-vault/tree/main/scripts/data_processing">python script</a> to parse the output:</p>
+<p>The database can be searched with hmmsearch and we provide a small <a href="https://github.com/ndombrowski/script-inventory-vault/tree/main/scripts/data_processing">python script</a> to parse the output:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Run search</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">hmmsearch</span> <span class="dt">\</span></span>
@@ -1572,8 +1578,8 @@ Zheng, Jinfang, Qiwei Ge, Yuchen Yan, Xinpeng Zhang, Le Huang, and Yanbin Yin. 2
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/core_tools/kegg_db.html" class="pagination-link" aria-label="KOfam database">
-        <span class="nav-page-text">KOfam database</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/core_tools/hyddb.html" class="pagination-link" aria-label="HydDB database">
+        <span class="nav-page-text">HydDB database</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

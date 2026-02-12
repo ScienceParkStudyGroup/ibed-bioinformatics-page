@@ -1,0 +1,82 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+::: {style="text-align: justify"}
+## HydDB database
+
+### Introduction
+
+The hydrogenase database (HydDB) provides information pages for different groups of hydrogenases [@Søndergaard2016]. These could originally queried using the HydDB webserver but is no longer maintained, however, the database itself is available [here](https://github.com/GreeningLab/HydDB) and there is active work on HydDB v2.0.
+
+For a brief description about the different hydrogenases, have a look at Table 1 in [this paper](https://www.nature.com/articles/ismej2015153/tables/1).
+
+### Installation
+
+Available on crunchomics: Yes,
+
+-   The HydDB database is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).
+
+The database can be found here:
+
+-   `/zfs/omics/projects/bioinformatics/databases/hydDB/release2022`.
+
+If you want to download the database yourself, you can do:
+
+```{bash}
+# Download the data
+wget https://raw.githubusercontent.com/GreeningLab/HydDB/refs/heads/main/fastas/HydDB_all_hydrogenases.faa 
+
+# Convert faa file to diamond database
+diamond makedb --in HydDB_all_hydrogenases.faa -d hyddb
+```
+
+### Example usage
+
+The database can be searched with diamond blastp and we provide a small [python script](https://github.com/ndombrowski/script-inventory-vault/tree/main/scripts/data_processing) to parse the output:
+
+```{bash}
+## Run search
+diamond blastp -q data/genomes.faa \
+    --more-sensitive --evalue 1e-3 \
+    --threads 5 --max-target-seqs 20 \
+    --db /zfs/omics/projects/bioinformatics/databases/hyddb/release2022/hyddb \
+    --outfmt 6 qseqid qtitle qlen sseqid salltitles slen qstart qend sstart send evalue bitscore length pident \
+    --out results/results.txt
+
+# Parse the data
+python /zfs/omics/projects/bioinformatics/databases/hyddb/release2022/parse_diamond_hydDB.py \
+    -i results/results.txt \
+    -o results/hyddb_parsed.tsv \
+    --evalue 1e-5
+```
+
+The python returns the best hit based on the e-value and bitscore. It also discards hits below a certain e-value thresholds and below the following percent identities (as recommended [here](https://github.com/GreeningLab/HydDB)):
+
+-   \[NiFe\] = \>50% for group 4, \>30% for all other groups
+-   \[FeFe\] = \>45%
+-   \[Fe\] = \>50%
+
+```         
+options:
+  -h, --help            show this help message and exit
+  -i INPUT, --input INPUT
+                        Input HMMER tblout file
+  -o OUTPUT, --output OUTPUT
+                        Output filtered TSV file
+  --evalue EVALUE       E-value cutoff (default: 1e-10)
+  --cutoff-fefe CUTOFF_FEFE
+                        Percent identity cutoff for FeFe hydrogenases (default: 45)
+  --cutoff-nife-all CUTOFF_NIFE_ALL
+                        Percent identity cutoff for NiFe Groups 1, 2, 3 (default: 30)
+  --cutoff-nife-group-4 CUTOFF_NIFE_GROUP_4
+                        Percent identity cutoff for NiFe Group 4 (default: 50)
+  --cutoff-feonly CUTOFF_FEONLY
+                        Percent identity cutoff for Fe-only hydrogenases (default: 50)
+```
+:::
