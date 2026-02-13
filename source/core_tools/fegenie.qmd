@@ -1,0 +1,108 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+::: {style="text-align: justify"}
+## FeGenie
+
+### Introduction
+
+FeGenie is HMM-based identification and categorization of iron genes and iron gene operons in genomes and metagenome assemblies [@Garber2020]. To do this the authors developed a library of profile hidden Markov models (pHMMs) that are representative of all known (as far as we know) iron-related cellular functions, including iron acquisition/transport, iron storage, iron gene regulation, magnetosome formation, and iron reduction/oxidation. FeGenie uses this HMM library to search across provided datasets, and identifies potential homologs and operons that may be linked to the microbial iron cycle Results are summarized in several output files, which include a master summary file, in which users can view the iron genes and iron gene operons that are present in their datasets, and a heatmap-compatible CSV file that summarizes the proportion of each genome that is dedicated to a particular iron-related function.
+
+### Installation
+
+Installed on Crunchomics: Yes,
+
+-   FeGenie v1.2 is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics share, then you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski\@uva.nl.
+-   Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run:
+
+```{bash}
+mamba create -n fegenie1.2 -c bioconda -c defaults -c conda-forge fegenie=1.2
+```
+
+Note that when using the script on prokka gbk files, a dependency was missing and was installed with:
+
+```{bash}
+# Install missing dependency 
+conda activate fegenie1.2
+mamba install -c astrobiomike -c conda-forge -c bioconda gtotree
+conda deactivate
+```
+
+Additionally the script itself was modified to fix an issue with the gbk parsing by creating `FeGenie_gbk.py`, a modified copy of FeGenie.py specifically designed to fix the GBK parsing bug. This change was needed since the previous nested defaultdict caused incorrect ORF outputs.
+
+```{bash}
+conda activate fegenie1.2
+
+# find location of the script 
+FULL_PATH=$(which FeGenie.py)
+FEGENIE_DIR=$(dirname "$FULL_PATH")
+echo "FeGenie directory: $FEGENIE_DIR" 
+
+# Create a copy 
+cp $FULL_PATH "$FEGENIE_DIR/FeGenie_gbk.py"
+```
+
+Open the `$FEGENIE_DIR/FeGenie_gbk.py` and find the section starting with `f args.gbk:` and replace this section until `print("\n")` with:
+
+```bash
+        if args.gbk:
+            idxDict = {}
+            orfDir = "%s/ORF_calls" % outDirectory
+
+            for idxfile in os.listdir(orfDir):
+                if idxfile.endswith(".idx"):
+                    with open("%s/%s" % (orfDir, idxfile)) as idxfileopen:
+                        for idxline in idxfileopen:
+                            ls = idxline.rstrip().split(",")
+                            oldOrf = ls[0]
+                            newOrf = ls[1]
+                            idxDict[newOrf] = oldOrf
+            #print("IDX size:", len(idxDict))
+            #print("Example keys:", list(idxDict.keys())[:5])
+
+            print("\n")
+```
+
+
+### Usage
+
+Below some basic usage examples to run FeGenie on genome, protein or gbk files. 
+
+Note, that FeGenie finds less hits when using proteins, i.e. from prokka or prodigal. The reason for that is because a clustering step is omitted that is used to identify iron-related clusters. If you want to work with your own proteins then the best solution is to instead use the prokka gbk files as input as outlined below.
+
+```{bash}
+conda activate fegenie1.2 
+
+mkdir -p fegenie_out/
+
+# Option 1: Run Fegenie on some genomes 
+FeGenie.py -bin_dir data/genomes -bin_ext fna -out fegenie_out/genomes
+
+# Option 2: Run Fegenie on proteins 
+FeGenie.py -bin_dir data/prokka -bin_ext faa -out fegenie_out/faa --orfs
+
+# Option 3: Run FeGenie on gbk files (only tested with prokka gbk files)
+## Fix the prokka gbk files locus tag
+python /zfs/omics/projects/bioinformatics/scripts/fegenie_fix_prokka_gbk.py --fasta_dir data/prokka --gbk_dir data/prokka --output_dir data/prokka_fixed
+
+## Make sure that the locus tag looks like this:
+## LOCUS       GCF_000005845.2-NC_000913.3     4641652 bp    DNA     linear       13-FEB-2026
+grep LOCUS data/prokka_fixed/*.gbk
+
+## Run FeGenie 
+## Important: This uses the adjusted script for gbk files!
+FeGenie_gbk.py -bin_dir data/prokka_fixed/ -bin_ext gbk -out fegenie_out/gbk --gbk
+```
+

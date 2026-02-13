@@ -115,11 +115,11 @@ Next, to the carpentries you will find a list of tutorials for more specific top
     <li><a href="source/nanopore/fastplong.qmd">fastplong</a>: A tool for ultrafast preprocessing and quality control for long reads </li>
     <li><a href="source/metagenomics/fastqc_readme.qmd">FastQC</a>: A quality control tool for read sequencing data</li>
     <li><a href="source/core_tools/featurecounts.qmd">FeatureCounts</a>: A read summarization program that counts mapped reads for genomic features</li>
+    <li><a href="source/core_tools/fegenie.qmd">FeGenie</a>: A HMM-based identification and categorization of iron genes</li>
     <li><a href="source/nanopore/filtlong.qmd">Filtlong</a>: A tool for filtering long reads</li>
     <li><a href="source/metagenomics/flye.qmd">Flye</a>: A de novo assembler for single-molecule sequencing reads</li>
     <li><a href="source/metagenomics/gtdb.qmd">GTDB_tk</a>: A software toolkit for assigning objective taxonomic classifications to bacterial and archaeal genomes</li>
-      <li><a href="source/phylogenomics/gtotree.qmd">GToTree</a>: a user-friendly workflow for phylogenomics intended to create phylogenomic trees</li>
-
+    <li><a href="source/phylogenomics/gtotree.qmd">GToTree</a>: a user-friendly workflow for phylogenomics intended to create phylogenomic trees</li>
     <li><a href="source/core_tools/hmmer.qmd">HMMER</a>: A tool for searching sequence databases for sequence homologs, and for making sequence alignments</li>
     <li><a href="source/metagenomics/homopolish.qmd">Homopolish</a>: A tool for the removal of systematic errors in nanopore sequencing by homologous polishing</li>
   </ul>
@@ -217,6 +217,7 @@ for (i = 0; i < acc.length; i++) {
 
 - [COG](source/core_tools/cog.qmd)
 - [dbCAN](source/core_tools/dbcan.qmd)
+- [FeGenie](source/core_tools/fegenie.qmd)
 - [HydDB](source/core_tools/hyddb.qmd)
 - [KOfam](source/core_tools/kegg_db.qmd)
 - [NCBI-nr](source/core_tools/ncbi_nr.qmd)

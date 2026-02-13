@@ -111,6 +111,7 @@ website:
               - source/metagenomics/checkm2.qmd
               - source/metagenomics/coverm.qmd
               - source/metagenomics/dnaapler.qmd
+              - source/core_tools/fegenie.qmd
               - source/metagenomics/flye.qmd
               - source/metagenomics/gtdb.qmd
               - source/metagenomics/homopolish.qmd
@@ -192,6 +193,7 @@ website:
         contents:
           - source/core_tools/cog.qmd
           - source/core_tools/dbcan.qmd
+          - source/core_tools/fegenie.qmd
           - source/core_tools/hyddb.qmd
           - source/core_tools/kegg_db.qmd
           - source/core_tools/ncbi_nr.qmd
