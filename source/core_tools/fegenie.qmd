@@ -95,7 +95,10 @@ FeGenie.py -bin_dir data/prokka -bin_ext faa -out fegenie_out/faa --orfs
 
 # Option 3: Run FeGenie on gbk files (only tested with prokka gbk files)
 ## Fix the prokka gbk files locus tag
-python /zfs/omics/projects/bioinformatics/scripts/fegenie_fix_prokka_gbk.py --fasta_dir data/prokka --gbk_dir data/prokka --output_dir data/prokka_fixed
+python /zfs/omics/projects/bioinformatics/scripts/fegenie_fix_prokka_gbk.py \
+  --fasta_dir data/prokka \
+  --gbk_dir data/prokka \
+  --output_dir data/prokka_fixed
 
 ## Make sure that the locus tag looks like this:
 ## LOCUS       GCF_000005845.2-NC_000913.3     4641652 bp    DNA     linear       13-FEB-2026
@@ -103,6 +106,9 @@ grep LOCUS data/prokka_fixed/*.gbk
 
 ## Run FeGenie 
 ## Important: This uses the adjusted script for gbk files!
-FeGenie_gbk.py -bin_dir data/prokka_fixed/ -bin_ext gbk -out fegenie_out/gbk --gbk
+FeGenie_gbk.py -bin_dir data/prokka_fixed/ \
+  -bin_ext gbk \
+  -out fegenie_out/gbk \
+  --gbk
 ```
 

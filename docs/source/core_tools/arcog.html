@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>fegenie – Bioinformatics guidance page</title>
+<title>arcog – Bioinformatics guidance page</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -85,8 +85,8 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/metagenomics/flye.html" rel="next">
-<link href="../../source/metagenomics/dnaapler.html" rel="prev">
+<link href="../../source/core_tools/cog.html" rel="next">
+<link href="../../source/core_tools/bash-for-loops.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -305,7 +305,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/atlas.html">(Meta)genomics</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/fegenie.html">FeGenie</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/core_tools/arcog.html">Bioinformatic databases</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/arcog.html">arCOG database</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -549,13 +549,13 @@ div.csl-indent {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
  <span class="menu-text">(Meta)genomics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/atlas.html" class="sidebar-item-text sidebar-link">
@@ -594,7 +594,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/fegenie.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../source/core_tools/fegenie.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FeGenie</span></a>
   </div>
 </li>
@@ -1007,7 +1007,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/arcog.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/arcog.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">arCOG database</span></a>
   </div>
 </li>
@@ -1077,17 +1077,17 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#fegenie" id="toc-fegenie" class="nav-link active" data-scroll-target="#fegenie">FeGenie</a>
+  <li><a href="#arcog-database" id="toc-arcog-database" class="nav-link active" data-scroll-target="#arcog-database">arCOG database</a>
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
-  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
+  <li><a href="#example-usage" id="toc-example-usage" class="nav-link" data-scroll-target="#example-usage">Example usage</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/fegenie.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/arcog.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/atlas.html">(Meta)genomics</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/fegenie.html">FeGenie</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/core_tools/arcog.html">Bioinformatic databases</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/arcog.html">arCOG database</a></li></ol></nav></header>
 
 
 <header id="title-block-header">
@@ -1096,105 +1096,121 @@ div.csl-indent {
 </header>
 
 
-<section id="fegenie" class="level2" style="text-align: justify">
-<h2 class="anchored" data-anchor-id="fegenie">FeGenie</h2>
+<section id="arcog-database" class="level2" style="text-align: justify">
+<h2 class="anchored" data-anchor-id="arcog-database">arCOG database</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>FeGenie is HMM-based identification and categorization of iron genes and iron gene operons in genomes and metagenome assemblies <span class="citation" data-cites="Garber2020">(<a href="#ref-Garber2020" role="doc-biblioref">Garber et al. 2020</a>)</span>. To do this the authors developed a library of profile hidden Markov models (pHMMs) that are representative of all known (as far as we know) iron-related cellular functions, including iron acquisition/transport, iron storage, iron gene regulation, magnetosome formation, and iron reduction/oxidation. FeGenie uses this HMM library to search across provided datasets, and identifies potential homologs and operons that may be linked to the microbial iron cycle Results are summarized in several output files, which include a master summary file, in which users can view the iron genes and iron gene operons that are present in their datasets, and a heatmap-compatible CSV file that summarizes the proportion of each genome that is dedicated to a particular iron-related function.</p>
+<p>The Archaeal Clusters of Orthologous Genes (arCOGs) database is a curated database of orthologs genes within the archaea that can be used for functional annotation of archaeal genomes/proteins <span class="citation" data-cites="Wolf2012">(<a href="#ref-Wolf2012" role="doc-biblioref">Wolf et al. 2012</a>)</span>.</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>Installed on Crunchomics: Yes,</p>
+<p>Available on crunchomics: Yes,</p>
 <ul>
-<li>FeGenie v1.2 is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics share, then you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski@uva.nl.</li>
-<li>Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don’t need to run this command):</li>
+<li>The arCOG database is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to <a href="n.dombrowski@uva.nl">Nina Dombrowski</a>.</li>
 </ul>
+<p>The database can be found here:</p>
+<ul>
+<li><code>/zfs/omics/projects/bioinformatics/databases/arcogs</code>.</li>
+</ul>
+<p>If you want to download the database yourself, you can do:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the database </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/pub/wolf/COGs/arCOG/zip.aliar14.tgz</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/pub/wolf/COGs/arCOG/ar14.arCOGdef.tab </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Format the metadata file </span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-i</span> <span class="st">'s/ /_/g'</span> ar14.arCOGdef.tab</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Uncompress the database </span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzvf</span> zip.aliar14.tgz</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Get basic info: 13,096 alns + 13,444 definitions</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> ar14.ali/<span class="pp">*</span>sr <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> ar14.arCOGdef.tab </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if all alignments are found in the definition file</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"SR files not in tab:"</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">comm</span> <span class="at">-23</span> <span class="op">&lt;(</span><span class="fu">find</span> ar14.ali/ <span class="at">-type</span> f <span class="at">-name</span> <span class="st">"*.sr"</span> <span class="at">-exec</span> basename {} .sr <span class="dt">\;</span> <span class="kw">|</span> <span class="fu">sort</span><span class="op">)</span> <span class="dt">\</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>         <span class="op">&lt;(</span><span class="fu">sed</span> 1d ar14.arCOGdef.tab <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1</span> <span class="kw">|</span> <span class="fu">sort</span><span class="op">)</span> </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert alignments to hmm profiles</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ar14.ali</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="kw">`</span><span class="fu">ls</span> <span class="pp">*</span>sr <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/.sr//g'</span><span class="kw">`;</span> <span class="cf">do</span> <span class="ex">hmmbuild</span> <span class="va">$i</span>.hmm <span class="va">$i</span>.sr<span class="kw">;</span> <span class="cf">done</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">#cleanup </span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> sr hmm</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> <span class="pp">*</span>.sr sr </span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> <span class="pp">*</span>.hmm hmm </span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-czvf</span> sr.tar.gz sr</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-r</span> sr </span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># combine all profiles in a database</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> hmm/<span class="pp">*</span>.hmm <span class="op">&gt;&gt;</span> ../All_Arcogs_2023.hmm</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co"># clean</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-czvf</span> hmm.tar.gz hmm </span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-r</span> hmm </span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">#create database</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ex">hmmpress</span> All_Arcogs_2023.hmm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>If you want to install it yourself, you can run:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> fegenie1.2 <span class="at">-c</span> bioconda <span class="at">-c</span> defaults <span class="at">-c</span> conda-forge fegenie=1.2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Note that when using the script on prokka gbk files, a dependency was missing and was installed with:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install missing dependency </span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate fegenie1.2</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install <span class="at">-c</span> astrobiomike <span class="at">-c</span> conda-forge <span class="at">-c</span> bioconda gtotree</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Additionally the script itself was modified to fix an issue with the gbk parsing by creating <code>FeGenie_gbk.py</code>, a modified copy of FeGenie.py specifically designed to fix the GBK parsing bug. This change was needed since the previous nested defaultdict caused incorrect ORF outputs.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate fegenie1.2</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># find location of the script </span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="va">FULL_PATH</span><span class="op">=</span><span class="va">$(</span><span class="fu">which</span> FeGenie.py<span class="va">)</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="va">FEGENIE_DIR</span><span class="op">=</span><span class="va">$(</span><span class="fu">dirname</span> <span class="st">"</span><span class="va">$FULL_PATH</span><span class="st">"</span><span class="va">)</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"FeGenie directory: </span><span class="va">$FEGENIE_DIR</span><span class="st">"</span> </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a copy </span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="va">$FULL_PATH</span> <span class="st">"</span><span class="va">$FEGENIE_DIR</span><span class="st">/FeGenie_gbk.py"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Open the <code>$FEGENIE_DIR/FeGenie_gbk.py</code> and find the section starting with <code>f args.gbk:</code> and replace this section until <code>print("\n")</code> with:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="ex">args.gbk:</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>            <span class="ex">idxDict</span> = {}</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>            <span class="ex">orfDir</span> = <span class="st">"%s/ORF_calls"</span> % outDirectory</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> idxfile <span class="kw">in</span> os.listdir<span class="er">(</span><span class="ex">orfDir</span><span class="kw">)</span><span class="bu">:</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="ex">idxfile.endswith</span><span class="er">(</span><span class="st">".idx"</span><span class="kw">)</span><span class="bu">:</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                    <span class="ex">with</span> open<span class="er">(</span><span class="st">"%s/%s"</span> % <span class="er">(</span><span class="ex">orfDir,</span> idxfile<span class="kw">))</span> <span class="fu">as</span> idxfileopen:</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">for</span> idxline <span class="kw">in</span> idxfileopen:</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">ls</span> = idxline.rstrip<span class="er">(</span><span class="kw">)</span><span class="ex">.split</span><span class="er">(</span><span class="st">","</span><span class="kw">)</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                            <span class="ex">oldOrf</span> = ls<span class="pp">[</span><span class="ss">0</span><span class="pp">]</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                            <span class="ex">newOrf</span> = ls<span class="pp">[</span><span class="ss">1</span><span class="pp">]</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                            <span class="va">idxDict</span><span class="op">[</span>newOrf<span class="op">]</span> <span class="ex">=</span> oldOrf</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>            <span class="co">#print("IDX size:", len(idxDict))</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>            <span class="co">#print("Example keys:", list(idxDict.keys())[:5])</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>            <span class="ex">print</span><span class="er">(</span><span class="st">"\n"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Note: 12 alignments are not found in the arCOG definition file for unknown reasons:</p>
+<pre><code>arCOG10092
+arCOG10487
+arCOG12002
+arCOG13110
+arCOG15193
+arCOG15228
+arCOG15233
+arCOG15283
+arCOG15284
+arCOG15285
+arCOG15286</code></pre>
 </section>
-<section id="usage" class="level3">
-<h3 class="anchored" data-anchor-id="usage">Usage</h3>
-<p>Below some basic usage examples to run FeGenie on genome, protein or gbk files.</p>
-<p>Note, that FeGenie finds less hits when using proteins, i.e.&nbsp;from prokka or prodigal. The reason for that is because a clustering step is omitted that is used to identify iron-related clusters. If you want to work with your own proteins then the best solution is to instead use the prokka gbk files as input as outlined below.</p>
+<section id="example-usage" class="level3">
+<h3 class="anchored" data-anchor-id="example-usage">Example usage</h3>
+<p>You can compare your proteins of interest to the database using hmmsearch, for example by running the following:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate fegenie1.2 </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> fegenie_out/</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Option 1: Run Fegenie on some genomes </span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">FeGenie.py</span> <span class="at">-bin_dir</span> data/genomes <span class="at">-bin_ext</span> fna <span class="at">-out</span> fegenie_out/genomes</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Option 2: Run Fegenie on proteins </span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="ex">FeGenie.py</span> <span class="at">-bin_dir</span> data/prokka <span class="at">-bin_ext</span> faa <span class="at">-out</span> fegenie_out/faa <span class="at">--orfs</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Option 3: Run FeGenie on gbk files (only tested with prokka gbk files)</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">## Fix the prokka gbk files locus tag</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> /zfs/omics/projects/bioinformatics/scripts/fegenie_fix_prokka_gbk.py <span class="dt">\</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--fasta_dir</span> data/prokka <span class="dt">\</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--gbk_dir</span> data/prokka <span class="dt">\</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output_dir</span> data/prokka_fixed</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">## Make sure that the locus tag looks like this:</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co">## LOCUS       GCF_000005845.2-NC_000913.3     4641652 bp    DNA     linear       13-FEB-2026</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> LOCUS data/prokka_fixed/<span class="pp">*</span>.gbk</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co">## Run FeGenie </span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="co">## Important: This uses the adjusted script for gbk files!</span></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="ex">FeGenie_gbk.py</span> <span class="at">-bin_dir</span> data/prokka_fixed/ <span class="dt">\</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">-bin_ext</span> gbk <span class="dt">\</span></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">-out</span> fegenie_out/gbk <span class="dt">\</span></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">--gbk</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run hmmsearch </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">hmmsearch</span> <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--tblout</span> results/sequence_results.txt <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--domtblout</span> results/domain_results.txt <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--notextw</span> <span class="dt">\</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--cpu</span> 10 <span class="dt">\</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    /zfs/omics/projects/bioinformatics/databases/arcogs/All_Arcogs_2023.hmm <span class="dt">\</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    data/GCF_000970205.faa</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>This will potentially give you several hits for each protein of interest. Below you find example code for how to filter the tblout file and also add in metadata information for each arCOG:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1. Format the full table by:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># remove hash symbols and replacing spaces with a tab</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># retain only the columns with the protein-id, ko-id, e-value, bitscore</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># and only select hits above a certain e-value</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/ \+ /\t/g'</span> results/sequence_results.txt <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'/^#/d'</span><span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/ /\t/g'</span><span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{print $1, $3, $6, $5}'</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'($4 + 0) &lt;= 1E-3'</span>  <span class="op">&gt;</span> results/sequence_results_red_e_cutoff.txt</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#2. Get best hit/protein based on bit score, and e-value</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># i.e. one protein might hit toward more than 1 HMM, we only want to retain one hit</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k3,3gr</span> <span class="at">-k4,4g</span> results/sequence_results_red_e_cutoff.txt <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">--stable</span> <span class="at">-u</span> <span class="at">-k1,1</span>  <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k3,3gr</span> <span class="at">-k4,4g</span> <span class="op">&gt;</span>  results/sequence_results_red_e_cutoff_best_hit.txt</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#3. Merge with arcog mapping file </span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">join</span> <span class="at">-a1</span> <span class="at">-1</span> 2 <span class="at">-2</span> 1 <span class="at">-e</span><span class="st">'-'</span> <span class="at">-t</span> <span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-o1.1,1.2,1.4,1.3,2.3,2.4,2.2</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k2</span> results/sequence_results_red_e_cutoff_best_hit.txt<span class="op">)</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k1</span>  /zfs/omics/projects/bioinformatics/databases/arcogs//ar14.arCOGdef.tab<span class="op">)</span> <span class="kw">|</span> <span class="va">LC_ALL</span><span class="op">=</span>C  <span class="fu">sort</span> <span class="op">&gt;</span>  results/temp1</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#4. Add header</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"accession\tKarcog_id\te_value\tbit_score\tgene\tdefinition\tpathway"</span> <span class="kw">|</span> <span class="fu">cat</span> <span class="at">-</span> results/temp1 <span class="op">&gt;</span> results/arcog_results.tsv</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#5. Cleanup</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> results/temp<span class="pp">*</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
 
 
-</section>
-</section>
 
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-Garber2020" class="csl-entry" role="listitem">
-Garber, Arkadiy I., Kenneth H. Nealson, Akihiro Okamoto, Sean M. McAllister, Clara S. Chan, Roman A. Barco, and Nancy Merino. 2020. <span>“FeGenie: A Comprehensive Tool for the Identification of Iron Genes and Iron Gene Neighborhoods in Genome and Metagenome Assemblies.”</span> <em>Frontiers in Microbiology</em> 11 (January). <a href="https://doi.org/10.3389/fmicb.2020.00037">https://doi.org/10.3389/fmicb.2020.00037</a>.
+<div id="ref-Wolf2012" class="csl-entry" role="listitem">
+Wolf, Yuri I, Kira S Makarova, Natalya Yutin, and Eugene V Koonin. 2012. <span>“Updated Clusters of Orthologous Genes for Archaea: A Complex Ancestor of the Archaea and the Byways of Horizontal Gene Transfer.”</span> <em>Biology Direct</em> 7 (1): 46. <a href="https://doi.org/10.1186/1745-6150-7-46">https://doi.org/10.1186/1745-6150-7-46</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1617,13 +1633,13 @@ Garber, Arkadiy I., Kenneth H. Nealson, Akihiro Okamoto, Sean M. McAllister, Cla
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/metagenomics/dnaapler.html" class="pagination-link" aria-label="dnaapler">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">dnaapler</span>
+      <a href="../../source/core_tools/bash-for-loops.html" class="pagination-link" aria-label="For-loops in bash">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">For-loops in bash</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/metagenomics/flye.html" class="pagination-link" aria-label="Flye">
-        <span class="nav-page-text">Flye</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/core_tools/cog.html" class="pagination-link" aria-label="COG database">
+        <span class="nav-page-text">COG database</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1635,8 +1651,8 @@ Garber, Arkadiy I., Kenneth H. Nealson, Akihiro Okamoto, Sean M. McAllister, Cla
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-02-13</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/fegenie.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+Last modified: 2026-02-16</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/arcog.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

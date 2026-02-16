@@ -191,6 +191,7 @@ website:
 
       - section: "Bioinformatic databases"
         contents:
+          - source/core_tools/arcog.qmd
           - source/core_tools/cog.qmd
           - source/core_tools/dbcan.qmd
           - source/core_tools/fegenie.qmd

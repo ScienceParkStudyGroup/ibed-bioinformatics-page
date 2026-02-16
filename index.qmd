@@ -215,15 +215,16 @@ for (i = 0; i < acc.length; i++) {
 
 ## Useful databases A-Z
 
-- [COG](source/core_tools/cog.qmd)
-- [dbCAN](source/core_tools/dbcan.qmd)
-- [FeGenie](source/core_tools/fegenie.qmd)
-- [HydDB](source/core_tools/hyddb.qmd)
-- [KOfam](source/core_tools/kegg_db.qmd)
-- [NCBI-nr](source/core_tools/ncbi_nr.qmd)
-- [Pfam](source/core_tools/pfam_db.qmd)
-- [PGAP database](source/core_tools/pgap_db.qmd)
-- [TIGRFAM](source/core_tools/tigrfam_db.qmd)
+- [arCOG](source/core_tools/arcog.qmd): Archaeal Clusters of Orthologous Genes (arCOGs) database to analyse archaea
+- [COG](source/core_tools/cog.qmd): Cluster of Orthologous Genes (COGs) to analyse bacteria
+- [dbCAN](source/core_tools/dbcan.qmd): Database to analyse carbohydrate-active enzymes in genomes
+- [FeGenie](source/core_tools/fegenie.qmd): Database to identify iron genes and iron operons in genomes
+- [HydDB](source/core_tools/hyddb.qmd): Database to identify hydrogenases in genomes
+- [KOfam](source/core_tools/kegg_db.qmd): Database to assign KEGG orthologous (KOs) to protein sequences
+- [NCBI-nr](source/core_tools/ncbi_nr.qmd): NCBI's non-redundant (nr) protein database to analyse protein sequences
+- [Pfam](source/core_tools/pfam_db.qmd): A collection of protein models to analyse protein sequences
+- [PGAP database](source/core_tools/pgap_db.qmd): Successor to the TIGRFAM database
+- [TIGRFAM](source/core_tools/tigrfam_db.qmd): A collection of manually curated protein families to analyse prokaryotic sequences
 
 
 </div>

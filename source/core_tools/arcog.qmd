@@ -1,0 +1,125 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+::: {style="text-align: justify"}
+## arCOG database
+
+### Introduction
+
+The Archaeal Clusters of Orthologous Genes (arCOGs) database is a curated database of orthologs genes within the archaea that can be used for functional annotation of archaeal genomes/proteins [@Wolf2012].
+
+### Installation
+
+Available on crunchomics: Yes,
+
+-   The arCOG database is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).
+
+The database can be found here:
+
+-   `/zfs/omics/projects/bioinformatics/databases/arcogs`.
+
+If you want to download the database yourself, you can do:
+
+```{bash}
+# Download the database 
+wget https://ftp.ncbi.nlm.nih.gov/pub/wolf/COGs/arCOG/zip.aliar14.tgz
+wget https://ftp.ncbi.nlm.nih.gov/pub/wolf/COGs/arCOG/ar14.arCOGdef.tab 
+
+# Format the metadata file 
+sed -i 's/ /_/g' ar14.arCOGdef.tab
+
+# Uncompress the database 
+tar -xzvf zip.aliar14.tgz
+
+# Get basic info: 13,096 alns + 13,444 definitions
+wc -l ar14.ali/*sr | wc -l
+wc -l ar14.arCOGdef.tab 
+
+# Check if all alignments are found in the definition file
+echo "SR files not in tab:"
+comm -23 <(find ar14.ali/ -type f -name "*.sr" -exec basename {} .sr \; | sort) \
+         <(sed 1d ar14.arCOGdef.tab | cut -f1 | sort) 
+
+# Convert alignments to hmm profiles
+cd ar14.ali
+for i in `ls *sr | sed 's/.sr//g'`; do hmmbuild $i.hmm $i.sr; done
+
+#cleanup 
+mkdir sr hmm
+mv *.sr sr 
+mv *.hmm hmm 
+tar -czvf sr.tar.gz sr
+rm -r sr 
+
+# combine all profiles in a database
+cat hmm/*.hmm >> ../All_Arcogs_2023.hmm
+
+# clean
+tar -czvf hmm.tar.gz hmm 
+rm -r hmm 
+
+#create database
+cd ..
+hmmpress All_Arcogs_2023.hmm
+```
+
+Note: 12 alignments are not found in the arCOG definition file for unknown reasons:
+
+```         
+arCOG10092
+arCOG10487
+arCOG12002
+arCOG13110
+arCOG15193
+arCOG15228
+arCOG15233
+arCOG15283
+arCOG15284
+arCOG15285
+arCOG15286
+```
+
+### Example usage
+
+You can compare your proteins of interest to the database using hmmsearch, for example by running the following:
+
+```{bash}
+# Run hmmsearch 
+hmmsearch \
+    --tblout results/sequence_results.txt \
+    --domtblout results/domain_results.txt \
+    --notextw \
+    --cpu 10 \
+    /zfs/omics/projects/bioinformatics/databases/arcogs/All_Arcogs_2023.hmm \
+    data/GCF_000970205.faa
+```
+
+This will potentially give you several hits for each protein of interest. Below you find example code for how to filter the tblout file and also add in metadata information for each arCOG:
+
+```{bash}
+#1. Format the full table by:
+# remove hash symbols and replacing spaces with a tab
+# retain only the columns with the protein-id, ko-id, e-value, bitscore
+# and only select hits above a certain e-value
+sed 's/ \+ /\t/g' results/sequence_results.txt | sed '/^#/d'| sed 's/ /\t/g'| awk -F'\t' -v OFS='\t' '{print $1, $3, $6, $5}' | awk -F'\t' -v OFS='\t' '($4 + 0) <= 1E-3'  > results/sequence_results_red_e_cutoff.txt
+
+#2. Get best hit/protein based on bit score, and e-value
+# i.e. one protein might hit toward more than 1 HMM, we only want to retain one hit
+sort -t$'\t' -k3,3gr -k4,4g results/sequence_results_red_e_cutoff.txt | sort -t$'\t' --stable -u -k1,1  | sort -t$'\t' -k3,3gr -k4,4g >  results/sequence_results_red_e_cutoff_best_hit.txt
+
+#3. Merge with arcog mapping file 
+LC_ALL=C join -a1 -1 2 -2 1 -e'-' -t $'\t' -o1.1,1.2,1.4,1.3,2.3,2.4,2.2 <(LC_ALL=C sort -k2 results/sequence_results_red_e_cutoff_best_hit.txt) <(LC_ALL=C sort -k1  /zfs/omics/projects/bioinformatics/databases/arcogs//ar14.arCOGdef.tab) | LC_ALL=C  sort >  results/temp1
+
+#4. Add header
+echo -e "accession\tKarcog_id\te_value\tbit_score\tgene\tdefinition\tpathway" | cat - results/temp1 > results/arcog_results.tsv
+
+#5. Cleanup
+rm results/temp*
+```
+:::

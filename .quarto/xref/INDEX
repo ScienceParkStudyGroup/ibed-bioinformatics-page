@@ -326,5 +326,8 @@
   },
   "source/core_tools/fegenie.qmd": {
     "fegenie.html": "8d63a69b"
+  },
+  "source/core_tools/arcog.qmd": {
+    "arcog.html": "13e8b320"
   }
 }
