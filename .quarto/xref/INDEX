@@ -329,5 +329,8 @@
   },
   "source/core_tools/arcog.qmd": {
     "arcog.html": "13e8b320"
+  },
+  "source/core_tools/custom_scripts.qmd": {
+    "custom_scripts.html": "f7fc95fe"
   }
 }

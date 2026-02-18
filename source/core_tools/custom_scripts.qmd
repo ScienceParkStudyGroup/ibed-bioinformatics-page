@@ -1,0 +1,48 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+bibliography: references.bib
+---
+
+::: {style="text-align: justify"}
+# Custom scripts
+
+Below you find a list of custom scripts for bioinformatic analyses. All of these can be found on Crunchomics in the following location: `/zfs/omics/projects/bioinformatics/scripts`:
+
+:::
+
+
+```{python}
+#| echo: false
+#| output: asis
+
+import pandas as pd
+from IPython.display import HTML
+from itables import show
+
+# Read CSV
+scripts = pd.read_csv("../../data/scripts_inventory.csv")
+scripts = scripts[["Script name", "Category", "Description", "Link"]]
+
+# Convert Link to HTML anchor
+scripts["Link"] = scripts["Link"].apply(
+    lambda url: f'<a href="{url}" target="_blank">Link</a>' if pd.notna(url) else ""
+)
+
+# Render as HTML table
+show(
+    scripts,
+    classes="display compact",
+    columnDefs=[
+        {"className": "dt-left", "targets": "_all"},
+        {"width": "150px", "targets": 0},  # Script name
+        {"width": "100px", "targets": 1},  # Category
+        {"width": "400px", "targets": 2},  # Description (widest)
+        {"width": "60px",  "targets": 3},  # Link
+    ],
+    lengthMenu=[10, 25, 100],
+    scrollX=True,
+    allow_html=True,
+    autoWidth=False  # Critical: disables DataTables auto width calculation
+)
+```

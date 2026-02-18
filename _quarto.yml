@@ -39,7 +39,7 @@ website:
   
   sidebar:
     style: "docked"
-    collapse-level: 2
+    collapse-level: 1
 
     contents:
       - text: "Welcome page"
@@ -185,9 +185,9 @@ website:
               - source/core_tools/featurecounts.qmd
 
       - section: "Bioinformatics toolbox"
-        href: source/core_tools/toolbox-readme.qmd
         contents:
-          - source/core_tools/bash-for-loops.qmd
+            - source/core_tools/custom_scripts.qmd
+            - source/core_tools/bash-for-loops.qmd 
 
       - section: "Bioinformatic databases"
         contents:

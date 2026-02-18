@@ -1,0 +1,11 @@
+﻿Script name,Category,Description,Link,Reference
+catfasta2phyml.pl,File processing,Concatenates fasta sequences,https://github.com/nylander/catfasta2phyml,https://github.com/nylander/catfasta2phyml
+check_strand_incl_samtools.py,RNA-seq,Take a bam file and estimates strandedness,https://github.com/ndombrowski/script-inventory-vault/blob/main/scripts/quality_control/check_strand_incl_samtools.py,
+combine_nanoplot_html.py,File processing,Combine the individual nanoplot outputs for different barcodes into one,https://github.com/ndombrowski/script-inventory-vault/blob/main/scripts/visualization/combine_nanoplot_html.py,
+fasta_record_stats.py,Sequence processing,"Calculate total length, GC content and number of ambiguous bases for each record of a fasta file",https://github.com/ndombrowski/script-inventory-vault/blob/main/scripts/quality_control/fasta_record_stats.py,
+parse_IPRdomains_vs2_GO_2_ts_sigP.py,File processing,Outputs results from an IPRscan into a tab-delimited file,https://github.com/ndombrowski/script-inventory-vault/blob/main/scripts/data_processing/parse_IPRdomains_vs2_GO_2_ts_sigP.py,
+parse_tree.py,Phylogenies,Colors an unrooted iqtree tree using patterns from a color file and outputs a pdf and a nexus file,https://github.com/ndombrowski/script-inventory-vault/blob/main/scripts/visualization/parse_tree.py,
+prokka-suggest_pseudogenes.pl,Quality control,Takes prokka faa outputs and outputs the number of potential pseudogenes,https://github.com/tseemann/bioinfo-scripts/blob/master/bin/prokka-suggest_pseudogenes.pl,https://github.com/tseemann/bioinfo-scripts/blob/master/bin/prokka-suggest_pseudogenes.pl
+Replace_tree_names.pl,Phylogenies,"Takes a tab-delimited, 2-column file with original string and string to replace and use this to replace strings in a treefile",https://github.com/ndombrowski/script-inventory-vault/blob/main/scripts/data_processing/Replace_tree_names.pl,
+reverse_complement.py,Sequence processing,"Generates a reverse complement of a user input, string or fasta file",https://github.com/ndombrowski/script-inventory-vault/blob/main/scripts/bioinformatics/reverse_complement.py,
+Split_Multifasta.py,Sequence processing,Takes multifasta file and splits it into several files with a desired amount of sequences,https://github.com/ndombrowski/script-inventory-vault/blob/main/scripts/data_processing/Split_Multifasta.py,

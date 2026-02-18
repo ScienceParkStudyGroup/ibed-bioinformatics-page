@@ -210,8 +210,8 @@ for (i = 0; i < acc.length; i++) {
 
 ## Bioinformatic toolbox
 
+- [Custom scripts](source/core_tools/custom_scripts.qmd): A list of custom scripts useful for bioinformatic analyses
 - [For-loops-in-bash](source/core_tools/bash-for-loops.qmd): How can I scale my research and run software not only on one but multiple files?
-
 
 ## Useful databases A-Z
 
