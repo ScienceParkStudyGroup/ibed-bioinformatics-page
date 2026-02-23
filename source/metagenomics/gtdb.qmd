@@ -19,7 +19,10 @@ GTDB_Tk is a software toolkit for assigning objective taxonomic classifications 
 
 Installed on crunchomics: Yes,
 
--   GTDB_Tk v2.4.0 and the GTDB v220 database are installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).
+- Several versions are available as part of the bioinformatics share:
+  -   GTDB_Tk v2.6.1 and the [GTDB v226 database](https://gtdb.ecogenomic.org/stats/r226)
+  -   GTDB_Tk v2.4.0 and the [GTDB v220 database](https://gtdb.ecogenomic.org/stats/r220)
+-   If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).
 
 After you were added to the bioinformatics share you can add the conda environments that are installed in this share as follows (if you have already done this in the past, you don't need to run this command):
 
@@ -29,22 +32,50 @@ conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/minicon
 
 If you want to install it yourself, you can run:
 
+<details>
+  <summary>GTDB v2.4.0 with r220</summary>
+
 ```{bash}
+# Setup GTDBtk
 mamba create -n gtdbtk_2.4.0 -c bioconda gtdbtk=2.4.0
 
-#get gtdb data, v220 
+# Download gtdb data, v220 
 cd <my_database_folder>
-wget https://data.gtdb.ecogenomic.org/releases/latest/auxillary_files/gtdbtk_package/full_package/gtdbtk_data.tar.gz
+wget https://data.gtdb.ecogenomic.org/releases/release220/220.0/auxillary_files/gtdbtk_package/full_package/gtdbtk_r220_data.tar.gz
 tar xvzf gtdbtk_data.tar.gz 
 
-#link data to gtdbtk
+# Add link to gtdbtk
 conda activate gtdbtk_2.4.0
 conda env config vars set GTDBTK_DATA_PATH="<my_database_folder>/gtdb/release220";
 conda deactivate
 ```
 
+</details>
+
+<details>
+  <summary>GTDB v2.6.1 with r260</summary>
+
+```{bash}
+# Setup GTDBtk
+mamba create -n gtdbtk_2.6.1 -c bioconda gtdbtk=2.6.1
+
+# Download gtdb data, v226 
+cd <my_database_folder>
+wget https://data.gtdb.ecogenomic.org/releases/latest/auxillary_files/gtdbtk_package/full_package/gtdbtk_data.tar.gz
+tar xvzf gtdbtk_data.tar.gz 
+
+# Link datbase to gtdbtk
+conda activate gtdbtk_2.6.1
+conda env config vars set GTDBTK_DATA_PATH="<my_database_folder>/gtdb/release226";
+conda deactivate
+```
+
+</details>
 
 ### Usage
+
+<details>
+  <summary>GTDB v2.4.0 with r220</summary>
 
 ```{bash}
 mkdir -p results/gtdb 
@@ -60,7 +91,30 @@ gtdbtk classify_wf --genome_dir  genome_dir/ \
 conda deactivate
 ```
 
+</details>
+
+<details>
+  <summary>GTDB v2.6.1 with r226</summary>
+
+```{bash}
+mkdir -p results/gtdb 
+
+conda activate gtdbtk_2.6.1
+
+gtdbtk classify_wf --genome_dir  genome_dir/ \
+  --extension fasta \
+  --out_dir results/gtdb \
+  --cpus 20
+
+conda deactivate
+```
+
+</details>
+
+
 The files with the name `gtdbtk.*.summary.tsv` will contain key information about the taxonomic assignment of your genome(s).
+
+Note, that the first step of the `classify_wf` workflow is an ANI pre-screening step. If all genomes have been classified by the ANI screening step, Identify and Align steps will be skipped. If you still want to run these steps, you can add the `--skip_ani_screen ` argument to your command.
 
 For a full set of options and description how the tool works, please visit the [manual](https://ecogenomics.github.io/GTDBTk/).
 
@@ -68,6 +122,7 @@ For a full set of options and description how the tool works, please visit the [
 ### Common Issues and Solutions
 
 -   **Issue 1:** Running out of memory as described [here](https://ecogenomics.github.io/GTDBTk/faq.html)
-    -   Solution 1: Use `--scratch_dir` and `--pplacer_cpus 1`
+    -   Solution 1: For Crunchomics users: Use 150G of memory (and make sure to submit the job via srun or sbatch)
+    -   Solution 2: Use `--scratch_dir` and `--pplacer_cpus 1`
 -   **Issue 2:** Using a gtdbtk version with the incorrect database
     -   Solution 2: Ensure that you use the right gtdbtk-db combination, as listed [here](https://ecogenomics.github.io/GTDBTk/installing/index.html)
