@@ -107,8 +107,8 @@ By default the config.yaml is setup to run NanoClass2 as follows:
 -   Subsample the fastq files to only work with 100 reads per sample. 
     -   This allows to test all or a subset of classifiers with a subset of the data.
     -   To turn this of, set `skip: true`. 
-    -   **Important:** Once you decided on a final classifier you want to turn subsampling off by setting `skip:true` in order to run NanoClass2 on all reads.
--   Run NanoClass2 using all 11 classifiers. If you already have a favorite classifier you can only select the tool that you want to use.
+    -   **Important:** Once you decided on a final classifier or if you only want to run a single classifier you want to turn subsampling off by setting `skip:true` in order to run NanoClass2 on all reads.
+-   Run NanoClass2 using all 11 classifiers. If you already have a favorite classifier you can only select the tool that you want to use. We have good experiences with running minimap2 and kraken2.
 -   Quality filter the samples:
     -   Discard reads shorter than 1400 bp (minlen)
     -   Discard reads longer than 1600bp (maxlen)
@@ -145,7 +145,7 @@ The jobscript is setup to work with NanoClass2 in the amplicomics environment an
 
 The script does the following:
 
--   Requests 58 crunchomics cpus and 460G of memory. One can set this lower, but for testing purposes you might keep these values. The can be changed with `#SBATCH --cpus-per-task=58` and `#SBATCH --mem=460G`
+-   Requests 20 crunchomics cpus and 100G of memory. One can set this lower, but for testing purposes you might keep these values. The can be changed with `#SBATCH --cpus-per-task=20` and `#SBATCH --mem=100G`
 -   Ensures that conda is loaded properly by running `source ~/.bashrc`. The bashrc is a script executed once a user logs in and holds special configurations, such as telling the shell where conda is installed. If you run into issues that are related to conda/mamba not being found then open the this file with `nano ~/.bashrc` and check that you have a section with text similar to `# >>> conda initialize >>>`. If this is not present you might need to run `conda init bash` to add it.
 -   Activates the snakemake conda environment that is found in the amplicomics share with `conda activate /zfs/omics/projects/amplicomics/miniconda3/envs/snakemake_nanoclass2`
 -   Runs NanoClass2. When using the script as is, the script assumes that NanoClass2 is installed at this path `/zfs/omics/projects/amplicomics/bin/NanoClass2_Silva_1.0/` and that the config.yaml is located in the folder from which you analyse the data. If that is not the case, change the paths accordingly

@@ -316,13 +316,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">Getting Started</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/cli/code_doc.html" class="sidebar-item-text sidebar-link">
@@ -961,13 +961,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="true">
  <span class="menu-text">Bioinformatics toolbox</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/custom_scripts.html" class="sidebar-item-text sidebar-link">
@@ -984,13 +984,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="true">
  <span class="menu-text">Bioinformatic databases</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/arcog.html" class="sidebar-item-text sidebar-link">
@@ -1173,9 +1173,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>This allows to test all or a subset of classifiers with a subset of the data.</li>
 <li>To turn this of, set <code>skip: true</code>.</li>
-<li><strong>Important:</strong> Once you decided on a final classifier you want to turn subsampling off by setting <code>skip:true</code> in order to run NanoClass2 on all reads.</li>
+<li><strong>Important:</strong> Once you decided on a final classifier or if you only want to run a single classifier you want to turn subsampling off by setting <code>skip:true</code> in order to run NanoClass2 on all reads.</li>
 </ul></li>
-<li>Run NanoClass2 using all 11 classifiers. If you already have a favorite classifier you can only select the tool that you want to use.</li>
+<li>Run NanoClass2 using all 11 classifiers. If you already have a favorite classifier you can only select the tool that you want to use. We have good experiences with running minimap2 and kraken2.</li>
 <li>Quality filter the samples:
 <ul>
 <li>Discard reads shorter than 1400 bp (minlen)</li>
@@ -1209,7 +1209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The jobscript is setup to work with NanoClass2 in the amplicomics environment and you should not need to change anything if your config.yaml is set up correctly.</p>
 <p>The script does the following:</p>
 <ul>
-<li>Requests 58 crunchomics cpus and 460G of memory. One can set this lower, but for testing purposes you might keep these values. The can be changed with <code>#SBATCH --cpus-per-task=58</code> and <code>#SBATCH --mem=460G</code></li>
+<li>Requests 20 crunchomics cpus and 100G of memory. One can set this lower, but for testing purposes you might keep these values. The can be changed with <code>#SBATCH --cpus-per-task=20</code> and <code>#SBATCH --mem=100G</code></li>
 <li>Ensures that conda is loaded properly by running <code>source ~/.bashrc</code>. The bashrc is a script executed once a user logs in and holds special configurations, such as telling the shell where conda is installed. If you run into issues that are related to conda/mamba not being found then open the this file with <code>nano ~/.bashrc</code> and check that you have a section with text similar to <code># &gt;&gt;&gt; conda initialize &gt;&gt;&gt;</code>. If this is not present you might need to run <code>conda init bash</code> to add it.</li>
 <li>Activates the snakemake conda environment that is found in the amplicomics share with <code>conda activate /zfs/omics/projects/amplicomics/miniconda3/envs/snakemake_nanoclass2</code></li>
 <li>Runs NanoClass2. When using the script as is, the script assumes that NanoClass2 is installed at this path <code>/zfs/omics/projects/amplicomics/bin/NanoClass2_Silva_1.0/</code> and that the config.yaml is located in the folder from which you analyse the data. If that is not the case, change the paths accordingly</li>
@@ -1698,7 +1698,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2025-06-18</p>
+Last modified: 2026-03-13</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/nanopore/nanoclass.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

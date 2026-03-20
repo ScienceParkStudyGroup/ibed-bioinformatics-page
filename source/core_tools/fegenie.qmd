@@ -40,7 +40,10 @@ mamba install -c astrobiomike -c conda-forge -c bioconda gtotree
 conda deactivate
 ```
 
-Additionally the script itself was modified to fix an issue with the gbk parsing by creating `FeGenie_gbk.py`, a modified copy of FeGenie.py specifically designed to fix the GBK parsing bug. This change was needed since the previous nested defaultdict caused incorrect ORF outputs.
+Additionally the script itself was modified to 
+
+1. fix an issue with the gbk parsing by creating `FeGenie_gbk.py`, a modified copy of FeGenie.py specifically designed to fix the GBK parsing bug. This change was needed since the previous nested defaultdict caused incorrect ORF outputs.
+2. the gbk module additionally duplicated protein IDs, to prevent this a second fix was implemented
 
 ```{bash}
 conda activate fegenie1.2
@@ -54,9 +57,9 @@ echo "FeGenie directory: $FEGENIE_DIR"
 cp $FULL_PATH "$FEGENIE_DIR/FeGenie_gbk.py"
 ```
 
-Open the `$FEGENIE_DIR/FeGenie_gbk.py` and find the section starting with `f args.gbk:` and replace this section until `print("\n")` with:
+Open the `$FEGENIE_DIR/FeGenie_gbk.py` and find the section starting with `f args.gbk:`  to implement fix 1 and replace this section until `print("\n")` with:
 
-```bash
+```{bash}
         if args.gbk:
             idxDict = {}
             orfDir = "%s/ORF_calls" % outDirectory
@@ -75,6 +78,23 @@ Open the `$FEGENIE_DIR/FeGenie_gbk.py` and find the section starting with `f arg
             print("\n")
 ```
 
+To implement fix 2, add the lines with the comments:
+
+```{bash}
+for gbkkey1 in gbkDict.keys():
+	counter = 0
+	seen = set()  # added
+	for gbkey2 in gbkDict[gbkkey1]:
+		if gbkey2 in seen:     # added
+			continue             # added
+		seen.add(gbkey2)       # added
+		counter += 1
+		if len(faa[gbkey2]) > 0:
+			newOrf = gbkkey1 + "_" + str(counter)
+			idxOut.write(gbkey2 + "," + newOrf + "\n")
+			faaOut.write(">" + newOrf + "\n")
+			faaOut.write(str(faa[gbkey2]) + "\n")
+```
 
 ### Usage
 
@@ -110,5 +130,24 @@ FeGenie_gbk.py -bin_dir data/prokka_fixed/ \
   -bin_ext gbk \
   -out fegenie_out/gbk \
   --gbk
+
+
+# Optional: 
+# Parse the output 
+# Remove .gbk extension from genome field, construct accession name (genome_proteinID), select relevant columns,
+# deduplicate, and add consistent header
+awk -F',' -v OFS='\t' '
+    # Skip both header lines, will be reconstructed afterwards
+    /^category,/ { next }
+    {
+        # Strip .gbk from genome field
+        gsub(/\.gbk/, "", $2)
+        # Construct accession from genome and orf
+        accession = $2 "-" $3
+        print accession, $1, $4, $5, $6
+    }
+    ' results/annotations/fegenie/FeGenie-geneSummary.csv \
+    | cat <(echo -e "accession\tfegenie_category\tfegenie_hmm\tfegenie_bitscore\tfegenie_bitscore_cutoff") - \
+    > results/annotations/fegenie/fegenie_parsed.tsv
 ```
 

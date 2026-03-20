@@ -234,58 +234,55 @@ Next, we want to parse the hmmsearch results and:
 5.  Combine the data with our mapping file
 6.  Add a header
 
-Notice: For this code to work on other databases, i.e. the Pfam database, you need to ensure that you act on the right columns. Below are some tips but read through the detailed code explanations to make this work for other databases.
+Notice: For this code to work on other databases, i.e. the Pfam database, you need to ensure that you act on the right columns. Below are some tips but read through the detailed code explanations at the end of this document to make this work for other databases.
 
 1.  The first sed command extract the relevant columns, i.e. protein-id, ko-id, e-value, bitscore, by specifying the right fields. For the KO results, these are columns \$1, \$3, \$6, \$5
-2.  The second sort command sorts on the right columns. For the KOs column 3 is the e-value and column 4 the bitscore
+2.  The second sort command sorts on the right columns. For the KOs column 3 is the e-value and column 4 the bitscore and then only keeps one hit/protein based on the best value.
 3.  The join command joins the right fields from the KO mapping file. Ensure that
     1.  The ID to merge the two dataframes is in the second column in your results (-1 2) and in the first column in the ko_list (-2 1)
     2.  You add the right columns from the mapping file from the database. I.e. with 2.2 and 2.12 we exact a custom cutoff and a description from the ko_list.
     3.  The sort part acts on the right columns. I.e. We sort ko_list on column 1 (-k1) because that is the column that contains the KO ID that we want to use for merging
 
 ```{bash}
-#1.format the full table by:
-#remove hash symbols and replacing spaces with a tab
-#retain only the columns with the protein-id, ko-id, e-value, bitscore
-#and only select hits above a certain e-value
+# 1.format the full table by:
+# remove hash symbols and replacing spaces with a tab
+# retain only the columns with the protein-id, ko-id, e-value, bitscore
+# and only select hits above a certain e-value
 sed 's/ \+ /\t/g' results/kos/sequence_results.txt | sed '/^#/d'| sed 's/ /\t/g'| awk -F'\t' -v OFS='\t' '{print $1, $3, $6, $5}' | awk -F'\t' -v OFS='\t' '($4 + 0) <= 1E-3'  > results/kos/sequence_results_red_e_cutoff.txt
 
-#example for a sanity check:
-#we see less columns and hits with an insufficient e-value disappear
+# example for a sanity check:
+# we see less columns and hits with an insufficient e-value disappear
 grep ABU82216 results/kos/sequence_results.txt
 grep ABU82216 results/kos/sequence_results_red_e_cutoff.txt
 
-#2.get best hit/protein based on bit score, and e-value
-#i.e. one protein might hit toward more than 1 HMM, we only want to retain one hit
+# 2.get best hit/protein based on bit score, and e-value
+# i.e. one protein might hit toward more than 1 HMM, we only want to retain one hit
 sort -t$'\t' -k3,3gr -k4,4g results/kos/sequence_results_red_e_cutoff.txt | sort -t$'\t' --stable -u -k1,1  | sort -t$'\t' -k3,3gr -k4,4g >  results/kos/sequence_results_red_e_cutoff_best_hit.txt
 
-#sanity check: We see that only one hit, the one with the best scores, remains
+# sanity check: We see that only one hit, the one with the best scores, remains
 grep ABU82216 results/kos/sequence_results_red_e_cutoff_best_hit.txt
 
-#3.merge with KO mapping file 
-#ensure that the KOs are in column 2 and 1 of the results and the mapping file
-#-o decides what columns are kept after the merge from table 1 and 2. I.e. from the mapping file only columns 2 and 12 are used
+# 3.merge with KO mapping file 
+# ensure that the KOs are in column 2 and 1 of the results and the mapping file
+# -o decides what columns are kept after the merge from table 1 and 2. I.e. from the mapping file only columns 2 and 12 are used
 LC_ALL=C join -a1 -1 2 -2 1 -e'-' -t $'\t' -o1.1,1.2,1.4,1.3,2.2,2.12 <(LC_ALL=C sort -k2 results/kos/sequence_results_red_e_cutoff_best_hit.txt) <(LC_ALL=C sort -k1  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list) | LC_ALL=C  sort >  results/kos/temp1
 
-#sanity check: We see a description for the KO id and now know better at what function we look at 
+# sanity check: We see a description for the KO id and now know better at what function we look at 
 grep ABU82216 results/kos/temp1
 
-#4.add in an extra column that lists whether hits have a high confidence score
+# 4.add in an extra column that lists whether hits have a high confidence score
 awk  -v OFS='\t' '{ if ($4 > $5){ $7="high_score" }else{ $7="-" } print } ' results/kos/temp1 > results/kos/temp2
 
-#sanity check: This hit is very likely true because the bitscore is sufficiently high
+# sanity check: This hit is very likely true because the bitscore is sufficiently high
 grep ABU82216 results/kos/temp2
 
-#5.merge with protein mapping file
-LC_ALL=C join -a1  -j1 -e'-' -t $'\t' -o 0,1.2,2.2,2.3,2.4,2.5,2.6,2.7 <(LC_ALL=C sort mapping_file.txt) <(LC_ALL=C sort results/kos/temp2) | LC_ALL=C sort  > results/kos/temp3
+# 6.add header
+echo -e "accession\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence" | cat - results/kos/temp3 > results/kos/KO_hmm.tsv
 
-#6.add header
-echo -e "accession\tBinID\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence" | cat - results/kos/temp3 > results/kos/KO_hmm.tsv
-
-#sanity check
+# sanity check
 grep ABU82216 results/kos/KO_hmm.tsv
 
-#cleanup 
+# cleanup 
 rm results/kos/temp*  
 ```
 
@@ -371,24 +368,6 @@ awk  -v OFS='\t' '{ if ($4 > $5){ $7="high_score" }else{ $7="-" } print } ' resu
 :::
 
 ::: {.callout-tip title="Tip: What does the 5th command do" collapse="true"}
-```{bash}
-LC_ALL=C join -a1  -j1 -e'-' -t $'\t' -o 0,1.1,2.2,2.3,2.4,2.5,2.6,2.7 <(LC_ALL=C sort mapping_file.txt) <(LC_ALL=C sort results/kos/temp2) | LC_ALL=C sort  > results/kos/temp3
-```
-
-1.  `LC_ALL=C join -a1 -j1 -e'-' -t $'\t' -o 0,1.1,2.2,2.3,2.4,2.5,2.6,2.7`: This part executes the `join` command with the following options:
-    -   `-a1`: Specifies to output unpairable lines from the first file.
-    -   `-j1`: Specifies the join field for the first file is the first field.
-    -   `-e'-'`: Specifies the string to replace missing input fields with.
-    -   `-t $'\t'`: Specifies the field separator as a tab character.
-    -   `-o 0,1.1,2.2,2.3,2.4,2.5,2.6,2.7`: Specifies the output format. It selects specific columns from both files to be included in the output. Here, `0` represents the join field, `1.1` represents the first field from the first file, and `2.2` to `2.7` represent the second to seventh fields from the second file.
-2.  `<(...)`: This is process substitution. It allows the output of a command to be used as the input to another command. In this case, it is used to sort the contents of `mapping_file.txt` and `temp2` before passing them to `join`.
-3.  `| LC_ALL=C sort`: This part pipes the output of the `join` command to another `sort` command. `LC_ALL=C` ensures byte-based sorting.
-4.  `> results/kos/temp3`: This part redirects the output of the entire command sequence to a new file named `temp3` in the `results/kos/` directory.
-
-So, in summary, this command sequence sorts two files, performs a join operation based on the first column of the first file, and then sorts the joined output before saving it to a new file named `temp3`.
-:::
-
-::: {.callout-tip title="Tip: What does the 6th command do" collapse="true"}
 ```{bash}
 echo -e "accession\tBinID\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence" | cat - results/kos/temp3 > results/kos/KO_hmm.tsv
 ```

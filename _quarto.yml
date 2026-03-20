@@ -39,7 +39,7 @@ website:
   
   sidebar:
     style: "docked"
-    collapse-level: 1
+    collapse-level: 2
 
     contents:
       - text: "Welcome page"

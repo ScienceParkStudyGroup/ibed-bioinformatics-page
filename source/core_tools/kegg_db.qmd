@@ -127,3 +127,9 @@ contains all genes that are part of a KEGG module in the order they occur within
 | M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K01623 | 4     | ALDO; fructose-bisphosphate aldolase, class I [EC:4.1.2.13]                                                    |
 | M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K01624 | 4     | FBA, fbaA; fructose-bisphosphate aldolase, class II [EC:4.1.2.13]                                              |
 | M00001 | Glycolysis (Embden-Meyerhof pathway), glucose => pyruvate | K11645 | 4     | fbaB; fructose-bisphosphate aldolase, class I [EC:4.1.2.13]                                                    |
+
+
+
+## Usage information 
+
+For a detailed example on how to use this database, you can have a look at the section "Compare proteins of interest against a hmm database" on this [page](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/hmmer.html).

@@ -98,18 +98,39 @@ rm temp*
 
 ### Usage
 
+### Basic command
+
 The code below gives an example for using the NCBI-nr database with diamond [@Buchfink2021a]:
 
 ```{bash}
 # Run diamond search
 diamond blastp -q proteins.faa \
-	--more-sensitive --evalue 1e-3 --threads 20 --include-lineage --max-target-seqs 50 \
+	--more-sensitive --evalue 1e-3 --threads 20 --include-lineage --max-target-seqs 25 \
 	--db /zfs/omics/projects/bioinformatics/databases/ncbi_nr/diamond/nr \
 	--outfmt 6 qseqid qtitle qlen sseqid salltitles slen qstart qend sstart send evalue bitscore length pident staxids sphylums \
 	--out results.txt
 ```
 
+### Basic usage for Crunchomics
+
+When running this on larger files and Crunchomics it is recommended to send intermediate files to the scratch directories as follows:
+
+```{bash}
+mkdir -p /scratch/${USER}/diamond_temp 
+
+diamond blastp -q results/prokka/all_genomes.faa \
+    --more-sensitive -b 6 --evalue 1e-3 --threads $SLURM_CPUS_PER_TASK --include-lineage --max-target-seqs 25 \
+    --tmpdir /scratch/${USER}/diamond_temp \
+    --parallel-tmpdir /scratch/${USER}/diamond_temp \
+    --db ${ncbi_nr_db_folder}/nr \
+    --outfmt 6 qseqid qtitle qlen sseqid salltitles slen qstart qend sstart send evalue bitscore length pident staxids sphylums \
+    --out results/annotations/ncbi_nr/ncbi_blastp_raw.txt
+```
+
 For a full documentation and list of all available options, please go [here](https://github.com/bbuchfink/diamond/wiki).
+
+
+### Output parsing 
 
 If you want to do some parsing and, for example, find the single-best hit per protein and integrate the taxonomy string, you could do the following:
 
@@ -130,7 +151,7 @@ awk -F'\t' -v OFS='\t' '{split($2,a,"<"); print $1, a[1], $3, $4, $5, $6, $7}' t
 LC_ALL=C join -a1 -1 6 -2 1 -e'-' -t $'\t'  -o1.1,1.2,1.3,1.4,1.5,1.6,1.7,2.2  <(LC_ALL=C sort -k6  temp4) <(LC_ALL=C sort -k1 /zfs/omics/projects/bioinformatics/databases/ncbi_tax/ncbi_tax_31102024.tsv) | LC_ALL=C  sort > temp5
 
 # Add in header
-echo -e "accession\tTopHit\te_value\tbitscore\tperc_id\ttax_id\tphylum\tncbi_tax" | cat - temp5 > results_parsed.txt
+echo -e "accession\tncbi_tophit\tncbi_e_value\tncbi_bitscore\tncbi_perc_id\tncbi_tax_id\tncbi_phylum\tncbi_ncbi_tax" | cat - temp5 > results_parsed.txt
 
 # Cleanup 
 rm temp*
