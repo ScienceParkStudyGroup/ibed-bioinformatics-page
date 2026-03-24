@@ -53,7 +53,7 @@ conda deactivate
 </details>
 
 <details>
-  <summary>GTDB v2.6.1 with r260</summary>
+  <summary>GTDB v2.6.1 with r226</summary>
 
 ```{bash}
 # Setup GTDBtk

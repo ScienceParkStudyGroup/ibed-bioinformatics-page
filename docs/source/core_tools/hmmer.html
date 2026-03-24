@@ -1385,42 +1385,45 @@ div.csl-indent {
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># remove hash symbols and replacing spaces with a tab</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># retain only the columns with the protein-id, ko-id, e-value, bitscore</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># and only select hits above a certain e-value</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/ \+ /\t/g'</span> results/kos/sequence_results.txt <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'/^#/d'</span><span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/ /\t/g'</span><span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{print $1, $3, $6, $5}'</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'($4 + 0) &lt;= 1E-3'</span>  <span class="op">&gt;</span> results/kos/sequence_results_red_e_cutoff.txt</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># example for a sanity check:</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># we see less columns and hits with an insufficient e-value disappear</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ABU82216 results/kos/sequence_results.txt</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ABU82216 results/kos/sequence_results_red_e_cutoff.txt</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.get best hit/protein based on bit score, and e-value</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># i.e. one protein might hit toward more than 1 HMM, we only want to retain one hit</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k3,3gr</span> <span class="at">-k4,4g</span> results/kos/sequence_results_red_e_cutoff.txt <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">--stable</span> <span class="at">-u</span> <span class="at">-k1,1</span>  <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k3,3gr</span> <span class="at">-k4,4g</span> <span class="op">&gt;</span>  results/kos/sequence_results_red_e_cutoff_best_hit.txt</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># sanity check: We see that only one hit, the one with the best scores, remains</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ABU82216 results/kos/sequence_results_red_e_cutoff_best_hit.txt</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/ \+ /\t/g'</span> results/kos/sequence_results.txt <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'/^#/d'</span><span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/ /\t/g'</span><span class="kw">|</span><span class="dt">\</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{print $1, $3, $5, $6}'</span> <span class="kw">|</span><span class="dt">\</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'($3 + 0) &lt;= 1E-3'</span>  <span class="op">&gt;</span> results/kos/sequence_results_red_e_cutoff.txt</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># example for a sanity check:</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># we see less columns and hits with an insufficient e-value disappear</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ABU82216 results/kos/sequence_results.txt</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ABU82216 results/kos/sequence_results_red_e_cutoff.txt</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.get best hit/protein based  e-value and use bitscore as tiebreaker</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># i.e. one protein might hit toward more than 1 HMM, we only want to retain one hit</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k3,3g</span> <span class="at">-k4,4gr</span> results/kos/sequence_results_red_e_cutoff.txt <span class="kw">|</span><span class="dt">\</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">--stable</span> <span class="at">-u</span> <span class="at">-k1,1</span>  <span class="op">&gt;</span>  results/kos/sequence_results_red_e_cutoff_best_hit.txt</span>
 <span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.merge with KO mapping file </span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co"># ensure that the KOs are in column 2 and 1 of the results and the mapping file</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co"># -o decides what columns are kept after the merge from table 1 and 2. I.e. from the mapping file only columns 2 and 12 are used</span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">join</span> <span class="at">-a1</span> <span class="at">-1</span> 2 <span class="at">-2</span> 1 <span class="at">-e</span><span class="st">'-'</span> <span class="at">-t</span> <span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-o1.1,1.2,1.4,1.3,2.2,2.12</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k2</span> results/kos/sequence_results_red_e_cutoff_best_hit.txt<span class="op">)</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k1</span>  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list<span class="op">)</span> <span class="kw">|</span> <span class="va">LC_ALL</span><span class="op">=</span>C  <span class="fu">sort</span> <span class="op">&gt;</span>  results/kos/temp1</span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co"># sanity check: We see a description for the KO id and now know better at what function we look at </span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ABU82216 results/kos/temp1</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># sanity check: We see that only one hit, the one with the best scores, remains</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ABU82216 results/kos/sequence_results_red_e_cutoff_best_hit.txt</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.merge with KO mapping file </span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="co"># ensure that the KOs are in column 2 and 1 of the results and the mapping file</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co"># -o decides what columns are kept after the merge from table 1 and 2. I.e. from the mapping file only columns 2 and 12 are used</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">join</span> <span class="at">-a1</span> <span class="at">-1</span> 2 <span class="at">-2</span> 1 <span class="at">-e</span><span class="st">'-'</span> <span class="at">-t</span> <span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-o1.1,1.2,1.3,1.4,2.2,2.12</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k2</span> results/kos/sequence_results_red_e_cutoff_best_hit.txt<span class="op">)</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k1</span>  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list<span class="op">)</span> <span class="kw">|</span> <span class="va">LC_ALL</span><span class="op">=</span>C  <span class="fu">sort</span> <span class="op">&gt;</span>  results/kos/temp1</span>
 <span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 4.add in an extra column that lists whether hits have a high confidence score</span></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span>  <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{ if ($4 &gt; $5){ $7="high_score" }else{ $7="-" } print } '</span> results/kos/temp1 <span class="op">&gt;</span> results/kos/temp2</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="co"># sanity check: We see a description for the KO id and now know better at what function we look at </span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ABU82216 results/kos/temp1</span>
 <span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="co"># sanity check: This hit is very likely true because the bitscore is sufficiently high</span></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ABU82216 results/kos/temp2</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 4.add in an extra column that lists whether hits have a high confidence score</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span>  <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{ if ($4 &gt; $5){ $7="high_score" }else{ $7="-" } print } '</span> results/kos/temp1 <span class="op">&gt;</span> results/kos/temp2</span>
 <span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 6.add header</span></span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"accession\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence"</span> <span class="kw">|</span> <span class="fu">cat</span> <span class="at">-</span> results/kos/temp3 <span class="op">&gt;</span> results/kos/KO_hmm.tsv</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="co"># sanity check: This hit is very likely true because the bitscore is sufficiently high</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ABU82216 results/kos/temp2</span>
 <span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="co"># sanity check</span></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ABU82216 results/kos/KO_hmm.tsv</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="co"># 6.add header</span></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"accession\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence"</span> <span class="kw">|</span> <span class="fu">cat</span> <span class="at">-</span> results/kos/temp3 <span class="op">&gt;</span> results/kos/KO_hmm.tsv</span>
 <span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="co"># cleanup </span></span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> results/kos/temp<span class="pp">*</span>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="co"># sanity check</span></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ABU82216 results/kos/KO_hmm.tsv</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="co"># cleanup </span></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> results/kos/temp<span class="pp">*</span>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Tip: What does the 1st command do">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
@@ -1442,17 +1445,17 @@ div.csl-indent {
 <li><code>sed 's/ \+ /\t/g' results/kos/sequence_results.txt</code>: This command replaces one or more spaces with a single tab character in the file <code>sequence_results.txt</code> located in the <code>results/kos/</code> directory.</li>
 <li><code>| sed '/^#/d'</code>: This command pipes the output of the previous <code>sed</code> command to another <code>sed</code> command, which deletes lines that start with <code>#</code>. This is commonly used to remove comments from files.</li>
 <li><code>| sed 's/ /\t/g'</code>: This command pipes the output of the previous <code>sed</code> command to another <code>sed</code> command, which replaces all spaces with tab characters.</li>
-<li><code>| awk -F'\t' -v OFS='\t' '{print $1, $3, $6, $5}'</code>: This command pipes the output of the previous <code>sed</code> command to an AWK command. Let’s break it down:
+<li><code>| awk -F'\t' -v OFS='\t' '{print $1, $3, $5, $6}'</code>: This command pipes the output of the previous <code>sed</code> command to an AWK command. Let’s break it down:
 <ul>
 <li><code>awk -F'\t'</code>: This sets the input field separator to tab.</li>
 <li><code>-v OFS='\t'</code>: This sets the output field separator to tab.</li>
-<li><code>'{print $1, $3, $6, $5}'</code>: This prints the first, third, sixth, and fifth fields of each line, separated by tabs. This selects specific columns from the data.</li>
+<li><code>'{print $1, $3, $5, $6}'</code>: This prints the first, third, fifth, and sixth fields of each line, separated by tabs. This selects specific columns from the data.</li>
 </ul></li>
-<li><code>| awk -F'\t' -v OFS='\t' '($4 + 0) &lt;= 1E-3'</code>: This command pipes the output of the previous AWK command to another AWK command. Let’s break it down:
+<li><code>| awk -F'\t' -v OFS='\t' '($3 + 0) &lt;= 1E-3'</code>: This command pipes the output of the previous AWK command to another AWK command. Let’s break it down:
 <ul>
 <li><code>awk -F'\t'</code>: This sets the input field separator to tab.</li>
 <li><code>-v OFS='\t'</code>: This sets the output field separator to tab.</li>
-<li><code>'($4 + 0) &lt;= 1E-3'</code>: This is a condition that filters the output. It checks if the numerical value of the fourth field (<code>$4</code>) is less than or equal to 1E-3 (0.001). If true, the line is printed.</li>
+<li><code>'($4 + 0) &lt;= 1E-3'</code>: This is a condition that filters the output. It checks if the numerical value of the fourth field (<code>$3</code>) is less than or equal to 1E-3 (0.001). If true, the line is printed.</li>
 </ul></li>
 </ol>
 <p>So, in summary, this command sequence manipulates and filters the content of the <code>sequence_results.txt</code> file, and the filtered output is saved to a new file named <code>sequence_results_red_e_cutoff.txt</code>.</p>
@@ -1472,15 +1475,15 @@ div.csl-indent {
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k3,3gr</span> <span class="at">-k4,4g</span> results/kos/sequence_results_red_e_cutoff.txt <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">--stable</span> <span class="at">-u</span> <span class="at">-k1,1</span>  <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k3,3gr</span> <span class="at">-k4,4g</span> <span class="op">&gt;</span>  results/kos/sequence_results_red_e_cutoff_best_hit.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k3,3g</span> <span class="at">-k4,4gr</span> results/kos/sequence_results_red_e_cutoff.txt <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">--stable</span> <span class="at">-u</span> <span class="at">-k1,1</span>  <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k3,3gr</span> <span class="at">-k4,4g</span> <span class="op">&gt;</span>  results/kos/sequence_results_red_e_cutoff_best_hit.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This command sequence performs several sorting operations on the file <code>sequence_results_red_e_cutoff.txt</code> in the <code>results/kos/</code> directory.</p>
 <ol type="1">
 <li><code>sort -t$'\t' -k3,3gr -k4,4g results/kos/sequence_results_red_e_cutoff.txt</code>: This command sorts the content of the file <code>sequence_results_red_e_cutoff.txt</code> based on multiple fields:
 <ul>
 <li><code>-t$'\t'</code>: Specifies that the field separator is a tab character.</li>
-<li><code>-k3,3gr</code>: Sorts based on the third field (column) in descending numerical order (<code>-r</code> flag indicates reverse order).</li>
-<li><code>-k4,4g</code>: If values in the third field are equal, it sorts based on the fourth field in ascending numerical order (<code>g</code> flag indicates general numerical sorting).</li>
+<li><code>-k3,3g</code>: Sorts based on the 3rd field in ascending numerical order (<code>g</code> flag indicates general numerical sorting).</li>
+<li><code>-k4,4gr</code>: Sorts based on the 4rd field (column) in descending numerical order (<code>-r</code> flag indicates reverse order).</li>
 </ul></li>
 <li><code>| sort -t$'\t' --stable -u -k1,1</code>: This command pipes the output of the previous <code>sort</code> command to another <code>sort</code> command, which performs the following operations:
 <ul>
@@ -1488,12 +1491,6 @@ div.csl-indent {
 <li><code>--stable</code>: Ensures that the original order of records with equal keys is preserved.</li>
 <li><code>-u</code>: Specifies unique mode, keeping only the first occurrence of lines with identical keys.</li>
 <li><code>-k1,1</code>: Sorts based on the first field (column) only.</li>
-</ul></li>
-<li><code>| sort -t$'\t' -k3,3gr -k4,4g</code>: This command pipes the output of the previous <code>sort</code> command to another <code>sort</code> command, which performs the same sorting operations as the first command:
-<ul>
-<li><code>-t$'\t'</code>: Specifies that the field separator is a tab character.</li>
-<li><code>-k3,3gr</code>: Sorts based on the third field (column) in descending numerical order (<code>-r</code> flag indicates reverse order).</li>
-<li><code>-k4,4g</code>: If values in the third field are equal, it sorts based on the fourth field in ascending numerical order (<code>g</code> flag indicates general numerical sorting).</li>
 </ul></li>
 </ol>
 <p>So, in summary, this command sequence sorts the content of the file <code>sequence_results_red_e_cutoff.txt</code> based on specific fields and criteria, removes duplicate records based on the first field, and then performs another sorting based on different fields before saving the final sorted output to a new file named <code>sequence_results_red_e_cutoff_best_hit.txt</code>.</p>
@@ -1513,12 +1510,12 @@ div.csl-indent {
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">join</span> <span class="at">-a1</span> <span class="at">-1</span> 2 <span class="at">-2</span> 1 <span class="at">-e</span><span class="st">'-'</span> <span class="at">-t</span> <span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-o1.1,1.2,1.4,1.3,2.2,2.12</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k2</span> results/kos/sequence_results_red_e_cutoff_best_hit.txt<span class="op">)</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k1</span>  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list<span class="op">)</span> <span class="kw">|</span> <span class="va">LC_ALL</span><span class="op">=</span>C  <span class="fu">sort</span> <span class="op">&gt;</span>  results/kos/temp1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">join</span> <span class="at">-a1</span> <span class="at">-1</span> 2 <span class="at">-2</span> 1 <span class="at">-e</span><span class="st">'-'</span> <span class="at">-t</span> <span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-o1.1,1.2,1.3,1.4,2.2,2.12</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k2</span> results/kos/sequence_results_red_e_cutoff_best_hit.txt<span class="op">)</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k1</span>  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list<span class="op">)</span> <span class="kw">|</span> <span class="va">LC_ALL</span><span class="op">=</span>C  <span class="fu">sort</span> <span class="op">&gt;</span>  results/kos/temp1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol type="1">
 <li><code>LC_ALL=C sort -k2 results/kos/sequence_results_red_e_cutoff_best_hit.txt</code>: This command sorts the content of the file <code>sequence_results_red_e_cutoff_best_hit.txt</code> located in the <code>results/kos/</code> directory based on the second column (<code>-k2</code>) using the <code>sort</code> command. The <code>LC_ALL=C</code> part ensures that the sorting is done based on byte values, which is useful when dealing with non-English characters or locales.</li>
 <li><code>LC_ALL=C sort -k1 /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list</code>: This command sorts the content of the file <code>/zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list</code> based on the first column (<code>-k1</code>) using the <code>sort</code> command. Similar to the previous sort command, <code>LC_ALL=C</code> ensures byte-based sorting.</li>
-<li><code>join -a1 -1 2 -2 1 -e'-' -t $'\t' -o1.1,1.2,1.4,1.3,2.2,2.12</code>: This command performs a join operation on the sorted files. Let’s break down the options:
+<li><code>join -a1 -1 2 -2 1 -e'-' -t $'\t' -o1.1,1.2,1.3,1.4,2.2,2.12</code>: This command performs a join operation on the sorted files. Let’s break down the options:
 <ul>
 <li><code>-a1</code>: Specifies to output unpairable lines from the first file.</li>
 <li><code>-1 2</code>: Specifies that the join field in the first file is the second column.</li>
@@ -2075,7 +2072,7 @@ Eddy, Sean R. 2011. <span>“Accelerated Profile HMM Searches.”</span> Edited 
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-03-20</p>
+Last modified: 2026-03-24</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/hmmer.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

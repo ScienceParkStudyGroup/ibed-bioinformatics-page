@@ -113,7 +113,7 @@ diamond blastp -q proteins.faa \
 
 ### Basic usage for Crunchomics
 
-When running this on larger files and Crunchomics it is recommended to send intermediate files to the scratch directories as follows:
+When running this on larger files and Crunchomics it is recommended to send intermediate files to the scratch directories as follows. Also ensure that you give this a bit more memory.
 
 ```{bash}
 mkdir -p /scratch/${USER}/diamond_temp 
@@ -130,16 +130,17 @@ diamond blastp -q results/prokka/all_genomes.faa \
 For a full documentation and list of all available options, please go [here](https://github.com/bbuchfink/diamond/wiki).
 
 
-### Output parsing 
+### Output parsing (standard)
 
 If you want to do some parsing and, for example, find the single-best hit per protein and integrate the taxonomy string, you could do the following:
 
 ```{bash}
 # Select columns of interest in diamond output file
+# Extracts the accession, description, e_value, bit score, percent identity, taxid, phylum
 awk -F'\t' -v OFS="\t" '{ print $1, $5, $11, $12, $14, $15, $16 }'  results.txt | sed 's/ /_/g' > temp1
 
-# Get single best hit based on bit score, and then e-value
-sort -t$'\t' -k4,4gr -k3,3g temp1 | sort -t$'\t' --stable -u -k1,1  | sort -t$'\t' -k4,4gr -k3,3g >  temp2
+# Get single best hit based on the e-value, and use the bitscore for ties
+sort -t$'\t' -k3,3g -k4,4gr temp1 | sort -t$'\t' --stable -u -k1,1   >  temp2
 
 # Add an '-' into empty columns or columns without tax assignment
 awk -F"\t" '{for(i=1;i<=NF;i++) {if($i ~ /^[[:blank:]]*$/) $i="_"; else gsub(/[[:blank:]]/,"_",$i); if($i=="N/A") $i="-"}}1' OFS="\t" temp2 > temp3
@@ -148,10 +149,57 @@ awk -F"\t" '{for(i=1;i<=NF;i++) {if($i ~ /^[[:blank:]]*$/) $i="_"; else gsub(/[[
 awk -F'\t' -v OFS='\t' '{split($2,a,"<"); print $1, a[1], $3, $4, $5, $6, $7}' temp3 > temp4
 
 # Merge with taxon names
-LC_ALL=C join -a1 -1 6 -2 1 -e'-' -t $'\t'  -o1.1,1.2,1.3,1.4,1.5,1.6,1.7,2.2  <(LC_ALL=C sort -k6  temp4) <(LC_ALL=C sort -k1 /zfs/omics/projects/bioinformatics/databases/ncbi_tax/ncbi_tax_31102024.tsv) | LC_ALL=C  sort > temp5
+LC_ALL=C join -a1 -1 6 -2 1 -e'-' -t $'\t'  -o1.1,1.2,1.3,1.4,1.5,1.6,1.7,2.2  <(LC_ALL=C sort -k6,6  temp4) <(LC_ALL=C sort -k1,1 /zfs/omics/projects/bioinformatics/databases/ncbi_tax/ncbi_tax_31102024.tsv) | LC_ALL=C  sort > temp5
 
 # Add in header
 echo -e "accession\tncbi_tophit\tncbi_e_value\tncbi_bitscore\tncbi_perc_id\tncbi_tax_id\tncbi_phylum\tncbi_ncbi_tax" | cat - temp5 > results_parsed.txt
+
+# Cleanup 
+rm temp*
+```
+
+
+### Output parsing (missing tax ids)
+
+If working with MAGs, it sometimes happens that a large proportion of taxids are empty. If that happens, the following code allows to "reverse-engineer" the full taxon string:
+
+```{bash}
+# Data parsing 
+# Select columns of interest in diamond output file
+# Accession, description, evalue, bitscore, pident
+awk -F'\t' -v OFS="\t" '{ print $1, $5, $11, $12, $14}'  results/annotations/ncbi_nr/ncbi_blastp_raw.txt |\
+    sed 's/ /_/g' > results/annotations/ncbi_nr/temp1
+
+# Get single best hit based on e-value and solve ties with bitscoe
+sort -t$'\t' -k3,3g -k4,4gr results/annotations/ncbi_nr/temp1 |\
+    sort -t$'\t' --stable -u -k1,1  >  results/annotations/ncbi_nr/temp2
+
+# In column 2 remove everything after > (otherwise the name can get too long whenever we have identical hits to something)
+awk -F'\t' -v OFS='\t' '{split($2,a,">"); print $1, a[1], $3, $4, $5}' results/annotations/ncbi_nr/temp2 > results/annotations/ncbi_nr/temp3
+
+# Extract the species name from field 2
+awk -F'\t' -v OFS='\t' '{
+    tax = $2
+    # extract last [...] part from col 2
+    if (match(tax, /\[([^[]+)\][^[]*$/, m)) {
+        tax = m[1]
+    } else {
+        tax = "-"
+    }
+    print $1, $2, $3, $4, $5, tax
+}' results/annotations/ncbi_nr/temp3 > results/annotations/ncbi_nr/temp4
+
+# Join against a species - taxon string mapping file
+LC_ALL=C join -a1 -1 6 -2 1 -e'-' -t$'\t' \
+    -o1.1,1.2,1.3,1.4,1.5,2.3 \
+    <(LC_ALL=C sort -k6,6 results/annotations/ncbi_nr/temp4) \
+    <(LC_ALL=C sort -k1,1 /zfs/omics/projects/bioinformatics/databases/ncbi_tax/ncbi_tax_by_orgname_dedup.tsv) \
+    | LC_ALL=C  sort > results/annotations/ncbi_nr/temp5
+    
+# Merge with taxon names
+echo -e "accession\tncbi_tophit\tncbi_e_value\tncbi_bitscore\tncbi_perc_id\tncbi_lineage" | \
+    cat - results/annotations/ncbi_nr/temp5 \
+    > results/annotations/ncbi_nr/ncbi_blastp_parsed.txt
 
 # Cleanup 
 rm temp*

@@ -1094,7 +1094,8 @@ div.csl-indent {
   <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
   <li><a href="#basic-command" id="toc-basic-command" class="nav-link" data-scroll-target="#basic-command">Basic command</a></li>
   <li><a href="#basic-usage-for-crunchomics" id="toc-basic-usage-for-crunchomics" class="nav-link" data-scroll-target="#basic-usage-for-crunchomics">Basic usage for Crunchomics</a></li>
-  <li><a href="#output-parsing" id="toc-output-parsing" class="nav-link" data-scroll-target="#output-parsing">Output parsing</a></li>
+  <li><a href="#output-parsing-standard" id="toc-output-parsing-standard" class="nav-link" data-scroll-target="#output-parsing-standard">Output parsing (standard)</a></li>
+  <li><a href="#output-parsing-missing-tax-ids" id="toc-output-parsing-missing-tax-ids" class="nav-link" data-scroll-target="#output-parsing-missing-tax-ids">Output parsing (missing tax ids)</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/ncbi_nr.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -1212,7 +1213,7 @@ div.csl-indent {
 </section>
 <section id="basic-usage-for-crunchomics" class="level3">
 <h3 class="anchored" data-anchor-id="basic-usage-for-crunchomics">Basic usage for Crunchomics</h3>
-<p>When running this on larger files and Crunchomics it is recommended to send intermediate files to the scratch directories as follows:</p>
+<p>When running this on larger files and Crunchomics it is recommended to send intermediate files to the scratch directories as follows. Also ensure that you give this a bit more memory.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /scratch/<span class="va">${USER}</span>/diamond_temp </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1226,30 +1227,76 @@ div.csl-indent {
 </div>
 <p>For a full documentation and list of all available options, please go <a href="https://github.com/bbuchfink/diamond/wiki">here</a>.</p>
 </section>
-<section id="output-parsing" class="level3">
-<h3 class="anchored" data-anchor-id="output-parsing">Output parsing</h3>
+<section id="output-parsing-standard" class="level3">
+<h3 class="anchored" data-anchor-id="output-parsing-standard">Output parsing (standard)</h3>
 <p>If you want to do some parsing and, for example, find the single-best hit per protein and integrate the taxonomy string, you could do the following:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select columns of interest in diamond output file</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">"\t"</span> <span class="st">'{ print $1, $5, $11, $12, $14, $15, $16 }'</span>  results.txt <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/ /_/g'</span> <span class="op">&gt;</span> temp1</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get single best hit based on bit score, and then e-value</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k4,4gr</span> <span class="at">-k3,3g</span> temp1 <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">--stable</span> <span class="at">-u</span> <span class="at">-k1,1</span>  <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k4,4gr</span> <span class="at">-k3,3g</span> <span class="op">&gt;</span>  temp2</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Add an '-' into empty columns or columns without tax assignment</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">"\t"</span> <span class="st">'{for(i=1;i&lt;=NF;i++) {if($i ~ /^[[:blank:]]*$/) $i="_"; else gsub(/[[:blank:]]/,"_",$i); if($i=="N/A") $i="-"}}1'</span> OFS=<span class="st">"\t"</span> temp2 <span class="op">&gt;</span> temp3</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># In column 2 remove everything after &lt; (otherwise the name can get too long)</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{split($2,a,"&lt;"); print $1, a[1], $3, $4, $5, $6, $7}'</span> temp3 <span class="op">&gt;</span> temp4</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge with taxon names</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">join</span> <span class="at">-a1</span> <span class="at">-1</span> 6 <span class="at">-2</span> 1 <span class="at">-e</span><span class="st">'-'</span> <span class="at">-t</span> <span class="st">$'</span><span class="dt">\t</span><span class="st">'</span>  <span class="at">-o1.1,1.2,1.3,1.4,1.5,1.6,1.7,2.2</span>  <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k6</span>  temp4<span class="op">)</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k1</span> /zfs/omics/projects/bioinformatics/databases/ncbi_tax/ncbi_tax_31102024.tsv<span class="op">)</span> <span class="kw">|</span> <span class="va">LC_ALL</span><span class="op">=</span>C  <span class="fu">sort</span> <span class="op">&gt;</span> temp5</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Add in header</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"accession\tncbi_tophit\tncbi_e_value\tncbi_bitscore\tncbi_perc_id\tncbi_tax_id\tncbi_phylum\tncbi_ncbi_tax"</span> <span class="kw">|</span> <span class="fu">cat</span> <span class="at">-</span> temp5 <span class="op">&gt;</span> results_parsed.txt</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Cleanup </span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> temp<span class="pp">*</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Extracts the accession, description, e_value, bit score, percent identity, taxid, phylum</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">"\t"</span> <span class="st">'{ print $1, $5, $11, $12, $14, $15, $16 }'</span>  results.txt <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/ /_/g'</span> <span class="op">&gt;</span> temp1</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Get single best hit based on the e-value, and use the bitscore for ties</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k3,3g</span> <span class="at">-k4,4gr</span> temp1 <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">--stable</span> <span class="at">-u</span> <span class="at">-k1,1</span>   <span class="op">&gt;</span>  temp2</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Add an '-' into empty columns or columns without tax assignment</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">"\t"</span> <span class="st">'{for(i=1;i&lt;=NF;i++) {if($i ~ /^[[:blank:]]*$/) $i="_"; else gsub(/[[:blank:]]/,"_",$i); if($i=="N/A") $i="-"}}1'</span> OFS=<span class="st">"\t"</span> temp2 <span class="op">&gt;</span> temp3</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># In column 2 remove everything after &lt; (otherwise the name can get too long)</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{split($2,a,"&lt;"); print $1, a[1], $3, $4, $5, $6, $7}'</span> temp3 <span class="op">&gt;</span> temp4</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge with taxon names</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">join</span> <span class="at">-a1</span> <span class="at">-1</span> 6 <span class="at">-2</span> 1 <span class="at">-e</span><span class="st">'-'</span> <span class="at">-t</span> <span class="st">$'</span><span class="dt">\t</span><span class="st">'</span>  <span class="at">-o1.1,1.2,1.3,1.4,1.5,1.6,1.7,2.2</span>  <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k6,6</span>  temp4<span class="op">)</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k1,1</span> /zfs/omics/projects/bioinformatics/databases/ncbi_tax/ncbi_tax_31102024.tsv<span class="op">)</span> <span class="kw">|</span> <span class="va">LC_ALL</span><span class="op">=</span>C  <span class="fu">sort</span> <span class="op">&gt;</span> temp5</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Add in header</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"accession\tncbi_tophit\tncbi_e_value\tncbi_bitscore\tncbi_perc_id\tncbi_tax_id\tncbi_phylum\tncbi_ncbi_tax"</span> <span class="kw">|</span> <span class="fu">cat</span> <span class="at">-</span> temp5 <span class="op">&gt;</span> results_parsed.txt</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Cleanup </span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> temp<span class="pp">*</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="output-parsing-missing-tax-ids" class="level3">
+<h3 class="anchored" data-anchor-id="output-parsing-missing-tax-ids">Output parsing (missing tax ids)</h3>
+<p>If working with MAGs, it sometimes happens that a large proportion of taxids are empty. If that happens, the following code allows to “reverse-engineer” the full taxon string:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data parsing </span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Select columns of interest in diamond output file</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Accession, description, evalue, bitscore, pident</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">"\t"</span> <span class="st">'{ print $1, $5, $11, $12, $14}'</span>  results/annotations/ncbi_nr/ncbi_blastp_raw.txt <span class="kw">|</span><span class="dt">\</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sed</span> <span class="st">'s/ /_/g'</span> <span class="op">&gt;</span> results/annotations/ncbi_nr/temp1</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Get single best hit based on e-value and solve ties with bitscoe</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k3,3g</span> <span class="at">-k4,4gr</span> results/annotations/ncbi_nr/temp1 <span class="kw">|</span><span class="dt">\</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">--stable</span> <span class="at">-u</span> <span class="at">-k1,1</span>  <span class="op">&gt;</span>  results/annotations/ncbi_nr/temp2</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># In column 2 remove everything after &gt; (otherwise the name can get too long whenever we have identical hits to something)</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{split($2,a,"&gt;"); print $1, a[1], $3, $4, $5}'</span> results/annotations/ncbi_nr/temp2 <span class="op">&gt;</span> results/annotations/ncbi_nr/temp3</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the species name from field 2</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="st">    tax = $2</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="st">    # extract last [...] part from col 2</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="st">    if (match(tax, /\[([^[]+)\][^[]*$/, m)) {</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="st">        tax = m[1]</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="st">    } else {</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="st">        tax = "-"</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="st">    print $1, $2, $3, $4, $5, tax</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span> results/annotations/ncbi_nr/temp3 <span class="op">&gt;</span> results/annotations/ncbi_nr/temp4</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Join against a species - taxon string mapping file</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">join</span> <span class="at">-a1</span> <span class="at">-1</span> 6 <span class="at">-2</span> 1 <span class="at">-e</span><span class="st">'-'</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="dt">\</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">-o1.1,1.2,1.3,1.4,1.5,2.3</span> <span class="dt">\</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k6,6</span> results/annotations/ncbi_nr/temp4<span class="op">)</span> <span class="dt">\</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k1,1</span> /zfs/omics/projects/bioinformatics/databases/ncbi_tax/ncbi_tax_by_orgname_dedup.tsv<span class="op">)</span> <span class="dt">\</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">|</span> <span class="va">LC_ALL</span><span class="op">=</span>C  <span class="fu">sort</span> <span class="op">&gt;</span> results/annotations/ncbi_nr/temp5</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge with taxon names</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"accession\tncbi_tophit\tncbi_e_value\tncbi_bitscore\tncbi_perc_id\tncbi_lineage"</span> <span class="kw">|</span> <span class="dt">\</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span> <span class="at">-</span> results/annotations/ncbi_nr/temp5 <span class="dt">\</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;</span> results/annotations/ncbi_nr/ncbi_blastp_parsed.txt</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Cleanup </span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> temp<span class="pp">*</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 
@@ -1703,7 +1750,7 @@ Wang, Hao, Beng Chin Ooi, Kian-Lee Tan, Twee-Hee Ong, and Lei Zhou. 2003. <span>
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-03-20</p>
+Last modified: 2026-03-24</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/ncbi_nr.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

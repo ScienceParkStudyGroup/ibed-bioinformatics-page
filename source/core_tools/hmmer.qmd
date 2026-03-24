@@ -248,16 +248,19 @@ Notice: For this code to work on other databases, i.e. the Pfam database, you ne
 # remove hash symbols and replacing spaces with a tab
 # retain only the columns with the protein-id, ko-id, e-value, bitscore
 # and only select hits above a certain e-value
-sed 's/ \+ /\t/g' results/kos/sequence_results.txt | sed '/^#/d'| sed 's/ /\t/g'| awk -F'\t' -v OFS='\t' '{print $1, $3, $6, $5}' | awk -F'\t' -v OFS='\t' '($4 + 0) <= 1E-3'  > results/kos/sequence_results_red_e_cutoff.txt
+sed 's/ \+ /\t/g' results/kos/sequence_results.txt | sed '/^#/d'| sed 's/ /\t/g'|\
+    awk -F'\t' -v OFS='\t' '{print $1, $3, $5, $6}' |\
+    awk -F'\t' -v OFS='\t' '($3 + 0) <= 1E-3'  > results/kos/sequence_results_red_e_cutoff.txt
 
 # example for a sanity check:
 # we see less columns and hits with an insufficient e-value disappear
 grep ABU82216 results/kos/sequence_results.txt
 grep ABU82216 results/kos/sequence_results_red_e_cutoff.txt
 
-# 2.get best hit/protein based on bit score, and e-value
+# 2.get best hit/protein based  e-value and use bitscore as tiebreaker
 # i.e. one protein might hit toward more than 1 HMM, we only want to retain one hit
-sort -t$'\t' -k3,3gr -k4,4g results/kos/sequence_results_red_e_cutoff.txt | sort -t$'\t' --stable -u -k1,1  | sort -t$'\t' -k3,3gr -k4,4g >  results/kos/sequence_results_red_e_cutoff_best_hit.txt
+sort -t$'\t' -k3,3g -k4,4gr results/kos/sequence_results_red_e_cutoff.txt |\
+    sort -t$'\t' --stable -u -k1,1  >  results/kos/sequence_results_red_e_cutoff_best_hit.txt
 
 # sanity check: We see that only one hit, the one with the best scores, remains
 grep ABU82216 results/kos/sequence_results_red_e_cutoff_best_hit.txt
@@ -265,7 +268,7 @@ grep ABU82216 results/kos/sequence_results_red_e_cutoff_best_hit.txt
 # 3.merge with KO mapping file 
 # ensure that the KOs are in column 2 and 1 of the results and the mapping file
 # -o decides what columns are kept after the merge from table 1 and 2. I.e. from the mapping file only columns 2 and 12 are used
-LC_ALL=C join -a1 -1 2 -2 1 -e'-' -t $'\t' -o1.1,1.2,1.4,1.3,2.2,2.12 <(LC_ALL=C sort -k2 results/kos/sequence_results_red_e_cutoff_best_hit.txt) <(LC_ALL=C sort -k1  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list) | LC_ALL=C  sort >  results/kos/temp1
+LC_ALL=C join -a1 -1 2 -2 1 -e'-' -t $'\t' -o1.1,1.2,1.3,1.4,2.2,2.12 <(LC_ALL=C sort -k2 results/kos/sequence_results_red_e_cutoff_best_hit.txt) <(LC_ALL=C sort -k1  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list) | LC_ALL=C  sort >  results/kos/temp1
 
 # sanity check: We see a description for the KO id and now know better at what function we look at 
 grep ABU82216 results/kos/temp1
@@ -296,50 +299,46 @@ Here, we use a pipe to combine multiple smaller commands into one:
 1.  `sed 's/ \+ /\t/g' results/kos/sequence_results.txt`: This command replaces one or more spaces with a single tab character in the file `sequence_results.txt` located in the `results/kos/` directory.
 2.  `| sed '/^#/d'`: This command pipes the output of the previous `sed` command to another `sed` command, which deletes lines that start with `#`. This is commonly used to remove comments from files.
 3.  `| sed 's/ /\t/g'`: This command pipes the output of the previous `sed` command to another `sed` command, which replaces all spaces with tab characters.
-4.  `| awk -F'\t' -v OFS='\t' '{print $1, $3, $6, $5}'`: This command pipes the output of the previous `sed` command to an AWK command. Let's break it down:
+4.  `| awk -F'\t' -v OFS='\t' '{print $1, $3, $5, $6}'`: This command pipes the output of the previous `sed` command to an AWK command. Let's break it down:
     -   `awk -F'\t'`: This sets the input field separator to tab.
     -   `-v OFS='\t'`: This sets the output field separator to tab.
-    -   `'{print $1, $3, $6, $5}'`: This prints the first, third, sixth, and fifth fields of each line, separated by tabs. This selects specific columns from the data.
-5.  `| awk -F'\t' -v OFS='\t' '($4 + 0) <= 1E-3'`: This command pipes the output of the previous AWK command to another AWK command. Let's break it down:
+    -   `'{print $1, $3, $5, $6}'`: This prints the first, third, fifth, and sixth fields of each line, separated by tabs. This selects specific columns from the data.
+5.  `| awk -F'\t' -v OFS='\t' '($3 + 0) <= 1E-3'`: This command pipes the output of the previous AWK command to another AWK command. Let's break it down:
     -   `awk -F'\t'`: This sets the input field separator to tab.
     -   `-v OFS='\t'`: This sets the output field separator to tab.
-    -   `'($4 + 0) <= 1E-3'`: This is a condition that filters the output. It checks if the numerical value of the fourth field (`$4`) is less than or equal to 1E-3 (0.001). If true, the line is printed.
+    -   `'($4 + 0) <= 1E-3'`: This is a condition that filters the output. It checks if the numerical value of the fourth field (`$3`) is less than or equal to 1E-3 (0.001). If true, the line is printed.
 
 So, in summary, this command sequence manipulates and filters the content of the `sequence_results.txt` file, and the filtered output is saved to a new file named `sequence_results_red_e_cutoff.txt`.
 :::
 
 ::: {.callout-tip title="Tip: What does the 2nd command do" collapse="true"}
 ```{bash}
-sort -t$'\t' -k3,3gr -k4,4g results/kos/sequence_results_red_e_cutoff.txt | sort -t$'\t' --stable -u -k1,1  | sort -t$'\t' -k3,3gr -k4,4g >  results/kos/sequence_results_red_e_cutoff_best_hit.txt
+sort -t$'\t' -k3,3g -k4,4gr results/kos/sequence_results_red_e_cutoff.txt | sort -t$'\t' --stable -u -k1,1  | sort -t$'\t' -k3,3gr -k4,4g >  results/kos/sequence_results_red_e_cutoff_best_hit.txt
 ```
 
 This command sequence performs several sorting operations on the file `sequence_results_red_e_cutoff.txt` in the `results/kos/` directory.
 
 1.  `sort -t$'\t' -k3,3gr -k4,4g results/kos/sequence_results_red_e_cutoff.txt`: This command sorts the content of the file `sequence_results_red_e_cutoff.txt` based on multiple fields:
     -   `-t$'\t'`: Specifies that the field separator is a tab character.
-    -   `-k3,3gr`: Sorts based on the third field (column) in descending numerical order (`-r` flag indicates reverse order).
-    -   `-k4,4g`: If values in the third field are equal, it sorts based on the fourth field in ascending numerical order (`g` flag indicates general numerical sorting).
+    -   `-k3,3g`: Sorts based on the 3rd field in ascending numerical order (`g` flag indicates general numerical sorting).
+    -   `-k4,4gr`: Sorts based on the 4rd field (column) in descending numerical order (`-r` flag indicates reverse order).
 2.  `| sort -t$'\t' --stable -u -k1,1`: This command pipes the output of the previous `sort` command to another `sort` command, which performs the following operations:
     -   `-t$'\t'`: Specifies that the field separator is a tab character.
     -   `--stable`: Ensures that the original order of records with equal keys is preserved.
     -   `-u`: Specifies unique mode, keeping only the first occurrence of lines with identical keys.
     -   `-k1,1`: Sorts based on the first field (column) only.
-3.  `| sort -t$'\t' -k3,3gr -k4,4g`: This command pipes the output of the previous `sort` command to another `sort` command, which performs the same sorting operations as the first command:
-    -   `-t$'\t'`: Specifies that the field separator is a tab character.
-    -   `-k3,3gr`: Sorts based on the third field (column) in descending numerical order (`-r` flag indicates reverse order).
-    -   `-k4,4g`: If values in the third field are equal, it sorts based on the fourth field in ascending numerical order (`g` flag indicates general numerical sorting).
 
 So, in summary, this command sequence sorts the content of the file `sequence_results_red_e_cutoff.txt` based on specific fields and criteria, removes duplicate records based on the first field, and then performs another sorting based on different fields before saving the final sorted output to a new file named `sequence_results_red_e_cutoff_best_hit.txt`.
 :::
 
 ::: {.callout-tip title="Tip: What does the 3rd command do" collapse="true"}
 ```{bash}
-LC_ALL=C join -a1 -1 2 -2 1 -e'-' -t $'\t' -o1.1,1.2,1.4,1.3,2.2,2.12 <(LC_ALL=C sort -k2 results/kos/sequence_results_red_e_cutoff_best_hit.txt) <(LC_ALL=C sort -k1  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list) | LC_ALL=C  sort >  results/kos/temp1
+LC_ALL=C join -a1 -1 2 -2 1 -e'-' -t $'\t' -o1.1,1.2,1.3,1.4,2.2,2.12 <(LC_ALL=C sort -k2 results/kos/sequence_results_red_e_cutoff_best_hit.txt) <(LC_ALL=C sort -k1  /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list) | LC_ALL=C  sort >  results/kos/temp1
 ```
 
 1.  `LC_ALL=C sort -k2 results/kos/sequence_results_red_e_cutoff_best_hit.txt`: This command sorts the content of the file `sequence_results_red_e_cutoff_best_hit.txt` located in the `results/kos/` directory based on the second column (`-k2`) using the `sort` command. The `LC_ALL=C` part ensures that the sorting is done based on byte values, which is useful when dealing with non-English characters or locales.
 2.  `LC_ALL=C sort -k1 /zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list`: This command sorts the content of the file `/zfs/omics/projects/bioinformatics/databases/kegg/release_2024_26-04/ko_list` based on the first column (`-k1`) using the `sort` command. Similar to the previous sort command, `LC_ALL=C` ensures byte-based sorting.
-3.  `join -a1 -1 2 -2 1 -e'-' -t $'\t' -o1.1,1.2,1.4,1.3,2.2,2.12`: This command performs a join operation on the sorted files. Let's break down the options:
+3.  `join -a1 -1 2 -2 1 -e'-' -t $'\t' -o1.1,1.2,1.3,1.4,2.2,2.12`: This command performs a join operation on the sorted files. Let's break down the options:
     -   `-a1`: Specifies to output unpairable lines from the first file.
     -   `-1 2`: Specifies that the join field in the first file is the second column.
     -   `-2 1`: Specifies that the join field in the second file is the first column.

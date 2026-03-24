@@ -105,19 +105,22 @@ This will potentially give you several hits for each protein of interest. Below 
 ```{bash}
 #1. Format the full table by:
 # remove hash symbols and replacing spaces with a tab
-# retain only the columns with the protein-id, ko-id, e-value, bitscore
+# retain only the columns with the protein-id, ko-id,  e-value, bit score
 # and only select hits above a certain e-value
-sed 's/ \+ /\t/g' results/sequence_results.txt | sed '/^#/d'| sed 's/ /\t/g'| awk -F'\t' -v OFS='\t' '{print $1, $3, $6, $5}' | awk -F'\t' -v OFS='\t' '($4 + 0) <= 1E-3'  > results/sequence_results_red_e_cutoff.txt
+sed 's/ \+ /\t/g' results/sequence_results.txt | sed '/^#/d'| sed 's/ /\t/g'|\
+  awk -F'\t' -v OFS='\t' '{print $1, $3, $5, $6}' |\
+  awk -F'\t' -v OFS='\t' '($3 + 0) <= 1E-3'  > results/sequence_results_red_e_cutoff.txt
 
-#2. Get best hit/protein based on bit score, and e-value
+#2. Get best hit/protein based on the lowest e-value and resolve ties by looking at the highest bitscore
 # i.e. one protein might hit toward more than 1 HMM, we only want to retain one hit
-sort -t$'\t' -k3,3gr -k4,4g results/sequence_results_red_e_cutoff.txt | sort -t$'\t' --stable -u -k1,1  | sort -t$'\t' -k3,3gr -k4,4g >  results/sequence_results_red_e_cutoff_best_hit.txt
+sort -t$'\t' -k3,3g -k4,4gr results/sequence_results_red_e_cutoff.txt |\
+  sort -t$'\t' --stable -u -k1,1  >  results/sequence_results_red_e_cutoff_best_hit.txt
 
 #3. Merge with arcog mapping file 
-LC_ALL=C join -a1 -1 2 -2 1 -e'-' -t $'\t' -o1.1,1.2,1.4,1.3,2.3,2.4,2.2 <(LC_ALL=C sort -k2 results/sequence_results_red_e_cutoff_best_hit.txt) <(LC_ALL=C sort -k1  /zfs/omics/projects/bioinformatics/databases/arcogs//ar14.arCOGdef.tab) | LC_ALL=C  sort >  results/temp1
+LC_ALL=C join -a1 -1 2 -2 1 -e'-' -t $'\t' -o1.1,1.2,1.3,1.4,2.3,2.4,2.2 <(LC_ALL=C sort -k2 results/sequence_results_red_e_cutoff_best_hit.txt) <(LC_ALL=C sort -k1  /zfs/omics/projects/bioinformatics/databases/arcogs//ar14.arCOGdef.tab) | LC_ALL=C  sort >  results/temp1
 
 #4. Add header
-echo -e "accession\tarcog_id\tarcog_e_value\tarcog_bit_score\tarcog_gene\tarcog_definition\tarcog_pathway" | cat - results/temp1 > results/arcog_results.tsv
+echo -e "accession\tarcog_id\tarcog_evalue\tarcog_bitscore\tarcog_gene\tarcog_definition\tarcog_pathway" | cat - results/temp1 > results/arcog_results.tsv
 
 #5. Cleanup
 rm results/temp*
