@@ -48,7 +48,7 @@ done
 
 Here:
 
--   `{01..10}` is a Bash brace expansion. Brace expansion is a feature in Bash that generates strings based on a specified pattern. In the case of {01..10}, it expands to 01 02 03 04 05 06 07 08 09 10. The for loop itself then iterates over each of these values.
+-   `{01..10}` is a Bash brace expansion. Brace expansion is a feature in Bash that generates strings based on a specified pattern. In the case of {01..10}, this expands to 01 02 03 04 05 06 07 08 09 10. The for loop itself then iterates over each of these values.
 -   `echo $i`: This command prints the value of the loop variable i to the terminal.
 
 We can add some spaces to enhance readability. Although this formatting is optional, it's a good practice to improve code clarity. Personally, I prefer using a tab (or 4 spaces) for indentation, but feel free to adopt your preferred style.
@@ -103,7 +103,7 @@ Now, let's learn how to apply this operation to multiple files, ranging from 2 t
 
 ## Building the core structure
 
-Let's lay the groundwork for our loop by starting with the most basic command: printing a list for the files that we want to iterate over. Once we confirm that this works, we'll gradually build up the loop step by step.
+Let's lay the groundwork for our loop by starting with the most basic command: printing a list for the files that we want to iterate over. Once we confirm that this works, we'll gradually build up the loop step by step. This step-by-step approach starts with using `echo` to print what is happening before adding real commands. This is a good general strategy for testing any loop before running it on real data.
 
 ```{bash}
 for i in data/*faa;
@@ -123,13 +123,17 @@ This output confirms that the loop is correctly identifying the files we want to
 
 ## Adding the first variable
 
-To ensure flexibility in naming the output files, let's extract the file names using the basename command and storing the output in a variable. We will see why this really is useful once we made it to the final command:
+To ensure flexibility in naming the output files, let's extract the file names using the basename command and storing the output in a variable. We will see why this really is useful once we made it to the final command.
+
+**A word on quoting**
+
+Here, we quote `"$i"` when passing it to basename to ensure bash treats the full path as a single argument. If a filename contains spaces, without quotes bash would split it into separate words and pass them as separate arguments to basename. We also quote `$GENOME_ID` in the echo for the same reason — consistent quoting is a good habit even when you don't expect spaces.
 
 ```{bash}
 for i in data/*faa;
 do
-basename=$(basename $i)
-echo $basename
+GENOME_ID=$(basename "$i")
+echo "$GENOME_ID"
 done
 ```
 
@@ -142,13 +146,8 @@ GCA_000017945.1_ASM1794v1_protein.faa
 
 Let's delve into some new syntax we have used in this section:
 
-- In bash a **variable** acts as temporary storage for a string or a number. Here, we want to store a file name in the variable called basename.
-- The **\$(..)** syntax represents command substitution, where Bash executes a command in a subshell environment and then replaces the command substitution with the standard output of the command. In other words, whatever the basename command prints gets stored in the basename variable.
--   Defining variables and the use of quotes:
-    -   variable_name="xxx": This assigns the string "xxx" to the variable variable_name.
-    -   variable_name=xxx: This assigns the value of the expression xxx to the variable variable_name. If xxx is a command, the result of that command will be assigned to variable_name. If xxx is a variable or literal string, its value will be assigned to variable_name.
-    -   In our example, we use command substitution to assign the result of the basename command to the basename variable, which is why no quotes are used.
-    -   It's important NOT to add spaces between the variable name, =, and variable assignment, as it's part of the syntax that Bash uses for variables.
+- In bash a **variable** acts as temporary storage for a string or a number. Here, we want to store a file name in the variable called GENOME_ID.
+- The **\$(..)** syntax represents command substitution, where Bash executes a command in a subshell environment and then replaces the command substitution with the standard output of the command. In other words, whatever the basename command prints gets stored in the GENOME_ID variable.
 
 
 ## Removing the extension from the basename
@@ -158,8 +157,8 @@ To ensure flexibility in naming the output files, let's extract the file names A
 ```{bash}
 for i in data/*faa;
 do
-basename=$(basename $i .faa)
-echo $basename
+GENOME_ID=$(basename "$i" .faa)
+echo "$GENOME_ID"
 done
 ```
 
@@ -172,15 +171,15 @@ GCA_000017945.1_ASM1794v1_protein
 
 ## Simplifying the basename
 
-Now the basename looks cleaner, however, I don't like that it is so long. When naming files its generatelly good to keep the filenames short and precise. We can do this by combining the basename command with a pipe. 
+Now the basename looks cleaner, however, I don't like that it is so long. When naming files its generally good to keep the filenames short and precise. We can do this by combining the basename command with a pipe. 
 
 Put simply, a pipe allows us to chain the output of the basename command into the cut command to further modify the filename. Here, we use `cut` to shorten the basename by cutting everything off after the second underscore using cut.
 
 ```{bash}
 for i in data/*faa;
 do
-basename=$(basename $i .faa | cut -f1-2 -d "_")
-echo $basename
+GENOME_ID=$(basename "$i" .faa | cut -f1-2 -d "_")
+echo "$GENOME_ID"
 done
 ```
 
@@ -200,18 +199,21 @@ Additionally, let's delve into some new syntax:
 
 ## Adding a variable for the output file
 
-To facilitate the creation of output file names, let's introduce a variable named outfile_name. We'll use this variable to specify the path and name for the modified files:
+To facilitate the creation of output file names, let's introduce a variable named outfile_name. We'll use this variable to specify the path and name for the modified files.
+
+**Another word on quoting**
+
+Below we use `${GENOME_ID}` instead of `"$GENOME_ID"`, which would break the string apart like `"data/renamed/"$GENOME_ID."faa"`. The curly braces allow the variable to sit inside a single double-quoted string, which serves two purposes: it keeps the code readable, and it ensures the variable value is protected from word splitting. As a general rule, use `${...}` when appending or prepending text directly to a variable.
 
 ```{bash}
 mkdir data/renamed 
 
 for i in data/*faa;
 do
-basename=$(basename $i .faa | cut -f1-2 -d "_")
-outfile_name="data/renamed/${basename}.faa"
-echo $outfile_name
+GENOME_ID=$(basename "$i" .faa | cut -f1-2 -d "_")
+outfile_name="data/renamed/${GENOME_ID}.faa"
+echo "$outfile_name"
 done
-
 ```
 
 This should print:
@@ -223,12 +225,6 @@ data/renamed/GCA_000017945.1.faa
 
 Now, we can finally see how this whole exercise becomes useful. We were able to (a) simplify the file name itself by making it shorter and (b) ensure that we can store the modified file in a new directory.
 
-Also, notice how we now use quotes to assign a string to the variable outfile_name?
-
-Let's also discuss a new syntax: using brackets {} around our variable:
-
--   We enclose variables in {} whenever they are part of a string that includes other text, as demonstrated in the line with the outfile_name variable. This is especially important when the variable is adjacent to other characters that might be confused as part of the variable name.
--   However, if the variable is not surrounded by other characters, as in the echo command, we don't need to use the brackets.
 
 ## Finalizing the loop
 
@@ -236,9 +232,9 @@ Let's complete the loop by implementing the desired modifications to the files.
 ```{bash}
 for i in data/*faa;
 do
-basename=$(basename $i .faa | cut -f1-2 -d "_")
-outfile_name="data/renamed/${basename}.faa"
-cut -f1 -d " " $i > $outfile_name
+GENOME_ID=$(basename "$i" .faa | cut -f1-2 -d "_")
+outfile_name="data/renamed/${GENOME_ID}.faa"
+cut -f1 -d " " "$i" > "$outfile_name"
 done
 
 #check if that worked 
@@ -276,28 +272,64 @@ Do you see how we elegantly use `$outfile_name` to create a new file with a clea
 In addition to iterating over files directly within a directory using wildcard patterns (e.g., `*.txt`), Bash also allows you to iterate over a list of filenames stored in a file. This can be achieved by using command substitution to capture the output of a command that generates the list of filenames. Here's how you can use this approach:
 
 ```{bash}
-# Assume 'list' is a file containing a list of filenames, with each filename on a separate line
+# Make 'list', a file containing a list of filenames, with each filename on a separate line
+echo -e "GCA_000008085.1\nGCA_000017945.1" > list
+
 # Iterate over each filename in the list
 for filename in $(cat list); do
     # Perform operations on each filename
-    echo "Processing file: $filename"
+    echo "Processing file: ${filename}"
     # Add more commands here
 done
 ```
 
-In this example, `cat list` is used within command substitution `$(...)` to generate the list of filenames stored in the file named `list`. The loop then iterates over each filename in the list, performing operations as needed.
+In this example, list is a file with a single column of genomes we want to work with. `cat list` is used within command substitution `$(...)` to generate the list of filenames stored in the file named `list`. The loop then iterates over each filename in the list, performing operations as needed. Note that using `for filename in $(cat list)` is functional but has a known problem: it splits on any whitespace, not just newlines. We see in the next section what we can do about this.
 
 **Why This Might Be Useful:**
 
 Using loops with files allows for greater flexibility and automation in handling sets of files that may not follow a consistent naming pattern or reside in different directories. This approach is particularly useful in scenarios where:
 
-1. **Dynamic File Lists**: The list of files to process may vary over time or depend on external factors. By storing filenames in a separate file, you can easily update the list without modifying the loop structure.
-2. **Complex Filtering**: You need to filter files based on specific criteria or conditions that cannot be expressed using wildcard patterns alone. For example, you may need to select files based on metadata stored in another file or database. Imagine that part of your genomes are eukaryotic, the other are bacteria. Maybe you need to process them separately because eukaryotes require the use of different options compared to bacteria.
-3. **Integration with External Tools**: The filenames need to be processed or transformed before being used in the loop. You can leverage command-line tools or scripting languages to generate the list of filenames dynamically based on certain criteria or conditions.
-4. **Improved Readability and Maintainability**: Storing filenames in a separate file can make your scripts more readable and maintainable, especially when dealing with large sets of files or complex directory structures. It also allows for easier collaboration and sharing of scripts among team members.
+1. **Complex Filtering**: You need to filter files based on specific criteria or conditions that cannot be expressed using wildcard patterns alone. For example, you may need to select files based on metadata stored in another file or database. Imagine that part of your genomes are eukaryotic, the other are bacteria. Maybe you need to process them separately because eukaryotes require the use of different options compared to bacteria.
+2. **Dynamic File Lists**: The list of files to process may vary over time or depend on external factors. By storing filenames in a separate file, you can easily update the list without modifying the loop structure.
 
 By leveraging loops with files, you can streamline your workflow and efficiently process large sets of files with ease and flexibility.
 
+
+### While loops
+
+The example above works fine if your list has a single column but can create issues. Let's assume we still have a file with our genomes but this file is a tab-separated file that contains a second column highlighting from which sample our genome came from:
+
+```
+GCA_000008085.1 s1
+GCA_000017945.1 s2
+```
+
+Let's first see what the initial for loop does: 
+
+```{bash}
+# Generate the list 
+echo -e "GCA_000008085.1\ts1\nGCA_000017945.1\ts2" > genome_to_sample
+
+for filename in $(cat genome_to_sample); do
+    # Perform operations on each filename
+    echo "Processing file: ${filename}"
+    # Add more commands here
+done
+```
+
+We see that we now process both the genomes but also the sample IDs (so basically the whole row). That is not what we want. To have more control over this and use both columns as variables, we can use a while loop instead:
+
+```{bash}
+while read -r genome sample; do
+    echo "Processing: ${genome} from ${sample}"
+done < genome_to_sample
+```
+
+Here:
+
+- By default, read interprets any backslashes as an escape character, which can cause unexpected behavior. To disable backslash escaping, it is generally useful to use the command with the `-r` option
+- `< genome_to_sample `— redirects the sample file as standard input to the loop
+- `read` by default recognizes files with tab used as delimiter, which is why we can directly store the content of each column in the variables genome and sample. If you use other separators, like `,` you can use `while IFS=, read -r genome sample; do`
 
 ## Addon: Alternative syntax
 
@@ -307,7 +339,7 @@ For more complex code, it might be useful to break things up for readability. Co
 for i in results/prokka/*/bin*/*.gbk; do
     base_name=$(basename "$i" .gbk)
     outdir="results/pseudofinder/${base_name}"
-    pseudofinder.py annotate -g $i -op $outdir -db /zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta -t 20
+    pseudofinder.py annotate -g "$i" -op $outdir -db /zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta -t 20
 done
 ```
 
@@ -318,7 +350,7 @@ for i in results/prokka/*/bin*/*.gbk; do
     base_name=$(basename "$i" .gbk)
     outdir="results/pseudofinder/${base_name}"
     pseudofinder.py annotate \
-      -g $i \
+      -g "$i" \
       -op $outdir \
       -db /zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta \
       -t 20

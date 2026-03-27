@@ -5,6 +5,7 @@ execute:
   eval: false
 engine: knitr
 bibliography: references.bib
+toc-depth: 4
 ---
 
 <div style="text-align: justify">
@@ -30,7 +31,10 @@ Let's begin with a basic example on a file that doesn't exist yet. For this tuto
 
 The `-f` operator returns true if the file exists. 
 
-Note: When writing this yourself a common error is to not add spaces here `[ -f` and here ` ]`. This is an important part of the syntax, which when not added will create an error.
+Notes: 
+
+- When writing this yourself a common error is to not add spaces here `[ -f` and here ` ]`. This is an important part of the syntax, which when not added will create an error.
+- We use the `touch` command in the else part to simulate the cleaning script generating an output file. In a real scenario you would remove this line and add your actual command there instead.
 
 ```{bash}
 OUTPUT="cleaned.fastq"
@@ -211,7 +215,7 @@ Sometimes you want to stop the entire loop if something is wrong, rather than sk
 
 For this example let's look at this case: You performed the quality cleaning step and want to proceed with the next step and assembly the reads into contigs, i.e. into longer stretches of DNA. Maybe something went wrong during the quality cleaning and some of your cleaned reads are empty. Here, you actually would want to stop the pipeline since the assembly part is computationally expensive and first get a useful error message that allows you to troubleshoot first.
 
-Since for this part you often feed forward and reverse reads as input files, this is a good usage case of using the OR keyword `||` and we will use the `break` keyword to stop the script if an issue occurs.
+The assembly process typically needs two inputs called the forward and reverse reads. While the details of what these files are is not important, this is a good usage case of using the OR keyword `||` to test whether forward or reverse file is missing. We also will now make use a new keyword called `break` that result in the script stopping if an issue occurs.
 
 ```{bash}
 # Only generate dummy files for s1 to simulate a partially completed pipeline

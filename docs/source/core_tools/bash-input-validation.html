@@ -1108,7 +1108,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="action-when-a-file-does-not-exist">Action when a file does not exist</h2>
 <p>Let’s begin with a basic example on a file that doesn’t exist yet. For this tutorial, we assume that you want to do some quality cleaning but to keep your jobs efficient, you only want to run the cleaning step if the file does not exist. For this example, we assume that the cleaning step produces a file called <code>cleaned.fastq</code>.</p>
 <p>The <code>-f</code> operator returns true if the file exists.</p>
-<p>Note: When writing this yourself a common error is to not add spaces here <code>[ -f</code> and here <code>]</code>. This is an important part of the syntax, which when not added will create an error.</p>
+<p>Notes:</p>
+<ul>
+<li>When writing this yourself a common error is to not add spaces here <code>[ -f</code> and here <code>]</code>. This is an important part of the syntax, which when not added will create an error.</li>
+<li>We use the <code>touch</code> command in the else part to simulate the cleaning script generating an output file. In a real scenario you would remove this line and add your actual command there instead.</li>
+</ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">OUTPUT</span><span class="op">=</span><span class="st">"cleaned.fastq"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1246,7 +1250,7 @@ Running cleaning step and generating s4.cleaned.fastq</code></pre>
 <h3 class="anchored" data-anchor-id="stopping-a-loop-if-something-is-wrong">Stopping a loop if something is wrong</h3>
 <p>Sometimes you want to stop the entire loop if something is wrong, rather than skipping a sample. This is useful when a missing or empty file indicates a problem in a previous step that needs to be resolved before continuing.</p>
 <p>For this example let’s look at this case: You performed the quality cleaning step and want to proceed with the next step and assembly the reads into contigs, i.e.&nbsp;into longer stretches of DNA. Maybe something went wrong during the quality cleaning and some of your cleaned reads are empty. Here, you actually would want to stop the pipeline since the assembly part is computationally expensive and first get a useful error message that allows you to troubleshoot first.</p>
-<p>Since for this part you often feed forward and reverse reads as input files, this is a good usage case of using the OR keyword <code>||</code> and we will use the <code>break</code> keyword to stop the script if an issue occurs.</p>
+<p>The assembly process typically needs two inputs called the forward and reverse reads. While the details of what these files are is not important, this is a good usage case of using the OR keyword <code>||</code> to test whether forward or reverse file is missing. We also will now make use a new keyword called <code>break</code> that result in the script stopping if an issue occurs.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Only generate dummy files for s1 to simulate a partially completed pipeline</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Forward and reverse reads are typically input files for many computation tasks</span></span>
