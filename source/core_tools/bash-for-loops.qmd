@@ -283,6 +283,13 @@ for filename in $(cat list); do
 done
 ```
 
+This prints:
+
+```
+Processing file: GCA_000008085.1
+Processing file: GCA_000017945.1
+```
+
 In this example, list is a file with a single column of genomes we want to work with. `cat list` is used within command substitution `$(...)` to generate the list of filenames stored in the file named `list`. The loop then iterates over each filename in the list, performing operations as needed. Note that using `for filename in $(cat list)` is functional but has a known problem: it splits on any whitespace, not just newlines. We see in the next section what we can do about this.
 
 **Why This Might Be Useful:**
@@ -291,8 +298,6 @@ Using loops with files allows for greater flexibility and automation in handling
 
 1. **Complex Filtering**: You need to filter files based on specific criteria or conditions that cannot be expressed using wildcard patterns alone. For example, you may need to select files based on metadata stored in another file or database. Imagine that part of your genomes are eukaryotic, the other are bacteria. Maybe you need to process them separately because eukaryotes require the use of different options compared to bacteria.
 2. **Dynamic File Lists**: The list of files to process may vary over time or depend on external factors. By storing filenames in a separate file, you can easily update the list without modifying the loop structure.
-
-By leveraging loops with files, you can streamline your workflow and efficiently process large sets of files with ease and flexibility.
 
 
 ### While loops
@@ -317,12 +322,29 @@ for filename in $(cat genome_to_sample); do
 done
 ```
 
-We see that we now process both the genomes but also the sample IDs (so basically the whole row). That is not what we want. To have more control over this and use both columns as variables, we can use a while loop instead:
+This prints:
+
+```
+Processing file: GCA_000008085.1
+Processing file: s1
+Processing file: GCA_000017945.1
+Processing file: s2
+```
+
+We see that we now process both the genomes but also the sample IDs (so basically the whole row) and start 4 processes. That is not what we want. To have more control over this and use both columns as variables, we can use a while loop instead:
 
 ```{bash}
 while read -r genome sample; do
     echo "Processing: ${genome} from ${sample}"
 done < genome_to_sample
+```
+
+
+This prints:
+
+```
+Processing: GCA_000008085.1 from s1
+Processing: GCA_000017945.1 from s2
 ```
 
 Here:
@@ -337,8 +359,8 @@ For more complex code, it might be useful to break things up for readability. Co
 
 ```{bash}
 for i in results/prokka/*/bin*/*.gbk; do
-    base_name=$(basename "$i" .gbk)
-    outdir="results/pseudofinder/${base_name}"
+    genome_name=$(basename "$i" .gbk)
+    outdir="results/pseudofinder/${genome_name}"
     pseudofinder.py annotate -g "$i" -op $outdir -db /zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta -t 20
 done
 ```
@@ -347,8 +369,8 @@ The line that runs the tool `pseudofinder.py` is becoming longer, and for readab
 
 ```{bash}
 for i in results/prokka/*/bin*/*.gbk; do
-    base_name=$(basename "$i" .gbk)
-    outdir="results/pseudofinder/${base_name}"
+    genome_name=$(basename "$i" .gbk)
+    outdir="results/pseudofinder/${genome_name}"
     pseudofinder.py annotate \
       -g "$i" \
       -op $outdir \

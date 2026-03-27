@@ -1318,6 +1318,9 @@ FEKPIEIQVYSPVDDIIYSSQEELMRNLYKFIGEQLKKYRTILIFTNTRHGAESVAYHLKKAFPDLEKYIAVHHSSLSRE
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add more commands here</span></span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>This prints:</p>
+<pre><code>Processing file: GCA_000008085.1
+Processing file: GCA_000017945.1</code></pre>
 <p>In this example, list is a file with a single column of genomes we want to work with. <code>cat list</code> is used within command substitution <code>$(...)</code> to generate the list of filenames stored in the file named <code>list</code>. The loop then iterates over each filename in the list, performing operations as needed. Note that using <code>for filename in $(cat list)</code> is functional but has a known problem: it splits on any whitespace, not just newlines. We see in the next section what we can do about this.</p>
 <p><strong>Why This Might Be Useful:</strong></p>
 <p>Using loops with files allows for greater flexibility and automation in handling sets of files that may not follow a consistent naming pattern or reside in different directories. This approach is particularly useful in scenarios where:</p>
@@ -1325,7 +1328,6 @@ FEKPIEIQVYSPVDDIIYSSQEELMRNLYKFIGEQLKKYRTILIFTNTRHGAESVAYHLKKAFPDLEKYIAVHHSSLSRE
 <li><strong>Complex Filtering</strong>: You need to filter files based on specific criteria or conditions that cannot be expressed using wildcard patterns alone. For example, you may need to select files based on metadata stored in another file or database. Imagine that part of your genomes are eukaryotic, the other are bacteria. Maybe you need to process them separately because eukaryotes require the use of different options compared to bacteria.</li>
 <li><strong>Dynamic File Lists</strong>: The list of files to process may vary over time or depend on external factors. By storing filenames in a separate file, you can easily update the list without modifying the loop structure.</li>
 </ol>
-<p>By leveraging loops with files, you can streamline your workflow and efficiently process large sets of files with ease and flexibility.</p>
 </section>
 <section id="while-loops" class="level3">
 <h3 class="anchored" data-anchor-id="while-loops">While loops</h3>
@@ -1334,21 +1336,29 @@ FEKPIEIQVYSPVDDIIYSSQEELMRNLYKFIGEQLKKYRTILIFTNTRHGAESVAYHLKKAFPDLEKYIAVHHSSLSRE
 GCA_000017945.1 s2</code></pre>
 <p>Let’s first see what the initial for loop does:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the list </span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"GCA_000008085.1\ts1\nGCA_000017945.1\ts2"</span> <span class="op">&gt;</span> genome_to_sample</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> filename <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> genome_to_sample<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Perform operations on each filename</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Processing file: </span><span class="va">${filename}</span><span class="st">"</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add more commands here</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the list </span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"GCA_000008085.1\ts1\nGCA_000017945.1\ts2"</span> <span class="op">&gt;</span> genome_to_sample</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> filename <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> genome_to_sample<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Perform operations on each filename</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Processing file: </span><span class="va">${filename}</span><span class="st">"</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add more commands here</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>We see that we now process both the genomes but also the sample IDs (so basically the whole row). That is not what we want. To have more control over this and use both columns as variables, we can use a while loop instead:</p>
+<p>This prints:</p>
+<pre><code>Processing file: GCA_000008085.1
+Processing file: s1
+Processing file: GCA_000017945.1
+Processing file: s2</code></pre>
+<p>We see that we now process both the genomes but also the sample IDs (so basically the whole row) and start 4 processes. That is not what we want. To have more control over this and use both columns as variables, we can use a while loop instead:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="bu">read</span> <span class="at">-r</span> <span class="va">genome</span> <span class="va">sample</span><span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Processing: </span><span class="va">${genome}</span><span class="st"> from </span><span class="va">${sample}</span><span class="st">"</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span> <span class="op">&lt;</span> genome_to_sample</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="bu">read</span> <span class="at">-r</span> <span class="va">genome</span> <span class="va">sample</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Processing: </span><span class="va">${genome}</span><span class="st"> from </span><span class="va">${sample}</span><span class="st">"</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span> <span class="op">&lt;</span> genome_to_sample</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>This prints:</p>
+<pre><code>Processing: GCA_000008085.1 from s1
+Processing: GCA_000017945.1 from s2</code></pre>
 <p>Here:</p>
 <ul>
 <li>By default, read interprets any backslashes as an escape character, which can cause unexpected behavior. To disable backslash escaping, it is generally useful to use the command with the <code>-r</code> option</li>
@@ -1361,23 +1371,23 @@ GCA_000017945.1 s2</code></pre>
 <h2 class="anchored" data-anchor-id="addon-alternative-syntax">Addon: Alternative syntax</h2>
 <p>For more complex code, it might be useful to break things up for readability. Consider this command (the details are not important here, however, see how we use exactly the same loop structure to run a completely different command?):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> results/prokka/<span class="pp">*</span>/bin<span class="pp">*</span>/<span class="pp">*</span>.gbk<span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">base_name</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="st">"</span><span class="va">$i</span><span class="st">"</span> .gbk<span class="va">)</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">outdir</span><span class="op">=</span><span class="st">"results/pseudofinder/</span><span class="va">${base_name}</span><span class="st">"</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">pseudofinder.py</span> annotate <span class="at">-g</span> <span class="st">"</span><span class="va">$i</span><span class="st">"</span> <span class="at">-op</span> <span class="va">$outdir</span> <span class="at">-db</span> /zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta <span class="at">-t</span> 20</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> results/prokka/<span class="pp">*</span>/bin<span class="pp">*</span>/<span class="pp">*</span>.gbk<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">genome_name</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="st">"</span><span class="va">$i</span><span class="st">"</span> .gbk<span class="va">)</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">outdir</span><span class="op">=</span><span class="st">"results/pseudofinder/</span><span class="va">${genome_name}</span><span class="st">"</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">pseudofinder.py</span> annotate <span class="at">-g</span> <span class="st">"</span><span class="va">$i</span><span class="st">"</span> <span class="at">-op</span> <span class="va">$outdir</span> <span class="at">-db</span> /zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta <span class="at">-t</span> 20</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The line that runs the tool <code>pseudofinder.py</code> is becoming longer, and for readability, we might want to break this command down and display each option on an individual line. We can do this as follows:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> results/prokka/<span class="pp">*</span>/bin<span class="pp">*</span>/<span class="pp">*</span>.gbk<span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">base_name</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="st">"</span><span class="va">$i</span><span class="st">"</span> .gbk<span class="va">)</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">outdir</span><span class="op">=</span><span class="st">"results/pseudofinder/</span><span class="va">${base_name}</span><span class="st">"</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">pseudofinder.py</span> annotate <span class="dt">\</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">-g</span> <span class="st">"</span><span class="va">$i</span><span class="st">"</span> <span class="dt">\</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">-op</span> <span class="va">$outdir</span> <span class="dt">\</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">-db</span> /zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta <span class="dt">\</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">-t</span> 20</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> results/prokka/<span class="pp">*</span>/bin<span class="pp">*</span>/<span class="pp">*</span>.gbk<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">genome_name</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="st">"</span><span class="va">$i</span><span class="st">"</span> .gbk<span class="va">)</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">outdir</span><span class="op">=</span><span class="st">"results/pseudofinder/</span><span class="va">${genome_name}</span><span class="st">"</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">pseudofinder.py</span> annotate <span class="dt">\</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">-g</span> <span class="st">"</span><span class="va">$i</span><span class="st">"</span> <span class="dt">\</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">-op</span> <span class="va">$outdir</span> <span class="dt">\</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">-db</span> /zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta <span class="dt">\</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">-t</span> 20</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Here, we use the <code>\</code> to split a long line into two shorter lines, without signifying an end of the statement. If you use this, be careful with the syntax, as <code>\</code> needs to be immediately followed by a new line. So don’t add any spaces afterwards.</p>
 </section>
@@ -1442,10 +1452,10 @@ GCA_000017945.1 s2</code></pre>
 <li><p>Use utilities like <code>dos2unix</code> to convert DOS-formatted text files to Unix format before processing them in your loop. This command removes any extraneous carriage return characters, ensuring consistent line endings.</p></li>
 <li><p>If dos2unix is not available, you can use tr (translate or delete characters) to remove carriage return characters from DOS-formatted files. Here’s how you can accomplish this:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Remove carriage return characters from DOS-formatted files</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> file <span class="kw">in</span> <span class="pp">*</span>.txt<span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tr</span> <span class="at">-d</span> <span class="st">'\r'</span> <span class="op">&lt;</span> <span class="st">"</span><span class="va">$file</span><span class="st">"</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">$file</span><span class="st">.tmp"</span> <span class="kw">&amp;&amp;</span> <span class="fu">mv</span> <span class="st">"</span><span class="va">$file</span><span class="st">.tmp"</span> <span class="st">"</span><span class="va">$file</span><span class="st">"</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Remove carriage return characters from DOS-formatted files</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> file <span class="kw">in</span> <span class="pp">*</span>.txt<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tr</span> <span class="at">-d</span> <span class="st">'\r'</span> <span class="op">&lt;</span> <span class="st">"</span><span class="va">$file</span><span class="st">"</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">$file</span><span class="st">.tmp"</span> <span class="kw">&amp;&amp;</span> <span class="fu">mv</span> <span class="st">"</span><span class="va">$file</span><span class="st">.tmp"</span> <span class="st">"</span><span class="va">$file</span><span class="st">"</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div></li>
 <li><p>This loop iterates over all .txt files in the current directory, removes carriage return characters ( using tr, and then overwrites the original files with the processed versions. This approach achieves the same result as dos2unix, but using built-in Bash functionality instead.</p></li>
 <li><p>You can modify the file extension (*.txt) to match the specific file types you’re working with in your environment.</p></li>
