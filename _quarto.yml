@@ -188,6 +188,7 @@ website:
         contents:
             - source/core_tools/custom_scripts.qmd
             - source/core_tools/bash-for-loops.qmd 
+            - source/core_tools/bash-input-validation.qmd 
 
       - section: "Bioinformatic databases"
         contents:

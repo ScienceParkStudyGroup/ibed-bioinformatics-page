@@ -198,7 +198,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
-    <lastmod>2026-02-18T13:22:52.861Z</lastmod>
+    <lastmod>2026-03-27T08:18:03.019Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/Qiime/3_evelyn_tutorial_notes.html</loc>
@@ -391,5 +391,9 @@
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/snakemake/tutorial.html</loc>
     <lastmod>2023-09-15T10:04:19.554Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/bash-input-validation.html</loc>
+    <lastmod>2026-03-27T09:15:36.041Z</lastmod>
   </url>
 </urlset>

@@ -332,5 +332,8 @@
   },
   "source/core_tools/custom_scripts.qmd": {
     "custom_scripts.html": "f7fc95fe"
+  },
+  "source/core_tools/bash-input-validation.qmd": {
+    "bash-input-validation.html": "c85bc552"
   }
 }

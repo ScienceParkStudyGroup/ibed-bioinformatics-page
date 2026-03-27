@@ -212,6 +212,7 @@ for (i = 0; i < acc.length; i++) {
 
 - [Custom scripts](source/core_tools/custom_scripts.qmd): A list of custom scripts useful for bioinformatic analyses
 - [For-loops-in-bash](source/core_tools/bash-for-loops.qmd): How can I scale my research and run software not only on one but multiple files?
+- [Bash input validation](source/core_tools/bash-input-validation.qmd ): How do I check in my Bash scripts whether inputs already exist and avoid re-running tools?
 
 ## Useful databases A-Z
 

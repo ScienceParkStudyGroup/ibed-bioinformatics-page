@@ -1,0 +1,253 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+# File verifications in bash
+
+In job scripts you sometimes want to check whether a file exists and only run an action if it doesn't exist. For example you might want to run a quality cleaning step on multiple files on an HPC. Here, you might want to skip the cleaning step if the output file already exists to avoid re-running computationally costly tasks. Or you might want to generate a clear error message if an input file is missing for easier troubleshooting.
+
+For this tutorial, first create two files: a sample list and empty file which we will use in later sections:
+
+```{bash}
+# Generate a list of samples that we want to analyse
+echo -e "s1\ns2\ns3\ns4" > samples
+
+# Generate an empty file to test some commands below
+touch empty_file
+```
+
+
+## Action when a file does not exist
+
+Let's begin with a basic example on a file that doesn't exist yet. For this tutorial, we assume that you want to do some quality cleaning but to keep your jobs efficient, you only want to run the cleaning step if the file does not exist. For this example, we assume that the cleaning step produces a file called `cleaned.fastq`. 
+
+The `-f` operator returns true if the file exists. 
+
+Note: When writing this yourself a common error is to not add spaces here `[ -f` and here ` ]`. This is an important part of the syntax, which when not added will create an error.
+
+```{bash}
+OUTPUT="cleaned.fastq"
+
+# Check if file exists
+if [ -f "$OUTPUT" ]; then 
+    echo -e "\n${OUTPUT} exists. Nothing to be done"
+else 
+    echo -e "\nRun cleaning script. Generating output:" 
+    touch "$OUTPUT"
+fi
+
+# confirm the file was created
+ls "$OUTPUT"
+```
+
+This returns:
+
+```
+Run cleaning script. Generating output:
+cleaned.fastq
+```
+
+So we see that the cleaning script would be executed. If we would re-run the command, then the script recognizes this and won't rerun the cleaning step:
+
+```{bash}
+OUTPUT="cleaned.fastq"
+
+if [ -f "$OUTPUT" ]; then 
+    echo -e "\n${OUTPUT} exists. Nothing to be done"
+else 
+    echo -e "\nRun cleaning script. Generating output:" 
+    touch "$OUTPUT"
+fi
+```
+
+```
+cleaned.fastq exists. Nothing to be done
+```
+
+You can also negate things and check if a file does not exist:
+
+```{bash}
+# Remove the file created in the previous example to start fresh
+rm cleaned.fastq
+
+OUTPUT="cleaned.fastq"
+
+# Check if the file does not exist and then do something 
+if [ ! -f "$OUTPUT" ]; then 
+    echo -e "\n${OUTPUT} does not exist. Run cleaning script. Generating output:" 
+    touch "$OUTPUT"
+fi
+
+# confirm the file was created
+ls "$OUTPUT"
+```
+
+```
+cleaned.fastq does not exist. Run cleaning script. Generating output:
+cleaned.fastq
+```
+
+
+## Action when a file exists but is empty
+
+Sometimes tools might run incorrectly and generate an output but this output is empty. In this case you would want to rerun your cleaning step on that specific file:
+
+The `-s` operator returns true if the file exists and has a size greater than zero (i.e., is non-empty).
+
+```{bash}
+OUTPUT="empty_file"
+
+if [ -s "$OUTPUT" ]; then 
+    echo -e "\n${OUTPUT} exists and is non-empty. Nothing to be done"
+else 
+    echo -e "\n${OUTPUT} is empty, run cleaning script. Generating output:" 
+    touch "$OUTPUT"
+fi
+
+# confirm the file was created
+ls "$OUTPUT"
+```
+
+```
+empty_file is empty, run cleaning script. Generating output:
+empty_file
+```
+
+Note: in a real script, the else branch would rerun the tool that generates the file. Here we use touch as a placeholder, which creates again an empty file and  the check would trigger again on the next run.
+
+
+## Combining checks
+
+We can also use this to test if two files exist, which might be useful if your tool requires two inputs. Then you can combine two checks with an AND statement using `&&`.
+
+Note: When combining conditions, use` [[` instead of `[`. This construct is a bash built-in that handles compound conditions more reliably. You can use `[[` even if you are not combining two checks. That is because the `[[` has some other features such as handling empty variables without returning a syntax error. 
+
+```{bash}
+if [[ -f samples && -f cleaned.fastq ]]; then 
+    echo -e "\nBoth files exist. Nothing to be done"
+else    
+    echo "File missing. Re-run file generation step"
+fi
+```
+
+```
+Both files exist. Nothing to be done
+```
+
+You can be more defensive and use an elif statement to know exactly which file does not exist. Here, negation is again useful.
+
+```{bash}
+if [[ ! -f samples ]]; then 
+    echo -e "\nsamples does not exist."
+elif [[ ! -f cleaned.fastq ]]; then
+   echo -e "\ncleaned.fastq does not exist."
+else    
+    echo "All files exist. Nothing to be done."
+fi
+```
+
+```
+All files exist. Nothing to be done.
+```
+
+Note: elif checks conditions sequentially and stops at the first match. If both files are missing, only the first missing file will be reported.
+
+
+## Putting everything together
+
+### Looping across all samples
+
+Assume now that we want to run our cleaning step on all samples. A loop would be a natural to do this and we can do the following:
+
+```{bash}
+# Generate a dummy output file that exists 
+echo "some content" > s1.cleaned.fastq
+
+for ID in $(cat samples); do
+    OUTPUT="${ID}.cleaned.fastq"
+
+    echo "Processing $ID"
+    echo "---------------"
+
+    if [[ -s "$OUTPUT" ]]; then
+        echo -e " ${OUTPUT} exists and is non-empty, skipping\n"
+    else
+        echo -e "Running cleaning step and generating ${OUTPUT} \n"
+    fi
+done
+```
+
+We see that s1 is handled differently since it already exists:
+
+```
+Processing s1
+---------------
+s1.cleaned.fastq exists and is non-empty, skipping
+
+Processing s2
+---------------
+Running cleaning step and generating s2.cleaned.fastq
+
+Processing s3
+---------------
+Running cleaning step and generating s3.cleaned.fastq
+
+Processing s4
+---------------
+Running cleaning step and generating s4.cleaned.fastq
+```
+
+
+### Stopping a loop if something is wrong
+
+Sometimes you want to stop the entire loop if something is wrong, rather than skipping a sample. This is useful when a missing or empty file indicates a problem in a previous step that needs to be resolved before continuing.
+
+For this example let's look at this case: You performed the quality cleaning step and want to proceed with the next step and assembly the reads into contigs, i.e. into longer stretches of DNA. Maybe something went wrong during the quality cleaning and some of your cleaned reads are empty. Here, you actually would want to stop the pipeline since the assembly part is computationally expensive and first get a useful error message that allows you to troubleshoot first.
+
+Since for this part you often feed forward and reverse reads as input files, this is a good usage case of using the OR keyword `||` and we will use the `break` keyword to stop the script if an issue occurs.
+
+```{bash}
+# Only generate dummy files for s1 to simulate a partially completed pipeline
+# Forward and reverse reads are typically input files for many computation tasks
+echo "some content" > s1_forward_cleaned.fastq
+echo "some content" > s1_reverse_cleaned.fastq
+
+# Run the loop
+for ID in $(cat samples); do
+    CLEANED_READS_F="${ID}_forward_cleaned.fastq"
+    CLEANED_READS_R="${ID}_reverse_cleaned.fastq"
+
+    echo "Processing $ID"
+    echo "---------------"
+
+    if [[ ! -s "$CLEANED_READS_F" || ! -s "$CLEANED_READS_R" ]]; then
+        echo "ERROR: ${CLEANED_READS_F} or ${CLEANED_READS_R} is missing or empty. Stopping pipeline."
+        break
+    fi
+
+    echo -e "Both input files exist and are non-empty. Running assembly for $ID\n"
+done
+```
+
+Wee see
+
+```
+Processing s1
+---------------
+Both input files exist and are non-empty. Running assembly for s1
+
+Processing s2
+---------------
+ERROR: s2_forward_cleaned.fastq or s2_reverse_cleaned.fastq is missing or empty. Stopping pipeline.
+```
+
+We now build a pipeline that stops at s2 and prints a clear error message, allowing you to investigate before committing resources to the assembly step.
+
+</div>

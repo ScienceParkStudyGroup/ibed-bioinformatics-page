@@ -2,16 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>arcog – Bioinformatics guidance page</title>
+<title>bash-input-validation – Bioinformatics guidance page</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -58,26 +55,7 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -87,22 +65,23 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/core_tools/cog.html" rel="next">
-<link href="../../source/core_tools/bash-input-validation.html" rel="prev">
+<link href="../../source/core_tools/arcog.html" rel="next">
+<link href="../../source/core_tools/bash-for-loops.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-da03eefbcbb2a9b18199fc26a2bb68a1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-9a04384885540ab4a82c00c52772811b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-da03eefbcbb2a9b18199fc26a2bb68a1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-b15cb652af43b88d7d12fd4e61c58a4a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-052be93faeed2c5310335092814e6d2d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-b15cb652af43b88d7d12fd4e61c58a4a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -306,7 +285,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/core_tools/arcog.html">Bioinformatic databases</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/arcog.html">arCOG database</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/core_tools/custom_scripts.html">Bioinformatics toolbox</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-input-validation.html">File verifications in bash</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -320,13 +299,12 @@ div.csl-indent {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="../../">Bioinformatics guidance page</a> 
-        <div class="sidebar-tools-main">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+      <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
     <div id="quarto-search" class="quarto-navigation-tool px-1" title="Search"></div>
 </div>
-    </div>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
@@ -1004,7 +982,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/bash-input-validation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/bash-input-validation.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">File verifications in bash</span></a>
   </div>
 </li>
@@ -1021,7 +999,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/arcog.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../source/core_tools/arcog.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">arCOG database</span></a>
   </div>
 </li>
@@ -1091,17 +1069,22 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#arcog-database" id="toc-arcog-database" class="nav-link active" data-scroll-target="#arcog-database">arCOG database</a>
+  <li><a href="#file-verifications-in-bash" id="toc-file-verifications-in-bash" class="nav-link active" data-scroll-target="#file-verifications-in-bash">File verifications in bash</a>
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
-  <li><a href="#example-usage" id="toc-example-usage" class="nav-link" data-scroll-target="#example-usage">Example usage</a></li>
+  <li><a href="#action-when-a-file-does-not-exist" id="toc-action-when-a-file-does-not-exist" class="nav-link" data-scroll-target="#action-when-a-file-does-not-exist">Action when a file does not exist</a></li>
+  <li><a href="#action-when-a-file-exists-but-is-empty" id="toc-action-when-a-file-exists-but-is-empty" class="nav-link" data-scroll-target="#action-when-a-file-exists-but-is-empty">Action when a file exists but is empty</a></li>
+  <li><a href="#combining-checks" id="toc-combining-checks" class="nav-link" data-scroll-target="#combining-checks">Combining checks</a></li>
+  <li><a href="#putting-everything-together" id="toc-putting-everything-together" class="nav-link" data-scroll-target="#putting-everything-together">Putting everything together</a>
+  <ul class="collapse">
+  <li><a href="#looping-across-all-samples" id="toc-looping-across-all-samples" class="nav-link" data-scroll-target="#looping-across-all-samples">Looping across all samples</a></li>
+  <li><a href="#stopping-a-loop-if-something-is-wrong" id="toc-stopping-a-loop-if-something-is-wrong" class="nav-link" data-scroll-target="#stopping-a-loop-if-something-is-wrong">Stopping a loop if something is wrong</a></li>
+  </ul></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/arcog.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/bash-input-validation.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/core_tools/arcog.html">Bioinformatic databases</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/arcog.html">arCOG database</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/core_tools/custom_scripts.html">Bioinformatics toolbox</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-input-validation.html">File verifications in bash</a></li></ol></nav></header>
 
 
 <header id="title-block-header">
@@ -1110,126 +1093,198 @@ div.csl-indent {
 </header>
 
 
-<section id="arcog-database" class="level2" style="text-align: justify">
-<h2 class="anchored" data-anchor-id="arcog-database">arCOG database</h2>
-<section id="introduction" class="level3">
-<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>The Archaeal Clusters of Orthologous Genes (arCOGs) database is a curated database of orthologs genes within the archaea that can be used for functional annotation of archaeal genomes/proteins <span class="citation" data-cites="Wolf2012">(<a href="#ref-Wolf2012" role="doc-biblioref">Wolf et al. 2012</a>)</span>.</p>
-</section>
-<section id="installation" class="level3">
-<h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>Available on crunchomics: Yes,</p>
-<ul>
-<li>The arCOG database is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to <a href="n.dombrowski@uva.nl">Nina Dombrowski</a>.</li>
-</ul>
-<p>The database can be found here:</p>
-<ul>
-<li><code>/zfs/omics/projects/bioinformatics/databases/arcogs</code>.</li>
-</ul>
-<p>If you want to download the database yourself, you can do:</p>
+<section id="file-verifications-in-bash" class="level1" style="text-align: justify">
+<h1>File verifications in bash</h1>
+<p>In job scripts you sometimes want to check whether a file exists and only run an action if it doesn’t exist. For example you might want to run a quality cleaning step on multiple files on an HPC. Here, you might want to skip the cleaning step if the output file already exists to avoid re-running computationally costly tasks. Or you might want to generate a clear error message if an input file is missing for easier troubleshooting.</p>
+<p>For this tutorial, first create two files: a sample list and empty file which we will use in later sections:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the database </span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/pub/wolf/COGs/arCOG/zip.aliar14.tgz</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/pub/wolf/COGs/arCOG/ar14.arCOGdef.tab </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Format the metadata file </span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-i</span> <span class="st">'s/ /_/g'</span> ar14.arCOGdef.tab</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Uncompress the database </span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xzvf</span> zip.aliar14.tgz</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Get basic info: 13,096 alns + 13,444 definitions</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> ar14.ali/<span class="pp">*</span>sr <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> ar14.arCOGdef.tab </span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if all alignments are found in the definition file</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"SR files not in tab:"</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">comm</span> <span class="at">-23</span> <span class="op">&lt;(</span><span class="fu">find</span> ar14.ali/ <span class="at">-type</span> f <span class="at">-name</span> <span class="st">"*.sr"</span> <span class="at">-exec</span> basename {} .sr <span class="dt">\;</span> <span class="kw">|</span> <span class="fu">sort</span><span class="op">)</span> <span class="dt">\</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>         <span class="op">&lt;(</span><span class="fu">sed</span> 1d ar14.arCOGdef.tab <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1</span> <span class="kw">|</span> <span class="fu">sort</span><span class="op">)</span> </span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert alignments to hmm profiles</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ar14.ali</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="kw">`</span><span class="fu">ls</span> <span class="pp">*</span>sr <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/.sr//g'</span><span class="kw">`;</span> <span class="cf">do</span> <span class="ex">hmmbuild</span> <span class="va">$i</span>.hmm <span class="va">$i</span>.sr<span class="kw">;</span> <span class="cf">done</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">#cleanup </span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> sr hmm</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> <span class="pp">*</span>.sr sr </span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> <span class="pp">*</span>.hmm hmm </span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-czvf</span> sr.tar.gz sr</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-r</span> sr </span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># combine all profiles in a database</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> hmm/<span class="pp">*</span>.hmm <span class="op">&gt;&gt;</span> ../All_Arcogs_2023.hmm</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co"># clean</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-czvf</span> hmm.tar.gz hmm </span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-r</span> hmm </span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">#create database</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ex">hmmpress</span> All_Arcogs_2023.hmm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a list of samples that we want to analyse</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"s1\ns2\ns3\ns4"</span> <span class="op">&gt;</span> samples</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate an empty file to test some commands below</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> empty_file</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Note: 12 alignments are not found in the arCOG definition file for unknown reasons:</p>
-<pre><code>arCOG10092
-arCOG10487
-arCOG12002
-arCOG13110
-arCOG15193
-arCOG15228
-arCOG15233
-arCOG15283
-arCOG15284
-arCOG15285
-arCOG15286</code></pre>
-</section>
-<section id="example-usage" class="level3">
-<h3 class="anchored" data-anchor-id="example-usage">Example usage</h3>
-<p>You can compare your proteins of interest to the database using hmmsearch, for example by running the following:</p>
+<section id="action-when-a-file-does-not-exist" class="level2">
+<h2 class="anchored" data-anchor-id="action-when-a-file-does-not-exist">Action when a file does not exist</h2>
+<p>Let’s begin with a basic example on a file that doesn’t exist yet. For this tutorial, we assume that you want to do some quality cleaning but to keep your jobs efficient, you only want to run the cleaning step if the file does not exist. For this example, we assume that the cleaning step produces a file called <code>cleaned.fastq</code>.</p>
+<p>The <code>-f</code> operator returns true if the file exists.</p>
+<p>Note: When writing this yourself a common error is to not add spaces here <code>[ -f</code> and here <code>]</code>. This is an important part of the syntax, which when not added will create an error.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run hmmsearch </span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">hmmsearch</span> <span class="dt">\</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--tblout</span> results/sequence_results.txt <span class="dt">\</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--domtblout</span> results/domain_results.txt <span class="dt">\</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--notextw</span> <span class="dt">\</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--cpu</span> 10 <span class="dt">\</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    /zfs/omics/projects/bioinformatics/databases/arcogs/All_Arcogs_2023.hmm <span class="dt">\</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    data/GCF_000970205.faa</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">OUTPUT</span><span class="op">=</span><span class="st">"cleaned.fastq"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if file exists</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-f</span> <span class="st">"</span><span class="va">$OUTPUT</span><span class="st">"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\n</span><span class="va">${OUTPUT}</span><span class="st"> exists. Nothing to be done"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\nRun cleaning script. Generating output:"</span> </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">touch</span> <span class="st">"</span><span class="va">$OUTPUT</span><span class="st">"</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># confirm the file was created</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="st">"</span><span class="va">$OUTPUT</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>This will potentially give you several hits for each protein of interest. Below you find example code for how to filter the tblout file and also add in metadata information for each arCOG:</p>
+<p>This returns:</p>
+<pre><code>Run cleaning script. Generating output:
+cleaned.fastq</code></pre>
+<p>So we see that the cleaning script would be executed. If we would re-run the command, then the script recognizes this and won’t rerun the cleaning step:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1. Format the full table by:</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># remove hash symbols and replacing spaces with a tab</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># retain only the columns with the protein-id, ko-id,  e-value, bit score</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># and only select hits above a certain e-value</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/ \+ /\t/g'</span> results/sequence_results.txt <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'/^#/d'</span><span class="kw">|</span> <span class="fu">sed</span> <span class="st">'s/ /\t/g'</span><span class="kw">|</span><span class="dt">\</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{print $1, $3, $5, $6}'</span> <span class="kw">|</span><span class="dt">\</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'($3 + 0) &lt;= 1E-3'</span>  <span class="op">&gt;</span> results/sequence_results_red_e_cutoff.txt</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#2. Get best hit/protein based on the lowest e-value and resolve ties by looking at the highest bitscore</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># i.e. one protein might hit toward more than 1 HMM, we only want to retain one hit</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-k3,3g</span> <span class="at">-k4,4gr</span> results/sequence_results_red_e_cutoff.txt <span class="kw">|</span><span class="dt">\</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sort</span> <span class="at">-t</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">--stable</span> <span class="at">-u</span> <span class="at">-k1,1</span>  <span class="op">&gt;</span>  results/sequence_results_red_e_cutoff_best_hit.txt</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#3. Merge with arcog mapping file </span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">join</span> <span class="at">-a1</span> <span class="at">-1</span> 2 <span class="at">-2</span> 1 <span class="at">-e</span><span class="st">'-'</span> <span class="at">-t</span> <span class="st">$'</span><span class="dt">\t</span><span class="st">'</span> <span class="at">-o1.1,1.2,1.3,1.4,2.3,2.4,2.2</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k2</span> results/sequence_results_red_e_cutoff_best_hit.txt<span class="op">)</span> <span class="op">&lt;(</span><span class="va">LC_ALL</span><span class="op">=</span>C <span class="fu">sort</span> <span class="at">-k1</span>  /zfs/omics/projects/bioinformatics/databases/arcogs//ar14.arCOGdef.tab<span class="op">)</span> <span class="kw">|</span> <span class="va">LC_ALL</span><span class="op">=</span>C  <span class="fu">sort</span> <span class="op">&gt;</span>  results/temp1</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#4. Add header</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"accession\tarcog_id\tarcog_evalue\tarcog_bitscore\tarcog_gene\tarcog_definition\tarcog_pathway"</span> <span class="kw">|</span> <span class="fu">cat</span> <span class="at">-</span> results/temp1 <span class="op">&gt;</span> results/arcog_results.tsv</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#5. Cleanup</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> results/temp<span class="pp">*</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">OUTPUT</span><span class="op">=</span><span class="st">"cleaned.fastq"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-f</span> <span class="st">"</span><span class="va">$OUTPUT</span><span class="st">"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\n</span><span class="va">${OUTPUT}</span><span class="st"> exists. Nothing to be done"</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\nRun cleaning script. Generating output:"</span> </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">touch</span> <span class="st">"</span><span class="va">$OUTPUT</span><span class="st">"</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<pre><code>cleaned.fastq exists. Nothing to be done</code></pre>
+<p>You can also negate things and check if a file does not exist:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove the file created in the previous example to start fresh</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> cleaned.fastq</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="va">OUTPUT</span><span class="op">=</span><span class="st">"cleaned.fastq"</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if the file does not exist and then do something </span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">!</span> <span class="ot">-f</span> <span class="st">"</span><span class="va">$OUTPUT</span><span class="st">"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span> </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\n</span><span class="va">${OUTPUT}</span><span class="st"> does not exist. Run cleaning script. Generating output:"</span> </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">touch</span> <span class="st">"</span><span class="va">$OUTPUT</span><span class="st">"</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># confirm the file was created</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="st">"</span><span class="va">$OUTPUT</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>cleaned.fastq does not exist. Run cleaning script. Generating output:
+cleaned.fastq</code></pre>
+</section>
+<section id="action-when-a-file-exists-but-is-empty" class="level2">
+<h2 class="anchored" data-anchor-id="action-when-a-file-exists-but-is-empty">Action when a file exists but is empty</h2>
+<p>Sometimes tools might run incorrectly and generate an output but this output is empty. In this case you would want to rerun your cleaning step on that specific file:</p>
+<p>The <code>-s</code> operator returns true if the file exists and has a size greater than zero (i.e., is non-empty).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="va">OUTPUT</span><span class="op">=</span><span class="st">"empty_file"</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$OUTPUT</span><span class="st">"</span> <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\n</span><span class="va">${OUTPUT}</span><span class="st"> exists and is non-empty. Nothing to be done"</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\n</span><span class="va">${OUTPUT}</span><span class="st"> is empty, run cleaning script. Generating output:"</span> </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">touch</span> <span class="st">"</span><span class="va">$OUTPUT</span><span class="st">"</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># confirm the file was created</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="st">"</span><span class="va">$OUTPUT</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>empty_file is empty, run cleaning script. Generating output:
+empty_file</code></pre>
+<p>Note: in a real script, the else branch would rerun the tool that generates the file. Here we use touch as a placeholder, which creates again an empty file and the check would trigger again on the next run.</p>
+</section>
+<section id="combining-checks" class="level2">
+<h2 class="anchored" data-anchor-id="combining-checks">Combining checks</h2>
+<p>We can also use this to test if two files exist, which might be useful if your tool requires two inputs. Then you can combine two checks with an AND statement using <code>&amp;&amp;</code>.</p>
+<p>Note: When combining conditions, use<code>[[</code> instead of <code>[</code>. This construct is a bash built-in that handles compound conditions more reliably. You can use <code>[[</code> even if you are not combining two checks. That is because the <code>[[</code> has some other features such as handling empty variables without returning a syntax error.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="ot">-f</span> samples <span class="kw">&amp;&amp;</span> <span class="ot">-f</span> cleaned.fastq <span class="kw">]];</span> <span class="cf">then</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\nBoth files exist. Nothing to be done"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>    </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"File missing. Re-run file generation step"</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>Both files exist. Nothing to be done</code></pre>
+<p>You can be more defensive and use an elif statement to know exactly which file does not exist. Here, negation is again useful.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="ot">!</span> <span class="ot">-f</span> samples <span class="kw">]];</span> <span class="cf">then</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\nsamples does not exist."</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> <span class="kw">[[</span> <span class="ot">!</span> <span class="ot">-f</span> cleaned.fastq <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>   <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\ncleaned.fastq does not exist."</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>    </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"All files exist. Nothing to be done."</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>All files exist. Nothing to be done.</code></pre>
+<p>Note: elif checks conditions sequentially and stops at the first match. If both files are missing, only the first missing file will be reported.</p>
+</section>
+<section id="putting-everything-together" class="level2">
+<h2 class="anchored" data-anchor-id="putting-everything-together">Putting everything together</h2>
+<section id="looping-across-all-samples" class="level3">
+<h3 class="anchored" data-anchor-id="looping-across-all-samples">Looping across all samples</h3>
+<p>Assume now that we want to run our cleaning step on all samples. A loop would be a natural to do this and we can do the following:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a dummy output file that exists </span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"some content"</span> <span class="op">&gt;</span> s1.cleaned.fastq</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> samples<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">OUTPUT</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">.cleaned.fastq"</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Processing </span><span class="va">$ID</span><span class="st">"</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"---------------"</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">[[</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$OUTPUT</span><span class="st">"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="at">-e</span> <span class="st">" </span><span class="va">${OUTPUT}</span><span class="st"> exists and is non-empty, skipping\n"</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"Running cleaning step and generating </span><span class="va">${OUTPUT}</span><span class="st"> \n"</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We see that s1 is handled differently since it already exists:</p>
+<pre><code>Processing s1
+---------------
+s1.cleaned.fastq exists and is non-empty, skipping
+
+Processing s2
+---------------
+Running cleaning step and generating s2.cleaned.fastq
+
+Processing s3
+---------------
+Running cleaning step and generating s3.cleaned.fastq
+
+Processing s4
+---------------
+Running cleaning step and generating s4.cleaned.fastq</code></pre>
+</section>
+<section id="stopping-a-loop-if-something-is-wrong" class="level3">
+<h3 class="anchored" data-anchor-id="stopping-a-loop-if-something-is-wrong">Stopping a loop if something is wrong</h3>
+<p>Sometimes you want to stop the entire loop if something is wrong, rather than skipping a sample. This is useful when a missing or empty file indicates a problem in a previous step that needs to be resolved before continuing.</p>
+<p>For this example let’s look at this case: You performed the quality cleaning step and want to proceed with the next step and assembly the reads into contigs, i.e.&nbsp;into longer stretches of DNA. Maybe something went wrong during the quality cleaning and some of your cleaned reads are empty. Here, you actually would want to stop the pipeline since the assembly part is computationally expensive and first get a useful error message that allows you to troubleshoot first.</p>
+<p>Since for this part you often feed forward and reverse reads as input files, this is a good usage case of using the OR keyword <code>||</code> and we will use the <code>break</code> keyword to stop the script if an issue occurs.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Only generate dummy files for s1 to simulate a partially completed pipeline</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Forward and reverse reads are typically input files for many computation tasks</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"some content"</span> <span class="op">&gt;</span> s1_forward_cleaned.fastq</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"some content"</span> <span class="op">&gt;</span> s1_reverse_cleaned.fastq</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the loop</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> samples<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_F</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_forward_cleaned.fastq"</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_R</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_reverse_cleaned.fastq"</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Processing </span><span class="va">$ID</span><span class="st">"</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"---------------"</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">[[</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_F</span><span class="st">"</span> <span class="kw">||</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_R</span><span class="st">"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">"ERROR: </span><span class="va">${CLEANED_READS_F}</span><span class="st"> or </span><span class="va">${CLEANED_READS_R}</span><span class="st"> is missing or empty. Stopping pipeline."</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"Both input files exist and are non-empty. Running assembly for </span><span class="va">$ID</span><span class="st">\n"</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Wee see</p>
+<pre><code>Processing s1
+---------------
+Both input files exist and are non-empty. Running assembly for s1
+
+Processing s2
+---------------
+ERROR: s2_forward_cleaned.fastq or s2_reverse_cleaned.fastq is missing or empty. Stopping pipeline.</code></pre>
+<p>We now build a pipeline that stops at s2 and prints a clear error message, allowing you to investigate before committing resources to the assembly step.</p>
 </section>
 </section>
+</section>
 
 
 
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-Wolf2012" class="csl-entry" role="listitem">
-Wolf, Yuri I, Kira S Makarova, Natalya Yutin, and Eugene V Koonin. 2012. <span>“Updated Clusters of Orthologous Genes for Archaea: A Complex Ancestor of the Archaea and the Byways of Horizontal Gene Transfer.”</span> <em>Biology Direct</em> 7 (1): 46. <a href="https://doi.org/10.1186/1745-6150-7-46">https://doi.org/10.1186/1745-6150-7-46</a>.
-</div>
-</div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -1650,13 +1705,13 @@ Wolf, Yuri I, Kira S Makarova, Natalya Yutin, and Eugene V Koonin. 2012. <span>�
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/core_tools/bash-input-validation.html" class="pagination-link" aria-label="File verifications in bash">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">File verifications in bash</span>
+      <a href="../../source/core_tools/bash-for-loops.html" class="pagination-link" aria-label="For-loops in bash">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">For-loops in bash</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/core_tools/cog.html" class="pagination-link" aria-label="COG database">
-        <span class="nav-page-text">COG database</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/core_tools/arcog.html" class="pagination-link" aria-label="arCOG database">
+        <span class="nav-page-text">arCOG database</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1668,8 +1723,8 @@ Wolf, Yuri I, Kira S Makarova, Natalya Yutin, and Eugene V Koonin. 2012. <span>�
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-03-24</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/arcog.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+Last modified: 2026-03-27</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/bash-input-validation.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
