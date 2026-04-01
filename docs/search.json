@@ -1233,7 +1233,7 @@
     "href": "index.html#bioinformatic-toolbox",
     "title": "Bioinformatics guidance page",
     "section": "Bioinformatic toolbox",
-    "text": "Bioinformatic toolbox\n\nCustom scripts: A list of custom scripts useful for bioinformatic analyses\nFor-loops-in-bash: How can I scale my research and run software not only on one but multiple files?\nBash input validation: How do I check in my Bash scripts whether inputs already exist and avoid re-running tools?",
+    "text": "Bioinformatic toolbox\n\nCustom scripts: A list of custom scripts useful for bioinformatic analyses\nFor-loops-in-bash: How can I scale my research and run software not only on one but multiple files?\nBash input validation: How do I check in my Bash scripts whether inputs already exist and avoid re-running tools?\nBash arrays: Arrays in bash — and when you don’t need them",
     "crumbs": [
       "Welcome page"
     ]
@@ -2405,6 +2405,39 @@
     "crumbs": [
       "Bioinformatics toolbox",
       "For-loops in bash"
+    ]
+  },
+  {
+    "objectID": "source/core_tools/bash-arrays.html#basics",
+    "href": "source/core_tools/bash-arrays.html#basics",
+    "title": "Arrays in bash",
+    "section": "Basics",
+    "text": "Basics\nIn Bash, an array is a collection of values stored under a single variable name.\nTo explain its usage assume that we are working with 3 protein fasta files and want to perform an action on them, for example concatenate all three of them. To do this, we could store the names of all three files in an array and then use the array to do something.\nWe begin by creating three dummy files that contain some imaginary protein sequences:\n\n# Create dummy files\necho \"&gt;protein1\" &gt; s1.faa\necho \"&gt;protein2\" &gt; s2.faa\necho \"&gt;protein3\" &gt; s3.faa\n\nNext we store the names of these three files in an array by doing the following:\n\n# Declare an empty array (the parenthesis tell BASH that we want to generate an array)\nFASTA_FILES=()\n\n# Append each individual file to the array using `+=`\nfor ID in s1 s2 s3; do\n    FASTA_FILES+=(\"${ID}.faa\")\ndone\n\nNote, the above is the same as running the code below but just with a for-loop to be more effective. If you have not used for-loops before, have a look at this tutorial.\n\nFASTA_FILES=() \n\n# Append the first file \nFASTA_FILES+=(s1.faa)\n\n# Append the second file \nFASTA_FILES+=(s2.faa)\n\n# Append the third file \nFASTA_FILES+=(s3.faa)\n\nNow that we have generated the array, we might want to print its content. There are several ways to do this as shown below:\n\n# Show what is in the array\n## `[0]` accesses the first element in the array\n## Bash is 0-indexed which is why the first element is 0 not 1\necho \"First file: ${FASTA_FILES[0]}\"\n\n## `[@]` accesses all elements in the array\necho \"All files: ${FASTA_FILES[@]}\"\n\n## Adding # before the variable name inside ${} counts the elements inside an array\necho \"Number of files: ${#FASTA_FILES[@]}\"\n\nThese commands return:\nFirst file: s1.faa\nAll files: s1.faa s2.faa s3.faa\nNumber of files: 3\nNext, we might want to use it in a command that takes as input a number of files. Note that the below is equivalent to cat s1.faa s2.faa s3.faa\n\n# Use the array\ncat \"${FASTA_FILES[@]}\"",
+    "crumbs": [
+      "Bioinformatics toolbox",
+      "Arrays in bash"
+    ]
+  },
+  {
+    "objectID": "source/core_tools/bash-arrays.html#common-bugs",
+    "href": "source/core_tools/bash-arrays.html#common-bugs",
+    "title": "Arrays in bash",
+    "section": "Common bugs",
+    "text": "Common bugs\nWhen using arrays you need to be VERY precise with the used syntax. Just changing += to = creates a major issue that might be hard to detect on large files since the code still runs just incorrectly:\n\n# A common bug: files are not appended\nfor ID in s1 s2 s3; do\n    FASTA_FILES=(\"${ID}.faa\") # = replaces the array every iteration instead of appending\ndone\n\n# Bash does not output an error here - it silently uses only the last value\necho \"Files that will be used: ${FASTA_FILES[@]}\"\ncat \"${FASTA_FILES[@]}\"\n\nWhich produces:\nFiles that will be used: s3.faa\n&gt;protein3\nSimilarly you always want to declare an array using ( ). Failing to do so might also create unexpected behaviors.",
+    "crumbs": [
+      "Bioinformatics toolbox",
+      "Arrays in bash"
+    ]
+  },
+  {
+    "objectID": "source/core_tools/bash-arrays.html#recommendations",
+    "href": "source/core_tools/bash-arrays.html#recommendations",
+    "title": "Arrays in bash",
+    "section": "Recommendations",
+    "text": "Recommendations\nWe have seen how not using arrays correctly can very easily create a problematic result. It is therefore recommended to:\n\nAlways verify your code. For example, always run echo ${FASTA_FILES[@]} to verify that the array contains the information you want\nKeep it simple. Often times you can replace an array with a simpler solution that often is also easier to debug. For the example here, a simple glob (a bash way to match multiple file names at once) would be the recommended alternative.\n\n\n# Check all files are captured by the glob \nls s*.faa\n\n# Combine the files\ncat s*.faa\n\nThe benefit of the code above is that a glob cannot silently exclude files the way an array can.\nA note on GenAI-generated code: Arrays are a pattern that GenAI tools add frequently when code contains loops. That is because for production level code arrays are useful when files do not share a common path or naming pattern. In bioinformatics workflows however, input files are almost always generated by a previous step in a task-specific folder. This means that a glob should be sufficient in most cases. If you encounter an array in GenAI-generated code, always check if a glob can be used instead.",
+    "crumbs": [
+      "Bioinformatics toolbox",
+      "Arrays in bash"
     ]
   }
 ]

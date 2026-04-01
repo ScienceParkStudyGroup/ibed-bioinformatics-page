@@ -335,5 +335,8 @@
   },
   "source/core_tools/bash-input-validation.qmd": {
     "bash-input-validation.html": "c85bc552"
+  },
+  "source/core_tools/bash-arrays.qmd": {
+    "bash-arrays.html": "ddb3a891"
   }
 }
