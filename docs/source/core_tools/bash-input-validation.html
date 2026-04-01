@@ -1077,8 +1077,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#putting-everything-together" id="toc-putting-everything-together" class="nav-link" data-scroll-target="#putting-everything-together">Putting everything together</a>
   <ul class="collapse">
   <li><a href="#looping-across-all-samples" id="toc-looping-across-all-samples" class="nav-link" data-scroll-target="#looping-across-all-samples">Looping across all samples</a></li>
-  <li><a href="#stopping-a-loop-if-something-is-wrong" id="toc-stopping-a-loop-if-something-is-wrong" class="nav-link" data-scroll-target="#stopping-a-loop-if-something-is-wrong">Stopping a loop if something is wrong</a></li>
+  <li><a href="#break-stopping-a-loop-if-something-is-wrong" id="toc-break-stopping-a-loop-if-something-is-wrong" class="nav-link" data-scroll-target="#break-stopping-a-loop-if-something-is-wrong"><code>break</code>: Stopping a loop if something is wrong</a></li>
   </ul></li>
+  <li><a href="#continue-keyword" id="toc-continue-keyword" class="nav-link" data-scroll-target="#continue-keyword"><code>continue</code> keyword</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/bash-input-validation.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -1106,12 +1108,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="action-when-a-file-does-not-exist" class="level2">
 <h2 class="anchored" data-anchor-id="action-when-a-file-does-not-exist">Action when a file does not exist</h2>
-<p>Let’s begin with a basic example on a file that doesn’t exist yet. For this tutorial, we assume that you want to do some quality cleaning but to keep your jobs efficient, you only want to run the cleaning step if the file does not exist. For this example, we assume that the cleaning step produces a file called <code>cleaned.fastq</code>.</p>
-<p>The <code>-f</code> operator returns true if the file exists.</p>
+<p>Let’s begin with a basic example and add a file verification in case a file that doesn’t exist yet.</p>
+<p>For this tutorial, we assume that you want to do some quality cleaning but to keep your jobs efficient, you only want to run the cleaning step if the file does not exist. For this example, we assume that the cleaning step produces a file called <code>cleaned.fastq</code>.</p>
+<p>The <code>-f</code> operator returns TRUE if the file exists. We can use this in an if/else operation and perform a specific action only when the operator returns TRUE and do something else if it does not.</p>
 <p>Notes:</p>
 <ul>
 <li>When writing this yourself a common error is to not add spaces here <code>[ -f</code> and here <code>]</code>. This is an important part of the syntax, which when not added will create an error.</li>
-<li>We use the <code>touch</code> command in the else part to simulate the cleaning script generating an output file. In a real scenario you would remove this line and add your actual command there instead.</li>
+<li>In the code below the <code>touch</code> command is used to simulate the cleaning script generating an output file. In a real scenario you would remove this line and add your actual command there instead.</li>
 </ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">OUTPUT</span><span class="op">=</span><span class="st">"cleaned.fastq"</span></span>
@@ -1130,7 +1133,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This returns:</p>
 <pre><code>Run cleaning script. Generating output:
 cleaned.fastq</code></pre>
-<p>So we see that the cleaning script would be executed. If we would re-run the command, then the script recognizes this and won’t rerun the cleaning step:</p>
+<p>So we see that the cleaning script would be executed. If we would re-run the command, then the script recognizes that the cleaned.fastq file already exists and won’t rerun the cleaning step:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">OUTPUT</span><span class="op">=</span><span class="st">"cleaned.fastq"</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1142,7 +1145,7 @@ cleaned.fastq</code></pre>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <pre><code>cleaned.fastq exists. Nothing to be done</code></pre>
-<p>You can also negate things and check if a file does not exist:</p>
+<p>You can also negate things and check if a file does not exist using <code>!</code>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove the file created in the previous example to start fresh</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> cleaned.fastq</span>
@@ -1163,7 +1166,7 @@ cleaned.fastq</code></pre>
 </section>
 <section id="action-when-a-file-exists-but-is-empty" class="level2">
 <h2 class="anchored" data-anchor-id="action-when-a-file-exists-but-is-empty">Action when a file exists but is empty</h2>
-<p>Sometimes tools might run incorrectly and generate an output but this output is empty. In this case you would want to rerun your cleaning step on that specific file:</p>
+<p>Sometimes tools might run incorrectly and generate an output but this output is empty. In this case you would want to rerun your cleaning step on that specific file.</p>
 <p>The <code>-s</code> operator returns true if the file exists and has a size greater than zero (i.e., is non-empty).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="va">OUTPUT</span><span class="op">=</span><span class="st">"empty_file"</span></span>
@@ -1184,7 +1187,7 @@ empty_file</code></pre>
 </section>
 <section id="combining-checks" class="level2">
 <h2 class="anchored" data-anchor-id="combining-checks">Combining checks</h2>
-<p>We can also use this to test if two files exist, which might be useful if your tool requires two inputs. Then you can combine two checks with an AND statement using <code>&amp;&amp;</code>.</p>
+<p>We can also check if two files exist, which might be useful if your tool requires two inputs. To do this, you can combine checks with the AND statement using <code>&amp;&amp;</code>.</p>
 <p>Note: When combining conditions, use<code>[[</code> instead of <code>[</code>. This construct is a bash built-in that handles compound conditions more reliably. You can use <code>[[</code> even if you are not combining two checks. That is because the <code>[[</code> has some other features such as handling empty variables without returning a syntax error.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="ot">-f</span> samples <span class="kw">&amp;&amp;</span> <span class="ot">-f</span> cleaned.fastq <span class="kw">]];</span> <span class="cf">then</span> </span>
@@ -1211,7 +1214,7 @@ empty_file</code></pre>
 <h2 class="anchored" data-anchor-id="putting-everything-together">Putting everything together</h2>
 <section id="looping-across-all-samples" class="level3">
 <h3 class="anchored" data-anchor-id="looping-across-all-samples">Looping across all samples</h3>
-<p>Assume now that we want to run our cleaning step on all samples. A loop would be a natural to do this and we can do the following:</p>
+<p>Assume now that we want to run our cleaning step on all samples. A loop would be a natural way to do this. If you want to learn more about loops go <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-for-loops.html">here</a>. In our case we could do the following:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a dummy output file that exists </span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"some content"</span> <span class="op">&gt;</span> s1.cleaned.fastq</span>
@@ -1246,10 +1249,10 @@ Processing s4
 ---------------
 Running cleaning step and generating s4.cleaned.fastq</code></pre>
 </section>
-<section id="stopping-a-loop-if-something-is-wrong" class="level3">
-<h3 class="anchored" data-anchor-id="stopping-a-loop-if-something-is-wrong">Stopping a loop if something is wrong</h3>
+<section id="break-stopping-a-loop-if-something-is-wrong" class="level3">
+<h3 class="anchored" data-anchor-id="break-stopping-a-loop-if-something-is-wrong"><code>break</code>: Stopping a loop if something is wrong</h3>
 <p>Sometimes you want to stop the entire loop if something is wrong, rather than skipping a sample. This is useful when a missing or empty file indicates a problem in a previous step that needs to be resolved before continuing.</p>
-<p>For this example let’s look at this case: You performed the quality cleaning step and want to proceed with the next step and assembly the reads into contigs, i.e.&nbsp;into longer stretches of DNA. Maybe something went wrong during the quality cleaning and some of your cleaned reads are empty. Here, you actually would want to stop the pipeline since the assembly part is computationally expensive and first get a useful error message that allows you to troubleshoot first.</p>
+<p>For this example let’s look at this case: You performed the quality cleaning step and want to proceed with the next step and assembly the reads into contigs, i.e.&nbsp;into longer stretches of DNA. Maybe something went wrong during the quality cleaning and some of your cleaned reads are empty. Here, you actually might want to stop the pipeline since the assembly part is computationally expensive and first get a useful error message that allows you to troubleshoot before trying again.</p>
 <p>The assembly process typically needs two inputs called the forward and reverse reads. While the details of what these files are is not important, this is a good usage case of using the OR keyword <code>||</code> to test whether forward or reverse file is missing. We also will now make use a new keyword called <code>break</code> that result in the script stopping if an issue occurs.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Only generate dummy files for s1 to simulate a partially completed pipeline</span></span>
@@ -1281,8 +1284,126 @@ Both input files exist and are non-empty. Running assembly for s1
 Processing s2
 ---------------
 ERROR: s2_forward_cleaned.fastq or s2_reverse_cleaned.fastq is missing or empty. Stopping pipeline.</code></pre>
-<p>We now build a pipeline that stops at s2 and prints a clear error message, allowing you to investigate before committing resources to the assembly step.</p>
+<p>So the whole script now stops when the one of the S2 files is missing.</p>
 </section>
+</section>
+<section id="continue-keyword" class="level2">
+<h2 class="anchored" data-anchor-id="continue-keyword"><code>continue</code> keyword</h2>
+<p>The above works but we might want a different behavior and run the assembly on all files if the input files exist and for all other cases output a clear error message. The <code>continue</code> keyword does just that. Let’s begin and see what happens if the we don’t use the break keyword:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dummy files for every sample except S2 to illustrate the process</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"some content"</span> <span class="op">&gt;</span> s3_forward_cleaned.fastq</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"some content"</span> <span class="op">&gt;</span> s3_reverse_cleaned.fastq</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"some content"</span> <span class="op">&gt;</span> s4_forward_cleaned.fastq</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"some content"</span> <span class="op">&gt;</span> s4_reverse_cleaned.fastq</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the loop</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> samples<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_F</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_forward_cleaned.fastq"</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_R</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_reverse_cleaned.fastq"</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Processing </span><span class="va">$ID</span><span class="st">"</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"---------------"</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">[[</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_F</span><span class="st">"</span> <span class="kw">||</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_R</span><span class="st">"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">"ERROR: </span><span class="va">${CLEANED_READS_F}</span><span class="st"> or </span><span class="va">${CLEANED_READS_R}</span><span class="st"> is missing or empty. Skipping sample."</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"Both input files exist and are non-empty. Running assembly for </span><span class="va">$ID</span><span class="st">\n"</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This prints:</p>
+<pre><code>Processing s1
+---------------
+Both input files exist and are non-empty. Running assembly for s1
+
+Processing s2
+---------------
+ERROR: s2_forward_cleaned.fastq or s2_reverse_cleaned.fastq is missing or empty. Skipping sample.
+Both input files exist and are non-empty. Running assembly for s2
+
+Processing s3
+---------------
+Both input files exist and are non-empty. Running assembly for s3
+
+Processing s4
+---------------
+Both input files exist and are non-empty. Running assembly for s4</code></pre>
+<p>We proceed to work through all 4 files but looking closely at what happens with S2, we see that the script:</p>
+<ol type="1">
+<li>Acknowledges that files are missing</li>
+<li>Tries to run the Action anyhow, which in a real example would produce an error</li>
+</ol>
+<p>By using <code>continue</code> we can skip the full loop for a sample where something is missing:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the loop</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> samples<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_F</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_forward_cleaned.fastq"</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_R</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_reverse_cleaned.fastq"</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Processing </span><span class="va">$ID</span><span class="st">"</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"---------------"</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">[[</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_F</span><span class="st">"</span> <span class="kw">||</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_R</span><span class="st">"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">"ERROR: </span><span class="va">${CLEANED_READS_F}</span><span class="st"> or </span><span class="va">${CLEANED_READS_R}</span><span class="st"> is missing or empty. Skipping sample."</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"Both input files exist and are non-empty. Running assembly for </span><span class="va">$ID</span><span class="st">\n"</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Returns:</p>
+<pre><code>Processing s1
+---------------
+Both input files exist and are non-empty. Running assembly for s1
+
+Processing s2
+---------------
+ERROR: s2_forward_cleaned.fastq or s2_reverse_cleaned.fastq is missing or empty. Skipping sample.
+Processing s3
+---------------
+Both input files exist and are non-empty. Running assembly for s3
+
+Processing s4
+---------------
+Both input files exist and are non-empty. Running assembly for s4</code></pre>
+<p>Now we see that nothing is done for S2, exactly what we want.</p>
+<p><strong>Important:</strong> if you use this inside a SLURM script, the error message should be captured in the SLURM error file. Make sure to always read these files to catch any issues with your script.</p>
+<p><strong>Alternative approach</strong>: The same behavior can be written using if/else, which makes both the error and the action branch explicitly visible. This can be easier to read when the loop body is long or when sharing code with others who are less familiar with continue.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> samples<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_F</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_forward_cleaned.fastq"</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_R</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_reverse_cleaned.fastq"</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Processing </span><span class="va">$ID</span><span class="st">"</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"---------------"</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">[[</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_F</span><span class="st">"</span> <span class="kw">||</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_R</span><span class="st">"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">"ERROR: files missing or empty for </span><span class="va">${ID}</span><span class="st">"</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"Running assembly for </span><span class="va">$ID</span><span class="st">\n"</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>Now you learned how to design code to more explicitly handle missing input files:</p>
+<ul>
+<li>Use <code>-f</code> to check whether a file exists and <code>-s</code> to check whether a file exists and is non-empty. Prefer <code>[[</code> over <code>[</code> when writing conditions in bash scripts</li>
+<li>Use <code>break</code> to stop a loop entirely when a missing or empty file indicates a problem that needs to be resolved before continuing</li>
+<li>Use <code>continue</code> to skip the current sample and proceed to the next iteration when a file is missing. Note that <code>continue</code> is only meaningful when there is code after the if block that should be skipped — without that, the loop advances to the next iteration anyway, making continue redundant</li>
+<li>Use if/else as a readable alternative to continue, particularly for longer loop bodies or when sharing code with others</li>
+</ul>
+<p><strong>A note on GenAI-generated code</strong></p>
+<p>Code generated by GenAI tools will often include file verification patterns. While these patterns are not wrong, they are frequently written with production pipelines in mind rather than scientific workflows. Concretely this means:</p>
+<ul>
+<li>Silent skipping of samples using continue without a clear error message, meaning a sample can disappear from your results without any warning</li>
+<li>File existence checks (<code>-f</code>) where an integrity check would be more appropriate. For example, a file can exist and be non-empty but still be corrupt, for example after a SLURM timeout</li>
+<li>Defensive patterns like <code>|| continue</code> placed directly in command chains where they are difficult to read and harder to reason about. Avoid these and use the patterns you have seen above.</li>
+</ul>
+<p>When reviewing GenAI-generated code, always ask: if this check fails, what actually happens to my data? A script that runs without errors is not the same as a script that produced correct results.</p>
 </section>
 </section>
 
@@ -1727,7 +1848,7 @@ ERROR: s2_forward_cleaned.fastq or s2_reverse_cleaned.fastq is missing or empty.
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-03-27</p>
+Last modified: 2026-04-01</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/bash-input-validation.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
