@@ -382,6 +382,22 @@ done
 Here, we use the `\` to split a long line into two shorter lines, without signifying an end of the statement. If you use this, be careful with the syntax, as `\` needs to be immediately followed by a new line. So don't add any spaces afterwards.
 
 
+## On GenAI usage
+
+GenAI tools such as ChatGPT or Claude can be helpful for generating loop structures and bash commands. However, there are some important things to keep in mind when using these tools:
+
+GenAI generated code needs critical reading since these tools are trained predominantly on production-level code. This means the patterns they generate are often designed for robustness in automated pipelines rather than transparency in a scientific workflow. This can lead to code that runs without errors but does not do what you expect or silently skips samples without telling you.
+
+When reviewing GenAI-generated loops, pay particular attention to:
+
+- `|| continue` or `&& continue` placed directly in command chains. As discussed in the [file verification tutorial](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-input-validation.html), continue skips the current iteration silently. In a scientific context this means a sample can disappear from your results without any warning or error message
+- File existence checks that use `-f` (file exists) where a non-emptiness check with `-s` would be more appropriate (a file can exist but be empty if a tool failed)
+- Use of `$(cat list)` without accounting for whitespace splitting, which can cause unexpected behavior particularly with multi-column files or Windows-formatted input files. For more details, have a look at the sections on *While loops* and *Handling DOS File Format Issues* found below.
+- Missing or inconsistent quoting of variables, which can cause loops to fail on filenames with spaces
+
+Regardless of whether you wrote the loop yourself or generated it with a GenAI tool, always follow the step-by-step approach outlined in the Section below: start with echo to print what the loop would process, confirm the output looks correct, then add the real command. This is the most reliable way to verify that a loop is actually doing what you intend before committing to a computationally expensive run.
+
+
 ## Error handling or why my loop does not work?
 
 While writing and executing loops in Bash can greatly streamline your workflow, it's essential to anticipate and handle potential errors that may arise during script execution. Here are some common issues you might encounter and strategies for troubleshooting them:
@@ -400,7 +416,7 @@ Additionally, keep in mind that syntax matters a lot in Bash scripting. Common s
 2. When defining variables ensure to use proper syntax and not use spaces between the variable name and variable content. I.e. `variable="hello"`.
 3. Whitespace and Indentation: Ensure consistent whitespace and indentation in your Bash scripts to enhance readability and maintainability. Pay attention to spaces around operators and arguments to commands within your script to avoid syntax errors or unexpected behavior. Also ensure that you always use spaces after command names and command options.
 4. Forgetting to Quote Variables or Use Brackets Around Variables: Properly quote variables, especially when dealing with filenames or strings containing spaces or special characters, to ensure their values are interpreted correctly by the shell. Additionally, use brackets `{}` around variables when they are part of a string with other text to avoid ambiguity and potential issues.
-5. Failure to Handle Empty or Missing Files: Be vigilant about handling scenarios where files might be empty or missing in your loops. Implement checks within your script to gracefully handle such situations, either by skipping empty or missing files or by providing appropriate error messages or default values.
+5. Failure to Handle Empty or Missing Files: Be vigilant about handling scenarios where files might be empty or missing in your loops. Implement checks within your script to gracefully handle such situations, either by skipping empty or missing files or by providing appropriate error messages or default values. An introduction to file verification can be found [here](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-input-validation.html)
 
 
 ### 1. File Not Found

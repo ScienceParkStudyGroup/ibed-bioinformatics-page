@@ -1078,8 +1078,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#looping-across-all-samples" id="toc-looping-across-all-samples" class="nav-link" data-scroll-target="#looping-across-all-samples">Looping across all samples</a></li>
   <li><a href="#break-stopping-a-loop-if-something-is-wrong" id="toc-break-stopping-a-loop-if-something-is-wrong" class="nav-link" data-scroll-target="#break-stopping-a-loop-if-something-is-wrong"><code>break</code>: Stopping a loop if something is wrong</a></li>
-  </ul></li>
   <li><a href="#continue-keyword" id="toc-continue-keyword" class="nav-link" data-scroll-target="#continue-keyword"><code>continue</code> keyword</a></li>
+  </ul></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></li>
   </ul>
@@ -1286,9 +1286,8 @@ Processing s2
 ERROR: s2_forward_cleaned.fastq or s2_reverse_cleaned.fastq is missing or empty. Stopping pipeline.</code></pre>
 <p>So the whole script now stops when the one of the S2 files is missing.</p>
 </section>
-</section>
-<section id="continue-keyword" class="level2">
-<h2 class="anchored" data-anchor-id="continue-keyword"><code>continue</code> keyword</h2>
+<section id="continue-keyword" class="level3">
+<h3 class="anchored" data-anchor-id="continue-keyword"><code>continue</code> keyword</h3>
 <p>The above works but we might want a different behavior and run the assembly on all files if the input files exist and for all other cases output a clear error message. The <code>continue</code> keyword does just that. Let’s begin and see what happens if the we don’t use the break keyword:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dummy files for every sample except S2 to illustrate the process</span></span>
@@ -1297,21 +1296,20 @@ ERROR: s2_forward_cleaned.fastq or s2_reverse_cleaned.fastq is missing or empty.
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"some content"</span> <span class="op">&gt;</span> s4_forward_cleaned.fastq</span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"some content"</span> <span class="op">&gt;</span> s4_reverse_cleaned.fastq</span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the loop</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> samples<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_F</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_forward_cleaned.fastq"</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_R</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_reverse_cleaned.fastq"</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Processing </span><span class="va">$ID</span><span class="st">"</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"---------------"</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">[[</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_F</span><span class="st">"</span> <span class="kw">||</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_R</span><span class="st">"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">"ERROR: </span><span class="va">${CLEANED_READS_F}</span><span class="st"> or </span><span class="va">${CLEANED_READS_R}</span><span class="st"> is missing or empty. Skipping sample."</span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"Both input files exist and are non-empty. Running assembly for </span><span class="va">$ID</span><span class="st">\n"</span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the loop</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> samples<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_F</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_forward_cleaned.fastq"</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_R</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_reverse_cleaned.fastq"</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Processing </span><span class="va">$ID</span><span class="st">"</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"---------------"</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">[[</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_F</span><span class="st">"</span> <span class="kw">||</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_R</span><span class="st">"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">"ERROR: </span><span class="va">${CLEANED_READS_F}</span><span class="st"> or </span><span class="va">${CLEANED_READS_R}</span><span class="st"> is missing or empty. Skipping sample."</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"Both input files exist and are non-empty. Running assembly for </span><span class="va">$ID</span><span class="st">\n"</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This prints:</p>
 <pre><code>Processing s1
@@ -1386,6 +1384,7 @@ Both input files exist and are non-empty. Running assembly for s4</code></pre>
 <span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
 <span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+</section>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
