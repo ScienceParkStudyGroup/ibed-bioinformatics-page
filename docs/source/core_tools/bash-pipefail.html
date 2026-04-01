@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Bioinformatics guidance page</title>
+<title>bash-pipefail – Bioinformatics guidance page</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,32 +20,68 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./source/cli/code_doc.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-cf95f6fba6db6171faad7f1c3955e144.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-e26d566f4415697c0fe7bd6bdf16b584.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-cf95f6fba6db6171faad7f1c3955e144.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../source/core_tools/arcog.html" rel="next">
+<link href="../../source/core_tools/bash-arrays.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-b15cb652af43b88d7d12fd4e61c58a4a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-052be93faeed2c5310335092814e6d2d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-b15cb652af43b88d7d12fd4e61c58a4a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -75,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -249,7 +285,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome page</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/core_tools/custom_scripts.html">Bioinformatics toolbox</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-pipefail.html"><code>set -euo pipefail</code> in bash</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -263,7 +299,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
+      <a href="../../index.html" class="sidebar-logo-link">
       </a>
       <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
@@ -274,7 +310,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome page</span></a>
   </div>
 </li>
@@ -289,13 +325,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/cli/code_doc.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/code_doc.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Code documentation</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./source/cli/cli.html" class="sidebar-item-text sidebar-link">
+            <a href="../../source/cli/cli.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using the command line</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -304,19 +340,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/cli/cli_installation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/cli_installation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setting up a bash command line</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/cli/cli_basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/cli_basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Getting started with bash</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/cli/cli_file_manipulation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/cli_file_manipulation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Manipulating files with bash</span></a>
   </div>
 </li>
@@ -324,13 +360,13 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/conda/conda.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/conda/conda.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Installing software with conda</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
+            <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using an HPC</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -339,13 +375,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/cli/slurm_basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/slurm_basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Start working on an HPC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/cli/scratch.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/scratch.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using scratch on Crunchomics</span></a>
   </div>
 </li>
@@ -353,7 +389,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/R/readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/R/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using R</span></a>
   </div>
 </li>
@@ -361,7 +397,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./source/metagenomics/readme.html" class="sidebar-item-text sidebar-link">
+            <a href="../../source/metagenomics/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sequence data analyses</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -379,49 +415,49 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/busco.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/busco.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">BUSCO</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/diamond.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/diamond.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Diamond</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/hmmer.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/hmmer.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">HMMER</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/ncbi.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/ncbi.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Downloading data from NCBI</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/prokka.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/prokka.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Prokka</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/seqkit.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/seqkit.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Seqkit</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/classification/kraken2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/classification/kraken2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Kraken2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/classification/minimap2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/classification/minimap2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Minimap2</span></a>
   </div>
 </li>
@@ -429,7 +465,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./source/Qiime/readme.html" class="sidebar-item-text sidebar-link">
+            <a href="../../source/Qiime/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Amplicon analyses</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -438,13 +474,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/Qiime/3_evelyn_tutorial_notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/Qiime/3_evelyn_tutorial_notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A short QIIME tutorial</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/Qiime/OTU_table_analysis.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/Qiime/OTU_table_analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Analysing OTU tables with R</span></a>
   </div>
 </li>
@@ -461,31 +497,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/interproscan_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/interproscan_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Interproscan</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/fama_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/fama_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FAMA</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/metabolic.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/metabolic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Metabolic</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/metacerberus.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/metacerberus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">MetaCerberus</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/signalp6.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/signalp6.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SignalP 6.0</span></a>
   </div>
 </li>
@@ -502,121 +538,121 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/atlas.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/atlas.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Atlas</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/bakta.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/bakta.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bakta</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/barrnap.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/barrnap.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Barrnap</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/checkm2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/checkm2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">CheckM2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/coverm.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/coverm.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">CoverM</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/dnaapler.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/dnaapler.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">dnaapler</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/fegenie.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/fegenie.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FeGenie</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/flye.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/flye.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Flye</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/gtdb.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/gtdb.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GTDB_tk</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/homopolish.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/homopolish.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homopolish</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/medaka.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/medaka.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Medaka</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/motus.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/motus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">mOTUS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/pseudofinder.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/pseudofinder.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pseudofinder</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/pycirclize.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/pycirclize.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">pycirclize</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/pygenometracks.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/pygenometracks.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">pyGenomeTracks</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/quast.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/quast.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Quast</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/singlem.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/singlem.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SingleM</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/trycycler.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/trycycler.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Trycycler</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/autocycler.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/autocycler.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Autocycler</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Nanophase</span></a>
   </div>
 </li>
@@ -633,13 +669,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/augustus.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/augustus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Augustus</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/deeploc.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/deeploc.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">DeepLoc</span></a>
   </div>
 </li>
@@ -656,13 +692,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/ITSx/itsx_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/ITSx/itsx_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ITSx</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoITS</span></a>
   </div>
 </li>
@@ -679,79 +715,79 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bowtie2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/DSEq2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/DSEq2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">DeSeq2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FeatureCounts</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/ribodetector.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/ribodetector.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Ribodetector</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/rsem.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/rsem.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">RSEM</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/rseqc.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/rseqc.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">RSeQC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Samtools</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/sortmerna.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/sortmerna.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SortMeRNA</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/star.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/star.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">STAR</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/stringtie.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/stringtie.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">StringTie</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/td2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/td2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">TD2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/transdecoder.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/transdecoder.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">TransDecoder</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/trinity.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/trinity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Trinity</span></a>
   </div>
 </li>
@@ -768,61 +804,61 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/chopper.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/chopper.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Chopper</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/fastplong.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/fastplong.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">fastplong</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/filtlong.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/filtlong.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FiltLong</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanoclass.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanoclass.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoClass2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoITS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Nanophase</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanoplot_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanoplot_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Nanoplot</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/nanoqc_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/nanoqc_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NanoQC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/ngspeciesid.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/ngspeciesid.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NGSpeciesID</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/nanopore/porechop_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/nanopore/porechop_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Porechop</span></a>
   </div>
 </li>
@@ -839,25 +875,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/phylogenomics/bmge.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/phylogenomics/bmge.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">BMGE</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/phylogenomics/gtotree.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/phylogenomics/gtotree.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GToTree</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/phylogenomics/mafft.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/phylogenomics/mafft.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Mafft</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/phylogenomics/iqtree2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/phylogenomics/iqtree2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">IQ-TREE2</span></a>
   </div>
 </li>
@@ -874,19 +910,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/fastqc_readme.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/fastqc_readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FastQC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metagenomics/multiqc.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/multiqc.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">MultiQC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/metatranscriptomics/fastp.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metatranscriptomics/fastp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FastP</span></a>
   </div>
 </li>
@@ -903,19 +939,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bowtie2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Samtools</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FeatureCounts</span></a>
   </div>
 </li>
@@ -934,31 +970,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/custom_scripts.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/custom_scripts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Custom scripts</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/bash-for-loops.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/bash-for-loops.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">For-loops in bash</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/bash-input-validation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/bash-input-validation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">File verifications in bash</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/bash-arrays.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/bash-arrays.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Arrays in bash</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/bash-pipefail.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/bash-pipefail.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><code>set -euo pipefail</code> in bash</span></a>
   </div>
 </li>
@@ -975,61 +1011,61 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/arcog.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/arcog.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">arCOG database</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/cog.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/cog.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">COG database</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/dbcan.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/dbcan.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">dbCAN database</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/fegenie.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/fegenie.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FeGenie</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/hyddb.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/hyddb.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">HydDB database</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/kegg_db.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/kegg_db.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">KOfam database</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/ncbi_nr.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/ncbi_nr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NCBI nr</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/pfam_db.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/pfam_db.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pfam database</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/pgap_db.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/pgap_db.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">PGAP</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/tigrfam_db.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/tigrfam_db.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">TIGRFAM</span></a>
   </div>
 </li>
@@ -1040,11 +1076,27 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#set--euo-pipefail-in-bash" id="toc-set--euo-pipefail-in-bash" class="nav-link active" data-scroll-target="#set--euo-pipefail-in-bash"><code>set -euo pipefail</code> in bash</a>
+  <ul>
+  <li><a href="#basics" id="toc-basics" class="nav-link" data-scroll-target="#basics">Basics</a>
+  <ul class="collapse">
+  <li><a href="#set--e-exit-on-error" id="toc-set--e-exit-on-error" class="nav-link" data-scroll-target="#set--e-exit-on-error"><code>set -e</code>: exit on error</a></li>
+  <li><a href="#set--u-treat-unset-variables-as-errors" id="toc-set--u-treat-unset-variables-as-errors" class="nav-link" data-scroll-target="#set--u-treat-unset-variables-as-errors"><code>set -u</code>: treat unset variables as errors</a></li>
+  <li><a href="#set--o-pipefail-catch-failures-in-pipes" id="toc-set--o-pipefail-catch-failures-in-pipes" class="nav-link" data-scroll-target="#set--o-pipefail-catch-failures-in-pipes"><code>set -o pipefail</code>: catch failures in pipes</a></li>
+  <li><a href="#putting-it-all-together" id="toc-putting-it-all-together" class="nav-link" data-scroll-target="#putting-it-all-together">Putting it all together</a></li>
+  </ul></li>
+  <li><a href="#when-it-helps-and-when-it-causes-problems" id="toc-when-it-helps-and-when-it-causes-problems" class="nav-link" data-scroll-target="#when-it-helps-and-when-it-causes-problems">When it helps and when it causes problems</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/bash-pipefail.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/core_tools/custom_scripts.html">Bioinformatics toolbox</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-pipefail.html"><code>set -euo pipefail</code> in bash</a></li></ol></nav></header>
 
 
 <header id="title-block-header">
@@ -1053,378 +1105,191 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><img src="img/banner-min.png" class="img-fluid"></p>
-<div style="text-align: justify">
-<p>On this website you can find documentation about software commonly used in bioinformatic data analyses as well as tutorials about various bioinformatic subjects. On this webpage you can find software organized by topic and for each topic you find a list of commonly used software tools.</p>
-<p>If you are working at the University of Amsterdam (UvA) Institute for Biodiversity and Ecosystem Dynamics (IBED) and want to know more about what computational resources are available, please also visit the <a href="https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html">computational support teams website</a> and our website with more <a href="https://computational-resources-uva-ibed-cs-general-20079b9f20f96949e05.gitlab.io/">computation resources</a></p>
-<p>Please, be aware that this page is a work in progress and will be slowly updated over time. If you want to add additional information or feel that something is missing feel free to send an email to <a href="mailto:n.dombrowski@uva.nl" class="email">n.dombrowski@uva.nl</a>.</p>
-<section id="useful-tutorials" class="level2">
-<h2 class="anchored" data-anchor-id="useful-tutorials">Useful tutorials</h2>
-<p>The Carpentries teaches workshops around the world on the foundational skills to work effectively and reproducibly with data and code and they are an excellent resource to check out if you want to get started with bioinformatics</p>
+<section id="set--euo-pipefail-in-bash" class="level1" style="text-align: justify">
+<h1><code>set -euo pipefail</code> in bash</h1>
+<section id="basics" class="level2">
+<h2 class="anchored" data-anchor-id="basics">Basics</h2>
+<p>When asking GenAI to write a bash script, the following line is often added to a script at the top:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This is a shorthand for three separate options that change how bash handles errors. Each option is explained below.</p>
+<section id="set--e-exit-on-error" class="level3">
+<h3 class="anchored" data-anchor-id="set--e-exit-on-error"><code>set -e</code>: exit on error</h3>
+<p>By default, bash continues running even if a command fails. <code>set -e</code> tells bash to exit immediately if any command returns a non-zero exit code. Exit codes are numbers that commands return when they finish: 0 means success, anything else means something went wrong.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-e</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> file_that_does_not_exist.txt   <span class="co"># this fails</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"This line should only print if cat succeeded"</span>    <span class="co"># bash exits before reaching this</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>To follow this behavior generate a file called <code>test_set.sh</code>, add the code from above run it with <code>bash test_set.sh</code>. Try this with and without using the line with <code>set</code>.</p>
+<p>With <code>set</code> included should return:</p>
+<pre><code>cat: file_that_does_not_exist.txt: No such file or directory</code></pre>
+<p>Removing <code>set -e</code> runs:</p>
+<pre><code>cat: file_that_does_not_exist.txt: No such file or directory
+This line should only print if cat succeeded</code></pre>
+</section>
+<section id="set--u-treat-unset-variables-as-errors" class="level3">
+<h3 class="anchored" data-anchor-id="set--u-treat-unset-variables-as-errors"><code>set -u</code>: treat unset variables as errors</h3>
+<p>By default, bash silently substitutes an empty string when a variable is not set. <code>set -u</code> makes bash exit with an error instead.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-u</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"</span><span class="va">$UNDEFINED_VARIABLE</span><span class="st">"</span>   <span class="co"># exits with: unbound variable</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This is particularly relevant when combined with file checks. For example, if a variable holding a filename is accidentally unset, <code>set -u</code> will catch it before the variable is passed to a command.</p>
+<p>Running these lines above with <code>test_set.sh</code> should return:</p>
+<pre><code>test_set.sh: line 3: UNDEFINED_VARIABLE: unbound variable</code></pre>
+<p>while not including <code>set</code> returns an empty line.</p>
+</section>
+<section id="set--o-pipefail-catch-failures-in-pipes" class="level3">
+<h3 class="anchored" data-anchor-id="set--o-pipefail-catch-failures-in-pipes"><code>set -o pipefail</code>: catch failures in pipes</h3>
+<p>By default, a pipeline/pipe returns the exit code of the last command only. If in the example below <code>cat</code> fails but <code>sort</code> succeeds, bash records the pipeline as successful (exit code 0) and the failure from <code>cat</code> is invisible to bash. <code>set -o pipefail</code> changes this and the pipeline instead returns the exit code of the first failing command.</p>
+<p>In the example below, <code>sort</code> will run in both cases. That is because <code>pipefail</code> does not stop the script. What changes is what bash records as the result of the pipeline, which we made visible by printing <code>$?</code>.</p>
+<p>Note: Since <code>pipefail</code> alone does not stop execution that becomes <code>set -e</code>’s job. <code>pipefail</code>’s role is to ensure bash has accurate information that <code>set -e</code> can act upon. Specifically, this ensures that a failure upstream is not silently swallowed before <code>set -e</code> can act on it. Therefore you usually use these two options together with each other.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-o</span> pipefail</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> file_that_does_not_exist.txt <span class="kw">|</span> <span class="fu">sort</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the error code with `$?` to understand the difference when running with/without set</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># echo "Exit code: $?" must immediately follow the pipeline — any command in between resets $?.</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Exit code of pipeline: </span><span class="va">$?</span><span class="st">"</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Adding these lines into <code>test_set.sh</code> should return:</p>
+<pre><code>cat: file_that_does_not_exist.txt: No such file or directory
+Exit code of pipeline: 1</code></pre>
+<p>while not including <code>set</code> returns:</p>
+<pre><code>cat: file_that_does_not_exist.txt: No such file or directory
+Exit code of pipeline: 0</code></pre>
+<p>We see that both times the code runs but returns different exit codes.</p>
+</section>
+<section id="putting-it-all-together" class="level3">
+<h3 class="anchored" data-anchor-id="putting-it-all-together">Putting it all together</h3>
+<p>In a normal script we would write something like this:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> file_that_does_not_exist.txt <span class="kw">|</span> <span class="fu">sort</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Script continued after failed pipeline"</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>which returns:</p>
+<pre><code>cat: file_that_does_not_exist.txt: No such file or directory</code></pre>
+<p>Without <code>set</code> we would get:</p>
+<pre><code>cat: file_that_does_not_exist.txt: No such file or directory
+Script continued after failed pipeline</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span><code>set -euo pipefail</code> in Slurm scripts (advanced)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This section is for students working on an HPC. If you are not yet running jobs on an HPC, you can skip this section.</p>
+<p>Slurm job scripts are bash scripts, so the same default behavior applies: without <code>set -euo pipefail</code>, bash will not exit on errors and will silently swallow pipeline failures. However, Slurm adds an important layer: the job’s reported status (COMPLETED vs.&nbsp;FAILED) depends on the final exit code of the script as a whole, not on the exit codes of individual commands within it. This means a job can report COMPLETED even if internal steps failed silently, which can be difficult to detect when running long jobs.</p>
+<p><strong>Testing on Crunchomics</strong></p>
+<p>We can check the exact behavior on the UvA HPC by creating a file called test_pipefail_slurm.sh:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=test_pipefail</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=test_pipefail_%j.out</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --error=test_pipefail_%j.err</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=00:01:00</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --ntasks=1</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># --- WITHOUT pipefail ---</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"=== Without pipefail ==="</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> file_that_does_not_exist.txt <span class="kw">|</span> <span class="fu">sort</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Exit code of pipeline: </span><span class="va">$?</span><span class="st">"</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Script continued"</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co"># --- WITH pipefail and set -e ---</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"=== With pipefail and set -e ==="</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> file_that_does_not_exist.txt <span class="kw">|</span> <span class="fu">sort</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Exit code of pipeline: </span><span class="va">$?</span><span class="st">"</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Script continued after pipefail"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Submit this with <code>sbatch test_pipefail_slurm.sh</code>.</p>
+<p>This will generate two files:</p>
 <ul>
-<li><a href="https://software-carpentry.org/lessons/">The software carpentries</a> provides tutorials on:
-<ul>
-<li>Bash</li>
-<li>Git</li>
-<li>Python</li>
-<li>R</li>
-</ul></li>
-<li><a href="https://datacarpentry.org/lessons/">Data carpentries</a> provides domain-specific tutorials, such as for ecology or genomics</li>
-<li><a href="https://librarycarpentry.org/lessons/">Library carpentries</a> contain some useful tutorials if you want to transform data frames, map data to each other and work effectively with data</li>
+<li><code>test_pipefail_&lt;JOBID&gt;.out</code> — stdout (what <code>echo</code> prints)</li>
+<li><code>test_pipefail_&lt;JOBID&gt;.err</code> — stderr (what <code>cat</code> prints when it fails)</li>
 </ul>
-<p>Next, to the carpentries you will find a list of tutorials for more specific topics below.</p>
-<section id="getting-started-with-bash" class="level3">
-<h3 class="anchored" data-anchor-id="getting-started-with-bash">Getting started with bash</h3>
-<ul>
-<li><a href="https://ndombrowski.github.io/cli_workshop/">A tutorial on using bash and an HPC</a></li>
-<li><a href="./source/cli/scratch.html">Using the local scratch on Crunchomics</a></li>
-<li><a href="https://github.com/fkariminejadasl/ml-notebooks/blob/main/tutorial/git.md">Version control with git</a></li>
-<li><a href="https://ndombrowski.github.io/AWK_tutorial/">A tutorial on using AWK</a>, a command line tool for filtering tables, extracting patterns, etc… If you want to follow this tutorial then you can download the required input files from <a href="https://github.com/ndombrowski/AWK_tutorial/tree/main/1_Inputfiles">here</a></li>
-</ul>
+<p><strong>Important</strong>: You want to check both files to not miss errors!</p>
+<p>The <code>.err</code> file contains (we see that error appears twice because cat fails in both the without and with pipefail sections):</p>
+<pre><code>cat: file_that_does_not_exist.txt: No such file or directory
+cat: file_that_does_not_exist.txt: No such file or directory</code></pre>
+<p>The <code>.out</code> file contains:</p>
+<pre><code>=== Without pipefail ===
+Exit code of pipeline: 0
+Script continued
+
+=== With pipefail and set -e ===</code></pre>
+<p>Note that echo “Script continued after pipefail” never prints. That is because <code>set -e</code>stopped the script when pipefail exposed the non-zero exit code.</p>
+<p>Once the job completes, check what Slurm recorded with <code>sacct -j &lt;JOBID&gt; --format=JobID,JobName,ExitCode,State</code> (replace the jobID with the job number from your script). This should return something like:</p>
+<pre><code>JobID           JobName ExitCode      State
+------------ ---------- -------- ----------
+264615       test_pipe+      1:0     FAILED
+264615.batch      batch      1:0     FAILED
+264615.exte+     extern      0:0  COMPLETED</code></pre>
+<p>Without <code>set -e</code> and <code>pipefail</code>, the same <code>sacct</code> would however return:</p>
+<pre><code>JobID           JobName ExitCode      State
+------------ ---------- -------- ----------
+264524       test_pipe+      0:0  COMPLETED
+264524.batch      batch      0:0  COMPLETED
+264524.exte+     extern      0:0  COMPLETED</code></pre>
+<p>What this demonstrates: without both <code>pipefail</code> and <code>set -e</code> active, a pipeline failure propagates nowhere. It is invisible inside the .out file (the error went to .err), and invisible to Slurm (the job reports COMPLETED). The failure existed, but left no trace that would trigger any alert or downstream check.</p>
+</div>
+</div>
+</div>
 </section>
 </section>
-<section id="bioinformatic-toolbox" class="level2">
-<h2 class="anchored" data-anchor-id="bioinformatic-toolbox">Bioinformatic toolbox</h2>
+<section id="when-it-helps-and-when-it-causes-problems" class="level2">
+<h2 class="anchored" data-anchor-id="when-it-helps-and-when-it-causes-problems">When it helps and when it causes problems</h2>
+<p>These options are standard practice in production scripts and are not wrong. However, for scripts you are actively developing and debugging, they can make troubleshooting harder:</p>
 <ul>
-<li><a href="./source/core_tools/custom_scripts.html">Custom scripts</a>: A list of custom scripts useful for bioinformatic analyses</li>
-<li><a href="./source/core_tools/bash-for-loops.html">For-loops-in-bash</a>: How can I scale my research and run software not only on one but multiple files?</li>
-<li><a href="./source/core_tools/bash-input-validation.html">Bash input validation</a>: How do I check in my Bash scripts whether inputs already exist and avoid re-running tools?</li>
-<li><a href="./source/core_tools/bash-arrays.html">Bash arrays</a>: Arrays in bash — and when you don’t need them</li>
-<li><a href="./source/core_tools/bash-pipefail.html">Bash pipefails</a>: Telling a Bash script how to deal with exit codes</li>
+<li><code>pipefail</code> is generally safe and useful to add</li>
+<li><code>set -e</code> can cause the script to exit without a clear message, making it hard to know which step failed</li>
+<li><code>set -u</code> will exit on unset variables, which is useful but can be surprising if you are not expecting it</li>
 </ul>
-<section id="using-r" class="level3">
-<h3 class="anchored" data-anchor-id="using-r">Using R</h3>
+<p>Even more important: <strong>In computational biology non-zero exit codes are sometimes expected</strong> and you might want that the script continues as they don’t always mean something went wrong. A common example is <code>grep</code>: it returns exit code 1 when no match is found, and exit code 2 only when an actual error occurs (e.g.&nbsp;the file does not exist). With <code>set -e</code> active, a grep that finds no match will kill the script, even though “no match found” is a perfectly valid biological result as seen in the example below:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dummy annotation file for showcasing the command</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> annotations.txt</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># This kills the script if the gene is absent from the file</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># even though absence is a meaningful biological result </span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># since it might tell us that a genome does not encode the gene we are looking for</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"gene_of_interest"</span> annotations.txt</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Pipeline is finished"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>grep</code> produces no output when there is no match. The script exits silently with code 1, therefore not printing <code>Pipeline is finished</code>.</p>
+<p>Removing the <code>set</code> command returns:</p>
+<pre><code>Pipeline is finished</code></pre>
+<p>Altogether this means that whether or not we include <code>set -euo pipefail</code> is an important design choice that depends on the tools we are using in our workflow.</p>
+<p><strong>Recommendations</strong>:</p>
 <ul>
-<li><a href="https://ndombrowski.github.io/R_cookbook/">An R cookbook</a> including some <a href="https://github.com/ndombrowski/R_cookbook/tree/main/data">example files</a> if you want to code along</li>
-<li><a href="https://ndombrowski.github.io/Tidyverse_tutorial/">Tutorial on data manipulation with dplyr</a></li>
-<li><a href="https://ndombrowski.github.io/Ggplot_tutorial/">Tutorial on data visualization with ggplot2</a></li>
+<li>While developing and testing a script, leave these options out and add them once the script is working correctly and you understand each step</li>
+<li>Only add these options if you are sure that every non-zero exit code genuinely represents a failure.</li>
+<li>If you inherit a script with <code>set -euo pipefail</code> and it exits unexpectedly, this line is often the first place to look.</li>
 </ul>
+<p>As an alternative (or complement) to relying on <code>set -e</code>, consider building explicit checks into your workflow using the validation approaches described in the <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-input-validation.html">bash input verification tutorial</a>. Checking that an output file exists, is non-empty, and contains the expected number of results after each step is more informative than letting bash decide whether to continue. It also forces you to think about what a correct intermediate result actually looks like, which is a useful habit regardless of whether you use set -euo pipefail or not.</p>
+<p><strong>A note on GenAI-generated scripts:</strong> GenAI might add <code>set -euo pipefail</code> to code because it is considered best practice for production-level scripts. That is not wrong, but as discussed above this can make the code harder to debug or might not be the behavior we want for our workflow. If a GenAI-generated script adds this to your code, leave it out while developing, verify that every tool in your workflow returns non-zero only on genuine failures, and add it back once the script is working and it is truly needed.</p>
 </section>
-<section id="bioinformatic-workflows" class="level3">
-<h3 class="anchored" data-anchor-id="bioinformatic-workflows">Bioinformatic workflows</h3>
-<ul>
-<li><a href="./source/Qiime/3_evelyn_tutorial_notes.html">From sequence file to OTU table with Qiime</a></li>
-<li><a href="./source/Qiime/OTU_table_analysis.html">Analysing an OTU table with R</a></li>
-<li><a href="https://ndombrowski.github.io/Assembly_tutorial/">Assembling a metagenome</a></li>
-<li><a href="https://ndombrowski.github.io/Binning_tutorial//">Metagenomic binning</a></li>
-<li><a href="https://github.com/ndombrowski/Annotation_workflow">Annotating microbial genomes</a></li>
-<li><a href="https://ndombrowski.github.io/Phylogeny_tutorial/">How to do generate a species tree</a></li>
-<li><a href="./source/core_tools/ncbi.html">Accessing data from NCBI</a></li>
-</ul>
 </section>
-</section>
-<section id="useful-databases-a-z" class="level2">
-<h2 class="anchored" data-anchor-id="useful-databases-a-z">Useful databases A-Z</h2>
-<ul>
-<li><a href="./source/core_tools/arcog.html">arCOG</a>: Archaeal Clusters of Orthologous Genes (arCOGs) database to analyse archaea</li>
-<li><a href="./source/core_tools/cog.html">COG</a>: Cluster of Orthologous Genes (COGs) to analyse bacteria</li>
-<li><a href="./source/core_tools/dbcan.html">dbCAN</a>: Database to analyse carbohydrate-active enzymes in genomes</li>
-<li><a href="./source/core_tools/fegenie.html">FeGenie</a>: Database to identify iron genes and iron operons in genomes</li>
-<li><a href="./source/core_tools/hyddb.html">HydDB</a>: Database to identify hydrogenases in genomes</li>
-<li><a href="./source/core_tools/kegg_db.html">KOfam</a>: Database to assign KEGG orthologous (KOs) to protein sequences</li>
-<li><a href="./source/core_tools/ncbi_nr.html">NCBI-nr</a>: NCBI’s non-redundant (nr) protein database to analyse protein sequences</li>
-<li><a href="./source/core_tools/pfam_db.html">Pfam</a>: A collection of protein models to analyse protein sequences</li>
-<li><a href="./source/core_tools/pgap_db.html">PGAP database</a>: Successor to the TIGRFAM database</li>
-<li><a href="./source/core_tools/tigrfam_db.html">TIGRFAM</a>: A collection of manually curated protein families to analyse prokaryotic sequences</li>
-</ul>
-</section>
-<section id="bioinformatic-tools-a-z" class="level2">
-<h2 class="anchored" data-anchor-id="bioinformatic-tools-a-z">Bioinformatic tools A-Z</h2>
-
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>
-Bioinformatic Tools A-Z
-</title>
-<style>
-/* Basic styling for accordion */
-.accordion {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 3px 15px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-  transition: background-color 0.4s;
-}
-
-.active, .accordion:hover {
-  background-color: #f4f4f4;
-}
-
-.panel {
-  padding: 0 40px;
-  background-color: white;
-  overflow: hidden;
-  display: block; /* Start with panels uncollapsed */
-}
-</style>
-
-
-<button class="accordion active">
-A-D
-</button>
-<div class="panel">
-<ul>
-<li>
-<a href="./source/metagenomics/atlas.html">ATLAS</a>: A metagenomic pipeline for QC, assembly binning and annotation
-</li>
-<li>
-<a href="./source/metagenomics/augustus.html">Augustus</a>: A program that predicts genes in eukaryotic genomic sequences
-</li>
-<li>
-<a href="./source/nanopore/autocycler.html">Autocycler</a>: A tool for generating consensus long-read assemblies for microbial genomes
-</li>
-<li>
-<a href="./source/metagenomics/bakta.html">Bakta</a>: A tool for the rapid &amp; standardized annotation of bacterial genomes and plasmids from both isolates and MAGs
-</li>
-<li>
-<a href="./source/metagenomics/barrnap.html">Barrnap</a>: A tool to predict the location of ribosomal RNA genes in genomes.
-</li>
-<li>
-<a href="./source/phylogenomics/bmge.html">BMGE</a>: A program to select regions in a multiple sequence alignment that are suited for phylogenetic inference
-</li>
-<li>
-<a href="./source/core_tools/bowtie.html">Bowtie2</a>: A tool for aligning sequencing reads to genomes and other reference sequences
-</li>
-<li>
-<a href="./source/core_tools/busco.html">BUSCO</a>: Quality assessment of (meta)genomes, transcriptomes and proteomes
-</li>
-<li>
-<a href="./source/metagenomics/checkm2.html">CheckM2</a>: A tool to assess the quality of a genome assembly
-</li>
-<li>
-<a href="./source/nanopore/chopper.html">Chopper</a>: A tool for quality filtering of long read data
-</li>
-<li>
-<a href="./source/metagenomics/coverm.html">CoverM</a>: A DNA read coverage and relative abundance calculator focused on metagenomics applications
-</li>
-<li>
-<a href="./source/metagenomics/deeploc.html">DeepLoc</a>: A tool to predict the subcellular localization(s) of eukaryotic proteins
-</li>
-<li>
-<a href="./source/core_tools/diamond.html">Diamond</a>: A sequence aligner for protein and translated DNA searches
-</li>
-<li>
-<a href="./source/metagenomics/dnaapler.html">Dnaapler</a>: A tool to re-orient a genome, for example at dnaA
-</li>
-<li>
-<a href="./source/metatranscriptomics/DSEq2.html">DeSeq2</a>: Analyse gene expression data in R
-</li>
-</ul>
-</div>
-<button class="accordion active">
-E-H
-</button>
-<div class="panel">
-<ul>
-<li>
-<a href="./source/metagenomics/fama_readme.html">FAMA</a>: A fast pipeline for functional and taxonomic analysis of metagenomic sequences
-</li>
-<li>
-<a href="./source/metatranscriptomics/fastp.html">FastP</a>: A tool for fast all-in-one preprocessing of FastQ files
-</li>
-<li>
-<a href="./source/nanopore/fastplong.html">fastplong</a>: A tool for ultrafast preprocessing and quality control for long reads
-</li>
-<li>
-<a href="./source/metagenomics/fastqc_readme.html">FastQC</a>: A quality control tool for read sequencing data
-</li>
-<li>
-<a href="./source/core_tools/featurecounts.html">FeatureCounts</a>: A read summarization program that counts mapped reads for genomic features
-</li>
-<li>
-<a href="./source/core_tools/fegenie.html">FeGenie</a>: A HMM-based identification and categorization of iron genes
-</li>
-<li>
-<a href="./source/nanopore/filtlong.html">Filtlong</a>: A tool for filtering long reads
-</li>
-<li>
-<a href="./source/metagenomics/flye.html">Flye</a>: A de novo assembler for single-molecule sequencing reads
-</li>
-<li>
-<a href="./source/metagenomics/gtdb.html">GTDB_tk</a>: A software toolkit for assigning objective taxonomic classifications to bacterial and archaeal genomes
-</li>
-<li>
-<a href="./source/phylogenomics/gtotree.html">GToTree</a>: a user-friendly workflow for phylogenomics intended to create phylogenomic trees
-</li>
-<li>
-<a href="./source/core_tools/hmmer.html">HMMER</a>: A tool for searching sequence databases for sequence homologs, and for making sequence alignments
-</li>
-<li>
-<a href="./source/metagenomics/homopolish.html">Homopolish</a>: A tool for the removal of systematic errors in nanopore sequencing by homologous polishing
-</li>
-</ul>
-</div>
-<button class="accordion active">
-I-L
-</button>
-<div class="panel">
-<ul>
-<li>
-<a href="./source/phylogenomics/iqtree2.html">IQ-TREE</a>: A tool for phylogenomic inferences
-</li>
-<li>
-<a href="./source/metagenomics/interproscan_readme.html">Interproscan</a>: A tool to scan protein and nucleic sequences against InterPro signatures
-</li>
-<li>
-<a href="./source/ITSx/itsx_readme.html">ITSx</a>: A tool to extract ITS1 and ITS2 subregions from ITS sequences
-</li>
-<li>
-<a href="./source/classification/kraken2.html">Kraken2</a>: A taxonomic sequence classifier using kmers
-</li>
-</ul>
-</div>
-<button class="accordion active">
-M-P
-</button>
-<div class="panel">
-<ul>
-<li>
-<a href="./source/phylogenomics/mafft.html">Mafft</a>: A multiple sequence alignment program
-</li>
-<li>
-<a href="./source/metagenomics/medaka.html">Medaka</a>: A tool for assembly polishing
-</li>
-<li>
-<a href="./source/metagenomics/metabolic.html">METABOLIC</a>: A tool to predict functional trait profiles in genome datasets
-</li>
-<li>
-<a href="./source/metagenomics/metacerberus.html">MetaCerberus</a>: A tool for functional assignment
-</li>
-<li>
-<a href="./source/metagenomics/motus.html">MOTUS</a>: A tool to estimate microbial abundances in Illumina and Nanopore sequencing data
-</li>
-<li>
-<a href="./source/classification/minimap2.html">Minimap2</a>: A program to align DNA or mRNA sequences against a reference database
-</li>
-<li>
-<a href="./source/metagenomics/multiqc.html">MultiQC</a>: A program to summarize analysis reports
-</li>
-<li>
-<a href="./source/nanopore/nanoclass.html">NanoClass2</a>: A taxonomic meta-classifier for long-read 16S/18S rRNA gene sequencing data
-</li>
-<li>
-<a href="./source/nanopore/nanoITS.html">NanoITS</a>: A taxonomic meta-classifier for long-read ITS operon sequencing data
-</li>
-<li>
-<a href="./source/nanopore/nanophase_how_to.html">Nanophase</a>: A pipeline to generate MAGs using Nanopore long and Illumina short reads from metagenomes
-</li>
-<li>
-<a href="./source/nanopore/nanoplot_readme.html">NanoPlot</a>: Plotting tool for long read sequencing data
-</li>
-<li>
-<a href="./source/nanopore/nanoqc_readme.html">NanoQC</a>: A quality control tool for long read sequencing data
-</li>
-<li>
-<a href="./source/nanopore/ngspeciesid.html">NGSpeciesID</a>: A tool for clustering and consensus forming of long-read amplicon sequencing data
-</li>
-<li>
-<a href="./source/nanopore/porechop_readme.html">Porechop</a>: A tool for finding and removing adapters from Nanopore reads
-</li>
-<li>
-<a href="./source/core_tools/prokka.html">Prokka</a>: A tool to annotate bacterial, archaeal and viral genomes
-</li>
-<li>
-<a href="./source/metagenomics/pseudofinder.html">Pseudofinder</a>: A tool that detects pseudogene candidates from annotated genbank files of bacterial and archaeal genomes
-</li>
-<li>
-<a href="./source/metagenomics/pycirclize.html">pyCirclize</a>: A tool for circular visualization, i.e.&nbsp;genome plots, in python
-</li>
-<li>
-<a href="./source/metagenomics/pygenometracks.html">pyGenomeTracks</a>: A tool to produce high-quality genome browser tracks
-</li>
-</ul>
-</div>
-<button class="accordion active">
-Q-T
-</button>
-<div class="panel">
-<ul>
-<li>
-<a href="./source/metagenomics/quast.html">QUAST</a>: A Quality Assessment Tool for Genome Assemblies
-</li>
-<li>
-<a href="./source/metatranscriptomics/ribodetector.html">Ribodetector</a>: Detect and remove rRNA sequences from metagenomic, metatranscriptomic, and ncRNA sequencing data
-</li>
-<li>
-<a href="./source/metatranscriptomics/rseqc.html">RSeQC</a>: A tool to evaluate high throughput sequence data especially RNA-seq data
-</li>
-<li>
-<a href="./source/core_tools/rsem.html">RSEM</a>: A software package for estimating gene and isoform expression levels from RNA-Seq data
-</li>
-<li>
-<a href="./source/core_tools/samtools.html">Samtools</a>: A tool to manipulating alignments in SAM/BAM format
-</li>
-<li>
-<a href="./source/core_tools/seqkit.html">SeqKit</a>: A tool for FASTA/Q file manipulation
-</li>
-<li>
-<a href="./source/metagenomics/signalp6.html">SignalP6</a>: A tool to predict the presence of signal peptides
-</li>
-<li>
-<a href="./source/metagenomics/singlem.html">SingleM</a>: A tool for taxonomic profiling of shotgun metagenomes
-</li>
-<li>
-<a href="./source/metatranscriptomics/sortmerna.html">SortMerNa</a>: A tool to filter ribosomal RNAs in metatranscriptomic data
-</li>
-<li>
-<a href="./source/metatranscriptomics/star.html">STAR</a>: An ultrafast universal RNA-seq aligner
-</li>
-<li>
-<a href="./source/metatranscriptomics/stringtie.html">StringTie</a>: A a fast and highly efficient assembler of RNA-Seq alignments into potential transcripts
-</li>
-<li>
-<a href="./source/metatranscriptomics/td2.html">TD2</a>: A tool to identify candidate coding regions within transcript sequences
-</li>
-<li>
-<a href="./source/metatranscriptomics/transdecoder.html">TransDecoder</a>: A tool to identify candidate coding regions within transcript sequences
-</li>
-<li>
-<a href="./source/metagenomics/trycycler.html">Trycyler</a>: A tool for generating consensus long-read assemblies for bacterial genomes
-</li>
-<li>
-<a href="./source/metatranscriptomics/trinity.html">Trinity</a>: A tool to assemble transcript sequences from Illumina RNA-Seq data
-</li>
-</ul>
-</div>
-<button class="accordion active">
-U-Z
-</button>
-<div class="panel">
-<ul>
-<!-- Add tools starting with U-Z if available -->
-</ul>
-</div>
-<script>
-var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.display === "block") {
-      panel.style.display = "none";
-    } else {
-      panel.style.display = "block";
-    }
-  });
-}
-</script>
-
-
-</section></div>
 
 
 
-</main></div>
-
- <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -1845,14 +1710,17 @@ for (i = 0; i < acc.length; i++) {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../../source/core_tools/bash-arrays.html" class="pagination-link" aria-label="Arrays in bash">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Arrays in bash</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./source/cli/code_doc.html" class="pagination-link" aria-label="Code documentation">
-        <span class="nav-page-text">Code documentation</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/core_tools/arcog.html" class="pagination-link" aria-label="arCOG database">
+        <span class="nav-page-text">arCOG database</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
- <!-- /content -->
+</div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
@@ -1861,7 +1729,7 @@ for (i = 0; i < acc.length; i++) {
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
 Last modified: 2026-04-01</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/bash-pipefail.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

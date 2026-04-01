@@ -34,6 +34,14 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 -   [Version control with git](https://github.com/fkariminejadasl/ml-notebooks/blob/main/tutorial/git.md)
 -   [A tutorial on using AWK](https://ndombrowski.github.io/AWK_tutorial/), a command line tool for filtering tables, extracting patterns, etc... If you want to follow this tutorial then you can download the required input files from [here](https://github.com/ndombrowski/AWK_tutorial/tree/main/1_Inputfiles)
 
+## Bioinformatic toolbox
+
+- [Custom scripts](source/core_tools/custom_scripts.qmd): A list of custom scripts useful for bioinformatic analyses
+- [For-loops-in-bash](source/core_tools/bash-for-loops.qmd): How can I scale my research and run software not only on one but multiple files?
+- [Bash input validation](source/core_tools/bash-input-validation.qmd ): How do I check in my Bash scripts whether inputs already exist and avoid re-running tools?
+- [Bash arrays](source/core_tools/bash-arrays.qmd ): Arrays in bash — and when you don't need them
+- [Bash pipefails](source/core_tools/bash-pipefail.qmd): Telling a Bash script how to deal with exit codes
+
 ### Using R
 
 -   [An R cookbook](https://ndombrowski.github.io/R_cookbook/) including some [example files](https://github.com/ndombrowski/R_cookbook/tree/main/data) if you want to code along
@@ -49,6 +57,21 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 -   [Annotating microbial genomes](https://github.com/ndombrowski/Annotation_workflow)
 -   [How to do generate a species tree](https://ndombrowski.github.io/Phylogeny_tutorial/)
 -   [Accessing data from NCBI](source/core_tools/ncbi.qmd)
+
+
+## Useful databases A-Z
+
+- [arCOG](source/core_tools/arcog.qmd): Archaeal Clusters of Orthologous Genes (arCOGs) database to analyse archaea
+- [COG](source/core_tools/cog.qmd): Cluster of Orthologous Genes (COGs) to analyse bacteria
+- [dbCAN](source/core_tools/dbcan.qmd): Database to analyse carbohydrate-active enzymes in genomes
+- [FeGenie](source/core_tools/fegenie.qmd): Database to identify iron genes and iron operons in genomes
+- [HydDB](source/core_tools/hyddb.qmd): Database to identify hydrogenases in genomes
+- [KOfam](source/core_tools/kegg_db.qmd): Database to assign KEGG orthologous (KOs) to protein sequences
+- [NCBI-nr](source/core_tools/ncbi_nr.qmd): NCBI's non-redundant (nr) protein database to analyse protein sequences
+- [Pfam](source/core_tools/pfam_db.qmd): A collection of protein models to analyse protein sequences
+- [PGAP database](source/core_tools/pgap_db.qmd): Successor to the TIGRFAM database
+- [TIGRFAM](source/core_tools/tigrfam_db.qmd): A collection of manually curated protein families to analyse prokaryotic sequences
+
 
 ## Bioinformatic tools A-Z
 
@@ -208,25 +231,6 @@ for (i = 0; i < acc.length; i++) {
 </html>
 
 
-## Bioinformatic toolbox
-
-- [Custom scripts](source/core_tools/custom_scripts.qmd): A list of custom scripts useful for bioinformatic analyses
-- [For-loops-in-bash](source/core_tools/bash-for-loops.qmd): How can I scale my research and run software not only on one but multiple files?
-- [Bash input validation](source/core_tools/bash-input-validation.qmd ): How do I check in my Bash scripts whether inputs already exist and avoid re-running tools?
-- [Bash arrays](source/core_tools/bash-arrays.qmd ): Arrays in bash — and when you don't need them
-
-## Useful databases A-Z
-
-- [arCOG](source/core_tools/arcog.qmd): Archaeal Clusters of Orthologous Genes (arCOGs) database to analyse archaea
-- [COG](source/core_tools/cog.qmd): Cluster of Orthologous Genes (COGs) to analyse bacteria
-- [dbCAN](source/core_tools/dbcan.qmd): Database to analyse carbohydrate-active enzymes in genomes
-- [FeGenie](source/core_tools/fegenie.qmd): Database to identify iron genes and iron operons in genomes
-- [HydDB](source/core_tools/hyddb.qmd): Database to identify hydrogenases in genomes
-- [KOfam](source/core_tools/kegg_db.qmd): Database to assign KEGG orthologous (KOs) to protein sequences
-- [NCBI-nr](source/core_tools/ncbi_nr.qmd): NCBI's non-redundant (nr) protein database to analyse protein sequences
-- [Pfam](source/core_tools/pfam_db.qmd): A collection of protein models to analyse protein sequences
-- [PGAP database](source/core_tools/pgap_db.qmd): Successor to the TIGRFAM database
-- [TIGRFAM](source/core_tools/tigrfam_db.qmd): A collection of manually curated protein families to analyse prokaryotic sequences
 
 
 </div>

@@ -16,7 +16,7 @@ toc-depth: 4
 
 In Bash, an array is a collection of values stored under a single variable name. 
 
-To explain its usage assume that we are working with 3 protein fasta files and want to perform an action on them, for example concatenate all three of them. To do this, we could store the names of all three files in an array and then use the array to do something. 
+To explain its usage assume that we are working with 3 protein fasta files and want to perform an action on them, for example concatenate all three of them. To do this, we could store the names of all three files in an array and then use the array to then concatenate them into a single file. 
 
 We begin by creating three dummy files that contain some imaginary protein sequences:
 
@@ -89,6 +89,8 @@ cat "${FASTA_FILES[@]}"
 When using arrays you need to be VERY precise with the used syntax. Just changing `+=` to `=` creates a major issue that might be hard to detect on large files since the code still runs just incorrectly:
 
 ```{bash}
+FASTA_FILES=()
+
 # A common bug: files are not appended
 for ID in s1 s2 s3; do
     FASTA_FILES=("${ID}.faa") # = replaces the array every iteration instead of appending

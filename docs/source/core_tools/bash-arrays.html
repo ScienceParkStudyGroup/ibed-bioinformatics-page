@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/core_tools/arcog.html" rel="next">
+<link href="../../source/core_tools/bash-pipefail.html" rel="next">
 <link href="../../source/core_tools/bash-input-validation.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -992,6 +992,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Arrays in bash</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bash-pipefail.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><code>set -euo pipefail</code> in bash</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -1099,7 +1105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="basics" class="level2">
 <h2 class="anchored" data-anchor-id="basics">Basics</h2>
 <p>In Bash, an array is a collection of values stored under a single variable name.</p>
-<p>To explain its usage assume that we are working with 3 protein fasta files and want to perform an action on them, for example concatenate all three of them. To do this, we could store the names of all three files in an array and then use the array to do something.</p>
+<p>To explain its usage assume that we are working with 3 protein fasta files and want to perform an action on them, for example concatenate all three of them. To do this, we could store the names of all three files in an array and then use the array to then concatenate them into a single file.</p>
 <p>We begin by creating three dummy files that contain some imaginary protein sequences:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dummy files</span></span>
@@ -1157,14 +1163,16 @@ Number of files: 3</code></pre>
 <h2 class="anchored" data-anchor-id="common-bugs">Common bugs</h2>
 <p>When using arrays you need to be VERY precise with the used syntax. Just changing <code>+=</code> to <code>=</code> creates a major issue that might be hard to detect on large files since the code still runs just incorrectly:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A common bug: files are not appended</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> s1 s2 s3<span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">FASTA_FILES</span><span class="op">=</span><span class="va">(</span><span class="st">"</span><span class="va">${ID}</span><span class="st">.faa"</span><span class="va">)</span> <span class="co"># = replaces the array every iteration instead of appending</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Bash does not output an error here - it silently uses only the last value</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Files that will be used: </span><span class="va">${FASTA_FILES</span><span class="op">[@]</span><span class="va">}</span><span class="st">"</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="st">"</span><span class="va">${FASTA_FILES</span><span class="op">[@]</span><span class="va">}</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">FASTA_FILES</span><span class="op">=</span><span class="va">()</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A common bug: files are not appended</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> s1 s2 s3<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">FASTA_FILES</span><span class="op">=</span><span class="va">(</span><span class="st">"</span><span class="va">${ID}</span><span class="st">.faa"</span><span class="va">)</span> <span class="co"># = replaces the array every iteration instead of appending</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Bash does not output an error here - it silently uses only the last value</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Files that will be used: </span><span class="va">${FASTA_FILES</span><span class="op">[@]</span><span class="va">}</span><span class="st">"</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="st">"</span><span class="va">${FASTA_FILES</span><span class="op">[@]</span><span class="va">}</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Which produces:</p>
 <pre><code>Files that will be used: s3.faa
@@ -1618,8 +1626,8 @@ Number of files: 3</code></pre>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/core_tools/arcog.html" class="pagination-link" aria-label="arCOG database">
-        <span class="nav-page-text">arCOG database</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/core_tools/bash-pipefail.html" class="pagination-link" aria-label="`set -euo pipefail` in bash">
+        <span class="nav-page-text"><code>set -euo pipefail</code> in bash</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

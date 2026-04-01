@@ -338,5 +338,8 @@
   },
   "source/core_tools/bash-arrays.qmd": {
     "bash-arrays.html": "ddb3a891"
+  },
+  "source/core_tools/bash-pipefail.qmd": {
+    "bash-pipefail.html": "910b224d"
   }
 }
