@@ -163,7 +163,7 @@ fi
 All files exist. Nothing to be done.
 ```
 
-Note: elif checks conditions sequentially and stops at the first match. If both files are missing, only the first missing file will be reported.
+Note: elif checks conditions sequentially and stops at the first match. If both files are missing, only the first missing file will be reported. If you wanted to report each file, you can instead use two separate if statements.
 
 
 ## Putting everything together
@@ -218,7 +218,7 @@ Sometimes you want to stop the entire loop if something is wrong, rather than sk
 
 For this example let's look at this case: You performed the quality cleaning step and want to proceed with the next step and assembly the reads into contigs, i.e. into longer stretches of DNA. Maybe something went wrong during the quality cleaning and some of your cleaned reads are empty. Here, you actually might want to stop the pipeline since the assembly part is computationally expensive and first get a useful error message that allows you to troubleshoot before trying again.
 
-The assembly process typically needs two inputs called the forward and reverse reads. While the details of what these files are is not important, this is a good usage case of using the OR keyword `||` to test whether forward or reverse file is missing. We also will now make use a new keyword called `break` that result in the script stopping if an issue occurs.
+The assembly process typically needs two inputs called the forward and reverse reads. While the details of what these files are is not important, this is a good usage case of using the OR keyword `||` to test whether forward or reverse file is missing. We also will now make use a new keyword called `break` that result in the loop stopping if an issue occurs.
 
 ```{bash}
 # Only generate dummy files for s1 to simulate a partially completed pipeline
@@ -241,9 +241,11 @@ for ID in $(cat samples); do
 
     echo -e "Both input files exist and are non-empty. Running assembly for $ID\n"
 done
+
+echo -e "\nScript finished"
 ```
 
-Wee see
+We see:
 
 ```
 Processing s1
@@ -253,9 +255,50 @@ Both input files exist and are non-empty. Running assembly for s1
 Processing s2
 ---------------
 ERROR: s2_forward_cleaned.fastq or s2_reverse_cleaned.fastq is missing or empty. Stopping pipeline.
+
+Script finished
 ```
 
-So the whole script now stops when the one of the S2 files is missing.
+So the loop now stops when the one of the S2 files is missing.
+
+
+### `exit 1`: Stopping a script if something is wrong
+
+**Important for longer scripts**: break stops the loop but does not stop the script. Any commands written after the done keyword will still be executed, even if break was triggered. To stop the entire script after break, add an exit 1 immediately after the error message. The 1 signals to the system that the script ended due to an error (exit code 0 means success):
+
+```{bash}
+for ID in $(cat samples); do
+    CLEANED_READS_F="${ID}_forward_cleaned.fastq"
+    CLEANED_READS_R="${ID}_reverse_cleaned.fastq"
+
+    echo "Processing $ID"
+    echo "---------------"
+
+    if [[ ! -s "$CLEANED_READS_F" || ! -s "$CLEANED_READS_R" ]]; then
+        echo "ERROR: ${CLEANED_READS_F} or ${CLEANED_READS_R} is missing or empty. Stopping pipeline."
+        exit 1
+    fi
+
+    echo -e "Both input files exist and are non-empty. Running assembly for $ID\n"
+done
+
+echo -e "\nScript finished" # This line is never reached because exit 1 stops the script
+```
+
+You now will see:
+
+```
+Processing s1
+---------------
+Both input files exist and are non-empty. Running assembly for s1
+
+Processing s2
+---------------
+ERROR: s2_forward_cleaned.fastq or s2_reverse_cleaned.fastq is missing or empty. Stopping pipeline.
+logout
+```
+
+If run interactively on your computer you can press enter to restart the terminal. The logout line is produced by the terminal itself when the shell session ends and is not part of the script output. In a SLURM job script, exit 1 will not produce logout or the exit code message. Instead, the script will simply stop, and the job will appear as FAILED when checked with sacct or squeue. The error message printed by echo will appear in the SLURM error file.
 
 
 ### `continue` keyword
