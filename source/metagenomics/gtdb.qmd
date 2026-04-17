@@ -64,13 +64,34 @@ cd <my_database_folder>
 wget https://data.gtdb.ecogenomic.org/releases/latest/auxillary_files/gtdbtk_package/full_package/gtdbtk_data.tar.gz
 tar xvzf gtdbtk_data.tar.gz 
 
-# Link datbase to gtdbtk
+# Link database to gtdbtk
 conda activate gtdbtk_2.6.1
 conda env config vars set GTDBTK_DATA_PATH="<my_database_folder>/gtdb/release226";
 conda deactivate
 ```
 
 </details>
+
+<details>
+  <summary>GTDB v2.7.1 with r232</summary>
+
+```{bash}
+# Setup GTDBtk
+mamba create -n gtdbtk_2.7.1 -c conda-forge -c bioconda gtdbtk=2.7.1
+
+# Download gtdb data, v232
+cd <my_database_folder>
+wget https://data.gtdb.ecogenomic.org/releases/latest/auxillary_files/gtdbtk_package/full_package/gtdbtk_data.tar.gz
+tar xvzf gtdbtk_data.tar.gz 
+
+# Link database to gtdbtk
+conda activate gtdbtk_2.7.1
+conda env config vars set GTDBTK_DATA_PATH="<my_database_folder>/gtdb/release232";
+conda deactivate
+```
+
+</details>
+
 
 ### Usage
 
@@ -81,6 +102,9 @@ conda deactivate
 mkdir -p results/gtdb 
 
 conda activate gtdbtk_2.4.0
+
+# Ensure the right database is loaded 
+echo $GTDBTK_DATA_PATH
 
 gtdbtk classify_wf --genome_dir  genome_dir/ \
   --extension fasta \
@@ -101,6 +125,9 @@ mkdir -p results/gtdb
 
 conda activate gtdbtk_2.6.1
 
+# Ensure the right database is loaded  (should be 262)
+echo $GTDBTK_DATA_PATH
+
 gtdbtk classify_wf --genome_dir  genome_dir/ \
   --extension fasta \
   --out_dir results/gtdb \
@@ -112,9 +139,33 @@ conda deactivate
 </details>
 
 
+<details>
+  <summary>GTDB v2.7.1 with r232</summary>
+
+```{bash}
+mkdir -p results/gtdb 
+
+conda activate gtdbtk_2.7.1
+
+# Ensure the right database is loaded (should be 232)
+echo $GTDBTK_DATA_PATH
+
+gtdbtk classify_wf --genome_dir  genome_dir/ \
+  --extension fasta \
+  --out_dir results/gtdb \
+  # Use the following if you want to 
+  # place species in pplacer trees even if they are classified with skani
+  --place_species \
+  --cpus 20
+
+conda deactivate
+```
+
+</details>
+
 The files with the name `gtdbtk.*.summary.tsv` will contain key information about the taxonomic assignment of your genome(s).
 
-Note, that the first step of the `classify_wf` workflow is an ANI pre-screening step. If all genomes have been classified by the ANI screening step, Identify and Align steps will be skipped. If you still want to run these steps, you can add the `--skip_ani_screen ` argument to your command.
+Note, that the first step of the `classify_wf` workflow is an ANI pre-screening step. If all genomes have been classified by the ANI screening step, Identify and Align steps will be skipped. If you still want to run these steps, you can add the `--place_species` argument to your command.
 
 For a full set of options and description how the tool works, please visit the [manual](https://ecogenomics.github.io/GTDBTk/).
 
@@ -122,7 +173,9 @@ For a full set of options and description how the tool works, please visit the [
 ### Common Issues and Solutions
 
 -   **Issue 1:** Running out of memory as described [here](https://ecogenomics.github.io/GTDBTk/faq.html)
-    -   Solution 1: For Crunchomics users: Use 150G of memory (and make sure to submit the job via srun or sbatch)
+    -   Solution 1: For Crunchomics users: Use at least 150G of memory (and make sure to submit the job via srun or sbatch)
     -   Solution 2: Use `--scratch_dir` and `--pplacer_cpus 1`
 -   **Issue 2:** Using a gtdbtk version with the incorrect database
     -   Solution 2: Ensure that you use the right gtdbtk-db combination, as listed [here](https://ecogenomics.github.io/GTDBTk/installing/index.html)
+-   
+</div>
