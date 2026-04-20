@@ -20,6 +20,7 @@ GTDB_Tk is a software toolkit for assigning objective taxonomic classifications 
 Installed on crunchomics: Yes,
 
 - Several versions are available as part of the bioinformatics share:
+  -   GTDB_Tk v2.7.1 and the [GTDB v232 database](https://gtdb.ecogenomic.org/stats/r232)
   -   GTDB_Tk v2.6.1 and the [GTDB v226 database](https://gtdb.ecogenomic.org/stats/r226)
   -   GTDB_Tk v2.4.0 and the [GTDB v220 database](https://gtdb.ecogenomic.org/stats/r220)
 -   If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).

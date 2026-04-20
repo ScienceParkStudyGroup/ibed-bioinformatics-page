@@ -19,9 +19,12 @@ For more information, check out the tools [github page](#0).
 
 ### Installation
 
-Installed on crunchomics: Yes,
+Installed on crunchomics: Yes, the following versions of checkm2 are installed as part of the bioinformatics share:
 
--   CheckM2 v1.0.1 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl). Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+-   CheckM2 v1.0.1
+-   CheckM2 v1.1.0
+
+If you have access to Crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl). Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
 
 ```{bash}
 conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
@@ -30,15 +33,12 @@ conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/minicon
 If you want to install it yourself, you can run:
 
 ```{bash}
-mamba create -p /zfs/omics/projects/bioinformatics/software/miniconda3/envs/checkm2_1.0.1 -c bioconda -c conda-forge checkm2=1.0.1
+mamba create -p /zfs/omics/projects/bioinformatics/software/miniconda3/envs/checkm2_1.0.1 -c bioconda -c conda-forge checkm2=1.1.0
 
-conda activate checkm2_1.0.1 
-
-#install right python version, otherwise you get a class error
-mamba install python=3.8 
+conda activate checkm2_1.1.0 
 
 #install database 
-checkm2 database --download --path /zfs/omics/projects/bioinformatics/databases/checkm
+checkm2 database --download --path path_to_db_folder
 
 #do test run 
 checkm2 testrun
@@ -46,13 +46,26 @@ checkm2 testrun
 
 ### Usage
 
+Important:
+
+To generate the coding density information in the output file `quality_report.tsv` the fasta headers of your genomes need to have compatible names. Fasta headers that have whitespace (spaces or tabs) in them, such as `>scaffold_193   total_depth=33.25` will result in only 0.0 values appearing in that column. In contrast, fasta headers without spaces, such as `>scaffold_193`, will create values from 0.0 - 1.0.
+
 ```{bash}
-#run checkm2
-conda activate checkm2_1.0.1
+# Optional:
+## Ensure there are no spaces in the fasta headers 
+mkdir genomes_clean
+
+for f in data/genomes/*.fa; do
+    sed 's/^\(>[^ \t]*\)[ \t].*/\1/' "$f" > data/genomes_clean/$(basename $f)
+done
+
+# Run Checkm2
+## If you want to run want the older version of Checkm2, replace the env name below ith checkm2_1.0.1
+conda activate checkm2_1.1.0
 
 checkm2 predict --threads 30 \
-  --input  folder_with_genomes_to_analyse/  \
-  -x fasta \
+  --input  data/genomes_clean/  \
+  -x fa \
   --output-directory results/checkm2 
 
 conda deactivate
@@ -76,3 +89,7 @@ For more information, please visit the [manual](https://github.com/chklovski/Che
 
 -   **Issue 1:** Running out of memory
     -   Solution 1: If you are running CheckM2 on a device with limited RAM, you can use the `--lowmem` option to reduce DIAMOND RAM use by half at the expense of longer runtime.
+-   **Issue 2:** The coding density column in the quality_report.tsv only shows 0.0 values
+    -   Solution 1: Ensure that there are no spaces in your fasta headers
+-   **Issue 3**: CheckM2 crashes with OSError: [Errno 16] Device or resource busy errors
+    - Solution: Do not use `--tmpdir` with a path in your personal folder. Either omit the flag entirely (defaults to /tmp on the compute node) or redirect the output to `/scratch/$USER/`
