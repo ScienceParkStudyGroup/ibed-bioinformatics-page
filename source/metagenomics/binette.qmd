@@ -11,7 +11,7 @@ bibliography: references.bib
 
 ### Introduction
 
-Binette is a fast and accurate binning refinement tool designed to construct high-quality metagenome-assembled genomes (MAGs) from the output of multiple binning tools. It creates hybrid bins by applying set operations (intersection, difference, union) to overlapping bins and evaluates bin quality using CheckM2 [@Mainguy2024].
+[Binette](https://github.com/genotoul-bioinfo/Binette) is a fast and accurate binning refinement tool designed to construct high-quality metagenome-assembled genomes (MAGs) from the output of multiple binning tools. It creates hybrid bins by applying set operations (intersection, difference, union) to overlapping bins and evaluates bin quality using CheckM2 [@Mainguy2024].
 
 
 ### Installation

@@ -11,7 +11,7 @@ bibliography: references.bib
 
 ### Introduction
 
-DAS Tool is an automated method that integrates the results of a flexible number of binning algorithms to calculate an optimized, non-redundant set of bins from a single assembly [@Sieber2018].
+[DAS Tool](https://github.com/cmks/DAS_Tool) is an automated method that integrates the results of a flexible number of binning algorithms to calculate an optimized, non-redundant set of bins from a single assembly [@Sieber2018].
 
 
 ### Installation
