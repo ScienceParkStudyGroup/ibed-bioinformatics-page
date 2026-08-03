@@ -344,5 +344,8 @@
   },
   "source/metagenomics/dastool.qmd": {
     "dastool.html": "9d981f2b"
+  },
+  "source/metagenomics/binette.qmd": {
+    "binette.html": "4f0e0004"
   }
 }

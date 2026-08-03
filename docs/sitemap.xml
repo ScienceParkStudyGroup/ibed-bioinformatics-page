@@ -198,7 +198,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/index.html</loc>
-    <lastmod>2026-08-03T08:50:26.541Z</lastmod>
+    <lastmod>2026-08-03T09:08:00.567Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/Qiime/3_evelyn_tutorial_notes.html</loc>
@@ -407,5 +407,9 @@
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/dastool.html</loc>
     <lastmod>2026-08-03T08:50:23.802Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/binette.html</loc>
+    <lastmod>2026-08-03T09:07:40.208Z</lastmod>
   </url>
 </urlset>

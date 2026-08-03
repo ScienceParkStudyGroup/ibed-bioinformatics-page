@@ -1,0 +1,134 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+## Binette
+
+### Introduction
+
+Binette is a fast and accurate binning refinement tool designed to construct high-quality metagenome-assembled genomes (MAGs) from the output of multiple binning tools. It creates hybrid bins by applying set operations (intersection, difference, union) to overlapping bins and evaluates bin quality using CheckM2 [@Mainguy2024].
+
+
+### Installation
+
+<!-- TODO: confirm whether Binette is installed on Crunchomics as part of the bioinformatics share, and which version -->
+
+Installed on Crunchomics: yes - the following versions of Binette are installed as part of the bioinformatics share:
+
+-   Binette v1.2.1
+
+If you have access to Crunchomics and have not yet access to the bioinformatics share you can send an email with your UvA netID to [Nina Dombrowski](n.dombrowski@uva.nl). Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run:
+
+```{bash}
+mamba create -n binette1.2.1 -c bioconda -c defaults -c conda-forge binette=1.2.1
+
+# Add path to the checkm2 database (only run once) 
+conda activate binette1.2.1
+
+checkm2 database --download --path add_your_desired_path/checkm/binette
+export CHECKM2DB="add_your_desired_path/checkm/binette/uniref100.KO.1.dmnd"
+```
+
+
+### Usage
+
+Input file format:
+
+Binette accepts bin sets in one of two formats:
+
+-   Contig2bin tables \[--contig2bin_tables\]: Tab separated files of contig-IDs and bin-IDs, one table per binning tool (same format as used for DAS Tool, see [DAS Tool](dastool.qmd)):
+
+```
+        Contig_1    bin.01
+        Contig_8    bin.01
+        Contig_42   bin.02
+        Contig_49   bin.03
+```
+
+-   Bin directories \[--bin_dirs\]: One directory per binning tool, each containing the bins as separate fasta files.
+
+-   Contigs \[--contigs\]: The full assembly in fasta format, containing all contigs referenced by the bin sets above.
+
+-   Proteins (optional) \[--proteins\]: Predicted proteins in prodigal fasta format, to skip the gene prediction step.
+
+Example for running Binette with contig2bin tables:
+
+```{bash}
+binette --contig2bin_tables bin_set1_contigs2bin.tsv bin_set2_contigs2bin.tsv \
+    --contigs assembly.fasta \
+    --outdir binette_output \
+    --threads 10
+```
+
+Example for running Binette with bin directories (fasta files per bin):
+
+```{bash}
+binette --bin_dirs bin_set1_dir bin_set2_dir \
+    --contigs assembly.fasta \
+    --outdir binette_output \
+    --threads 10
+```
+
+After running this, you will find the selected, non-redundant, high-quality bins along with a quality report in the specified output directory (`binette_output` above).
+
+Options:
+
+```
+Binette 1.2.1: fast and accurate binning refinement tool to constructs high quality MAGs from the output of multiple binning tools.
+
+Options:
+   --version                                     Show version and exit.
+   -h --help                                      Show this message and exit.
+
+Input Arguments:
+   -d --bin_dirs=<PATH>                           List of bin folders containing each bin in a fasta file.
+   -b --contig2bin_tables=<PATH>                  List of contig2bin tables with two columns: contig, bin.
+   -c --contigs=<PATH>                            Contigs in FASTA format. [required]
+   -p --proteins=<PATH>                           FASTA file of predicted proteins in Prodigal format (>contigID_geneID).
+                                                   Skips the gene prediction step if provided.
+
+Output and Runtime Control:
+   -o --outdir=<PATH>                             Output directory. [default: results]
+   --prefix=<TEXT>                                Prefix to add to final bin names (e.g. '--prefix sample1' will produce
+                                                   'sample1_bin1.fa', 'sample1_bin2.fa'). [default: binette]
+   -t --threads=<INTEGER>                         Number of threads to use. [default: 1]
+   -v --verbose                                   Enable verbose mode (show detailed debug information).
+   -q --quiet                                     Enable quiet mode (only show warnings and errors).
+   --debug / --no-debug                           Activate debug mode. [default: no-debug]
+   --progress / --no-progress                     Show progress bar while fetching pangenomes (disable with
+                                                   --no-progress). [default: progress]
+   --write-fasta-bins / --no-write-fasta-bins     Write final selected bins as FASTA files (disable with
+                                                   --no-write-fasta-bins). [default: write-fasta-bins]
+
+Bin Filtering and Scoring:
+   --min_completeness=<INTEGER>                   Minimum completeness required for intermediate bin creation and
+                                                   final bin selection. [default: 40]
+   --max_contamination=<INTEGER>                  Maximum contamination allowed for intermediate bin creation and
+                                                   final bin selection. [default: 10]
+   --min_length=<INTEGER>                         Minimum length (bp) required for intermediate bin creation and
+                                                   final bin selection. [default: 200000]
+   --max_length=<INTEGER>                         Maximum length (bp) allowed for intermediate bin creation and
+                                                   final bin selection. [default: 10000000]
+   -w --contamination_weight=<FLOAT>               Bins are scored as: completeness - weight * contamination. A lower
+                                                   weight favors completeness over low contamination. [default: 2.0]
+
+Advanced Options:
+   -e --fasta_extensions=<TEXT>                   FASTA file extensions to search for in bin directories (used with
+                                                   --bin_dirs). [default: .fasta, .fa, .fna]
+   --checkm2_db=<PATH>                            Path to CheckM2 diamond database. By default the database set via
+                                                   <checkm2 database> is used.
+   --low_mem                                      Enable low-memory mode for Diamond.
+   --resume / --no-resume                         Resume mode: reuse existing temporary files if possible.
+                                                   [default: no-resume]
+```
