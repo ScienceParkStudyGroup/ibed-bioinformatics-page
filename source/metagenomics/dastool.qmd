@@ -13,6 +13,7 @@ bibliography: references.bib
 
 [DAS Tool](https://github.com/cmks/DAS_Tool) is an automated method that integrates the results of a flexible number of binning algorithms to calculate an optimized, non-redundant set of bins from a single assembly [@Sieber2018].
 
+Note: DAS Tool has not been updated since 2023 and, in our experience, tends to be more conservative in its bin selection. [Binette](binette.qmd) is an actively maintained alternative that often recovers more MAGs with little loss in bin quality, so it is worth trying alongside or instead of DAS Tool.
 
 ### Installation
 
