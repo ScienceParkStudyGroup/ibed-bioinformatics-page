@@ -33,7 +33,7 @@ conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/minicon
 If you want to install it yourself, you can run:
 
 ```{bash}
-mamba create -p /zfs/omics/projects/bioinformatics/software/miniconda3/envs/checkm2_1.0.1 -c bioconda -c conda-forge checkm2=1.1.0
+mamba create -n checkm2_1.0.1 -c bioconda -c conda-forge checkm2=1.1.0
 
 conda activate checkm2_1.1.0 
 

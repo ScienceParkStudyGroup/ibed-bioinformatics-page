@@ -341,5 +341,8 @@
   },
   "source/core_tools/bash-pipefail.qmd": {
     "bash-pipefail.html": "910b224d"
+  },
+  "source/metagenomics/dastool.qmd": {
+    "dastool.html": "9d981f2b"
   }
 }

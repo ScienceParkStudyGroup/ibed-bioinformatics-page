@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>checkm2 – Bioinformatics guidance page</title>
+<title>dastool – Bioinformatics guidance page</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -85,8 +85,8 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/metagenomics/coverm.html" rel="next">
-<link href="../../source/metagenomics/barrnap.html" rel="prev">
+<link href="../../source/metagenomics/dnaapler.html" rel="next">
+<link href="../../source/metagenomics/coverm.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -305,7 +305,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/atlas.html">(Meta)genomics</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/checkm2.html">CheckM2</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/atlas.html">(Meta)genomics</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/dastool.html">DAS Tool</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -576,7 +576,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/checkm2.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../source/metagenomics/checkm2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">CheckM2</span></a>
   </div>
 </li>
@@ -588,7 +588,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/dastool.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/dastool.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">DAS Tool</span></a>
   </div>
 </li>
@@ -1107,18 +1107,17 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#checkm2" id="toc-checkm2" class="nav-link active" data-scroll-target="#checkm2">CheckM2</a>
+  <li><a href="#das-tool" id="toc-das-tool" class="nav-link active" data-scroll-target="#das-tool">DAS Tool</a>
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
   <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
-  <li><a href="#common-issues-and-solutions" id="toc-common-issues-and-solutions" class="nav-link" data-scroll-target="#common-issues-and-solutions">Common Issues and Solutions</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/checkm2.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/dastool.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/atlas.html">(Meta)genomics</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/checkm2.html">CheckM2</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/atlas.html">(Meta)genomics</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/dastool.html">DAS Tool</a></li></ol></nav></header>
 
 
 <header id="title-block-header">
@@ -1127,19 +1126,17 @@ div.csl-indent {
 </header>
 
 
-<section id="checkm2" class="level2" style="text-align: justify">
-<h2 class="anchored" data-anchor-id="checkm2">CheckM2</h2>
-<p>CheckM2 is a software to assess the quality (completeness, contamination, coding density, etc.) of a genome assembly <span class="citation" data-cites="chklovski">(<a href="#ref-chklovski" role="doc-biblioref">Chklovski et al., n.d.</a>)</span>. Unlike CheckM1, CheckM2 has universally trained machine learning models it applies regardless of taxonomic lineage to predict the completeness and contamination of genomic bins. This allows it to incorporate many lineages in its training set that have few - or even just one - high-quality genomic representatives, by putting it in the context of all other organisms in the training set. As a result of this machine learning framework, CheckM2 is also highly accurate on organisms with reduced genomes or unusual biology, such as the Nanoarchaeota or Patescibacteria.</p>
-<p>For more information, check out the tools <a href="#0">github page</a>.</p>
+<section id="das-tool" class="level2">
+<h2 class="anchored" data-anchor-id="das-tool">DAS Tool</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>DAS Tool is an automated method that integrates the results of a flexible number of binning algorithms to calculate an optimized, non-redundant set of bins from a single assembly <span class="citation" data-cites="Sieber2018">(<a href="#ref-Sieber2018" role="doc-biblioref">Sieber et al. 2018</a>)</span>.</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>Installed on crunchomics: Yes, the following versions of checkm2 are installed as part of the bioinformatics share:</p>
+<p>Installed on Crunchomics: Yes, the following versions of DAS Tool are installed as part of the bioinformatics share:</p>
 <ul>
-<li>CheckM2 v1.0.1</li>
-<li>CheckM2 v1.1.0</li>
+<li>DAS Tool v1.1.7</li>
 </ul>
 <p>If you have access to Crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to <a href="n.dombrowski@uva.nl">Nina Dombrowski</a>. Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don’t need to run this command):</p>
 <div class="cell">
@@ -1147,79 +1144,82 @@ div.csl-indent {
 </div>
 <p>If you want to install it yourself, you can run:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> checkm2_1.0.1 <span class="at">-c</span> bioconda <span class="at">-c</span> conda-forge checkm2=1.1.0</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate checkm2_1.1.0 </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#install database </span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">checkm2</span> database <span class="at">--download</span> <span class="at">--path</span> path_to_db_folder</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#do test run </span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">checkm2</span> testrun</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> das_tool_1.1.7 <span class="at">-c</span> bioconda das_tool</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="usage" class="level3">
 <h3 class="anchored" data-anchor-id="usage">Usage</h3>
-<p>Important:</p>
-<p>To generate the coding density information in the output file <code>quality_report.tsv</code> the fasta headers of your genomes need to have compatible names. Fasta headers that have whitespace (spaces or tabs) in them, such as <code>&gt;scaffold_193   total_depth=33.25</code> will result in only 0.0 values appearing in that column. In contrast, fasta headers without spaces, such as <code>&gt;scaffold_193</code>, will create values from 0.0 - 1.0.</p>
+<p>Input file format:</p>
+<ul>
+<li>Bins [–bins, -i]: Tab separated files of contig-IDs and bin-IDs. Contigs to bin file example:</li>
+</ul>
+<pre><code>Contig_1    bin.01
+Contig_8    bin.01
+Contig_42   bin.02
+Contig_49   bin.03</code></pre>
+<ul>
+<li>Contigs [–contigs, -c]: Assembled contigs in fasta format:</li>
+</ul>
+<pre><code>&gt;Contig_1
+ATCATCGTCCGCATCGACGAATTCGGCGAACGAGTACCCCTGACCATCTCCGATTA...
+&gt;Contig_2
+GATCGTCACGCAGGCTATCGGAGCCTCGACCCGCAAGCTCTGCGCCTTGGAGCAGG...</code></pre>
+<ul>
+<li>Proteins (optional) [–proteins]: Predicted proteins in prodigal fasta format. Header contains contig-ID and gene number:</li>
+</ul>
+<pre><code>&gt;Contig_1_1
+MPRKNKKLPRHLLVIRTSAMGDVAMLPHALRALKEAYPEVKVTVATKSLFHPFFEG...
+&gt;Contig_1_2
+MANKIPRVPVREQDPKVRATNFEEVCYGYNVEEATLEASRCLNCKNPRCVAACPVN...</code></pre>
+<p>Not all binning tools provide results in a tab separated file of contig-IDs and bin-IDs. A helper script can be used to convert a set of bins in fasta format to tabular contigs2bin file, which can be used as input for DAS Tool: <code>src/Fasta_to_Contigs2Bin.sh -h</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional:</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">## Ensure there are no spaces in the fasta headers </span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> genomes_clean</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> data/genomes/<span class="pp">*</span>.fa<span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sed</span> <span class="st">'s/^\(&gt;[^ \t]*\)[ \t].*/\1/'</span> <span class="st">"</span><span class="va">$f</span><span class="st">"</span> <span class="op">&gt;</span> data/genomes_clean/<span class="va">$(</span><span class="fu">basename</span> <span class="va">$f)</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Run Checkm2</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">## If you want to run want the older version of Checkm2, replace the env name below ith checkm2_1.0.1</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate checkm2_1.1.0</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ex">checkm2</span> predict <span class="at">--threads</span> 30 <span class="dt">\</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--input</span>  data/genomes_clean/  <span class="dt">\</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">-x</span> fa <span class="dt">\</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output-directory</span> results/checkm2 </span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">src/Fasta_to_Contigs2Bin.sh</span> <span class="at">-i</span> binner/output_folder_with_fasta_files <span class="at">-e</span> fasta <span class="op">&gt;</span> binner.contigs2bin.tsv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Example for running the consolidation step:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">DAS_Tool</span>  <span class="at">-i</span> sample_data/sample.human.gut_concoct_contigs2bin.tsv,<span class="dt">\</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    sample_data/sample.human.gut_maxbin2_contigs2bin.tsv,<span class="dt">\</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    sample_data/sample.human.gut_metabat_contigs2bin.tsv,<span class="dt">\</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    sample_data/sample.human.gut_tetraESOM_contigs2bin.tsv <span class="dt">\</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">-l</span> concoct,maxbin,metabat,tetraESOM <span class="dt">\</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">-c</span> sample_data/sample.human.gut_contigs.fa <span class="dt">\</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">-o</span> sample_output/DASToolRun1 <span class="dt">\</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--write_bins</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>After running this, you fill find all relevant information in the <code>quality_report.tsv</code> file in the output folder.</p>
-<p>Useful options (for a full list, use the help function):</p>
-<ul>
-<li><code>--genes</code> : Treat input files as protein files. [Default: False]</li>
-<li><code>-x EXTENSION</code>, <code>--extension</code> EXTENSION: Extension of input files. [Default: .fna]</li>
-<li><code>--tmpdir</code> TMPDIR : specify an alternative directory for temporary files</li>
-<li><code>--force</code>: overwrite output directory [default: not set]</li>
-<li><code>--resume</code>: Reuse Prodigal and DIAMOND results found in output directory [default: not set]</li>
-<li><code>--threads</code> num_threads, <code>-t</code> num_threads: number of CPUS to use [default: 1]</li>
-<li><code>--ttable</code> ttable: Provide a specific prodigal translation table for bins [default: automatically determine either 11 or 4]</li>
-</ul>
-<p>For more information, please visit the <a href="https://github.com/chklovski/CheckM2">manual</a>.</p>
-</section>
-<section id="common-issues-and-solutions" class="level3">
-<h3 class="anchored" data-anchor-id="common-issues-and-solutions">Common Issues and Solutions</h3>
-<ul>
-<li><strong>Issue 1:</strong> Running out of memory
-<ul>
-<li>Solution 1: If you are running CheckM2 on a device with limited RAM, you can use the <code>--lowmem</code> option to reduce DIAMOND RAM use by half at the expense of longer runtime.</li>
-</ul></li>
-<li><strong>Issue 2:</strong> The coding density column in the quality_report.tsv only shows 0.0 values
-<ul>
-<li>Solution 1: Ensure that there are no spaces in your fasta headers</li>
-</ul></li>
-<li><strong>Issue 3</strong>: CheckM2 crashes with OSError: [Errno 16] Device or resource busy errors
-<ul>
-<li>Solution: Do not use <code>--tmpdir</code> with a path in your personal folder. Either omit the flag entirely (defaults to /tmp on the compute node) or redirect the output to <code>/scratch/$USER/</code></li>
-</ul></li>
-</ul>
+<p>Options:</p>
+<pre><code>DAS_Tool [options] -i &lt;contig2bin&gt; -c &lt;contigs_fasta&gt; -o &lt;outputbasename&gt;
+
+Options:
+   -i --bins=&lt;contig2bin&gt;                   Comma separated list of tab separated contigs to bin tables.
+   -c --contigs=&lt;contigs&gt;                   Contigs in fasta format.
+   -o --outputbasename=&lt;outputbasename&gt;     Basename of output files.
+   -l --labels=&lt;labels&gt;                     Comma separated list of binning prediction names.
+   --search_engine=&lt;search_engine&gt;          Engine used for single copy gene identification (diamond/blastp/usearch) [default: diamond].
+   -p --proteins=&lt;proteins&gt;                 Predicted proteins (optional) in prodigal fasta format (&gt;contigID_geneNo).
+                                            Gene prediction step will be skipped.
+   --write_bin_evals                        Write evaluation of input bin sets.
+   --write_bins                             Export bins as fasta files.
+   --write_unbinned                         Write unbinned contigs.
+   -t --threads=&lt;threads&gt;                   Number of threads to use [default: 1].
+   --score_threshold=&lt;score_threshold&gt;      Score threshold until selection algorithm will keep selecting bins (0..1) [default: 0.5].
+   --duplicate_penalty=&lt;duplicate_penalty&gt;  Penalty for duplicate single copy genes per bin (weight b).
+                                            Only change if you know what you are doing (0..3) [default: 0.6].
+   --megabin_penalty=&lt;megabin_penalty&gt;      Penalty for megabins (weight c). Only change if you know what you are doing (0..3) [default: 0.5].
+   --dbDirectory=&lt;dbDirectory&gt;              Directory of single copy gene database [default: db].
+   --resume                                 Use existing predicted single copy gene files from a previous run.
+   --debug                                  Write debug information to log file.
+   -v --version                             Print version number and exit.
+   -h --help                                Show this.</code></pre>
+
 
 
 </section>
 </section>
-
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-chklovski" class="csl-entry" role="listitem">
-Chklovski, Alex, Donovan H. Parks, Ben J. Woodcroft, and Gene W. Tyson. n.d. <span>“CheckM2: A Rapid, Scalable and Accurate Tool for Assessing Microbial Genome Quality Using Machine Learning.”</span> <a href="https://doi.org/10.1101/2022.07.11.499243">https://doi.org/10.1101/2022.07.11.499243</a>.
+<div id="ref-Sieber2018" class="csl-entry" role="listitem">
+Sieber, Christian M. K., Alexander J. Probst, Allison Sharrar, Brian C. Thomas, Matthias Hess, Susannah G. Tringe, and Jillian F. Banfield. 2018. <span>“Recovery of Genomes from Metagenomes via a Dereplication, Aggregation and Scoring Strategy.”</span> <em>Nature Microbiology</em> 3 (7): 836–43. <a href="https://doi.org/10.1038/s41564-018-0171-1">https://doi.org/10.1038/s41564-018-0171-1</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1642,13 +1642,13 @@ Chklovski, Alex, Donovan H. Parks, Ben J. Woodcroft, and Gene W. Tyson. n.d. <sp
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/metagenomics/barrnap.html" class="pagination-link" aria-label="Barrnap">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Barrnap</span>
+      <a href="../../source/metagenomics/coverm.html" class="pagination-link" aria-label="CoverM">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">CoverM</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/metagenomics/coverm.html" class="pagination-link" aria-label="CoverM">
-        <span class="nav-page-text">CoverM</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/metagenomics/dnaapler.html" class="pagination-link" aria-label="dnaapler">
+        <span class="nav-page-text">dnaapler</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1661,7 +1661,7 @@ Chklovski, Alex, Donovan H. Parks, Ben J. Woodcroft, and Gene W. Tyson. n.d. <sp
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
 Last modified: 2026-08-03</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/checkm2.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/dastool.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
