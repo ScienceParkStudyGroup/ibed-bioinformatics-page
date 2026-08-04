@@ -67,6 +67,8 @@ MANKIPRVPVREQDPKVRATNFEEVCYGYNVEEATLEASRCLNCKNPRCVAACPVN...
 Not all binning tools provide results in a tab separated file of contig-IDs and bin-IDs. A helper script can be used to convert a set of bins in fasta format to tabular contigs2bin file, which can be used as input for DAS Tool: `src/Fasta_to_Contigs2Bin.sh -h`.
 
 ```{bash}
+conda activate das_tool_1.1.7
+
 src/Fasta_to_Contigs2Bin.sh -i binner/output_folder_with_fasta_files -e fasta > binner.contigs2bin.tsv
 ```
 

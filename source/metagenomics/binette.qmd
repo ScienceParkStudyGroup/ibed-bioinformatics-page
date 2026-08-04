@@ -16,8 +16,6 @@ bibliography: references.bib
 
 ### Installation
 
-<!-- TODO: confirm whether Binette is installed on Crunchomics as part of the bioinformatics share, and which version -->
-
 Installed on Crunchomics: yes - the following versions of Binette are installed as part of the bioinformatics share:
 
 -   Binette v1.2.1
@@ -65,6 +63,8 @@ Binette accepts bin sets in one of two formats:
 Example for running Binette with contig2bin tables:
 
 ```{bash}
+conda activate binette1.2.1
+
 binette --contig2bin_tables bin_set1_contigs2bin.tsv bin_set2_contigs2bin.tsv \
     --contigs assembly.fasta \
     --outdir binette_output \
@@ -82,11 +82,7 @@ binette --bin_dirs bin_set1_dir bin_set2_dir \
 
 After running this, you will find the selected, non-redundant, high-quality bins along with a quality report in the specified output directory (`binette_output` above).
 
-Options:
-
 ```
-Binette 1.2.1: fast and accurate binning refinement tool to constructs high quality MAGs from the output of multiple binning tools.
-
 Options:
    --version                                     Show version and exit.
    -h --help                                      Show this message and exit.

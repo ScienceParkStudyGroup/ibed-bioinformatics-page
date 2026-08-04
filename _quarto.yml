@@ -118,6 +118,7 @@ website:
               - source/metagenomics/gtdb.qmd
               - source/metagenomics/homopolish.qmd
               - source/metagenomics/medaka.qmd
+              - source/metagenomics/metabat2.qmd
               - source/metagenomics/motus.qmd
               - source/metagenomics/pseudofinder.qmd
               - source/metagenomics/pycirclize.qmd

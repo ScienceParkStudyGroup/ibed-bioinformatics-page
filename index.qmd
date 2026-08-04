@@ -165,6 +165,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
   <ul>
     <li><a href="source/phylogenomics/mafft.qmd">Mafft</a>: A multiple sequence alignment program</li>
     <li><a href="source/metagenomics/medaka.qmd">Medaka</a>: A tool for assembly polishing</li>
+    <li><a href="source/metagenomics/metabat2.qmd">MetaBAT2</a>: A tool for reconstructing genomes from metagenomic data</li>
     <li><a href="source/metagenomics/metabolic.qmd">METABOLIC</a>: A tool to predict functional trait profiles in genome datasets</li>
     <li><a href="source/metagenomics/metacerberus.qmd">MetaCerberus</a>: A tool for functional assignment</li>
     <li><a href="source/metagenomics/motus.qmd">MOTUS</a>: A tool to estimate microbial abundances in Illumina and Nanopore sequencing data</li>

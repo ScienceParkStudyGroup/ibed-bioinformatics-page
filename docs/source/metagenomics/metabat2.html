@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>binette – Bioinformatics guidance page</title>
+<title>metabat2 – Bioinformatics guidance page</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -85,8 +85,8 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/metagenomics/checkm2.html" rel="next">
-<link href="../../source/metagenomics/barrnap.html" rel="prev">
+<link href="../../source/metagenomics/motus.html" rel="next">
+<link href="../../source/metagenomics/medaka.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -305,7 +305,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/atlas.html">(Meta)genomics</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/binette.html">Binette</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/atlas.html">(Meta)genomics</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/metabat2.html">MetaBAT2</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -576,7 +576,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/binette.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../source/metagenomics/binette.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Binette</span></a>
   </div>
 </li>
@@ -636,7 +636,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/metabat2.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/metagenomics/metabat2.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">MetaBAT2</span></a>
   </div>
 </li>
@@ -1119,17 +1119,17 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#binette" id="toc-binette" class="nav-link active" data-scroll-target="#binette">Binette</a>
+  <li><a href="#metabat2" id="toc-metabat2" class="nav-link active" data-scroll-target="#metabat2">MetaBAT2</a>
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
   <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/binette.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/metabat2.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/atlas.html">(Meta)genomics</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/binette.html">Binette</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/atlas.html">(Meta)genomics</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/metabat2.html">MetaBAT2</a></li></ol></nav></header>
 
 
 <header id="title-block-header">
@@ -1138,110 +1138,94 @@ div.csl-indent {
 </header>
 
 
-<section id="binette" class="level2">
-<h2 class="anchored" data-anchor-id="binette">Binette</h2>
+<section id="metabat2" class="level2">
+<h2 class="anchored" data-anchor-id="metabat2">MetaBAT2</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p><a href="https://github.com/genotoul-bioinfo/Binette">Binette</a> is a fast and accurate binning refinement tool designed to construct high-quality metagenome-assembled genomes (MAGs) from the output of multiple binning tools. It creates hybrid bins by applying set operations (intersection, difference, union) to overlapping bins and evaluates bin quality using CheckM2 <span class="citation" data-cites="Mainguy2024">(<a href="#ref-Mainguy2024" role="doc-biblioref">Mainguy and Hoede 2024</a>)</span>.</p>
+<p><a href="https://bitbucket.org/berkeleylab/metabat/src/master/">MetaBAT2</a> is a binning tool that uses tetranucleotide frequency and coverage/abundance information (from mapping reads back to the assembly) to group contigs from a metagenome assembly into genome bins <span class="citation" data-cites="Kang2019">(<a href="#ref-Kang2019" role="doc-biblioref">Kang et al. 2019</a>)</span>.</p>
+<p>For metagenomic binning pipelines, it is recommended to use MetaBAT2 alongside other binners (i.e.&nbsp;COMEbin, SemiBin, VAMB, …), and then consolidate the results using either <a href="../../source/metagenomics/dastool.html">DAS Tool</a> or <a href="../../source/metagenomics/binette.html">Binette</a> to get the best results.</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>Installed on Crunchomics: yes - the following versions of Binette are installed as part of the bioinformatics share:</p>
-<ul>
-<li>Binette v1.2.1</li>
-</ul>
+<p>Installed on Crunchomics: yes, MetaBAT v2.18 is installed via conda.</p>
 <p>If you have access to Crunchomics and have not yet access to the bioinformatics share you can send an email with your UvA netID to <a href="n.dombrowski@uva.nl">Nina Dombrowski</a>. Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don’t need to run this command):</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>If you want to install it yourself, you can run:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> binette1.2.1 <span class="at">-c</span> bioconda <span class="at">-c</span> defaults <span class="at">-c</span> conda-forge binette=1.2.1</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Add path to the checkm2 database (only run once) </span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate binette1.2.1</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">checkm2</span> database <span class="at">--download</span> <span class="at">--path</span> add_your_desired_path/checkm/binette</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CHECKM2DB</span><span class="op">=</span><span class="st">"add_your_desired_path/checkm/binette/uniref100.KO.1.dmnd"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> metabat_2.18 <span class="at">-c</span> bioconda <span class="at">-c</span> conda-forge metabat2=2.18</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="usage" class="level3">
 <h3 class="anchored" data-anchor-id="usage">Usage</h3>
 <p>Input file format:</p>
-<p>Binette accepts bin sets in one of two formats:</p>
 <ul>
-<li>Contig2bin tables [–contig2bin_tables]: Tab separated files of contig-IDs and bin-IDs, one table per binning tool (same format as used for DAS Tool, see <a href="../../source/metagenomics/dastool.html">DAS Tool</a>):</li>
+<li>Contigs [-i/–inFile]: The metagenome assembly in fasta format.</li>
+<li>Depth file [-a/–abdFile]: A tab-separated contig depth/coverage file, generated from one or more BAM files (reads mapped back to the assembly) using the <code>jgi_summarize_bam_contig_depths</code> script that ships with MetaBAT2.</li>
 </ul>
-<pre><code>        Contig_1    bin.01
-        Contig_8    bin.01
-        Contig_42   bin.02
-        Contig_49   bin.03</code></pre>
-<ul>
-<li><p>Bin directories [–bin_dirs]: One directory per binning tool, each containing the bins as separate fasta files.</p></li>
-<li><p>Contigs [–contigs]: The full assembly in fasta format, containing all contigs referenced by the bin sets above.</p></li>
-<li><p>Proteins (optional) [–proteins]: Predicted proteins in prodigal fasta format, to skip the gene prediction step.</p></li>
-</ul>
-<p>Example for running Binette with contig2bin tables:</p>
+<p>Step 1: generate the depth file from sorted, indexed BAM file(s) (one BAM per sample if you have multiple samples for differential coverage binning):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate binette1.2.1</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">binette</span> <span class="at">--contig2bin_tables</span> bin_set1_contigs2bin.tsv bin_set2_contigs2bin.tsv <span class="dt">\</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--contigs</span> assembly.fasta <span class="dt">\</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--outdir</span> binette_output <span class="dt">\</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 10</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate metabat_2.18</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">jgi_summarize_bam_contig_depths</span> <span class="at">--outputDepth</span> depth.txt <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    sample1.sorted.bam sample2.sorted.bam</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Example for running Binette with bin directories (fasta files per bin):</p>
+<p>Step 2: run MetaBAT2 using the assembly and the depth file:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">binette</span> <span class="at">--bin_dirs</span> bin_set1_dir bin_set2_dir <span class="dt">\</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--contigs</span> assembly.fasta <span class="dt">\</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--outdir</span> binette_output <span class="dt">\</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 10</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">metabat2</span> <span class="at">-i</span> assembly.fasta <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">-a</span> depth.txt <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">-o</span> metabat2_output/bin <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">-t</span> 10</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>After running this, you will find the selected, non-redundant, high-quality bins along with a quality report in the specified output directory (<code>binette_output</code> above).</p>
-<pre><code>Options:
-   --version                                     Show version and exit.
-   -h --help                                      Show this message and exit.
-
-Input Arguments:
-   -d --bin_dirs=&lt;PATH&gt;                           List of bin folders containing each bin in a fasta file.
-   -b --contig2bin_tables=&lt;PATH&gt;                  List of contig2bin tables with two columns: contig, bin.
-   -c --contigs=&lt;PATH&gt;                            Contigs in FASTA format. [required]
-   -p --proteins=&lt;PATH&gt;                           FASTA file of predicted proteins in Prodigal format (&gt;contigID_geneID).
-                                                   Skips the gene prediction step if provided.
-
-Output and Runtime Control:
-   -o --outdir=&lt;PATH&gt;                             Output directory. [default: results]
-   --prefix=&lt;TEXT&gt;                                Prefix to add to final bin names (e.g. '--prefix sample1' will produce
-                                                   'sample1_bin1.fa', 'sample1_bin2.fa'). [default: binette]
-   -t --threads=&lt;INTEGER&gt;                         Number of threads to use. [default: 1]
-   -v --verbose                                   Enable verbose mode (show detailed debug information).
-   -q --quiet                                     Enable quiet mode (only show warnings and errors).
-   --debug / --no-debug                           Activate debug mode. [default: no-debug]
-   --progress / --no-progress                     Show progress bar while fetching pangenomes (disable with
-                                                   --no-progress). [default: progress]
-   --write-fasta-bins / --no-write-fasta-bins     Write final selected bins as FASTA files (disable with
-                                                   --no-write-fasta-bins). [default: write-fasta-bins]
-
-Bin Filtering and Scoring:
-   --min_completeness=&lt;INTEGER&gt;                   Minimum completeness required for intermediate bin creation and
-                                                   final bin selection. [default: 40]
-   --max_contamination=&lt;INTEGER&gt;                  Maximum contamination allowed for intermediate bin creation and
-                                                   final bin selection. [default: 10]
-   --min_length=&lt;INTEGER&gt;                         Minimum length (bp) required for intermediate bin creation and
-                                                   final bin selection. [default: 200000]
-   --max_length=&lt;INTEGER&gt;                         Maximum length (bp) allowed for intermediate bin creation and
-                                                   final bin selection. [default: 10000000]
-   -w --contamination_weight=&lt;FLOAT&gt;               Bins are scored as: completeness - weight * contamination. A lower
-                                                   weight favors completeness over low contamination. [default: 2.0]
-
-Advanced Options:
-   -e --fasta_extensions=&lt;TEXT&gt;                   FASTA file extensions to search for in bin directories (used with
-                                                   --bin_dirs). [default: .fasta, .fa, .fna]
-   --checkm2_db=&lt;PATH&gt;                            Path to CheckM2 diamond database. By default the database set via
-                                                   &lt;checkm2 database&gt; is used.
-   --low_mem                                      Enable low-memory mode for Diamond.
-   --resume / --no-resume                         Resume mode: reuse existing temporary files if possible.
-                                                   [default: no-resume]</code></pre>
+<p>After running this, you will find the resulting bins as separate fasta files (<code>bin.1.fa</code>, <code>bin.2.fa</code>, …) in the specified output directory (<code>metabat2_output</code> above).</p>
+<pre><code>Allowed options:
+  -h [ --help ]                     produce help message
+  -i [ --inFile ] arg               Contigs in (gzipped) fasta file format [Mandatory]
+  -o [ --outFile ] arg              Base file name and path for each bin. The default output is fasta format.
+                                    Use -l option to output only contig names [Mandatory].
+  -a [ --abdFile ] arg              A file having mean and variance of base coverage depth (tab delimited;
+                                    the first column should be contig names, and the first row will be
+                                    considered as the header and be skipped) [Optional].
+  -m [ --minContig ] arg (=2500)    Minimum size of a contig for binning (should be &gt;=1500).
+  --minSmallContig arg (=1000)      Minimum size of a small contig for recruiting into established bins
+                                    (should be &gt;=500)
+  --maxP arg (=95)                  Percentage of 'good' contigs considered for binning decided by connection
+                                    among contigs. The greater, the more sensitive.
+  --minS arg (=60)                  Minimum score of a edge for binning (should be between 1 and 99). The
+                                    greater, the more specific.
+  --maxEdges arg (=200)             Maximum number of edges per node. The greater, the more sensitive.
+  --pTNF arg (=0)                   TNF probability cutoff for building TNF graph. Use a %% value between 1
+                                    and 100 to skip the auto preparation step. (0: auto).
+  --noAdd                           Turning off additional binning for lost or small contigs.
+  --minRecruitingSize arg (=10)     (if not noAdd) Minimum cluster size for recruiting of small and leftover
+                                    contigs
+  --recruitToAbdCentroid            [EXPERIMENTAL] If set (and not noAdd), use the weighted-by-abundance
+                                    centroid of a cluster to recruit small and lost contigs.  Potentially
+                                    reduces sensitivity and improves speed
+  --recruitWithTNF arg (=0)         [EXPERIMENTAL] If non-zero (and not noAdd), uses this factor against the
+                                    large-contig TNF threshold to require small and lost contigs have at
+                                    least that TNF distance from the centroid of the recruiting cluster.
+                                    Recommend 0.9-1.0.
+  --cvExt                           When a coverage file without variance (from third party tools) is used
+                                    instead of abdFile from jgi_summarize_bam_contig_depths.
+  --fullHeader                      Preserve full FASTA headers from input assembly (default: trim at first
+                                    space).
+  -x [ --minCV ] arg (=1)           Minimum mean coverage of a contig in each library for binning.
+  --minCVSum arg (=1)               Minimum total effective mean coverage of a contig (sum of depth over
+                                    minCV) for binning.
+  -s [ --minClsSize ] arg (=200000) Minimum size of a bin as the output.
+  -t [ --numThreads ] arg (=0)      Number of threads to use (0: use all cores).
+  -l [ --onlyLabel ]                Output only sequence labels as a list in a column without sequences.
+  --saveCls                         Save cluster memberships as a matrix format
+  --unbinned                        Generate [outFile].unbinned.fa file for unbinned contigs
+  --noBinOut                        No bin output. Usually combined with --saveCls to check only contig
+                                    memberships
+  --noSampleDepths                  Do not include per-sample depths in bin fasta headers
+  --seed arg (=0)                   For exact reproducibility. (0: use random seed)
+  -d [ --debug ]                    Debug output
+  -q [ --quiet ]                    Be less verbose verbose output
+  -v [ --verbose ]                  Be more verbose in output (on by default)</code></pre>
 
 
 
@@ -1249,8 +1233,8 @@ Advanced Options:
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-Mainguy2024" class="csl-entry" role="listitem">
-Mainguy, Jean, and Claire Hoede. 2024. <span>“Binette: A Fast and Accurate Bin Refinement Tool to Construct High-Quality Metagenome Assembled Genomes.”</span> <em>Journal of Open Source Software</em> 9 (102): 6782. <a href="https://doi.org/10.21105/joss.06782">https://doi.org/10.21105/joss.06782</a>.
+<div id="ref-Kang2019" class="csl-entry" role="listitem">
+Kang, Dongwan D., Feng Li, Edward Kirton, Ashleigh Thomas, Rob Egan, Hong An, and Zhong Wang. 2019. <span>“MetaBAT 2: An Adaptive Binning Algorithm for Robust and Efficient Genome Reconstruction from Metagenome Assemblies.”</span> <em>PeerJ</em> 7: e7359. <a href="https://doi.org/10.7717/peerj.7359">https://doi.org/10.7717/peerj.7359</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1673,13 +1657,13 @@ Mainguy, Jean, and Claire Hoede. 2024. <span>“Binette: A Fast and Accurate Bin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/metagenomics/barrnap.html" class="pagination-link" aria-label="Barrnap">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Barrnap</span>
+      <a href="../../source/metagenomics/medaka.html" class="pagination-link" aria-label="Medaka">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Medaka</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/metagenomics/checkm2.html" class="pagination-link" aria-label="CheckM2">
-        <span class="nav-page-text">CheckM2</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/metagenomics/motus.html" class="pagination-link" aria-label="mOTUS">
+        <span class="nav-page-text">mOTUS</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1692,7 +1676,7 @@ Mainguy, Jean, and Claire Hoede. 2024. <span>“Binette: A Fast and Accurate Bin
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
 Last modified: 2026-08-04</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/binette.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/metabat2.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

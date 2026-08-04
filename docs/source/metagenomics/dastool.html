@@ -636,6 +636,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/metabat2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MetaBAT2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/motus.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">mOTUS</span></a>
   </div>
@@ -1180,7 +1186,9 @@ MPRKNKKLPRHLLVIRTSAMGDVAMLPHALRALKEAYPEVKVTVATKSLFHPFFEG...
 MANKIPRVPVREQDPKVRATNFEEVCYGYNVEEATLEASRCLNCKNPRCVAACPVN...</code></pre>
 <p>Not all binning tools provide results in a tab separated file of contig-IDs and bin-IDs. A helper script can be used to convert a set of bins in fasta format to tabular contigs2bin file, which can be used as input for DAS Tool: <code>src/Fasta_to_Contigs2Bin.sh -h</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">src/Fasta_to_Contigs2Bin.sh</span> <span class="at">-i</span> binner/output_folder_with_fasta_files <span class="at">-e</span> fasta <span class="op">&gt;</span> binner.contigs2bin.tsv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate das_tool_1.1.7</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">src/Fasta_to_Contigs2Bin.sh</span> <span class="at">-i</span> binner/output_folder_with_fasta_files <span class="at">-e</span> fasta <span class="op">&gt;</span> binner.contigs2bin.tsv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Example for running the consolidation step:</p>
 <div class="cell">
@@ -1667,7 +1675,7 @@ Sieber, Christian M. K., Alexander J. Probst, Allison Sharrar, Brian C. Thomas, 
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-08-03</p>
+Last modified: 2026-08-04</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/dastool.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
