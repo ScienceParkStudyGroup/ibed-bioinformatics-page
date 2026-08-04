@@ -1,0 +1,65 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+## COMEBin
+
+### Introduction
+
+[COMEBin](https://github.com/ziyewang/COMEBin) is a binning tool that uses contrastive multiple-view representation learning (combining sequence composition and coverage/abundance information from mapping reads back to the assembly) to group contigs from a metagenome assembly into genome bins [@Wang2024].
+
+For metagenomic binning pipelines, it is recommended to use COMEbin alongside other binners (i.e. MetaBAT2, SemiBin, VAMB, ...), and then consolidate the results using either [DAS Tool](dastool.qmd) or [Binette](binette.qmd) to get the best results.
+
+### Installation
+
+Installed on Crunchomics: Yes, COMEBin v.1.0.3 is installed on Crunchomics.
+
+If you have access to Crunchomics and have not yet access to the bioinformatics share you can send an email with your UvA netID to [Nina Dombrowski](n.dombrowski@uva.nl). Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run:
+
+```{bash}
+mamba create -n comebin_env_1.0.3 -c bioconda -c conda-forge comebin=1.0.3
+```
+
+### Usage
+
+Input file format:
+
+-   Contigs \[-a\]: The metagenomic assembly file in fasta format.
+-   Bam files \[-p\]: Path to the directory containing sorted, indexed BAM file(s) from mapping reads back to the assembly (one BAM per sample if you have multiple samples for differential coverage binning).
+
+```{bash}
+conda activate comebin_env_1.0.3
+
+run_comebin.sh -a assembly.fasta \
+    -o comebin_output \
+    -p bam_files/ \
+    -t 10
+```
+
+Usage information:
+
+```         
+bash run_comebin.sh [options] -a contig_file -o output_dir -p bam_file_path
+Options:
+
+  -a STR          metagenomic assembly file
+  -o STR          output directory
+  -p STR          path to access to the bam files
+  -n INT          number of views for contrastive multiple-view learning (default=6)
+  -t INT          number of threads (default=5)
+  -l FLOAT        temperature in loss function (default=0.07 for assemblies with an N50 > 10000, default=0.15 for others)
+  -e INT          embedding size for comebin network (default=2048)
+  -c INT          embedding size for coverage network (default=2048)
+  -b INT          batch size for training process (default=1024)
+```

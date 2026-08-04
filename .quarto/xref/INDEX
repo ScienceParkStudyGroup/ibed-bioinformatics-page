@@ -350,5 +350,8 @@
   },
   "source/metagenomics/metabat2.qmd": {
     "metabat2.html": "b6c48635"
+  },
+  "source/metagenomics/comebin.qmd": {
+    "comebin.html": "78ee70a7"
   }
 }
