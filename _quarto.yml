@@ -125,6 +125,7 @@ website:
               - source/metagenomics/pycirclize.qmd
               - source/metagenomics/pygenometracks.qmd
               - source/metagenomics/quast.qmd
+              - source/metagenomics/semibin.qmd
               - source/metagenomics/singlem.qmd
               - source/metagenomics/trycycler.qmd
               - source/nanopore/autocycler.qmd

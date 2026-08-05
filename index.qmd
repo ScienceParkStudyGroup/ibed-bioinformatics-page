@@ -194,6 +194,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
     <li><a href="source/metatranscriptomics/rseqc.qmd">RSeQC</a>: A tool to evaluate high throughput sequence data especially RNA-seq data</li>
     <li><a href="source/core_tools/rsem.qmd">RSEM</a>: A software package for estimating gene and isoform expression levels from RNA-Seq data</li>
     <li><a href="source/core_tools/samtools.qmd">Samtools</a>: A tool to manipulating alignments in SAM/BAM format</li>
+    <li><a href="source/metagenomics/semibin.qmd">SemiBin2</a>: A tool for reconstructing genomes from metagenomic data</li>
     <li><a href="source/core_tools/seqkit.qmd">SeqKit</a>: A tool for FASTA/Q file manipulation</li>
     <li><a href="source/metagenomics/signalp6.qmd">SignalP6</a>: A tool to predict the presence of signal peptides</li>
     <li><a href="source/metagenomics/singlem.qmd">SingleM</a>: A tool for taxonomic profiling of shotgun metagenomes</li>
