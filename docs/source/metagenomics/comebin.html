@@ -1153,14 +1153,26 @@ div.csl-indent {
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>Installed on Crunchomics: Yes, COMEBin v.1.0.3 is installed on Crunchomics.</p>
+<p>Installed on Crunchomics: Yes, COMEBin v.1.0.4 is installed on Crunchomics.</p>
 <p>If you have access to Crunchomics and have not yet access to the bioinformatics share you can send an email with your UvA netID to <a href="n.dombrowski@uva.nl">Nina Dombrowski</a>. Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don’t need to run this command):</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>If you want to install it yourself, you can run:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> comebin_env_1.0.3 <span class="at">-c</span> bioconda <span class="at">-c</span> conda-forge comebin=1.0.3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> comebin_1.0.4 <span class="at">-c</span> bioconda <span class="at">-c</span> conda-forge comebin=1.0.4</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Important</strong>: COMEBin installs a version of scikit-learn that is too new for one of its own scripts: the script calls a scikit-learn function with an option (<code>n_jobs</code>) that scikit-learn has since removed, so a binning run fails partway through with a <code>TypeError: __init__() got an unexpected keyword argument 'n_jobs'</code>. COMEBin has not been updated since March 2024, so this is unlikely to be fixed upstream soon. Until it is, apply this one-time patch to the installed copy of the script (adjust the environment name if you used a different one):</p>
+<p><em>Last verified working: 2026-08-04 (COMEBin v1.0.4). If you hit a different error after a fresh install, this patch may be outdated — check the <a href="https://github.com/ziyewang/COMEBin">COMEBin GitHub</a> for updates before re-patching.</em></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate comebin_1.0.4</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">ENVBIN</span><span class="op">=</span><span class="st">"</span><span class="va">$CONDA_PREFIX</span><span class="st">/bin/COMEBin"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="st">"</span><span class="va">$ENVBIN</span><span class="st">/cluster.py"</span> <span class="st">"</span><span class="va">$ENVBIN</span><span class="st">/cluster.py.orig"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-i</span> <span class="st">'s/n_jobs=-1, //'</span> <span class="st">"</span><span class="va">$ENVBIN</span><span class="st">/cluster.py"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Because the removed option was the one COMEBin used to control how many CPUs it uses for this step, you need to set the number of threads via an environment variable inside your SLURM script by adding this line on top of your job script:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">OMP_NUM_THREADS</span><span class="op">=</span><span class="va">$SLURM_CPUS_PER_TASK</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="usage" class="level3">
@@ -1171,12 +1183,12 @@ div.csl-indent {
 <li>Bam files [-p]: Path to the directory containing sorted, indexed BAM file(s) from mapping reads back to the assembly (one BAM per sample if you have multiple samples for differential coverage binning).</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate comebin_env_1.0.3</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">run_comebin.sh</span> <span class="at">-a</span> assembly.fasta <span class="dt">\</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">-o</span> comebin_output <span class="dt">\</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">-p</span> bam_files/ <span class="dt">\</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">-t</span> 10</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate comebin_env_1.0.3</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">run_comebin.sh</span> <span class="at">-a</span> assembly.fasta <span class="dt">\</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">-o</span> comebin_output <span class="dt">\</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">-p</span> bam_files/ <span class="dt">\</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">-t</span> 10</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Usage information:</p>
 <pre><code>bash run_comebin.sh [options] -a contig_file -o output_dir -p bam_file_path
@@ -1640,7 +1652,7 @@ Wang, Ziye, Ronghui You, Haitao Han, Wei Liu, Fengzhu Sun, and Shanfeng Zhu. 202
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-08-04</p>
+Last modified: 2026-08-05</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/comebin.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

@@ -17,7 +17,7 @@ For metagenomic binning pipelines, it is recommended to use COMEbin alongside ot
 
 ### Installation
 
-Installed on Crunchomics: Yes, COMEBin v.1.0.3 is installed on Crunchomics.
+Installed on Crunchomics: Yes, COMEBin v.1.0.4 is installed on Crunchomics.
 
 If you have access to Crunchomics and have not yet access to the bioinformatics share you can send an email with your UvA netID to [Nina Dombrowski](n.dombrowski@uva.nl). Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
 
@@ -28,7 +28,24 @@ conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/minicon
 If you want to install it yourself, you can run:
 
 ```{bash}
-mamba create -n comebin_env_1.0.3 -c bioconda -c conda-forge comebin=1.0.3
+mamba create -n comebin_1.0.4 -c bioconda -c conda-forge comebin=1.0.4
+```
+
+**Important**: COMEBin installs a version of scikit-learn that is too new for one of its own scripts: the script calls a scikit-learn function with an option (`n_jobs`) that scikit-learn has since removed, so a binning run fails partway through with a `TypeError: __init__() got an unexpected keyword argument 'n_jobs'`. COMEBin has not been updated since March 2024, so this is unlikely to be fixed upstream soon. Until it is, apply this one-time patch to the installed copy of the script (adjust the environment name if you used a different one):
+
+*Last verified working: 2026-08-04 (COMEBin v1.0.4). If you hit a different error after a fresh install, this patch may be outdated — check the [COMEBin GitHub](https://github.com/ziyewang/COMEBin) for updates before re-patching.*
+
+```{bash}
+conda activate comebin_1.0.4
+ENVBIN="$CONDA_PREFIX/bin/COMEBin"
+cp "$ENVBIN/cluster.py" "$ENVBIN/cluster.py.orig"
+sed -i 's/n_jobs=-1, //' "$ENVBIN/cluster.py"
+```
+
+Because the removed option was the one COMEBin used to control how many CPUs it uses for this step, you need to set the number of threads via an environment variable inside your SLURM script  by adding this line on top of your job script:
+
+```{bash}
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 ```
 
 ### Usage
