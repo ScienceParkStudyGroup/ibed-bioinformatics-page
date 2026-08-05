@@ -30,7 +30,7 @@ Installed on crunchomics: Yes,
 conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
 ```
 
-If you want to install it yourself, you can run:
+If you want to install it yourself, you can run the command below — it doesn't pin a specific version, so it will install whatever the latest release is at the time you run it.
 
 ```{bash}
 mamba create --name star -c bioconda star

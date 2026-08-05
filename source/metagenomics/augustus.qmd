@@ -28,7 +28,7 @@ Installed on crunchomics: Yes,
 conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
 ```
 
-If you want to install it yourself via docker or singularity follow the instructions on the [github page](https://github.com/Gaius-Augustus/Augustus). If you lack the tools or necessary permission, it is also possible to setup Augustus via conda:
+If you want to install it yourself via docker or singularity follow the instructions on the [github page](https://github.com/Gaius-Augustus/Augustus). If you lack the tools or necessary permission, it is also possible to setup Augustus via conda — cloning the repo like this will get you whatever is on the default branch at the time you run it, not a pinned version:
 
 ```{bash}
 # Change the directory to where you want to install augustus

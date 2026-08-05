@@ -46,7 +46,7 @@ Afterwards, you can activate the environment with:
 conda activate trycycler_0.5.5
 ```
 
-If you want to install it yourself, you can run:
+If you want to install it yourself, the command below installs the version verified on Crunchomics. Before running it, check the [Trycycler wiki](https://github.com/rrwick/Trycycler/wiki) for a newer version and swap the version number if one is available.
 
 ```{bash}
 mamba create -c bioconda -c conda-forge --name trycycler_0.5.5 trycycler=0.5.5

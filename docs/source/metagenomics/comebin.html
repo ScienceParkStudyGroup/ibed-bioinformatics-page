@@ -1158,7 +1158,7 @@ div.csl-indent {
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>If you want to install it yourself, you can run:</p>
+<p>If you want to install it yourself, the command below installs the version verified on Crunchomics. Before running it, check the <a href="https://github.com/ziyewang/COMEBin/releases">COMEBin releases page</a> for a newer version and swap the version number if one is available — just be aware that a newer version may not have the scikit-learn fix below yet, so you may need to work out a similar patch yourself if you hit the same error.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> comebin_1.0.4 <span class="at">-c</span> bioconda <span class="at">-c</span> conda-forge comebin=1.0.4</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>

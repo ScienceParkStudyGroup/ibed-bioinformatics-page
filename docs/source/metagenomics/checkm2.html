@@ -85,7 +85,7 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/metagenomics/coverm.html" rel="next">
+<link href="../../source/metagenomics/comebin.html" rel="next">
 <link href="../../source/metagenomics/binette.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -588,6 +588,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/comebin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">COMEBin</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/coverm.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">CoverM</span></a>
   </div>
@@ -632,6 +638,12 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/medaka.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Medaka</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/metabat2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MetaBAT2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1135,10 +1147,10 @@ div.csl-indent {
 
 <section id="checkm2" class="level2" style="text-align: justify">
 <h2 class="anchored" data-anchor-id="checkm2">CheckM2</h2>
-<p>CheckM2 is a software to assess the quality (completeness, contamination, coding density, etc.) of a genome assembly <span class="citation" data-cites="chklovski">(<a href="#ref-chklovski" role="doc-biblioref">Chklovski et al., n.d.</a>)</span>. Unlike CheckM1, CheckM2 has universally trained machine learning models it applies regardless of taxonomic lineage to predict the completeness and contamination of genomic bins. This allows it to incorporate many lineages in its training set that have few - or even just one - high-quality genomic representatives, by putting it in the context of all other organisms in the training set. As a result of this machine learning framework, CheckM2 is also highly accurate on organisms with reduced genomes or unusual biology, such as the Nanoarchaeota or Patescibacteria.</p>
-<p>For more information, check out the tools <a href="#0">github page</a>.</p>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>CheckM2 is a software to assess the quality (completeness, contamination, coding density, etc.) of a genome assembly <span class="citation" data-cites="chklovski">(<a href="#ref-chklovski" role="doc-biblioref">Chklovski et al., n.d.</a>)</span>. Unlike CheckM1, CheckM2 has universally trained machine learning models it applies regardless of taxonomic lineage to predict the completeness and contamination of genomic bins. This allows it to incorporate many lineages in its training set that have few - or even just one - high-quality genomic representatives, by putting it in the context of all other organisms in the training set. As a result of this machine learning framework, CheckM2 is also highly accurate on organisms with reduced genomes or unusual biology, such as the Nanoarchaeota or Patescibacteria.</p>
+<p>For more information, check out the tools <a href="https://github.com/chklovski/CheckM2">github page</a>.</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
@@ -1151,9 +1163,9 @@ div.csl-indent {
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>If you want to install it yourself, you can run:</p>
+<p>If you want to install it yourself, the command below installs the version verified on Crunchomics. Before running it, check the <a href="https://github.com/chklovski/CheckM2">GitHub</a> for a newer version and swap the version number if one is available.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> checkm2_1.0.1 <span class="at">-c</span> bioconda <span class="at">-c</span> conda-forge checkm2=1.1.0</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> checkm2_1.1.0 <span class="at">-c</span> bioconda <span class="at">-c</span> conda-forge checkm2=1.1.0</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate checkm2_1.1.0 </span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1653,8 +1665,8 @@ Chklovski, Alex, Donovan H. Parks, Ben J. Woodcroft, and Gene W. Tyson. n.d. <sp
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/metagenomics/coverm.html" class="pagination-link" aria-label="CoverM">
-        <span class="nav-page-text">CoverM</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/metagenomics/comebin.html" class="pagination-link" aria-label="COMEBin">
+        <span class="nav-page-text">COMEBin</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1666,7 +1678,7 @@ Chklovski, Alex, Donovan H. Parks, Ben J. Woodcroft, and Gene W. Tyson. n.d. <sp
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-08-03</p>
+Last modified: 2026-08-05</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/checkm2.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

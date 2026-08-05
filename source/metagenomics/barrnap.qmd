@@ -26,7 +26,7 @@ Installed on Crunchomics: Yes,
 conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
 ```
 
-If you want to install it yourself, you can run:
+If you want to install it yourself, the command below installs the version verified on Crunchomics. Before running it, check the tool's [GitHub releases page](https://github.com/tseemann/barrnap/releases) for a newer version and swap the version number if one is available.
 
 ```{bash}
 mamba create --name barrnap_0.9 -c bioconda barrnap=0.9

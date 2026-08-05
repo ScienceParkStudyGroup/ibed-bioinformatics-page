@@ -32,7 +32,7 @@ Installed on crunchomics: Yes,
 conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
 ```
 
-If you want to install it yourself, you can run:
+If you want to install it yourself, you can run the commands below — cloning the repo like this will get you whatever is on the default branch at the time you run it, not a pinned version.
 
 ```{bash}
 cd /home/ndombro/personal/software

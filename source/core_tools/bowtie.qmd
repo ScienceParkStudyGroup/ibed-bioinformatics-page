@@ -19,7 +19,7 @@ For more detailed information, please visit [the manual](https://bowtie-bio.sour
 
 ### Installation
 
-Installed on crunchomics: Yes, Bowtie v2.4.1 is installed. If you want to install it yourself, you can run:
+Installed on crunchomics: Yes, Bowtie v2.4.1 is installed. If you want to install it yourself, the command below installs the version verified on Crunchomics. Before running it, check the [install notes](https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#obtaining-bowtie-2) for a newer version and swap the version number if one is available.
 
 ```{bash}
 mamba create -n bowtie_2.5.3

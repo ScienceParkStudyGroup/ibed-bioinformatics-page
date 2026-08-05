@@ -22,7 +22,7 @@ For more information, visit the [manual](https://github.com/rrwick/Filtlong)
 
 Installed on crunchomics: Yes, as part of the bioinformatics share. If you have access to crunchomics you can be added to the bioinformatics share by sending an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).
 
-If you want to install it yourself, you can run:
+If you want to install it yourself, the command below installs the version verified on Crunchomics. Before running it, check the tool's [GitHub](https://github.com/rrwick/Filtlong) for a newer version and swap the version number if one is available.
 
 ```{bash}
 mamba create --name filtlong_0.2.1 -c bioconda filtlong=0.2.1

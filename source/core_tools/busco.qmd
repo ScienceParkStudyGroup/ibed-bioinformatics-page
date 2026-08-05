@@ -30,7 +30,7 @@ Installed on crunchomics: Yes,
 conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
 ```
 
-If you want to install it yourself, you can run:
+If you want to install it yourself, the command below installs the version verified on Crunchomics. Before running it, check the tool's [Gitlab](https://gitlab.com/ezlab/busco) for a newer version and swap the version number if one is available.
 
 ```{bash}
 mamba create -n busco_5.8.0 -c bioconda -c conda-forge busco=5.8.0

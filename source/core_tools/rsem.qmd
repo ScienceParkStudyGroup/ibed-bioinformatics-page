@@ -24,7 +24,7 @@ Installed on crunchomics: Yes,
 -   RSEM v1.3.3 is installed as part of the bioinformatics share. If you have access to crunchomics and have not yet access to the bioinformatics you can send an email with your Uva netID to [Nina Dombrowski](n.dombrowski@uva.nl).
 -   Individual RSEM modules can be found in this folder `/zfs/omics/projects/bioinformatics/software/RSEM_1.3.3/bin/`
 
-If you want to install it yourself, you can run:
+If you want to install it yourself, you can run the commands below — cloning the repo like this will get you whatever is on the default branch at the time you run it, not a pinned version.
 
 ```{bash}
 cd <path_to_software_folder>

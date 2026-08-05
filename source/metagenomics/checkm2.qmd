@@ -11,11 +11,11 @@ bibliography: references.bib
 
 ## CheckM2
 
+### Introduction
+
 CheckM2 is a software to assess the quality (completeness, contamination, coding density, etc.) of a genome assembly [@chklovski]. Unlike CheckM1, CheckM2 has universally trained machine learning models it applies regardless of taxonomic lineage to predict the completeness and contamination of genomic bins. This allows it to incorporate many lineages in its training set that have few - or even just one - high-quality genomic representatives, by putting it in the context of all other organisms in the training set. As a result of this machine learning framework, CheckM2 is also highly accurate on organisms with reduced genomes or unusual biology, such as the Nanoarchaeota or Patescibacteria.
 
-For more information, check out the tools [github page](#0).
-
-### Introduction
+For more information, check out the tools [github page](https://github.com/chklovski/CheckM2).
 
 ### Installation
 
@@ -30,10 +30,10 @@ If you have access to Crunchomics and have not yet access to the bioinformatics 
 conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
 ```
 
-If you want to install it yourself, you can run:
+If you want to install it yourself, the command below installs the version verified on Crunchomics. Before running it, check the [GitHub](https://github.com/chklovski/CheckM2) for a newer version and swap the version number if one is available.
 
 ```{bash}
-mamba create -n checkm2_1.0.1 -c bioconda -c conda-forge checkm2=1.1.0
+mamba create -n checkm2_1.1.0 -c bioconda -c conda-forge checkm2=1.1.0
 
 conda activate checkm2_1.1.0 
 

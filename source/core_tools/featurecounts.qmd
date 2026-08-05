@@ -23,7 +23,7 @@ A detailed documentation can be downloaded from [here](https://subread.sourcefor
 
 Installed on crunchomics: No
 
-If you want to install it yourself, you can run:
+If you want to install it yourself, the command below installs the version we tested. Before running it, check the [FeatureCounts documentation](https://subread.sourceforge.net/featureCounts.html) for a newer version and swap the version number if one is available.
 
 ```{bash}
 mamba create -n subread_2.0.6
