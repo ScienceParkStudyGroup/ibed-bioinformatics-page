@@ -356,5 +356,8 @@
   },
   "source/metagenomics/semibin.qmd": {
     "semibin.html": "9ebfad17"
+  },
+  "source/metagenomics/vamb.qmd": {
+    "vamb.html": "35c43613"
   }
 }

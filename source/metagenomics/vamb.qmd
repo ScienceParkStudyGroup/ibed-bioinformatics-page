@@ -1,0 +1,103 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+## VAMB
+
+### Introduction
+
+[VAMB](https://github.com/RasmussenLab/vamb) is a family of metagenomic binners that feeds k-mer composition and per-sample abundance information into a variational autoencoder (VAE, a type of neural network) and clusters the resulting embedding to group contigs from a metagenome assembly into genome bins [@Nissen2021].
+
+The VAMB project comes with several related binners, which can be used depending on what extra information you have available: the default **Vamb** binner (contigs + reads only), **TaxVamb** (also uses taxonomic annotations of the contigs, generally more accurate but needs an extra annotation step), and **AVAMB** (marked obsolete in the current docs). This page only covers the default `vamb bin default` binner; see the [VAMB docs](https://vamb.readthedocs.io/en/latest/how_to_run.html) if you want to explore the other modes.
+
+For metagenomic binning pipelines, it is recommended to use VAMB alongside other binners (i.e. MetaBAT2, COMEbin, SemiBin2, ...), and then consolidate the results using either [DAS Tool](dastool.qmd) or [Binette](binette.qmd) to get the best results.
+
+### Installation
+
+Installed on Crunchomics: yes, VAMB v5.0.4 is installed via pip inside a dedicated conda environment (env name `vamb5.0.4`).
+
+If you have access to Crunchomics and have not yet access to the bioinformatics share you can send an email with your UvA netID to [Nina Dombrowski](n.dombrowski@uva.nl). Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+
+```{bash}
+conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
+```
+
+If you want to install it yourself, you can run the commands below. `pip install vamb` doesn't pin a specific version, so it will install whatever the latest release is on PyPI at the time you run it. If you need the exact version verified on Crunchomics instead, install with `pip install vamb==5.0.4`; check the [VAMB GitHub releases page](https://github.com/RasmussenLab/vamb/releases) for whether a newer version is available before doing so.
+
+```{bash}
+mamba create -n vamb5.0.4 -c conda-forge python=3.10.0
+
+conda activate vamb5.0.4
+pip install vamb
+```
+
+### Usage
+
+Input file format:
+
+-   Contigs \[--fasta\]: The metagenome assembly in (optionally gzipped) fasta format.
+-   Abundance information: either \[--bamdir\], a directory of sorted BAM files (reads mapped back to the assembly, one BAM per sample), or \[--abundance_tsv\], a precomputed abundance table. The [VAMB docs](https://vamb.readthedocs.io/en/latest/how_to_run.html) currently show `--abundance_tsv` (generated via `strobealign --aemb` and the `src/merge_aemb.py` helper script) as the quickstart/recommended path.
+
+**Note**: the example below uses `--bamdir` rather than the docs' `--abundance_tsv` quickstart, to keep the same BAM-based mapping workflow used for the other binners on this site ([MetaBAT2](metabat2.qmd), [COMEBin](comebin.qmd), [SemiBin2](semibin.qmd)). Both are valid ways to give VAMB abundance information and feel free to try `--abundance_tsv` if you want a faster or more current workflow.
+
+VAMB's default multi-sample workflow expects a single, concatenated contig catalogue built from separate per-sample assemblies, with contigs renamed to a `S{sample}C{original contig name}` scheme (via a concatenation script the docs provide), plus reads from every sample mapped back to that combined catalogue. Binning is then run once on the whole catalogue, and the `-o`/binsplit separator is used afterwards to split the resulting bins back out per sample.
+
+The example below does not do this — it bins each sample's own assembly separately (one call to `vamb bin default` per sample), the same single-sample-per-run design used for MetaBAT2/COMEBin/SemiBin2 elsewhere on this site. Because there is no `S{sample}C{contig}` naming in that case, binsplitting doesn't apply and must be disabled with `-o ''`.
+
+```{bash}
+conda activate vamb5.0.4
+
+vamb bin default \
+    --fasta my_assembly.fasta \
+    --bamdir bam_dir \
+    --outdir binning/vamb \
+    -p 10 \
+    -o '' \
+    --minfasta 200000
+```
+
+Notes on the flags used above:
+
+-   `--outdir` must **not** already exist (VAMB creates it itself) — its parent directory must exist, so only `mkdir -p` the parent, not `$outdir` itself.
+-   `-o ''` disables binsplitting, since (as above) it doesn't apply when binning one sample's assembly at a time.
+-   `--minfasta 200000` is needed for VAMB to actually write bin fasta files at all — by default it only writes a `clusters.tsv` file. 200 kbp matches the value used in VAMB's own quickstart example.
+
+After running this, you will find the resulting bins as separate fasta files in the `bins/` subfolder of the specified output directory.
+
+```         
+usage: vamb bin default [options]
+
+Bin using a VAE that merges composition and abundance information.
+
+Required arguments: Outdir, at least one composition input and at least one abundance input
+
+Help and version:
+  -h, --help        Print help and exit
+  --version         show program's version number and exit
+
+Output:
+  --outdir          Output directory to create
+
+General optional arguments:
+  -m                Ignore contigs shorter than this [2000]
+  -p                number of threads to use where customizable [8]
+  --norefcheck      Skip reference name hashing check [False]
+  --cuda            Use GPU to train & cluster [False]
+  --seed            Random seed (determinism not guaranteed)
+
+Composition input:
+  --fasta           Path to fasta file
+  --composition     Path to .npz of composition
+
+Abundance input:
+  --bamdir          Dir with .bam files to use
+  --abundance_tsv   Path to TSV file of precomputed abundances with header being "contigname(\t<samplename>)*"
+  --abundance       Path to .npz of abundances
+```
+
+Note: `--minfasta` and `-o` (binsplit separator) aren't in the block above — they belong to a separate output-writing step that `vamb bin default` runs internally, so they don't show up under `vamb bin default -h`'s own option groups, but they are accepted and used as shown in the example above.

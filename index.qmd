@@ -153,7 +153,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 </details>
 
 <details class="tool-az">
-<summary>Q-T</summary>
+<summary>Q-Z</summary>
   <ul>
     <li><a href="source/metagenomics/quast.qmd">QUAST</a>: A Quality Assessment Tool for Genome Assemblies</li>
     <li><a href="source/metatranscriptomics/ribodetector.qmd">Ribodetector</a>: Detect and remove rRNA sequences from metagenomic, metatranscriptomic, and ncRNA sequencing data</li>
@@ -171,6 +171,7 @@ Next, to the carpentries you will find a list of tutorials for more specific top
     <li><a href="source/metatranscriptomics/transdecoder.qmd">TransDecoder</a>: A tool to identify candidate coding regions within transcript sequences</li>
     <li><a href="source/metagenomics/trycycler.qmd">Trycyler</a>: A tool for generating consensus long-read assemblies for bacterial genomes</li>
     <li><a href="source/metatranscriptomics/trinity.qmd">Trinity</a>: A tool to assemble transcript sequences from Illumina RNA-Seq data</li>
+    <li><a href="source/metagenomics/vamb.qmd">VAMB</a>: A tool for reconstructing genomes from metagenomic data</li>
   </ul>
 </details>
 
