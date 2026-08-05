@@ -75,42 +75,8 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 
 ## Bioinformatic tools A-Z
 
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bioinformatic Tools A-Z</title>
-<style>
-/* Basic styling for accordion */
-.accordion {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 3px 15px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-  transition: background-color 0.4s;
-}
-
-.active, .accordion:hover {
-  background-color: #f4f4f4;
-}
-
-.panel {
-  padding: 0 40px;
-  background-color: white;
-  overflow: hidden;
-  display: block; /* Start with panels uncollapsed */
-}
-</style>
-</head>
-<body>
-
-<button class="accordion active">A-D</button>
-<div class="panel">
+<details class="tool-az">
+<summary>A-D</summary>
   <ul>
     <li><a href="source/metagenomics/atlas.qmd">ATLAS</a>: A metagenomic pipeline for QC, assembly binning and annotation</li>
     <li><a href="source/metagenomics/augustus.qmd">Augustus</a>: A program that predicts genes in eukaryotic genomic sequences</li>
@@ -131,10 +97,10 @@ Next, to the carpentries you will find a list of tutorials for more specific top
     <li><a href="source/metagenomics/dnaapler.qmd">Dnaapler</a>: A tool to re-orient a genome, for example at dnaA</li>
     <li><a href="source/metatranscriptomics/DSEq2.qmd">DeSeq2</a>: Analyse gene expression data in R</li>
   </ul>
-</div>
+</details>
 
-<button class="accordion active">E-H</button>
-<div class="panel">
+<details class="tool-az">
+<summary>E-H</summary>
   <ul>
     <li><a href="source/metagenomics/fama_readme.qmd">FAMA</a>: A fast pipeline for functional and taxonomic analysis of metagenomic sequences</li>
     <li><a href="source/metatranscriptomics/fastp.qmd">FastP</a>: A tool for fast all-in-one preprocessing of FastQ files</li>
@@ -149,20 +115,20 @@ Next, to the carpentries you will find a list of tutorials for more specific top
     <li><a href="source/core_tools/hmmer.qmd">HMMER</a>: A tool for searching sequence databases for sequence homologs, and for making sequence alignments</li>
     <li><a href="source/metagenomics/homopolish.qmd">Homopolish</a>: A tool for the removal of systematic errors in nanopore sequencing by homologous polishing</li>
   </ul>
-</div>
+</details>
 
-<button class="accordion active">I-L</button>
-<div class="panel">
+<details class="tool-az">
+<summary>I-L</summary>
   <ul>
     <li><a href="source/phylogenomics/iqtree2.qmd">IQ-TREE</a>: A tool for phylogenomic inferences</li>
     <li><a href="source/metagenomics/interproscan_readme.qmd">Interproscan</a>: A tool to scan protein and nucleic sequences against InterPro signatures</li>
     <li><a href="source/ITSx/itsx_readme.qmd">ITSx</a>: A tool to extract ITS1 and ITS2 subregions from ITS sequences</li>
     <li><a href="source/classification/kraken2.qmd">Kraken2</a>: A taxonomic sequence classifier using kmers</li>
   </ul>
-</div>
+</details>
 
-<button class="accordion active">M-P</button>
-<div class="panel">
+<details class="tool-az">
+<summary>M-P</summary>
   <ul>
     <li><a href="source/phylogenomics/mafft.qmd">Mafft</a>: A multiple sequence alignment program</li>
     <li><a href="source/metagenomics/medaka.qmd">Medaka</a>: A tool for assembly polishing</li>
@@ -184,10 +150,10 @@ Next, to the carpentries you will find a list of tutorials for more specific top
     <li><a href="source/metagenomics/pycirclize.qmd">pyCirclize</a>: A tool for circular visualization, i.e. genome plots, in python</li>
     <li><a href="source/metagenomics/pygenometracks.qmd">pyGenomeTracks</a>: A tool to produce high-quality genome browser tracks</li>
   </ul>
-</div>
+</details>
 
-<button class="accordion active">Q-T</button>
-<div class="panel">
+<details class="tool-az">
+<summary>Q-T</summary>
   <ul>
     <li><a href="source/metagenomics/quast.qmd">QUAST</a>: A Quality Assessment Tool for Genome Assemblies</li>
     <li><a href="source/metatranscriptomics/ribodetector.qmd">Ribodetector</a>: Detect and remove rRNA sequences from metagenomic, metatranscriptomic, and ncRNA sequencing data</li>
@@ -206,36 +172,6 @@ Next, to the carpentries you will find a list of tutorials for more specific top
     <li><a href="source/metagenomics/trycycler.qmd">Trycyler</a>: A tool for generating consensus long-read assemblies for bacterial genomes</li>
     <li><a href="source/metatranscriptomics/trinity.qmd">Trinity</a>: A tool to assemble transcript sequences from Illumina RNA-Seq data</li>
   </ul>
-</div>
-
-<button class="accordion active">U-Z</button>
-<div class="panel">
-  <ul>
-    <!-- Add tools starting with U-Z if available -->
-  </ul>
-</div>
-
-<script>
-var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.display === "block") {
-      panel.style.display = "none";
-    } else {
-      panel.style.display = "block";
-    }
-  });
-}
-</script>
-
-</body>
-</html>
-
-
-
+</details>
 
 </div>
