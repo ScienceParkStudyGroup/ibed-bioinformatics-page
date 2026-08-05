@@ -11,3 +11,5 @@ to_compress
 !/data/*/*txt
 
 **/*.quarto_ipynb
+
+CLAUDE.md
