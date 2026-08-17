@@ -656,6 +656,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../source/metagenomics/semibin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SemiBin2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../source/metagenomics/singlem.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SingleM</span></a>
   </div>
@@ -676,6 +682,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Nanophase</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../source/metagenomics/vamb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VAMB</span></a>
   </div>
 </li>
       </ul>
@@ -967,6 +979,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../source/core_tools/bwa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BWA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Samtools</span></a>
   </div>
@@ -1126,22 +1144,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="tool">Tool</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>One or two sentences on what the tool does and what it’s typically used for. If there is a paper to cite, add it to this folder’s <code>references.bib</code> and cite it here, e.g.&nbsp;<code>[@authorYear]</code>.</p>
+<p>For more detailed information, please visit <a href="https://example.com/manual">the manual</a>.</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>Installed on Crunchomics: Yes,</p>
-<ul>
-<li>Prokka v1.14.6 is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics share, then you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski@uva.nl.</li>
-<li>Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don’t need to run this command):</li>
-</ul>
+<p>Installed on Crunchomics: Yes, <code>&lt;Tool&gt;</code> vX.Y.Z is installed.</p>
+<p>If you want to install it yourself, the command below installs the version verified on Crunchomics. Before running it, check the tool’s <a href="https://example.com/repo">GitHub</a> for a newer version and swap the version number if one is available.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> toolname_X.Y.Z</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install <span class="at">-n</span> toolname_X.Y.Z <span class="at">-c</span> bioconda toolname=X.Y.Z</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate toolname_X.Y.Z</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>If you want to install it yourself, you can run:</p>
+<p>If the tool is instead installed as part of the shared bioinformatics environment rather than its own dedicated environment, replace the block above with:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>and note in this section who to contact for access if a reader doesn’t already have it.</p>
 </section>
 <section id="usage" class="level3">
 <h3 class="anchored" data-anchor-id="usage">Usage</h3>
-<p>Useful options:</p>
+<p>Required inputs:</p>
+<ul>
+<li>List the input file(s)/format(s) the tool expects here.</li>
+</ul>
+<p>Generated output:</p>
+<ul>
+<li>List and briefly describe the main output file(s)/format(s) here. If the output is a SAM/BAM alignment file, link to the <a href="../source/core_tools/samtools.html">samtools</a> page so readers know how to process it further.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">toolname</span> <span class="at">--input</span> example_input.fasta <span class="at">--output</span> results/example_output</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Basic options, for a full list go <a href="https://example.com/manual">here</a>:</p>
+<ul>
+<li><code>--option1</code>: what it does</li>
+<li><code>--option2</code>: what it does</li>
+</ul>
 </section>
 </section>
 
@@ -1574,7 +1612,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2025-03-19</p>
+Last modified: 2026-08-17</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/template.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

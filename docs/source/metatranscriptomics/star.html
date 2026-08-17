@@ -678,6 +678,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/semibin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SemiBin2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/singlem.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SingleM</span></a>
   </div>
@@ -698,6 +704,12 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="../../source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Nanophase</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/vamb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VAMB</span></a>
   </div>
 </li>
       </ul>
@@ -989,6 +1001,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bwa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BWA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Samtools</span></a>
   </div>
@@ -1140,6 +1158,7 @@ div.csl-indent {
   <li><a href="#example-4-mapping-reads-with-a-2-pass-procedure" id="toc-example-4-mapping-reads-with-a-2-pass-procedure" class="nav-link" data-scroll-target="#example-4-mapping-reads-with-a-2-pass-procedure">Example 4: Mapping reads with a 2-pass procedure</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#a-note-on-multi-mapping-reads-and-clipping" id="toc-a-note-on-multi-mapping-reads-and-clipping" class="nav-link" data-scroll-target="#a-note-on-multi-mapping-reads-and-clipping">A note on multi-mapping reads and clipping</a></li>
   <li><a href="#interpreting-the-outputs" id="toc-interpreting-the-outputs" class="nav-link" data-scroll-target="#interpreting-the-outputs">Interpreting the outputs</a></li>
   </ul></li>
   </ul>
@@ -1161,6 +1180,7 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 <p>STAR (Spliced Transcripts Alignment to a Reference) is an ultra-fast universal RNA-seq aligner that uses sequential maximum mappable seed search in uncompressed suffix arrays followed by seed clustering and stitching procedure <span class="citation" data-cites="Dobin2013">(<a href="#ref-Dobin2013" role="doc-biblioref">Dobin et al. 2012</a>)</span>. In addition to unbiased <em>de novo</em> detection of canonical junctions, STAR can discover non-canonical splices and chimeric (fusion) transcripts, and is also capable of mapping full-length RNA sequences.</p>
 <p>For more information, please have a look at <a href="https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf">the manual</a>.</p>
+<p><strong>When to use STAR vs.&nbsp;other aligners:</strong> As a rule of thumb (this is not a strict rule, the right choice depends on your specific data and question), STAR is a good fit when you are working with eukaryotic RNA-seq and have a good reference genome/annotation, since it is splice-aware and can detect reads spanning exon-exon junctions. For general-purpose or microbial short-read mapping without splicing, <a href="../../source/core_tools/bowtie.html">Bowtie2</a> or <a href="../../source/core_tools/bwa.html">BWA</a> are typically simpler choices. For long reads (e.g.&nbsp;Nanopore or PacBio), <a href="../../source/classification/minimap2.html">minimap2</a> is generally the better choice. The main things that actually drive the choice are read length, whether splicing needs to be modeled, and reference quality, not the tool name itself.</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
@@ -1208,6 +1228,10 @@ div.csl-indent {
 <section id="step-2-mapping-reads-to-a-genome" class="level4">
 <h4 class="anchored" data-anchor-id="step-2-mapping-reads-to-a-genome">Step 2: Mapping reads to a genome</h4>
 <p>You can map the reads by either running STAR in a loop when working with multiple input files or alternatively, multiple files can be mapped in one run with a single output.</p>
+<p>Generated output:</p>
+<ul>
+<li>With <code>--outSAMtype BAM SortedByCoordinate</code> (used in the examples below), STAR writes its alignments directly as a sorted BAM file rather than the raw SAM text format most aligners produce. This is a tab-delimited format under the hood, whether written as plain-text SAM or the compressed binary BAM. To learn how to work with this file format, see the <a href="../../source/core_tools/samtools.html">samtools</a> page.</li>
+</ul>
 <section id="example-1-run-star-on-an-individual-file" class="level5">
 <h5 class="anchored" data-anchor-id="example-1-run-star-on-an-individual-file">Example 1: Run Star on an individual file</h5>
 <p>Below an example for running STAR on an individual file:</p>
@@ -1339,6 +1363,14 @@ div.csl-indent {
 </section>
 </section>
 </section>
+<section id="a-note-on-multi-mapping-reads-and-clipping" class="level3">
+<h3 class="anchored" data-anchor-id="a-note-on-multi-mapping-reads-and-clipping">A note on multi-mapping reads and clipping</h3>
+<p>Two default behaviors of STAR are worth knowing about, since other aligners can behave differently:</p>
+<ul>
+<li><strong>Multi-mapping reads.</strong> A read that matches more than one place in the reference (e.g.&nbsp;shared exons between isoforms, close paralogs, or under-depleted rRNA) is called a multi-mapper. <code>--outFilterMultimapNmax</code> (default: 10) is an all-or-nothing filter on the <em>number of loci a read maps to</em>, not on how many alignments get written: if a read maps to more loci than this value, none of its alignments are output at all; if it maps to fewer, it’s kept, and then <code>--outSAMmultNmax</code> (default: all) controls how many of those alignments are actually written to the SAM/BAM file. Each written alignment is tagged with <code>NH:i:&lt;N&gt;</code> for the number of loci the read maps to (see <a href="https://github.com/alexdobin/STAR/discussions/1203">STAR discussion #1203</a>). Other aligners, such as <a href="../../source/core_tools/bowtie.html">Bowtie2</a>, instead report only a single, semi-random best alignment per read by default. STAR’s own MAPQ convention also differs from the standard SAM meaning: unique mappers get MAPQ 255, while multi-mappers get lower values (3 for 2 loci, 1 for 3-4 loci, 0 for 5+ loci). See the MAPQ field description on the <a href="../../source/core_tools/samtools.html">samtools</a> page for how MAPQ is normally used, and keep in mind STAR’s scale is its own convention rather than a mapping-quality probability. A high proportion of multi-mapping reads can indicate insufficient rRNA depletion (see below).</li>
+<li><strong>Clipping.</strong> By default, STAR runs in local alignment mode (<code>--alignEndsType Local</code>), meaning it is allowed to soft-clip bases off the ends of a read if that improves the alignment score (e.g.&nbsp;adapter remnants, or reads running past a splice junction that isn’t in the annotation). Some other aligners, such as <a href="../../source/core_tools/bowtie.html">Bowtie2</a>, do not clip by default and only do so if you explicitly request local alignment mode. Soft-clipped bases show up as an <code>S</code> operation in the CIGAR string (see the <a href="../../source/core_tools/samtools.html">samtools</a> page). If you need the full read to align without clipping, use <code>--alignEndsType EndToEnd</code>.</li>
+</ul>
+</section>
 <section id="interpreting-the-outputs" class="level3">
 <h3 class="anchored" data-anchor-id="interpreting-the-outputs">Interpreting the outputs</h3>
 <p>STAR will produce different output files, which are briefly described below.</p>
@@ -1360,10 +1392,10 @@ div.csl-indent {
 6.  0: unannotated, 1: annotated, only if an input gene annotations file was used
 7.  number of uniquely mapping reads spanning the splice junction
 8.  number of multimapping reads spanning the splice junction</code></pre>
-
-
 </section>
 </section>
+
+
 
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
@@ -1809,7 +1841,7 @@ Dobin, Alexander, Carrie A. Davis, Felix Schlesinger, Jorg Drenkow, Chris Zalesk
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-08-05</p>
+Last modified: 2026-08-17</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metatranscriptomics/star.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

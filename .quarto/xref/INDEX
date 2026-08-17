@@ -359,5 +359,8 @@
   },
   "source/metagenomics/vamb.qmd": {
     "vamb.html": "35c43613"
+  },
+  "source/core_tools/bwa.qmd": {
+    "bwa.html": "89f9ef2e"
   }
 }

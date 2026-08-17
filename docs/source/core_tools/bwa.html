@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>minimap2 – Bioinformatics guidance page</title>
+<title>bwa – Bioinformatics guidance page</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -85,8 +85,8 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/Qiime/readme.html" rel="next">
-<link href="../../source/classification/kraken2.html" rel="prev">
+<link href="../../source/core_tools/custom_scripts.html" rel="next">
+<link href="../../source/metatranscriptomics/fastp.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -305,7 +305,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/busco.html">Core tools</a></li><li class="breadcrumb-item"><a href="../../source/classification/minimap2.html">Minimap2</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bowtie.html">Sequence alignment</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bwa.html">BWA</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -426,13 +426,13 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
  <span class="menu-text">Core tools</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/busco.html" class="sidebar-item-text sidebar-link">
@@ -477,7 +477,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/classification/minimap2.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../source/classification/minimap2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Minimap2</span></a>
   </div>
 </li>
@@ -986,13 +986,13 @@ div.csl-indent {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true">
  <span class="menu-text">Sequence alignment</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
@@ -1001,7 +1001,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/bwa.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/core_tools/bwa.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">BWA</span></a>
   </div>
 </li>
@@ -1143,21 +1143,24 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#minimap2" id="toc-minimap2" class="nav-link active" data-scroll-target="#minimap2">Minimap2</a>
+  <li><a href="#bwa" id="toc-bwa" class="nav-link active" data-scroll-target="#bwa">BWA</a>
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
   <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a>
   <ul class="collapse">
-  <li><a href="#a-note-on-multi-mapping-reads-and-clipping" id="toc-a-note-on-multi-mapping-reads-and-clipping" class="nav-link" data-scroll-target="#a-note-on-multi-mapping-reads-and-clipping">A note on multi-mapping reads and clipping</a></li>
+  <li><a href="#indexing" id="toc-indexing" class="nav-link" data-scroll-target="#indexing">Indexing</a></li>
+  <li><a href="#read-alignment" id="toc-read-alignment" class="nav-link" data-scroll-target="#read-alignment">Read alignment</a></li>
+  <li><a href="#combining-bwa-with-samtools" id="toc-combining-bwa-with-samtools" class="nav-link" data-scroll-target="#combining-bwa-with-samtools">Combining BWA with samtools</a></li>
+  <li><a href="#a-note-on-multi-mapping-reads" id="toc-a-note-on-multi-mapping-reads" class="nav-link" data-scroll-target="#a-note-on-multi-mapping-reads">A note on multi-mapping reads</a></li>
+  <li><a href="#a-note-on-clipping" id="toc-a-note-on-clipping" class="nav-link" data-scroll-target="#a-note-on-clipping">A note on clipping</a></li>
   </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/classification/minimap2.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/bwa.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/busco.html">Core tools</a></li><li class="breadcrumb-item"><a href="../../source/classification/minimap2.html">Minimap2</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bowtie.html">Sequence alignment</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bwa.html">BWA</a></li></ol></nav></header>
 
 
 <header id="title-block-header">
@@ -1166,61 +1169,101 @@ div.csl-indent {
 </header>
 
 
-<section id="minimap2" class="level2" style="text-align: justify">
-<h2 class="anchored" data-anchor-id="minimap2">Minimap2</h2>
+<section id="bwa" class="level2" style="text-align: justify">
+<h2 class="anchored" data-anchor-id="bwa">BWA</h2>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>Minimap2 <span class="citation" data-cites="li2018">(<a href="#ref-li2018" role="doc-biblioref">Li 2018</a>)</span> is a versatile sequence alignment program that aligns DNA or mRNA sequences against a large reference database.</p>
-<p><strong>When to use minimap2 vs.&nbsp;other aligners:</strong> As a rule of thumb (this is not a strict rule, the right choice depends on your specific data and question), minimap2 is generally the best choice for long reads (e.g.&nbsp;Nanopore or PacBio), since it was designed to handle their higher error rates and longer lengths efficiently. For short-read, general-purpose or microbial mapping, <a href="../../source/core_tools/bowtie.html">Bowtie2</a> or <a href="../../source/core_tools/bwa.html">BWA</a> are typically simpler choices. For eukaryotic RNA-seq with a good reference genome/annotation, splice-aware aligners like <a href="../../source/metatranscriptomics/star.html">STAR</a> are usually a better fit. The main things that actually drive the choice are read length, whether splicing needs to be modeled, and reference quality, not the tool name itself.</p>
-<p>Available on Crunchomics: Minimap2 version 2.24-r1122 installed</p>
+<p>BWA (Burrows-Wheeler Aligner) is a widely used tool for aligning short sequencing reads against a large reference sequence, such as a genome <span class="citation" data-cites="Li2009">(<a href="#ref-Li2009" role="doc-biblioref">Li and Durbin 2009</a>)</span>. BWA actually bundles a few different alignment algorithms; <code>bwa mem</code> is the one recommended for most modern short-read data (Illumina reads from about 70bp up to a few thousand bp) and is the algorithm used throughout this page.</p>
+<p>For more detailed information, please visit the <a href="https://bio-bwa.sourceforge.net/bwa.shtml">BWA manual</a>.</p>
+<p><strong>When to use BWA vs.&nbsp;other aligners:</strong> As a rule of thumb (this is not a strict rule, the right choice depends on your specific data and question), BWA and <a href="../../source/core_tools/bowtie.html">Bowtie2</a> are typical starting points for general-purpose or microbial short-read mapping (e.g.&nbsp;mapping Illumina reads to a bacterial genome or a set of contigs). If you are working with eukaryotic RNA-seq and have a good reference genome/annotation with introns, splice-aware aligners like <a href="../../source/metatranscriptomics/star.html">STAR</a> are usually a better fit. If you are working with long reads (e.g.&nbsp;Nanopore or PacBio), <a href="../../source/classification/minimap2.html">minimap2</a> is generally the better choice. The main things that actually drive the choice are read length, whether splicing needs to be modeled, and reference quality, not the tool name itself.</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>If you want to install minimap2 on your own, its best to install it via mamba:</p>
+<p>Installed on Crunchomics: Yes, BWA v0.7.17-r1188 is installed by default, no conda environment needs to be activated to use it.</p>
+<p>If you want to install it yourself, the command below installs the version verified on Crunchomics. Before running it, check the <a href="https://github.com/lh3/bwa">BWA GitHub</a> for a newer version and swap the version number if one is available.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#setup new conda environment, which we name kraken2</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">--name</span> minimap2 <span class="at">-c</span> bioconda minimap2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> create <span class="at">-n</span> bwa_0.7.17</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> install <span class="at">-n</span> bwa_0.7.17 <span class="at">-c</span> bioconda bwa=0.7.17</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> activate bwa_0.7.17</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="usage" class="level3">
 <h3 class="anchored" data-anchor-id="usage">Usage</h3>
-<p>For detailed usage information, check out the <a href="https://github.com/lh3/minimap2#started">minimap2 manual</a>.</p>
-<p>Input:</p>
-<ul>
-<li>Minimap takes both fastq as well as fasta sequences as input</li>
-</ul>
-<p>Output:</p>
-<ul>
-<li>By default minimap2 writes its alignments in <a href="https://github.com/lh3/miniasm/blob/master/PAF.md">PAF format</a>, a lightweight tab-delimited summary of each alignment. Pass <code>-a</code> if you need full SAM output instead (e.g.&nbsp;for downstream tools that expect SAM/BAM, such as variant callers or genome browsers). To learn how to work with SAM/BAM files, see the <a href="../../source/core_tools/samtools.html">samtools</a> page.</li>
-</ul>
+<section id="indexing" class="level4">
+<h4 class="anchored" data-anchor-id="indexing">Indexing</h4>
+<p>Like Bowtie2, BWA requires an index to be built from the reference sequence before alignment. The basic syntax for building an index for a genome called GCF_000385215.fna is as follows:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#example of mapping input sequences against sequences of the SILVA 16S database</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">minimap2</span> <span class="at">-cx</span> map-ont <span class="at">-t</span> <span class="op">&lt;</span>nr_of_threads<span class="op">&gt;</span> <span class="dt">\</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">-N</span> 10 <span class="at">-K</span> 25M <span class="dt">\</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        silva-ref.fasta <span class="dt">\</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        my_seqs.fastq <span class="dt">\</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">-o</span> output.paf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> index GCF_000385215.fna</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Used options:</p>
+<p>In the command above GCF_000385215.fna is both the input reference file and, by default, the prefix used for the generated index files.</p>
+</section>
+<section id="read-alignment" class="level4">
+<h4 class="anchored" data-anchor-id="read-alignment">Read alignment</h4>
+<p>After generating the index, we can align some short Illumina reads against our genome index using <code>bwa mem</code>.</p>
+<p>Required inputs:</p>
 <ul>
-<li><code>-x map-ont</code>: Run minimap optimized for Nanopore reads</li>
-<li><code>-c</code>: output is generated in <a href="https://github.com/lh3/miniasm/blob/master/PAF.md">PAF format</a>, use <code>-a</code>if you prefer the output in <a href="https://samtools.github.io/hts-specs/SAMv1.pdf">SAM format</a></li>
-<li><code>-N</code>: lso retain up to -N [=10] top secondary mappings</li>
-<li><code>-K</code>: Read -K [=25M] query bases</li>
-<li>…</li>
+<li>Single-end and paired-end files in fasta or fastq format (can be compressed)</li>
 </ul>
-<p>There are many different ways to run minimap2, so check out the <a href="https://github.com/lh3/minimap2#started">minimap2 manual</a> for all options.</p>
-<section id="a-note-on-multi-mapping-reads-and-clipping" class="level4">
-<h4 class="anchored" data-anchor-id="a-note-on-multi-mapping-reads-and-clipping">A note on multi-mapping reads and clipping</h4>
-<p>Two default behaviors of minimap2 are worth knowing about, since other aligners can behave differently:</p>
+<p>Generated output:</p>
 <ul>
-<li><strong>Multi-mapping reads.</strong> A read that matches more than one place in the reference is called a multi-mapper. By default, minimap2 reports one primary alignment per read plus up to <code>-N</code> (=5) secondary (multi-mapping) alignments, provided their score is at least <code>-p</code> (=0.8) of the primary alignment’s score. Secondary alignments can be suppressed with <code>--secondary=no</code> if you only want the single best (primary) alignment reported, similar to how <a href="../../source/core_tools/bowtie.html">Bowtie2</a> behaves by default.</li>
-<li><strong>Clipping.</strong> minimap2 always performs local (extension-based) alignment, there is no end-to-end mode like in <a href="../../source/core_tools/bowtie.html">Bowtie2</a>. This means the ends of a read that do not align well (e.g.&nbsp;adapter remnants, or the read running past the edge of a short reference/contig) are routinely soft-clipped rather than forcing the whole read to align. In SAM output (<code>-a</code>), clipped bases show up as an <code>S</code> operation in the CIGAR string (see the <a href="../../source/core_tools/samtools.html">samtools</a> page for how to read CIGAR and MAPQ fields). Keep this in mind when interpreting aligned length or coverage near contig ends, especially for assembly-adjacent uses.</li>
+<li>The output from <code>bwa mem</code> is a SAM file (i.e.&nbsp;Sequence Alignment/Map format), written to screen (stdout) rather than to a file directly. The SAM file is a tab-delimited text file that contains information for each individual read and its alignment to the genome. To learn how to work with this file format, see the <a href="../../source/core_tools/samtools.html">samtools</a> page.</li>
+</ul>
+<p>If you have a single-end file, you can run:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem <span class="at">-t</span> 2 <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    GCF_000385215.fna <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    sample1.fastq.gz <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;</span> sample1_mapped.sam <span class="dv">2</span><span class="op">&gt;</span> bwa.log</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>For paired-end data you can do:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem <span class="at">-t</span> 2 <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    GCF_000385215.fna <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    sample1_R1.fastq.gz sample1_R2.fastq.gz <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">&gt;</span> sample1_mapped.sam <span class="dv">2</span><span class="op">&gt;</span> bwa.log</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Basic options, for a full list, go <a href="https://bio-bwa.sourceforge.net/bwa.shtml">here</a>:</p>
+<ul>
+<li><code>-t</code>: number of processors/cores</li>
+<li>The first positional argument is the index prefix (i.e.&nbsp;the reference fasta file passed to <code>bwa index</code>)</li>
+<li>The following positional argument(s) are the FASTQ file(s) to align</li>
 </ul>
 </section>
+<section id="combining-bwa-with-samtools" class="level4">
+<h4 class="anchored" data-anchor-id="combining-bwa-with-samtools">Combining BWA with samtools</h4>
+<p>The commands above write a SAM file to disk, which you would then need to convert to a sorted BAM file yourself as a separate step (see the <code>samtools view</code> and <code>samtools sort</code> sections on the <a href="../../source/core_tools/samtools.html">samtools</a> page). Once you are comfortable with the basic <code>bwa mem</code> command, you can skip the intermediate SAM file entirely by connecting BWA and <code>samtools sort</code> with a pipe (<code>|</code>), so the alignment output is streamed directly into <code>samtools sort</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bwa</span> mem <span class="at">-t</span> 2 <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    GCF_000385215.fna <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    sample1.fastq.gz <span class="dv">2</span><span class="op">&gt;</span> bwa.log <span class="dt">\</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">|</span> <span class="ex">samtools</span> sort <span class="at">-o</span> sample1_sorted.bam <span class="at">-</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Notice:</p>
+<ul>
+<li>Instead of redirecting BWA’s output to a SAM file with <code>&gt;</code>, its output is sent directly into <code>samtools sort</code> via the pipe.</li>
+<li>The trailing <code>-</code> after <code>-o sample1_sorted.bam</code> tells <code>samtools sort</code> to read its input from the pipe rather than from a file.</li>
+<li>The result, <code>sample1_sorted.bam</code>, is already a sorted BAM file, ready for indexing (see <code>samtools index</code> on the <a href="../../source/core_tools/samtools.html">samtools</a> page), no intermediate SAM file is ever created on disk.</li>
+</ul>
 </section>
-<section id="references" class="level3">
-<h3 class="anchored" data-anchor-id="references">References</h3>
+<section id="a-note-on-multi-mapping-reads" class="level4">
+<h4 class="anchored" data-anchor-id="a-note-on-multi-mapping-reads">A note on multi-mapping reads</h4>
+<p>A read that matches more than one place in the reference (common for repeats, paralogous genes, or closely related transcripts/isoforms) is called a multi-mapper. By default, <code>bwa mem</code> reports one primary alignment per read (the best-scoring one), and gives it a low mapping quality (MAPQ) score if other, nearly-as-good locations exist, to flag that the placement is ambiguous (see the MAPQ field description on the <a href="../../source/core_tools/samtools.html">samtools</a> page). If a read has multiple good hits (within 80% of the best alignment score, up to <code>-h</code> [=5] of them by default), these alternative loci are additionally listed compactly in the <code>XA</code> tag of the SAM record, rather than as full extra alignment lines. This is worth keeping in mind for:</p>
+<ul>
+<li><strong>Transcriptomics</strong>: reads from genes with shared exons, close paralogs, or multiple transcript isoforms can multi-map, which can distort read counts per gene/isoform if not accounted for.</li>
+<li><strong>Assembly-adjacent uses</strong> (e.g.&nbsp;mapping reads back to contigs/bins for coverage estimation): multi-mapping reads can artificially inflate the apparent coverage of repeated or similar regions across contigs.</li>
+</ul>
+<p>If you want BWA to report all found alignments as separate SAM records instead of a single primary alignment plus an <code>XA</code> tag, see the <code>-a</code> option in the <a href="https://bio-bwa.sourceforge.net/bwa.shtml">manual</a>.</p>
+</section>
+<section id="a-note-on-clipping" class="level4">
+<h4 class="anchored" data-anchor-id="a-note-on-clipping">A note on clipping</h4>
+<p><code>bwa mem</code> performs local alignment by default: primary alignments are soft-clipped (bases trimmed off the start and/or end of a read that don’t improve the alignment score, e.g.&nbsp;adapter remnants or a read running past the edge of a short reference/contig, are kept in the SEQ field but excluded from the alignment) and supplementary alignments (for split/chimeric reads) are hard-clipped (the clipped bases are removed from the SEQ field entirely). Clipped bases are marked with an <code>S</code> (soft-clip) or <code>H</code> (hard-clip) operation in the CIGAR string (see the CIGAR field description on the <a href="../../source/core_tools/samtools.html">samtools</a> page).</p>
+<p>This matters because:</p>
+<ul>
+<li>Soft- or hard-clipped bases do not count towards the aligned length of the read, so tools that compute coverage or count aligned bases can give different numbers depending on how much clipping occurred.</li>
+<li>For assembly polishing or variant calling near contig ends, heavy clipping can indicate a misassembly, an adapter contamination issue, or simply the natural drop-off in read support at the very edge of a contig.</li>
+</ul>
+<p>Unlike Bowtie2, <code>bwa mem</code> does not have a strict end-to-end mode that disables clipping entirely, clipping is inherent to how the algorithm works.</p>
+</section>
 </section>
 </section>
 
@@ -1228,8 +1271,8 @@ div.csl-indent {
 
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-li2018" class="csl-entry" role="listitem">
-Li, Heng. 2018. <span>“Minimap2: Pairwise Alignment for Nucleotide Sequences.”</span> <em>Bioinformatics</em> 34 (18): 3094–3100. <a href="https://doi.org/10.1093/bioinformatics/bty191">https://doi.org/10.1093/bioinformatics/bty191</a>.
+<div id="ref-Li2009" class="csl-entry" role="listitem">
+Li, Heng, and Richard Durbin. 2009. <span>“Fast and Accurate Short Read Alignment with <span>Burrows-Wheeler</span> Transform.”</span> <em>Bioinformatics</em> 25 (14): 1754–60. <a href="https://doi.org/10.1093/bioinformatics/btp324">https://doi.org/10.1093/bioinformatics/btp324</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1652,13 +1695,13 @@ Li, Heng. 2018. <span>“Minimap2: Pairwise Alignment for Nucleotide Sequences.�
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/classification/kraken2.html" class="pagination-link" aria-label="Kraken2">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Kraken2</span>
+      <a href="../../source/metatranscriptomics/fastp.html" class="pagination-link" aria-label="FastP">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">FastP</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/Qiime/readme.html" class="pagination-link" aria-label="Amplicon analyses">
-        <span class="nav-page-text">Amplicon analyses</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/core_tools/custom_scripts.html" class="pagination-link" aria-label="Custom scripts">
+        <span class="nav-page-text">Custom scripts</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1671,7 +1714,7 @@ Li, Heng. 2018. <span>“Minimap2: Pairwise Alignment for Nucleotide Sequences.�
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
 Last modified: 2026-08-17</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/classification/minimap2.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/bwa.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

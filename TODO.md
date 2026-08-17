@@ -1,5 +1,6 @@
 # TODO
 
-- [ ] [bowtie.qmd](source/core_tools/bowtie.qmd): update the page so the workflow immediately generates a sorted BAM file (currently produces something else first, e.g. SAM or unsorted BAM — check current steps and streamline so the output is sorted-BAM-ready, e.g. for downstream tools like MetaBAT2's `jgi_summarize_bam_contig_depths`).
-- [ ] [bowtie.qmd](source/core_tools/bowtie.qmd): add a note/section about BWA as an alternative read mapper.
+- [ ] [bowtie.qmd](source/core_tools/bowtie.qmd): a "Combining Bowtie2 with samtools" subsection now shows a piped `bowtie2 | samtools sort` one-liner that goes straight to a sorted BAM. Check whether this fully resolves the original ask (e.g. for MetaBAT2's `jgi_summarize_bam_contig_depths`), or whether the main/basic example further up the page should also be changed to the piped form by default.
+- [x] [bowtie.qmd](source/core_tools/bowtie.qmd): add a note/section about BWA as an alternative read mapper. Done — [bwa.qmd](source/core_tools/bwa.qmd) created and cross-linked from bowtie.qmd, star.qmd, minimap2.qmd, samtools.qmd.
 - [ ] [featurecounts.qmd](source/core_tools/featurecounts.qmd): currently listed as not installed on Crunchomics — install it there and update the page once verified.
+- [ ] [bwa.qmd](source/core_tools/bwa.qmd): look into adding bwa-mem2 (faster reimplementation of bwa mem) as an alternative/addition to classic BWA. Note: the lh3/bwa repo itself lists [minibwa](https://github.com/lh3/minibwa) as the likely successor to bwa mem (per user, 2026-08-17) — check its maturity/status before deciding whether to document minibwa instead of or alongside bwa-mem2.

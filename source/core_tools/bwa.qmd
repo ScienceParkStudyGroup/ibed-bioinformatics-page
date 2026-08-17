@@ -1,0 +1,119 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## BWA
+
+### Introduction
+
+BWA (Burrows-Wheeler Aligner) is a widely used tool for aligning short sequencing reads against a large reference sequence, such as a genome [@Li2009]. BWA actually bundles a few different alignment algorithms; `bwa mem` is the one recommended for most modern short-read data (Illumina reads from about 70bp up to a few thousand bp) and is the algorithm used throughout this page.
+
+For more detailed information, please visit the [BWA manual](https://bio-bwa.sourceforge.net/bwa.shtml).
+
+**When to use BWA vs. other aligners:** As a rule of thumb (this is not a strict rule, the right choice depends on your specific data and question), BWA and [Bowtie2](bowtie.qmd) are typical starting points for general-purpose or microbial short-read mapping (e.g. mapping Illumina reads to a bacterial genome or a set of contigs). If you are working with eukaryotic RNA-seq and have a good reference genome/annotation with introns, splice-aware aligners like [STAR](../metatranscriptomics/star.qmd) are usually a better fit. If you are working with long reads (e.g. Nanopore or PacBio), [minimap2](../classification/minimap2.qmd) is generally the better choice. The main things that actually drive the choice are read length, whether splicing needs to be modeled, and reference quality, not the tool name itself.
+
+### Installation
+
+Installed on Crunchomics: Yes, BWA v0.7.17-r1188 is installed by default, no conda environment needs to be activated to use it.
+
+If you want to install it yourself, the command below installs the version verified on Crunchomics. Before running it, check the [BWA GitHub](https://github.com/lh3/bwa) for a newer version and swap the version number if one is available.
+
+```{bash}
+mamba create -n bwa_0.7.17
+mamba install -n bwa_0.7.17 -c bioconda bwa=0.7.17
+mamba activate bwa_0.7.17
+```
+
+### Usage
+
+#### Indexing
+
+Like Bowtie2, BWA requires an index to be built from the reference sequence before alignment. The basic syntax for building an index for a genome called GCF_000385215.fna is as follows:
+
+```{bash}
+bwa index GCF_000385215.fna
+```
+
+In the command above GCF_000385215.fna is both the input reference file and, by default, the prefix used for the generated index files.
+
+#### Read alignment
+
+After generating the index, we can align some short Illumina reads against our genome index using `bwa mem`.
+
+Required inputs:
+
+-   Single-end and paired-end files in fasta or fastq format (can be compressed)
+
+Generated output:
+
+-   The output from `bwa mem` is a SAM file (i.e. Sequence Alignment/Map format), written to screen (stdout) rather than to a file directly. The SAM file is a tab-delimited text file that contains information for each individual read and its alignment to the genome. To learn how to work with this file format, see the [samtools](samtools.qmd) page.
+
+If you have a single-end file, you can run:
+
+```{bash}
+bwa mem -t 2 \
+    GCF_000385215.fna \
+    sample1.fastq.gz \
+    > sample1_mapped.sam 2> bwa.log
+```
+
+For paired-end data you can do:
+
+```{bash}
+bwa mem -t 2 \
+    GCF_000385215.fna \
+    sample1_R1.fastq.gz sample1_R2.fastq.gz \
+    > sample1_mapped.sam 2> bwa.log
+```
+
+Basic options, for a full list, go [here](https://bio-bwa.sourceforge.net/bwa.shtml):
+
+-   `-t`: number of processors/cores
+-   The first positional argument is the index prefix (i.e. the reference fasta file passed to `bwa index`)
+-   The following positional argument(s) are the FASTQ file(s) to align
+
+#### Combining BWA with samtools
+
+The commands above write a SAM file to disk, which you would then need to convert to a sorted BAM file yourself as a separate step (see the `samtools view` and `samtools sort` sections on the [samtools](samtools.qmd) page). Once you are comfortable with the basic `bwa mem` command, you can skip the intermediate SAM file entirely by connecting BWA and `samtools sort` with a pipe (`|`), so the alignment output is streamed directly into `samtools sort`:
+
+```{bash}
+bwa mem -t 2 \
+    GCF_000385215.fna \
+    sample1.fastq.gz 2> bwa.log \
+    | samtools sort -o sample1_sorted.bam -
+```
+
+Notice:
+
+-   Instead of redirecting BWA's output to a SAM file with `>`, its output is sent directly into `samtools sort` via the pipe.
+-   The trailing `-` after `-o sample1_sorted.bam` tells `samtools sort` to read its input from the pipe rather than from a file.
+-   The result, `sample1_sorted.bam`, is already a sorted BAM file, ready for indexing (see `samtools index` on the [samtools](samtools.qmd) page), no intermediate SAM file is ever created on disk.
+
+#### A note on multi-mapping reads
+
+A read that matches more than one place in the reference (common for repeats, paralogous genes, or closely related transcripts/isoforms) is called a multi-mapper. By default, `bwa mem` reports one primary alignment per read (the best-scoring one), and gives it a low mapping quality (MAPQ) score if other, nearly-as-good locations exist, to flag that the placement is ambiguous (see the MAPQ field description on the [samtools](samtools.qmd) page). If a read has multiple good hits (within 80% of the best alignment score, up to `-h` [=5] of them by default), these alternative loci are additionally listed compactly in the `XA` tag of the SAM record, rather than as full extra alignment lines. This is worth keeping in mind for:
+
+-   **Transcriptomics**: reads from genes with shared exons, close paralogs, or multiple transcript isoforms can multi-map, which can distort read counts per gene/isoform if not accounted for.
+-   **Assembly-adjacent uses** (e.g. mapping reads back to contigs/bins for coverage estimation): multi-mapping reads can artificially inflate the apparent coverage of repeated or similar regions across contigs.
+
+If you want BWA to report all found alignments as separate SAM records instead of a single primary alignment plus an `XA` tag, see the `-a` option in the [manual](https://bio-bwa.sourceforge.net/bwa.shtml).
+
+#### A note on clipping
+
+`bwa mem` performs local alignment by default: primary alignments are soft-clipped (bases trimmed off the start and/or end of a read that don't improve the alignment score, e.g. adapter remnants or a read running past the edge of a short reference/contig, are kept in the SEQ field but excluded from the alignment) and supplementary alignments (for split/chimeric reads) are hard-clipped (the clipped bases are removed from the SEQ field entirely). Clipped bases are marked with an `S` (soft-clip) or `H` (hard-clip) operation in the CIGAR string (see the CIGAR field description on the [samtools](samtools.qmd) page).
+
+This matters because:
+
+-   Soft- or hard-clipped bases do not count towards the aligned length of the read, so tools that compute coverage or count aligned bases can give different numbers depending on how much clipping occurred.
+-   For assembly polishing or variant calling near contig ends, heavy clipping can indicate a misassembly, an adapter contamination issue, or simply the natural drop-off in read support at the very edge of a contig.
+
+Unlike Bowtie2, `bwa mem` does not have a strict end-to-end mode that disables clipping entirely, clipping is inherent to how the algorithm works.
+
+</div>

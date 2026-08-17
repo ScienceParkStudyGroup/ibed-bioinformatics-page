@@ -17,6 +17,8 @@ Bowtie 2 is an ultra-fast and memory-efficient tool for aligning sequencing read
 
 For more detailed information, please visit [the manual](https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml).
 
+**When to use Bowtie2 vs. other aligners:** As a rule of thumb (this is not a strict rule, the right choice depends on your specific data and question), Bowtie2 and [BWA](bwa.qmd) are typical starting points for general-purpose or microbial short-read mapping (e.g. mapping Illumina reads to a bacterial genome or a set of contigs). If you are working with eukaryotic RNA-seq and have a good reference genome/annotation with introns, splice-aware aligners like [STAR](../metatranscriptomics/star.qmd) are usually a better fit. If you are working with long reads (e.g. Nanopore or PacBio), [minimap2](../classification/minimap2.qmd) is generally the better choice. The main things that actually drive the choice are read length, whether splicing needs to be modeled, and reference quality, not the tool name itself.
+
 ### Installation
 
 Installed on crunchomics: Yes, Bowtie v2.4.1 is installed. If you want to install it yourself, the command below installs the version verified on Crunchomics. Before running it, check the [install notes](https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#obtaining-bowtie-2) for a newer version and swap the version number if one is available.
@@ -51,7 +53,9 @@ Required inputs:
 
 Generated output:
 
--   The output from the Bowtie2 is an unsorted SAM file (i.e. Sequence Alignment/Map format)). The SAM file is a tab-delimited text file that contains information for each individual read and its alignment to the genome. To learn how to work with this file format, view the page about samtools.
+-   The output from the Bowtie2 is an unsorted SAM file (i.e. Sequence Alignment/Map format)). The SAM file is a tab-delimited text file that contains information for each individual read and its alignment to the genome. To learn how to work with this file format, see the [samtools](samtools.qmd) page.
+
+Bowtie2's SAM output is uncompressed plain text and can get large fast, especially for big datasets. It is good practice to convert it into the compressed BAM format and sort it with [samtools](samtools.qmd) rather than keeping the SAM file around, both to save disk space and because most downstream tools expect a sorted, indexed BAM file anyway. We'll first show the basic Bowtie2 command on its own, and then further down show how to combine it with samtools in a single step.
 
 If you have a single-end file, you can run:
 
@@ -79,3 +83,45 @@ Basic options, for a fool list, go [here](https://bowtie-bio.sourceforge.net/bow
 -   `-x`: /path/to/genome_indices_directory
 -   `-U`: /path/to/FASTQ_file
 -   `-S`: /path/to/output/SAM_file
+
+#### Combining Bowtie2 with samtools
+
+The commands above write a SAM file to disk, which you would then need to convert to a sorted BAM file yourself as a separate step (see the `samtools view` and `samtools sort` sections on the [samtools](samtools.qmd) page). Once you are comfortable with the basic Bowtie2 command, you can skip the intermediate SAM file entirely by connecting Bowtie2 and `samtools sort` with a pipe (`|`), so the alignment output is streamed directly into `samtools sort`:
+
+```{bash}
+bowtie2 -p 2 -q \
+    -x GCF_000385215 \
+    -U sample1.fastq.gz 2> bowtie2.log \
+    | samtools sort -o sample1_sorted.bam -
+```
+
+Notice:
+
+-   The `-S sample1_mapped.sam` option is dropped. Instead of writing a SAM file, Bowtie2 writes its output to screen (this is called "stdout"), and the pipe sends that output directly into `samtools sort` as its input.
+-   The trailing `-` after `-o sample1_sorted.bam` tells `samtools sort` to read its input from the pipe rather than from a file.
+-   The result, `sample1_sorted.bam`, is already a sorted BAM file, ready for indexing (see `samtools index` on the [samtools](samtools.qmd) page), no intermediate SAM file is ever created on disk.
+
+#### A note on multi-mapping reads
+
+A read that matches more than one place in the reference (common for repeats, paralogous genes, or closely related transcripts/isoforms) is called a multi-mapper. By default, Bowtie2 does not try to find and report all of these locations. Instead, for each read it searches for a good alignment and reports one, picked semi-randomly among the best-scoring locations it found, and gives that alignment a low mapping quality (MAPQ) score to flag that the placement is not unique (see the MAPQ field description on the [samtools](samtools.qmd) page). This is worth keeping in mind for:
+
+-   **Transcriptomics**: reads from genes with shared exons, close paralogs, or multiple transcript isoforms can multi-map, which can distort read counts per gene/isoform if not accounted for. If this matters for your analysis, either filter on MAPQ, or use a tool designed to handle multi-mapping properly (e.g. one that distributes multi-mapped reads probabilistically) rather than relying on Bowtie2's default single, semi-random pick.
+-   **Assembly-adjacent uses** (e.g. mapping reads back to contigs/bins for coverage estimation): multi-mapping reads can artificially inflate the apparent coverage of repeated or similar regions across contigs.
+
+If you want Bowtie2 to search harder and report multiple alignments per read instead of just one, see the `-k` and `-a` options in the [manual](https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#reporting).
+
+#### A note on clipping
+
+By default, Bowtie2 runs in **end-to-end** alignment mode: the entire read must be involved in the alignment, from its first base to its last, with no trimming allowed. If a read does not align well end-to-end (e.g. because of adapter sequence at one end, or because it runs past the edge of a short reference/contig), it will simply get a lower alignment score, or may not be reported as aligned at all, rather than being clipped.
+
+Bowtie2 also offers a **local** alignment mode (`--local`), which is not the default and has to be requested explicitly. In local mode, Bowtie2 is allowed to trim ("soft-clip") bases off the start and/or end of a read if that improves the alignment score. Soft-clipped bases are not deleted: they are still present in the SEQ field of the SAM record, but excluded from the alignment, and are marked with an `S` operation in the CIGAR string (see the CIGAR field description on the [samtools](samtools.qmd) page).
+
+This matters because:
+
+-   If you are seeing unexpectedly low alignment rates near read ends (e.g. leftover adapter sequence, or reads mapping right at the edge of a short contig), switching to `--local` can rescue alignments that end-to-end mode would otherwise score poorly or discard, at the cost of allowing partial/clipped alignments.
+-   For assembly polishing or variant calling, clipped alignments (only relevant if you used `--local`) can inflate or distort apparent read support near contig ends, so it is worth knowing which mode was used when interpreting coverage there.
+-   Since end-to-end is the default, if you have not passed `--local` yourself, you generally do not need to worry about clipping artifacts in your SAM/BAM file.
+
+See the [manual](https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#end-to-end-alignment-versus-local-alignment) for the full comparison between the two modes.
+
+</div>

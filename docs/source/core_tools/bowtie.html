@@ -678,6 +678,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/semibin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SemiBin2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/singlem.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">SingleM</span></a>
   </div>
@@ -698,6 +704,12 @@ div.csl-indent {
   <div class="sidebar-item-container"> 
   <a href="../../source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Nanophase</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/vamb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VAMB</span></a>
   </div>
 </li>
       </ul>
@@ -989,6 +1001,12 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bwa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BWA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Samtools</span></a>
   </div>
@@ -1133,6 +1151,9 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#indexing" id="toc-indexing" class="nav-link" data-scroll-target="#indexing">Indexing</a></li>
   <li><a href="#read-alignment" id="toc-read-alignment" class="nav-link" data-scroll-target="#read-alignment">Read alignment</a></li>
+  <li><a href="#combining-bowtie2-with-samtools" id="toc-combining-bowtie2-with-samtools" class="nav-link" data-scroll-target="#combining-bowtie2-with-samtools">Combining Bowtie2 with samtools</a></li>
+  <li><a href="#a-note-on-multi-mapping-reads" id="toc-a-note-on-multi-mapping-reads" class="nav-link" data-scroll-target="#a-note-on-multi-mapping-reads">A note on multi-mapping reads</a></li>
+  <li><a href="#a-note-on-clipping" id="toc-a-note-on-clipping" class="nav-link" data-scroll-target="#a-note-on-clipping">A note on clipping</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -1154,6 +1175,7 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 <p>Bowtie 2 is an ultra-fast and memory-efficient tool for aligning sequencing reads to long reference sequences, for example a genome <span class="citation" data-cites="Langmead2012">(<a href="#ref-Langmead2012" role="doc-biblioref">Langmead and Salzberg 2012</a>)</span>. It is particularly good at aligning reads of about 50 up to 100s or 1,000s of characters, and particularly good at aligning to relatively long genomes.</p>
 <p>For more detailed information, please visit <a href="https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml">the manual</a>.</p>
+<p><strong>When to use Bowtie2 vs.&nbsp;other aligners:</strong> As a rule of thumb (this is not a strict rule, the right choice depends on your specific data and question), Bowtie2 and <a href="../../source/core_tools/bwa.html">BWA</a> are typical starting points for general-purpose or microbial short-read mapping (e.g.&nbsp;mapping Illumina reads to a bacterial genome or a set of contigs). If you are working with eukaryotic RNA-seq and have a good reference genome/annotation with introns, splice-aware aligners like <a href="../../source/metatranscriptomics/star.html">STAR</a> are usually a better fit. If you are working with long reads (e.g.&nbsp;Nanopore or PacBio), <a href="../../source/classification/minimap2.html">minimap2</a> is generally the better choice. The main things that actually drive the choice are read length, whether splicing needs to be modeled, and reference quality, not the tool name itself.</p>
 </section>
 <section id="installation" class="level3">
 <h3 class="anchored" data-anchor-id="installation">Installation</h3>
@@ -1184,8 +1206,9 @@ div.csl-indent {
 </ul>
 <p>Generated output:</p>
 <ul>
-<li>The output from the Bowtie2 is an unsorted SAM file (i.e.&nbsp;Sequence Alignment/Map format)). The SAM file is a tab-delimited text file that contains information for each individual read and its alignment to the genome. To learn how to work with this file format, view the page about samtools.</li>
+<li>The output from the Bowtie2 is an unsorted SAM file (i.e.&nbsp;Sequence Alignment/Map format)). The SAM file is a tab-delimited text file that contains information for each individual read and its alignment to the genome. To learn how to work with this file format, see the <a href="../../source/core_tools/samtools.html">samtools</a> page.</li>
 </ul>
+<p>Bowtie2’s SAM output is uncompressed plain text and can get large fast, especially for big datasets. It is good practice to convert it into the compressed BAM format and sort it with <a href="../../source/core_tools/samtools.html">samtools</a> rather than keeping the SAM file around, both to save disk space and because most downstream tools expect a sorted, indexed BAM file anyway. We’ll first show the basic Bowtie2 command on its own, and then further down show how to combine it with samtools in a single step.</p>
 <p>If you have a single-end file, you can run:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bowtie2</span> <span class="at">-p</span> 2 <span class="at">-q</span> <span class="dt">\</span></span>
@@ -1209,11 +1232,48 @@ div.csl-indent {
 <li><code>-U</code>: /path/to/FASTQ_file</li>
 <li><code>-S</code>: /path/to/output/SAM_file</li>
 </ul>
+</section>
+<section id="combining-bowtie2-with-samtools" class="level4">
+<h4 class="anchored" data-anchor-id="combining-bowtie2-with-samtools">Combining Bowtie2 with samtools</h4>
+<p>The commands above write a SAM file to disk, which you would then need to convert to a sorted BAM file yourself as a separate step (see the <code>samtools view</code> and <code>samtools sort</code> sections on the <a href="../../source/core_tools/samtools.html">samtools</a> page). Once you are comfortable with the basic Bowtie2 command, you can skip the intermediate SAM file entirely by connecting Bowtie2 and <code>samtools sort</code> with a pipe (<code>|</code>), so the alignment output is streamed directly into <code>samtools sort</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">bowtie2</span> <span class="at">-p</span> 2 <span class="at">-q</span> <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">-x</span> GCF_000385215 <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">-U</span> sample1.fastq.gz <span class="dv">2</span><span class="op">&gt;</span> bowtie2.log <span class="dt">\</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">|</span> <span class="ex">samtools</span> sort <span class="at">-o</span> sample1_sorted.bam <span class="at">-</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Notice:</p>
+<ul>
+<li>The <code>-S sample1_mapped.sam</code> option is dropped. Instead of writing a SAM file, Bowtie2 writes its output to screen (this is called “stdout”), and the pipe sends that output directly into <code>samtools sort</code> as its input.</li>
+<li>The trailing <code>-</code> after <code>-o sample1_sorted.bam</code> tells <code>samtools sort</code> to read its input from the pipe rather than from a file.</li>
+<li>The result, <code>sample1_sorted.bam</code>, is already a sorted BAM file, ready for indexing (see <code>samtools index</code> on the <a href="../../source/core_tools/samtools.html">samtools</a> page), no intermediate SAM file is ever created on disk.</li>
+</ul>
+</section>
+<section id="a-note-on-multi-mapping-reads" class="level4">
+<h4 class="anchored" data-anchor-id="a-note-on-multi-mapping-reads">A note on multi-mapping reads</h4>
+<p>A read that matches more than one place in the reference (common for repeats, paralogous genes, or closely related transcripts/isoforms) is called a multi-mapper. By default, Bowtie2 does not try to find and report all of these locations. Instead, for each read it searches for a good alignment and reports one, picked semi-randomly among the best-scoring locations it found, and gives that alignment a low mapping quality (MAPQ) score to flag that the placement is not unique (see the MAPQ field description on the <a href="../../source/core_tools/samtools.html">samtools</a> page). This is worth keeping in mind for:</p>
+<ul>
+<li><strong>Transcriptomics</strong>: reads from genes with shared exons, close paralogs, or multiple transcript isoforms can multi-map, which can distort read counts per gene/isoform if not accounted for. If this matters for your analysis, either filter on MAPQ, or use a tool designed to handle multi-mapping properly (e.g.&nbsp;one that distributes multi-mapped reads probabilistically) rather than relying on Bowtie2’s default single, semi-random pick.</li>
+<li><strong>Assembly-adjacent uses</strong> (e.g.&nbsp;mapping reads back to contigs/bins for coverage estimation): multi-mapping reads can artificially inflate the apparent coverage of repeated or similar regions across contigs.</li>
+</ul>
+<p>If you want Bowtie2 to search harder and report multiple alignments per read instead of just one, see the <code>-k</code> and <code>-a</code> options in the <a href="https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#reporting">manual</a>.</p>
+</section>
+<section id="a-note-on-clipping" class="level4">
+<h4 class="anchored" data-anchor-id="a-note-on-clipping">A note on clipping</h4>
+<p>By default, Bowtie2 runs in <strong>end-to-end</strong> alignment mode: the entire read must be involved in the alignment, from its first base to its last, with no trimming allowed. If a read does not align well end-to-end (e.g.&nbsp;because of adapter sequence at one end, or because it runs past the edge of a short reference/contig), it will simply get a lower alignment score, or may not be reported as aligned at all, rather than being clipped.</p>
+<p>Bowtie2 also offers a <strong>local</strong> alignment mode (<code>--local</code>), which is not the default and has to be requested explicitly. In local mode, Bowtie2 is allowed to trim (“soft-clip”) bases off the start and/or end of a read if that improves the alignment score. Soft-clipped bases are not deleted: they are still present in the SEQ field of the SAM record, but excluded from the alignment, and are marked with an <code>S</code> operation in the CIGAR string (see the CIGAR field description on the <a href="../../source/core_tools/samtools.html">samtools</a> page).</p>
+<p>This matters because:</p>
+<ul>
+<li>If you are seeing unexpectedly low alignment rates near read ends (e.g.&nbsp;leftover adapter sequence, or reads mapping right at the edge of a short contig), switching to <code>--local</code> can rescue alignments that end-to-end mode would otherwise score poorly or discard, at the cost of allowing partial/clipped alignments.</li>
+<li>For assembly polishing or variant calling, clipped alignments (only relevant if you used <code>--local</code>) can inflate or distort apparent read support near contig ends, so it is worth knowing which mode was used when interpreting coverage there.</li>
+<li>Since end-to-end is the default, if you have not passed <code>--local</code> yourself, you generally do not need to worry about clipping artifacts in your SAM/BAM file.</li>
+</ul>
+<p>See the <a href="https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#end-to-end-alignment-versus-local-alignment">manual</a> for the full comparison between the two modes.</p>
+</section>
+</section>
+</section>
 
 
-</section>
-</section>
-</section>
 
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
@@ -1659,7 +1719,7 @@ Langmead, Ben, and Steven L Salzberg. 2012. <span>“Fast Gapped-Read Alignment 
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-08-05</p>
+Last modified: 2026-08-17</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/bowtie.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

@@ -15,6 +15,8 @@ bibliography: references.bib
 
 Minimap2 [@li2018] is a versatile sequence alignment program that aligns DNA or mRNA sequences against a large reference database.
 
+**When to use minimap2 vs. other aligners:** As a rule of thumb (this is not a strict rule, the right choice depends on your specific data and question), minimap2 is generally the best choice for long reads (e.g. Nanopore or PacBio), since it was designed to handle their higher error rates and longer lengths efficiently. For short-read, general-purpose or microbial mapping, [Bowtie2](../core_tools/bowtie.qmd) or [BWA](../core_tools/bwa.qmd) are typically simpler choices. For eukaryotic RNA-seq with a good reference genome/annotation, splice-aware aligners like [STAR](../metatranscriptomics/star.qmd) are usually a better fit. The main things that actually drive the choice are read length, whether splicing needs to be modeled, and reference quality, not the tool name itself.
+
 Available on Crunchomics: Minimap2 version 2.24-r1122 installed
 
 ### Installation
@@ -33,6 +35,10 @@ For detailed usage information, check out the [minimap2 manual](https://github.c
 Input:
 
 - Minimap takes both fastq as well as fasta sequences as input
+
+Output:
+
+- By default minimap2 writes its alignments in [PAF format](https://github.com/lh3/miniasm/blob/master/PAF.md), a lightweight tab-delimited summary of each alignment. Pass `-a` if you need full SAM output instead (e.g. for downstream tools that expect SAM/BAM, such as variant callers or genome browsers). To learn how to work with SAM/BAM files, see the [samtools](../core_tools/samtools.qmd) page.
 
 ```{bash}
 #example of mapping input sequences against sequences of the SILVA 16S database
@@ -53,5 +59,13 @@ Used options:
 
 There are many different ways to run minimap2, so check out the [minimap2 manual](https://github.com/lh3/minimap2#started) for all options.
 
+#### A note on multi-mapping reads and clipping
+
+Two default behaviors of minimap2 are worth knowing about, since other aligners can behave differently:
+
+-   **Multi-mapping reads.** A read that matches more than one place in the reference is called a multi-mapper. By default, minimap2 reports one primary alignment per read plus up to `-N` (=5) secondary (multi-mapping) alignments, provided their score is at least `-p` (=0.8) of the primary alignment's score. Secondary alignments can be suppressed with `--secondary=no` if you only want the single best (primary) alignment reported, similar to how [Bowtie2](../core_tools/bowtie.qmd) behaves by default.
+-   **Clipping.** minimap2 always performs local (extension-based) alignment, there is no end-to-end mode like in [Bowtie2](../core_tools/bowtie.qmd). This means the ends of a read that do not align well (e.g. adapter remnants, or the read running past the edge of a short reference/contig) are routinely soft-clipped rather than forcing the whole read to align. In SAM output (`-a`), clipped bases show up as an `S` operation in the CIGAR string (see the [samtools](../core_tools/samtools.qmd) page for how to read CIGAR and MAPQ fields). Keep this in mind when interpreting aligned length or coverage near contig ends, especially for assembly-adjacent uses.
 
 ### References
+
+</div>

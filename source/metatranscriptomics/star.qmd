@@ -18,6 +18,8 @@ STAR (Spliced Transcripts Alignment to a Reference) is an ultra-fast universal R
 
 For more information, please have a look at [the manual](https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf).
 
+**When to use STAR vs. other aligners:** As a rule of thumb (this is not a strict rule, the right choice depends on your specific data and question), STAR is a good fit when you are working with eukaryotic RNA-seq and have a good reference genome/annotation, since it is splice-aware and can detect reads spanning exon-exon junctions. For general-purpose or microbial short-read mapping without splicing, [Bowtie2](../core_tools/bowtie.qmd) or [BWA](../core_tools/bwa.qmd) are typically simpler choices. For long reads (e.g. Nanopore or PacBio), [minimap2](../classification/minimap2.qmd) is generally the better choice. The main things that actually drive the choice are read length, whether splicing needs to be modeled, and reference quality, not the tool name itself.
+
 ### Installation
 
 Installed on crunchomics: Yes,
@@ -70,6 +72,10 @@ Notice:
 #### Step 2: Mapping reads to a genome
 
 You can map the reads by either running STAR in a loop when working with multiple input files or alternatively, multiple files can be mapped in one run with a single output.
+
+Generated output:
+
+-   With `--outSAMtype BAM SortedByCoordinate` (used in the examples below), STAR writes its alignments directly as a sorted BAM file rather than the raw SAM text format most aligners produce. This is a tab-delimited format under the hood, whether written as plain-text SAM or the compressed binary BAM. To learn how to work with this file format, see the [samtools](../core_tools/samtools.qmd) page.
 
 ##### Example 1: Run Star on an individual file
 
@@ -215,6 +221,13 @@ Settings:
 
 
 
+### A note on multi-mapping reads and clipping
+
+Two default behaviors of STAR are worth knowing about, since other aligners can behave differently:
+
+-   **Multi-mapping reads.** A read that matches more than one place in the reference (e.g. shared exons between isoforms, close paralogs, or under-depleted rRNA) is called a multi-mapper. `--outFilterMultimapNmax` (default: 10) is an all-or-nothing filter on the *number of loci a read maps to*, not on how many alignments get written: if a read maps to more loci than this value, none of its alignments are output at all; if it maps to fewer, it's kept, and then `--outSAMmultNmax` (default: all) controls how many of those alignments are actually written to the SAM/BAM file. Each written alignment is tagged with `NH:i:<N>` for the number of loci the read maps to (see [STAR discussion #1203](https://github.com/alexdobin/STAR/discussions/1203)). Other aligners, such as [Bowtie2](../core_tools/bowtie.qmd), instead report only a single, semi-random best alignment per read by default. STAR's own MAPQ convention also differs from the standard SAM meaning: unique mappers get MAPQ 255, while multi-mappers get lower values (3 for 2 loci, 1 for 3-4 loci, 0 for 5+ loci). See the MAPQ field description on the [samtools](../core_tools/samtools.qmd) page for how MAPQ is normally used, and keep in mind STAR's scale is its own convention rather than a mapping-quality probability. A high proportion of multi-mapping reads can indicate insufficient rRNA depletion (see below).
+-   **Clipping.** By default, STAR runs in local alignment mode (`--alignEndsType Local`), meaning it is allowed to soft-clip bases off the ends of a read if that improves the alignment score (e.g. adapter remnants, or reads running past a splice junction that isn't in the annotation). Some other aligners, such as [Bowtie2](../core_tools/bowtie.qmd), do not clip by default and only do so if you explicitly request local alignment mode. Soft-clipped bases show up as an `S` operation in the CIGAR string (see the [samtools](../core_tools/samtools.qmd) page). If you need the full read to align without clipping, use `--alignEndsType EndToEnd`.
+
 ### Interpreting the outputs
 
 STAR will produce different output files, which are briefly described below.
@@ -241,3 +254,6 @@ In here the most important value to look at is the **Uniquely mapped reads %** o
 	6. 	0: unannotated, 1: annotated, only if an input gene annotations file was used
 	7. 	number of uniquely mapping reads spanning the splice junction
 	8. 	number of multimapping reads spanning the splice junction
+
+
+</div>

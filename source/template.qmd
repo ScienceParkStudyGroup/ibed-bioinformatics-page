@@ -13,25 +13,47 @@ bibliography: references.bib
 
 ### Introduction
 
+One or two sentences on what the tool does and what it's typically used for. If there is a paper to cite, add it to this folder's `references.bib` and cite it here, e.g. `[@authorYear]`.
+
+For more detailed information, please visit [the manual](https://example.com/manual).
 
 ### Installation
 
-Installed on Crunchomics: Yes,
+Installed on Crunchomics: Yes, `<Tool>` vX.Y.Z is installed.
 
-- Prokka v1.14.6 is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics share, then you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski@uva.nl. 
-- Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don't need to run this command):
+If you want to install it yourself, the command below installs the version verified on Crunchomics. Before running it, check the tool's [GitHub](https://example.com/repo) for a newer version and swap the version number if one is available.
+
+```{bash}
+mamba create -n toolname_X.Y.Z
+mamba install -n toolname_X.Y.Z -c bioconda toolname=X.Y.Z
+mamba activate toolname_X.Y.Z
+```
+
+If the tool is instead installed as part of the shared bioinformatics environment rather than its own dedicated environment, replace the block above with:
 
 ```{bash}
 conda config --add envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/
 ```
 
-If you want to install it yourself, you can run:
-
+and note in this section who to contact for access if a reader doesn't already have it.
 
 ### Usage
 
+Required inputs:
 
-Useful options:
+-   List the input file(s)/format(s) the tool expects here.
 
+Generated output:
+
+-   List and briefly describe the main output file(s)/format(s) here. If the output is a SAM/BAM alignment file, link to the [samtools](core_tools/samtools.qmd) page so readers know how to process it further.
+
+```{bash}
+toolname --input example_input.fasta --output results/example_output
+```
+
+Basic options, for a full list go [here](https://example.com/manual):
+
+-   `--option1`: what it does
+-   `--option2`: what it does
 
 </div>
