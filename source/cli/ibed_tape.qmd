@@ -64,7 +64,7 @@ When you are new to the command line it can be confusing to tell whether you are
 
 ## Step 3: Explore your group's folder
 
-Once connected, move into your group's folder in the archive. This page won't go into detail on moving around folders — for a fuller explanation of `cd` and navigating a file system, see [`cd`: Moving around folders](cli_basics.qmd#cd-moving-around-folders). For example:
+Once connected, move into your group's folder in the archive. This page won't go into detail on moving around folders, for a fuller explanation of `cd` and navigating a file system, see [`cd`: Moving around folders](cli_basics.qmd#cd-moving-around-folders). For example:
 
 ```{bash}
 cd /archive/ibed/sistem-nl
@@ -98,7 +98,7 @@ mkdir new_folder_name
 cd new_folder_name
 ```
 
-It helps to print the full path of this new folder now, so you have it ready for the copy command later. Note it down — for example paste it into a text file:
+It helps to print the full path of this new folder now, so you have it ready for the copy command later. Note it down, for example paste it into a text file:
 
 ```{bash}
 pwd
@@ -118,7 +118,7 @@ cd /drives/c/some/path/to/your/folder
 ::: callout-important
 **Folder names with spaces**
 
-Windows folder names often contain spaces (e.g. a synced OneDrive folder called `OneDrive - UvA`). The command line treats a space as marking the end of a path, so a path containing spaces needs to be wrapped in quotes — otherwise the command will fail or only read part of the path:
+Windows folder names often contain spaces (e.g. a synced OneDrive folder called `OneDrive - UvA`). The command line treats a space as marking the end of a path, so a path containing spaces needs to be wrapped in quotes, otherwise the command will fail or only read part of the path:
 
 ```{bash}
 cd "/drives/c/Users/uvanetid/OneDrive - UvA"
@@ -140,7 +140,9 @@ To copy a single file (or an already-compressed folder) instead, drop the `-r`:
 scp DCIM.tar.gz uvanetid@archive.surfsara.nl:/archive/ibed/sistem-nl/rawdata_photos_sustainalab
 ```
 
-If you want to compress a folder before copying it, `tar` can do that too — still on your local terminal, since that is where the original folder is:
+The examples above copy data onto the archive. If you also want to copy data the other way, for example downloading something back from the archive to your computer, see the fuller explanation of `scp` in [Start working on an HPC](slurm_basics.qmd#scp-transferring-data-fromto-a-server), which covers both directions.
+
+If you want to compress a folder before copying it, `tar` can do that too. Run the command while still on your local terminal, since that is where the original folder is:
 
 ```{bash}
 tar -czvf DCIM.tar.gz DCIM/
@@ -166,7 +168,7 @@ Go back one directory:
 cd ../
 ```
 
-`scp` is not specific to the Tape Archive — the same command moves data to or from any server you can `ssh` into, for example an HPC like Crunchomics:
+`scp` is not specific to the Tape Archive, the same command moves data to or from any server you can `ssh` into, for example an HPC like Crunchomics:
 
 ```{bash}
 scp your_file.tar.gz uvanetid@server_address:/path/to/destination

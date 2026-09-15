@@ -1218,7 +1218,7 @@ Tip
 </section>
 <section id="step-3-explore-your-groups-folder" class="level2">
 <h2 class="anchored" data-anchor-id="step-3-explore-your-groups-folder">Step 3: Explore your group’s folder</h2>
-<p>Once connected, move into your group’s folder in the archive. This page won’t go into detail on moving around folders — for a fuller explanation of <code>cd</code> and navigating a file system, see <a href="../../source/cli/cli_basics.html#cd-moving-around-folders"><code>cd</code>: Moving around folders</a>. For example:</p>
+<p>Once connected, move into your group’s folder in the archive. This page won’t go into detail on moving around folders, for a fuller explanation of <code>cd</code> and navigating a file system, see <a href="../../source/cli/cli_basics.html#cd-moving-around-folders"><code>cd</code>: Moving around folders</a>. For example:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /archive/ibed/sistem-nl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -1256,7 +1256,7 @@ Important
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Go into that new folder</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> new_folder_name</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>It helps to print the full path of this new folder now, so you have it ready for the copy command later. Note it down — for example paste it into a text file:</p>
+<p>It helps to print the full path of this new folder now, so you have it ready for the copy command later. Note it down, for example paste it into a text file:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># e.g. /archive/ibed/sistem-nl/rawdata_photos_sustainalab</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1282,7 +1282,7 @@ Important
 </div>
 <div class="callout-body-container callout-body">
 <p><strong>Folder names with spaces</strong></p>
-<p>Windows folder names often contain spaces (e.g.&nbsp;a synced OneDrive folder called <code>OneDrive - UvA</code>). The command line treats a space as marking the end of a path, so a path containing spaces needs to be wrapped in quotes — otherwise the command will fail or only read part of the path:</p>
+<p>Windows folder names often contain spaces (e.g.&nbsp;a synced OneDrive folder called <code>OneDrive - UvA</code>). The command line treats a space as marking the end of a path, so a path containing spaces needs to be wrapped in quotes, otherwise the command will fail or only read part of the path:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">"/drives/c/Users/uvanetid/OneDrive - UvA"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -1299,7 +1299,8 @@ Important
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> DCIM.tar.gz uvanetid@archive.surfsara.nl:/archive/ibed/sistem-nl/rawdata_photos_sustainalab</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>If you want to compress a folder before copying it, <code>tar</code> can do that too — still on your local terminal, since that is where the original folder is:</p>
+<p>The examples above copy data onto the archive. If you also want to copy data the other way, for example downloading something back from the archive to your computer, see the fuller explanation of <code>scp</code> in <a href="../../source/cli/slurm_basics.html#scp-transferring-data-fromto-a-server">Start working on an HPC</a>, which covers both directions.</p>
+<p>If you want to compress a folder before copying it, <code>tar</code> can do that too. Run the command while still on your local terminal, since that is where the original folder is:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-czvf</span> DCIM.tar.gz DCIM/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -1318,7 +1319,7 @@ Important
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><code>scp</code> is not specific to the Tape Archive — the same command moves data to or from any server you can <code>ssh</code> into, for example an HPC like Crunchomics:</p>
+<p><code>scp</code> is not specific to the Tape Archive, the same command moves data to or from any server you can <code>ssh</code> into, for example an HPC like Crunchomics:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> your_file.tar.gz uvanetid@server_address:/path/to/destination</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
