@@ -211,6 +211,8 @@ scp username@server:/path_to_target_folder/file.txt Desktop
 
 There are graphical interace filetransfer systems that can make the job easier, i.e. FileZilla, that you can check up on.
 
+For a worked example of using `scp` to copy data to a real remote server, see [Using the IBED Tape Archive](ibed_tape.qmd).
+
 ### `rsync`: Synchronize files and directories between two hosts or machines
 
 While scp is handy for transferring files, rsync takes it a step further by efficiently synchronizing files and directories. This is particularly useful for large datasets (imagine having to move several terrabytes) and for updating files without transferring the entire content.

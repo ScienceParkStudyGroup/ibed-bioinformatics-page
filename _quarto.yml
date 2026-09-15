@@ -70,6 +70,8 @@ website:
                 href: source/cli/slurm_basics.qmd
               - text: "Using scratch on Crunchomics"
                 href: source/cli/scratch.qmd
+              - text: "Using the IBED Tape Archive"
+                href: source/cli/ibed_tape.qmd
 
           - text: "Using R"
             href: source/R/readme.qmd

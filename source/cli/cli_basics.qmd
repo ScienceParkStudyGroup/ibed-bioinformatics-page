@@ -382,4 +382,6 @@ ls to_compress
 
 We can see that there is one folder in to_compress, our downloads folder.
 
+If you want to see `tar` (and `scp`) used together to back up data to an actual remote archive, see [Using the IBED Tape Archive](ibed_tape.qmd).
+
 </div>

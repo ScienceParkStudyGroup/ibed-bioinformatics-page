@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>homopolish – Bioinformatics guidance page</title>
+<title>ibed_tape – Bioinformatics guidance page</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -55,27 +55,7 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -85,8 +65,8 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/metagenomics/medaka.html" rel="next">
-<link href="../../source/metagenomics/gtdb.html" rel="prev">
+<link href="../../source/R/readme.html" rel="next">
+<link href="../../source/cli/scratch.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -99,9 +79,9 @@ div.csl-indent {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-b15cb652af43b88d7d12fd4e61c58a4a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-052be93faeed2c5310335092814e6d2d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-b15cb652af43b88d7d12fd4e61c58a4a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-cf95f6fba6db6171faad7f1c3955e144.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-e26d566f4415697c0fe7bd6bdf16b584.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-cf95f6fba6db6171faad7f1c3955e144.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -305,7 +285,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/atlas.html">(Meta)genomics</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/homopolish.html">Homopolish</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../../source/cli/hpc_usage.html">Using an HPC</a></li><li class="breadcrumb-item"><a href="../../source/cli/ibed_tape.html">Using the IBED Tape Archive</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -388,11 +368,11 @@ div.csl-indent {
       <div class="sidebar-item-container"> 
             <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using an HPC</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/cli/slurm_basics.html" class="sidebar-item-text sidebar-link">
@@ -407,7 +387,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/cli/ibed_tape.html" class="sidebar-item-text sidebar-link">
+  <a href="../../source/cli/ibed_tape.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Using the IBED Tape Archive</span></a>
   </div>
 </li>
@@ -555,13 +535,13 @@ div.csl-indent {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
  <span class="menu-text">(Meta)genomics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/atlas.html" class="sidebar-item-text sidebar-link">
@@ -636,7 +616,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/metagenomics/homopolish.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../source/metagenomics/homopolish.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homopolish</span></a>
   </div>
 </li>
@@ -1149,17 +1129,20 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#homopolish" id="toc-homopolish" class="nav-link active" data-scroll-target="#homopolish">Homopolish</a>
+  <li><a href="#using-the-ibed-tape-archive" id="toc-using-the-ibed-tape-archive" class="nav-link active" data-scroll-target="#using-the-ibed-tape-archive">Using the IBED Tape Archive</a>
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
-  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
+  <li><a href="#what-is-the-ibed-tape-archive" id="toc-what-is-the-ibed-tape-archive" class="nav-link" data-scroll-target="#what-is-the-ibed-tape-archive">What is the IBED Tape Archive?</a></li>
+  <li><a href="#step-1-get-a-terminal" id="toc-step-1-get-a-terminal" class="nav-link" data-scroll-target="#step-1-get-a-terminal">Step 1: Get a terminal</a></li>
+  <li><a href="#step-2-connect-to-the-archive" id="toc-step-2-connect-to-the-archive" class="nav-link" data-scroll-target="#step-2-connect-to-the-archive">Step 2: Connect to the archive</a></li>
+  <li><a href="#step-3-explore-your-groups-folder" id="toc-step-3-explore-your-groups-folder" class="nav-link" data-scroll-target="#step-3-explore-your-groups-folder">Step 3: Explore your group’s folder</a></li>
+  <li><a href="#step-4-create-a-folder-and-copy-data-into-it" id="toc-step-4-create-a-folder-and-copy-data-into-it" class="nav-link" data-scroll-target="#step-4-create-a-folder-and-copy-data-into-it">Step 4: Create a folder and copy data into it</a></li>
+  <li><a href="#other-handy-commands" id="toc-other-handy-commands" class="nav-link" data-scroll-target="#other-handy-commands">Other handy commands</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/homopolish.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/ibed_tape.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/metagenomics/readme.html">Sequence data analyses</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/atlas.html">(Meta)genomics</a></li><li class="breadcrumb-item"><a href="../../source/metagenomics/homopolish.html">Homopolish</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../../source/cli/hpc_usage.html">Using an HPC</a></li><li class="breadcrumb-item"><a href="../../source/cli/ibed_tape.html">Using the IBED Tape Archive</a></li></ol></nav></header>
 
 
 <header id="title-block-header">
@@ -1168,98 +1151,183 @@ div.csl-indent {
 </header>
 
 
-<section id="homopolish" class="level2" style="text-align: justify">
-<h2 class="anchored" data-anchor-id="homopolish">Homopolish</h2>
-<section id="introduction" class="level3">
-<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>Homopolish is a genome polisher originally developed for Nanopore and subsequently extended for PacBio CLR <span class="citation" data-cites="Huang2021">(<a href="#ref-Huang2021" role="doc-biblioref">Huang, Liu, and Shih 2021</a>)</span>. It generates a high-quality genome (&gt;Q50) for viruses, bacteria, and fungi. Nanopore/PacBio systematic errors can be corrected by retrieving homologs from closely-related genomes and polished by an support vector machine (SVM). When paired with Racon and Medaka, the genome quality can reach Q50-90 (&gt;99.999%) on Nanopore R9.4/10.3 flowcells (Guppy &gt;3.4). For PacBio CLR, Homopolish also improves the majority of Flye-assembled genomes to Q90</p>
-<p>For more information, please visit the tools <a href="https://github.com/ythuang0522/homopolish">github page</a>.</p>
+<section id="using-the-ibed-tape-archive" class="level1" style="text-align: justify">
+<h1>Using the IBED Tape Archive</h1>
+<section id="what-is-the-ibed-tape-archive" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-the-ibed-tape-archive">What is the IBED Tape Archive?</h2>
+<p>The IBED Tape Archive is a long-term storage service hosted by SURF (the Dutch national ICT cooperative for research), reachable at <code>archive.surfsara.nl</code>. As mentioned on the <a href="../../source/cli/hpc_usage.html">Using an HPC</a> page, Crunchomics is <strong>not</strong> an archiving system, so once an analysis is done it is a good idea to move raw data and important results somewhere safe for long-term storage. This archive is one such option for IBED researchers.</p>
+<p>For more information about all data storage options, have a look at the <a href="https://computational-resources-uva-ibed-cs-general-20079b9f20f96949e05.gitlab.io/#data-storage">Computational Support Team’s website</a>. The IBED Tape Archive is a long-term storage option you can use for non-project funded data storage. You can get up to 5 TB of storage for free. Check the website for how to get access.</p>
+<p>After requesting access each group can request to get its own folder in the archive. Access to a group’s folder is typically restricted to a few people (e.g.&nbsp;the PI or an appointed data manager), so ask whoever manages your group’s folder if you need access to it. If nobody in your group has access yet, or you need it extended to more people, this can be requested via the <a href="https://servicedesk.surf.nl">SURF Service Desk</a>.</p>
 </section>
-<section id="installation" class="level3">
-<h3 class="anchored" data-anchor-id="installation">Installation</h3>
-<p>Installed on Crunchomics: Yes,</p>
+<section id="step-1-get-a-terminal" class="level2">
+<h2 class="anchored" data-anchor-id="step-1-get-a-terminal">Step 1: Get a terminal</h2>
+<p>Connecting to the archive is done through a Unix-style terminal.</p>
 <ul>
-<li>Homopolish v0.4.1 is installed as part of the bioinformatics share. If you have access to Crunchomics and have not yet access to the bioinformatics share, then you can send an email with your Uva netID to Nina Dombrowski, n.dombrowski@uva.nl.</li>
-<li>Afterwards, you can add the bioinformatics share as follows (if you have already done this in the past, you don’t need to run this command):</li>
+<li><strong>Windows:</strong> if you don’t already have a terminal set up, see <a href="../../source/cli/cli_installation.html">Setting up a bash command line</a>. MobaXterm is a good pick for this workflow — download the portable <a href="https://mobaxterm.mobatek.net/download-home-edition.html">Home Edition</a> and save it to your desktop, no installation needed.</li>
+<li><strong>Mac:</strong> you already have a terminal. Open Finder, go to Applications &gt; Utilities &gt; Terminal, or search for “terminal” with Spotlight.</li>
 </ul>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> envs_dirs /zfs/omics/projects/bioinformatics/software/miniconda3/envs/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="step-2-connect-to-the-archive" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-connect-to-the-archive">Step 2: Connect to the archive</h2>
+<p>Opening MobaXterm shows the window below. Click “Start local terminal”.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/ibed_tape_mobaxterm_start.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
 </div>
-<p>If you want to install it yourself, you can run the commands below — cloning the repo like this will get you whatever is on the default branch at the time you run it, not a pinned version.</p>
+<p>The local terminal should look like this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/ibed_tape_local_terminal.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<p>From this local terminal, connect to the IBED Tape Archive with:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download git folder</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> software_folder </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/ythuang0522/homopolish.git</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> homopolish</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Install dependencies </span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">mamba</span> env create <span class="at">-f</span> environment.yml</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Homopolish retrieves homologous sequences by scanning microbial genomes compressed in (Mash) sketches. </span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Three sketches, bacteria (3.3Gb) , virus (74Mb), and fungi (74Mb) can be downloaded</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> http://bioinfo.cs.ccu.edu.tw/bioinfo/downloads/Homopolish_Sketch/bacteria.msh.gz</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#wget http://bioinfo.cs.ccu.edu.tw/bioinfo/downloads/Homopolish_Sketch/virus.msh.gz </span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#wget http://bioinfo.cs.ccu.edu.tw/bioinfo/downloads/Homopolish_Sketch/fungi.msh.gz</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract data </span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-d</span> bacteria.msh.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> uvanetid@archive.surfsara.nl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Important</strong>: Throughout the tutorial, replace <code>uvanetid</code> with your own UvA network login ID (the same one you use for Crunchomics or other UvA services), e.g.&nbsp;<code>ndombro</code>.</p>
+<p>The very first time you connect from a given computer, you may see a message like this instead of a password prompt:</p>
+<pre><code>The authenticity of host 'archive.surfsara.nl' can't be established.
+Are you sure you want to continue connecting (yes/no)?</code></pre>
+<p>This is expected — it just means your computer has never connected to this particular server before. Type <code>yes</code> and press Enter to continue.</p>
+<p>Next, you will be asked for your password. While typing, nothing appears to move or change on screen, no dots, no cursor movement. This is normal: the password is still being entered, it is just not displayed.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/ibed_tape_ssh_login.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Am I on my own computer or on the archive?</strong></p>
+<p>When you are new to the command line it can be confusing to tell whether you are still on your own computer or already logged into the archive. Generally, if the prompt shows your UvAnetID, you are logged into another computer (here, the archive):</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/ibed_tape_prompt_comparison.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
-<section id="usage" class="level3">
-<h3 class="anchored" data-anchor-id="usage">Usage</h3>
-<p>Homopolish should be run with a pre-trained model (R9.4.pkl/R10.3.pkl for Nanopore and pb.pkl for PacBio CLR) and one sketch (virus, bacteria, or fungi). For Nanopore sequencing, Homopolish should be run after the Racon-Medaka pipeline as it only removes indel errors. For PacBio CLR sequencing, it can be invoked directly after Flye assembly.</p>
+<section id="step-3-explore-your-groups-folder" class="level2">
+<h2 class="anchored" data-anchor-id="step-3-explore-your-groups-folder">Step 3: Explore your group’s folder</h2>
+<p>Once connected, move into your group’s folder in the archive. This page won’t go into detail on moving around folders — for a fuller explanation of <code>cd</code> and navigating a file system, see <a href="../../source/cli/cli_basics.html#cd-moving-around-folders"><code>cd</code>: Moving around folders</a>. For example:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate homopolish</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Polish a genome (data sequenced with a R9.4 flowcell)</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> /zfs/omics/projects/bioinformatics/software/homopolish/homopolish.py polish <span class="dt">\</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">-a</span> my_genome.fasta <span class="dt">\</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">-m</span> R9.4.pkl <span class="dt">\</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> results <span class="dt">\</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">-s</span> /zfs/omics/projects/bioinformatics/software/homopolish/data/bacteria.msh <span class="dt">\</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">-t</span> 20</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /archive/ibed/sistem-nl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Homopolish will automatically search the most closely related strains to your genome. For cases where this fails you can specify a genus with <code>-g genusname_speciesname</code></p>
-<p>Keep in mind that polishing can, but does not have to, improve a genome assembly. Therefore it is advised to compare the original and polished genome to a close reference genome, or, if not available, look at assembly parameters, number of proteins or number of pseudogenes.</p>
-<p>Useful options:</p>
-<pre><code>  -h, --help            show this help message and exit
-  -m MODEL_PATH, --model_path MODEL_PATH
-                        [REQUIRED] Path to a trained model (pkl file). Please
-                        see our github page to see options.
-  -a ASSEMBLY, --assembly ASSEMBLY
-                        [REQUIRED] Path to a assembly genome.
-  -s SKETCH_PATH, --sketch_path SKETCH_PATH
-                        Path to a mash sketch file.
-  -g GENUS, --genus GENUS
-                        Genus name
-  -l LOCAL_DB_PATH, --local_DB_path LOCAL_DB_PATH
-                        Path to your local DB (ex: cat closely-related_genomes1.fasta closely-related_genomes2.fasta&gt; DB.fasta)
-  -t THREADS, --threads THREADS
-                        Number of threads to use. [1]
-  -o OUTPUT_DIR, --output_dir OUTPUT_DIR
-                        Path to the output directory. [output]
-  --minimap_args MINIMAP_ARGS
-                        Minimap2 -x argument. [asm5]
-  --mash_threshold MASH_THRESHOLD
-                        Mash output threshold. [0.95]
-  --ani                 Ani identity [99%]
-  --download_contig_nums DOWNLOAD_CONTIG_NUMS
-                        How much contig to download from NCBI. [20]
-  -d, --debug           Keep the information of every contig after mash, such
-                        as homologous sequences and its identity infomation.
-                        [no]
-  --mash_screen         Use mash screen. [mash dist]</code></pre>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Always leave a space between a command (e.g.&nbsp;<code>cd</code>) and whatever comes after it (e.g.&nbsp;a folder path). <code>cd/archive/...</code> will fail, <code>cd /archive/...</code> will work.</p>
+</div>
+</div>
+<p>Now you can look around:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># list what is in the folder</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># check the size of each folder/file</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-sh</span> <span class="pp">*</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># list the contents of one specific folder</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> some_folder/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="step-4-create-a-folder-and-copy-data-into-it" class="level2">
+<h2 class="anchored" data-anchor-id="step-4-create-a-folder-and-copy-data-into-it">Step 4: Create a folder and copy data into it</h2>
+<p><strong>On the archive terminal</strong> (the one you connected with in Step 2), create a new folder and move into it:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> new_folder_name</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Go into that new folder</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> new_folder_name</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>It helps to print the full path of this new folder now, so you have it ready for the copy command later. Note it down — for example paste it into a text file:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># e.g. /archive/ibed/sistem-nl/rawdata_photos_sustainalab</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>To copy data in, you need a <strong>second, separate terminal that stays on your own computer</strong> (not connected to the archive). The copy commands below are run from there, not from the archive session above. In MobaXterm you don’t need a whole new window for this: press the “+” button to open a second tab, and click back and forth between the two tabs to switch between your own computer and the archive.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/using_mobaxterm_tabs.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+<p><strong>On your local terminal</strong> (the new tab, not connected to the archive): your computer’s drives are reachable from here under <code>/drives</code>, so to find a folder on your Windows <code>C:</code> drive:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /drives/c/some/path/to/your/folder</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Folder names with spaces</strong></p>
+<p>Windows folder names often contain spaces (e.g.&nbsp;a synced OneDrive folder called <code>OneDrive - UvA</code>). The command line treats a space as marking the end of a path, so a path containing spaces needs to be wrapped in quotes — otherwise the command will fail or only read part of the path:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="st">"/drives/c/Users/uvanetid/OneDrive - UvA"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<p>From there, copy data to the archive with <code>scp</code>. Use <code>-r</code> to copy a whole folder:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="at">-r</span> folder_to_copy uvanetid@archive.surfsara.nl:/path/to/destination/folder</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># e.g.</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="at">-r</span> DCIM uvanetid@archive.surfsara.nl:/archive/ibed/sistem-nl/rawdata_photos_sustainalab</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>To copy a single file (or an already-compressed folder) instead, drop the <code>-r</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> DCIM.tar.gz uvanetid@archive.surfsara.nl:/archive/ibed/sistem-nl/rawdata_photos_sustainalab</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>If you want to compress a folder before copying it, <code>tar</code> can do that too — still on your local terminal, since that is where the original folder is:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-czvf</span> DCIM.tar.gz DCIM/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Here, we create a new tar archive (<code>-c</code>), compress it with gzip (<code>-z</code>), do this verbosely so we can see what gets added (<code>-v</code>), and name the resulting file (<code>-f</code>, followed by the name we want to give it). The last argument (<code>DCIM/</code>) is the folder we are compressing.</p>
+<p><strong>Check that the copy arrived</strong></p>
+<p>Switch back to <strong>the archive terminal</strong> and check that your data is there, with a size that roughly matches what you expect:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /archive/ibed/sistem-nl/rawdata_photos_sustainalab</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-sh</span> <span class="pp">*</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="other-handy-commands" class="level2">
+<h2 class="anchored" data-anchor-id="other-handy-commands">Other handy commands</h2>
+<p>Go back one directory:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>scp</code> is not specific to the Tape Archive — the same command moves data to or from any server you can <code>ssh</code> into, for example an HPC like Crunchomics:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> your_file.tar.gz uvanetid@server_address:/path/to/destination</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 </section>
 
 
 
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-Huang2021" class="csl-entry" role="listitem">
-Huang, Yao-Ting, Po-Yu Liu, and Pei-Wen Shih. 2021. <span>“Homopolish: A Method for the Removal of Systematic Errors in Nanopore Sequencing by Homologous Polishing.”</span> <em>Genome Biology</em> 22 (1). <a href="https://doi.org/10.1186/s13059-021-02282-6">https://doi.org/10.1186/s13059-021-02282-6</a>.
-</div>
-</div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -1680,13 +1748,13 @@ Huang, Yao-Ting, Po-Yu Liu, and Pei-Wen Shih. 2021. <span>“Homopolish: A Metho
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/metagenomics/gtdb.html" class="pagination-link" aria-label="GTDB_tk">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">GTDB_tk</span>
+      <a href="../../source/cli/scratch.html" class="pagination-link" aria-label="Using scratch on Crunchomics">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Using scratch on Crunchomics</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/metagenomics/medaka.html" class="pagination-link" aria-label="Medaka">
-        <span class="nav-page-text">Medaka</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/R/readme.html" class="pagination-link" aria-label="Using R">
+        <span class="nav-page-text">Using R</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1698,8 +1766,8 @@ Huang, Yao-Ting, Po-Yu Liu, and Pei-Wen Shih. 2021. <span>“Homopolish: A Metho
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-08-05</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/metagenomics/homopolish.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+Last modified: 2026-09-15</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/ibed_tape.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

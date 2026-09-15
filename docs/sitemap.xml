@@ -61,8 +61,12 @@
     <lastmod>2024-02-26T15:04:01.037Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/singlem.html</loc>
-    <lastmod>2026-08-05T06:47:56.463Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/trycycler.html</loc>
+    <lastmod>2026-08-05T07:00:46.322Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/signalp6.html</loc>
+    <lastmod>2024-09-03T11:27:00.483Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/readme.html</loc>
@@ -161,24 +165,28 @@
     <lastmod>2026-02-18T13:29:40.295Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/busco.html</loc>
-    <lastmod>2026-08-05T06:37:11.787Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/bwa.html</loc>
+    <lastmod>2026-08-17T09:12:40.909Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/bash-pipefail.html</loc>
-    <lastmod>2026-04-01T13:20:04.118Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/bowtie.html</loc>
+    <lastmod>2026-08-17T09:19:26.923Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/bash-for-loops.html</loc>
-    <lastmod>2026-04-01T08:48:56.649Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/bash-input-validation.html</loc>
+    <lastmod>2026-04-16T08:23:04.977Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/arcog.html</loc>
-    <lastmod>2026-03-24T14:20:48.262Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/bash-arrays.html</loc>
+    <lastmod>2026-04-01T11:20:10.105Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/slurm_basics.html</loc>
-    <lastmod>2025-10-15T12:58:57.373Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/conda/conda.html</loc>
+    <lastmod>2024-05-21T13:12:59.265Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/scratch.html</loc>
+    <lastmod>2025-10-15T12:52:48.858Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/hpc_usage.html</loc>
@@ -190,7 +198,7 @@
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/cli_basics.html</loc>
-    <lastmod>2025-10-15T12:49:37.506Z</lastmod>
+    <lastmod>2026-09-15T07:51:53.715Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/classification/minimap2.html</loc>
@@ -241,24 +249,28 @@
     <lastmod>2025-10-15T12:59:53.438Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/scratch.html</loc>
-    <lastmod>2025-10-15T12:52:48.858Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/ibed_tape.html</loc>
+    <lastmod>2026-09-15T07:49:06.579Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/conda/conda.html</loc>
-    <lastmod>2024-05-21T13:12:59.265Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/cli/slurm_basics.html</loc>
+    <lastmod>2026-09-15T07:51:55.384Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/bash-arrays.html</loc>
-    <lastmod>2026-04-01T11:20:10.105Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/arcog.html</loc>
+    <lastmod>2026-03-24T14:20:48.262Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/bash-input-validation.html</loc>
-    <lastmod>2026-04-16T08:23:04.977Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/bash-for-loops.html</loc>
+    <lastmod>2026-04-01T08:48:56.649Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/bowtie.html</loc>
-    <lastmod>2026-08-17T09:19:26.923Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/bash-pipefail.html</loc>
+    <lastmod>2026-04-01T13:20:04.118Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/busco.html</loc>
+    <lastmod>2026-08-05T06:37:11.787Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/cog.html</loc>
@@ -357,12 +369,16 @@
     <lastmod>2026-08-05T06:53:19.437Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/signalp6.html</loc>
-    <lastmod>2024-09-03T11:27:00.483Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/semibin.html</loc>
+    <lastmod>2026-08-05T07:40:49.258Z</lastmod>
   </url>
   <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/trycycler.html</loc>
-    <lastmod>2026-08-05T07:00:46.322Z</lastmod>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/singlem.html</loc>
+    <lastmod>2026-08-05T06:47:56.463Z</lastmod>
+  </url>
+  <url>
+    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/vamb.html</loc>
+    <lastmod>2026-08-05T09:48:22.428Z</lastmod>
   </url>
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/metatranscriptomics/fastp.html</loc>
@@ -419,17 +435,5 @@
   <url>
     <loc>https://scienceparkstudygroup.github.io/software_information/source/snakemake/tutorial.html</loc>
     <lastmod>2023-09-15T10:04:19.554Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/semibin.html</loc>
-    <lastmod>2026-08-05T07:40:49.258Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/metagenomics/vamb.html</loc>
-    <lastmod>2026-08-05T09:48:22.428Z</lastmod>
-  </url>
-  <url>
-    <loc>https://scienceparkstudygroup.github.io/software_information/source/core_tools/bwa.html</loc>
-    <lastmod>2026-08-17T09:12:40.909Z</lastmod>
   </url>
 </urlset>

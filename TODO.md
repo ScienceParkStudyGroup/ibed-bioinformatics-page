@@ -4,3 +4,15 @@
 - [x] [bowtie.qmd](source/core_tools/bowtie.qmd): add a note/section about BWA as an alternative read mapper. Done — [bwa.qmd](source/core_tools/bwa.qmd) created and cross-linked from bowtie.qmd, star.qmd, minimap2.qmd, samtools.qmd.
 - [ ] [featurecounts.qmd](source/core_tools/featurecounts.qmd): currently listed as not installed on Crunchomics — install it there and update the page once verified.
 - [ ] [bwa.qmd](source/core_tools/bwa.qmd): look into adding bwa-mem2 (faster reimplementation of bwa mem) as an alternative/addition to classic BWA. Note: the lh3/bwa repo itself lists [minibwa](https://github.com/lh3/minibwa) as the likely successor to bwa mem (per user, 2026-08-17) — check its maturity/status before deciding whether to document minibwa instead of or alongside bwa-mem2.
+- [ ] For the Bioinfo toolbox, consider a "Sanity checks in sequencing workflows" page. The goal is to have on page that teaches students about looking at what do I expect from my data, how do I look at outputs, compare results and localize issues. Examples I could use from my course work: retention of reads after filtering, alignments versus reads, taxa versus experimental design, do I retain all samples in my workflow, ...
+  
+
+For-loops page:
+It suggests $(ls) as a list source, which is a known anti-pattern.
+-op $outdir is unquoted, right after the quoting advice.
+"read by default recognizes tab" is incomplete. Default IFS splits on spaces, tabs, and newlines, so a sample name containing a space breaks. IFS=$'\t' read -r is the explicit form.
+The curly-quotes sentence is logically inverted. It currently says straight quotes may not be recognized.
+
+Bash Validation page:
+It uses for ID in $(cat samples) throughout, which the for-loops page warns against.
+The exit 1 example pasted into an interactive terminal closes the shell. On Crunchomics that logs students out of their SSH session. A warning is more useful than "press enter to restart."
