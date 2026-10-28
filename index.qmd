@@ -1,5 +1,5 @@
 ---
-toc-depth: 2
+toc-depth: 3
 ---
 
 ![](img/banner-min.png)
@@ -14,49 +14,63 @@ Please, be aware that this page is a work in progress and will be slowly updated
 
 ## Useful tutorials
 
-The Carpentries teaches workshops around the world on the foundational skills to work effectively and reproducibly with data and code and they are an excellent resource to check out if you want to get started with bioinformatics
+New to bioinformatics? Start with the bash and HPC tutorial below. It teaches you how to use the command line and how to run analyses on Crunchomics, the UvA computer cluster, and most other tutorials on this page build on it.
 
-- [The software carpentries](https://software-carpentry.org/lessons/) provides tutorials on:
-  - Bash
-  - Git 
-  - Python
-  - R
-- [Data carpentries](https://datacarpentry.org/lessons/) provides domain-specific tutorials, such as for ecology or genomics
-- [Library carpentries](https://librarycarpentry.org/lessons/) contain some useful tutorials if you want to transform data frames, map data to each other and work effectively with data
-
-Next, to the carpentries you will find a list of tutorials for more specific topics below.
-
+Did you just receive sequencing data and want to check it quickly? Then you can start with [A first look at your sequencing data](https://ndombrowski.github.io/sequencing_qc/) instead. It was written for exactly this situation: you can follow it without any command line experience and without doing the bash tutorial first.
 
 ### Getting started with bash
 
--   [A tutorial on using bash and an HPC](https://ndombrowski.github.io/cli_workshop/)
--   [Using the local scratch on Crunchomics](source/cli/scratch.qmd)
--   [Version control with git](https://github.com/fkariminejadasl/ml-notebooks/blob/main/tutorial/git.md)
--   [A tutorial on using AWK](https://ndombrowski.github.io/AWK_tutorial/), a command line tool for filtering tables, extracting patterns, etc... If you want to follow this tutorial then you can download the required input files from [here](https://github.com/ndombrowski/AWK_tutorial/tree/main/1_Inputfiles)
+-   [Getting started with bash and an HPC](https://ndombrowski.github.io/cli_workshop/): Start here if you have never used the command line. You learn how to set up a terminal and how to organize and inspect sequencing data with bash. Then you copy the data to Crunchomics, install software and run your first jobs there.
+-   [Working with tables using AWK](https://ndombrowski.github.io/AWK_tutorial/): AWK is a command line tool for tables. You can use it to pull out columns, keep only the rows that match a pattern, or merge two tables. You need the command line basics first. You can download the example input files [here](https://github.com/ndombrowski/AWK_tutorial/tree/main/1_Inputfiles).
+-   [Keeping track of your code with git](https://fkariminejadasl.github.io/ml-notebooks/git/): Git saves a history of the changes to your scripts, so you can go back to an earlier version and share your code with others. This page is a short overview of the most common git commands.
 
-## Bioinformatic toolbox
+### Storing data on Crunchomics
 
-- [Custom scripts](source/core_tools/custom_scripts.qmd): A list of custom scripts useful for bioinformatic analyses
-- [For-loops-in-bash](source/core_tools/bash-for-loops.qmd): How can I scale my research and run software not only on one but multiple files?
-- [Bash input validation](source/core_tools/bash-input-validation.qmd ): How do I check in my Bash scripts whether inputs already exist and avoid re-running tools?
-- [Bash arrays](source/core_tools/bash-arrays.qmd ): Arrays in bash — and when you don't need them
-- [Bash pipefails](source/core_tools/bash-pipefail.qmd): Telling a Bash script how to deal with exit codes
+-   [Using the local scratch on Crunchomics](source/cli/scratch.qmd): Each compute node on Crunchomics has its own fast, temporary storage. This page shows how to use it for jobs that read or write a lot of data. Read it once you are comfortable running jobs on Crunchomics.
+-   [Using the IBED Tape Archive](source/cli/ibed_tape.qmd): Crunchomics is not meant for long-term storage. This page shows how to copy raw data and finished results to IBED's tape archive.
+
+### Writing bash scripts
+
+Once you know the basics, these pages help you write scripts that run on many files and stop safely when something goes wrong. They build on each other, so read them in this order:
+
+-   [For-loops in bash](source/core_tools/bash-for-loops.qmd): How can I run the same tool on many files instead of one?
+-   [Checking files in bash scripts](source/core_tools/bash-input-validation.qmd): How can my script skip samples that are already done, or stop with a clear message when an input file is missing?
+-   [Bash arrays](source/core_tools/bash-arrays.qmd): How can I store a list of file names in one variable, and when do I not need to?
+-   [Stopping scripts on errors with `set -euo pipefail`](source/core_tools/bash-pipefail.qmd): Why does AI often add this line to the top of a script, and when does it help or cause problems?
 
 ### Using R
 
--   [An R cookbook](https://ndombrowski.github.io/R_cookbook/) including some [example files](https://github.com/ndombrowski/R_cookbook/tree/main/data) if you want to code along
--   [Tutorial on data manipulation with dplyr](https://ndombrowski.github.io/Tidyverse_tutorial/)
--   [Tutorial on data visualization with ggplot2](https://ndombrowski.github.io/Ggplot_tutorial/)
+-   [R cookbook](https://ndombrowski.github.io/R_cookbook/): Start here if you are new to R. No coding experience is needed. It takes you from installing R and RStudio to reading, changing, plotting and testing your own data. Work through the first chapters in order.
+-   [Changing tables with the tidyverse](https://ndombrowski.github.io/Tidyverse_tutorial/): More practice with filtering, sorting, changing and summarizing tables with dplyr, using a data set of penguin measurements.
+-   [Making figures with ggplot2](https://ndombrowski.github.io/Ggplot_tutorial/): Build scatter plots, bar plots, boxplots and more, and adjust colors, axes and themes until a figure is ready for a report or paper.
 
 ### Bioinformatic workflows
 
--   [From sequence file to OTU table with Qiime](source/Qiime/3_evelyn_tutorial_notes.qmd)
--   [Analysing an OTU table with R](source/Qiime/OTU_table_analysis.qmd)
--   [Assembling a metagenome](https://ndombrowski.github.io/Assembly_tutorial/)
--   [Metagenomic binning](https://ndombrowski.github.io/Binning_tutorial//)
--   [Annotating microbial genomes](https://github.com/ndombrowski/Annotation_workflow)
--   [How to do generate a species tree](https://ndombrowski.github.io/Phylogeny_tutorial/)
--   [Accessing data from NCBI](source/core_tools/ncbi.qmd)
+Pick the group that matches your data.
+
+#### For all sequencing data
+
+-   [Downloading data from NCBI](source/core_tools/ncbi.qmd): Download sequencing reads (from the SRA) and genomes from NCBI, for one sample or many at a time.
+-   [A first look at your sequencing data](https://ndombrowski.github.io/sequencing_qc/): Check your data soon after you receive it. You count the reads per sample and make quality reports with FastQC, so you can catch problems while they are still easy to fix. You can follow this tutorial without any command line experience.
+
+#### Amplicon data (e.g. 16S rRNA gene)
+
+-   [From sequencing reads to an ASV table with QIIME 2](source/Qiime/3_evelyn_tutorial_notes.qmd): Use a 16S test data set to remove primers, turn reads into amplicon sequence variants (ASVs) with DADA2 or Deblur, assign taxonomy and calculate diversity. Includes a section on running QIIME 2 on Crunchomics.
+-   [Analysing an OTU or ASV table in R](source/Qiime/OTU_table_analysis.qmd): Filter, normalize and visualize your table in R, for example with alpha and beta diversity plots, bar plots of the taxa, and tests for taxa that differ between groups.
+
+#### Metagenomes and microbial genomes
+
+These tutorials were first written for workshops at NIOZ. Some use older tool versions or NIOZ file paths, so you may need to adapt the commands for Crunchomics. They also expect you to be comfortable with bash and AWK.
+
+-   [Assembling a metagenome](https://ndombrowski.github.io/Assembly_tutorial/): Check and clean the reads of three small metagenomes, assemble them into contigs with MEGAHIT and metaSPAdes, and compare the assemblies.
+-   [Recovering genomes from metagenomes (binning)](https://ndombrowski.github.io/Binning_tutorial/): Sort the contigs from an assembly into metagenome-assembled genomes (MAGs) with several binning tools. Then combine the results with DAS Tool and check genome quality (CheckM) and taxonomy (GTDB-Tk).
+-   [Annotating microbial genomes](https://ndombrowski.github.io/Annotation_workflow/): Predict the genes in a set of genomes and find out what they might do, by comparing them against databases such as COG, arCOG, KEGG and Pfam. All results end up in one table.
+-   [Building a species tree](https://ndombrowski.github.io/Phylogeny_tutorial/): Learn how phylogenetic trees are built. Then align marker proteins, trim the alignment and build trees with IQ-TREE, for single proteins and for several proteins combined.
+
+
+## Custom scripts
+
+- [Custom scripts](source/core_tools/custom_scripts.qmd): A list of custom scripts useful for bioinformatic analyses
 
 
 ## Useful databases A-Z
@@ -83,8 +97,8 @@ Next, to the carpentries you will find a list of tutorials for more specific top
     <li><a href="source/nanopore/autocycler.qmd">Autocycler</a>: A tool for generating consensus long-read assemblies for microbial genomes</li>
     <li><a href="source/metagenomics/bakta.qmd">Bakta</a>: A tool for the rapid & standardized annotation of bacterial genomes and plasmids from both isolates and MAGs</li>
     <li><a href="source/metagenomics/barrnap.qmd">Barrnap</a>: A tool to predict the location of ribosomal RNA genes in genomes.</li>
-    <li><a href="source/phylogenomics/bmge.qmd">BMGE</a>: A program to select regions in a multiple sequence alignment that are suited for phylogenetic inference</li>
     <li><a href="source/metagenomics/binette.qmd">Binette</a>: A tool to generate a non-redundant bin set</li>
+    <li><a href="source/phylogenomics/bmge.qmd">BMGE</a>: A program to select regions in a multiple sequence alignment that are suited for phylogenetic inference</li>
     <li><a href="source/core_tools/bowtie.qmd">Bowtie2</a>: A tool for aligning sequencing reads to genomes and other reference sequences</li>
     <li><a href="source/core_tools/busco.qmd">BUSCO</a>: Quality assessment of (meta)genomes, transcriptomes and proteomes</li>
     <li><a href="source/core_tools/bwa.qmd">BWA</a>: A tool to map DNA sequences against a large reference genome</li>
@@ -94,9 +108,9 @@ Next, to the carpentries you will find a list of tutorials for more specific top
     <li><a href="source/metagenomics/coverm.qmd">CoverM</a>: A  DNA read coverage and relative abundance calculator focused on metagenomics applications</li>
     <li><a href="source/metagenomics/dastool.qmd">DAS Tool</a>: A tool to generate a non-redundant bin set</li>
     <li><a href="source/metagenomics/deeploc.qmd">DeepLoc</a>: A tool to predict the subcellular localization(s) of eukaryotic proteins</li>
+    <li><a href="source/metatranscriptomics/DSEq2.qmd">DeSeq2</a>: Analyse gene expression data in R</li>
     <li><a href="source/core_tools/diamond.qmd">Diamond</a>: A sequence aligner for protein and translated DNA searches</li>
     <li><a href="source/metagenomics/dnaapler.qmd">Dnaapler</a>: A tool to re-orient a genome, for example at dnaA</li>
-    <li><a href="source/metatranscriptomics/DSEq2.qmd">DeSeq2</a>: Analyse gene expression data in R</li>
   </ul>
 </details>
 
@@ -121,8 +135,8 @@ Next, to the carpentries you will find a list of tutorials for more specific top
 <details class="tool-az">
 <summary>I-L</summary>
   <ul>
-    <li><a href="source/phylogenomics/iqtree2.qmd">IQ-TREE</a>: A tool for phylogenomic inferences</li>
     <li><a href="source/metagenomics/interproscan_readme.qmd">Interproscan</a>: A tool to scan protein and nucleic sequences against InterPro signatures</li>
+    <li><a href="source/phylogenomics/iqtree2.qmd">IQ-TREE</a>: A tool for phylogenomic inferences</li>
     <li><a href="source/ITSx/itsx_readme.qmd">ITSx</a>: A tool to extract ITS1 and ITS2 subregions from ITS sequences</li>
     <li><a href="source/classification/kraken2.qmd">Kraken2</a>: A taxonomic sequence classifier using kmers</li>
   </ul>
@@ -136,8 +150,8 @@ Next, to the carpentries you will find a list of tutorials for more specific top
     <li><a href="source/metagenomics/metabat2.qmd">MetaBAT2</a>: A tool for reconstructing genomes from metagenomic data</li>
     <li><a href="source/metagenomics/metabolic.qmd">METABOLIC</a>: A tool to predict functional trait profiles in genome datasets</li>
     <li><a href="source/metagenomics/metacerberus.qmd">MetaCerberus</a>: A tool for functional assignment</li>
-    <li><a href="source/metagenomics/motus.qmd">MOTUS</a>: A tool to estimate microbial abundances in Illumina and Nanopore sequencing data</li>
     <li><a href="source/classification/minimap2.qmd">Minimap2</a>: A program to align DNA or mRNA sequences against a reference database</li>
+    <li><a href="source/metagenomics/motus.qmd">MOTUS</a>: A tool to estimate microbial abundances in Illumina and Nanopore sequencing data</li>
     <li><a href="source/metagenomics/multiqc.qmd">MultiQC</a>: A program to summarize analysis reports</li>
     <li><a href="source/nanopore/nanoclass.qmd">NanoClass2</a>: A taxonomic meta-classifier for long-read 16S/18S rRNA gene sequencing data</li>
     <li><a href="source/nanopore/nanoITS.qmd">NanoITS</a>: A taxonomic meta-classifier for long-read ITS operon sequencing data</li>
@@ -158,8 +172,8 @@ Next, to the carpentries you will find a list of tutorials for more specific top
   <ul>
     <li><a href="source/metagenomics/quast.qmd">QUAST</a>: A Quality Assessment Tool for Genome Assemblies</li>
     <li><a href="source/metatranscriptomics/ribodetector.qmd">Ribodetector</a>: Detect and remove rRNA sequences from metagenomic, metatranscriptomic, and ncRNA sequencing data</li>
-    <li><a href="source/metatranscriptomics/rseqc.qmd">RSeQC</a>: A tool to evaluate high throughput sequence data especially RNA-seq data</li>
     <li><a href="source/core_tools/rsem.qmd">RSEM</a>: A software package for estimating gene and isoform expression levels from RNA-Seq data</li>
+    <li><a href="source/metatranscriptomics/rseqc.qmd">RSeQC</a>: A tool to evaluate high throughput sequence data especially RNA-seq data</li>
     <li><a href="source/core_tools/samtools.qmd">Samtools</a>: A tool to manipulating alignments in SAM/BAM format</li>
     <li><a href="source/metagenomics/semibin.qmd">SemiBin2</a>: A tool for reconstructing genomes from metagenomic data</li>
     <li><a href="source/core_tools/seqkit.qmd">SeqKit</a>: A tool for FASTA/Q file manipulation</li>
@@ -170,8 +184,8 @@ Next, to the carpentries you will find a list of tutorials for more specific top
     <li><a href="source/metatranscriptomics/stringtie.qmd">StringTie</a>: A a fast and highly efficient assembler of RNA-Seq alignments into potential transcripts</li>
     <li><a href="source/metatranscriptomics/td2.qmd">TD2</a>: A tool to identify candidate coding regions within transcript sequences</li>
     <li><a href="source/metatranscriptomics/transdecoder.qmd">TransDecoder</a>: A tool to identify candidate coding regions within transcript sequences</li>
-    <li><a href="source/metagenomics/trycycler.qmd">Trycyler</a>: A tool for generating consensus long-read assemblies for bacterial genomes</li>
     <li><a href="source/metatranscriptomics/trinity.qmd">Trinity</a>: A tool to assemble transcript sequences from Illumina RNA-Seq data</li>
+    <li><a href="source/metagenomics/trycycler.qmd">Trycycler</a>: A tool for generating consensus long-read assemblies for bacterial genomes</li>
     <li><a href="source/metagenomics/vamb.qmd">VAMB</a>: A tool for reconstructing genomes from metagenomic data</li>
   </ul>
 </details>

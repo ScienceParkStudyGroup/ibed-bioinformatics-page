@@ -60,6 +60,13 @@ website:
               - text: "Manipulating files with bash"
                 href: source/cli/cli_file_manipulation.qmd
 
+          - section: "Writing bash scripts"
+            contents:
+              - source/core_tools/bash-for-loops.qmd
+              - source/core_tools/bash-input-validation.qmd
+              - source/core_tools/bash-arrays.qmd
+              - source/core_tools/bash-pipefail.qmd
+
           - text: "Installing software with conda"
             href: source/conda/conda.qmd
 
@@ -193,13 +200,8 @@ website:
               - source/core_tools/samtools.qmd
               - source/core_tools/featurecounts.qmd
 
-      - section: "Bioinformatics toolbox"
-        contents:
-            - source/core_tools/custom_scripts.qmd
-            - source/core_tools/bash-for-loops.qmd 
-            - source/core_tools/bash-input-validation.qmd 
-            - source/core_tools/bash-arrays.qmd
-            - source/core_tools/bash-pipefail.qmd
+      - text: "Custom scripts"
+        href: source/core_tools/custom_scripts.qmd
 
       - section: "Bioinformatic databases"
         contents:
