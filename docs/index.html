@@ -1108,21 +1108,13 @@ ul.task-list li input[type="checkbox"] {
 <p>Please, be aware that this page is a work in progress and will be slowly updated over time. If you want to add additional information or feel that something is missing feel free to send an email to <a href="mailto:n.dombrowski@uva.nl" class="email">n.dombrowski@uva.nl</a>.</p>
 <section id="useful-tutorials" class="level2">
 <h2 class="anchored" data-anchor-id="useful-tutorials">Useful tutorials</h2>
-<p>New to bioinformatics? Start with the bash and HPC tutorial below. It teaches you how to use the command line and how to run analyses on Crunchomics, the UvA computer cluster, and most other tutorials on this page build on it.</p>
-<p>Did you just receive sequencing data and want to check it quickly? Then you can start with <a href="https://ndombrowski.github.io/sequencing_qc/">A first look at your sequencing data</a> instead. It was written for exactly this situation: you can follow it without any command line experience and without doing the bash tutorial first.</p>
+<p>If you are new to informatics it is recommended to start with the bash and HPC tutorial below. It teaches you how to use the command line and how to run analyses on Crunchomics, the UvA computer cluster, and a lot of the other tutorials on this page are build on it.</p>
 <section id="getting-started-with-bash" class="level3">
 <h3 class="anchored" data-anchor-id="getting-started-with-bash">Getting started with bash</h3>
 <ul>
-<li><a href="https://ndombrowski.github.io/cli_workshop/">Getting started with bash and an HPC</a>: Start here if you have never used the command line. You learn how to set up a terminal and how to organize and inspect sequencing data with bash. Then you copy the data to Crunchomics, install software and run your first jobs there.</li>
-<li><a href="https://ndombrowski.github.io/AWK_tutorial/">Working with tables using AWK</a>: AWK is a command line tool for tables. You can use it to pull out columns, keep only the rows that match a pattern, or merge two tables. You need the command line basics first. You can download the example input files <a href="https://github.com/ndombrowski/AWK_tutorial/tree/main/1_Inputfiles">here</a>.</li>
-<li><a href="https://fkariminejadasl.github.io/ml-notebooks/git/">Keeping track of your code with git</a>: Git saves a history of the changes to your scripts, so you can go back to an earlier version and share your code with others. This page is a short overview of the most common git commands.</li>
-</ul>
-</section>
-<section id="storing-data-on-crunchomics" class="level3">
-<h3 class="anchored" data-anchor-id="storing-data-on-crunchomics">Storing data on Crunchomics</h3>
-<ul>
-<li><a href="./source/cli/scratch.html">Using the local scratch on Crunchomics</a>: Each compute node on Crunchomics has its own fast, temporary storage. This page shows how to use it for jobs that read or write a lot of data. Read it once you are comfortable running jobs on Crunchomics.</li>
-<li><a href="./source/cli/ibed_tape.html">Using the IBED Tape Archive</a>: Crunchomics is not meant for long-term storage. This page shows how to copy raw data and finished results to IBED’s tape archive.</li>
+<li><a href="https://ndombrowski.github.io/cli_workshop/">Getting started with bash and an HPC</a>: Start here if you have never used the command line. You learn how to set up a terminal and how to organize and inspect sequencing data with bash. Then you copy the data to Crunchomics, install software and run your first jobs there. While this tutorial is build around sequencing data it applies to other project with large datasets or many files.</li>
+<li><a href="https://ndombrowski.github.io/AWK_tutorial/">Working with tables using AWK and sed</a>: AWK and sed are command line tools for tables. You can use them to replace patterns in a file, pull out columns, keep only the rows that match a pattern, or merge two tables. To follow this tutorial you need the command line basics first.</li>
+<li><a href="https://fkariminejadasl.github.io/ml-notebooks/git/">Keeping track of your code with git</a>: Git saves a history of the changes to your scripts, so you can go back to an earlier version and share your code with others. This page gives a short overview of the most common git commands.</li>
 </ul>
 </section>
 <section id="writing-bash-scripts" class="level3">
@@ -1135,10 +1127,17 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="./source/core_tools/bash-pipefail.html">Stopping scripts on errors with <code>set -euo pipefail</code></a>: Why does AI often add this line to the top of a script, and when does it help or cause problems?</li>
 </ul>
 </section>
+<section id="storing-data-on-crunchomics" class="level3">
+<h3 class="anchored" data-anchor-id="storing-data-on-crunchomics">Storing data on Crunchomics</h3>
+<ul>
+<li><a href="./source/cli/scratch.html">Using the local scratch on Crunchomics</a>: Each compute node on Crunchomics has its own fast, temporary storage. This page shows how to use it for jobs that read or write a lot of data. Read it once you are comfortable running jobs on Crunchomics.</li>
+<li><a href="./source/cli/ibed_tape.html">Using the IBED Tape Archive</a>: Crunchomics is not meant for long-term storage. This page shows how to copy raw data and finished results to IBED’s tape archive.</li>
+</ul>
+</section>
 <section id="using-r" class="level3">
 <h3 class="anchored" data-anchor-id="using-r">Using R</h3>
 <ul>
-<li><a href="https://ndombrowski.github.io/R_cookbook/">R cookbook</a>: Start here if you are new to R. No coding experience is needed. It takes you from installing R and RStudio to reading, changing, plotting and testing your own data. Work through the first chapters in order.</li>
+<li><a href="https://ndombrowski.github.io/R_cookbook/">R cookbook</a>: Have a look at this tutorial if you are new to R, it requires no coding experience. It takes you from installing R and RStudio to reading, changing, plotting and testing your own data. Work through the first chapters in order.</li>
 <li><a href="https://ndombrowski.github.io/Tidyverse_tutorial/">Changing tables with the tidyverse</a>: More practice with filtering, sorting, changing and summarizing tables with dplyr, using a data set of penguin measurements.</li>
 <li><a href="https://ndombrowski.github.io/Ggplot_tutorial/">Making figures with ggplot2</a>: Build scatter plots, bar plots, boxplots and more, and adjust colors, axes and themes until a figure is ready for a report or paper.</li>
 </ul>
@@ -1149,14 +1148,14 @@ ul.task-list li input[type="checkbox"] {
 <section id="for-all-sequencing-data" class="level4">
 <h4 class="anchored" data-anchor-id="for-all-sequencing-data">For all sequencing data</h4>
 <ul>
-<li><a href="./source/core_tools/ncbi.html">Downloading data from NCBI</a>: Download sequencing reads (from the SRA) and genomes from NCBI, for one sample or many at a time.</li>
+<li><a href="./source/core_tools/ncbi.html">Downloading data from NCBI</a>: Download sequencing reads (from the SRA) and genomes from NCBI, for one or more samples.</li>
 <li><a href="https://ndombrowski.github.io/sequencing_qc/">A first look at your sequencing data</a>: Check your data soon after you receive it. You count the reads per sample and make quality reports with FastQC, so you can catch problems while they are still easy to fix. You can follow this tutorial without any command line experience.</li>
 </ul>
 </section>
 <section id="amplicon-data-e.g.-16s-rrna-gene" class="level4">
 <h4 class="anchored" data-anchor-id="amplicon-data-e.g.-16s-rrna-gene">Amplicon data (e.g.&nbsp;16S rRNA gene)</h4>
 <ul>
-<li><a href="./source/Qiime/3_evelyn_tutorial_notes.html">From sequencing reads to an ASV table with QIIME 2</a>: Use a 16S test data set to remove primers, turn reads into amplicon sequence variants (ASVs) with DADA2 or Deblur, assign taxonomy and calculate diversity. Includes a section on running QIIME 2 on Crunchomics.</li>
+<li><a href="./source/Qiime/3_evelyn_tutorial_notes.html">From sequencing reads to an ASV table with QIIME 2</a>: Use a 16S rRNA gene test data set to remove primers, turn reads into amplicon sequence variants (ASVs) with DADA2 or Deblur, assign taxonomy and calculate diversity. Includes a section on running QIIME 2 on Crunchomics.</li>
 <li><a href="./source/Qiime/OTU_table_analysis.html">Analysing an OTU or ASV table in R</a>: Filter, normalize and visualize your table in R, for example with alpha and beta diversity plots, bar plots of the taxa, and tests for taxa that differ between groups.</li>
 </ul>
 </section>
@@ -1884,7 +1883,7 @@ Q-Z
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-10-28</p>
+Last modified: 2026-10-29</p>
 <div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
