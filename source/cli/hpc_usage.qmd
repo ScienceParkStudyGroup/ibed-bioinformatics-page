@@ -2,60 +2,62 @@
 
 ## Using an HPC
 
-### Using an HPC at UvA
+::: callout-tip
+New to HPCs? The [Getting started with bash and an HPC](https://ndombrowski.github.io/cli_workshop/) tutorial explains step by step how to log in to Crunchomics, copy your data there and run your first jobs. These pages are a reference.
+:::
 
-On the next pages you find some documentation on getting started with High Performance Computing (HPC). These pages are tailored towards researchers working at UvA but might be also useful for people working on an HPC with a SLURM job management system.
+On the next pages you find documentation on working with an **HPC** (high-performance computer): a group of powerful computers that many people share. These pages are tailored towards researchers at the UvA, but most of it also applies to other HPCs that use the SLURM job scheduler.
 
-If you work at IBED and want to use the cli on the Crunchomics HPC, the Genomics Compute Environment for SILS and IBED, please check out [this documentation](https://crunchomics-documentation.readthedocs.io/en/latest/index.html). If you need access to Crunchomics, send an email to Wim de Leeuw <w.c.deleeuw@uva.nl> to get an account set up by giving him your uva-net id. 
+### Getting access to Crunchomics
 
-For information about other computational resources please visit the [computational support teams website](https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html) under **Scientific programming and HPC**.
+Crunchomics is the Genomics Compute Environment for SILS and IBED. For how to get an account, and for the full documentation of the cluster, see the [Crunchomics documentation](https://crunchomics-documentation.readthedocs.io/en/latest/).
 
+For other computational resources, see the [website of the IBED computational support team](https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html) under **Scientific programming and HPC**.
 
 ### How does an HPC work?
 
-Using an HPC works a bit differently than running jobs on your computer, below you find a simplified shematic:   
+Working on an HPC is a bit different from working on your own computer. The figure below gives a simplified overview:
 
 ![](../../img/crunchomics1.png){width=70% fig-align="center"}
 
-Very briefly, the purpose of a **login node**, sometimes also called head node, is to prepare to run a program (e.g., moving and editing files and compiling, preparing a job script). The **compute nodes** on the other hand are used to actually run a program and we submit jobs from the login to the compute nodes via Slurm. **Slurm** is an open-source workload manager/scheduler that is used on many big HPCs. Slurm has three key functions:
+-   You log in from your own computer with `ssh`.
+-   When you log in, you arrive on the **login node**, also called the **head node**. This computer is for preparing your work, for example moving and editing files and writing job scripts. It is not for running analyses.
+-   The analyses run on the **compute nodes**. These computers have many more CPUs and much more memory.
+    -   A **CPU** is what does the calculations, so more CPUs means more work can get done at the same time.
+    -   **Memory (RAM)** is the working space a program uses while it runs. Memory is not the same as storage, which is where your files are kept.
+-   In between is **SLURM**, a **workload manager** (also called a **scheduler**) that is used on many large HPCs. You send your analysis to SLURM as a **job**, and SLURM runs it on a compute node. SLURM does three things:
+    -   It gives users access to CPUs and memory on the compute nodes, for a limited time
+    -   It starts and runs the jobs, and lets you check on them
+    -   It manages the **queue**: the list of jobs that wait until enough CPUs and memory are free
 
-- provide the users access to the resources on the compute nodes for a certain amount of time to perform any computation
-- provide a framework to start, execute, and check the work on the set of allocated compute nodes
-- mange the queue of submitted jobs based on the availability of resources
-
-
-### Basic information about UvA's Crunchomics HPC
+### Crunchomics etiquette
 
 ::: callout-important
-**Crunchomics etiquette**
+You share Crunchomics with many other people, so only ask for the resources that you actually use. There are no hard limits, but please follow these rules:
 
-You share the HPC with other people, therefore, take care to only ask for the resources you actually use. Some general rules:
-
--   There are no hard limits on resource usage, instead we expect you to keep in mind you are sharing the system with other users. Some rules of thumb:
-    -   Don't run jobs that request many cpus and lots of memory on the head-node (omics-h0), use the compute nodes (omics-cn001 - omics-cn005) for this
-    -   Don't allocate more than 20% (cpu or memory) of the cluster for more than a day
-    -   Do not leave allocations unused and set reasonable time limits on you jobs
--   For large compute jobs a job queuing system (SLURM) is available. Interactive usage is possible but is discouraged for larger jobs. We will learn how to use the queue during this tutorial
--   Close applications when not in use, i.e. when running R interactively
+-   Do NOT run jobs that need many CPUs or a lot of memory on the login node (`omics-h0`). Use the compute nodes (`omics-cn001` to `omics-cn005`) for this
+-   Do NOT use more than 20% of the CPUs or memory of the cluster for more than a day. If you have large jobs, contact the Crunchomics team (see the [Crunchomics documentation](https://crunchomics-documentation.readthedocs.io/en/latest/))
+-   Don't leave resources that you reserved unused, and set reasonable time limits on your jobs
+-   Use the queue (SLURM) for large jobs. Working interactively is possible, but not for large jobs. See [Start working on an HPC](slurm_basics.qmd) for how to use the queue
+-   Close programs when you don't use them anymore, for example an R session
 :::
 
-On crunchomics you:
+### Storage
 
--   are granted a storage of 500 GB. After the duration of your grant, or when your UvAnetID expires, your data will be removed from the HPC. If you need more storage space, contact the Crunchomics team.
--   have a 25 G quotum on your home directory which is on a fast NVMe ssd-drive. You can store up to 500 GB data in /zfs/omics/personal/\$USER
--   you are in charge of backing up your own data and Crunchomics is NOT an archiving system. To learn about data archiving options at UvA visit the [website of the computational support team](https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html)
--   find information and documentation about the cluster [here](https://crunchomics-documentation.readthedocs.io/en/latest)
+On Crunchomics, you have two folders (`$USER` stands for your user name):
 
-Crunchomics gives you access to:
+-   Your **home directory**, `/home/$USER`, with 25 GB of space
+-   Your **personal directory**, `/zfs/omics/personal/$USER`, with 500 GB of space. Since this directory is larger, run your analyses and install your software here. After the [first-time setup](slurm_basics.qmd#setup-for-first-time-crunchomics-users), you reach it with the shortcut `~/personal`
 
--   5 compute nodes
--   Each compute node has 512 GB of memory and 64 CPUs
--   If you need more resources (or access to GPUs), visit the [website of the computational support team](https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html) for more information
--   Access to two directories:
-    -   The home directory with 25 GB of storage
-    -   your personal directory, with 500 GB of storage
+Good to know:
 
-Some information about storage:
+-   Your data is removed from Crunchomics after the duration of your grant, or when your UvAnetID expires
+-   If you need more space, or a shared folder for a larger project with several team members, contact the Crunchomics team
+-   **Snapshots:** Crunchomics automatically makes **snapshots**, saved copies of your files. It makes one every hour, which is kept for 24 hours, and one every day around midnight, which is kept for a week. So if you delete a file by mistake, you can still get it back for up to a week. You can look at the snapshots and read the files in them in the hidden `.zfs/snapshot` folder, for example with `ls /zfs/omics/personal/$USER/.zfs/snapshot`. But snapshots also mean that files you delete still count towards your storage limit until the last snapshot with them is removed. Keep this in mind if you make many or large temporary files. If you need a file restored, or snapshots removed to free up space, contact the Crunchomics team
+-   Your data is stored on several disks, which protects it if one disk breaks. But it is not copied anywhere else. **Crunchomics is not a backup or an archive.** You are responsible for backing up your own data. For archiving options at the UvA, see the [website of the IBED computational support team](https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html) and [Using the IBED Tape Archive](ibed_tape.qmd)
+-   For large temporary files, each compute node also has its own fast local storage, see [Using scratch on Crunchomics](scratch.qmd)
 
--   Snapshots are made daily at 00.00.00 and kept for 2 weeks. This means that if you accidentally remove a file it can be restored up to 2 weeks after removal.
--   Data on Crunchomics is stored on multiple disks. Therefore, there is protection against disk failure. However, the data is not replicated and you are responsible for backing up and/or archiving your data.
+### Compute resources
+
+-   Crunchomics has 5 compute nodes, each with 64 CPUs and 512 GB of memory
+-   If you need more resources, or GPUs, see the [website of the IBED computational support team](https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html)

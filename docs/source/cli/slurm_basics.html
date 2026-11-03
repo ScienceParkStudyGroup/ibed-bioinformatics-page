@@ -1137,30 +1137,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#start-working-on-an-hpc" id="toc-start-working-on-an-hpc" class="nav-link active" data-scroll-target="#start-working-on-an-hpc">Start working on an HPC</a>
   <ul>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting started</a></li>
-  <li><a href="#connecting-to-a-sever" id="toc-connecting-to-a-sever" class="nav-link" data-scroll-target="#connecting-to-a-sever">Connecting to a sever</a></li>
+  <li><a href="#quick-reference" id="toc-quick-reference" class="nav-link" data-scroll-target="#quick-reference">Quick reference</a></li>
+  <li><a href="#connecting-to-a-server" id="toc-connecting-to-a-server" class="nav-link" data-scroll-target="#connecting-to-a-server">Connecting to a server</a></li>
   <li><a href="#setup-for-first-time-crunchomics-users" id="toc-setup-for-first-time-crunchomics-users" class="nav-link" data-scroll-target="#setup-for-first-time-crunchomics-users">Setup for first time Crunchomics users</a></li>
-  <li><a href="#slurm-basics" id="toc-slurm-basics" class="nav-link" data-scroll-target="#slurm-basics">Slurm basics</a>
-  <ul class="collapse">
-  <li><a href="#get-information-about-the-cluster" id="toc-get-information-about-the-cluster" class="nav-link" data-scroll-target="#get-information-about-the-cluster">Get information about the cluster</a></li>
-  <li><a href="#view-info-about-jobs-in-the-queue" id="toc-view-info-about-jobs-in-the-queue" class="nav-link" data-scroll-target="#view-info-about-jobs-in-the-queue">View info about jobs in the queue</a></li>
-  <li><a href="#unsure-about-the-resources-each-node-has" id="toc-unsure-about-the-resources-each-node-has" class="nav-link" data-scroll-target="#unsure-about-the-resources-each-node-has">Unsure about the resources each node has?</a></li>
-  <li><a href="#get-information-about-running-jobs" id="toc-get-information-about-running-jobs" class="nav-link" data-scroll-target="#get-information-about-running-jobs">Get information about running jobs</a></li>
-  <li><a href="#htop-how-busy-is-a-node" id="toc-htop-how-busy-is-a-node" class="nav-link" data-scroll-target="#htop-how-busy-is-a-node"><code>htop</code>: How busy is a node</a></li>
-  <li><a href="#df-disk-space-usage" id="toc-df-disk-space-usage" class="nav-link" data-scroll-target="#df-disk-space-usage"><code>df</code>: Disk space usage</a></li>
-  <li><a href="#du-checking-the-size-of-a-folder" id="toc-du-checking-the-size-of-a-folder" class="nav-link" data-scroll-target="#du-checking-the-size-of-a-folder"><code>du</code>: Checking the size of a folder</a></li>
-  </ul></li>
   <li><a href="#transferring-files" id="toc-transferring-files" class="nav-link" data-scroll-target="#transferring-files">Transferring files</a>
   <ul class="collapse">
   <li><a href="#scp-transferring-data-fromto-a-server" id="toc-scp-transferring-data-fromto-a-server" class="nav-link" data-scroll-target="#scp-transferring-data-fromto-a-server"><code>scp</code>: Transferring data from/to a server</a></li>
-  <li><a href="#rsync-synchronize-files-and-directories-between-two-hosts-or-machines" id="toc-rsync-synchronize-files-and-directories-between-two-hosts-or-machines" class="nav-link" data-scroll-target="#rsync-synchronize-files-and-directories-between-two-hosts-or-machines"><code>rsync</code>: Synchronize files and directories between two hosts or machines</a></li>
+  <li><a href="#rsync-synchronizing-files-and-folders" id="toc-rsync-synchronizing-files-and-folders" class="nav-link" data-scroll-target="#rsync-synchronizing-files-and-folders"><code>rsync</code>: Synchronizing files and folders</a></li>
+  </ul></li>
+  <li><a href="#checking-the-cluster" id="toc-checking-the-cluster" class="nav-link" data-scroll-target="#checking-the-cluster">Checking the cluster</a>
+  <ul class="collapse">
+  <li><a href="#sinfo-information-about-the-nodes" id="toc-sinfo-information-about-the-nodes" class="nav-link" data-scroll-target="#sinfo-information-about-the-nodes"><code>sinfo</code>: Information about the nodes</a></li>
+  <li><a href="#squeue-view-the-jobs-in-the-queue" id="toc-squeue-view-the-jobs-in-the-queue" class="nav-link" data-scroll-target="#squeue-view-the-jobs-in-the-queue"><code>squeue</code>: View the jobs in the queue</a></li>
+  <li><a href="#scontrol-resources-of-a-node" id="toc-scontrol-resources-of-a-node" class="nav-link" data-scroll-target="#scontrol-resources-of-a-node"><code>scontrol</code>: Resources of a node</a></li>
+  <li><a href="#htop-how-busy-is-a-node" id="toc-htop-how-busy-is-a-node" class="nav-link" data-scroll-target="#htop-how-busy-is-a-node"><code>htop</code>: How busy is a node</a></li>
+  <li><a href="#df-free-disk-space" id="toc-df-free-disk-space" class="nav-link" data-scroll-target="#df-free-disk-space"><code>df</code>: Free disk space</a></li>
+  <li><a href="#du-checking-the-size-of-a-folder" id="toc-du-checking-the-size-of-a-folder" class="nav-link" data-scroll-target="#du-checking-the-size-of-a-folder"><code>du</code>: Checking the size of a folder</a></li>
   </ul></li>
   <li><a href="#submitting-a-job" id="toc-submitting-a-job" class="nav-link" data-scroll-target="#submitting-a-job">Submitting a job</a>
   <ul class="collapse">
-  <li><a href="#srun" id="toc-srun" class="nav-link" data-scroll-target="#srun">srun</a></li>
-  <li><a href="#choosing-the-right-amount-of-resources" id="toc-choosing-the-right-amount-of-resources" class="nav-link" data-scroll-target="#choosing-the-right-amount-of-resources">Choosing the right amount of resources</a></li>
-  <li><a href="#sbatch" id="toc-sbatch" class="nav-link" data-scroll-target="#sbatch">sbatch</a></li>
-  <li><a href="#arrays-running-things-in-parallel" id="toc-arrays-running-things-in-parallel" class="nav-link" data-scroll-target="#arrays-running-things-in-parallel">arrays: running things in parallel</a></li>
+  <li><a href="#srun-submitting-a-job-interactively" id="toc-srun-submitting-a-job-interactively" class="nav-link" data-scroll-target="#srun-submitting-a-job-interactively"><code>srun</code>: Submitting a job interactively</a>
+  <ul class="collapse">
+  <li><a href="#working-on-a-compute-node-interactively" id="toc-working-on-a-compute-node-interactively" class="nav-link" data-scroll-target="#working-on-a-compute-node-interactively">Working on a compute node interactively</a></li>
+  </ul></li>
+  <li><a href="#sbatch-submitting-a-job-script" id="toc-sbatch-submitting-a-job-script" class="nav-link" data-scroll-target="#sbatch-submitting-a-job-script"><code>sbatch</code>: Submitting a job script</a></li>
+  <li><a href="#scancel-cancelling-a-job" id="toc-scancel-cancelling-a-job" class="nav-link" data-scroll-target="#scancel-cancelling-a-job"><code>scancel</code>: Cancelling a job</a></li>
+  <li><a href="#choosing-the-right-amount-of-resources" id="toc-choosing-the-right-amount-of-resources" class="nav-link" data-scroll-target="#choosing-the-right-amount-of-resources">Choosing the right amount of resources</a>
+  <ul class="collapse">
+  <li><a href="#sacct-checking-what-a-job-used" id="toc-sacct-checking-what-a-job-used" class="nav-link" data-scroll-target="#sacct-checking-what-a-job-used"><code>sacct</code>: Checking what a job used</a></li>
+  </ul></li>
+  <li><a href="#arrays-running-the-same-job-for-many-samples" id="toc-arrays-running-the-same-job-for-many-samples" class="nav-link" data-scroll-target="#arrays-running-the-same-job-for-many-samples">Arrays: Running the same job for many samples</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -1178,44 +1184,114 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="start-working-on-an-hpc" class="level1" style="text-align: justify">
 <h1>Start working on an HPC</h1>
-<section id="getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
-<p>Next, let’s go over some basic commands that are useful when working on an HPC.</p>
-<p>Generally, you schedule jobs on an HPC for them to run effectively. The scheduler used on Crunchomics is called slurm and allows you to:</p>
-<ul>
-<li>allocate resources on compute nodes</li>
-<li>helps you start, run, and keep track of work on the assigned node</li>
-<li>handles conflicts for resources by keeping track of a waiting list for pending work</li>
-</ul>
-<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Important
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Since you share resources with other people when using an HPC:</p>
-<p>Choose the resources you use wisely and allow other users to also run some work. For big projects on the Uva Crunchomics HPC you are encouraged to contact Wim de Leeuw <a href="mailto:w.c.deleeuw@uva.nl" class="email">w.c.deleeuw@uva.nl</a> beforehand.</p>
+<p>New to HPCs? The <a href="https://ndombrowski.github.io/cli_workshop/">Getting started with bash and an HPC</a> tutorial explains step by step how to log in to Crunchomics, copy your data there and run your first jobs. This page is a reference: it lists the key commands with short examples. For how an HPC works and the Crunchomics etiquette, see <a href="../../source/cli/hpc_usage.html">Using an HPC</a>.</p>
 </div>
 </div>
+<p>In the commands on this page, replace <code>uvanetid</code> with your own UvAnetID. On Crunchomics itself, you can use <code>$USER</code> instead: this variable holds your user name.</p>
+<section id="quick-reference" class="level2">
+<h2 class="anchored" data-anchor-id="quick-reference">Quick reference</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 43%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>What it does</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>ssh</code></td>
+<td>Log in to a server</td>
+<td><code>ssh uvanetid@omics-h0.science.uva.nl</code></td>
+</tr>
+<tr class="even">
+<td><code>scp</code></td>
+<td>Copy files to or from a server</td>
+<td><code>scp -r data uvanetid@server:/path</code></td>
+</tr>
+<tr class="odd">
+<td><code>rsync</code></td>
+<td>Copy or synchronize files, only sends what changed</td>
+<td><code>rsync -av data/ uvanetid@server:/path/data/</code></td>
+</tr>
+<tr class="even">
+<td><code>sinfo</code></td>
+<td>Show the nodes and their state</td>
+<td><code>sinfo</code></td>
+</tr>
+<tr class="odd">
+<td><code>squeue</code></td>
+<td>Show the jobs in the queue</td>
+<td><code>squeue -u $USER</code></td>
+</tr>
+<tr class="even">
+<td><code>scontrol</code></td>
+<td>Show details about nodes or jobs</td>
+<td><code>scontrol show node omics-cn001</code></td>
+</tr>
+<tr class="odd">
+<td><code>htop</code></td>
+<td>Show how busy the node you are on is</td>
+<td><code>htop</code></td>
+</tr>
+<tr class="even">
+<td><code>df</code>, <code>du</code></td>
+<td>Show free disk space, or the size of a folder</td>
+<td><code>du -sh personal/</code></td>
+</tr>
+<tr class="odd">
+<td><code>srun</code></td>
+<td>Run a command on a compute node, interactively</td>
+<td><code>srun --cpus-per-task=1 --mem=1G --time=00:10:00 hostname</code></td>
+</tr>
+<tr class="even">
+<td><code>sbatch</code></td>
+<td>Submit a job script to the queue</td>
+<td><code>sbatch scripts/job.sh</code></td>
+</tr>
+<tr class="odd">
+<td><code>scancel</code></td>
+<td>Cancel one of your jobs</td>
+<td><code>scancel 379723</code></td>
+</tr>
+<tr class="even">
+<td><code>sacct</code></td>
+<td>Show the resources a job used</td>
+<td><code>sacct -j 379723</code></td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="connecting-to-a-sever" class="level2">
-<h2 class="anchored" data-anchor-id="connecting-to-a-sever">Connecting to a sever</h2>
-<p><strong>SSH</strong> (Secure Shell) is a network protocol that enables secure remote connections between two systems. The general <code>ssh</code> command that you can use to login into any HPC looks as follows:</p>
+<section id="connecting-to-a-server" class="level2">
+<h2 class="anchored" data-anchor-id="connecting-to-a-server">Connecting to a server</h2>
+<p><strong>SSH</strong> (Secure Shell) is a way for two computers to connect to each other securely. The general command looks like this:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-X</span> username@server</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> username@server</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Options:</p>
 <ul>
-<li><code>-X</code> option enables untrusted X11 forwarding in SSH. Untrusted means = your local client sends a command to the remote machine and receives the graphical output. Put simply this option enables us to run graphical applications on a remote server and this for example allows us to view a pdf.</li>
+<li><code>username</code> is your account name on the HPC. For Crunchomics, this is your UvAnetID</li>
+<li><code>server</code> is the address of the HPC. For Crunchomics, this is <code>omics-h0.science.uva.nl</code></li>
 </ul>
-<p>If you have access to and want to connect to Crunchomics you would edit the command above to look like this:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-X</span> uvanetid@omics-h0.science.uva.nl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Log in to Crunchomics</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> uvanetid@omics-h0.science.uva.nl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>You are then asked for your UvA password. Nothing appears on the screen while you type your password, this is normal. After you log in, the prompt shows your UvAnetID and <code>omics-h0</code>. Every command you type now runs on Crunchomics, not on your own computer. Type <code>exit</code> to log out.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1226,74 +1302,163 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If you want to log into Crunchomics from outside of UvA you need to be connected to the VPN. If you have not set that up and/or have trouble doing so, please contact ICT.</p>
+<ul>
+<li>If you log in from the UvA, use the eduroam network, not the open Amsterdam Science Park network</li>
+<li>If you log in from outside the UvA, you must be connected to the VPN. Contact ICT if you have not set it up or have trouble with it</li>
+</ul>
 </div>
+</div>
+<p>Some programs on the HPC can open a window, for example to show a plot or a PDF. To see such windows on your own computer, log in with the <code>-X</code> option. <code>-X</code> enables <strong>X11 forwarding</strong>: the HPC sends the graphical output to your computer.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-X</span> uvanetid@omics-h0.science.uva.nl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="setup-for-first-time-crunchomics-users" class="level2">
 <h2 class="anchored" data-anchor-id="setup-for-first-time-crunchomics-users">Setup for first time Crunchomics users</h2>
-<p>If you have access to Crunchomics and have not used Crunchomics before, then you want to first run a small Bash script that:</p>
+<p>If this is your first time using Crunchomics, run a small bash script to set up your account. The script:</p>
 <ul>
-<li>Allows you to use system-wide installed software, by adding <code>/zfs/omics/software/bin</code> to your path. This basically means that bash knows that there is an extra folder in which to look for any software that is already installed</li>
-<li>Sets up a python3 environment and some useful python packages</li>
-<li>Have a link for your 500 GB personal directory in your home directory</li>
+<li>Adds <code>/zfs/omics/software/bin</code> to your PATH. The <strong>PATH</strong> is the list of folders in which bash looks for programs. With this change, bash can find the software that is already installed on Crunchomics</li>
+<li>Sets up a Python 3 environment with some useful Python packages</li>
+<li>Creates a link called <code>personal</code> in your home directory. This link leads to your personal directory, which has 500 GB of space. Your home directory itself only has 25 GB</li>
 </ul>
-<p>To set this up, run the following command in the cli:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/zfs/omics/software/script/omics_install_script</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the Crunchomics installation script</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/zfs/omics/software/script/omics_install_script</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check: you should now see the personal link in your home directory</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> ~</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>The output contains a line like <code>personal -&gt; /zfs/omics/personal/uvanetid</code>. The arrow shows that <code>personal</code> is a <strong>link</strong> (also called a <strong>symbolic link</strong> or <strong>symlink</strong>): a shortcut that points to another folder. Always make your project folders inside <code>personal</code>, since it has much more space than your home directory.</p>
 </section>
-<section id="slurm-basics" class="level2">
-<h2 class="anchored" data-anchor-id="slurm-basics">Slurm basics</h2>
-<section id="get-information-about-the-cluster" class="level3">
-<h3 class="anchored" data-anchor-id="get-information-about-the-cluster">Get information about the cluster</h3>
-<p>Let’s start by getting some basic information about what nodes are avaiable on a cluster by typing the following command into the cli:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sinfo</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="transferring-files" class="level2">
+<h2 class="anchored" data-anchor-id="transferring-files">Transferring files</h2>
+<section id="scp-transferring-data-fromto-a-server" class="level3">
+<h3 class="anchored" data-anchor-id="scp-transferring-data-fromto-a-server"><code>scp</code>: Transferring data from/to a server</h3>
+<p><code>scp</code> (Secure Copy Protocol) copies files and folders between your computer and a server. The basic syntax is:</p>
+<ul>
+<li><code>scp [options] SOURCE DESTINATION</code></li>
+<li>A location on a server is written as <code>username@server:path_on_the_server</code></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p>We will see something like this:</p>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Run <code>scp</code> in a terminal on your <strong>own computer</strong>, not in a terminal that is logged in to the HPC. It helps to have two terminals open: one on your own computer and one on the HPC. In MobaXterm, open a second tab with the <strong>+</strong> button.</p>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy a file from your computer to your personal folder on Crunchomics</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> file.txt uvanetid@omics-h0.science.uva.nl:/home/uvanetid/personal/</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy a folder and everything inside it (-r = recursive)</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="at">-r</span> data uvanetid@omics-h0.science.uva.nl:/home/uvanetid/personal/</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy a file from Crunchomics into the current folder on your computer (.)</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> uvanetid@omics-h0.science.uva.nl:/home/uvanetid/personal/file.txt .</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>As with <code>ssh</code>, you are asked for your UvA password. Afterwards, check on the HPC that the files arrived, e.g.&nbsp;with <code>ls -l</code>.</p>
+<p>There are also file transfer programs with a graphical interface, e.g.&nbsp;FileZilla.</p>
+<p>For a worked example of using <code>scp</code> to copy data to a real remote server, see <a href="../../source/cli/ibed_tape.html">Using the IBED Tape Archive</a>.</p>
+</section>
+<section id="rsync-synchronizing-files-and-folders" class="level3">
+<h3 class="anchored" data-anchor-id="rsync-synchronizing-files-and-folders"><code>rsync</code>: Synchronizing files and folders</h3>
+<p><code>rsync</code> also copies files between computers, but it only sends what is new or changed. This is useful for large datasets (imagine having to move several terabytes), for transfers that were interrupted, and for updating a copy without transferring everything again. It also works between two folders on the same computer.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy a file from your computer to Crunchomics</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-avz</span> file.txt uvanetid@omics-h0.science.uva.nl:/home/uvanetid/personal/</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy a file from Crunchomics into the current folder on your computer</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-avz</span> uvanetid@omics-h0.science.uva.nl:/home/uvanetid/personal/file.txt .</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><code>-a</code>: archive mode, keeps access rights, dates and other attributes, and copies folders recursively</li>
+<li><code>-v</code>: verbose, prints the files being copied</li>
+<li><code>-z</code>: compresses the data during the transfer</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For folders, a slash at the end of the source path changes what is copied:</p>
+<ul>
+<li><code>rsync -av data/ target/</code> copies the <strong>content</strong> of <code>data</code> into <code>target</code></li>
+<li><code>rsync -av data target/</code> copies the folder <code>data</code> itself, so you get <code>target/data</code></li>
+</ul>
+</div>
+</div>
+<p>For more examples, check out <a href="https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/">this page</a>.</p>
+</section>
+</section>
+<section id="checking-the-cluster" class="level2">
+<h2 class="anchored" data-anchor-id="checking-the-cluster">Checking the cluster</h2>
+<section id="sinfo-information-about-the-nodes" class="level3">
+<h3 class="anchored" data-anchor-id="sinfo-information-about-the-nodes"><code>sinfo</code>: Information about the nodes</h3>
+<p><code>sinfo</code> shows which nodes the cluster has and how busy they are:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sinfo</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The output looks something like this:</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
 <p><img src="../../img/sinfo.png" class="img-fluid quarto-figure quarto-figure-left figure-img" style="width:70.0%"></p>
 </figure>
 </div>
-<p>Here, you see information about the:</p>
 <ul>
-<li>partition: the queues that are available</li>
-<li>state: if a node is busy or not
+<li>PARTITION: the queues that are available</li>
+<li>STATE: how busy a node is
 <ul>
-<li>mix : consumable resources partially allocated</li>
-<li>idle : available to requests consumable resources</li>
-<li>drain : unavailable for use per system administrator request</li>
-<li>alloc : consumable resources fully allocated</li>
-<li>down : unavailable for use.</li>
+<li>idle: all CPUs and memory are free</li>
+<li>mix: part of the CPUs and memory are reserved by jobs</li>
+<li>alloc: all CPUs and memory are reserved by jobs</li>
+<li>drain: not available, set by the system administrators (e.g.&nbsp;for maintenance)</li>
+<li>down: not available</li>
 </ul></li>
-<li>Nodes: The number of nodes</li>
-<li>NodeList: the names of the nodes omics-cn001 to omics-cn005</li>
+<li>NODES: the number of nodes</li>
+<li>NODELIST: the names of the nodes, here omics-cn001 to omics-cn005</li>
 </ul>
 </section>
-<section id="view-info-about-jobs-in-the-queue" class="level3">
-<h3 class="anchored" data-anchor-id="view-info-about-jobs-in-the-queue">View info about jobs in the queue</h3>
-<p>The following commands gives us some information about how busy the HPC is:</p>
+<section id="squeue-view-the-jobs-in-the-queue" class="level3">
+<h3 class="anchored" data-anchor-id="squeue-view-the-jobs-in-the-queue"><code>squeue</code>: View the jobs in the queue</h3>
+<p><code>squeue</code> shows which jobs are running or waiting in the queue:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show all jobs on the cluster</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Show only your own jobs</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> <span class="va">$USER</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>After running this, you can see all jobs scheduled on the HPC:</p>
+<p>The output of <code>squeue</code> looks something like this:</p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
 <p><img src="../../img/squeue.png" class="img-fluid quarto-figure quarto-figure-left figure-img" style="width:90.0%"></p>
 </figure>
 </div>
 <ul>
-<li>JOBID: every job gets a number and you can manipulate jobs via this number</li>
-<li>ST: Job state codes that describe the current state of the job. The full list of abbreviations can be found <a href="https://curc.readthedocs.io/en/latest/running-jobs/squeue-status-codes.html">here</a></li>
+<li>JOBID: a unique number for each job. You use it to check on or cancel a job</li>
+<li>ST: the current state of the job, e.g.&nbsp;R = running, PD = pending (waiting). The full list of state codes can be found <a href="https://curc.readthedocs.io/en/latest/running-jobs/squeue-status-codes.html">here</a></li>
 </ul>
 </section>
-<section id="unsure-about-the-resources-each-node-has" class="level3">
-<h3 class="anchored" data-anchor-id="unsure-about-the-resources-each-node-has">Unsure about the resources each node has?</h3>
-<p>If you are unsure about how many resources a compute node has available you can get more information using the following command:</p>
+<section id="scontrol-resources-of-a-node" class="level3">
+<h3 class="anchored" data-anchor-id="scontrol-resources-of-a-node"><code>scontrol</code>: Resources of a node</h3>
+<p>To see how many resources a compute node has, and how many are in use:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scontrol</span> show node</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show all nodes</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">scontrol</span> show node</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Show one node</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ex">scontrol</span> show node omics-cn005</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
@@ -1305,245 +1470,308 @@ Important
 <li>NodeName=omics-cn005: This is the name of the node you’re inspecting. Each node has a unique name for identification.</li>
 <li>CPUAlloc=4 CPUTot=64 CPULoad=1.00:
 <ul>
-<li>CPUAlloc=4: Currently, 4 CPUs are allocated or actively being used.</li>
+<li>CPUAlloc=4: Currently, 4 CPUs are reserved by jobs.</li>
 <li>CPUTot=64: The total number of CPUs available on this node is 64.</li>
-<li>CPULoad=1.00: The CPU load gives you an idea of how busy the CPUs are. A load of 1.00 means they’re fully utilized.</li>
+<li>CPULoad=1.00: The CPU load gives you an idea of how busy the CPUs are. It is roughly the number of CPUs that are busy, so a load of 1.00 on a node with 64 CPUs means that about one CPU is busy.</li>
 </ul></li>
 <li>RealMemory=514900 AllocMem=20480 FreeMem=510438:
 <ul>
-<li>RealMemory=514900: The total physical memory (RAM) on this node is 514900 megabytes or 512 Gb.</li>
-<li>AllocMem=20480: Currently, 20 gigabytes of memory are allocated or in use.</li>
+<li>RealMemory=514900: The total physical memory (RAM) on this node is 514900 megabytes or 512 GB.</li>
+<li>AllocMem=20480: Currently, 20 gigabytes of memory are reserved by jobs.</li>
 <li>FreeMem=510438: There are 510438 megabytes of free memory available.</li>
 </ul></li>
 <li>AllocTRES=cpu=4,mem=20G:
 <ul>
-<li>AllocTRES shows the resources currently allocated. 4 CPUs and 20 gigabytes of memory are currently in use.</li>
+<li>AllocTRES shows the resources that are currently reserved: 4 CPUs and 20 gigabytes of memory.</li>
 </ul></li>
 </ul>
-<p>If unsure about what resources are available:</p>
-<ul>
-<li>Check CPUTot for the total CPUs on the node</li>
-<li>Look at CPUAlloc for the currently allocated CPUs.</li>
-<li>Examine RealMemory for total available memory and FreeMem for the unused portion.</li>
-</ul>
-</section>
-<section id="get-information-about-running-jobs" class="level3">
-<h3 class="anchored" data-anchor-id="get-information-about-running-jobs">Get information about running jobs</h3>
-<p>To get a better feel about how many resources a job used we can use <code>sacct</code>, which displays accounting data for all jobs and job steps in the Slurm job accounting log or Slurm database.</p>
-<p>In the command below <code>419847</code> is the job ID of a currently running or finished job and -with <code>--format</code> we create a custom report with some useful information:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span> <span class="at">-j</span> 419847 <span class="at">--format</span><span class="op">=</span>User,JobID,Jobname,state,start,end,elapsed,MaxRss,nnodes,ncpus,nodelist</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../../img/sacct.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-<p>This tells us:</p>
-<ul>
-<li>In the example the first row corresponds to the job itself and the other rows are job steps. If you run things in parallel you will get several additional rows and can see how many resources each job used</li>
-<li>How long the job run (or each job for parallel jobs)</li>
-<li>MaxRSS: the highest amount of memory your job used while it was running in kilobytes. In our example we see the job used 3525948 kilobytes or 3.5 Gigabytes.</li>
-</ul>
+<p>In short: compare CPUAlloc with CPUTot to see how many CPUs are still free, and AllocMem with RealMemory for the memory.</p>
 </section>
 <section id="htop-how-busy-is-a-node" class="level3">
 <h3 class="anchored" data-anchor-id="htop-how-busy-is-a-node"><code>htop</code>: How busy is a node</h3>
-<p>Htop gives us an overview about how busy a node is, typing htop will give a screen that looks something like this:</p>
+<p><code>htop</code> shows how busy the node you are on is. Typing <code>htop</code> gives a screen that looks something like this:</p>
 <p align="left">
 </p><p><img src="../../img/htop.png" width="600"></p>
 <p></p>
-<p>The numbers from 1-64 are the 64 CPUs available on the Crunchomics login ndode and the fuller the bar is, the more of a single CPU is currently in use. This is also summarized under <strong>tasks</strong>. Another important line is the <strong>memory</strong> listing how much in total of the avail. memory is in use.</p>
+<p>The numbers from 1-64 are the 64 CPUs available on the Crunchomics login node. The fuller a bar is, the more of that CPU is in use. This is also summarized under <strong>tasks</strong>. The <strong>memory</strong> line shows how much of the total memory is in use.</p>
 <p>You exit the htop window by typing <code>q</code>.</p>
+<p><code>htop</code> only shows the node you are logged in to. On the login node, it shows the login node, not the compute nodes.</p>
 </section>
-<section id="df-disk-space-usage" class="level3">
-<h3 class="anchored" data-anchor-id="df-disk-space-usage"><code>df</code>: Disk space usage</h3>
-<p><code>df</code> monitors the available space on the different file systems. There might be a lot of different files listed but it quickly allows you to look for the folders you have access to and check how much space you have available.</p>
+<section id="df-free-disk-space" class="level3">
+<h3 class="anchored" data-anchor-id="df-free-disk-space"><code>df</code>: Free disk space</h3>
+<p><code>df</code> shows the size and free space of the different file systems. The list can be long, but it quickly lets you check how much space is left on the folders you work in:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -h prints the sizes in a human-readable format (K, M, G, T)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p align="left">
 </p><p><img src="../../img/df.png" width="600"></p>
 <p></p>
 </section>
 <section id="du-checking-the-size-of-a-folder" class="level3">
 <h3 class="anchored" data-anchor-id="du-checking-the-size-of-a-folder"><code>du</code>: Checking the size of a folder</h3>
-<p><code>du</code> monitors how much space specific folders take up. In the example below we look at all the folders in folder called <code>personal</code>. If your folder is large and has many individual files, give this a bit of time to run.</p>
+<p><code>du</code> shows how much space a folder takes up. For a large folder with many files, this can take a while.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-sh</span> personal/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Total size of the personal folder (-s = summary, -h = human-readable)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-sh</span> personal/</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Size of each file and folder inside the personal folder</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-sh</span> personal/<span class="pp">*</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
-</section>
-<section id="transferring-files" class="level2">
-<h2 class="anchored" data-anchor-id="transferring-files">Transferring files</h2>
-<section id="scp-transferring-data-fromto-a-server" class="level3">
-<h3 class="anchored" data-anchor-id="scp-transferring-data-fromto-a-server"><code>scp</code>: Transferring data from/to a server</h3>
-<p><code>scp</code> stands for Secure Copy Protocol and allows us to securely copy files and directories between remote hosts. When transferring data the transfer is prepared from the terminal of your local computer and not from the HPCs login node.</p>
-<p>The basic syntax is:</p>
-<p><code>scp [options] SOURCE DESTINATION</code></p>
-<p>Let’s assume we have a file, file.txt, on our personal computer and want to move it to an HPC. To be able to do this, we run our commands from the terminal of the local machine, not on the HPC itself:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> file.txt username@server:/path_to_target_folder</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>For the case of us having a text file on the server and want to move to our personal computer we can do this as follows. Again, we run this command from a terminal on your computer, not while being logged in the HPC:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> username@server:/path_to_target_folder/file.txt Desktop</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>There are graphical interace filetransfer systems that can make the job easier, i.e.&nbsp;FileZilla, that you can check up on.</p>
-<p>For a worked example of using <code>scp</code> to copy data to a real remote server, see <a href="../../source/cli/ibed_tape.html">Using the IBED Tape Archive</a>.</p>
-</section>
-<section id="rsync-synchronize-files-and-directories-between-two-hosts-or-machines" class="level3">
-<h3 class="anchored" data-anchor-id="rsync-synchronize-files-and-directories-between-two-hosts-or-machines"><code>rsync</code>: Synchronize files and directories between two hosts or machines</h3>
-<p>While scp is handy for transferring files, rsync takes it a step further by efficiently synchronizing files and directories. This is particularly useful for large datasets (imagine having to move several terrabytes) and for updating files without transferring the entire content.</p>
-<p>This can be useful for transferring large files from an HPC to your computer but also when transferring large files from one to another location on the same machine.</p>
-<p>To copy a file from your local machine to an HPC using rsync, use the following command:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-avz</span> file.txt username@server:/path_to_target_folder</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Used options:</p>
-<ul>
-<li><code>-a</code>: Archive mode, preserving permissions and other attributes.</li>
-<li><code>-v</code>: Verbose, showing the files being copied.</li>
-<li><code>-z</code>: Compress data during transfer, reducing the amount of data sent over the network.</li>
-</ul>
-<p>Conversely, to copy a file from the server to your local machine, execute the following command:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-avz</span> username@server:/path_to_source_folder/file.txt Desktop</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>For more examples, check out <a href="https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/">this page</a>.</p>
 </section>
 </section>
 <section id="submitting-a-job" class="level2">
 <h2 class="anchored" data-anchor-id="submitting-a-job">Submitting a job</h2>
-<section id="srun" class="level3">
-<h3 class="anchored" data-anchor-id="srun">srun</h3>
-<p>srun is used when you want to run tasks interactively or have more control over the execution. You directly issue srun commands in the terminal, specifying the tasks to be executed and their resource requirements.</p>
-<p>Use srun when:</p>
+<p>The analyses run on the compute nodes, as <strong>jobs</strong>. You send a job to SLURM with <code>srun</code> or <code>sbatch</code>, together with the resources it needs:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 47%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Option</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>--ntasks=1</code></td>
+<td>Run the command once. A <strong>task</strong> is one copy of your command. Without this option, SLURM can start more than one copy</td>
+</tr>
+<tr class="even">
+<td><code>--cpus-per-task=2</code></td>
+<td>Request 2 CPUs for that task</td>
+</tr>
+<tr class="odd">
+<td><code>--mem=5G</code></td>
+<td>Request 5 GB of memory in total for the job</td>
+</tr>
+<tr class="even">
+<td><code>--mem-per-cpu=5G</code></td>
+<td>Request 5 GB of memory for each CPU (use either <code>--mem</code> or <code>--mem-per-cpu</code>)</td>
+</tr>
+<tr class="odd">
+<td><code>--time=01:00:00</code></td>
+<td>Maximum run time (hours:minutes:seconds). If the job takes longer, SLURM stops it</td>
+</tr>
+</tbody>
+</table>
+<section id="srun-submitting-a-job-interactively" class="level3">
+<h3 class="anchored" data-anchor-id="srun-submitting-a-job-interactively"><code>srun</code>: Submitting a job interactively</h3>
+<p>Use <code>srun</code> when:</p>
 <ul>
-<li>You want to run tasks interactively and need immediate feedback.</li>
-<li>You are testing or debugging your commands before incorporating them into a script.</li>
-<li>You need more control over the execution of tasks.</li>
+<li>You want to see the output directly on your screen</li>
+<li>You are testing or debugging your commands before you write a job script</li>
+<li>You have short jobs (usually less than an hour)</li>
 </ul>
-<p>A simple example:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> echo <span class="st">"Hello interactively"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--ntasks</span><span class="op">=</span>1 <span class="at">--cpus-per-task</span><span class="op">=</span>1 <span class="at">--mem</span><span class="op">=</span>1G <span class="at">--time</span><span class="op">=</span>00:10:00 echo <span class="st">"Hello interactively"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Assuming you want to run a more complex interactive task with srun it is good to specify the resources your job needs by adding flags, i.e.</p>
+<p>Everything between <code>srun</code> and the actual command (<code>echo "Hello interactively"</code>) tells SLURM which resources your job needs.</p>
+<p>If the compute nodes are busy, your job waits in the queue. <code>srun</code> then prints <code>srun: job 387583 queued and waiting for resources</code>, and the prompt does not come back until the job has run. Don’t press <code>Ctrl+C</code>, because that cancels your job.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Jobs started with <code>srun</code> stop if you lose the connection to the HPC, for example when you close your laptop. For longer jobs, use <code>sbatch</code>, or run <code>srun</code> inside <a href="../../source/cli/cli_shell.html#screen-running-things-in-the-background"><code>screen</code></a>.</p>
+</div>
+</div>
+<section id="working-on-a-compute-node-interactively" class="level4">
+<h4 class="anchored" data-anchor-id="working-on-a-compute-node-interactively">Working on a compute node interactively</h4>
+<p>With <code>--pty bash -i</code>, <code>srun</code> opens a bash shell on a compute node. Every command you type then runs on the compute node, with the resources you requested:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--nodes</span><span class="op">=</span>1 <span class="at">--ntasks</span><span class="op">=</span>1 <span class="at">--cpus-per-task</span><span class="op">=</span>1 <span class="at">--mem</span><span class="op">=</span>1G echo <span class="st">"Hello interactively"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Open an interactive bash shell on a compute node for at most 1 hour</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--ntasks</span><span class="op">=</span>1 <span class="at">--cpus-per-task</span><span class="op">=</span>1 <span class="at">--mem</span><span class="op">=</span>5G <span class="at">--time</span><span class="op">=</span>01:00:00 <span class="at">--pty</span> bash <span class="at">-i</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check where you are: this prints the name of the compute node</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hostname</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Go back to the login node when you are done</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Always <code>exit</code> an interactive session when you are done. As long as the session is open, the CPUs and memory you requested stay reserved for you, and other people have to wait for them.</p>
+</section>
+</section>
+<section id="sbatch-submitting-a-job-script" class="level3">
+<h3 class="anchored" data-anchor-id="sbatch-submitting-a-job-script"><code>sbatch</code>: Submitting a job script</h3>
+<p>Use <code>sbatch</code> when:</p>
+<ul>
+<li>You have long-running or resource-intensive jobs</li>
+<li>You want jobs to run without you watching them, also after you log out</li>
+<li>You want to submit several jobs at once</li>
+</ul>
+<p>To run a job with <code>sbatch</code>, you write a <strong>job script</strong>: a bash script with your commands and, at the top, the resources the job needs. For example, <code>scripts/first_job.sh</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=first_job</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=logs/first_job_%j.out</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --error=logs/first_job_%j.err</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --ntasks=1</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=2</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=2G</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=00:10:00</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Job started on:"</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Your commands go here</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Today we are using slurm"</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Job finished on:"</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
-<li><code>--nodes=1</code>: Specifies the number of nodes. In this case, it’s set to 1 and tells slurm that we want to use a full node. Only use this if you make use of all resources on that node, otherwise omit.</li>
-<li><code>--ntasks=1</code>: Defines the number of tasks to run. Here, it’s set to 1</li>
-<li><code>--cpus-per-task=1</code>: Specifies the number of CPUs per task. Adjust this based on the computational requirements of your task.</li>
-<li><code>--mem=1G</code>: Sets the memory requirement for the task. Modify this based on your task’s memory needs.</li>
-<li><code>echo "Hello interactively</code>: The actual command you want to run interactively.</li>
+<li><code>#!/bin/bash</code>: the <strong>shebang</strong> line tells the system to run the script with bash. Add it at the very top of every job script</li>
+<li><code>#SBATCH --...</code>: these lines tell SLURM which resources the job needs and how to name things. For bash they are comments, only SLURM reads them. They are the same options that you use with <code>srun</code>, plus:
+<ul>
+<li><code>--job-name</code>: a name for your job, which you see in <code>squeue</code></li>
+<li><code>--output</code>: the file in which SLURM stores everything the job prints to the screen (the <strong>standard output</strong>)</li>
+<li><code>--error</code>: the file in which SLURM stores error messages (the <strong>standard error</strong>)</li>
+<li><code>%j</code> in the file names is replaced by the job ID, so every job gets its own log files</li>
+</ul></li>
+<li><code>echo</code> and <code>date</code>: print messages with the time, so that you can follow the progress of the job in the log file</li>
 </ul>
+<p>Without <code>--output</code> and <code>--error</code>, SLURM writes both into a file called <code>slurm-JOBID.out</code> in the folder from which you submitted the job.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the logs folder first: SLURM does not create it, and the job fails without it</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> logs</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Submit the job script</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> scripts/first_job.sh</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the job: it is in the queue while it waits or runs</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> <span class="va">$USER</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># After the job finished, look at its log files</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> logs</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> logs/first_job_<span class="pp">*</span>.out</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The log files are the first place to look when something goes wrong. Error messages and warnings are often recorded there.</p>
+</section>
+<section id="scancel-cancelling-a-job" class="level3">
+<h3 class="anchored" data-anchor-id="scancel-cancelling-a-job"><code>scancel</code>: Cancelling a job</h3>
+<p>If a job is stuck or uses the wrong resources, cancel it with its job ID (see <code>squeue -u $USER</code>):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">scancel</span> 379723</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>scancel</code> only works on your own jobs.</p>
 </section>
 <section id="choosing-the-right-amount-of-resources" class="level3">
 <h3 class="anchored" data-anchor-id="choosing-the-right-amount-of-resources">Choosing the right amount of resources</h3>
-<p>When you’re just starting, deciding on the right resources to request for your computational job can be a bit challenging. The resource requirements can vary significantly based on the specific tool or workflow you are using. Here are some general guidelines to help you make informed choices:</p>
+<p>The resources a job needs vary a lot between tools and datasets. Some rules of thumb:</p>
 <ul>
-<li>Use default settings: Begin by working with the default settings provided by the HPC cluster. These are often set to provide a balanced resource allocation for a wide range of tasks</li>
-<li>Check the software documentation: Consult the documentation of the software or tool you are using. Many tools provide recommendations for resource allocation based on the nature of the computation.</li>
-<li>Testing with Small Datasets: For initial testing and debugging, consider working with a smaller subset of your dataset. This allows for faster job turnaround times, helping you identify and resolve issues more efficiently.</li>
-<li>Monitor the resources usage:
+<li><strong>Start small</strong>: a lot of tools don’t need huge resources, especially for small test runs</li>
+<li><strong>Check the tool’s documentation</strong>: some tools recommend resource settings</li>
+<li><strong>Test with a small dataset first</strong>: a subset of your data runs faster and helps you find and fix problems</li>
+<li><strong>Be careful with how memory is counted</strong>: <code>--mem=4G</code> asks for 4 GB in total for your job, no matter how many CPUs you request. <code>--mem-per-cpu=4G</code> instead asks for 4 GB for each CPU, so <code>--cpus-per-task=4 --mem-per-cpu=4G</code> gives you a total of 16 GB of memory (4 CPUs * 4 GB)</li>
+<li><strong>Adjust step by step</strong>: if your job fails or runs out of memory or time, increase the resources gradually</li>
+</ul>
+<p>Requesting more resources than you need makes your jobs wait longer in the queue and can block others from running.</p>
+<section id="sacct-checking-what-a-job-used" class="level4">
+<h4 class="anchored" data-anchor-id="sacct-checking-what-a-job-used"><code>sacct</code>: Checking what a job used</h4>
+<p>After a job has finished, <code>sacct</code> shows which resources it actually used:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sacct</span> <span class="at">-j</span> 419847 <span class="at">--format</span><span class="op">=</span>User,JobID,Jobname,state,start,end,elapsed,MaxRss,nnodes,ncpus,nodelist</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../img/sacct.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 <ul>
-<li>Use <code>sacct</code> to check what resources a finished job has used. Look for columns like MaxRSS (maximum resident set size) to check if the amount of memory allocated (–mem) was appropriate.</li>
-<li>For instance, with <code>--cpus-per-task=4 --mem=4G</code>, you would expect to use a total of 16 GB of memory (4 CPUs * 4 GB). Verify this with sacct to ensure your job’s resource requirements align with its actual usage.</li>
+<li><code>-j 419847</code>: show the information for job 419847</li>
+<li><code>--format=...</code>: choose which columns to show. The most useful ones are:
+<ul>
+<li><code>State</code>: whether the job finished successfully (COMPLETED) or not (e.g.&nbsp;FAILED, CANCELLED, TIMEOUT)</li>
+<li><code>Elapsed</code>: how long the job ran</li>
+<li><code>MaxRSS</code>: the maximum amount of memory the job used. K stands for kilobytes, so 3525948K is about 3.5 GB. Compare this with the memory you requested</li>
 </ul></li>
-<li>Fine-Tuning Resource Requests: If you encounter performance issues or your jobs are not completing successfully, consider iteratively adjusting resource requests. This might involve increasing or decreasing the number of CPUs, memory allocation, or other relevant parameters.</li>
+<li>One job can have several lines. The first line is the job as a whole, the other lines are <strong>job steps</strong>. The <code>.batch</code> line is your job script and shows the memory your commands used</li>
 </ul>
+<p>If you run similar jobs over and over again, use this to adjust your requests.</p>
 </section>
-<section id="sbatch" class="level3">
-<h3 class="anchored" data-anchor-id="sbatch">sbatch</h3>
-<p>sbatch is your go-to command when you have a script (a batch script) that needs to be executed without direct user interaction.</p>
-<p>Use sbatch when:</p>
-<ul>
-<li>You have long-running or resource-intensive tasks.</li>
-<li>You want to submit jobs that can run independently without your immediate supervision</li>
-<li>You want to submit multiple jobs at once</li>
-</ul>
-<p>To run a job script, you:</p>
-<ul>
-<li>create a script that contains all the commands and configurations needed for your job</li>
-<li>use sbatch to submit this script to the Slurm scheduler, and it takes care of the rest.</li>
-</ul>
-<p>To get started, assume we have created a script named <code>first_batch_script.sh</code> with the following content in which we want to run two commands after each other:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --nodes=1</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --ntasks=1</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=2</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=2G</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Job Step 1</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Hello from your extended batch script"</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Job Step 2</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Today we are using slurm"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>The we can submit <code>first_batch_script.sh</code> with:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> first_batch_script.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>After running this, you will see that a new file is generated that will look something like this <code>slurm-425707.out</code>. When you submit a batch job using sbatch, Slurm redirects the standard output and standard error streams of your job to a file named in the format slurm-JOBID.out, where JOBID is the unique identifier assigned to your job.</p>
-<p>This file is useful as it:</p>
-<ul>
-<li>Captures the output of our batch scripts and stores them in a file</li>
-<li>Can be used for debugging, since if something goes wrong with your job, examining the contents of this file can provide valuable insights into the issue. Error messages, warnings, or unexpected outputs are often recorded here.</li>
-</ul>
 </section>
-<section id="arrays-running-things-in-parallel" class="level3">
-<h3 class="anchored" data-anchor-id="arrays-running-things-in-parallel">arrays: running things in parallel</h3>
-<p>In bioinformatics its very common to run the same command on several input files. Instead of copy pasting the same command several times, one option is to write the command once and use a slurm array to run the command in parallel on multiple files.</p>
+<section id="arrays-running-the-same-job-for-many-samples" class="level3">
+<h3 class="anchored" data-anchor-id="arrays-running-the-same-job-for-many-samples">Arrays: Running the same job for many samples</h3>
+<p>In bioinformatics it is very common to run the same command on several input files. Instead of copy pasting the same command several times, you can write the command once and use a SLURM <strong>job array</strong> to run it in parallel for each file.</p>
 <p>Assume we have three samples and for each sample we have generated a file with sequencing data:</p>
 <ul>
 <li>sample1.fastq.gz</li>
 <li>sample2.fastq.gz</li>
 <li>sample3.fastq.gz</li>
 </ul>
-<p>We might want to do some cleaning of the reads, for example remove adaptors from all three files. We start with making a file that list all samples we want to work with (i.e.&nbsp;using nano or cp from excel) called <code>sample_list</code> which might look like this:</p>
+<p>We want to remove adapters from all three files. First, we make a text file, <code>sample_list.txt</code>, that lists the samples, one per line (e.g.&nbsp;with nano):</p>
 <pre><code>sample1
 sample2
 sample3</code></pre>
-<p>We then can write a sbatch script, i.e.&nbsp;<code>arrays.sh</code>, as follows:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=our_job</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=%A_%a.out</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --error=%A_%a.err</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-3%2</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=20</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem-per-cpu=5G</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mail-type=</span><span class="re">END</span><span class="co">,FAIL</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mail-user=user@uva.nl</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate the index of the current job within the batch</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="va">INDEX</span><span class="op">=</span><span class="va">$((SLURM_ARRAY_TASK_ID</span> <span class="va">))</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co">#build array structure via ale file names</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="va">CURRENT_SAMPLE</span><span class="op">=</span><span class="va">$(</span><span class="fu">cat</span> sample_list <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-V</span>  <span class="kw">|</span> <span class="fu">sed</span> <span class="at">-n</span> <span class="st">"</span><span class="va">${INDEX}</span><span class="st">p"</span><span class="va">)</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Now Job</span><span class="va">${INDEX}</span><span class="st"> runs on </span><span class="va">${CURRENT_SAMPLE}</span><span class="st">"</span></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="ex">porechop</span> <span class="at">--input</span> <span class="va">${CURRENT_SAMPLE}</span>.fastq.gz <span class="dt">\</span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> outputfolder/<span class="va">${CURRENT_SAMPLE}</span>_filtered.fastq.gz <span class="dt">\</span></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--threads</span> 20 <span class="dt">\</span></span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">--discard_middle</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the sample list: we expect 3 lines</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> sample_list.txt</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> sample_list.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The first section contains parameters for Slurm, the job scheduler.</p>
+<p>We then write a job script, <code>scripts/porechop_array.sh</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=porechop_array</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=logs/porechop_%A_%a.out</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --error=logs/porechop_%A_%a.err</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-3%2</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --ntasks=1</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=4</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=10G</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=02:00:00</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mail-type=</span><span class="re">END</span><span class="co">,FAIL</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mail-user=uvanetid@uva.nl</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co"># SLURM_ARRAY_TASK_ID is set by SLURM: 1 for the first job in the array, 2 for the second, and so on</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co"># sed -n "2p" prints line 2 of the file, so each job picks its own sample</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="va">sample</span><span class="op">=</span><span class="va">$(</span><span class="fu">sed</span> <span class="at">-n</span> <span class="st">"</span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st">p"</span> sample_list.txt<span class="va">)</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Now job </span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st"> runs on </span><span class="va">${sample}</span><span class="st">"</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="ex">porechop</span> <span class="at">--input</span> <span class="va">${sample}</span>.fastq.gz <span class="dt">\</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> results/porechop/<span class="va">${sample}</span>_filtered.fastq.gz <span class="dt">\</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">--threads</span> <span class="va">$SLURM_CPUS_PER_TASK</span> <span class="dt">\</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--discard_middle</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The <code>#SBATCH</code> options:</p>
 <ul>
-<li><code>--job-name:</code> Specifies the name of the job.</li>
-<li><code>--output</code> and <code>--error</code>: Define the naming pattern for the standard output and error files. <code>%A</code> represents the job ID assigned by Slurm, and <code>%a</code> represents the array task ID, which is the index of the current job within the array. After running the job, you will get files that might be named 123456_1.out or 123456_1.err, where 123456 is the job ID and 1 is the array task ID.</li>
-<li><code>--array</code>: Sets up a job array, specifying the range (1-3) and stride (%2) for the array. It says that we want to run 3 jobs and two jobs should be run at the same time</li>
-<li><code>--cpus-per-task</code>: Indicates the number of CPU cores each task in the array will use</li>
-<li><code>--mem-per-cpu</code>: Specifies the memory requirement per CPU core.</li>
-<li><code>--mail-type</code> and <code>--mail-user</code>: Configure email notifications for job completion or failure.</li>
+<li><code>--output</code> and <code>--error</code>: <code>%A</code> is replaced by the job ID that SLURM assigns, and <code>%a</code> by the number of the job in the array. You get log files such as <code>logs/porechop_123456_1.out</code></li>
+<li><code>--array=1-3%2</code>: run 3 jobs, numbered 1 to 3, one for each line in <code>sample_list.txt</code>. <code>%2</code> means that at most 2 jobs run at the same time. SLURM starts the next one when one has finished. Use this for jobs that need a lot of CPUs or memory, and try to use no more than ~20% of Crunchomics at the same time</li>
+<li><code>--cpus-per-task</code>, <code>--mem</code> and <code>--time</code> apply to <strong>each</strong> job in the array. So every sample gets 4 CPUs, 10 GB of memory and up to 2 hours</li>
+<li><code>--mail-type</code> and <code>--mail-user</code>: send an email when a job ends or fails</li>
 </ul>
-<p>The job does the following:</p>
+<p>In the job:</p>
 <ul>
-<li>The <code>INDEX</code> variable is calculated using the <code>SLURM_ARRAY_TASK_ID</code>, representing the index of the current job within the array. In our case this will be first 1, then 2 and finally 3.</li>
-<li>Next, we build the array structure. The <code>CURRENT_SAMPLE</code> variable is created by reading the <code>sample_list</code> file, sorting it using sort -V (version sorting), and extracting the sample at the calculated index using sed. So for the first index we extract sample1 and store it in the variable <code>CURRENT_SAMPLE</code>.</li>
-<li>The porechop command is executed using the <code>CURRENT_SAMPLE</code> variable, processing the corresponding FASTQ file. So for the first array, it will trim adapters from sample1.fastq.gz</li>
+<li><code>SLURM_ARRAY_TASK_ID</code> is a variable that SLURM sets in each job of the array. It holds the number of the current job: 1, 2 or 3. We don’t create this variable ourselves, we only use it</li>
+<li><code>sed -n "${SLURM_ARRAY_TASK_ID}p" sample_list.txt</code> prints the line with that number. So job 1 works on sample1, job 2 on sample2, and so on</li>
+<li><code>$SLURM_CPUS_PER_TASK</code> holds the number of CPUs from <code>--cpus-per-task</code>, so porechop uses exactly the CPUs you requested</li>
 </ul>
+<p>Before you submit the script, test the line selection on the login node. <code>SLURM_ARRAY_TASK_ID</code> only exists inside an array job, so put a number in its place:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We expect sample2</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-n</span> <span class="st">"2p"</span> sample_list.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Then submit the array:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the folders for the logs and the output first</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> logs results/porechop</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> scripts/porechop_array.sh</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># You see one line per job, with the array number after an underscore, e.g. 123456_1</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> <span class="va">$USER</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co"># After the jobs finished: we expect 3 output files</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> results/porechop</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
 </section>
@@ -1989,7 +2217,7 @@ sample3</code></pre>
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-09-15</p>
+Last modified: 2026-11-03</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/slurm_basics.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

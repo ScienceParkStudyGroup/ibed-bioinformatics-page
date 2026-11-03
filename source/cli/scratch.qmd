@@ -11,21 +11,27 @@ engine: knitr
 
 ## Basics
 
-Crunchomics has one login node (h0) and 5 compute nodes, cn001-cn005 and can be accessed via `cd /scratch`. Each compute node has its own local scratch storage with around ~8 TB of storage space that is shared with everyone. The scratch of a compute note is only accessible when running on that node, which means that files written to scratch on node cn002 are not visible from cn003 or the login node. So either data has to be synchronized over all nodes, or jobs have to be fixed on particular nodes using the -w flag. More information on this can be found below as well as on the Crunchomics website [here](https://crunchomics-documentation.readthedocs.io/en/latest/nvme_clusters.html?highlight=scratch).
+Crunchomics has one login node (omics-h0) and 5 compute nodes (omics-cn001 to omics-cn005). Each of these has its own local scratch storage, which you reach with `cd /scratch`. The scratch of a compute node has around 8 TB of fast storage space, shared with everyone.
 
-Please note that this is temporary storage space and files will automatically be deleted after one month of file inactivity.
+The scratch of a node is only accessible from that node. Files that you write to the scratch on omics-cn002 are not visible from omics-cn003 or from the login node. So either you copy the data to each node that needs it, or you send your jobs to one particular node with the `-w` option. More information can be found below and in the [Crunchomics documentation](https://crunchomics-documentation.readthedocs.io/en/latest/nvme_clusters.html?highlight=scratch).
+
+::: callout-important
+Scratch is temporary storage space. Files are automatically deleted after one month of inactivity. Scratch is also shared by all Crunchomics users, so remove your files when your analysis is done.
+:::
+
+For the basics of `srun` and `sbatch`, see [Start working on an HPC](slurm_basics.qmd#submitting-a-job).
 
 ## Working on a compute node interactively
 
-We can log into a compute node to work interactively as follows:
+We can log in to a compute node to work interactively as follows:
 
 ```{bash}
-srun --cpus-per-task 1 -t 00:30:00 --mem=50G -w omics-cn002 --pty bash -i
-``` 
+srun --cpus-per-task=1 --mem=50G --time=00:30:00 -w omics-cn002 --pty bash -i
+```
 
-Here, we are using the Slurm Workflow manager srun to request 1 CPU (`--cpus-per-task 1`), 50G of memory (`--mem=50G`) for 30 minutes (`-t 00:30:00`). We use `--pty bash -i ` in order to open an interactive bash shell and use `-w omics-cn002` to reserve space on compute node 002. After running this, the prompt should show `uvanetID@omics-cn002 testing` confirming that we are now logged into the compute node 002. 
+Here, we request 1 CPU (`--cpus-per-task=1`) and 50 GB of memory (`--mem=50G`) for 30 minutes (`--time=00:30:00`). `--pty bash -i` opens an interactive bash shell, and `-w omics-cn002` sends the job to compute node omics-cn002. After running this, the prompt shows `omics-cn002` instead of `omics-h0`, which confirms that we are now on compute node omics-cn002.
 
-First, we should test whether the scratch still has enough available space for our analysis. For this, we can use the `df` command, which shows the following information: Filesystem, Size, Used, Avail, Use%, Mounted on. We can search for the resources available on the scratch with:
+First, we check whether the scratch still has enough free space for our analysis. `df` shows the size, used space and free space of each file system:
 
 ```{bash}
 df -h
@@ -37,101 +43,129 @@ In the list, search for scratch or ssdstorage. This is a mount point to the scra
 ssdstorage 7.2T  2.0T  5.2T  28% /ssdstorage
 ```
 
-This is enough for our analysis, so we can now generate a project folder for our analysis. **Important:** The scratch is used by all Crunchomics users, therefore, it is advisable to clean up any temporary files you don't need after your analysis is done. When following this workflow, replace the `userid` with your actual user name.
+This is enough for our analysis, so we now make a project folder on the scratch. `$USER` stands for your user name.
 
 ```{bash}
-# Generate a project directory
-# the -p argument allows us to generate subfolders in one go 
-mkdir -p /scratch/userid/climate
+# Make a project folder (-p also makes the parent folder /scratch/$USER)
+mkdir -p /scratch/$USER/climate
 
-# Change into that project folder 
-cd /scratch/userid/climate
+# Move into the project folder
+cd /scratch/$USER/climate
 
-# Run your analysis
-## Download some data (this is now done interactively with the requested resources on the compute node)
+# Run your analysis, here: download some data
+# This runs on the compute node, with the resources we requested
 mkdir data
 wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/027/325/GCF_000027325.1_ASM2732v1/GCF_000027325.1_ASM2732v1_genomic.fna.gz -P data
 
-## Check if the data is really available on the scratch of compute node cn002
-ls data
+# Check that the data is on the scratch of compute node omics-cn002
+ls -lh data
 ```
 
 
-## Moving around data
+## Moving data around
 
 ### To the personal folder
 
-As said before, as each scratch is stored locally it can be only accessed on a particular node. However, we could easily move the downloaded data to our personal folder with:
+Each scratch can only be accessed from its own node. But your personal folder is accessible from all nodes, so you can copy the downloaded data there:
 
 ```{bash}
-cp data/*gz /zfs/omics/personal/userid/testing/data/
+# Make the target folder in your personal folder
+mkdir -p /zfs/omics/personal/$USER/climate/data
+
+# Copy the data
+cp data/*gz /zfs/omics/personal/$USER/climate/data/
+
+# Check that the data arrived
+ls -lh /zfs/omics/personal/$USER/climate/data/
 ```
 
-### Move data between local scratches
+### Move data between scratches
 
-If you do not have space anymore on your personal folder there is a slightly convoluted way to communicate with the scratch on the login node.
+If you don't have enough space left in your personal folder, there is a slightly complicated way to copy data between the scratch of a compute node and the scratch of the login node:
 
 ```{bash}
-# Exit from the compute node if you are still logged in
-exit 
+# Leave the compute node, if you are still logged in to it
+exit
 
-# Go to scratch on head node
-cd /scratch/userid/
+# Go to your folder on the scratch of the login node
+mkdir -p /scratch/$USER
+cd /scratch/$USER
 
-# Copy a file from node002 to the login node
-# This command is a bit tricky but it creates a tar stream on node 002 and extracts this data on the login node
-srun -N1 -w omics-cn002 bash -c 'cd /scratch/userid/climate/data && tar -cf - *fna.gz' | tar -xf - -C /scratch/userid/ 
+# Copy files from omics-cn002 to the login node
+# This command packs the files with tar on omics-cn002, sends them to the login node and unpacks them there
+srun -N1 -w omics-cn002 bash -c 'cd /scratch/$USER/climate/data && tar -cf - *fna.gz' | tar -xf - -C /scratch/$USER/
 
-# Reverse: Move a file from the login node scratch to a compute node 002 
-touch test.txt # make an empty dummy file
-tar -cf - test.txt | srun -N1 -w omics-cn002 bash -c 'mkdir -p /scratch/userid/climate && cd /scratch/userid/climate && tar -xf -'
+# The other way around: copy a file from the scratch of the login node to omics-cn002
+touch test.txt # make an empty test file
+tar -cf - test.txt | srun -N1 -w omics-cn002 bash -c 'mkdir -p /scratch/$USER/climate && cd /scratch/$USER/climate && tar -xf -'
 
-# Check if the file is there 
-srun  -w omics-cn002 ls -lh /scratch/userid/climate 
+# Check that the file is there
+srun -w omics-cn002 ls -lh /scratch/$USER/climate
 ```
 
 
 ## Running a job script on a specific node
 
-For longer running or more complex jobs, a job script might be better than using srun. Here is an example that can be copied into a new jobscript with `nano script.sh`. You exit nano by typing `ctrl+x`. We can see that a job script is useful for longer running jobs that contain multiple steps. If you wanted to execute an R script called my_code.R, you can add `Rscript my_code.R` into an sbatch script.
+For longer running jobs that contain multiple steps, a job script is better than `srun`. Copy the example below into a new job script with `nano scripts/align.sh` and save it with `Ctrl+X`, `y` and Enter. In the same way, you could for example run an R script with `Rscript my_code.R` inside a job script.
 
 ```
 #!/bin/bash
-#
 #SBATCH --job-name=align_Mycoplasma
-#SBATCH --output=res_alignjob.txt
+#SBATCH --output=logs/align_%j.out
+#SBATCH --error=logs/align_%j.err
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
-#SBATCH --time=10:00
 #SBATCH --mem-per-cpu=2G
+#SBATCH --time=00:10:00
 
-# Prepare a working folder on scratch
-WD="/scratch/userid/alignment"
+# Prepare a working folder on the scratch
+WD="/scratch/$USER/alignment"
 mkdir -p $WD
 cd $WD
 
-# Download Mycoplasma genome and build the index
-# this and all following steps will download and process the data in the working directory":
-# `/scratch/userid/alignment`
+# Download the Mycoplasma genome and build the index
+# This and all following steps download and process the data in /scratch/$USER/alignment
 wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/027/325/GCF_000027325.1_ASM2732v1/GCF_000027325.1_ASM2732v1_genomic.fna.gz -P ./
 bowtie2-build GCF_000027325.1_ASM2732v1_genomic.fna.gz MG37
 
-# Only download the 2 illumina files
+# Download the 2 Illumina files
 wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR486/ERR486828/ERR486828_1.fastq.gz -P ./
 wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR486/ERR486828/ERR486828_2.fastq.gz -P ./
 
 # Run the alignment
 bowtie2 -x MG37 -1 ERR486828_1.fastq.gz -2 ERR486828_2.fastq.gz --very-fast -p $SLURM_CPUS_PER_TASK -S result_ERR486828.sam
+
+# Copy the result to the personal folder, which you can reach from every node
+mkdir -p /zfs/omics/personal/$USER/alignment
+cp result_ERR486828.sam /zfs/omics/personal/$USER/alignment/
 ```
 
-You submit the job to a specific node with:
+Submit the job to a specific node with `-w`. The job script is a file in your personal folder, so you submit it from there:
 
 ```{bash}
-sbatch -w omics-cn002 script.sh
+# Make the logs folder first: SLURM does not create it
+mkdir -p logs
 
-# You can check if the job is still running with 
-squeue
+sbatch -w omics-cn002 scripts/align.sh
 
-# We can check if files are generated with 
-srun  -w omics-cn002 ls -lh /scratch/userid/alignment
+# Check if the job is still running
+squeue -u $USER
+
+# Check that files are created on the scratch of omics-cn002
+srun -w omics-cn002 ls -lh /scratch/$USER/alignment
+
+# After the job finished: check that the result was copied to your personal folder
+ls -lh /zfs/omics/personal/$USER/alignment/
+```
+
+## Cleaning up
+
+When your analysis is done and you checked that the results are in your personal folder, remove your files from the scratch. Look at what is there first, then remove it:
+
+```{bash}
+# Check what is in your scratch folder on omics-cn002
+srun -w omics-cn002 ls -lh /scratch/$USER/
+
+# Remove the alignment folder from the scratch of omics-cn002
+srun -w omics-cn002 rm -r /scratch/$USER/alignment
 ```

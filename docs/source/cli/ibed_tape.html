@@ -1191,7 +1191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> uvanetid@archive.surfsara.nl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><strong>Important</strong>: Throughout the tutorial, replace <code>uvanetid</code> with your own UvA network login ID (the same one you use for Crunchomics or other UvA services), e.g.&nbsp;<code>ndombro</code>.</p>
+<p><strong>Important</strong>: Throughout the tutorial, replace <code>uvanetid</code> with your own UvA network login ID (the same one you use for Crunchomics or other UvA services).</p>
 <p>The very first time you connect from a given computer, you may see a message like this instead of a password prompt:</p>
 <pre><code>The authenticity of host 'archive.surfsara.nl' can't be established.
 Are you sure you want to continue connecting (yes/no)?</code></pre>
@@ -1224,9 +1224,9 @@ Tip
 </section>
 <section id="step-3-explore-your-groups-folder" class="level2">
 <h2 class="anchored" data-anchor-id="step-3-explore-your-groups-folder">Step 3: Explore your group’s folder</h2>
-<p>Once connected, move into your group’s folder in the archive. This page won’t go into detail on moving around folders, for a fuller explanation of <code>cd</code> and navigating a file system, see <a href="../../source/cli/cli_basics.html#cd-moving-around-folders"><code>cd</code>: Moving around folders</a>. For example:</p>
+<p>Once connected, move into your group’s folder in the archive. This page won’t go into detail on moving around folders, for a fuller explanation of <code>cd</code> and navigating a file system, see <a href="../../source/cli/cli_basics.html#cd-moving-around-folders"><code>cd</code>: Moving around folders</a>. Replace <code>group_folder</code> with the name of your group’s folder:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /archive/ibed/sistem-nl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /archive/ibed/group_folder</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1265,7 +1265,7 @@ Important
 <p>It helps to print the full path of this new folder now, so you have it ready for the copy command later. Note it down, for example paste it into a text file:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># e.g. /archive/ibed/sistem-nl/rawdata_photos_sustainalab</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># e.g. /archive/ibed/group_folder/new_folder_name</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>To copy data in, you need a <strong>second, separate terminal that stays on your own computer</strong> (not connected to the archive). The copy commands below are run from there, not from the archive session above. In MobaXterm you don’t need a whole new window for this: press the “+” button to open a second tab, and click back and forth between the two tabs to switch between your own computer and the archive.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -1299,11 +1299,11 @@ Important
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="at">-r</span> folder_to_copy uvanetid@archive.surfsara.nl:/path/to/destination/folder</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># e.g.</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="at">-r</span> DCIM uvanetid@archive.surfsara.nl:/archive/ibed/sistem-nl/rawdata_photos_sustainalab</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="at">-r</span> DCIM uvanetid@archive.surfsara.nl:/archive/ibed/group_folder/new_folder_name</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>To copy a single file (or an already-compressed folder) instead, drop the <code>-r</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> DCIM.tar.gz uvanetid@archive.surfsara.nl:/archive/ibed/sistem-nl/rawdata_photos_sustainalab</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> DCIM.tar.gz uvanetid@archive.surfsara.nl:/archive/ibed/group_folder/new_folder_name</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The examples above copy data onto the archive. If you also want to copy data the other way, for example downloading something back from the archive to your computer, see the fuller explanation of <code>scp</code> in <a href="../../source/cli/slurm_basics.html#scp-transferring-data-fromto-a-server">Start working on an HPC</a>, which covers both directions.</p>
 <p>If you want to compress a folder before copying it, <code>tar</code> can do that too. Run the command while still on your local terminal, since that is where the original folder is:</p>
@@ -1314,7 +1314,7 @@ Important
 <p><strong>Check that the copy arrived</strong></p>
 <p>Switch back to <strong>the archive terminal</strong> and check that your data is there, with a size that roughly matches what you expect:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /archive/ibed/sistem-nl/rawdata_photos_sustainalab</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /archive/ibed/group_folder/new_folder_name</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">du</span> <span class="at">-sh</span> <span class="pp">*</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -1773,7 +1773,7 @@ Important
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-09-15</p>
+Last modified: 2026-11-03</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/ibed_tape.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

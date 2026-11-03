@@ -39,7 +39,7 @@ From this local terminal, connect to the IBED Tape Archive with:
 ssh uvanetid@archive.surfsara.nl
 ```
 
-**Important**: Throughout the tutorial, replace `uvanetid` with your own UvA network login ID (the same one you use for Crunchomics or other UvA services), e.g. `ndombro`.
+**Important**: Throughout the tutorial, replace `uvanetid` with your own UvA network login ID (the same one you use for Crunchomics or other UvA services).
 
 The very first time you connect from a given computer, you may see a message like this instead of a password prompt:
 
@@ -64,10 +64,10 @@ When you are new to the command line it can be confusing to tell whether you are
 
 ## Step 3: Explore your group's folder
 
-Once connected, move into your group's folder in the archive. This page won't go into detail on moving around folders, for a fuller explanation of `cd` and navigating a file system, see [`cd`: Moving around folders](cli_basics.qmd#cd-moving-around-folders). For example:
+Once connected, move into your group's folder in the archive. This page won't go into detail on moving around folders, for a fuller explanation of `cd` and navigating a file system, see [`cd`: Moving around folders](cli_basics.qmd#cd-moving-around-folders). Replace `group_folder` with the name of your group's folder:
 
 ```{bash}
-cd /archive/ibed/sistem-nl
+cd /archive/ibed/group_folder
 ```
 
 ::: callout-important
@@ -102,7 +102,7 @@ It helps to print the full path of this new folder now, so you have it ready for
 
 ```{bash}
 pwd
-# e.g. /archive/ibed/sistem-nl/rawdata_photos_sustainalab
+# e.g. /archive/ibed/group_folder/new_folder_name
 ```
 
 To copy data in, you need a **second, separate terminal that stays on your own computer** (not connected to the archive). The copy commands below are run from there, not from the archive session above. In MobaXterm you don't need a whole new window for this: press the "+" button to open a second tab, and click back and forth between the two tabs to switch between your own computer and the archive.
@@ -131,13 +131,13 @@ From there, copy data to the archive with `scp`. Use `-r` to copy a whole folder
 scp -r folder_to_copy uvanetid@archive.surfsara.nl:/path/to/destination/folder
 
 # e.g.
-scp -r DCIM uvanetid@archive.surfsara.nl:/archive/ibed/sistem-nl/rawdata_photos_sustainalab
+scp -r DCIM uvanetid@archive.surfsara.nl:/archive/ibed/group_folder/new_folder_name
 ```
 
 To copy a single file (or an already-compressed folder) instead, drop the `-r`:
 
 ```{bash}
-scp DCIM.tar.gz uvanetid@archive.surfsara.nl:/archive/ibed/sistem-nl/rawdata_photos_sustainalab
+scp DCIM.tar.gz uvanetid@archive.surfsara.nl:/archive/ibed/group_folder/new_folder_name
 ```
 
 The examples above copy data onto the archive. If you also want to copy data the other way, for example downloading something back from the archive to your computer, see the fuller explanation of `scp` in [Start working on an HPC](slurm_basics.qmd#scp-transferring-data-fromto-a-server), which covers both directions.
@@ -155,7 +155,7 @@ Here, we create a new tar archive (`-c`), compress it with gzip (`-z`), do this 
 Switch back to **the archive terminal** and check that your data is there, with a size that roughly matches what you expect:
 
 ```{bash}
-cd /archive/ibed/sistem-nl/rawdata_photos_sustainalab
+cd /archive/ibed/group_folder/new_folder_name
 ls
 du -sh *
 ```

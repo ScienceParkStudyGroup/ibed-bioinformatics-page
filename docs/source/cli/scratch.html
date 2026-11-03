@@ -1139,12 +1139,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#basics" id="toc-basics" class="nav-link" data-scroll-target="#basics">Basics</a></li>
   <li><a href="#working-on-a-compute-node-interactively" id="toc-working-on-a-compute-node-interactively" class="nav-link" data-scroll-target="#working-on-a-compute-node-interactively">Working on a compute node interactively</a></li>
-  <li><a href="#moving-around-data" id="toc-moving-around-data" class="nav-link" data-scroll-target="#moving-around-data">Moving around data</a>
+  <li><a href="#moving-data-around" id="toc-moving-data-around" class="nav-link" data-scroll-target="#moving-data-around">Moving data around</a>
   <ul class="collapse">
   <li><a href="#to-the-personal-folder" id="toc-to-the-personal-folder" class="nav-link" data-scroll-target="#to-the-personal-folder">To the personal folder</a></li>
-  <li><a href="#move-data-between-local-scratches" id="toc-move-data-between-local-scratches" class="nav-link" data-scroll-target="#move-data-between-local-scratches">Move data between local scratches</a></li>
+  <li><a href="#move-data-between-scratches" id="toc-move-data-between-scratches" class="nav-link" data-scroll-target="#move-data-between-scratches">Move data between scratches</a></li>
   </ul></li>
   <li><a href="#running-a-job-script-on-a-specific-node" id="toc-running-a-job-script-on-a-specific-node" class="nav-link" data-scroll-target="#running-a-job-script-on-a-specific-node">Running a job script on a specific node</a></li>
+  <li><a href="#cleaning-up" id="toc-cleaning-up" class="nav-link" data-scroll-target="#cleaning-up">Cleaning up</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/scratch.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -1163,110 +1164,151 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Using scratch on Crunchomics</h1>
 <section id="basics" class="level2">
 <h2 class="anchored" data-anchor-id="basics">Basics</h2>
-<p>Crunchomics has one login node (h0) and 5 compute nodes, cn001-cn005 and can be accessed via <code>cd /scratch</code>. Each compute node has its own local scratch storage with around ~8 TB of storage space that is shared with everyone. The scratch of a compute note is only accessible when running on that node, which means that files written to scratch on node cn002 are not visible from cn003 or the login node. So either data has to be synchronized over all nodes, or jobs have to be fixed on particular nodes using the -w flag. More information on this can be found below as well as on the Crunchomics website <a href="https://crunchomics-documentation.readthedocs.io/en/latest/nvme_clusters.html?highlight=scratch">here</a>.</p>
-<p>Please note that this is temporary storage space and files will automatically be deleted after one month of file inactivity.</p>
+<p>Crunchomics has one login node (omics-h0) and 5 compute nodes (omics-cn001 to omics-cn005). Each of these has its own local scratch storage, which you reach with <code>cd /scratch</code>. The scratch of a compute node has around 8 TB of fast storage space, shared with everyone.</p>
+<p>The scratch of a node is only accessible from that node. Files that you write to the scratch on omics-cn002 are not visible from omics-cn003 or from the login node. So either you copy the data to each node that needs it, or you send your jobs to one particular node with the <code>-w</code> option. More information can be found below and in the <a href="https://crunchomics-documentation.readthedocs.io/en/latest/nvme_clusters.html?highlight=scratch">Crunchomics documentation</a>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Scratch is temporary storage space. Files are automatically deleted after one month of inactivity. Scratch is also shared by all Crunchomics users, so remove your files when your analysis is done.</p>
+</div>
+</div>
+<p>For the basics of <code>srun</code> and <code>sbatch</code>, see <a href="../../source/cli/slurm_basics.html#submitting-a-job">Start working on an HPC</a>.</p>
 </section>
 <section id="working-on-a-compute-node-interactively" class="level2">
 <h2 class="anchored" data-anchor-id="working-on-a-compute-node-interactively">Working on a compute node interactively</h2>
-<p>We can log into a compute node to work interactively as follows:</p>
+<p>We can log in to a compute node to work interactively as follows:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span> 1 <span class="at">-t</span> 00:30:00 <span class="at">--mem</span><span class="op">=</span>50G <span class="at">-w</span> omics-cn002 <span class="at">--pty</span> bash <span class="at">-i</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--cpus-per-task</span><span class="op">=</span>1 <span class="at">--mem</span><span class="op">=</span>50G <span class="at">--time</span><span class="op">=</span>00:30:00 <span class="at">-w</span> omics-cn002 <span class="at">--pty</span> bash <span class="at">-i</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Here, we are using the Slurm Workflow manager srun to request 1 CPU (<code>--cpus-per-task 1</code>), 50G of memory (<code>--mem=50G</code>) for 30 minutes (<code>-t 00:30:00</code>). We use <code>--pty bash -i</code> in order to open an interactive bash shell and use <code>-w omics-cn002</code> to reserve space on compute node 002. After running this, the prompt should show <code>uvanetID@omics-cn002 testing</code> confirming that we are now logged into the compute node 002.</p>
-<p>First, we should test whether the scratch still has enough available space for our analysis. For this, we can use the <code>df</code> command, which shows the following information: Filesystem, Size, Used, Avail, Use%, Mounted on. We can search for the resources available on the scratch with:</p>
+<p>Here, we request 1 CPU (<code>--cpus-per-task=1</code>) and 50 GB of memory (<code>--mem=50G</code>) for 30 minutes (<code>--time=00:30:00</code>). <code>--pty bash -i</code> opens an interactive bash shell, and <code>-w omics-cn002</code> sends the job to compute node omics-cn002. After running this, the prompt shows <code>omics-cn002</code> instead of <code>omics-h0</code>, which confirms that we are now on compute node omics-cn002.</p>
+<p>First, we check whether the scratch still has enough free space for our analysis. <code>df</code> shows the size, used space and free space of each file system:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">df</span> <span class="at">-h</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>In the list, search for scratch or ssdstorage. This is a mount point to the scratch and we need to look for this term to find out how much space we have available. We should see something like this telling us that 28% of space is in use and that we still have 5.2T available:</p>
 <pre><code>ssdstorage 7.2T  2.0T  5.2T  28% /ssdstorage</code></pre>
-<p>This is enough for our analysis, so we can now generate a project folder for our analysis. <strong>Important:</strong> The scratch is used by all Crunchomics users, therefore, it is advisable to clean up any temporary files you don’t need after your analysis is done. When following this workflow, replace the <code>userid</code> with your actual user name.</p>
+<p>This is enough for our analysis, so we now make a project folder on the scratch. <code>$USER</code> stands for your user name.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a project directory</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the -p argument allows us to generate subfolders in one go </span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /scratch/userid/climate</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Change into that project folder </span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /scratch/userid/climate</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Run your analysis</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">## Download some data (this is now done interactively with the requested resources on the compute node)</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> data</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/027/325/GCF_000027325.1_ASM2732v1/GCF_000027325.1_ASM2732v1_genomic.fna.gz <span class="at">-P</span> data</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">## Check if the data is really available on the scratch of compute node cn002</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a project folder (-p also makes the parent folder /scratch/$USER)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /scratch/<span class="va">$USER</span>/climate</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Move into the project folder</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /scratch/<span class="va">$USER</span>/climate</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Run your analysis, here: download some data</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># This runs on the compute node, with the resources we requested</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> data</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/027/325/GCF_000027325.1_ASM2732v1/GCF_000027325.1_ASM2732v1_genomic.fna.gz <span class="at">-P</span> data</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that the data is on the scratch of compute node omics-cn002</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="moving-around-data" class="level2">
-<h2 class="anchored" data-anchor-id="moving-around-data">Moving around data</h2>
+<section id="moving-data-around" class="level2">
+<h2 class="anchored" data-anchor-id="moving-data-around">Moving data around</h2>
 <section id="to-the-personal-folder" class="level3">
 <h3 class="anchored" data-anchor-id="to-the-personal-folder">To the personal folder</h3>
-<p>As said before, as each scratch is stored locally it can be only accessed on a particular node. However, we could easily move the downloaded data to our personal folder with:</p>
+<p>Each scratch can only be accessed from its own node. But your personal folder is accessible from all nodes, so you can copy the downloaded data there:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> data/<span class="pp">*</span>gz /zfs/omics/personal/userid/testing/data/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the target folder in your personal folder</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /zfs/omics/personal/<span class="va">$USER</span>/climate/data</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy the data</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> data/<span class="pp">*</span>gz /zfs/omics/personal/<span class="va">$USER</span>/climate/data/</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that the data arrived</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> /zfs/omics/personal/<span class="va">$USER</span>/climate/data/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="move-data-between-local-scratches" class="level3">
-<h3 class="anchored" data-anchor-id="move-data-between-local-scratches">Move data between local scratches</h3>
-<p>If you do not have space anymore on your personal folder there is a slightly convoluted way to communicate with the scratch on the login node.</p>
+<section id="move-data-between-scratches" class="level3">
+<h3 class="anchored" data-anchor-id="move-data-between-scratches">Move data between scratches</h3>
+<p>If you don’t have enough space left in your personal folder, there is a slightly complicated way to copy data between the scratch of a compute node and the scratch of the login node:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exit from the compute node if you are still logged in</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Leave the compute node, if you are still logged in to it</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">exit</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Go to scratch on head node</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /scratch/userid/</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy a file from node002 to the login node</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># This command is a bit tricky but it creates a tar stream on node 002 and extracts this data on the login node</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-N1</span> <span class="at">-w</span> omics-cn002 bash <span class="at">-c</span> <span class="st">'cd /scratch/userid/climate/data &amp;&amp; tar -cf - *fna.gz'</span> <span class="kw">|</span> <span class="fu">tar</span> <span class="at">-xf</span> <span class="at">-</span> <span class="at">-C</span> /scratch/userid/ </span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Reverse: Move a file from the login node scratch to a compute node 002 </span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> test.txt <span class="co"># make an empty dummy file</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-cf</span> <span class="at">-</span> test.txt <span class="kw">|</span> <span class="ex">srun</span> <span class="at">-N1</span> <span class="at">-w</span> omics-cn002 bash <span class="at">-c</span> <span class="st">'mkdir -p /scratch/userid/climate &amp;&amp; cd /scratch/userid/climate &amp;&amp; tar -xf -'</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if the file is there </span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span>  <span class="at">-w</span> omics-cn002 ls <span class="at">-lh</span> /scratch/userid/climate </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Go to your folder on the scratch of the login node</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> /scratch/<span class="va">$USER</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /scratch/<span class="va">$USER</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy files from omics-cn002 to the login node</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># This command packs the files with tar on omics-cn002, sends them to the login node and unpacks them there</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-N1</span> <span class="at">-w</span> omics-cn002 bash <span class="at">-c</span> <span class="st">'cd /scratch/$USER/climate/data &amp;&amp; tar -cf - *fna.gz'</span> <span class="kw">|</span> <span class="fu">tar</span> <span class="at">-xf</span> <span class="at">-</span> <span class="at">-C</span> /scratch/<span class="va">$USER</span>/</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># The other way around: copy a file from the scratch of the login node to omics-cn002</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> test.txt <span class="co"># make an empty test file</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-cf</span> <span class="at">-</span> test.txt <span class="kw">|</span> <span class="ex">srun</span> <span class="at">-N1</span> <span class="at">-w</span> omics-cn002 bash <span class="at">-c</span> <span class="st">'mkdir -p /scratch/$USER/climate &amp;&amp; cd /scratch/$USER/climate &amp;&amp; tar -xf -'</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that the file is there</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-w</span> omics-cn002 ls <span class="at">-lh</span> /scratch/<span class="va">$USER</span>/climate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
 <section id="running-a-job-script-on-a-specific-node" class="level2">
 <h2 class="anchored" data-anchor-id="running-a-job-script-on-a-specific-node">Running a job script on a specific node</h2>
-<p>For longer running or more complex jobs, a job script might be better than using srun. Here is an example that can be copied into a new jobscript with <code>nano script.sh</code>. You exit nano by typing <code>ctrl+x</code>. We can see that a job script is useful for longer running jobs that contain multiple steps. If you wanted to execute an R script called my_code.R, you can add <code>Rscript my_code.R</code> into an sbatch script.</p>
+<p>For longer running jobs that contain multiple steps, a job script is better than <code>srun</code>. Copy the example below into a new job script with <code>nano scripts/align.sh</code> and save it with <code>Ctrl+X</code>, <code>y</code> and Enter. In the same way, you could for example run an R script with <code>Rscript my_code.R</code> inside a job script.</p>
 <pre><code>#!/bin/bash
-#
 #SBATCH --job-name=align_Mycoplasma
-#SBATCH --output=res_alignjob.txt
+#SBATCH --output=logs/align_%j.out
+#SBATCH --error=logs/align_%j.err
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
-#SBATCH --time=10:00
 #SBATCH --mem-per-cpu=2G
+#SBATCH --time=00:10:00
 
-# Prepare a working folder on scratch
-WD="/scratch/userid/alignment"
+# Prepare a working folder on the scratch
+WD="/scratch/$USER/alignment"
 mkdir -p $WD
 cd $WD
 
-# Download Mycoplasma genome and build the index
-# this and all following steps will download and process the data in the working directory":
-# `/scratch/userid/alignment`
+# Download the Mycoplasma genome and build the index
+# This and all following steps download and process the data in /scratch/$USER/alignment
 wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/027/325/GCF_000027325.1_ASM2732v1/GCF_000027325.1_ASM2732v1_genomic.fna.gz -P ./
 bowtie2-build GCF_000027325.1_ASM2732v1_genomic.fna.gz MG37
 
-# Only download the 2 illumina files
+# Download the 2 Illumina files
 wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR486/ERR486828/ERR486828_1.fastq.gz -P ./
 wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR486/ERR486828/ERR486828_2.fastq.gz -P ./
 
 # Run the alignment
-bowtie2 -x MG37 -1 ERR486828_1.fastq.gz -2 ERR486828_2.fastq.gz --very-fast -p $SLURM_CPUS_PER_TASK -S result_ERR486828.sam</code></pre>
-<p>You submit the job to a specific node with:</p>
+bowtie2 -x MG37 -1 ERR486828_1.fastq.gz -2 ERR486828_2.fastq.gz --very-fast -p $SLURM_CPUS_PER_TASK -S result_ERR486828.sam
+
+# Copy the result to the personal folder, which you can reach from every node
+mkdir -p /zfs/omics/personal/$USER/alignment
+cp result_ERR486828.sam /zfs/omics/personal/$USER/alignment/</code></pre>
+<p>Submit the job to a specific node with <code>-w</code>. The job script is a file in your personal folder, so you submit it from there:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">-w</span> omics-cn002 script.sh</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># You can check if the job is still running with </span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the logs folder first: SLURM does not create it</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> logs</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> <span class="at">-w</span> omics-cn002 scripts/align.sh</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># We can check if files are generated with </span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span>  <span class="at">-w</span> omics-cn002 ls <span class="at">-lh</span> /scratch/userid/alignment</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if the job is still running</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="ex">squeue</span> <span class="at">-u</span> <span class="va">$USER</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that files are created on the scratch of omics-cn002</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-w</span> omics-cn002 ls <span class="at">-lh</span> /scratch/<span class="va">$USER</span>/alignment</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># After the job finished: check that the result was copied to your personal folder</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> /zfs/omics/personal/<span class="va">$USER</span>/alignment/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="cleaning-up" class="level2">
+<h2 class="anchored" data-anchor-id="cleaning-up">Cleaning up</h2>
+<p>When your analysis is done and you checked that the results are in your personal folder, remove your files from the scratch. Look at what is there first, then remove it:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check what is in your scratch folder on omics-cn002</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-w</span> omics-cn002 ls <span class="at">-lh</span> /scratch/<span class="va">$USER</span>/</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove the alignment folder from the scratch of omics-cn002</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">-w</span> omics-cn002 rm <span class="at">-r</span> /scratch/<span class="va">$USER</span>/alignment</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 
@@ -1712,7 +1754,7 @@ bowtie2 -x MG37 -1 ERR486828_1.fastq.gz -2 ERR486828_2.fastq.gz --very-fast -p $
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2025-10-15</p>
+Last modified: 2026-11-03</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/scratch.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
