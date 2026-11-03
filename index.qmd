@@ -1,5 +1,5 @@
 ---
-toc-depth: 3
+toc-depth: 4
 ---
 
 ![](img/banner-min.png)
@@ -11,6 +11,8 @@ On this website you can find documentation about software commonly used in bioin
 If you are working at the University of Amsterdam (UvA) Institute for Biodiversity and Ecosystem Dynamics (IBED) and want to know more about what computational resources are available, please also visit the [computational support teams website](https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html) and our website with more [computation resources](https://computational-resources-uva-ibed-cs-general-20079b9f20f96949e05.gitlab.io/)
 
 Please, be aware that this page is a work in progress and will be slowly updated over time. If you want to add additional information or feel that something is missing feel free to send an email to [n.dombrowski\@uva.nl](mailto:n.dombrowski@uva.nl){.email}.
+
+</div>
 
 ## Useful tutorials
 
@@ -51,12 +53,12 @@ Pick the group that matches your data.
 -   [Downloading data from NCBI](source/core_tools/ncbi.qmd): Download sequencing reads (from the SRA) and genomes from NCBI, for one or more samples.
 -   [A first look at your sequencing data](https://ndombrowski.github.io/sequencing_qc/): Check your data soon after you receive it. You count the reads per sample and make quality reports with FastQC, so you can catch problems while they are still easy to fix. You can follow this tutorial without any command line experience.
 
-#### Amplicon data (e.g. 16S rRNA gene)
+#### Amplicon data
 
 -   [From sequencing reads to an ASV table with QIIME 2](source/Qiime/3_evelyn_tutorial_notes.qmd): Use a 16S rRNA gene test data set to remove primers, turn reads into amplicon sequence variants (ASVs) with DADA2 or Deblur, assign taxonomy and calculate diversity. Includes a section on running QIIME 2 on Crunchomics.
 -   [Analysing an OTU or ASV table in R](source/Qiime/OTU_table_analysis.qmd): Filter, normalize and visualize your table in R, for example with alpha and beta diversity plots, bar plots of the taxa, and tests for taxa that differ between groups.
 
-#### Metagenomes and microbial genomes
+#### Microbial (meta)genomes
 
 These tutorials were first written for workshops at NIOZ. Some use older tool versions or NIOZ file paths, so you may need to adapt the commands for Crunchomics. They also expect you to be comfortable with bash and AWK.
 
@@ -188,4 +190,3 @@ These tutorials were first written for workshops at NIOZ. Some use older tool ve
   </ul>
 </details>
 
-</div>

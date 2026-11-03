@@ -1088,8 +1088,29 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#useful-tutorials" id="toc-useful-tutorials" class="nav-link active" data-scroll-target="#useful-tutorials">Useful tutorials</a>
+  <ul>
+  <li><a href="#getting-started-with-bash" id="toc-getting-started-with-bash" class="nav-link" data-scroll-target="#getting-started-with-bash">Getting started with bash</a></li>
+  <li><a href="#writing-bash-scripts" id="toc-writing-bash-scripts" class="nav-link" data-scroll-target="#writing-bash-scripts">Writing bash scripts</a></li>
+  <li><a href="#storing-data-on-crunchomics" id="toc-storing-data-on-crunchomics" class="nav-link" data-scroll-target="#storing-data-on-crunchomics">Storing data on Crunchomics</a></li>
+  <li><a href="#using-r" id="toc-using-r" class="nav-link" data-scroll-target="#using-r">Using R</a></li>
+  <li><a href="#bioinformatic-workflows" id="toc-bioinformatic-workflows" class="nav-link" data-scroll-target="#bioinformatic-workflows">Bioinformatic workflows</a>
+  <ul class="collapse">
+  <li><a href="#for-all-sequencing-data" id="toc-for-all-sequencing-data" class="nav-link" data-scroll-target="#for-all-sequencing-data">For all sequencing data</a></li>
+  <li><a href="#amplicon-data" id="toc-amplicon-data" class="nav-link" data-scroll-target="#amplicon-data">Amplicon data</a></li>
+  <li><a href="#microbial-metagenomes" id="toc-microbial-metagenomes" class="nav-link" data-scroll-target="#microbial-metagenomes">Microbial (meta)genomes</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#custom-scripts" id="toc-custom-scripts" class="nav-link" data-scroll-target="#custom-scripts">Custom scripts</a></li>
+  <li><a href="#useful-databases-a-z" id="toc-useful-databases-a-z" class="nav-link" data-scroll-target="#useful-databases-a-z">Useful databases A-Z</a></li>
+  <li><a href="#bioinformatic-tools-a-z" id="toc-bioinformatic-tools-a-z" class="nav-link" data-scroll-target="#bioinformatic-tools-a-z">Bioinformatic tools A-Z</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
@@ -1106,6 +1127,7 @@ ul.task-list li input[type="checkbox"] {
 <p>On this website you can find documentation about software commonly used in bioinformatic data analyses as well as tutorials about various bioinformatic subjects. On this webpage you can find software organized by topic and for each topic you find a list of commonly used software tools.</p>
 <p>If you are working at the University of Amsterdam (UvA) Institute for Biodiversity and Ecosystem Dynamics (IBED) and want to know more about what computational resources are available, please also visit the <a href="https://ibed.uva.nl/facilities/computational-facilities/ibed-computational-support-team/ibed-computational-support-team.html">computational support teams website</a> and our website with more <a href="https://computational-resources-uva-ibed-cs-general-20079b9f20f96949e05.gitlab.io/">computation resources</a></p>
 <p>Please, be aware that this page is a work in progress and will be slowly updated over time. If you want to add additional information or feel that something is missing feel free to send an email to <a href="mailto:n.dombrowski@uva.nl" class="email">n.dombrowski@uva.nl</a>.</p>
+</div>
 <section id="useful-tutorials" class="level2">
 <h2 class="anchored" data-anchor-id="useful-tutorials">Useful tutorials</h2>
 <p>If you are new to informatics it is recommended to start with the bash and HPC tutorial below. It teaches you how to use the command line and how to run analyses on Crunchomics, the UvA computer cluster, and a lot of the other tutorials on this page are build on it.</p>
@@ -1152,15 +1174,15 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="https://ndombrowski.github.io/sequencing_qc/">A first look at your sequencing data</a>: Check your data soon after you receive it. You count the reads per sample and make quality reports with FastQC, so you can catch problems while they are still easy to fix. You can follow this tutorial without any command line experience.</li>
 </ul>
 </section>
-<section id="amplicon-data-e.g.-16s-rrna-gene" class="level4">
-<h4 class="anchored" data-anchor-id="amplicon-data-e.g.-16s-rrna-gene">Amplicon data (e.g.&nbsp;16S rRNA gene)</h4>
+<section id="amplicon-data" class="level4">
+<h4 class="anchored" data-anchor-id="amplicon-data">Amplicon data</h4>
 <ul>
 <li><a href="./source/Qiime/3_evelyn_tutorial_notes.html">From sequencing reads to an ASV table with QIIME 2</a>: Use a 16S rRNA gene test data set to remove primers, turn reads into amplicon sequence variants (ASVs) with DADA2 or Deblur, assign taxonomy and calculate diversity. Includes a section on running QIIME 2 on Crunchomics.</li>
 <li><a href="./source/Qiime/OTU_table_analysis.html">Analysing an OTU or ASV table in R</a>: Filter, normalize and visualize your table in R, for example with alpha and beta diversity plots, bar plots of the taxa, and tests for taxa that differ between groups.</li>
 </ul>
 </section>
-<section id="metagenomes-and-microbial-genomes" class="level4">
-<h4 class="anchored" data-anchor-id="metagenomes-and-microbial-genomes">Metagenomes and microbial genomes</h4>
+<section id="microbial-metagenomes" class="level4">
+<h4 class="anchored" data-anchor-id="microbial-metagenomes">Microbial (meta)genomes</h4>
 <p>These tutorials were first written for workshops at NIOZ. Some use older tool versions or NIOZ file paths, so you may need to adapt the commands for Crunchomics. They also expect you to be comfortable with bash and AWK.</p>
 <ul>
 <li><a href="https://ndombrowski.github.io/Assembly_tutorial/">Assembling a metagenome</a>: Check and clean the reads of three small metagenomes, assemble them into contigs with MEGAHIT and metaSPAdes, and compare the assemblies.</li>
@@ -1442,10 +1464,9 @@ Q-Z
 </li>
 </ul>
 </details>
+
+
 </section>
-</div>
-
-
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1883,8 +1904,8 @@ Q-Z
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-10-29</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+Last modified: 2026-11-03</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
