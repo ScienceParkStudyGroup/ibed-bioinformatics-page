@@ -7,11 +7,35 @@ engine: knitr
 
 <div style="text-align: justify">
 
-# Unix Basics
+# Working with files and folders
+
+::: callout-tip
+New to the command line? The [Getting started with bash and an HPC](https://ndombrowski.github.io/cli_workshop/) tutorial explains these commands step by step. This page is a reference: it lists the key commands with short examples.
+:::
+
+## Quick reference
+
+| Command | What it does | Example |
+|---------|--------------|---------|
+| `pwd` | Print the folder you are in | `pwd` |
+| `ls` | List the content of a folder | `ls -lh downloads` |
+| `cd` | Move into another folder | `cd downloads` |
+| `mkdir` | Make a new folder | `mkdir -p results/qc` |
+| `touch` | Make a new, empty file | `touch notes.md` |
+| `cp` | Copy a file (`-r` for a folder) | `cp a.txt backup/` |
+| `mv` | Move or rename a file or folder | `mv a.txt b.txt` |
+| `rm` | Remove a file (`-r` for a folder) | `rm a.txt` |
+| `wget` | Download a file from a link | `wget -P downloads <link>` |
+| `gzip` | Compress a file (`-d` to decompress) | `gzip -d genome.fna.gz` |
+| `zcat` | Print a compressed file without decompressing it | `zcat reads.fastq.gz` |
+| `tar` | Pack or unpack a tar archive | `tar -xzf archive.tar.gz` |
+| `man` | Show the manual of a command | `man ls` |
+
+For commands that work on the content of files, see [Working with text files](cli_file_manipulation.qmd).
 
 ## The file system
 
-Before getting started with the CLI, lets first understand the file system used by Unix, which might look some thing like this:
+The file system on Unix (Linux and Mac) looks something like this:
 
 <p align="center">
 
@@ -19,41 +43,16 @@ Before getting started with the CLI, lets first understand the file system used 
 
 </p>
 
-The Unix File System is a logical method of organizing and storing large amounts of information in a way that makes it easy to manage. Some key features are:
+-   Unlike Windows, Unix does not use drive letters (C:, D:). All files and folders are in one tree.
+-   The first folder in the tree is the **root directory**, written as `/`.
+-   Your personal folder is your **home directory**, written as `~`. Where it is depends on your system:
+    -   **Mac:** `/Users/YourUserName`
+    -   **MobaXterm (Windows):** `/home/mobaxterm`
+    -   **WSL2 (Windows) and Linux:** `/home/YourUserName`
 
--   Different to what you might be used to from Windows, Unix does not use Drives but appears as a rooted tree of directories\
--   The first directory in the file system is called the root directory represented by `/`\
--   Different storage devices may contain different branches of the tree, but there is always a single tree. e.g., /users/john/ and / users/mary/
+## The structure of a command
 
-## `pwd`: Finding out where we are
-
-Now that we know how the file system looks like, we do want to move around. Since we do not use a GUI we can not use the mouse to point and click but instead have to write down what we want to do.
-
-`pwd` prints the location of the current working directory and basically tells you where exactly you are. Usually when we login we start from what is called our home directory. This generally will be something like /Users/username but might be slightly different depending on your operating system.
-
-```{bash}
-pwd
-```
-
-Now that we know where we are, let's see how to move around by first seeing what other folders there are. For this we can use the `ls` command, which stands for list directory contents
-
-```{bash}
-ls
-```
-
-In my case this returns something like this:
-
-<p align="left">
-
-<img src="../../img/ls.png" width="700"/>
-
-</p>
-
-This might look a bit different for your system in terms of color and file/folder names but what we basically see are the files (in bold text) and folders (green-highlighted text).
-
-## General structure of a Unix command
-
-Next, let's look at how commands like `ls` are built. A command generally has three parts:
+A command generally has three parts:
 
 **command \[options\] \[arguments\]**
 
@@ -61,32 +60,13 @@ Next, let's look at how commands like `ls` are built. A command generally has th
 -   An **option** (or **flag**): a way to change how the command behaves. Options usually start with a `-`. Many options have a short and a long form, e.g. `ls -a` and `ls --all` both also show hidden files
 -   An **argument**: the input the command works on, e.g. a file or folder. Some commands work without an argument
 
-## `ls`: Viewing the content of a folder
+## Getting help
 
-Let's look a bit closer into the `ls` command and use it with the option `-l`:
-
--   `ls` stands for list directory contents
--   `-l` makes `ls` use a long listing format
-
-```{bash}
-ls -l
-```
-
-After running this, we should see our files and folders but in what is called the long format (which gives way more information):
-
-<p align="left">
-
-<img src="../../img/ls2.png" width="500"/>
-
-</p>
-
-If you are unsure what options come with a program its always a good idea to check out the manual. You can do this with:
+To see the options of a command, open its manual. You exit the manual by pressing `q`:
 
 ```{bash}
 man ls
 ```
-
-You can exit the manual by pressing `q`.
 
 Not all programs come with a manual. Depending on the program, there are a few common ways to get help that you can try:
 
@@ -94,178 +74,129 @@ Not all programs come with a manual. Depending on the program, there are a few c
 -   `ls --help`
 -   `-h`, e.g. `seqkit -h`. Be careful: for some commands `-h` means something else. For `ls`, `-h` prints file sizes in a human-readable format (e.g. `ls -lh`)
 
+## `pwd`: Finding out where we are
+
+`pwd` (print working directory) prints the folder you are in right now, the **working directory**. When you open a new terminal, you start in your home directory.
+
+```{bash}
+pwd
+```
+
+## `ls`: Viewing the content of a folder
+
+`ls` (list) shows the files and folders in a folder. Without an argument, it shows the content of the working directory:
+
+```{bash}
+ls
+```
+
+In my case this returns something like this. Folders and files have different colors, depending on your terminal settings:
+
+<p align="left">
+
+<img src="../../img/ls.png" width="700"/>
+
+</p>
+
+Useful options:
+
+```{bash}
+# Long format: access rights, owner, group, size, date of last change and name
+ls -l
+
+# Long format with file sizes in a human-readable format (K, M, G)
+ls -lh
+
+# Also show hidden files (names that start with a dot)
+ls -a
+
+# Sort by date of last change, newest first
+ls -lt
+
+# List the content of another folder
+ls -l downloads
+```
+
+The long format looks like this:
+
+<p align="left">
+
+<img src="../../img/ls2.png" width="500"/>
+
+</p>
+
+The first column shows the access rights. See [Access rights](cli_shell.qmd#access-rights) for how to read and change them.
+
 ## `cd`: Moving around folders
 
-Next, lets move around these folders using the `cd` command, which let's you change the directory. If you run this on your computer exchange `source` to a folder name that you see when using `ls`. If there are no directories, we will explain a bit later how to generate new directories.
+`cd` (change directory) moves you into another folder:
 
 ```{bash}
-cd source/
-```
+# Move into the downloads folder (change this to a folder that you see with ls)
+cd downloads
 
-If you use `pwd` afterwards, then you should see that we moved into another directory. We can also move back to our original directory as follows:
-
-```{bash}
+# Move one level up, into the parent folder
 cd ..
-```
 
-We can also move around multiple levels for example here i am going into the source folder, then back to the home directory and then into the docs folder.
+# Move several levels at once: into downloads, back up, and into results
+cd downloads/../results
 
-```{bash}
-cd source/../docs
-```
-
-Another useful way to move around quickly is using the tilde symbol, i.e. `~`, that can be used as a shortcut to move directly into our home directory:
-
-```{bash}
+# Move into your home directory
 cd ~
+
+# cd without an argument also moves you into your home directory
+cd
 ```
 
-## Pathnames
+### Absolute and relative paths
 
-Next, let's discuss an important distinction between absolute and relative pathnames.
+A **path** tells the shell where a file or folder is. There are two kinds:
 
-**Absolute pathnames**
-
-An absolute pathname begins with the root directory and follows the tree branch by branch until the path to the desired directory or file is completed. For example on your computer full path to our Desktop might be `/Users/username/Desktop`
-
-If we want to go to the desktop using an absolute path we do the following:
+-   An **absolute path** starts at the root directory `/` and lists every folder down to the file, e.g. `/Users/username/Desktop`. It works from wherever you are.
+-   A **relative path** starts at the working directory, e.g. `Desktop`. It only works from the right folder. Two special names help here:
+    -   `.` (dot) is the working directory itself
+    -   `..` (dot dot) is the parent folder of the working directory
 
 ```{bash}
+# Absolute path: works from anywhere
 cd /Users/username/Desktop
-```
 
-**Relative pathnames**
-
-A relative pathname starts from the directory you are currently in and you traverse to other directories relative from this directory. When using the relative pathway allows you to use a couple of special notations to represent relative positions in the file system tree.
-
--   `.` (dot) The working directory itself
--   `..` (dot dot) Refers to the working directory's parent directory
-
-If we are in our home directory, `/Users/username`, we can go to the Desktop using a relative path as follows:
-
-```{bash}
+# Relative path: works only if you are in /Users/username
 cd Desktop
-
-# Go back up one level, into the home directory
-cd ..
 ```
 
 ## `mkdir`: Making new folders
 
-Now that we know how to explore our surroundings, let us make a new folder in which we can generate some new files later on. For this we use the `mkdir` command.
-
-To do this, we will first move into our home directory and create a new folder from which we later run all further commands
-
 ```{bash}
-# Go into the folder from which you want to work (here: the home directory)
-cd ~
-
-# Make a new folder called playground inside the current folder
+# Make a new folder called playground in the working directory
 mkdir playground
 
-# Check that the folder was created
-ls
+# Make a folder and its parent folders, if they do not exist yet
+mkdir -p results/qc/fastqc
 
-# Move into the new folder
+# Check that the folders were created
+ls -l . results results/qc
+```
+
+## `touch`: Making an empty file
+
+`touch` makes a new, empty file. To write text into a file, use a text editor such as [nano](cli_file_manipulation.qmd#nano-editing-files).
+
+```{bash}
+# Move into the playground folder and make an empty file
 cd playground
-```
+touch random.txt
 
-## Generating and viewing files
-
-::: callout-important
-Ensure that you run the following steps while being in the `playground` folder you just generated.
-:::
-
-### Using `nano`
-
-Now, let's make some files of our own using `nano`. Nano is a basic text editor that lets us view and generate text.
-
-```{bash}
-# Check that we are in the playground folder
-pwd
-
-# Open a new file called random.txt
-nano random.txt
-```
-
-Once we type `nano random.txt` and press enter then a text document will open. In there:
-
--   Type something into this document
--   Close the document with `control + X`
--   Type `y` to save changes and press enter
-
-If we now use `ls -l` again, we see that a new file was generated.
-
-We can use nano to open whatever document we want, but for larger files it might take a long time to read everything into memory. For such cases, let's look at some alternative text viewers.
-
-### Using `less`
-
-less is a program that lets you view a file's contents one screen at a time. This is useful when dealing with a large text file because it doesn't load the entire file but accesses it page by page, resulting in fast loading speeds.
-
-```{bash}
-less random.txt
-```
-
-Once started, less will display the text file one page at a time.
-
--   You can use the arrow Up and Page arrow keys to move through the text file
--   To exit less, type `q`
-
-For files with a lots of columns or long strings we can use:
-
-```{bash}
-less -S random.txt
-```
-
-In this mode we can also use the arrow right and left keys, to view columns that are further on the right.
-
-### Using `head`
-
-Another, very quick way to check the first 10 rows is `head`:
-
-```{bash}
-head random.txt
-```
-
-### Using `tail`
-
-If you want to check the last 10 rows use `tail`
-
-```{bash}
-tail random.txt
-```
-
-## I/O redirection to new files
-
-By using some special notations we can redirect the output of many commands to files, devices, and even to the input of other commands.
-
-**Standard output (stdout)**
-
-By default, standard output directs its contents to the display, i.e. when we use `ls` the list of files and folders is printed to the screen. However, we can also redirect the standard output to a file by using `>` character is used like this:
-
-```{bash}
-# Write the output of ls into a new file instead of to the screen
-ls -l > file_list.txt
-
-# Check the content of the new file
-head file_list.txt
-```
-
-If we use `ls -l > file_list.txt` again, we overwrite the content of the existing file. If we want to add something to the end of an existing file, we use `>>`:
-
-```{bash}
-ls -l >> file_list.txt
-
-# Check the content: the ls output now appears twice
-cat file_list.txt
+# Check: the file exists and has a size of 0
+ls -l
 ```
 
 ## `cp` and `mv`: Copying and moving files
 
-Next, let's move the text file we generated before around. To do this, we mainly need two commands:
+-   `cp` copies files (and folders, with `-r`)
+-   `mv` moves or renames files and folders
 
--   `cp` - copy files and directories
--   `mv` - move or rename files and directories
+The examples below run inside the `playground` folder from above.
 
 ```{bash}
 # Make a new folder
@@ -276,33 +207,25 @@ cp random.txt our_files
 
 # Check: random.txt is now in both folders
 ls . our_files
-```
 
-If we check the content of our working directory and the newly generated folder after doing this, we should see that random.txt exists now twice. Once in our working directory and once in the our_files folder. If we want to move a file, instead of copying, we can do the following:
-
-```{bash}
 # Move random.txt into the our_files folder
+# There is already a random.txt in our_files, so mv overwrites it without asking
 mv random.txt our_files
 
 # Check: random.txt is now only in our_files
 ls . our_files
-```
 
-Now, random.txt should only exist once in the our_files folder.
+# Rename a file: "move" it to a new name in the same folder
+mv our_files/random.txt our_files/notes.txt
+
+# Copy a folder and everything inside it
+cp -r our_files our_files_backup
+
+# Check the result
+ls -l our_files our_files_backup
+```
 
 ## `rm`: Removing files and folders
-
-To remove files and folders, we use the `rm` command. Let's first remove the text file we generated:
-
-```{bash}
-# Remove a file
-rm our_files/random.txt
-
-# Check that the file is gone
-ls -l our_files
-```
-
-If we want to remove a folder, we need to tell `rm` that we want to remove folders using an argument. To do this, we use the `-r` argument (to remove directories and their contents recursively).
 
 ::: callout-warning
 **Unix does not have an undelete command.**
@@ -313,8 +236,14 @@ So use rm with care and check what you wrote twice before pressing enter!
 :::
 
 ```{bash}
-# Remove a folder and everything inside it
-rm -r our_files
+# Remove a file
+rm our_files/notes.txt
+
+# Check that the file is gone
+ls -l our_files
+
+# Remove a folder and everything inside it (-r = recursive)
+rm -r our_files_backup
 
 # Check that the folder is gone
 ls -l
@@ -322,7 +251,7 @@ ls -l
 
 ## `wget`: Downloading data
 
-Next, let's download some data to learn how to manipulate files. One way to do this is using the `wget`. With `-P` we specify were to download the data:
+`wget` downloads a file from a link. With `-P` we choose the folder to download into:
 
 ```{bash}
 # Make a folder for our downloads
@@ -339,9 +268,9 @@ ls -lh downloads
 
 ### Compressing data using gzip
 
-After downloading and exploring the content of the downloads folder, you see that the file we downloaded ends with `gz`. This indicates that we work with a gzip-compressed file. Gzip is a tool used to compress the size of files.
+Files that end with `.gz` are compressed with gzip. Sequence data is usually stored this way, because it saves a lot of space.
 
-In order to work with files, we sometimes need to de-compress them first. We can do this as follows (by using the decompress, `-d` argument):
+To decompress a file, use `gzip -d`. This replaces the `.gz` file with the decompressed file:
 
 ```{bash}
 # Decompress the file (-d = decompress)
@@ -361,15 +290,32 @@ gzip downloads/GCA_002728275.1_ASM272827v1_genomic.fna
 ls -lh downloads
 ```
 
-### `tar`: Making a tarball
+### `zcat`: Viewing compressed files
 
-Another file compression you might encounter is tar:
+`zcat` prints the content of a compressed file to the screen, without changing the file. Combine it with `head` (see [Pipes](cli_file_manipulation.qmd#pipes)) to only see the first lines:
 
--   Short for Tape Archive, and sometimes referred to as tarball, is a file in the Consolidated Unix Archive format.
--   The TAR file format is common in Unix and Unix-like systems when storing data (however, we do not compress our files when using the tar files)
--   TAR files are often compressed after being created and then become TGZ files, using the tgz, tar.gz, or gz extension.
+```{bash}
+# Print the first 10 lines of a compressed file
+zcat downloads/GCA_002728275.1_ASM272827v1_genomic.fna.gz | head
+```
 
-Let's try to make a compressed tarball with the file we just downloaded.
+On a Mac, `zcat` may not work with `.gz` files. Use `gzcat` or `gunzip -c` instead.
+
+### `tar`: Packing many files into one
+
+A tar file (short for Tape Archive, also called a tarball) packs many files and folders into one file. A tar file is often compressed with gzip and then ends with `.tar.gz` or `.tgz`.
+
+The most common tar options are:
+
+| Option | Meaning |
+|--------|---------|
+| `-c` | create a new tar file |
+| `-x` | extract a tar file |
+| `-t` | list the content of a tar file |
+| `-z` | (de)compress with gzip |
+| `-v` | verbose: print each file name |
+| `-f` | the name of the tar file follows |
+| `-C` | extract into this folder |
 
 ```{bash}
 # Decompress the genome
@@ -377,22 +323,19 @@ gzip -d downloads/GCA_002728275.1_ASM272827v1_genomic.fna.gz
 
 # Create a compressed tar file, to_compress.tar.gz, from the downloads folder
 tar -cvzf to_compress.tar.gz downloads
-```
 
-If we print the content of our working directory with `ls` we now see an additional file, `to_compress.tar.gz`. We can uncompress this file into a new folder as follows:
+# List the content of the tar file without extracting it
+tar -tzf to_compress.tar.gz
 
-```{bash}
 # Make a folder to extract the data into
 mkdir to_compress
 
 # Extract the tar file into the to_compress folder
-tar -xvf to_compress.tar.gz -C to_compress
+tar -xvzf to_compress.tar.gz -C to_compress
 
-# Check what happened
+# Check: to_compress contains the downloads folder
 ls to_compress
 ```
-
-We can see that there is one folder in to_compress, our downloads folder.
 
 If you want to see `tar` (and `scp`) used together to back up data to an actual remote archive, see [Using the IBED Tape Archive](ibed_tape.qmd).
 

@@ -285,7 +285,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../../source/cli/cli.html">Using the command line</a></li><li class="breadcrumb-item"><a href="../../source/cli/cli_basics.html">Getting started with bash</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../../source/cli/cli.html">Using the command line</a></li><li class="breadcrumb-item"><a href="../../source/cli/cli_basics.html">Working with files and folders</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -347,13 +347,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/cli/cli_basics.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Getting started with bash</span></a>
+ <span class="menu-text">Working with files and folders</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/cli/cli_file_manipulation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Manipulating files with bash</span></a>
+ <span class="menu-text">Working with text files</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/cli_shell.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Shell features and long jobs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Writing bash scripts</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bash-for-loops.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">For-loops in bash</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bash-input-validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">File verifications in bash</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bash-arrays.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Arrays in bash</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bash-pipefail.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><code>set -euo pipefail</code> in bash</span></a>
   </div>
 </li>
       </ul>
@@ -368,11 +409,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using an HPC</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/cli/slurm_basics.html" class="sidebar-item-text sidebar-link">
@@ -405,20 +446,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../source/metagenomics/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sequence data analyses</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
  <span class="menu-text">Core tools</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/busco.html" class="sidebar-item-text sidebar-link">
@@ -473,11 +514,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../source/Qiime/readme.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Amplicon analyses</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/Qiime/3_evelyn_tutorial_notes.html" class="sidebar-item-text sidebar-link">
@@ -494,13 +535,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
  <span class="menu-text">Functional annotation</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/interproscan_readme.html" class="sidebar-item-text sidebar-link">
@@ -535,13 +576,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
  <span class="menu-text">(Meta)genomics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/atlas.html" class="sidebar-item-text sidebar-link">
@@ -702,13 +743,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
  <span class="menu-text">Eukaryotic genomics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/augustus.html" class="sidebar-item-text sidebar-link">
@@ -725,13 +766,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false">
  <span class="menu-text">Fungal genomics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/ITSx/itsx_readme.html" class="sidebar-item-text sidebar-link">
@@ -748,13 +789,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false">
  <span class="menu-text">(Meta)transcriptomics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
@@ -837,13 +878,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false">
  <span class="menu-text">Nanopore analyses</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/nanopore/chopper.html" class="sidebar-item-text sidebar-link">
@@ -908,13 +949,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
  <span class="menu-text">Phylogenomics</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/phylogenomics/bmge.html" class="sidebar-item-text sidebar-link">
@@ -943,13 +984,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false">
  <span class="menu-text">Quality control</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/fastqc_readme.html" class="sidebar-item-text sidebar-link">
@@ -972,13 +1013,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false">
  <span class="menu-text">Sequence alignment</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
@@ -1007,47 +1048,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="true">
- <span class="menu-text">Bioinformatics toolbox</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/custom_scripts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Custom scripts</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/bash-for-loops.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">For-loops in bash</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/bash-input-validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">File verifications in bash</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/bash-arrays.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Arrays in bash</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/bash-pipefail.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><code>set -euo pipefail</code> in bash</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="true">
@@ -1129,37 +1135,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#unix-basics" id="toc-unix-basics" class="nav-link active" data-scroll-target="#unix-basics">Unix Basics</a>
+  <li><a href="#working-with-files-and-folders" id="toc-working-with-files-and-folders" class="nav-link active" data-scroll-target="#working-with-files-and-folders">Working with files and folders</a>
   <ul>
+  <li><a href="#quick-reference" id="toc-quick-reference" class="nav-link" data-scroll-target="#quick-reference">Quick reference</a></li>
   <li><a href="#the-file-system" id="toc-the-file-system" class="nav-link" data-scroll-target="#the-file-system">The file system</a></li>
+  <li><a href="#the-structure-of-a-command" id="toc-the-structure-of-a-command" class="nav-link" data-scroll-target="#the-structure-of-a-command">The structure of a command</a></li>
+  <li><a href="#getting-help" id="toc-getting-help" class="nav-link" data-scroll-target="#getting-help">Getting help</a></li>
   <li><a href="#pwd-finding-out-where-we-are" id="toc-pwd-finding-out-where-we-are" class="nav-link" data-scroll-target="#pwd-finding-out-where-we-are"><code>pwd</code>: Finding out where we are</a></li>
-  <li><a href="#general-structure-of-a-unix-command" id="toc-general-structure-of-a-unix-command" class="nav-link" data-scroll-target="#general-structure-of-a-unix-command">General structure of a Unix command</a></li>
   <li><a href="#ls-viewing-the-content-of-a-folder" id="toc-ls-viewing-the-content-of-a-folder" class="nav-link" data-scroll-target="#ls-viewing-the-content-of-a-folder"><code>ls</code>: Viewing the content of a folder</a></li>
-  <li><a href="#cd-moving-around-folders" id="toc-cd-moving-around-folders" class="nav-link" data-scroll-target="#cd-moving-around-folders"><code>cd</code>: Moving around folders</a></li>
-  <li><a href="#pathnames" id="toc-pathnames" class="nav-link" data-scroll-target="#pathnames">Pathnames</a></li>
-  <li><a href="#mkdir-making-new-folders" id="toc-mkdir-making-new-folders" class="nav-link" data-scroll-target="#mkdir-making-new-folders"><code>mkdir</code>: Making new folders</a></li>
-  <li><a href="#generating-and-viewing-files" id="toc-generating-and-viewing-files" class="nav-link" data-scroll-target="#generating-and-viewing-files">Generating and viewing files</a>
+  <li><a href="#cd-moving-around-folders" id="toc-cd-moving-around-folders" class="nav-link" data-scroll-target="#cd-moving-around-folders"><code>cd</code>: Moving around folders</a>
   <ul class="collapse">
-  <li><a href="#using-nano" id="toc-using-nano" class="nav-link" data-scroll-target="#using-nano">Using <code>nano</code></a></li>
-  <li><a href="#using-less" id="toc-using-less" class="nav-link" data-scroll-target="#using-less">Using <code>less</code></a></li>
-  <li><a href="#using-head" id="toc-using-head" class="nav-link" data-scroll-target="#using-head">Using <code>head</code></a></li>
-  <li><a href="#using-tail" id="toc-using-tail" class="nav-link" data-scroll-target="#using-tail">Using <code>tail</code></a></li>
+  <li><a href="#absolute-and-relative-paths" id="toc-absolute-and-relative-paths" class="nav-link" data-scroll-target="#absolute-and-relative-paths">Absolute and relative paths</a></li>
   </ul></li>
-  <li><a href="#io-redirection-to-new-files" id="toc-io-redirection-to-new-files" class="nav-link" data-scroll-target="#io-redirection-to-new-files">I/O redirection to new files</a></li>
+  <li><a href="#mkdir-making-new-folders" id="toc-mkdir-making-new-folders" class="nav-link" data-scroll-target="#mkdir-making-new-folders"><code>mkdir</code>: Making new folders</a></li>
+  <li><a href="#touch-making-an-empty-file" id="toc-touch-making-an-empty-file" class="nav-link" data-scroll-target="#touch-making-an-empty-file"><code>touch</code>: Making an empty file</a></li>
   <li><a href="#cp-and-mv-copying-and-moving-files" id="toc-cp-and-mv-copying-and-moving-files" class="nav-link" data-scroll-target="#cp-and-mv-copying-and-moving-files"><code>cp</code> and <code>mv</code>: Copying and moving files</a></li>
   <li><a href="#rm-removing-files-and-folders" id="toc-rm-removing-files-and-folders" class="nav-link" data-scroll-target="#rm-removing-files-and-folders"><code>rm</code>: Removing files and folders</a></li>
   <li><a href="#wget-downloading-data" id="toc-wget-downloading-data" class="nav-link" data-scroll-target="#wget-downloading-data"><code>wget</code>: Downloading data</a></li>
   <li><a href="#gzip-compressing-files" id="toc-gzip-compressing-files" class="nav-link" data-scroll-target="#gzip-compressing-files"><code>gzip</code>: Compressing files</a>
   <ul class="collapse">
   <li><a href="#compressing-data-using-gzip" id="toc-compressing-data-using-gzip" class="nav-link" data-scroll-target="#compressing-data-using-gzip">Compressing data using gzip</a></li>
-  <li><a href="#tar-making-a-tarball" id="toc-tar-making-a-tarball" class="nav-link" data-scroll-target="#tar-making-a-tarball"><code>tar</code>: Making a tarball</a></li>
+  <li><a href="#zcat-viewing-compressed-files" id="toc-zcat-viewing-compressed-files" class="nav-link" data-scroll-target="#zcat-viewing-compressed-files"><code>zcat</code>: Viewing compressed files</a></li>
+  <li><a href="#tar-packing-many-files-into-one" id="toc-tar-packing-many-files-into-one" class="nav-link" data-scroll-target="#tar-packing-many-files-into-one"><code>tar</code>: Packing many files into one</a></li>
   </ul></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/cli_basics.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../../source/cli/cli.html">Using the command line</a></li><li class="breadcrumb-item"><a href="../../source/cli/cli_basics.html">Getting started with bash</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../../source/cli/cli.html">Using the command line</a></li><li class="breadcrumb-item"><a href="../../source/cli/cli_basics.html">Working with files and folders</a></li></ol></nav></header>
 
 
 <header id="title-block-header">
@@ -1168,257 +1172,286 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="unix-basics" class="level1" style="text-align: justify">
-<h1>Unix Basics</h1>
-<section id="the-file-system" class="level2">
-<h2 class="anchored" data-anchor-id="the-file-system">The file system</h2>
-<p>Before getting started with the CLI, lets first understand the file system used by Unix, which might look some thing like this:</p>
-<p align="center">
-</p><p><img src="../../img/filesystem.png" width="500"></p>
-<p></p>
-<p>The Unix File System is a logical method of organizing and storing large amounts of information in a way that makes it easy to manage. Some key features are:</p>
-<ul>
-<li>Different to what you might be used to from Windows, Unix does not use Drives but appears as a rooted tree of directories<br>
-</li>
-<li>The first directory in the file system is called the root directory represented by <code>/</code><br>
-</li>
-<li>Different storage devices may contain different branches of the tree, but there is always a single tree. e.g., /users/john/ and / users/mary/</li>
-</ul>
-</section>
-<section id="pwd-finding-out-where-we-are" class="level2">
-<h2 class="anchored" data-anchor-id="pwd-finding-out-where-we-are"><code>pwd</code>: Finding out where we are</h2>
-<p>Now that we know how the file system looks like, we do want to move around. Since we do not use a GUI we can not use the mouse to point and click but instead have to write down what we want to do.</p>
-<p><code>pwd</code> prints the location of the current working directory and basically tells you where exactly you are. Usually when we login we start from what is called our home directory. This generally will be something like /Users/username but might be slightly different depending on your operating system.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Now that we know where we are, let’s see how to move around by first seeing what other folders there are. For this we can use the <code>ls</code> command, which stands for list directory contents</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>In my case this returns something like this:</p>
-<p align="left">
-</p><p><img src="../../img/ls.png" width="700"></p>
-<p></p>
-<p>This might look a bit different for your system in terms of color and file/folder names but what we basically see are the files (in bold text) and folders (green-highlighted text).</p>
-</section>
-<section id="general-structure-of-a-unix-command" class="level2">
-<h2 class="anchored" data-anchor-id="general-structure-of-a-unix-command">General structure of a Unix command</h2>
-<p>Next, let’s go into how commands, like <code>ls</code> can be used a bit more precisely. Let´s start with looking at the general structure of a command:</p>
-<p><strong>command [options] [arguments]</strong></p>
-<ul>
-<li>command is the name of the command you want to use, i.e.&nbsp;<code>ls</code> would be an example for a very basic Unix command</li>
-<li>arguments is one or more adjustments to the command’s behavior. I.e. for <code>ls</code> we could use the following arguments
-<ul>
-<li>Short notation: <code>-a</code></li>
-<li>Long notation: <code>—all</code></li>
-</ul></li>
-</ul>
-<p>Let’s explore more about how to use this arguments in the next section.</p>
-</section>
-<section id="ls-viewing-the-content-of-a-folder" class="level2">
-<h2 class="anchored" data-anchor-id="ls-viewing-the-content-of-a-folder"><code>ls</code>: Viewing the content of a folder</h2>
-<p>Let’s look a bit closer into the <code>ls</code> command and use it with an argument <code>-l</code>.</p>
-<p>As a reminder:</p>
-<ul>
-<li><code>ls</code> stands for list directory contents</li>
-<li>everything starting with a minus symbol is an optional argument we can use</li>
-<li><code>-l</code> is an additional argument we can use that makes ls use a long listing format</li>
-</ul>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>After running this, we should see our files and folders but in what is called the long format (which gives way more information):</p>
-<p align="left">
-</p><p><img src="../../img/ls2.png" width="500"></p>
-<p></p>
-<p>If you are unsure what options come with a program its always a good idea to check out the manual. You can do this with:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">man</span> ls</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>You can exit the manual by pressing <code>q</code>.</p>
-<p>In case you want to check what a program does or what options there are, depending on the program there might be different ways how to do this. These most common ways are:</p>
-<ul>
-<li><code>man ls</code></li>
-<li><code>ls --help</code></li>
-<li><code>ls -h</code></li>
-</ul>
-</section>
-<section id="cd-moving-around-folders" class="level2">
-<h2 class="anchored" data-anchor-id="cd-moving-around-folders"><code>cd</code>: Moving around folders</h2>
-<p>Next, lets move around these folders using the <code>cd</code> command, which let’s you change the directory. If you run this on your computer exchange <code>source</code> to a folder name that you see when using <code>ls</code>. If there are no directories, we will explain a bit later how to generate new directories.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> source/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>If you use <code>pwd</code> afterwards, then you should see that we moved into another directory. We can also move back to our original directory as follows:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>We can also move around multiple levels for example here i am going into the source folder, then back to the home directory and then into the docs folder.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> source/../docs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Another useful way to move around quickly is using the tilde symbol, i.e.&nbsp;<code>~</code>, that can be used as a shortcut to move directly into our home directory:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="pathnames" class="level2">
-<h2 class="anchored" data-anchor-id="pathnames">Pathnames</h2>
-<p>Next, let’s discuss an important distinction between absolute and relative pathnames.</p>
-<p><strong>Absolute pathnames</strong></p>
-<p>An absolute pathname begins with the root directory and follows the tree branch by branch until the path to the desired directory or file is completed. For example on your computer full path to our Desktop might be <code>/Users/username/Desktop</code></p>
-<p>If we want to go to the desktop using an absolute path we do the following:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /Users/username/Desktop</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p><strong>Relative pathnames</strong></p>
-<p>A relative pathname starts from the directory you are currently in and you traverse to other directories relative from this directory. When using the relative pathway allows you to use a couple of special notations to represent relative positions in the file system tree.</p>
-<ul>
-<li><code>.</code> (dot) The working directory itself</li>
-<li><code>..</code> (dot dot) Refers to the working directory’s parent directory</li>
-</ul>
-<p>If we want to go to the source directory using an relative path we do the following (again change this to whatever folder you see when using ls):</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> Desktop</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="mkdir-making-new-folders" class="level2">
-<h2 class="anchored" data-anchor-id="mkdir-making-new-folders"><code>mkdir</code>: Making new folders</h2>
-<p>Now that we know how to explore our surroundings, let us make a new folder in which we can generate some new files later on. For this we use the <code>mkdir</code> command.</p>
-<p>To do this, we will first move into our home directory and create a new folder from which we later run all further commands</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#go into the folder from which you want to work (i.e. the home directory)</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#make a new folder (in the directory we currently are in, name it new_older)</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> playground</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#check if new folder was generated</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#next we move into the newly generated folder</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> playground</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="generating-and-viewing-files" class="level2">
-<h2 class="anchored" data-anchor-id="generating-and-viewing-files">Generating and viewing files</h2>
-<div class="callout callout-style-default callout-important callout-titled">
+<section id="working-with-files-and-folders" class="level1" style="text-align: justify">
+<h1>Working with files and folders</h1>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Important
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Ensure that you run the following steps while being in the <code>playground</code> folder you just generated.</p>
+<p>New to the command line? The <a href="https://ndombrowski.github.io/cli_workshop/">Getting started with bash and an HPC</a> tutorial explains these commands step by step. This page is a reference: it lists the key commands with short examples.</p>
 </div>
 </div>
-<section id="using-nano" class="level3">
-<h3 class="anchored" data-anchor-id="using-nano">Using <code>nano</code></h3>
-<p>Now, let’s make some files of our own using <code>nano</code>. Nano is a basic text editor that lets us view and generate text.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ensure that we work in the right folder</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#open a new document and name it random.txt</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> random.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Once we type <code>nano random.txt</code> and press enter then a text document will open. In there:</p>
+<section id="quick-reference" class="level2">
+<h2 class="anchored" data-anchor-id="quick-reference">Quick reference</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 43%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>What it does</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>pwd</code></td>
+<td>Print the folder you are in</td>
+<td><code>pwd</code></td>
+</tr>
+<tr class="even">
+<td><code>ls</code></td>
+<td>List the content of a folder</td>
+<td><code>ls -lh downloads</code></td>
+</tr>
+<tr class="odd">
+<td><code>cd</code></td>
+<td>Move into another folder</td>
+<td><code>cd downloads</code></td>
+</tr>
+<tr class="even">
+<td><code>mkdir</code></td>
+<td>Make a new folder</td>
+<td><code>mkdir -p results/qc</code></td>
+</tr>
+<tr class="odd">
+<td><code>touch</code></td>
+<td>Make a new, empty file</td>
+<td><code>touch notes.md</code></td>
+</tr>
+<tr class="even">
+<td><code>cp</code></td>
+<td>Copy a file (<code>-r</code> for a folder)</td>
+<td><code>cp a.txt backup/</code></td>
+</tr>
+<tr class="odd">
+<td><code>mv</code></td>
+<td>Move or rename a file or folder</td>
+<td><code>mv a.txt b.txt</code></td>
+</tr>
+<tr class="even">
+<td><code>rm</code></td>
+<td>Remove a file (<code>-r</code> for a folder)</td>
+<td><code>rm a.txt</code></td>
+</tr>
+<tr class="odd">
+<td><code>wget</code></td>
+<td>Download a file from a link</td>
+<td><code>wget -P downloads &lt;link&gt;</code></td>
+</tr>
+<tr class="even">
+<td><code>gzip</code></td>
+<td>Compress a file (<code>-d</code> to decompress)</td>
+<td><code>gzip -d genome.fna.gz</code></td>
+</tr>
+<tr class="odd">
+<td><code>zcat</code></td>
+<td>Print a compressed file without decompressing it</td>
+<td><code>zcat reads.fastq.gz</code></td>
+</tr>
+<tr class="even">
+<td><code>tar</code></td>
+<td>Pack or unpack a tar archive</td>
+<td><code>tar -xzf archive.tar.gz</code></td>
+</tr>
+<tr class="odd">
+<td><code>man</code></td>
+<td>Show the manual of a command</td>
+<td><code>man ls</code></td>
+</tr>
+</tbody>
+</table>
+<p>For commands that work on the content of files, see <a href="../../source/cli/cli_file_manipulation.html">Working with text files</a>.</p>
+</section>
+<section id="the-file-system" class="level2">
+<h2 class="anchored" data-anchor-id="the-file-system">The file system</h2>
+<p>The file system on Unix (Linux and Mac) looks something like this:</p>
+<p align="center">
+</p><p><img src="../../img/filesystem.png" width="500"></p>
+<p></p>
 <ul>
-<li>Type something into this document</li>
-<li>Close the document with <code>control + X</code></li>
-<li>Type <code>y</code> to save changes and press enter</li>
-</ul>
-<p>If we now use <code>ls -l</code> again, we see that a new file was generated.</p>
-<p>We can use nano to open whatever document we want, but for larger files it might take a long time to read everything into memory. For such cases, let’s look at some alternative text viewers.</p>
-</section>
-<section id="using-less" class="level3">
-<h3 class="anchored" data-anchor-id="using-less">Using <code>less</code></h3>
-<p>less is a program that lets you view a file’s contents one screen at a time. This is useful when dealing with a large text file because it doesn’t load the entire file but accesses it page by page, resulting in fast loading speeds.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> random.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Once started, less will display the text file one page at a time.</p>
+<li>Unlike Windows, Unix does not use drive letters (C:, D:). All files and folders are in one tree.</li>
+<li>The first folder in the tree is the <strong>root directory</strong>, written as <code>/</code>.</li>
+<li>Your personal folder is your <strong>home directory</strong>, written as <code>~</code>. Where it is depends on your system:
 <ul>
-<li>You can use the arrow Up and Page arrow keys to move through the text file</li>
-<li>To exit less, type <code>q</code></li>
+<li><strong>Mac:</strong> <code>/Users/YourUserName</code></li>
+<li><strong>MobaXterm (Windows):</strong> <code>/home/mobaxterm</code></li>
+<li><strong>WSL2 (Windows) and Linux:</strong> <code>/home/YourUserName</code></li>
+</ul></li>
 </ul>
-<p>For files with a lots of columns or long strings we can use:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> <span class="at">-S</span> random.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>In this mode we can also use the arrow right and left keys, to view columns that are further on the right.</p>
 </section>
-<section id="using-head" class="level3">
-<h3 class="anchored" data-anchor-id="using-head">Using <code>head</code></h3>
-<p>Another, very quick way to check the first 10 rows is <code>head</code>:</p>
+<section id="the-structure-of-a-command" class="level2">
+<h2 class="anchored" data-anchor-id="the-structure-of-a-command">The structure of a command</h2>
+<p>A command generally has three parts:</p>
+<p><strong>command [options] [arguments]</strong></p>
+<ul>
+<li>A <strong>command name</strong>: the program you want to run, e.g.&nbsp;<code>ls</code></li>
+<li>An <strong>option</strong> (or <strong>flag</strong>): a way to change how the command behaves. Options usually start with a <code>-</code>. Many options have a short and a long form, e.g.&nbsp;<code>ls -a</code> and <code>ls --all</code> both also show hidden files</li>
+<li>An <strong>argument</strong>: the input the command works on, e.g.&nbsp;a file or folder. Some commands work without an argument</li>
+</ul>
+</section>
+<section id="getting-help" class="level2">
+<h2 class="anchored" data-anchor-id="getting-help">Getting help</h2>
+<p>To see the options of a command, open its manual. You exit the manual by pressing <code>q</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> random.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">man</span> ls</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Not all programs come with a manual. Depending on the program, there are a few common ways to get help that you can try:</p>
+<ul>
+<li><code>man ls</code></li>
+<li><code>ls --help</code></li>
+<li><code>-h</code>, e.g.&nbsp;<code>seqkit -h</code>. Be careful: for some commands <code>-h</code> means something else. For <code>ls</code>, <code>-h</code> prints file sizes in a human-readable format (e.g.&nbsp;<code>ls -lh</code>)</li>
+</ul>
+</section>
+<section id="pwd-finding-out-where-we-are" class="level2">
+<h2 class="anchored" data-anchor-id="pwd-finding-out-where-we-are"><code>pwd</code>: Finding out where we are</h2>
+<p><code>pwd</code> (print working directory) prints the folder you are in right now, the <strong>working directory</strong>. When you open a new terminal, you start in your home directory.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="using-tail" class="level3">
-<h3 class="anchored" data-anchor-id="using-tail">Using <code>tail</code></h3>
-<p>If you want to check the last 10 rows use <code>tail</code></p>
+<section id="ls-viewing-the-content-of-a-folder" class="level2">
+<h2 class="anchored" data-anchor-id="ls-viewing-the-content-of-a-folder"><code>ls</code>: Viewing the content of a folder</h2>
+<p><code>ls</code> (list) shows the files and folders in a folder. Without an argument, it shows the content of the working directory:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> random.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>In my case this returns something like this. Folders and files have different colors, depending on your terminal settings:</p>
+<p align="left">
+</p><p><img src="../../img/ls.png" width="700"></p>
+<p></p>
+<p>Useful options:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Long format: access rights, owner, group, size, date of last change and name</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Long format with file sizes in a human-readable format (K, M, G)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Also show hidden files (names that start with a dot)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-a</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort by date of last change, newest first</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lt</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># List the content of another folder</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> downloads</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The long format looks like this:</p>
+<p align="left">
+</p><p><img src="../../img/ls2.png" width="500"></p>
+<p></p>
+<p>The first column shows the access rights. See <a href="../../source/cli/cli_shell.html#access-rights">Access rights</a> for how to read and change them.</p>
+</section>
+<section id="cd-moving-around-folders" class="level2">
+<h2 class="anchored" data-anchor-id="cd-moving-around-folders"><code>cd</code>: Moving around folders</h2>
+<p><code>cd</code> (change directory) moves you into another folder:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Move into the downloads folder (change this to a folder that you see with ls)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> downloads</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Move one level up, into the parent folder</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Move several levels at once: into downloads, back up, and into results</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> downloads/../results</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Move into your home directory</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># cd without an argument also moves you into your home directory</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="absolute-and-relative-paths" class="level3">
+<h3 class="anchored" data-anchor-id="absolute-and-relative-paths">Absolute and relative paths</h3>
+<p>A <strong>path</strong> tells the shell where a file or folder is. There are two kinds:</p>
+<ul>
+<li>An <strong>absolute path</strong> starts at the root directory <code>/</code> and lists every folder down to the file, e.g.&nbsp;<code>/Users/username/Desktop</code>. It works from wherever you are.</li>
+<li>A <strong>relative path</strong> starts at the working directory, e.g.&nbsp;<code>Desktop</code>. It only works from the right folder. Two special names help here:
+<ul>
+<li><code>.</code> (dot) is the working directory itself</li>
+<li><code>..</code> (dot dot) is the parent folder of the working directory</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Absolute path: works from anywhere</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /Users/username/Desktop</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Relative path: works only if you are in /Users/username</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> Desktop</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
-<section id="io-redirection-to-new-files" class="level2">
-<h2 class="anchored" data-anchor-id="io-redirection-to-new-files">I/O redirection to new files</h2>
-<p>By using some special notations we can redirect the output of many commands to files, devices, and even to the input of other commands.</p>
-<p><strong>Standard output (stdout)</strong></p>
-<p>By default, standard output directs its contents to the display, i.e.&nbsp;when we use <code>ls</code> the list of files and folders is printed to the screen. However, we can also redirect the standard output to a file by using <code>&gt;</code> character is used like this:</p>
+<section id="mkdir-making-new-folders" class="level2">
+<h2 class="anchored" data-anchor-id="mkdir-making-new-folders"><code>mkdir</code>: Making new folders</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#redirect the output from ls to a new file</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> <span class="op">&gt;</span> file_list.txt</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#check what happened (feel free to also use the other methods we have discussed)</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> file_list.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a new folder called playground in the working directory</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> playground</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a folder and its parent folders, if they do not exist yet</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results/qc/fastqc</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that the folders were created</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> . results results/qc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>If we would use <code>ls -l &gt; file_list.txt</code> again we would overwrite the content of any existing files. However, there might be instances were we want to append something to an existing file. We can do this by using <code>&gt;&gt;</code>:</p>
+</section>
+<section id="touch-making-an-empty-file" class="level2">
+<h2 class="anchored" data-anchor-id="touch-making-an-empty-file"><code>touch</code>: Making an empty file</h2>
+<p><code>touch</code> makes a new, empty file. To write text into a file, use a text editor such as <a href="../../source/cli/cli_file_manipulation.html#nano-editing-files">nano</a>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> <span class="op">&gt;&gt;</span> file_list.txt</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#check what happened</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nano</span> file_list.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Move into the playground folder and make an empty file</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> playground</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> random.txt</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Check: the file exists and has a size of 0</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="cp-and-mv-copying-and-moving-files" class="level2">
 <h2 class="anchored" data-anchor-id="cp-and-mv-copying-and-moving-files"><code>cp</code> and <code>mv</code>: Copying and moving files</h2>
-<p>Next, let’s move the text file we generated before around. To do this, we mainly need two commands:</p>
 <ul>
-<li><code>cp</code> - copy files and directories</li>
-<li><code>mv</code> - move or rename files and directories</li>
+<li><code>cp</code> copies files (and folders, with <code>-r</code>)</li>
+<li><code>mv</code> moves or renames files and folders</li>
 </ul>
+<p>The examples below run inside the <code>playground</code> folder from above.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make a new folder</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> our_files</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#copy our random file into our new folder</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> random.txt our_files</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a new folder</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> our_files</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy random.txt into the new folder</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> random.txt our_files</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check: random.txt is now in both folders</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> . our_files</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Move random.txt into the our_files folder</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># There is already a random.txt in our_files, so mv overwrites it without asking</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> random.txt our_files</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Check: random.txt is now only in our_files</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> . our_files</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename a file: "move" it to a new name in the same folder</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> our_files/random.txt our_files/notes.txt</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy a folder and everything inside it</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> our_files our_files_backup</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the result</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> our_files our_files_backup</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>If we check the content of our working directory and the newly generated folder after doing this, we should see that random.txt exists now twice. Once in our working directory and once in the our_files folder. If we want to move a file, instead of copying, we can do the following:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#copy our random file into our new_folder</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> random.txt our_files</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Now, random.txt should only exist once in the our_files folder.</p>
 </section>
 <section id="rm-removing-files-and-folders" class="level2">
 <h2 class="anchored" data-anchor-id="rm-removing-files-and-folders"><code>rm</code>: Removing files and folders</h2>
-<p>To remove files and folders, we use the <code>rm</code> command. Let’s first remove the text file we generated:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#rm a file</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> our_files/random.txt</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#check if that worked</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> our_files</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>If we want to remove a folder, we need to tell <code>rm</code> that we want to remove folders using an argument. To do this, we use the <code>-r</code> argument (to remove directories and their contents recursively).</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1435,68 +1468,125 @@ Warning
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#rm a directory</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-r</span> our_files</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#check if that worked </span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove a file</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> our_files/notes.txt</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that the file is gone</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> our_files</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove a folder and everything inside it (-r = recursive)</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-r</span> our_files_backup</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that the folder is gone</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="wget-downloading-data" class="level2">
 <h2 class="anchored" data-anchor-id="wget-downloading-data"><code>wget</code>: Downloading data</h2>
-<p>Next, let’s download some data to learn how to manipulate files. One way to do this is using the <code>wget</code>. With <code>-P</code> we specify were to download the data:</p>
+<p><code>wget</code> downloads a file from a link. With <code>-P</code> we choose the folder to download into:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make a folder for our downloads</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> downloads</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#download a genome from ncbi using wget</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-P</span> downloads ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/002/728/275/GCA_002728275.1_ASM272827v1/GCA_002728275.1_ASM272827v1_genomic.fna.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a folder for our downloads</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> downloads</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Download a genome from NCBI into the downloads folder</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-P</span> downloads ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/002/728/275/GCA_002728275.1_ASM272827v1/GCA_002728275.1_ASM272827v1_genomic.fna.gz</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that the file is there and see its size</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> downloads</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="gzip-compressing-files" class="level2">
 <h2 class="anchored" data-anchor-id="gzip-compressing-files"><code>gzip</code>: Compressing files</h2>
 <section id="compressing-data-using-gzip" class="level3">
 <h3 class="anchored" data-anchor-id="compressing-data-using-gzip">Compressing data using gzip</h3>
-<p>After downloading and exploring the content of the downloads folder, you see that the file we downloaded ends with <code>gz</code>. This indicates that we work with a gzip-compressed file. Gzip is a tool used to compress the size of files.</p>
-<p>In order to work with files, we sometimes need to de-compress them first. We can do this as follows (by using the decompress, <code>-d</code> argument):</p>
+<p>Files that end with <code>.gz</code> are compressed with gzip. Sequence data is usually stored this way, because it saves a lot of space.</p>
+<p>To decompress a file, use <code>gzip -d</code>. This replaces the <code>.gz</code> file with the decompressed file:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#decompress gz data (-d = decompress)</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-d</span> downloads/GCA_002728275.1_ASM272827v1_genomic.fna.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Decompress the file (-d = decompress)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-d</span> downloads/GCA_002728275.1_ASM272827v1_genomic.fna.gz</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check: the file lost its .gz extension and is larger now</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> downloads</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Conversely, if you want to compress a file, you can do this as such:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#compress</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> downloads/GCA_002728275.1_ASM272827v1_genomic.fna</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compress the file</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> downloads/GCA_002728275.1_ASM272827v1_genomic.fna</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check: the file has its .gz extension back</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> downloads</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="tar-making-a-tarball" class="level3">
-<h3 class="anchored" data-anchor-id="tar-making-a-tarball"><code>tar</code>: Making a tarball</h3>
-<p>Another file compression you might encounter is tar:</p>
-<ul>
-<li>Short for Tape Archive, and sometimes referred to as tarball, is a file in the Consolidated Unix Archive format.</li>
-<li>The TAR file format is common in Unix and Unix-like systems when storing data (however, we do not compress our files when using the tar files)</li>
-<li>TAR files are often compressed after being created and then become TGZ files, using the tgz, tar.gz, or gz extension.</li>
-</ul>
-<p>Let’s try to make a compressed tarball with the file we just downloaded.</p>
+<section id="zcat-viewing-compressed-files" class="level3">
+<h3 class="anchored" data-anchor-id="zcat-viewing-compressed-files"><code>zcat</code>: Viewing compressed files</h3>
+<p><code>zcat</code> prints the content of a compressed file to the screen, without changing the file. Combine it with <code>head</code> (see <a href="../../source/cli/cli_file_manipulation.html#pipes">Pipes</a>) to only see the first lines:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#decompress gz data</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-d</span> downloads/GCA_002728275.1_ASM272827v1_genomic.fna.gz</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#create a tar file, to_compress.tar.gz, from our downloads directory</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-cvzf</span> to_compress.tar.gz downloads</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the first 10 lines of a compressed file</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">zcat</span> downloads/GCA_002728275.1_ASM272827v1_genomic.fna.gz <span class="kw">|</span> <span class="fu">head</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>If we print the content of our working directory with <code>ls</code> we now see an additional file, <code>to_compress.tar.gz</code>. We can uncompress this file into a new folder as follows:</p>
+<p>On a Mac, <code>zcat</code> may not work with <code>.gz</code> files. Use <code>gzcat</code> or <code>gunzip -c</code> instead.</p>
+</section>
+<section id="tar-packing-many-files-into-one" class="level3">
+<h3 class="anchored" data-anchor-id="tar-packing-many-files-into-one"><code>tar</code>: Packing many files into one</h3>
+<p>A tar file (short for Tape Archive, also called a tarball) packs many files and folders into one file. A tar file is often compressed with gzip and then ends with <code>.tar.gz</code> or <code>.tgz</code>.</p>
+<p>The most common tar options are:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Option</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>-c</code></td>
+<td>create a new tar file</td>
+</tr>
+<tr class="even">
+<td><code>-x</code></td>
+<td>extract a tar file</td>
+</tr>
+<tr class="odd">
+<td><code>-t</code></td>
+<td>list the content of a tar file</td>
+</tr>
+<tr class="even">
+<td><code>-z</code></td>
+<td>(de)compress with gzip</td>
+</tr>
+<tr class="odd">
+<td><code>-v</code></td>
+<td>verbose: print each file name</td>
+</tr>
+<tr class="even">
+<td><code>-f</code></td>
+<td>the name of the tar file follows</td>
+</tr>
+<tr class="odd">
+<td><code>-C</code></td>
+<td>extract into this folder</td>
+</tr>
+</tbody>
+</table>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make a folder into with to compress the data</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> to_compress </span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co">#decompress</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xvf</span> to_compress.tar.gz <span class="at">-C</span> to_compress</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co">#check what happened</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> to_compress</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Decompress the genome</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-d</span> downloads/GCA_002728275.1_ASM272827v1_genomic.fna.gz</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a compressed tar file, to_compress.tar.gz, from the downloads folder</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-cvzf</span> to_compress.tar.gz downloads</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># List the content of the tar file without extracting it</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-tzf</span> to_compress.tar.gz</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a folder to extract the data into</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> to_compress</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the tar file into the to_compress folder</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="fu">tar</span> <span class="at">-xvzf</span> to_compress.tar.gz <span class="at">-C</span> to_compress</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Check: to_compress contains the downloads folder</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> to_compress</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>We can see that there is one folder in to_compress, our downloads folder.</p>
 <p>If you want to see <code>tar</code> (and <code>scp</code>) used together to back up data to an actual remote archive, see <a href="../../source/cli/ibed_tape.html">Using the IBED Tape Archive</a>.</p>
 </section>
 </section>
@@ -1930,8 +2020,8 @@ Warning
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/cli/cli_file_manipulation.html" class="pagination-link" aria-label="Manipulating files with bash">
-        <span class="nav-page-text">Manipulating files with bash</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/cli/cli_file_manipulation.html" class="pagination-link" aria-label="Working with text files">
+        <span class="nav-page-text">Working with text files</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1943,7 +2033,7 @@ Warning
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-09-15</p>
+Last modified: 2026-11-03</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/cli/cli_basics.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

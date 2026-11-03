@@ -365,5 +365,8 @@
   },
   "source/cli/ibed_tape.qmd": {
     "ibed_tape.html": "fa3b0463"
+  },
+  "source/cli/cli_shell.qmd": {
+    "cli_shell.html": "c9fdaf58"
   }
 }

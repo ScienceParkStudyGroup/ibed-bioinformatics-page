@@ -55,10 +55,12 @@ website:
             contents:
               - text: "Setting up a bash command line"
                 href: source/cli/cli_installation.qmd
-              - text: "Getting started with bash"
+              - text: "Working with files and folders"
                 href: source/cli/cli_basics.qmd
-              - text: "Manipulating files with bash"
+              - text: "Working with text files"
                 href: source/cli/cli_file_manipulation.qmd
+              - text: "Shell features and long jobs"
+                href: source/cli/cli_shell.qmd
 
           - section: "Writing bash scripts"
             contents:

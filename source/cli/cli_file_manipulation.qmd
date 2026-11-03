@@ -7,9 +7,30 @@ engine: knitr
 
 <div style="text-align: justify">
 
-# Working with files in bash
+# Working with text files
 
-Next, let's go through some basic bash commands that are extremely useful when working with files. To this, let's first download some example files to use.
+::: callout-tip
+New to the command line? The [Getting started with bash and an HPC](https://ndombrowski.github.io/cli_workshop/) tutorial explains these commands step by step. This page is a reference: it lists the key commands with short examples.
+:::
+
+## Quick reference
+
+| Command | What it does | Example |
+|---------|--------------|---------|
+| `cat` | Print a file, or combine files | `cat a.txt b.txt > ab.txt` |
+| `head`, `tail` | Print the first or last lines of a file | `head -n 5 a.txt` |
+| `less` | Scroll through a file (`q` to quit) | `less -S a.txt` |
+| `nano` | Edit a file | `nano notes.md` |
+| `wc` | Count lines, words or characters | `wc -l a.txt` |
+| `grep` | Find lines that match a pattern | `grep -c ">" seqs.faa` |
+| `>`, `>>` | Write the output to a file (`>>` adds to the end) | `ls > files.txt` |
+| `cut` | Extract columns | `cut -f1,3 table.txt` |
+| `sort` | Sort lines | `sort -k2 table.txt` |
+| `uniq` | Remove or find duplicate lines (sort first) | `uniq -d sorted.txt` |
+| `find` | Find files by name, size, date, ... | `find . -name "*.faa"` |
+| `sed` | Find and replace text | `sed 's/old/new/g' a.txt` |
+
+Wildcards (`*`, `?`, `[ ]`) and pipes (`|`) are explained below. For commands that work on files and folders as a whole (copy, move, compress), see [Working with files and folders](cli_basics.qmd).
 
 ## Downloading example data
 
@@ -45,14 +66,130 @@ MAAKRATTTRDKWKLKQWYII
 
 In your case you will look at two protein fasta files in which the header contains the information from what genome, i.e. GCA_000007185, a sequence was extracted from as well as the actual sequence itself.
 
+## Wildcards: Selecting many files at once
+
+**Wildcards** (also called **globs**) are special characters that match file names. The shell replaces the pattern with the list of matching file names before the command runs.
+
+| Wildcard | Matches | Example |
+|----------|---------|---------|
+| `*` | any characters, any number of times (also zero) | `downloads/*.txt` |
+| `?` | exactly one character | `downloads/Experiment?.txt` |
+| `[12]` | one character: a 1 or a 2 | `downloads/Experiment[12].txt` |
+| `[0-9]` | one digit | `downloads/Experiment[0-9].txt` |
+| `[A-Z]` | one capital letter (`[a-z]` for a small letter) | `downloads/[A-Z]*.faa` |
+
+```{bash}
+# All files that end with .txt
+ls downloads/*.txt
+
+# Experiment, followed by exactly one character, followed by .txt
+ls downloads/Experiment?.txt
+
+# Only Experiment1.txt and Experiment2.txt
+ls downloads/Experiment[12].txt
+
+# Combine wildcards: a capital letter, any characters, a 1 or a 2, and .txt
+ls downloads/[A-Z]*[12].txt
+```
+
+Wildcards work with any command that takes file names, e.g. `grep -c "control" downloads/*.txt`. They only match file names. For patterns inside a file, see [Regular expressions](#regular-expressions).
+
+## Viewing files
+
+### `cat`: Printing and combining files
+
+The cat command has three main functions related to manipulating text files:
+
+1.  Create a new file using cat. To do this type the command below, then type `Hello!`, press Enter, and press `Ctrl+D` to save the file and get the prompt back:
+
+```{bash}
+cat > downloads/file_test.txt
+```
+
+2.  Display the content of an existing file:
+
+```{bash}
+cat downloads/file_test.txt
+```
+
+3.  Concatenate, i.e. combine, several files:
+
+```{bash}
+# Combine two files into one (here: the same file twice)
+cat downloads/file_test.txt downloads/file_test.txt > downloads/file_merged.txt
+
+# Check the content of the new file: Hello! appears twice
+cat downloads/file_merged.txt
+```
+
+**Exercise**
+
+-   View the content of downloads/Experiment1.txt by using cat
+-   Combine downloads/Experiment1.txt and downloads/Experiment2.txt.
+-   Do the same as above but use a wildcard to not have to type everything and store the output as `downloads/Experiments.txt`
+
+```{bash}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# Question 1
+cat downloads/Experiment1.txt
+
+# Question 2
+cat downloads/Experiment1.txt downloads/Experiment2.txt
+
+# Question 3
+cat downloads/Experiment*.txt > downloads/Experiments.txt
+```
+
+### `head` and `tail`: The first and last lines
+
+```{bash}
+# Show the first 10 lines
+head downloads/PF00900.faa
+
+# Show the first 4 lines (-n sets the number of lines, for head and tail)
+head -n 4 downloads/PF00900.faa
+
+# Show the last 10 lines
+tail downloads/PF00900.faa
+
+# Show everything from line 2 on, e.g. to skip a header line
+tail -n +2 downloads/Experiment1.txt
+```
+
+### `less`: Scrolling through large files
+
+`less` shows a file one screen at a time. It does not load the whole file, so it also opens very large files quickly.
+
+```{bash}
+less downloads/PF00900.faa
+
+# For files with many columns or long lines: do not wrap the lines
+less -S downloads/PF00900.faa
+```
+
+-   Use the arrow keys or the space bar to move through the file
+-   With `-S`, use the left and right arrow keys to see columns further to the right
+-   Type `/` followed by a word and press Enter to search for that word
+-   Type `q` to exit
+
+### `nano`: Editing files {#nano-editing-files}
+
+`nano` is a basic text editor that runs inside the terminal.
+
+```{bash}
+# Open a file (nano makes the file if it does not exist yet)
+nano downloads/notes.txt
+```
+
+-   Type your text
+-   Press `Ctrl+X` to close the file
+-   Type `y` to save the changes and press Enter
+
 ## `wc`: Counting things
 
-The `wc` (= wordcount) command in UNIX is a command line utility that:
-
--   Can return the number of lines, the number of characters and the number of words in a file
--   Can be combined with pipes for general counting operations. We will explain pipes a bit later
-
-The following commands are simple but essential for quality control and you will use it a lot to check whether your commands worked all right.
+`wc` (word count) counts the lines, words and characters in a file. It is simple, but essential to check whether your commands did what you expected.
 
 ```{bash}
 # Count the words in a file
@@ -64,7 +201,7 @@ wc -l downloads/Experiment1.txt
 
 ## `grep`: Finding patterns in files
 
-The grep command is used to search text. It searches the given file for lines containing a match to the given strings or words. Also this command is simple but very useful for sanity checks after file transformations.
+`grep` searches a file for lines that contain a pattern and prints these lines. It is also very useful to check files after you changed them.
 
 ```{bash}
 # Print all lines that contain the pattern "control"
@@ -80,49 +217,7 @@ grep "^Ex" downloads/Experiment1.txt
 grep -c ">" downloads/*faa
 ```
 
-## Using wildcards
-
-Since the shell uses filenames so much, it provides special characters to help you rapidly specify groups of filenames.
-
-A **Wild-card** character can be used as a substitute for any class of characters in a search.
-
-1.  The `*` wildcard is the wildcard with the broadest meaning of any of the wildcards, it can represent 0 characters, all single characters or any string of characters. I.e. we can grep for something in any files that end with .txt as follows:
-
-```{bash}
-grep -c "Ex" downloads/*txt
-```
-
-2.  The `?` wildcard matches exactly one character. We could use it as follows:
-
-```{bash}
-grep "control" downloads/Experiment?.txt
-```
-
-3.  `[012]` matches a 0, 1 or 2, exactly once
-
-```{bash}
-grep "control" downloads/Experiment[012].txt
-```
-
-4.  `[0-9]` matches any digit, exactly once
-
-```{bash}
-grep "control" downloads/Experiment[0-9].txt
-```
-
-5.  Wildcards can be combined:
-
--   `[A-Z]` matches one capital letter
--   `[a-z]*` matches one small letter, followed by any characters (`*`)
--   `[12]` matches a 1 or a 2
-
-```{bash}
-grep "control" downloads/[A-Z][a-z]*[12].txt
-```
-
-Wildcards, also called **globs**, are interpreted by the shell. The shell turns `downloads/*txt` into a list of file names before the command runs.
-
-## Regular expressions: Patterns inside files
+## Regular expressions: Patterns inside files {#regular-expressions}
 
 The pattern that `grep` (and `sed`) search for inside a file is not a wildcard but a **regular expression** (regex). Some symbols look the same as wildcards but have a different meaning:
 
@@ -184,57 +279,31 @@ grep -c "A\{2\}T" downloads/*.faa
 grep -c "M\{2\}[TD]" downloads/*.faa
 ```
 
+## Redirection: Writing output to a file
 
-## `cat`: Combining data
-
-The cat command has three main functions related to manipulating text files:
-
-1.  Create a new file using cat. To do this type the command below, then type `Hello!`, press Enter, and press `Ctrl+D` to save the file and get the prompt back:
+By default, a command prints its output to the screen. With `>` you write the output to a new file instead. With `>>` you add the output to the end of an existing file.
 
 ```{bash}
-cat > downloads/file_test.txt
+# Write the list of txt files into a new file
+ls downloads/*.txt > downloads/file_list.txt
+
+# Check the content of the new file
+cat downloads/file_list.txt
+
+# Add the list of faa files to the end of the same file
+ls downloads/*.faa >> downloads/file_list.txt
+
+# Check the content: the faa files are now listed below the txt files
+cat downloads/file_list.txt
 ```
 
-2.  Display the content of an existing file:
+::: callout-warning
+`>` overwrites an existing file without asking. Use `>>` if you want to keep the existing content.
+:::
 
-```{bash}
-cat downloads/file_test.txt
-```
+## Pipes (`|`): Combining commands {#pipes}
 
-3.  Concatenate, i.e. combine, several files:
-
-```{bash}
-# Combine two files into one (here: the same file twice)
-cat downloads/file_test.txt downloads/file_test.txt > downloads/file_merged.txt
-
-# Check the content of the new file: Hello! appears twice
-cat downloads/file_merged.txt
-```
-
-**Exercise**
-
--   View the content of downloads/Experiment1.txt by using cat
--   Combine downloads/Experiment1.txt and downloads/Experiment2.txt.
--   Do the same as above but use a wildcard to not have to type everything and store the output as `downloads/Experiments.txt`
-
-```{bash}
-#| code-fold: true
-#| code-summary: "Show the code"
-
-# Question 1
-cat downloads/Experiment1.txt
-
-# Question 2
-cat downloads/Experiment1.txt downloads/Experiment2.txt
-
-# Question 3
-cat downloads/Experiment*.txt > downloads/Experiments.txt
-```
-
-
-## Pipes (`|`): Combining commands
-
-Pipes are a powerful utility to connect multiple commands together. They allow us to feed the standard output of one command as input into another command.
+A pipe sends the output of one command as input into the next command, instead of to the screen. This lets you combine simple commands into longer ones.
 
 In the example below we first combine two files using `cat` and use `wc -l` on the standard output to count the number of lines after concatenating the two files:
 
@@ -254,7 +323,7 @@ cat downloads/Experiment[12].txt | wc -l
 cat downloads/*faa | grep -c ">"
 ```
 
-## `cut`: extracting sections from tables
+## `cut`: Extracting columns
 
 We can use `cut` to separate columns. By default `cut` uses a tab as a delimiter. We could print the first column of our data as follows:
 
@@ -403,7 +472,7 @@ To change all instances of Ex, we can do the following:
 sed 's/Ex/Experiment/g' downloads/Experiment1.txt 
 ```
 
-Sed can be easily used with wildcards. For example, if you would want to replace control1 and control2 just with control you could do:
+Sed patterns are [regular expressions](#regular-expressions). For example, to replace control1 and control2 with control:
 
 ```{bash}
 sed 's/control[0-9]/control/g' downloads/Experiment1.txt 
@@ -419,7 +488,7 @@ sed 's/N\[0.4uM\]/N(0.4uM)/g' downloads/Experiment1.txt
 **Exercise**
 
 -   In downloads/PF00900.faa , replace the GCA\_ with Genome\_
--   In downloads/PF00900.faa , use wildcards to replace the string of numbers after the GCA with a `hello`
+-   In downloads/PF00900.faa , use a regular expression to replace the string of numbers after the GCA with a `hello`
 
 ```{bash}
 #| code-fold: true
@@ -432,7 +501,7 @@ sed 's/GCA_/Genome_/g'  downloads/PF00900.faa
 sed 's/GCA_[0-9]*/GCA_hello/g'  downloads/PF00900.faa 
 ```
 
-### Removing things (and using WILDCARDs)
+### Removing lines and patterns
 
 Sed can also be used to remove things, such as line(s) or patterns. Below is a list of examples that you might encounter or find useful.
 
@@ -487,312 +556,6 @@ sed 's/[a-zA-Z0-9]//g' downloads/Experiment1.txt
 sed 's/[eE]//g' downloads/Experiment1.txt
 ```
 
-## `screen`: Running things in the background
+For variables, loops, access rights, `screen` and cleaning up files from Windows, see [Shell features and long jobs](cli_shell.qmd).
 
-Screen or GNU Screen is a terminal multiplexer. This means that you can start a screen session and then open any number of windows (virtual terminals) inside that session.
-
-Processes running in Screen will continue to run when their window is not visible even if you get disconnected. This is perfect, if we start longer running processes on the server and want to shut down our computer when leaving for the day. As long as the server is still connected to the internet, your process will continue running.
-
-We start a screen as follows:
-
-```{bash}
-screen
-```
-
-We detach from a screen (leave it, while it keeps running) with `Ctrl+A`, followed by `D`.
-
-If you run multiple things, it can be useful to give your screens more descriptive names. You can do this as follows:
-
-```{bash}
-# Start a screen and give it a name
-screen -S testrun
-```
-
-After detaching from a screen you can list all currently running screens with:
-
-```{bash}
-screen -ls
-```
-
-You can restart a screen like this:
-
-```{bash}
-# Go back into an existing screen
-screen -r testrun
-```
-
-If you want to completely close and remove a screen, type the following while being inside of the screen:
-
-```{bash}
-exit
-```
-
-## loops: Running the same thing over and over again
-
-### echo/printf
-
-Before talking about loops, lets learn another command first, echo. echo displays a line of text that can be printed to the screen or stored in a file (why this is useful you see in a second):
-
-Both echo and printf print something to the terminal. However, echo works slightly differently across shells, so you might get slightly different outputs depending on the shell you use. Printf is more portable and allows for more formatting options. You might encounter both when finding code in the wild.
-
-```{bash}
-# Print a line of text using echo
-echo "Hello everyone"
-
-# Print a line of text using printf
-# printf does not add a new line at the end by itself, so we add one with \n
-printf "Hello everyone\n"
-```
-
-### For-loops
-
-A **for loop** is a bash programming language statement which allows code to be repeatedly executed. I.e. it allows us to run a command 2, 3, 5 or 100 times.
-
-Try running this example in which we want to say hello several times:
-
-```{bash}
-for i in 1 2 3; do echo "Welcome $i times"; done
-```
-
-Here, you see what this command does step by step:
-
-<p align="left">
-
-<img src="../../img/loops.png" width="600"/>
-
-</p>
-
-We could also use a loop to run sed on all our txt files. For example, assume that instead of nitrogen (N) we measured sulfur (S). We could replace it in all text files as follows:
-
-```{bash}
-# Replace N with S in all txt files and print the result to the screen
-for i in downloads/*txt; do sed 's/N/S/g' $i; done
-```
-
-<p align="left">
-
-<img src="../../img/loops2.png" width="600"/>
-
-</p>
-
-If we want to store the output in new files, we could store them with a slightly different name as follows:
-
-```{bash}
-for i in downloads/*txt; do sed 's/N/S/g' $i > ${i}_2.txt; done
-
-# Check that the new files were created
-ls -l downloads/*txt
-```
-
-You see here, that we added curly brackets to define the borders of our variable i. I.e. if we would not have the brackets unix would look for a variable i_2, which does not exist.
-
-You will also see that the name of the output file is not ideal, i.e. it is something like downloads/Experiment3.txt_2.txt. To get more control over the name of the output files we can use a file list for building the loop.
-
-To do this let's use printf to generate a `FileList` in which list the the two files we want to work with: Experiment1 and Experiment2. We do this using printf and `\n`, which is a special character we can use to separate Experiment1 and Experiment using a new line.
-
-```{bash}
-printf "Experiment1\nExperiment2\n" > downloads/FileList
-
-# Check the file: we expect 2 lines
-head downloads/FileList
-```
-
-Now we can use this file to run our loop.
-
-```{bash}
-for i in `cat downloads/FileList`; do sed 's/N/S/g' downloads/${i}.txt > downloads/${i}_2.txt; done
-
-# Check that the new files were created
-ls -l downloads/*txt
-```
-
-Notice, that using this option we need to add the file extension! However, the resulting filenames, i.e. downloads/Experiment2_2.txt, are much cleaner.
-
-**Exercise**
-
--   Make a list with all the faa files (do this with the command line). Ideally, we want to have PF00900 and PF01015 in one column. For this you want to list the names of all faa files but at the same time remove the file extension and the folder name.
--   Use this list to, in a loop, replace the GCA\_ with Genome\_. Store the files with the new ending `renamed.faa`
-
-```{bash}
-#| code-fold: true
-#| code-summary: "Show the code"
-
-# Question 1
-ls downloads/*faa | sed 's/downloads\///g' | sed 's/\.faa//g' > downloads/FaaList
-
-# Check the list: we expect 2 lines, PF00900 and PF01015
-cat downloads/FaaList
-
-# Question 2
-for sample in `cat downloads/FaaList`; do sed 's/GCA_/Genome_/g' downloads/${sample}.faa > downloads/${sample}_renamed.faa; done
-
-# Check one of the new files
-head downloads/PF00900_renamed.faa
-```
-
-## Variables
-
-A **variable** is a character string to which we assign a value. **Environment variables** are variables that are set up in your shell when you log in. They are called "environment variables" because most of them affect the way your Unix shell works for you. I.e. one points to your home directory and another to your history file.
-
-One common environmental variable is \$HOME. This variable holds the path to your home directory, which is like your computer's main hub.
-
-We can use the echo command to display the value of a variable. Let's use it to look at an environmental variable found on most systems called `$HOME`:
-
-```{bash}
-echo $HOME
-```
-
-You can use this variables in commands, for example you can use it together with `cd` to move into your home directory:
-
-```{bash}
-cd $HOME
-```
-
-You can easily make your own variables and use them to store file names, paths or whatever you want. Let's store a number in a variable. Notice that there are no spaces around the `=`:
-
-```{bash}
-MY_NUMBER=10
-
-# Check that this worked
-echo "My math number: $MY_NUMBER"
-```
-
-A variable made like this only exists in your current shell. Programs and scripts that you start from this shell can't see it. If they need the variable, use `export`:
-
-```{bash}
-export MY_NUMBER=10
-```
-
-Both kinds of variables are gone when you close the terminal.
-
-Once you have this, you can use it for any command that you want.
-
-## Access rights
-
-Each file (and directory) has associated access rights, which you can see with `ls -l`. `ls -l` also shows the owner and the group of each file. `ls -lg` hides the owner and only shows the group:
-
-```{bash}
-ls -lg downloads/Experiment1.txt
-```
-
-`-rw-r--r--  1 staff   156B Sep 28  2019 downloads/Experiment1.txt`
-
-In the left-hand column is a 10 symbol string consisting of the symbols d, r, w, x, -, and, occasionally, s or S. If d is present, it will be at the left hand end of the string, and indicates a directory: otherwise - will be the starting symbol of the string.
-
-The 9 remaining symbols indicate the permissions, or access rights, and are taken as three groups of 3.
-
--   The left group of 3 gives the file permissions for the user that owns the file (or directory)
--   the middle group gives the permissions for the group of people to whom the file (or directory)
--   the rightmost group gives the permissions for all others.
-
-The symbols r, w, etc., have slightly different meanings depending on whether they refer to a simple file or to a directory.
-
-### Access rights for files
-
--   r (or -), indicates read permission (or otherwise), that is, the presence or absence of permission to read and copy the file
--   w (or -), indicates write permission (or otherwise), that is, the permission (or otherwise) to change a file
--   x (or -), indicates execution permission (or otherwise), that is, the permission to execute a file, where appropriate
-
-### Access rights for directories
-
--   r allows users to list files in the directory;
--   w means that users may delete files from the directory or move files into it;
--   x means the right to access files in the directory. This implies that you may read files in the directory provided you have read permission on the individual files.
-
-So, in order to read a file, you must have execute permission on the directory containing that file, and hence on any directory containing that directory as a subdirectory, and so on, up the tree.
-
-### Changing access rights
-
-We can use `chmod` to change who has access to our files.
-
-Chmod options:
-
-u = user\
-g = group\
-o = other\
-a = all\
-r = read\
-w = write (and delete)\
-x = execute (and access directory)\
-+ = add permission\
-- = take away permission\
-= = set exactly these permissions (and remove all others)
-
-For example, to give the group (i.e. g) read, write and execute permissions on the file example.txt, type:
-
-```{bash}
-chmod g=rwx example.txt 
-```
-
-To remove read write and execute permissions on the file example.txt for the group and others (i.e go), type:
-
-```{bash}
-chmod go-rwx example.txt 
-```
-
-## Random but useful
-
-The code below is a random collection of code the author found useful. This means it might be interesting for you BUT these are so far not linked to example files and some programs might not be avail. on your system by default.
-
-### Escaping characters
-
-Certain characters are significant to the shell; Escaping is a method of quoting single characters. The escape (`\`) preceding a character tells the shell to interpret that character literally. Below, we find the special meanings of certain escaped characters:
-
-<p align="left">
-
-<img src="../../img/escaping.png" width="400"/>
-
-</p>
-
-### Excel/DOS to UNIX issue cleanup
-
-1.  hidden symbols
-
-Sometimes when saving excel documents as text this insert hidden symbols. These can be seen as a blue M when opening the file in vim (sometimes they result in odd errors while parsing tables). Most often you see these issues when you open your files and lines are merged that should not be merged.
-
-This symbol can be removed as follows in vim:
-
-```{bash}
-# Type this in vim (not in the terminal) to remove the blue M
-:%s/\r//g
-```
-
-2.  wrong file types
-
-Files created on WINDOWS systems are not always compatible with UNIX. In case there is an issue it is always safer to convert. You see if you have an issue if you open your file of interest with nano and check the file format at the bottom.
-
-If we see we are dealing with a dos file, we can clean files like this:
-
-```{bash}
-# Windows (DOS) to Unix
-awk '{ sub("\r$", ""); print }' winfile.txt > unixfile.txt
-
-# Unix to Windows (DOS)
-awk 'sub("$", "\r")' unixfile.txt > winfile.txt
-
-```
-
-### `datamash`: merging rows by keys
-
-GNU datamash is a command-line program which performs basic numeric, textual and statistical operations on input textual data files.
-
-```{bash}
-datamash -sW -g1 collapse 2 collapse 4 < Unimarkers_KO_count_table.txt  > Unimarkers_KO_collapsed.txt
-```
-
-### Dealing with PDFs --\> CPDF
-
-CPDF is a useful program if you want to merge pdfs, remodel them all to A4 etc.
-
-This is not available on the server but easy to install in case you are interested.
-
-For more information, see [here](https://community.coherentpdf.com)
-
-```{bash}
-# merge pdfs
-~/Desktop/Programs/cpdf-binaries-master/OSX-Intel/cpdf -merge *pdf -o All_Main_Figs.pdf
-
-#convert to A4
-~/Desktop/Programs/cpdf-binaries-master/OSX-Intel/cpdf -scale-to-fit a4portrait SI_Figures.pdf -o test.pdf
-
-```
+</div>
