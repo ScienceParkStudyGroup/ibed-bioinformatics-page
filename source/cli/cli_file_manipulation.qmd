@@ -21,7 +21,7 @@ wget -P downloads https://raw.githubusercontent.com/ndombrowski/Unix_tutorial/ma
 wget -P downloads https://raw.githubusercontent.com/ndombrowski/Unix_tutorial/main/Input_docs/PF00900.faa
 wget -P downloads https://raw.githubusercontent.com/ndombrowski/Unix_tutorial/main/Input_docs/PF01015.faa
 
-#check if this worked
+# Check that the files were downloaded: we expect 5 files
 ls downloads/
 ```
 
@@ -55,10 +55,10 @@ The `wc` (= wordcount) command in UNIX is a command line utility that:
 The following commands are simple but essential for quality control and you will use it a lot to check whether your commands worked all right.
 
 ```{bash}
-#count how many words we have
+# Count the words in a file
 wc -w downloads/Experiment1.txt
 
-#count how many lines we have in a file we have
+# Count the lines in a file
 wc -l downloads/Experiment1.txt
 ```
 
@@ -67,16 +67,16 @@ wc -l downloads/Experiment1.txt
 The grep command is used to search text. It searches the given file for lines containing a match to the given strings or words. Also this command is simple but very useful for sanity checks after file transformations.
 
 ```{bash}
-#count how often the pattern **control** occurs in our document
+# Print all lines that contain the pattern "control"
 grep "control" downloads/Experiment1.txt
 
-#only give the counts, not the lines
+# Only print the number of matching lines, not the lines themselves
 grep -c "control" downloads/Experiment1.txt
 
-#grep a pattern only if it occurs at the beginning of a line
+# Only find the pattern if it is at the beginning of a line (^)
 grep "^Ex" downloads/Experiment1.txt
 
-#we can also count the number of sequences in the fasta file we downloaded before
+# Count the sequences in the fasta files: each sequence header starts with ">"
 grep -c ">" downloads/*faa
 ```
 
@@ -92,97 +92,104 @@ A **Wild-card** character can be used as a substitute for any class of character
 grep -c "Ex" downloads/*txt
 ```
 
-2.  The `?` wildcard matches exactly one character but will ingore files that start with a dot. We could use it as follows:
+2.  The `?` wildcard matches exactly one character. We could use it as follows:
 
 ```{bash}
 grep "control" downloads/Experiment?.txt
 ```
 
-3.  \[012\] wildcard = matches 0 or 1 or 2 exactly once
+3.  `[012]` matches a 0, 1 or 2, exactly once
 
 ```{bash}
-grep  "control" downloads/Experiment[012].txt
+grep "control" downloads/Experiment[012].txt
 ```
 
-4.  \[0-9\] wildcard = matches matches any number exactly one
+4.  `[0-9]` matches any digit, exactly once
 
 ```{bash}
-grep  "control" downloads/Experiment[0-9].txt
+grep "control" downloads/Experiment[0-9].txt
 ```
 
-5.  combining wildcards
+5.  Wildcards can be combined:
 
--   \[A-Z\] wildcard = any letter in capitals occurring once
--   \[a-z\]\* wildcard = any letter in non-capital letters occurring many times
+-   `[A-Z]` matches one capital letter
+-   `[a-z]*` matches one small letter, followed by any characters (`*`)
+-   `[12]` matches a 1 or a 2
 
 ```{bash}
 grep "control" downloads/[A-Z][a-z]*[12].txt
 ```
 
--   \[a-z\]{7} we are exactly looking for 7 letters (as in 'control')
--   these 7 letters should be followed by either a 1 or 2
+Wildcards, also called **globs**, are interpreted by the shell. The shell turns `downloads/*txt` into a list of file names before the command runs.
+
+## Regular expressions: Patterns inside files
+
+The pattern that `grep` (and `sed`) search for inside a file is not a wildcard but a **regular expression** (regex). Some symbols look the same as wildcards but have a different meaning:
+
+| Symbol | As a wildcard (file names) | In a regular expression (file content) |
+|--------|----------------------------|----------------------------------------|
+| `*`    | any characters, any number of times | the character before it, zero or more times |
+| `?`    | exactly one character | the character before it is optional (with `grep -E`) |
+| `.`    | a dot | any single character |
+| `[12]` | a 1 or a 2 | a 1 or a 2 |
+
+Some useful regular expressions:
 
 ```{bash}
+# Lines with exactly 7 small letters followed by a 1 or 2 (e.g. control1)
 grep "[a-z]\{7\}[12]" downloads/Experiment[12].txt
-```
 
-7.  if we are not sure how many characters we have
-
--   matches 3-10 characters
-
-```{bash}
+# Lines with 3 to 10 small letters followed by a 1 or 2
 grep "[a-z]\{3,10\}[12]" downloads/Experiment[12].txt
 ```
 
-If you use grep with special symbols you might notice something:
+By default, grep takes `?`, `+`, `{` and `|` literally. With `-E` (extended regular expressions), grep reads them as special symbols:
 
 ```{bash}
-#this does not work
+# Searches for the literal text "control?", which does not occur in the file
 grep "control?" downloads/Experiment1.txt
 
-#this works how we want it to work
+# With -E, "?" makes the "l" optional: matches "contro" and "control"
 grep -E "control?" downloads/Experiment1.txt
+
+# With -E, we can write {7} without the backslashes
+grep -E "[a-z]{7}[12]" downloads/Experiment[12].txt
 ```
 
--   `-E` tells grep that the '?' is not taken literally but as a wildcard
-
-Unfortunately different programs have slightly ways to do things, i.e greop uses `-E` while sed uses different quotes. If you run into problems when using wildcards check the manual or the web.
+Different programs use slightly different rules for regular expressions. If a pattern does not work as expected, check the manual of the program.
 
 **Exercise**
 
 -   In the faa files, how many sequences do we have? Notice, sequences always start with a `>`
--   In the faa files, how often do we have 3 consecutive A's?
--   In the faa files, how often do we have 2x A's followed by a T?
--   In the faa files, how often do we have 2x M's followed by a T or followed by a D?
+-   In the faa files, how many lines contain 3 consecutive A's?
+-   In the faa files, how many lines contain 2 A's followed by a T?
+-   In the faa files, how many lines contain 2 M's followed by a T or a D?
 
-Comment: If you unsure what is happening remove the `-c` to see what grep is grepping.
+Hint: if you are unsure what is happening, remove the `-c` to see which lines grep finds.
 
 ```{bash}
 #| code-fold: true
 #| code-summary: "Show the code"
 
-#question1:
+# Question 1
 grep -c ">" downloads/*.faa
 
-#question2
-grep -c "[A]\{3\}" downloads/*.faa
+# Question 2
+grep -c "A\{3\}" downloads/*.faa
 
-#question4
-grep -c "[A]\{2\}[T]" downloads/*.faa
+# Question 3
+grep -c "A\{2\}T" downloads/*.faa
 
-#question5
-grep -c  "[A]\{2\}[TC]" downloads/*.faa
+# Question 4
+grep -c "M\{2\}[TD]" downloads/*.faa
 ```
-
-Hint: if you are unsure what is happening, redo the command without the `-c` option
-
 
 
 ## `cat`: Combining data
 
 The cat command has three main functions related to manipulating text files:
 
-1.  Create a new file using cat. To do this type the command below, then type `Hello!` press enter, and \*Press "ctrl+c" to save the file:
+1.  Create a new file using cat. To do this type the command below, then type `Hello!`, press Enter, and press `Ctrl+D` to save the file and get the prompt back:
 
 ```{bash}
 cat > downloads/file_test.txt
@@ -197,10 +204,10 @@ cat downloads/file_test.txt
 3.  Concatenate, i.e. combine, several files:
 
 ```{bash}
-#merge files
-cat downloads/file_test.txt downloads/file_test.txt  > downloads/file_merged.txt
- 
-#check the content of the file
+# Combine two files into one (here: the same file twice)
+cat downloads/file_test.txt downloads/file_test.txt > downloads/file_merged.txt
+
+# Check the content of the new file: Hello! appears twice
 cat downloads/file_merged.txt
 ```
 
@@ -214,13 +221,13 @@ cat downloads/file_merged.txt
 #| code-fold: true
 #| code-summary: "Show the code"
 
-#question1
+# Question 1
 cat downloads/Experiment1.txt
 
-#question3
+# Question 2
 cat downloads/Experiment1.txt downloads/Experiment2.txt
 
-#question3
+# Question 3
 cat downloads/Experiment*.txt > downloads/Experiments.txt
 ```
 
@@ -243,7 +250,7 @@ cat downloads/Experiment[12].txt | wc -l
 #| code-fold: true
 #| code-summary: "Show the code"
 
-#question1
+# Question 1
 cat downloads/*faa | grep -c ">"
 ```
 
@@ -282,14 +289,14 @@ cut -f1 -d "#" downloads/Experiment1.txt
 #| code-fold: true
 #| code-summary: "Show the code"
 
-#question1
+# Question 1
 cut -f1 -d "_" downloads/PF00900.faa | head
 
-#question2
+# Question 2
 cut -f2 -d "_" downloads/PF00900.faa | head
 ```
 
-Be careful when using the second options, as this will cut away the `>` symbol that we need in fasta files to define the header. I.e. fasta headers always should start with this symbol and if we would use such a command we would need the `>` back in/
+Be careful with the second command: it cuts away the `>` symbol. Fasta headers must start with `>`, so after such a command you would need to add the `>` back in.
 
 ## `sort`: Sorting files
 
@@ -349,14 +356,14 @@ Check out the manual for more options!
 #| code-fold: true
 #| code-summary: "Show the code"
 
-#question1
+# Question 1
 cat downloads/*faa | grep -c ">"
 
-#question 2
-cat downloads/*faa | grep ">" | sort | uniq -d | wc -l 
+# Question 2
+cat downloads/*faa | grep ">" | sort | uniq -d | wc -l
 
-#question 3
-cat downloads/*faa | grep ">" | sort | uniq -u | wc -l 
+# Question 3
+cat downloads/*faa | grep ">" | sort | uniq -u | wc -l
 ```
 
 ## `find`: Locate files based on conditions
@@ -364,10 +371,10 @@ cat downloads/*faa | grep ">" | sort | uniq -u | wc -l
 `find` searches through the directories for files and directories with a given name, date, size, or any other attribute you care to specify.
 
 ```{bash}
-#find all files with a txt extension
+# Find all files that end with txt, in downloads and all its subfolders
 find downloads/ -name "*txt"
 
-#find files over a certain size and display results as a long list
+# Find files larger than 1 MB and show them as a long list
 find downloads/ -size +1M -ls
 ```
 
@@ -405,7 +412,7 @@ sed 's/control[0-9]/control/g' downloads/Experiment1.txt
 One important thing to remember is that certain symbols have specific meanings in UNIX. Examples are: comma, brackets, pipes. Do search for these in files, we need to escape them with a `\`. For example, we could replace the square with round brackets as follows:
 
 ```{bash}
-#replace the square bracket with a round bracket. 
+# Replace the square brackets with round brackets
 sed 's/N\[0.4uM\]/N(0.4uM)/g' downloads/Experiment1.txt 
 ```
 
@@ -418,10 +425,10 @@ sed 's/N\[0.4uM\]/N(0.4uM)/g' downloads/Experiment1.txt
 #| code-fold: true
 #| code-summary: "Show the code"
 
-#qst 1
-sed 's/GCA_/Genome_/g'  downloads/PF00900.faa 
+# Question 1
+sed 's/GCA_/Genome_/g'  downloads/PF00900.faa
 
-#qst 2
+# Question 2
 sed 's/GCA_[0-9]*/GCA_hello/g'  downloads/PF00900.faa 
 ```
 
@@ -430,52 +437,53 @@ sed 's/GCA_[0-9]*/GCA_hello/g'  downloads/PF00900.faa
 Sed can also be used to remove things, such as line(s) or patterns. Below is a list of examples that you might encounter or find useful.
 
 ```{bash}
-# remove 1 first line
+# Remove the first line
 sed '1d' downloads/Experiment1.txt
 
-#remove last line
+# Remove the last line
 sed '$d' downloads/Experiment1.txt
 
-#remove lines 2-4
+# Remove lines 2-4
 sed '2,4d' downloads/Experiment1.txt
 
-#remove lines other than 2-4
-sed '2,4!d' downloads/Experiment1.txt 
+# Remove all lines except lines 2-4
+sed '2,4!d' downloads/Experiment1.txt
 
-#remove the first and last line
+# Remove the first and the last line
 sed '1d;$d' downloads/Experiment1.txt
 
-#remove lines beginning with an **L**
+# Remove lines that begin with an L
 sed '/^L/d' downloads/Experiment1.txt
 
-#delete lines ending with d
+# Remove lines that end with a d
 sed '/d$/d' downloads/Experiment1.txt
 
-#delete lines ending with d OR D
+# Remove lines that end with a d or a D
 sed '/[dD]$/d' downloads/Experiment1.txt
 
-#delete blank lines ('^$' indicates lines containing nothing, i.e. lines with zero or more spaces)
+# Remove empty lines ('^$' means: the line ends right after it begins)
 sed '/^$/d' downloads/Experiment1.txt
 
-#delete lines that start with capital letters
+# Remove lines that begin with a capital letter
 sed '/^[A-Z]/d' downloads/Experiment1.txt
 
-#delete lines with the pattern **Ex**
+# Remove lines that contain the pattern Ex
 sed '/Ex/d' downloads/Experiment1.txt
 
-#delete files with the pattern control or uM
+# Remove lines that contain the pattern control or uM
+# (\| for "or" works in GNU sed, as on Linux and Crunchomics, but not in the default sed on a Mac)
 sed '/control\|uM/d' downloads/Experiment1.txt
 
-#delete the 2nd occurence of each pattern per line (here *o*)
+# Remove the 2nd o in each line
 sed 's/o//2' downloads/Experiment1.txt
 
-#remove all digits across the whole file
+# Remove all digits
 sed 's/[0-9]//g' downloads/Experiment1.txt
 
-#remove all alpha-numerical characters and numbers
+# Remove all letters and digits
 sed 's/[a-zA-Z0-9]//g' downloads/Experiment1.txt
 
-#remove character, here E, regardless of the case
+# Remove the letter e, both small and capital
 sed 's/[eE]//g' downloads/Experiment1.txt
 ```
 
@@ -491,12 +499,12 @@ We start a screen as follows:
 screen
 ```
 
-We detach, i.e. exit, from a screen with `control+a+d`.
+We detach from a screen (leave it, while it keeps running) with `Ctrl+A`, followed by `D`.
 
 If you run multiple things, it can be useful to give your screens more descriptive names. You can do this as follows:
 
 ```{bash}
-#start a screen and give it a name
+# Start a screen and give it a name
 screen -S testrun
 ```
 
@@ -509,7 +517,7 @@ screen -ls
 You can restart a screen like this:
 
 ```{bash}
-#restart an existing screen
+# Go back into an existing screen
 screen -r testrun
 ```
 
@@ -525,14 +533,15 @@ exit
 
 Before talking about loops, lets learn another command first, echo. echo displays a line of text that can be printed to the screen or stored in a file (why this is useful you see in a second):
 
-Both echo and printf print something into the console. However, echo uses different versions across shells, so you might get slighly different outputs depending on the shell you use. Printf is more portable and allows for more formatting options. You might encounter both when finding code in the wild.
+Both echo and printf print something to the terminal. However, echo works slightly differently across shells, so you might get slightly different outputs depending on the shell you use. Printf is more portable and allows for more formatting options. You might encounter both when finding code in the wild.
 
 ```{bash}
-#print a string to the console using echo
+# Print a line of text using echo
 echo "Hello everyone"
 
-#print a string to the console using printf
-printf "Hello everyone"
+# Print a line of text using printf
+# printf does not add a new line at the end by itself, so we add one with \n
+printf "Hello everyone\n"
 ```
 
 ### For-loops
@@ -553,10 +562,10 @@ Here, you see what this command does step by step:
 
 </p>
 
-We could also use a loop to run sed on all our txt files. For example assume that instead of nitrogen (N) we measured sulfur (s) we could replace it among all text files as follows:
+We could also use a loop to run sed on all our txt files. For example, assume that instead of nitrogen (N) we measured sulfur (S). We could replace it in all text files as follows:
 
 ```{bash}
-#change the N for  P in all our files
+# Replace N with S in all txt files and print the result to the screen
 for i in downloads/*txt; do sed 's/N/S/g' $i; done
 ```
 
@@ -571,8 +580,8 @@ If we want to store the output in new files, we could store them with a slightly
 ```{bash}
 for i in downloads/*txt; do sed 's/N/S/g' $i > ${i}_2.txt; done
 
-#check that all went alright with 
-ll downloads/*txt
+# Check that the new files were created
+ls -l downloads/*txt
 ```
 
 You see here, that we added curly brackets to define the borders of our variable i. I.e. if we would not have the brackets unix would look for a variable i_2, which does not exist.
@@ -582,9 +591,9 @@ You will also see that the name of the output file is not ideal, i.e. it is some
 To do this let's use printf to generate a `FileList` in which list the the two files we want to work with: Experiment1 and Experiment2. We do this using printf and `\n`, which is a special character we can use to separate Experiment1 and Experiment using a new line.
 
 ```{bash}
-printf "Experiment1\nExperiment2" > downloads/FileList
+printf "Experiment1\nExperiment2\n" > downloads/FileList
 
-#view file
+# Check the file: we expect 2 lines
 head downloads/FileList
 ```
 
@@ -593,8 +602,8 @@ Now we can use this file to run our loop.
 ```{bash}
 for i in `cat downloads/FileList`; do sed 's/N/S/g' downloads/${i}.txt > downloads/${i}_2.txt; done
 
-#check that all went alright with 
-ll downloads/*txt
+# Check that the new files were created
+ls -l downloads/*txt
 ```
 
 Notice, that using this option we need to add the file extension! However, the resulting filenames, i.e. downloads/Experiment2_2.txt, are much cleaner.
@@ -608,13 +617,16 @@ Notice, that using this option we need to add the file extension! However, the r
 #| code-fold: true
 #| code-summary: "Show the code"
 
-#question1
+# Question 1
 ls downloads/*faa | sed 's/downloads\///g' | sed 's/\.faa//g' > downloads/FaaList
 
-#question2
+# Check the list: we expect 2 lines, PF00900 and PF01015
+cat downloads/FaaList
+
+# Question 2
 for sample in `cat downloads/FaaList`; do sed 's/GCA_/Genome_/g' downloads/${sample}.faa > downloads/${sample}_renamed.faa; done
 
-#check file
+# Check one of the new files
 head downloads/PF00900_renamed.faa
 ```
 
@@ -633,31 +645,34 @@ echo $HOME
 You can use this variables in commands, for example you can use it together with `cd` to move into your home directory:
 
 ```{bash}
-cd $home
+cd $HOME
 ```
 
-You can easily make your own variables and use them to store file name, paths or what ever you want. Let's store a number in a variable:
+You can easily make your own variables and use them to store file names, paths or whatever you want. Let's store a number in a variable. Notice that there are no spaces around the `=`:
 
 ```{bash}
 MY_NUMBER=10
-```
 
-When using the `export` command this lets the system know that this variable is for everyone, not just the current session.
-
-Lets see if this worked:
-
-```{bash}
+# Check that this worked
 echo "My math number: $MY_NUMBER"
 ```
 
-Once you have this, you can use it for any command that you want.
-
-## Accesss rights
-
-Each file (and directory) has associated access rights, which may be found by typing `ls -l`. Additionally, `ls -lg` gives additional information as to which group owns the file
+A variable made like this only exists in your current shell. Programs and scripts that you start from this shell can't see it. If they need the variable, use `export`:
 
 ```{bash}
-ls -lg downloads/Experiment1.txt 
+export MY_NUMBER=10
+```
+
+Both kinds of variables are gone when you close the terminal.
+
+Once you have this, you can use it for any command that you want.
+
+## Access rights
+
+Each file (and directory) has associated access rights, which you can see with `ls -l`. `ls -l` also shows the owner and the group of each file. `ls -lg` hides the owner and only shows the group:
+
+```{bash}
+ls -lg downloads/Experiment1.txt
 ```
 
 `-rw-r--r--  1 staff   156B Sep 28  2019 downloads/Experiment1.txt`
@@ -700,9 +715,10 @@ r = read\
 w = write (and delete)\
 x = execute (and access directory)\
 + = add permission\
-- = take away permission
+- = take away permission\
+= = set exactly these permissions (and remove all others)
 
-For example, to add read write and execute permissions on the file example.txt for the group (i.e g), type:
+For example, to give the group (i.e. g) read, write and execute permissions on the file example.txt, type:
 
 ```{bash}
 chmod g=rwx example.txt 
@@ -737,7 +753,8 @@ Sometimes when saving excel documents as text this insert hidden symbols. These 
 This symbol can be removed as follows in vim:
 
 ```{bash}
-:%s/\r/\r/g   to remove blue M
+# Type this in vim (not in the terminal) to remove the blue M
+:%s/\r//g
 ```
 
 2.  wrong file types
@@ -747,10 +764,10 @@ Files created on WINDOWS systems are not always compatible with UNIX. In case th
 If we see we are dealing with a dos file, we can clean files like this:
 
 ```{bash}
-#dos to unix
+# Windows (DOS) to Unix
 awk '{ sub("\r$", ""); print }' winfile.txt > unixfile.txt
 
-#unix to dos
+# Unix to Windows (DOS)
 awk 'sub("$", "\r")' unixfile.txt > winfile.txt
 
 ```

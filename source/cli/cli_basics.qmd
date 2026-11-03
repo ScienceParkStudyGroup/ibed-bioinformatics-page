@@ -53,26 +53,20 @@ This might look a bit different for your system in terms of color and file/folde
 
 ## General structure of a Unix command
 
-Next, let's go into how commands, like `ls` can be used a bit more precisely. Let´s start with looking at the general structure of a command:
+Next, let's look at how commands like `ls` are built. A command generally has three parts:
 
 **command \[options\] \[arguments\]**
 
--   command is the name of the command you want to use, i.e. `ls` would be an example for a very basic Unix command
--   arguments is one or more adjustments to the command's behavior. I.e. for `ls` we could use the following arguments
-    -   Short notation: `-a`
-    -   Long notation: `—all`
-
-Let's explore more about how to use this arguments in the next section.
+-   A **command name**: the program you want to run, e.g. `ls`
+-   An **option** (or **flag**): a way to change how the command behaves. Options usually start with a `-`. Many options have a short and a long form, e.g. `ls -a` and `ls --all` both also show hidden files
+-   An **argument**: the input the command works on, e.g. a file or folder. Some commands work without an argument
 
 ## `ls`: Viewing the content of a folder
 
-Let's look a bit closer into the `ls` command and use it with an argument `-l`.
-
-As a reminder:
+Let's look a bit closer into the `ls` command and use it with the option `-l`:
 
 -   `ls` stands for list directory contents
--   everything starting with a minus symbol is an optional argument we can use
--   `-l` is an additional argument we can use that makes ls use a long listing format
+-   `-l` makes `ls` use a long listing format
 
 ```{bash}
 ls -l
@@ -94,11 +88,11 @@ man ls
 
 You can exit the manual by pressing `q`.
 
-In case you want to check what a program does or what options there are, depending on the program there might be different ways how to do this. These most common ways are:
+Not all programs come with a manual. Depending on the program, there are a few common ways to get help that you can try:
 
 -   `man ls`
 -   `ls --help`
--   `ls -h`
+-   `-h`, e.g. `seqkit -h`. Be careful: for some commands `-h` means something else. For `ls`, `-h` prints file sizes in a human-readable format (e.g. `ls -lh`)
 
 ## `cd`: Moving around folders
 
@@ -147,10 +141,13 @@ A relative pathname starts from the directory you are currently in and you trave
 -   `.` (dot) The working directory itself
 -   `..` (dot dot) Refers to the working directory's parent directory
 
-If we want to go to the source directory using an relative path we do the following (again change this to whatever folder you see when using ls):
+If we are in our home directory, `/Users/username`, we can go to the Desktop using a relative path as follows:
 
 ```{bash}
 cd Desktop
+
+# Go back up one level, into the home directory
+cd ..
 ```
 
 ## `mkdir`: Making new folders
@@ -160,16 +157,16 @@ Now that we know how to explore our surroundings, let us make a new folder in wh
 To do this, we will first move into our home directory and create a new folder from which we later run all further commands
 
 ```{bash}
-#go into the folder from which you want to work (i.e. the home directory)
+# Go into the folder from which you want to work (here: the home directory)
 cd ~
 
-#make a new folder (in the directory we currently are in, name it new_older)
+# Make a new folder called playground inside the current folder
 mkdir playground
 
-#check if new folder was generated
+# Check that the folder was created
 ls
 
-#next we move into the newly generated folder
+# Move into the new folder
 cd playground
 ```
 
@@ -184,10 +181,10 @@ Ensure that you run the following steps while being in the `playground` folder y
 Now, let's make some files of our own using `nano`. Nano is a basic text editor that lets us view and generate text.
 
 ```{bash}
-#ensure that we work in the right folder
+# Check that we are in the playground folder
 pwd
 
-#open a new document and name it random.txt
+# Open a new file called random.txt
 nano random.txt
 ```
 
@@ -247,20 +244,20 @@ By using some special notations we can redirect the output of many commands to f
 By default, standard output directs its contents to the display, i.e. when we use `ls` the list of files and folders is printed to the screen. However, we can also redirect the standard output to a file by using `>` character is used like this:
 
 ```{bash}
-#redirect the output from ls to a new file
+# Write the output of ls into a new file instead of to the screen
 ls -l > file_list.txt
 
-#check what happened (feel free to also use the other methods we have discussed)
-nano file_list.txt
+# Check the content of the new file
+head file_list.txt
 ```
 
-If we would use `ls -l > file_list.txt` again we would overwrite the content of any existing files. However, there might be instances were we want to append something to an existing file. We can do this by using `>>`:
+If we use `ls -l > file_list.txt` again, we overwrite the content of the existing file. If we want to add something to the end of an existing file, we use `>>`:
 
 ```{bash}
 ls -l >> file_list.txt
 
-#check what happened
-nano file_list.txt
+# Check the content: the ls output now appears twice
+cat file_list.txt
 ```
 
 ## `cp` and `mv`: Copying and moving files
@@ -271,18 +268,24 @@ Next, let's move the text file we generated before around. To do this, we mainly
 -   `mv` - move or rename files and directories
 
 ```{bash}
-#make a new folder
+# Make a new folder
 mkdir our_files
 
-#copy our random file into our new folder
+# Copy random.txt into the new folder
 cp random.txt our_files
+
+# Check: random.txt is now in both folders
+ls . our_files
 ```
 
 If we check the content of our working directory and the newly generated folder after doing this, we should see that random.txt exists now twice. Once in our working directory and once in the our_files folder. If we want to move a file, instead of copying, we can do the following:
 
 ```{bash}
-#copy our random file into our new_folder
+# Move random.txt into the our_files folder
 mv random.txt our_files
+
+# Check: random.txt is now only in our_files
+ls . our_files
 ```
 
 Now, random.txt should only exist once in the our_files folder.
@@ -292,10 +295,10 @@ Now, random.txt should only exist once in the our_files folder.
 To remove files and folders, we use the `rm` command. Let's first remove the text file we generated:
 
 ```{bash}
-#rm a file
+# Remove a file
 rm our_files/random.txt
 
-#check if that worked
+# Check that the file is gone
 ls -l our_files
 ```
 
@@ -310,10 +313,10 @@ So use rm with care and check what you wrote twice before pressing enter!
 :::
 
 ```{bash}
-#rm a directory
+# Remove a folder and everything inside it
 rm -r our_files
 
-#check if that worked 
+# Check that the folder is gone
 ls -l
 ```
 
@@ -322,11 +325,14 @@ ls -l
 Next, let's download some data to learn how to manipulate files. One way to do this is using the `wget`. With `-P` we specify were to download the data:
 
 ```{bash}
-#make a folder for our downloads
+# Make a folder for our downloads
 mkdir downloads
 
-#download a genome from ncbi using wget
+# Download a genome from NCBI into the downloads folder
 wget -P downloads ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/002/728/275/GCA_002728275.1_ASM272827v1/GCA_002728275.1_ASM272827v1_genomic.fna.gz
+
+# Check that the file is there and see its size
+ls -lh downloads
 ```
 
 ## `gzip`: Compressing files
@@ -338,15 +344,21 @@ After downloading and exploring the content of the downloads folder, you see tha
 In order to work with files, we sometimes need to de-compress them first. We can do this as follows (by using the decompress, `-d` argument):
 
 ```{bash}
-#decompress gz data (-d = decompress)
+# Decompress the file (-d = decompress)
 gzip -d downloads/GCA_002728275.1_ASM272827v1_genomic.fna.gz
+
+# Check: the file lost its .gz extension and is larger now
+ls -lh downloads
 ```
 
 Conversely, if you want to compress a file, you can do this as such:
 
 ```{bash}
-#compress
+# Compress the file
 gzip downloads/GCA_002728275.1_ASM272827v1_genomic.fna
+
+# Check: the file has its .gz extension back
+ls -lh downloads
 ```
 
 ### `tar`: Making a tarball
@@ -360,23 +372,23 @@ Another file compression you might encounter is tar:
 Let's try to make a compressed tarball with the file we just downloaded.
 
 ```{bash}
-#decompress gz data
+# Decompress the genome
 gzip -d downloads/GCA_002728275.1_ASM272827v1_genomic.fna.gz
 
-#create a tar file, to_compress.tar.gz, from our downloads directory
+# Create a compressed tar file, to_compress.tar.gz, from the downloads folder
 tar -cvzf to_compress.tar.gz downloads
 ```
 
 If we print the content of our working directory with `ls` we now see an additional file, `to_compress.tar.gz`. We can uncompress this file into a new folder as follows:
 
 ```{bash}
-#make a folder into with to compress the data
-mkdir to_compress 
+# Make a folder to extract the data into
+mkdir to_compress
 
-#decompress
+# Extract the tar file into the to_compress folder
 tar -xvf to_compress.tar.gz -C to_compress
 
-#check what happened
+# Check what happened
 ls to_compress
 ```
 

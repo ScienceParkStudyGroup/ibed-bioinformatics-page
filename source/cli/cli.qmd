@@ -11,8 +11,17 @@ engine: knitr
 
 In this section you will find documentation on how to use the Unix command-line interface Bash.
 
-The Linux command-line interface (**CLI**) is an alternative to a graphical user interface (**GUI**) with which you are likely more familiar. Both interfaces allow a user to interact with an operating system. The key difference between the CLI and GUI is that the interaction with CLI is based on issuing commands. In contrast, the interaction with a GUI involves visual elements, such as windows, buttons, etc. CLI is often also referred to as the shell, terminal, console, prompt or various other names
+The **command-line interface (CLI)** is an alternative to the **graphical user interface (GUI)** that you probably know better. Both let you work with your computer, but in different ways:
 
-**Bash** is a type of interpreter that processes shell commands. A shell interpreter takes commands in plain text format and calls the operating system to do something, for example changing a directory or modifying the content of some files. Bash itself stands for Bourne Again Shell and it is one of the popular command-line shells used to run other programs, many of which are useful for bioinformatic workflows.
+-   In a GUI, you click on buttons, open folders and use menus.
+-   In the CLI, you type text to give **commands** (instructions to the computer), and you see the result as text.
+
+When people talk about the CLI, you will hear the words terminal, shell and prompt. They are related, but they are not the same:
+
+-   The **terminal** is the window in which you type commands. It is sometimes also called a **console**.
+-   The **shell** is the program that reads the commands you type in the terminal and tells the operating system what to do. There are several shells, for example **bash** (short for Bourne Again Shell) and **zsh**. They use slightly different rules, but the basic commands are the same. These pages use bash.
+-   The **prompt** is the text that the shell shows when it is ready for your next command. It often shows your user name, the name of your computer and the folder you are in. It usually ends with a `$` sign, for example `user@laptop:~$`.
+
+These pages are a reference: they list the key commands, including more complex ones, with short examples. If you have never used the command line before, start with the [Getting started with bash and an HPC](https://ndombrowski.github.io/cli_workshop/) tutorial, which explains each step in more detail.
 
 
