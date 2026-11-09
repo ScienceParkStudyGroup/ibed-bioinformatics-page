@@ -1483,19 +1483,25 @@ div.csl-indent {
 <span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ABU82216 results/kos/temp1</span>
 <span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 4.add in an extra column that lists whether hits have a high confidence score</span></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span>  <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{ if ($4 &gt; $5){ $7="high_score" }else{ $7="-" } print } '</span> results/kos/temp1 <span class="op">&gt;</span> results/kos/temp2</span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="co"># sanity check: This hit is very likely true because the bitscore is sufficiently high</span></span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ABU82216 results/kos/temp2</span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="co"># 6.add header</span></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"accession\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence"</span> <span class="kw">|</span> <span class="fu">cat</span> <span class="at">-</span> results/kos/temp3 <span class="op">&gt;</span> results/kos/KO_hmm.tsv</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="co"># KOs without a custom threshold in the ko_list get "no_threshold"</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="st">    if ($5 == "-") { $7 = "no_threshold" }</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="st">    else if ($4 &gt; $5) { $7 = "high_score" }</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="st">    else { $7 = "-" }</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="st">    print</span></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span> results/kos/temp1 <span class="op">&gt;</span> results/kos/temp2</span>
 <span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="co"># sanity check</span></span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ABU82216 results/kos/KO_hmm.tsv</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="co"># sanity check: This hit is very likely true because the bitscore is sufficiently high</span></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ABU82216 results/kos/temp2</span>
 <span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="co"># cleanup </span></span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> results/kos/temp<span class="pp">*</span>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="co"># 5.add header</span></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"accession\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence"</span> <span class="kw">|</span> <span class="fu">cat</span> <span class="at">-</span> results/kos/temp2 <span class="op">&gt;</span> results/kos/KO_hmm.tsv</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a><span class="co"># sanity check</span></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> ABU82216 results/kos/KO_hmm.tsv</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="co"># cleanup </span></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> results/kos/temp<span class="pp">*</span>  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Tip: What does the 1st command do">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
@@ -1617,18 +1623,23 @@ div.csl-indent {
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span>  <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{ if ($4 &gt; $5){ $7="high_score" }else{ $7="-" } print } '</span> results/kos/temp1 <span class="op">&gt;</span> results/kos/temp2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="at">-F</span><span class="st">'\t'</span> <span class="at">-v</span> OFS=<span class="st">'\t'</span> <span class="st">'{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="st">    if ($5 == "-") { $7 = "no_threshold" }</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="st">    else if ($4 &gt; $5) { $7 = "high_score" }</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="st">    else { $7 = "-" }</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="st">    print</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span> results/kos/temp1 <span class="op">&gt;</span> results/kos/temp2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ol type="1">
-<li><code>awk -v OFS='\t'</code>: This invokes the AWK programming language interpreter and sets the Output Field Separator (OFS) to tab (<code>\t</code>).</li>
-<li><code>'{ if ($4 &gt; $5){ $7="high_score" }else{ $7="-" } print }'</code>: This is the AWK script enclosed within single quotes. Let’s break it down:
+<li><code>awk -F'\t' -v OFS='\t'</code>: This runs AWK. <code>-F'\t'</code> tells AWK that the input columns are separated by tabs. The descriptions in the current ko_list use underscores instead of spaces, so the command also works without <code>-F'\t'</code>. With it, the command stays correct if a description ever contains spaces. <code>-v OFS='\t'</code> makes AWK write the output with tabs.</li>
+<li>The AWK script checks each line in three steps:
 <ul>
-<li><code>if ($4 &gt; $5)</code>: This is an if condition that checks if the value in the fourth field (<code>$4</code>) is greater than the value in the fifth field (<code>$5</code>).</li>
-<li><code>{ $7="high_score" }</code>: If the condition is true, it sets the value of the seventh field (<code>$7</code>) to “high_score”.</li>
-<li><code>else { $7="-" }</code>: If the condition is false, it sets the value of the seventh field (<code>$7</code>) to “-”.</li>
-<li><code>print</code>: This command prints the modified line.</li>
+<li><code>if ($5 == "-")</code>: Some KOs have no custom score threshold in the ko_list. Column 5 then holds a <code>-</code>. These lines get <code>no_threshold</code> in column 7. Without this check, AWK compares the score to the text <code>-</code> and marks every such line as <code>high_score</code>.</li>
+<li><code>else if ($4 &gt; $5)</code>: The bitscore in column 4 is above the threshold in column 5. The line gets <code>high_score</code> in column 7.</li>
+<li><code>else</code>: The bitscore is at or below the threshold. The line gets <code>-</code> in column 7.</li>
+<li><code>print</code>: This prints the changed line.</li>
 </ul></li>
-<li><code>'results/kos/temp1 &gt; results/kos/temp2'</code>: This redirects the output of the AWK command to a new file named <code>temp2</code> in the <code>results/kos/</code> directory. So, in summary, this AWK command processes each line of the file <code>temp1</code>. If the value in the fourth field is greater than the value in the fifth field, it sets the seventh field to “high_score”; otherwise, it sets the seventh field to “-”. The modified content is then saved to a new file named <code>temp2</code> in the <code>results/kos/</code> directory.</li>
+<li><code>results/kos/temp1 &gt; results/kos/temp2</code>: AWK reads <code>temp1</code> and writes the result to <code>temp2</code>.</li>
 </ol>
 </div>
 </div>
@@ -1646,7 +1657,7 @@ div.csl-indent {
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"accession\tBinID\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence"</span> <span class="kw">|</span> <span class="fu">cat</span> <span class="at">-</span> results/kos/temp3 <span class="op">&gt;</span> results/kos/KO_hmm.tsv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"accession\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence"</span> <span class="kw">|</span> <span class="fu">cat</span> <span class="at">-</span> results/kos/temp2 <span class="op">&gt;</span> results/kos/KO_hmm.tsv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This command concatenates the specified header line with the contents of the file <code>temp2</code> located in the <code>results/kos/</code> directory and saves the combined output to a new file named <code>KO_hmm.tsv</code> in the same directory. Let’s break it down:</p>
 <ol type="1">
@@ -2144,7 +2155,7 @@ Eddy, Sean R. 2011. <span>“Accelerated Profile HMM Searches.”</span> Edited 
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-03-24</p>
+Last modified: 2026-11-09</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/hmmer.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

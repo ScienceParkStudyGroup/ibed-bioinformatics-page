@@ -13,3 +13,4 @@ to_compress
 **/*.quarto_ipynb
 
 CLAUDE.md
+_tests/

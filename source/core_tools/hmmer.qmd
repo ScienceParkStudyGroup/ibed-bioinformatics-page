@@ -274,13 +274,19 @@ LC_ALL=C join -a1 -1 2 -2 1 -e'-' -t $'\t' -o1.1,1.2,1.3,1.4,2.2,2.12 <(LC_ALL=C
 grep ABU82216 results/kos/temp1
 
 # 4.add in an extra column that lists whether hits have a high confidence score
-awk  -v OFS='\t' '{ if ($4 > $5){ $7="high_score" }else{ $7="-" } print } ' results/kos/temp1 > results/kos/temp2
+# KOs without a custom threshold in the ko_list get "no_threshold"
+awk -F'\t' -v OFS='\t' '{
+    if ($5 == "-") { $7 = "no_threshold" }
+    else if ($4 > $5) { $7 = "high_score" }
+    else { $7 = "-" }
+    print
+}' results/kos/temp1 > results/kos/temp2
 
 # sanity check: This hit is very likely true because the bitscore is sufficiently high
 grep ABU82216 results/kos/temp2
 
-# 6.add header
-echo -e "accession\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence" | cat - results/kos/temp3 > results/kos/KO_hmm.tsv
+# 5.add header
+echo -e "accession\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence" | cat - results/kos/temp2 > results/kos/KO_hmm.tsv
 
 # sanity check
 grep ABU82216 results/kos/KO_hmm.tsv
@@ -354,21 +360,26 @@ So, in summary, this command sequence sorts two files, performs a join operation
 
 ::: {.callout-tip title="Tip: What does the 4th command do" collapse="true"}
 ```{bash}
-awk  -v OFS='\t' '{ if ($4 > $5){ $7="high_score" }else{ $7="-" } print } ' results/kos/temp1 > results/kos/temp2
+awk -F'\t' -v OFS='\t' '{
+    if ($5 == "-") { $7 = "no_threshold" }
+    else if ($4 > $5) { $7 = "high_score" }
+    else { $7 = "-" }
+    print
+}' results/kos/temp1 > results/kos/temp2
 ```
 
-1.  `awk -v OFS='\t'`: This invokes the AWK programming language interpreter and sets the Output Field Separator (OFS) to tab (`\t`).
-2.  `'{ if ($4 > $5){ $7="high_score" }else{ $7="-" } print }'`: This is the AWK script enclosed within single quotes. Let's break it down:
-    -   `if ($4 > $5)`: This is an if condition that checks if the value in the fourth field (`$4`) is greater than the value in the fifth field (`$5`).
-    -   `{ $7="high_score" }`: If the condition is true, it sets the value of the seventh field (`$7`) to "high_score".
-    -   `else { $7="-" }`: If the condition is false, it sets the value of the seventh field (`$7`) to "-".
-    -   `print`: This command prints the modified line.
-3.  `'results/kos/temp1 > results/kos/temp2'`: This redirects the output of the AWK command to a new file named `temp2` in the `results/kos/` directory. So, in summary, this AWK command processes each line of the file `temp1`. If the value in the fourth field is greater than the value in the fifth field, it sets the seventh field to "high_score"; otherwise, it sets the seventh field to "-". The modified content is then saved to a new file named `temp2` in the `results/kos/` directory.
+1.  `awk -F'\t' -v OFS='\t'`: This runs AWK. `-F'\t'` tells AWK that the input columns are separated by tabs. The descriptions in the current ko_list use underscores instead of spaces, so the command also works without `-F'\t'`. With it, the command stays correct if a description ever contains spaces. `-v OFS='\t'` makes AWK write the output with tabs.
+2.  The AWK script checks each line in three steps:
+    -   `if ($5 == "-")`: Some KOs have no custom score threshold in the ko_list. Column 5 then holds a `-`. These lines get `no_threshold` in column 7. Without this check, AWK compares the score to the text `-` and marks every such line as `high_score`.
+    -   `else if ($4 > $5)`: The bitscore in column 4 is above the threshold in column 5. The line gets `high_score` in column 7.
+    -   `else`: The bitscore is at or below the threshold. The line gets `-` in column 7.
+    -   `print`: This prints the changed line.
+3.  `results/kos/temp1 > results/kos/temp2`: AWK reads `temp1` and writes the result to `temp2`.
 :::
 
 ::: {.callout-tip title="Tip: What does the 5th command do" collapse="true"}
 ```{bash}
-echo -e "accession\tBinID\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence" | cat - results/kos/temp3 > results/kos/KO_hmm.tsv
+echo -e "accession\tKO_hmm\tKO_e_value\tKO_bit_score\tKO_bit_score_cutoff\tKO_Definition\tKO_confidence" | cat - results/kos/temp2 > results/kos/KO_hmm.tsv
 ```
 
 This command concatenates the specified header line with the contents of the file `temp2` located in the `results/kos/` directory and saves the combined output to a new file named `KO_hmm.tsv` in the same directory. Let's break it down:
