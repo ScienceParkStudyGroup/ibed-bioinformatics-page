@@ -10,7 +10,7 @@ toc-depth: 4
 
 <div style="text-align: justify">
 
-# File verifications in bash
+# Checking files in bash scripts
 
 In job scripts you sometimes want to check whether a file exists and only run an action if it doesn't exist. For example you might want to run a quality cleaning step on multiple files on an HPC. Here, you might want to skip the cleaning step if the output file already exists to avoid re-running computationally costly tasks. Or you might want to generate a clear error message if an input file is missing for easier troubleshooting.
 
@@ -128,6 +128,8 @@ empty_file
 
 Note: in a real script, the else branch would rerun the tool that generates the file. Here we use touch as a placeholder, which creates again an empty file and  the check would trigger again on the next run.
 
+**Watch out with compressed files.** `-s` only checks that a file is bigger than 0 bytes. Even a `.gz` file without any reads is about 20 bytes, so `-s` is true for it, see [Why not just `-s`?](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html#why-not-just--s).
+
 
 ## Combining checks
 
@@ -211,6 +213,10 @@ Processing s4
 Running cleaning step and generating s4.cleaned.fastq
 ```
 
+This `-s` check on the output file is fine to learn the idea. In a real job script, it can skip a sample whose output is broken. Use a marker file instead, see [Skip finished samples safely](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html).
+
+This page uses `for ID in $(cat samples)`, because the sample list has one ID per line. The [for-loops tutorial](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-for-loops.html) also teaches you how to use a `while` loop, which you need when your list has more than one column, for example a sample ID and a file path. Regardless of how you write the loop: if your sample list comes from Excel or Windows, check it for Windows line endings first, see [Handling DOS file format issues](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-for-loops.html#handling-dos-file-format-issues).
+
 
 ### `break`: Stopping a loop if something is wrong
 
@@ -264,7 +270,9 @@ So the loop now stops when the one of the S2 files is missing.
 
 ### `exit 1`: Stopping a script if something is wrong
 
-**Important for longer scripts**: break stops the loop but does not stop the script. Any commands written after the done keyword will still be executed, even if break was triggered. To stop the entire script after break, add an exit 1 immediately after the error message. The 1 signals to the system that the script ended due to an error (exit code 0 means success):
+**Important for longer scripts**: break stops the loop but does not stop the script. Any commands written after the done keyword will still be executed, even if break was triggered. To stop the entire script, use `exit 1` instead of `break`. The 1 signals to the system that the script ended due to an error (exit code 0 means success).
+
+`exit` ends the whole shell that runs it. If you paste the loop below into your terminal, `exit` closes your terminal. So save it in a file instead, for example with `nano stop_test.sh`:
 
 ```{bash}
 for ID in $(cat samples); do
@@ -285,7 +293,14 @@ done
 echo -e "\nScript finished" # This line is never reached because exit 1 stops the script
 ```
 
-You now will see:
+Then run the script with `bash`. `$?` holds the exit code of the last command, here the script. `echo "exit code: $?"` prints it, with "exit code:" as a label in front:
+
+```{bash}
+bash stop_test.sh
+echo "exit code: $?"
+```
+
+For me this prints:
 
 ```
 Processing s1
@@ -295,10 +310,60 @@ Both input files exist and are non-empty. Running assembly for s1
 Processing s2
 ---------------
 ERROR: s2_forward_cleaned.fastq or s2_reverse_cleaned.fastq is missing or empty. Stopping pipeline.
-logout
+exit code: 1
 ```
 
-If run interactively on your computer you can press enter to restart the terminal. The logout line is produced by the terminal itself when the shell session ends and is not part of the script output. In a SLURM job script, exit 1 will not produce logout or the exit code message. Instead, the script will simply stop, and the job will appear as FAILED when checked with sacct or squeue. The error message printed by echo will appear in the SLURM error file.
+"Script finished" is never printed, and the exit code is 1.
+
+In a SLURM job script, the job stops at `exit 1` and SLURM marks it as failed. You can check this with `sacct`: the `State` column shows `FAILED` instead of `COMPLETED`. For how to use `sacct`, see [this section](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/cli/slurm_basics.html#sacct-checking-what-a-job-used). The message from `echo` ends up in the SLURM output file, because `echo` writes to the normal output. By default, SLURM writes normal output and error messages to the same file. If your job script sets a separate error file with `#SBATCH --error`, you can send the message there instead: add `>&2` at the end of the `echo` line.
+
+#### Which exit code to use
+
+| Line in the script | Meaning | What SLURM sees |
+|---|---|---|
+| `exit 0` | Stop here, all is fine. For example: in a job script for one sample, the output of that sample already exists | success |
+| `exit 1` | Stop here, something went wrong | failure |
+| no `exit` | The script ends after its last line, with the exit code of that line | depends on the last line |
+
+Any number other than 0 means failure. For example, `127` means that bash could not find the command or the script you asked it to run.
+
+The last row is the tricky one. Save these two scripts as `exit_1.sh` and `no_exit.sh`, for example with `nano`. `ls` stands in for a real tool: like a tool, it fails when its input file is missing. `||` between two commands means: run the second command only if the first one fails.
+
+```{bash}
+# exit_1.sh
+ls s2_forward_cleaned.fastq || exit 1
+echo "Done"
+```
+
+```{bash}
+# no_exit.sh
+ls s2_forward_cleaned.fastq
+echo "Done"
+```
+
+Run both with `bash` and print the exit codes. `echo -e` with `\n` at the end adds an empty line, so the output of the two scripts is easier to tell apart:
+
+```{bash}
+bash exit_1.sh
+echo -e "exit code: $?\n"
+bash no_exit.sh
+echo -e "exit code: $?\n"
+```
+
+This prints:
+
+```
+ls: cannot access 's2_forward_cleaned.fastq': No such file or directory
+exit code: 1
+
+ls: cannot access 's2_forward_cleaned.fastq': No such file or directory
+Done
+exit code: 0
+```
+
+Both scripts show the same error. But `no_exit.sh` goes on, prints "Done", and ends with exit code 0, because its last line worked. In a job, SLURM would report this job as successful, and you would only find the error by reading the log files.
+
+`exit` always stops the whole script, also `exit 0`. So inside a loop over samples, don't use `exit 0` to skip a sample that is already done: the samples after it never run, and you get no error. To skip one sample and go on with the next, use `continue` or if/else (see below). In a SLURM [job array](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/cli/slurm_basics.html#arrays-running-the-same-job-for-many-samples), this is different: each task runs the script for one sample only, so there `exit 0` ends just that one task, which is what you want.
 
 
 ### `continue` keyword
@@ -395,7 +460,7 @@ Both input files exist and are non-empty. Running assembly for s4
 
 Now we see that nothing is done for S2, exactly what we want. 
 
-**Important:** if you use this inside a SLURM script, the error message should be captured in the SLURM error file. Make sure to always read these files to catch any issues with your script.
+**Important:** if you use this inside a SLURM script, the error message ends up in the SLURM output file (see the `exit 1` section above). Make sure to always read the SLURM log files to catch any issues with your script.
 
 **Alternative approach**: The same behavior can be written using if/else, which makes both the error and the action branch explicitly visible. This can be easier to read when the loop body is long or when sharing code with others who are less familiar with continue.
 
@@ -416,24 +481,25 @@ done
 ```
 
 
-## Summary 
+## Skipping samples that already finished
+
+The checks on this page look at input files. If you want a job script that you can submit again, and that skips the samples that already finished, the check has to decide whether a sample is done. That is harder than it looks. For example, `-s` is true for a `.gz` file without reads, and for a file that was cut off halfway.
+
+[Skip finished samples safely](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html) gives you a template to copy into your job scripts. It also shows how to test a check with broken files, and how to check the outputs after a job.
+
+
+## Summary
 
 Now you learned how to design code to more explicitly handle missing input files:
 
 - Use `-f` to check whether a file exists and `-s` to check whether a file exists and is non-empty. Prefer `[[` over `[` when writing conditions in bash scripts
 - Use `break` to stop a loop entirely when a missing or empty file indicates a problem that needs to be resolved before continuing
-- Use `continue` to skip the current sample and proceed to the next iteration when a file is missing. Note that `continue` is only meaningful when there is code after the if block that should be skipped — without that, the loop advances to the next iteration anyway, making continue redundant
+- Use `continue` to skip the current sample and proceed to the next iteration when a file is missing. Note that `continue` is only meaningful when there is code after the if block that should be skipped. Without that, the loop advances to the next iteration anyway, making continue redundant
 -  Use if/else as a readable alternative to continue, particularly for longer loop bodies or when sharing code with others
+- Use `exit 1` to stop a script when something is wrong. `exit 0` also stops the whole script, so inside a loop use `continue` to skip a sample that is done. Without `exit`, the last line decides, so a final `echo "Done"` can hide a failure
+- To skip samples that already finished, don't write a new check for every script. Use the template on [Skip finished samples safely](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html)
 
-**A note on GenAI-generated code**
-
-Code generated by GenAI tools will often include file verification patterns. While these patterns are not wrong, they are frequently written with production pipelines in mind rather than scientific workflows. Concretely this means:
-
-- Silent skipping of samples using continue without a clear error message, meaning a sample can disappear from your results without any warning
-- File existence checks (`-f`) where an integrity check would be more appropriate. For example, a file can exist and be non-empty but still be corrupt, for example after a SLURM timeout
-- Defensive patterns like `|| continue` placed directly in command chains where they are difficult to read and harder to reason about. Avoid these and use the patterns you have seen above.
-
-When reviewing GenAI-generated code, always ask: if this check fails, what actually happens to my data? A script that runs without errors is not the same as a script that produced correct results.
+**A note on GenAI-generated code:** GenAI tools often add `continue` or `|| continue` to skip a sample when a file is missing. Check that the script prints a clear message before it skips, as in the examples above, and read the log files after the job. For more patterns to look for, see [Checking GenAI-generated scripts](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html#checking-genai-generated-scripts).
 
 
 

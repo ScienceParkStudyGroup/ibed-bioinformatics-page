@@ -1,0 +1,2367 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>bash-skip-finished-samples – Bioinformatics guidance page</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../source/core_tools/bash-pipefail.html" rel="next">
+<link href="../../source/core_tools/bash-input-validation.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-b15cb652af43b88d7d12fd4e61c58a4a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-052be93faeed2c5310335092814e6d2d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-b15cb652af43b88d7d12fd4e61c58a4a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": true,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-for-loops.html">Writing bash scripts</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-skip-finished-samples.html">Skip finished samples safely</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+      <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+    <div id="quarto-search" class="quarto-navigation-tool px-1" title="Search"></div>
+</div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome page</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Getting Started</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/code_doc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Code documentation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../source/cli/cli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using the command line</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/cli_installation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setting up a bash command line</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/cli_basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with files and folders</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/cli_file_manipulation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Working with text files</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/cli_shell.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Shell features and long jobs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Writing bash scripts</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bash-for-loops.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">For-loops in bash</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bash-input-validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Checking files in bash scripts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bash-skip-finished-samples.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Skip finished samples safely</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bash-pipefail.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><code>set -euo pipefail</code> in bash</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bash-arrays.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bash arrays</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/conda/conda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Installing software with conda</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../source/cli/hpc_usage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using an HPC</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/slurm_basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Start working on an HPC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/scratch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using scratch on Crunchomics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/cli/ibed_tape.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using the IBED Tape Archive</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/R/readme.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../source/metagenomics/readme.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sequence data analyses</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Core tools</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/busco.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BUSCO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/diamond.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diamond</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/hmmer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HMMER</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/ncbi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Downloading data from NCBI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/prokka.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prokka</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/seqkit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Seqkit</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/classification/kraken2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Kraken2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/classification/minimap2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Minimap2</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../source/Qiime/readme.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Amplicon analyses</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/Qiime/3_evelyn_tutorial_notes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A short QIIME tutorial</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/Qiime/OTU_table_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analysing OTU tables with R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
+ <span class="menu-text">Functional annotation</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/interproscan_readme.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Interproscan</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/fama_readme.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAMA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/metabolic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Metabolic</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/metacerberus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MetaCerberus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/signalp6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SignalP 6.0</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false">
+ <span class="menu-text">(Meta)genomics</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/atlas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Atlas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/bakta.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bakta</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/barrnap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Barrnap</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/binette.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Binette</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/checkm2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CheckM2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/comebin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">COMEBin</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/coverm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CoverM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/dastool.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DAS Tool</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/dnaapler.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">dnaapler</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/fegenie.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FeGenie</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/flye.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Flye</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/gtdb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GTDB_tk</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/homopolish.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homopolish</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/medaka.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Medaka</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/megahit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MEGAHIT</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/metabat2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MetaBAT2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/motus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">mOTUS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/pseudofinder.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pseudofinder</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/pycirclize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">pycirclize</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/pygenometracks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">pyGenomeTracks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/quast.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quast</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/semibin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SemiBin2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/singlem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SingleM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/trycycler.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trycycler</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/nanopore/autocycler.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Autocycler</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Nanophase</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/vamb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VAMB</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
+ <span class="menu-text">Eukaryotic genomics</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/augustus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Augustus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/deeploc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DeepLoc</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false">
+ <span class="menu-text">Fungal genomics</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/ITSx/itsx_readme.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ITSx</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NanoITS</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false">
+ <span class="menu-text">(Meta)transcriptomics</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bowtie2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/DSEq2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DeSeq2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FeatureCounts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/ribodetector.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ribodetector</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/rsem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RSEM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/rseqc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RSeQC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Samtools</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/sortmerna.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SortMeRNA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/star.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">STAR</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/stringtie.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">StringTie</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/td2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">TD2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/transdecoder.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">TransDecoder</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/trinity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trinity</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false">
+ <span class="menu-text">Nanopore analyses</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/nanopore/chopper.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chopper</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/nanopore/fastplong.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">fastplong</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/nanopore/filtlong.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FiltLong</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/nanopore/nanoclass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NanoClass2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/nanopore/nanoITS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NanoITS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/nanopore/nanophase_how_to.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Nanophase</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/nanopore/nanoplot_readme.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Nanoplot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/nanopore/nanoqc_readme.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NanoQC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/nanopore/ngspeciesid.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NGSpeciesID</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/nanopore/porechop_readme.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Porechop</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
+ <span class="menu-text">Phylogenomics</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/phylogenomics/bmge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BMGE</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/phylogenomics/gtotree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GToTree</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/phylogenomics/mafft.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Mafft</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/phylogenomics/iqtree2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">IQ-TREE2</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false">
+ <span class="menu-text">Quality control</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/fastqc_readme.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FastQC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/multiqc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MultiQC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metatranscriptomics/fastp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FastP</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false">
+ <span class="menu-text">Sequence alignment</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bowtie.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bowtie2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bwa.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">BWA</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/samtools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Samtools</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/featurecounts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FeatureCounts</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/custom_scripts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Custom scripts</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="true">
+ <span class="menu-text">Bioinformatic databases</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/arcog.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">arCOG database</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/cog.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">COG database</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/dbcan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">dbCAN database</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/fegenie.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FeGenie</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/hyddb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">HydDB database</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/kegg_db.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">KOfam database</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/ncbi_nr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NCBI nr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/pfam_db.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pfam database</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/pgap_db.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PGAP</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/tigrfam_db.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">TIGRFAM</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#skip-finished-samples-safely" id="toc-skip-finished-samples-safely" class="nav-link active" data-scroll-target="#skip-finished-samples-safely">Skip finished samples safely</a>
+  <ul>
+  <li><a href="#why-a-job-array" id="toc-why-a-job-array" class="nav-link" data-scroll-target="#why-a-job-array">Why a job array?</a></li>
+  <li><a href="#the-template" id="toc-the-template" class="nav-link" data-scroll-target="#the-template">The template</a>
+  <ul class="collapse">
+  <li><a href="#test-it-before-you-submit-it" id="toc-test-it-before-you-submit-it" class="nav-link" data-scroll-target="#test-it-before-you-submit-it">Test it before you submit it</a></li>
+  </ul></li>
+  <li><a href="#why-the-marker-file-works" id="toc-why-the-marker-file-works" class="nav-link" data-scroll-target="#why-the-marker-file-works">Why the marker file works</a></li>
+  <li><a href="#why-not-just--s" id="toc-why-not-just--s" class="nav-link" data-scroll-target="#why-not-just--s">Why not just <code>-s</code>?</a></li>
+  <li><a href="#which-samples-are-not-done-yet" id="toc-which-samples-are-not-done-yet" class="nav-link" data-scroll-target="#which-samples-are-not-done-yet">Which samples are not done yet?</a></li>
+  <li><a href="#checking-the-outputs" id="toc-checking-the-outputs" class="nav-link" data-scroll-target="#checking-the-outputs">Checking the outputs</a></li>
+  <li><a href="#in-a-loop-instead-of-a-job-array" id="toc-in-a-loop-instead-of-a-job-array" class="nav-link" data-scroll-target="#in-a-loop-instead-of-a-job-array">In a loop instead of a job array</a></li>
+  <li><a href="#when-a-tool-makes-its-own-final-file" id="toc-when-a-tool-makes-its-own-final-file" class="nav-link" data-scroll-target="#when-a-tool-makes-its-own-final-file">When a tool makes its own final file</a>
+  <ul class="collapse">
+  <li><a href="#tools-that-can-resume-a-crashed-run" id="toc-tools-that-can-resume-a-crashed-run" class="nav-link" data-scroll-target="#tools-that-can-resume-a-crashed-run">Tools that can resume a crashed run</a></li>
+  </ul></li>
+  <li><a href="#checks-that-look-right-but-arent" id="toc-checks-that-look-right-but-arent" class="nav-link" data-scroll-target="#checks-that-look-right-but-arent">Checks that look right but aren’t</a></li>
+  <li><a href="#checking-genai-generated-scripts" id="toc-checking-genai-generated-scripts" class="nav-link" data-scroll-target="#checking-genai-generated-scripts">Checking GenAI-generated scripts</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/bash-skip-finished-samples.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-for-loops.html">Writing bash scripts</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-skip-finished-samples.html">Skip finished samples safely</a></li></ol></nav></header>
+
+
+<header id="title-block-header">
+
+
+</header>
+
+
+<section id="skip-finished-samples-safely" class="level1" style="text-align: justify">
+<h1>Skip finished samples safely</h1>
+<p>Jobs on an HPC fail for many reasons: a missing input file, a full disk, or a job that runs out of time. When you submit the job again, you want to skip the samples that already finished and only run the others.</p>
+<p>This page gives you one pattern for this, to copy into every job script. It uses a small, empty marker file per sample. The script makes this file only after all tools for that sample worked.</p>
+<ul>
+<li>Want to copy the template? Go to <a href="#the-template">The template</a></li>
+<li>Want to know why the marker file works? Go to <a href="#why-the-marker-file-works">Why the marker file works</a></li>
+<li>Job finished, some samples failed? Go to <a href="#which-samples-are-not-done-yet">Which samples are not done yet?</a></li>
+<li>Running all samples in one loop instead of a job array? Go to <a href="#in-a-loop-instead-of-a-job-array">In a loop instead of a job array</a></li>
+<li>Your tool writes its own final file? Go to <a href="#when-a-tool-makes-its-own-final-file">When a tool makes its own final file</a></li>
+<li>Checking a script from someone else or from a GenAI tool? Go to <a href="#checking-genai-generated-scripts">Checking GenAI-generated scripts</a> and <a href="#checks-that-look-right-but-arent">Checks that look right but aren’t</a></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Background: two related pages
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You can copy the template without reading these pages first. Come back to them when something in the template is unclear:</p>
+<ul>
+<li><a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-input-validation.html">Checking files in bash scripts</a> explains the checks themselves: <code>-f</code> and <code>-s</code>, <code>break</code>, <code>continue</code> and <code>exit</code>, and exit codes</li>
+<li><a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-pipefail.html"><code>set -euo pipefail</code> in bash</a> explains why the template uses <code>set -o pipefail</code>, but not <code>set -e</code></li>
+</ul>
+</div>
+</div>
+</div>
+<section id="why-a-job-array" class="level2">
+<h2 class="anchored" data-anchor-id="why-a-job-array">Why a job array?</h2>
+<p>The template is a SLURM job array: SLURM starts one small job per sample, called a task. This makes it easy to skip samples that already ran. Every sample runs in its own task, so a failure stops only that sample, and the other samples still finish. When you submit the script again, the tasks of finished samples find their marker file and stop within seconds.</p>
+<p>A SLURM job array is not the same as an array in bash, which is a list of values stored in one variable (see <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-arrays.html">Bash arrays</a>). This page only uses SLURM job arrays.</p>
+<p>If you run all samples one after another in a single loop instead, the same pattern works with <code>continue</code> instead of <code>exit 0</code>, see <a href="#in-a-loop-instead-of-a-job-array">In a loop instead of a job array</a>.</p>
+<p>Note that you do not need loops or arrays for every tool that is made to process all samples or genomes in one run. For example, <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/metagenomics/checkm2.html">CheckM2</a> and <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/metagenomics/gtdb.html">GTDB-Tk</a> take a whole folder of genomes as input. For tools like these, one job over all genomes is simpler than an array with one task per sample, and the tool’s final output file can be the check.</p>
+<p>If you have not used job arrays before, read <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/cli/slurm_basics.html#arrays-running-the-same-job-for-many-samples">Arrays: running the same job for many samples</a> first.</p>
+</section>
+<section id="the-template" class="level2">
+<h2 class="anchored" data-anchor-id="the-template">The template</h2>
+<p>Sequencing data often comes as two files per sample, called R1 and R2 (forward and reverse reads). You don’t need to know the details here: what matters is that each sample has two input files, and the job makes two output files.</p>
+<p>You can follow all examples on this page on the Crunchomics login node (the computer you land on when you log in) or on your own computer. The examples make files in the folder you are in, so first make a new, empty folder and go into it. This way you don’t overwrite your own files:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> skip_demo</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> skip_demo</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Then make a sample list and some small dummy read files. Sample <code>s2</code> has no R2 file, so its task will fail:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">'s1\ns2\ns3\ns4\n'</span> <span class="op">&gt;</span> samples</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> data logs</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Each file holds one fake read in fastq format (4 lines per read)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> s1 s2 s3 s4<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">printf</span> <span class="st">'@r1\nACGT\n+\nIIII\n'</span> <span class="op">&gt;</span> <span class="st">"data/</span><span class="va">${ID}</span><span class="st">_R1.fastq"</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> s1 s3 s4<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">printf</span> <span class="st">'@r1\nACGT\n+\nIIII\n'</span> <span class="op">&gt;</span> <span class="st">"data/</span><span class="va">${ID}</span><span class="st">_R2.fastq"</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>s1_R1.fastq
+s1_R2.fastq
+s2_R1.fastq
+s3_R1.fastq
+s3_R2.fastq
+s4_R1.fastq
+s4_R2.fastq</code></pre>
+<p>Save the template below as <code>clean_job.sh</code>. In a real script, you replace the two <code>cat ... | gzip</code> lines with your own tool commands, and you change the <code>#SBATCH</code> lines and the settings to fit your job. We use <code>cat</code> and a pipe (<code>|</code>) here, and not just <code>gzip</code>, so that you can see what <code>set -o pipefail</code> does:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --job-name=clean</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --output=logs/clean_%A_%a.out</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --array=1-4</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --cpus-per-task=2</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --mem=4G</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#SBATCH --time=01:00:00</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-o</span> pipefail</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Settings: change these for your project</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="va">SAMPLE_LIST</span><span class="op">=</span><span class="st">"samples"</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="va">OUTDIR</span><span class="op">=</span><span class="st">"results/cleaned"</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Find the sample for this task</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="va">ID</span><span class="op">=</span><span class="va">$(</span><span class="fu">sed</span> <span class="at">-n</span> <span class="st">"</span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st">p"</span> <span class="st">"</span><span class="va">$SAMPLE_LIST</span><span class="st">"</span><span class="va">)</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Task </span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st">, sample: </span><span class="va">${ID}</span><span class="st">"</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="ot">-z</span> <span class="st">"</span><span class="va">$ID</span><span class="st">"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"ERROR: line </span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st"> of </span><span class="va">${SAMPLE_LIST}</span><span class="st"> is empty"</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exit</span> 1</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a variable for the marker file: an empty file that says "this sample is finished"</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co"># It is only made at the end of this script, in step 5</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="va">DONE</span><span class="op">=</span><span class="st">"</span><span class="va">${OUTDIR}</span><span class="st">/</span><span class="va">${ID}</span><span class="st">.done"</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Skip this sample if it is done</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="ot">-f</span> <span class="st">"</span><span class="va">$DONE</span><span class="st">"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Skipping </span><span class="va">${ID}</span><span class="st">: found </span><span class="va">${DONE}</span><span class="st">"</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exit</span> 0</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">"</span><span class="va">$OUTDIR</span><span class="st">"</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Run the tools. Put || exit 1 after every tool command</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="st">"data/</span><span class="va">${ID}</span><span class="st">_R1.fastq"</span> <span class="kw">|</span> <span class="fu">gzip</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">${OUTDIR}</span><span class="st">/</span><span class="va">${ID}</span><span class="st">_R1.clean.fastq.gz"</span> <span class="kw">||</span> <span class="bu">exit</span> 1</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="st">"data/</span><span class="va">${ID}</span><span class="st">_R2.fastq"</span> <span class="kw">|</span> <span class="fu">gzip</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">${OUTDIR}</span><span class="st">/</span><span class="va">${ID}</span><span class="st">_R2.clean.fastq.gz"</span> <span class="kw">||</span> <span class="bu">exit</span> 1</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Mark the sample as done. The script only gets here if every tool worked</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> <span class="st">"</span><span class="va">$DONE</span><span class="st">"</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Finished </span><span class="va">${ID}</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>What each part does:</p>
+<ul>
+<li><code>set -o pipefail</code>: makes <code>|| exit 1</code> also catch a failure in the first command of a pipe (<code>|</code>). Without it, only the last command of the pipe counts, here <code>gzip</code>. See <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-pipefail.html#set--o-pipefail-catch-failures-in-pipes"><code>set -o pipefail</code></a>. You only need this line if your script has a pipe</li>
+<li><code>--array=1-4</code>: one task per line of the sample list, here 4 samples. Count the lines of your own list with <code>wc -l samples</code>, and change the range to <code>1-</code> and that number. If the range is too short, the last samples never run, and no check in the script tells you</li>
+<li><code>%A_%a</code> in the log file name: <code>%A</code> is the number of the job array and <code>%a</code> the number of the task. So every task gets its own log file. The <code>logs</code> folder must exist before you submit the job, so create it with <code>mkdir -p logs</code> first</li>
+<li><code>sed -n "${SLURM_ARRAY_TASK_ID}p" "$SAMPLE_LIST"</code> prints one line of the sample list: the line with the same number as the task. So task 1 gets <code>s1</code>, task 2 gets <code>s2</code>, and so on</li>
+<li><code>echo "Task ..., sample: ..."</code> writes the sample ID into the log file, so you can see which log belongs to which sample</li>
+<li><code>[[ -z "$ID" ]]</code> is true if <code>$ID</code> is empty. This happens when the <code>--array</code> range is longer than your sample list. Without this check, the task would run with an empty sample name</li>
+<li><code>exit 0</code> ends this one task as successful, without running anything. In a job array this is what you want. In a loop over all samples, use <code>continue</code> instead, see <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-input-validation.html#which-exit-code-to-use">Which exit code to use</a></li>
+<li><code>|| exit 1</code>: <code>||</code> runs the command on its right only if the command on its left failed. So <code>|| exit 1</code> stops the task as failed when a tool fails, and the script never reaches <code>touch</code></li>
+<li><code>touch "$DONE"</code> makes the marker file. It comes after the last command that makes data, and nowhere else</li>
+</ul>
+<p>All paths in the template are relative, for example <code>samples</code> and <code>data/</code>. They start from the folder you are in when you run <code>sbatch</code>. So always submit the job from the folder that holds <code>samples</code>, <code>data/</code> and <code>logs/</code>. If you submit it from another folder, every task fails because it can’t find its files.</p>
+<p>Your sample list must have Unix line endings. If it comes from Excel or Windows, see <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-for-loops.html#handling-dos-file-format-issues">Handling DOS file format issues</a>.</p>
+<section id="test-it-before-you-submit-it" class="level3">
+<h3 class="anchored" data-anchor-id="test-it-before-you-submit-it">Test it before you submit it</h3>
+<p>On Crunchomics, you submit the script with <code>sbatch clean_job.sh</code>. You can first test it on the login node, as long as the commands in it are small and quick. <code>SLURM_ARRAY_TASK_ID</code> only exists inside an array job, so you set it yourself. <code>SLURM_ARRAY_TASK_ID=2 bash clean_job.sh</code> runs the script once, as task 2. The loop below runs tasks 1 to 5. There is no line 5 in the sample list, so task 5 shows what the empty-ID check does.</p>
+<p>After each task, the loop prints the exit code. <code>$?</code> holds the exit code of the last command, here the script. An exit code of 0 means that it worked, any other number means that it failed:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> TASK <span class="kw">in</span> 1 2 3 4 5<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">SLURM_ARRAY_TASK_ID</span><span class="op">=</span><span class="va">$TASK</span> <span class="fu">bash</span> clean_job.sh</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"exit code: </span><span class="va">$?</span><span class="st">\n"</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>Task 1, sample: s1
+Finished s1
+exit code: 0
+
+Task 2, sample: s2
+cat: data/s2_R2.fastq: No such file or directory
+exit code: 1
+
+Task 3, sample: s3
+Finished s3
+exit code: 0
+
+Task 4, sample: s4
+Finished s4
+exit code: 0
+
+Task 5, sample:
+ERROR: line 5 of samples is empty
+exit code: 1</code></pre>
+<p>Look at the output folder:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> results/cleaned</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>total 6
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt;  0 Nov 10 09:17 s1.done
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 34 Nov 10 09:17 s1_R1.clean.fastq.gz
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 34 Nov 10 09:17 s1_R2.clean.fastq.gz
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 34 Nov 10 09:17 s2_R1.clean.fastq.gz
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 20 Nov 10 09:17 s2_R2.clean.fastq.gz
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt;  0 Nov 10 09:17 s3.done
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 34 Nov 10 09:17 s3_R1.clean.fastq.gz
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 34 Nov 10 09:17 s3_R2.clean.fastq.gz
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt;  0 Nov 10 09:17 s4.done
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 34 Nov 10 09:17 s4_R1.clean.fastq.gz
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 34 Nov 10 09:17 s4_R2.clean.fastq.gz</code></pre>
+<p>There is no <code>s2.done</code>. But look at <code>s2_R2.clean.fastq.gz</code>: the failed pipe still made it, and it is 20 bytes, a gzip file without reads. This happens because bash makes the file after <code>&gt;</code> before the commands in the pipe start. So the file exists even if <code>cat</code> fails right away. A check with <code>-s</code> on this file would treat s2 as finished, see <a href="#why-not-just--s">Why not just <code>-s</code>?</a>. The marker file doesn’t.</p>
+</section>
+</section>
+<section id="why-the-marker-file-works" class="level2">
+<h2 class="anchored" data-anchor-id="why-the-marker-file-works">Why the marker file works</h2>
+<p>The marker file only works because of <code>|| exit 1</code>. <code>touch</code> makes the marker, but it doesn’t know whether the tools worked. <code>|| exit 1</code> stops the task when a tool fails, so the script never reaches <code>touch</code>.</p>
+<p>To see what happens without it, make a separate test folder with a copy of the sample list, the reads and the template. This way, the test doesn’t change the files in <code>results/</code> that the next sections use. <code>cp -r</code> copies a folder with everything in it:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> no_exit_demo</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> samples data clean_job.sh no_exit_demo/</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> no_exit_demo</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> clean_job.sh clean_job_no_exit.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Open the copy with <code>nano clean_job_no_exit.sh</code> and remove <code>|| exit 1</code> from the end of the two tool lines in step 4. They now look like this:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="st">"data/</span><span class="va">${ID}</span><span class="st">_R1.fastq"</span> <span class="kw">|</span> <span class="fu">gzip</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">${OUTDIR}</span><span class="st">/</span><span class="va">${ID}</span><span class="st">_R1.clean.fastq.gz"</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="st">"data/</span><span class="va">${ID}</span><span class="st">_R2.fastq"</span> <span class="kw">|</span> <span class="fu">gzip</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">${OUTDIR}</span><span class="st">/</span><span class="va">${ID}</span><span class="st">_R2.clean.fastq.gz"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Run tasks 1 to 4 and look at the output folder:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> TASK <span class="kw">in</span> 1 2 3 4<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">SLURM_ARRAY_TASK_ID</span><span class="op">=</span><span class="va">$TASK</span> <span class="fu">bash</span> clean_job_no_exit.sh</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"exit code: </span><span class="va">$?</span><span class="st">\n"</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> results/cleaned</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>Task 1, sample: s1
+Finished s1
+exit code: 0
+
+Task 2, sample: s2
+cat: data/s2_R2.fastq: No such file or directory
+Finished s2
+exit code: 0
+
+Task 3, sample: s3
+Finished s3
+exit code: 0
+
+Task 4, sample: s4
+Finished s4
+exit code: 0
+
+total 6
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt;  0 Nov 10 09:17 s1.done
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 34 Nov 10 09:17 s1_R1.clean.fastq.gz
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 34 Nov 10 09:17 s1_R2.clean.fastq.gz
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt;  0 Nov 10 09:17 s2.done
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 34 Nov 10 09:17 s2_R1.clean.fastq.gz
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 20 Nov 10 09:17 s2_R2.clean.fastq.gz
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt;  0 Nov 10 09:17 s3.done
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 34 Nov 10 09:17 s3_R1.clean.fastq.gz
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 34 Nov 10 09:17 s3_R2.clean.fastq.gz
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt;  0 Nov 10 09:17 s4.done
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 34 Nov 10 09:17 s4_R1.clean.fastq.gz
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 34 Nov 10 09:17 s4_R2.clean.fastq.gz</code></pre>
+<p>The error for s2 is there, but the script goes on, prints “Finished s2”, makes <code>s2.done</code> and ends with exit code 0. SLURM would report this task as successful. From now on, the skip check treats s2 as finished, even after you add the missing file:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">'@r1\nACGT\n+\nIIII\n'</span> <span class="op">&gt;</span> data/s2_R2.fastq</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="va">SLURM_ARRAY_TASK_ID</span><span class="op">=</span>2 <span class="fu">bash</span> clean_job_no_exit.sh</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"exit code: </span><span class="va">$?</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>Task 2, sample: s2
+Skipping s2: found results/cleaned/s2.done
+exit code: 0</code></pre>
+<p>Three more things to know about the marker file:</p>
+<ul>
+<li><strong>A pipe needs <code>set -o pipefail</code>.</strong> Without it, <code>|| exit 1</code> after a pipe only sees the last command of the pipe, here <code>gzip</code>. If <code>cat</code> fails, the script still reaches <code>touch</code>. See <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-pipefail.html#pipefail-without-set--e"><code>pipefail</code> without <code>set -e</code></a></li>
+<li><strong>A marker also catches a cut-off file.</strong> A job that stopped halfway, also when SLURM stops it at its time limit, never gets to the <code>touch</code> line. A check with <code>-s</code> can’t tell a cut-off file from a complete one</li>
+<li><strong><code>|| exit 1</code> only works if the tool reports a failure.</strong> The tool must end with an exit code other than 0. Most tools do this, but some end with exit code 0 even after an error. So still look at the log files and the outputs after the job</li>
+</ul>
+<p>Go back to the main folder for the next section:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="why-not-just--s" class="level2">
+<h2 class="anchored" data-anchor-id="why-not-just--s">Why not just <code>-s</code>?</h2>
+<p>A check with <code>-s</code> looks simpler than a marker file: skip the sample if its output file is not empty. But a check is code too, and it can be wrong. This is harder to notice than it sounds:</p>
+<ul>
+<li>A wrong check gives no error. A sample either runs again for nothing, or a broken sample is skipped and goes missing from your results</li>
+<li>The part of a check that handles a problem only runs when something goes wrong, so it is easy to never test it</li>
+<li>What “broken” looks like depends on the tool and the file type</li>
+</ul>
+<p>So test a check on small dummy files that are broken in the ways you worry about. Start by listing what an output file can look like when a job stops. For a compressed fastq file, make four test files:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> skip_test</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A complete file with two reads</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">'@r1\nACGT\n+\nIIII\n@r2\nACGT\n+\nIIII\n'</span> <span class="kw">|</span> <span class="fu">gzip</span> <span class="op">&gt;</span> skip_test/complete.fastq.gz</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># A file of 0 bytes, like a job that opened its output file and then crashed</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> skip_test/zero_bytes.fastq.gz</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># A gzip file with no reads in it</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">''</span> <span class="kw">|</span> <span class="fu">gzip</span> <span class="op">&gt;</span> skip_test/no_reads.fastq.gz</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co"># The first 20 bytes of the complete file, like a file that was cut off while it was written</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-c</span> 20 skip_test/complete.fastq.gz <span class="op">&gt;</span> skip_test/truncated.fastq.gz</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> skip_test</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>total 2
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 39 Nov 10 09:17 complete.fastq.gz
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 20 Nov 10 09:17 no_reads.fastq.gz
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 20 Nov 10 09:17 truncated.fastq.gz
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt;  0 Nov 10 09:17 zero_bytes.fastq.gz</code></pre>
+<p>Before you run the check below, write down for each file whether you expect it to be skipped:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> FILE <span class="kw">in</span> skip_test/<span class="pp">*</span>.fastq.gz<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">[[</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$FILE</span><span class="st">"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">"</span><span class="va">$FILE</span><span class="st"> exists and is non-empty, skipping"</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">"Running cleaning step for </span><span class="va">$FILE</span><span class="st">"</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>skip_test/complete.fastq.gz exists and is non-empty, skipping
+skip_test/no_reads.fastq.gz exists and is non-empty, skipping
+skip_test/truncated.fastq.gz exists and is non-empty, skipping
+Running cleaning step for skip_test/zero_bytes.fastq.gz</code></pre>
+<p>Only the file of 0 bytes would run again:</p>
+<ul>
+<li><code>no_reads.fastq.gz</code> is 20 bytes, only the gzip header. This is not always a broken file: if a cleaning step removes every read of a bad sample, its output looks exactly like this. Whether that is fine is a question about your data, and no check in the script can answer it</li>
+<li><code>truncated.fastq.gz</code> is also 20 bytes. A real cut-off file is much larger and still holds many reads, so <code>-s</code> has no chance to catch it</li>
+</ul>
+<p>You don’t need to remember what <code>-s</code> does with each kind of file. Make the broken files, and look at what your check does with them. This works for any check, also for the checks that a GenAI tool writes for you.</p>
+<p>The marker file avoids these problems, because the script makes it only after every tool worked. Rule of thumb: use <code>-f</code> for a marker file, which is empty on purpose. <code>-s</code> only catches a file of 0 bytes.</p>
+</section>
+<section id="which-samples-are-not-done-yet" class="level2">
+<h2 class="anchored" data-anchor-id="which-samples-are-not-done-yet">Which samples are not done yet?</h2>
+<p>After the job array has finished, list the samples without a marker file. <code>!</code> means “not”, so <code>[[ ! -f ... ]]</code> is true if the file does not exist:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> samples<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">[[</span> <span class="ot">!</span> <span class="ot">-f</span> <span class="st">"results/cleaned/</span><span class="va">${ID}</span><span class="st">.done"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">"</span><span class="va">$ID</span><span class="st">"</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span> <span class="op">&gt;</span> not_done.txt</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> not_done.txt</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> not_done.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>s2
+1 not_done.txt</code></pre>
+<p><code>&gt; not_done.txt</code> after <code>done</code> writes everything the loop prints into one file. It replaces the file every time you run the loop, so the list is always up to date.</p>
+<p>For every sample in this list, read its log file and find the problem. In the test above, each task printed its output to your screen. In a real job that you submit with <code>sbatch</code>, SLURM writes the output of each task to its own log file instead, here <code>logs/clean_&lt;job ID&gt;_&lt;task number&gt;.out</code> (see <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/cli/slurm_basics.html#arrays-running-the-same-job-for-many-samples">Arrays: running the same job for many samples</a>). The task number is the line number of the sample in your sample list, so s2 is task 2.</p>
+<p>If you ran the test loop with <code>bash</code> instead of submitting the job with <code>sbatch</code>, you have no log files, so you can’t run the next two commands. This is the same on Crunchomics and on your own computer. They show what you would do on the HPC, with an example job ID of 123456. Your job ID will be a different number.</p>
+<p>Because the template prints the sample ID at the start of each task, you can search for the log file of a sample with <code>grep -l</code>, which prints only the names of the files that contain the text:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-l</span> <span class="st">"sample: s2"</span> logs/clean_<span class="pp">*</span>.out</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>logs/clean_123456_2.out</code></pre>
+<p>Then look at what is inside:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> logs/clean_123456_2.out</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>Task 2, sample: s2
+cat: data/s2_R2.fastq: No such file or directory</code></pre>
+<p>If you submitted the script more than once, you find one log file per submission, each with its own job ID. The highest job ID is the newest one.</p>
+<p>Delete the outputs of that sample, fix the problem, and submit the same script again with <code>sbatch</code>. You don’t need to change the <code>--array</code> range: the tasks of finished samples see their marker file and stop with <code>exit 0</code> within seconds.</p>
+<p>Here, we first look at the outputs of s2 and delete them. We write out each file name instead of using a pattern like <code>s2*</code>, so that we can’t delete files of another sample by mistake (for example <code>s20</code>):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> results/cleaned/s2_R1.clean.fastq.gz results/cleaned/s2_R2.clean.fastq.gz</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> results/cleaned/s2_R1.clean.fastq.gz results/cleaned/s2_R2.clean.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 34 Nov 10 09:17 results/cleaned/s2_R1.clean.fastq.gz
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 20 Nov 10 09:17 results/cleaned/s2_R2.clean.fastq.gz</code></pre>
+<p>Then we fix s2 by adding its missing R2 file and run all tasks again:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">'@r1\nACGT\n+\nIIII\n'</span> <span class="op">&gt;</span> data/s2_R2.fastq</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> TASK <span class="kw">in</span> 1 2 3 4<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">SLURM_ARRAY_TASK_ID</span><span class="op">=</span><span class="va">$TASK</span> <span class="fu">bash</span> clean_job.sh</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"exit code: </span><span class="va">$?</span><span class="st">\n"</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>Task 1, sample: s1
+Skipping s1: found results/cleaned/s1.done
+exit code: 0
+
+Task 2, sample: s2
+Finished s2
+exit code: 0
+
+Task 3, sample: s3
+Skipping s3: found results/cleaned/s3.done
+exit code: 0
+
+Task 4, sample: s4
+Skipping s4: found results/cleaned/s4.done
+exit code: 0</code></pre>
+<p>Running the check for unfinished samples again now prints <code>0 not_done.txt</code>.</p>
+</section>
+<section id="checking-the-outputs" class="level2">
+<h2 class="anchored" data-anchor-id="checking-the-outputs">Checking the outputs</h2>
+<p>A marker file only tells you that every tool ended without an error. It does not tell you that the results make sense. Whether the output is complete is a different question. You answer it after the job, by looking.</p>
+<p>For compressed fastq files, count the lines of each file, and test whether the gzip file is complete with <code>gzip -t</code>, which prints nothing if the file is fine. Here we use the broken test files from <a href="#why-not-just--s">Why not just <code>-s</code>?</a>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> FILE <span class="kw">in</span> skip_test/<span class="pp">*</span>.fastq.gz<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"</span><span class="va">$FILE</span><span class="st">"</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">zcat</span> <span class="st">"</span><span class="va">$FILE</span><span class="st">"</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gzip</span> <span class="at">-t</span> <span class="st">"</span><span class="va">$FILE</span><span class="st">"</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>On my computer, this prints (the <code>gzip:</code> lines can show up in a slightly different place on your screen):</p>
+<pre><code>skip_test/complete.fastq.gz
+8
+skip_test/no_reads.fastq.gz
+0
+skip_test/truncated.fastq.gz
+
+gzip: skip_test/truncated.fastq.gz: unexpected end of file
+2
+
+gzip: skip_test/truncated.fastq.gz: unexpected end of file
+skip_test/zero_bytes.fastq.gz
+
+gzip: skip_test/zero_bytes.fastq.gz: unexpected end of file
+0
+
+gzip: skip_test/zero_bytes.fastq.gz: unexpected end of file</code></pre>
+<ul>
+<li>The complete file has 8 lines, so 2 reads (a fastq file has 4 lines per read)</li>
+<li>The cut-off file gives 2 lines, which is not a multiple of 4, and both <code>zcat</code> and <code>gzip -t</code> report <code>unexpected end of file</code></li>
+<li>The file of 0 bytes gives the same error, because it doesn’t even have a gzip header</li>
+<li>The file without reads gives 0 lines but no error: it is a complete file, just empty inside</li>
+</ul>
+<p>If you find a cut-off file, delete the outputs and the <code>.done</code> file of that sample, and run it again.</p>
+</section>
+<section id="in-a-loop-instead-of-a-job-array" class="level2">
+<h2 class="anchored" data-anchor-id="in-a-loop-instead-of-a-job-array">In a loop instead of a job array</h2>
+<p>You can also run all samples one after another in one script, with a loop. The marker file works there too, but <code>exit</code> does something else:</p>
+<ul>
+<li>In a job array, each task runs one sample. <code>exit 0</code> and <code>exit 1</code> end only that one task, and the other tasks still run</li>
+<li>In a loop, one script runs all samples. <code>exit</code> stops the whole script, so the samples after the current one never run. So to skip a finished sample, use <code>continue</code> instead of <code>exit 0</code>. <code>continue</code> skips the rest of the loop for this sample and goes on with the next one</li>
+<li><code>exit 1</code> after a failed tool still stops the whole loop. That is on purpose: the log ends right at the problem, and you fix it before you go on</li>
+</ul>
+<p>To try it, make a new folder with its own files, so that you don’t change the files in <code>results/</code> from the sections above. The files are the same as for the template, so sample <code>s2</code> again has no R2 file:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> loop_demo</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> loop_demo</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">'s1\ns2\ns3\ns4\n'</span> <span class="op">&gt;</span> samples</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> data</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> s1 s2 s3 s4<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">printf</span> <span class="st">'@r1\nACGT\n+\nIIII\n'</span> <span class="op">&gt;</span> <span class="st">"data/</span><span class="va">${ID}</span><span class="st">_R1.fastq"</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> s1 s3 s4<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">printf</span> <span class="st">'@r1\nACGT\n+\nIIII\n'</span> <span class="op">&gt;</span> <span class="st">"data/</span><span class="va">${ID}</span><span class="st">_R2.fastq"</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Save this script as <code>clean_loop.sh</code>. It has the same parts as the template, but without the <code>#SBATCH</code> lines and the sample lookup, and with <code>continue</code> instead of <code>exit 0</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-o</span> pipefail</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="va">OUTDIR</span><span class="op">=</span><span class="st">"results/cleaned"</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="st">"</span><span class="va">$OUTDIR</span><span class="st">"</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> samples<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">DONE</span><span class="op">=</span><span class="st">"</span><span class="va">${OUTDIR}</span><span class="st">/</span><span class="va">${ID}</span><span class="st">.done"</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Skip this sample if it is done, and go on with the next one</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">[[</span> <span class="ot">-f</span> <span class="st">"</span><span class="va">$DONE</span><span class="st">"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">"Skipping </span><span class="va">${ID}</span><span class="st">: found </span><span class="va">${DONE}</span><span class="st">"</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Running </span><span class="va">${ID}</span><span class="st">"</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span> <span class="st">"data/</span><span class="va">${ID}</span><span class="st">_R1.fastq"</span> <span class="kw">|</span> <span class="fu">gzip</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">${OUTDIR}</span><span class="st">/</span><span class="va">${ID}</span><span class="st">_R1.clean.fastq.gz"</span> <span class="kw">||</span> <span class="bu">exit</span> 1</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span> <span class="st">"data/</span><span class="va">${ID}</span><span class="st">_R2.fastq"</span> <span class="kw">|</span> <span class="fu">gzip</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">${OUTDIR}</span><span class="st">/</span><span class="va">${ID}</span><span class="st">_R2.clean.fastq.gz"</span> <span class="kw">||</span> <span class="bu">exit</span> 1</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">touch</span> <span class="st">"</span><span class="va">$DONE</span><span class="st">"</span></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Finished </span><span class="va">${ID}</span><span class="st">"</span></span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Run it and look at the output folder:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> clean_loop.sh</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"exit code: </span><span class="va">$?</span><span class="st">\n"</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> results/cleaned</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>Running s1
+Finished s1
+Running s2
+cat: data/s2_R2.fastq: No such file or directory
+exit code: 1
+
+s1.done
+s1_R1.clean.fastq.gz
+s1_R2.clean.fastq.gz
+s2_R1.clean.fastq.gz
+s2_R2.clean.fastq.gz</code></pre>
+<p>The script finishes s1, stops at s2, and never starts s3 and s4. Only s1 has a <code>.done</code> file.</p>
+<p>Before you run the script again, delete the outputs of s2. The marker only decides whether a sample runs, so the half-written outputs from the failed run are still there. Some tools refuse to write into an output folder that already exists, and others mix old and new files. Then add the missing file and run the script again:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> results/cleaned/s2_R1.clean.fastq.gz results/cleaned/s2_R2.clean.fastq.gz</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> results/cleaned/s2_R1.clean.fastq.gz results/cleaned/s2_R2.clean.fastq.gz</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">'@r1\nACGT\n+\nIIII\n'</span> <span class="op">&gt;</span> data/s2_R2.fastq</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> clean_loop.sh</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"exit code: </span><span class="va">$?</span><span class="st">\n"</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> results/cleaned</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>results/cleaned/s2_R1.clean.fastq.gz
+results/cleaned/s2_R2.clean.fastq.gz
+Skipping s1: found results/cleaned/s1.done
+Running s2
+Finished s2
+Running s3
+Finished s3
+Running s4
+Finished s4
+exit code: 0
+
+s1.done
+s1_R1.clean.fastq.gz
+s1_R2.clean.fastq.gz
+s2.done
+s2_R1.clean.fastq.gz
+s2_R2.clean.fastq.gz
+s3.done
+s3_R1.clean.fastq.gz
+s3_R2.clean.fastq.gz
+s4.done
+s4_R1.clean.fastq.gz
+s4_R2.clean.fastq.gz</code></pre>
+<p>The second run skips s1 and runs the other three samples.</p>
+<p>Go back to the main folder for the next section:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="when-a-tool-makes-its-own-final-file" class="level2">
+<h2 class="anchored" data-anchor-id="when-a-tool-makes-its-own-final-file">When a tool makes its own final file</h2>
+<p>Some tools already write a file at the very end of a run. Then you can use that file as the check, instead of your own marker.</p>
+<p>For example, the assembler <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/metagenomics/megahit.html">MEGAHIT</a> writes an empty file called <code>done</code> into its output folder as its last step. To try this out without a real tool, you need two small scripts. Save both as files and run them with <code>bash</code>, don’t paste them into the terminal. Both scripts contain <code>exit</code>, and <code>exit</code> in a pasted script closes your terminal.</p>
+<p>The first one, <code>fake_tool.sh</code>, stands in for the tool. Like many real tools, it gets the name of its output folder when you start it, stops if that folder already exists, writes its results, and makes a <code>done</code> file at the very end:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fake_tool.sh: stands in for a tool that writes its own "done" file</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co"># $1 is the first word after the script name. If you run</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co"># bash fake_tool.sh results/assembly/s1</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># then $1 is results/assembly/s1, the output folder</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="va">OUT</span><span class="op">=</span><span class="st">"</span><span class="va">$1</span><span class="st">"</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="st">"</span><span class="va">$OUT</span><span class="st">"</span> <span class="kw">||</span> <span class="bu">exit</span> 1</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"result line 1"</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">${OUT}</span><span class="st">/result.txt"</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"result line 2"</span> <span class="op">&gt;&gt;</span> <span class="st">"</span><span class="va">${OUT}</span><span class="st">/result.txt"</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> <span class="st">"</span><span class="va">${OUT}</span><span class="st">/done"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The second one, <code>assemble_job.sh</code>, is the job script. It finds its sample in the <code>samples</code> list from above, in the same way as the template. The skip check looks for the tool’s own <code>done</code> file, and the script doesn’t make a marker file itself:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the sample for this task, as in the template</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="va">ID</span><span class="op">=</span><span class="va">$(</span><span class="fu">sed</span> <span class="at">-n</span> <span class="st">"</span><span class="va">${SLURM_ARRAY_TASK_ID}</span><span class="st">p"</span> samples<span class="va">)</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="va">OUT</span><span class="op">=</span><span class="st">"results/assembly/</span><span class="va">${ID}</span><span class="st">"</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Skip this sample if the tool wrote its "done" file</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="ot">-f</span> <span class="st">"</span><span class="va">${OUT}</span><span class="st">/done"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Skipping </span><span class="va">${ID}</span><span class="st">: found </span><span class="va">${OUT}</span><span class="st">/done"</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">exit</span> 0</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create only the folder above the output folder, the tool creates its own</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results/assembly</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> fake_tool.sh <span class="st">"</span><span class="va">$OUT</span><span class="st">"</span> <span class="kw">||</span> <span class="bu">exit</span> 1</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Finished </span><span class="va">${ID}</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This script is shortened so that you can see the skip check. For a real job script, start from the template above and keep the <code>#SBATCH</code> lines, <code>set -o pipefail</code> and the check for an empty sample ID.</p>
+<p>Run it as task 1, which is sample s1, and look at the output folder:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="va">SLURM_ARRAY_TASK_ID</span><span class="op">=</span>1 <span class="fu">bash</span> assemble_job.sh</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"exit code: </span><span class="va">$?</span><span class="st">"</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> results/assembly/s1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>Finished s1
+exit code: 0
+done
+result.txt</code></pre>
+<p>Run it again, and the sample is skipped:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="va">SLURM_ARRAY_TASK_ID</span><span class="op">=</span>1 <span class="fu">bash</span> assemble_job.sh</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"exit code: </span><span class="va">$?</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>Skipping s1: found results/assembly/s1/done
+exit code: 0</code></pre>
+<p>Now we pretend that the tool crashed for sample s2: its output folder exists with a half-written result, but without a <code>done</code> file:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results/assembly/s2</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"result line 1"</span> <span class="op">&gt;</span> results/assembly/s2/result.txt</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="va">SLURM_ARRAY_TASK_ID</span><span class="op">=</span>2 <span class="fu">bash</span> assemble_job.sh</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"exit code: </span><span class="va">$?</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>mkdir: cannot create directory ‘results/assembly/s2’: File exists
+exit code: 1</code></pre>
+<p>The check works: there is no <code>done</code> file, so the script runs s2 again. But the tool stops, because its output folder from the crashed run is still there. Look at the log of that sample first, then delete its output folder by hand and run it again. Don’t add an <code>rm -rf</code> to the job script for this, see point 7 in <a href="#checks-that-look-right-but-arent">Checks that look right but aren’t</a>.</p>
+<p>First look at what is inside the folder, so you know what you delete. Then delete only this one folder. <code>rm -r</code> deletes a folder with everything in it:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> results/assembly/s2</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-r</span> results/assembly/s2</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="va">SLURM_ARRAY_TASK_ID</span><span class="op">=</span>2 <span class="fu">bash</span> assemble_job.sh</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"exit code: </span><span class="va">$?</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>total 1
+-rw-rw----+ 1 &lt;user&gt; &lt;group&gt; 14 Nov 10 09:17 result.txt
+Finished s2
+exit code: 0</code></pre>
+<section id="tools-that-can-resume-a-crashed-run" class="level3">
+<h3 class="anchored" data-anchor-id="tools-that-can-resume-a-crashed-run">Tools that can resume a crashed run</h3>
+<p>Some tools can pick up a crashed run where it stopped, instead of starting again from the beginning. The option often has a name like <code>--continue</code> or <code>--resume</code>. Look for it in the help of your tool, for example with <code>tool --help</code>. Then you don’t need to delete the folder of a crashed run. Look at the log, then run the same command again with the resume option added.</p>
+<p>Before you rely on a resume option, check four things on a small test sample:</p>
+<ul>
+<li><strong>Does the resumed run give the same result as a run without a crash?</strong> Compare a few numbers, for example the number of lines or sequences in the output</li>
+<li><strong>Which settings does the resumed run use?</strong> Some tools ignore new settings and use the settings of the first run</li>
+<li><strong>What happens if you resume a run that already finished?</strong> Some tools stop with an error. So keep the skip check on the tool’s final file before the command, so that finished samples never get there</li>
+<li><strong>What happens if you use the resume option on a new sample, without an output folder?</strong> If the tool then does a normal first run, you can add the resume option to the command for every sample. If it stops with an error, use the resume option only by hand, for the crashed samples</li>
+</ul>
+<p>For example, MEGAHIT has the option <code>--continue</code>. What these four checks gave for MEGAHIT is on the <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/metagenomics/megahit.html#restarting-a-crashed-run">MEGAHIT page</a>.</p>
+<p>The same idea can work for a tool that writes a single report as its very last step. Then a check with <code>-s</code> on that report is fine. But be careful which file you choose. Many tools write to their output files during the whole run, for example a table of search hits that grows with every hit the tool finds. A check with <code>-s</code> on such a file passes as soon as the first line is written, so a run that stopped halfway looks finished. A check with <code>-s</code> only works on a file that the tool makes at the very end of the run.</p>
+<p>To find out when a tool writes its files, run it once on a small sample. While it runs, look at the output folder with <code>ls -l</code> in a second terminal. On Crunchomics, you can do this from the login node while your job runs. If the file appears early and grows during the run, it is not a good check, use a marker file instead.</p>
+</section>
+</section>
+<section id="checks-that-look-right-but-arent" class="level2">
+<h2 class="anchored" data-anchor-id="checks-that-look-right-but-arent">Checks that look right but aren’t</h2>
+<p>All of the checks below run without an error. That is what makes them hard to find.</p>
+<p><strong>1. <code>-s</code> on a file that a tool writes during the run, or on a <code>.gz</code> file.</strong> A half-finished file is larger than 0 bytes, and even a gzip file without any reads is about 20 bytes. Both pass. See <a href="#why-not-just--s">Why not just <code>-s</code>?</a>.</p>
+<p><strong>2. Checking only one of several output files.</strong> Many jobs make more than one output file per sample, for example a results table and a summary, or one file per chromosome. If the check looks at only one of them, a job that stopped halfway looks finished. With paired reads, this happens when you check only R1:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">'@r1\nACGT\n+\nIIII\n'</span> <span class="kw">|</span> <span class="fu">gzip</span> <span class="op">&gt;</span> s1_R1.fastq.gz</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co"># s1_R2.fastq.gz is missing, like a job that stopped before it wrote R2</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="ot">-s</span> <span class="st">"s1_R1.fastq.gz"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"s1 looks done, skipping"</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> s1_R<span class="pp">*</span>.fastq.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>s1 looks done, skipping
+s1_R1.fastq.gz</code></pre>
+<p>A marker file made after the last step avoids this.</p>
+<p><strong>3. <code>-s</code> on a folder.</strong> A folder is not a file with content, but it still has a size. On Crunchomics, an empty folder has a size of 2, so <code>-s</code> is true as soon as the folder exists:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> empty_folder</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="ot">-s</span> empty_folder <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"-s is true for the empty folder"</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"-s is false for the empty folder"</span></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-ld</span> empty_folder</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>-s is true for the empty folder
+drwxrwx---+ 2 &lt;user&gt; &lt;group&gt; 2 Nov 10 09:13 empty_folder</code></pre>
+<p>The size is the number before the date, here 2. <code>ls -ld</code> shows the folder itself. Without the <code>d</code>, <code>ls -l empty_folder</code> lists what is inside the folder, and for an empty folder it only prints <code>total 0</code>.</p>
+<p>The size of an empty folder depends on the file system. On a Windows laptop with WSL, the same folder had a size of 4096. On both, <code>-s</code> is true. Don’t check a folder, check a marker file or a file inside it.</p>
+<p><strong>4. A glob in a check.</strong> A glob is a pattern with <code>*</code> that matches file names, like <code>s1_b0*.tsv</code>. Bash doesn’t replace a glob with the matching file names in two places: when you store it in a variable, and inside <code>[[ ]]</code>. So the check below looks for a file that is literally called <code>s1_b0*.tsv</code>, and it is never true. Removing the quotes doesn’t help:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"some content"</span> <span class="op">&gt;</span> s1_b01.tsv</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="va">ID</span><span class="op">=</span><span class="st">"s1"</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="va">COMPLETE</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_b0*.tsv"</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$COMPLETE</span><span class="st">"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Found </span><span class="va">$COMPLETE</span><span class="st">, skipping"</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Not found: </span><span class="va">$COMPLETE</span><span class="st">"</span></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="va">${ID}</span>_b0<span class="pp">*</span>.tsv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>Not found: s1_b0*.tsv
+s1_b01.tsv</code></pre>
+<p>The file exists, as <code>ls</code> shows, but the check doesn’t find it. This sample runs again on every rerun.</p>
+<p>With single brackets and without quotes, <code>[ -s $COMPLETE ]</code>, bash does replace the glob. But this only works if exactly one file matches. With two matching files, bash prints an error (<code>binary operator expected</code>) and the check is false again. Use the exact name of one file, or a marker file.</p>
+<p><strong>5. A glob that matches nothing.</strong> If no file matches a glob, bash keeps the pattern as plain text. A loop over <code>bin.*.fa</code> in a folder without bins then runs once, with the text <code>bin.*.fa</code> as the file name:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> renamed</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> FILE <span class="kw">in</span> bin.<span class="pp">*</span>.fa<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Copying </span><span class="va">$FILE</span><span class="st">"</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cp</span> <span class="st">"</span><span class="va">$FILE</span><span class="st">"</span> renamed/</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>Copying bin.*.fa
+cp: cannot stat 'bin.*.fa': No such file or directory</code></pre>
+<p>Here <code>cp</code> fails, so you see an error. Other commands do something with the text and give no error. Before a loop over a glob, count the matches with <code>ls bin.*.fa | wc -l</code>, and decide what should happen for a sample with 0 files.</p>
+<p><strong>6. <code>&gt;&gt;</code> that adds the same lines on every rerun.</strong> <code>&gt;&gt;</code> adds lines to the end of a file. Save this as <code>summary.sh</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> samples<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"</span><span class="va">$ID</span><span class="st">"</span> <span class="op">&gt;&gt;</span> summary.txt</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Run it twice and count the lines after each run:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> summary.sh</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> summary.txt</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> summary.sh</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> summary.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>4 summary.txt
+8 summary.txt</code></pre>
+<p>After the second run, every sample is in the file twice. Write the file with <code>&gt;</code> after <code>done</code> instead, as in <a href="#which-samples-are-not-done-yet">Which samples are not done yet?</a>. Then each run replaces the file, and a rerun gives the same 4 lines.</p>
+<p><strong>7. <code>rm -rf "$DIR"</code> at the start of a job.</strong> Some scripts delete the output folder of a sample before they run the tool, so that the tool starts clean. On a rerun, this deletes finished work. And if the variable is empty, the command deletes much more than you want. <code>echo</code> shows what the command would run, without deleting anything:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="va">ID</span><span class="op">=</span><span class="st">""</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> rm <span class="at">-rf</span> <span class="st">"results/</span><span class="va">${ID}</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>rm -rf results/</code></pre>
+<p>With an empty <code>$ID</code>, this deletes the whole <code>results</code> folder, with the outputs of every sample. Don’t delete folders inside a job script. Use the skip check, and delete the outputs of a failed sample by hand, after you looked at them.</p>
+<p><strong>8. Array tasks that write the same file.</strong> Tasks of a job array run at the same time. If every task writes the same output file, for example <code>results/report.tsv</code>, the tasks overwrite each other, and you end up with the result of only one sample. Put the sample ID into every output file name, for example <code>results/${ID}_report.tsv</code>. Combine the files in a separate step, after all tasks are done.</p>
+<p><strong>9. Deleting temporary files inside the job.</strong> Some scripts end with an <code>rm</code> of intermediate files, such as an unsorted BAM file. If a result looks wrong later, you can no longer look at the intermediate file, and a rerun has to start from the beginning. Delete intermediate files by hand, after you checked the results of all samples.</p>
+</section>
+<section id="checking-genai-generated-scripts" class="level2">
+<h2 class="anchored" data-anchor-id="checking-genai-generated-scripts">Checking GenAI-generated scripts</h2>
+<p>GenAI tools such as ChatGPT or Claude can write loops and whole job scripts for you. The code usually runs without an error. But a script that runs is not the same as a script that gave correct results. Every check on this page runs without an error, also the wrong ones.</p>
+<p>These tools learned mostly from code written for large automated pipelines. That code is built to keep running when something goes wrong. In a scientific workflow you usually want the opposite: you want to see every problem, and no sample may go missing without a message.</p>
+<p><strong>Patterns to look for in a GenAI script</strong></p>
+<ul>
+<li><strong><code>continue</code> or <code>|| continue</code> after a check.</strong> A sample is skipped, often without a clear message, and is missing from your results. See <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-input-validation.html#continue-keyword">Checking files in bash scripts</a></li>
+<li><strong><code>-f</code> or <code>-s</code> on an output file, to skip samples that already finished.</strong> A cut-off file, or a <code>.gz</code> file without reads, counts as finished. See <a href="#why-not-just--s">Why not just <code>-s</code>?</a> and <a href="#checks-that-look-right-but-arent">Checks that look right but aren’t</a>. If a GenAI tool writes a new kind of skip check for you, test it with broken files first</li>
+<li><strong><code>set -euo pipefail</code> at the top of the script.</strong> The script can stop where you don’t expect it, or not stop where you do. See <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-pipefail.html#when-it-helps-and-when-it-causes-problems"><code>set -euo pipefail</code> in bash</a></li>
+<li><strong>An array that collects file names in a loop.</strong> A small typo (<code>=</code> instead of <code>+=</code>) keeps only the last file, without an error. Often a simple <code>*</code> pattern does the same job. See <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-arrays.html#common-bugs">Bash arrays</a></li>
+<li><strong><code>for x in $(cat list)</code> on a list with more than one column.</strong> Each word becomes its own loop step. See <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-for-loops.html#while-loops">While loops</a></li>
+<li><strong>Variables without quotes</strong>, for example <code>$i</code> instead of <code>"$i"</code>. A file name with a space is split into two. See <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-for-loops.html#adding-the-first-variable">A word on quoting</a></li>
+</ul>
+<p><strong>How to check a script, whoever wrote it</strong></p>
+<ol type="1">
+<li>Replace the real command with <code>echo</code> first, and look at what the loop would do. See <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-for-loops.html#building-the-core-structure">Building the core structure</a></li>
+<li>Run the script on one or two samples before you run it on all of them</li>
+<li>After each step, look at the output files:
+<ul>
+<li><code>head</code> on an output file: does it look like what the tool should write?</li>
+<li><code>wc -l</code> on an output file or a list: is the number in the range you expect, for example 4 lines per read in a fastq file, or one line per sample?</li>
+<li><code>grep</code> for one entry that you know should be there, for example one gene or one sample ID</li>
+</ul></li>
+</ol>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<ul>
+<li>Copy the template into every job script: <code>|| exit 1</code> after every tool command, <code>touch "$DONE"</code> after the last data step, and a skip check with <code>[[ -f "$DONE" ]]</code> at the start</li>
+<li>Add <code>set -o pipefail</code> if your script has a pipe</li>
+<li>After the job array, list the samples without a <code>.done</code> file and count them with <code>wc -l</code>. Fix those samples and submit the same script again</li>
+<li>A marker file only tells you that no tool reported a failure. Still look at the outputs after the job, for example with <code>zcat | wc -l</code> and <code>gzip -t</code> for compressed fastq files</li>
+<li>In a loop over all samples, use <code>continue</code> instead of <code>exit 0</code> to skip a finished sample</li>
+<li>Test every new skip check on small, broken dummy files before you trust it</li>
+<li>If a tool writes its own file at the very end, such as MEGAHIT’s <code>done</code> file, use that file as the check</li>
+<li>Don’t check with <code>-s</code> on half-written files, <code>.gz</code> files, only one of several output files, folders or quoted globs. Don’t add to files with <code>&gt;&gt;</code> in a job that you may rerun, and don’t delete folders or temporary files inside the job</li>
+</ul>
+</section>
+</section>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/scienceparkstudygroup\.github\.io\/software_information\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../source/core_tools/bash-input-validation.html" class="pagination-link" aria-label="Checking files in bash scripts">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Checking files in bash scripts</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../source/core_tools/bash-pipefail.html" class="pagination-link" aria-label="`set -euo pipefail` in bash">
+        <span class="nav-page-text"><code>set -euo pipefail</code> in bash</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Copyright 2023, Nina Dombrowski,<br>
+Last modified: 2026-11-10</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/bash-skip-finished-samples.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

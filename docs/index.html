@@ -346,19 +346,25 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./source/core_tools/bash-input-validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">File verifications in bash</span></a>
+ <span class="menu-text">Checking files in bash scripts</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/core_tools/bash-arrays.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Arrays in bash</span></a>
+  <a href="./source/core_tools/bash-skip-finished-samples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Skip finished samples safely</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./source/core_tools/bash-pipefail.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><code>set -euo pipefail</code> in bash</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./source/core_tools/bash-arrays.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bash arrays</span></a>
   </div>
 </li>
       </ul>
@@ -629,6 +635,12 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="./source/metagenomics/medaka.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Medaka</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./source/metagenomics/megahit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MEGAHIT</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1147,12 +1159,16 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="writing-bash-scripts" class="level3">
 <h3 class="anchored" data-anchor-id="writing-bash-scripts">Writing bash scripts</h3>
-<p>Once you know the basics, these pages help you write scripts that run on many files and stop safely when something goes wrong. They build on each other, so read them in this order:</p>
+<p>Once you know the basics, these pages help you write scripts that run on many files, stop safely when something goes wrong, and can be submitted again. Read the first three in this order:</p>
 <ul>
 <li><a href="./source/core_tools/bash-for-loops.html">For-loops in bash</a>: How can I run the same tool on many files instead of one?</li>
-<li><a href="./source/core_tools/bash-input-validation.html">Checking files in bash scripts</a>: How can my script skip samples that are already done, or stop with a clear message when an input file is missing?</li>
+<li><a href="./source/core_tools/bash-input-validation.html">Checking files in bash scripts</a>: How can my script check whether an input file is there, and skip a sample or stop with a clear message when it is missing?</li>
+<li><a href="./source/core_tools/bash-skip-finished-samples.html">Skip finished samples safely</a>: How can I submit a job again so that it skips the samples that already finished, and only those? This page also lists what to look for in a script that a GenAI tool wrote for you.</li>
+</ul>
+<p>Read these when you need them:</p>
+<ul>
+<li><a href="./source/core_tools/bash-pipefail.html">Stopping scripts on errors with <code>set -euo pipefail</code></a>: Why does AI often add this line to the top of a script, and when does it help or cause problems? Read this when a script you got has this line, or when your own script uses a pipe (<code>|</code>).</li>
 <li><a href="./source/core_tools/bash-arrays.html">Bash arrays</a>: How can I store a list of file names in one variable, and when do I not need to?</li>
-<li><a href="./source/core_tools/bash-pipefail.html">Stopping scripts on errors with <code>set -euo pipefail</code></a>: Why does AI often add this line to the top of a script, and when does it help or cause problems?</li>
 </ul>
 </section>
 <section id="storing-data-on-crunchomics" class="level3">
@@ -1358,6 +1374,9 @@ M-P
 </li>
 <li>
 <a href="./source/metagenomics/medaka.html">Medaka</a>: A tool for assembly polishing
+</li>
+<li>
+<a href="./source/metagenomics/megahit.html">MEGAHIT</a>: A de novo assembler for short reads, often used for metagenomes
 </li>
 <li>
 <a href="./source/metagenomics/metabat2.html">MetaBAT2</a>: A tool for reconstructing genomes from metagenomic data
@@ -1910,7 +1929,7 @@ Q-Z
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-11-03</p>
+Last modified: 2026-11-10</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

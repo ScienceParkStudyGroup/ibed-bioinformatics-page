@@ -1,0 +1,921 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+toc-depth: 4
+---
+
+<div style="text-align: justify">
+
+# Skip finished samples safely
+
+Jobs on an HPC fail for many reasons: a missing input file, a full disk, or a job that runs out of time. When you submit the job again, you want to skip the samples that already finished and only run the others.
+
+This page gives you one pattern for this, to copy into every job script. It uses a small, empty marker file per sample. The script makes this file only after all tools for that sample worked.
+
+- Want to copy the template? Go to [The template](#the-template)
+- Want to know why the marker file works? Go to [Why the marker file works](#why-the-marker-file-works)
+- Job finished, some samples failed? Go to [Which samples are not done yet?](#which-samples-are-not-done-yet)
+- Running all samples in one loop instead of a job array? Go to [In a loop instead of a job array](#in-a-loop-instead-of-a-job-array)
+- Your tool writes its own final file? Go to [When a tool makes its own final file](#when-a-tool-makes-its-own-final-file)
+- Checking a script from someone else or from a GenAI tool? Go to [Checking GenAI-generated scripts](#checking-genai-generated-scripts) and [Checks that look right but aren't](#checks-that-look-right-but-arent)
+
+::: {.callout-note collapse="true"}
+## Background: two related pages
+
+You can copy the template without reading these pages first. Come back to them when something in the template is unclear:
+
+- [Checking files in bash scripts](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-input-validation.html) explains the checks themselves: `-f` and `-s`, `break`, `continue` and `exit`, and exit codes
+- [`set -euo pipefail` in bash](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-pipefail.html) explains why the template uses `set -o pipefail`, but not `set -e`
+:::
+
+
+## Why a job array?
+
+The template is a SLURM job array: SLURM starts one small job per sample, called a task. This makes it easy to skip samples that already ran. Every sample runs in its own task, so a failure stops only that sample, and the other samples still finish. When you submit the script again, the tasks of finished samples find their marker file and stop within seconds.
+
+A SLURM job array is not the same as an array in bash, which is a list of values stored in one variable (see [Bash arrays](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-arrays.html)). This page only uses SLURM job arrays.
+
+If you run all samples one after another in a single loop instead, the same pattern works with `continue` instead of `exit 0`, see [In a loop instead of a job array](#in-a-loop-instead-of-a-job-array).
+
+Note that you do not need loops or arrays for every tool that is made to process all samples or genomes in one run. For example, [CheckM2](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/metagenomics/checkm2.html) and [GTDB-Tk](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/metagenomics/gtdb.html) take a whole folder of genomes as input. For tools like these, one job over all genomes is simpler than an array with one task per sample, and the tool's final output file can be the check.
+
+If you have not used job arrays before, read [Arrays: running the same job for many samples](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/cli/slurm_basics.html#arrays-running-the-same-job-for-many-samples) first.
+
+
+## The template
+
+Sequencing data often comes as two files per sample, called R1 and R2 (forward and reverse reads). You don't need to know the details here: what matters is that each sample has two input files, and the job makes two output files.
+
+You can follow all examples on this page on the Crunchomics login node (the computer you land on when you log in) or on your own computer. The examples make files in the folder you are in, so first make a new, empty folder and go into it. This way you don't overwrite your own files:
+
+```{bash}
+mkdir skip_demo
+cd skip_demo
+```
+
+Then make a sample list and some small dummy read files. Sample `s2` has no R2 file, so its task will fail:
+
+```{bash}
+printf 's1\ns2\ns3\ns4\n' > samples
+mkdir -p data logs
+
+# Each file holds one fake read in fastq format (4 lines per read)
+for ID in s1 s2 s3 s4; do
+    printf '@r1\nACGT\n+\nIIII\n' > "data/${ID}_R1.fastq"
+done
+
+for ID in s1 s3 s4; do
+    printf '@r1\nACGT\n+\nIIII\n' > "data/${ID}_R2.fastq"
+done
+
+ls data
+```
+
+```
+s1_R1.fastq
+s1_R2.fastq
+s2_R1.fastq
+s3_R1.fastq
+s3_R2.fastq
+s4_R1.fastq
+s4_R2.fastq
+```
+
+Save the template below as `clean_job.sh`. In a real script, you replace the two `cat ... | gzip` lines with your own tool commands, and you change the `#SBATCH` lines and the settings to fit your job. We use `cat` and a pipe (`|`) here, and not just `gzip`, so that you can see what `set -o pipefail` does:
+
+```{bash}
+#!/bin/bash
+#SBATCH --job-name=clean
+#SBATCH --output=logs/clean_%A_%a.out
+#SBATCH --array=1-4
+#SBATCH --cpus-per-task=2
+#SBATCH --mem=4G
+#SBATCH --time=01:00:00
+
+set -o pipefail
+
+# 1. Settings: change these for your project
+SAMPLE_LIST="samples"
+OUTDIR="results/cleaned"
+
+# 2. Find the sample for this task
+ID=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$SAMPLE_LIST")
+echo "Task ${SLURM_ARRAY_TASK_ID}, sample: ${ID}"
+
+if [[ -z "$ID" ]]; then
+    echo "ERROR: line ${SLURM_ARRAY_TASK_ID} of ${SAMPLE_LIST} is empty"
+    exit 1
+fi
+
+# Create a variable for the marker file: an empty file that says "this sample is finished"
+# It is only made at the end of this script, in step 5
+DONE="${OUTDIR}/${ID}.done"
+
+# 3. Skip this sample if it is done
+if [[ -f "$DONE" ]]; then
+    echo "Skipping ${ID}: found ${DONE}"
+    exit 0
+fi
+
+mkdir -p "$OUTDIR"
+
+# 4. Run the tools. Put || exit 1 after every tool command
+cat "data/${ID}_R1.fastq" | gzip > "${OUTDIR}/${ID}_R1.clean.fastq.gz" || exit 1
+cat "data/${ID}_R2.fastq" | gzip > "${OUTDIR}/${ID}_R2.clean.fastq.gz" || exit 1
+
+# 5. Mark the sample as done. The script only gets here if every tool worked
+touch "$DONE"
+echo "Finished ${ID}"
+```
+
+What each part does:
+
+- `set -o pipefail`: makes `|| exit 1` also catch a failure in the first command of a pipe (`|`). Without it, only the last command of the pipe counts, here `gzip`. See [`set -o pipefail`](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-pipefail.html#set--o-pipefail-catch-failures-in-pipes). You only need this line if your script has a pipe
+- `--array=1-4`: one task per line of the sample list, here 4 samples. Count the lines of your own list with `wc -l samples`, and change the range to `1-` and that number. If the range is too short, the last samples never run, and no check in the script tells you
+- `%A_%a` in the log file name: `%A` is the number of the job array and `%a` the number of the task. So every task gets its own log file. The `logs` folder must exist before you submit the job, so create it with `mkdir -p logs` first
+- `sed -n "${SLURM_ARRAY_TASK_ID}p" "$SAMPLE_LIST"` prints one line of the sample list: the line with the same number as the task. So task 1 gets `s1`, task 2 gets `s2`, and so on
+- `echo "Task ..., sample: ..."` writes the sample ID into the log file, so you can see which log belongs to which sample
+- `[[ -z "$ID" ]]` is true if `$ID` is empty. This happens when the `--array` range is longer than your sample list. Without this check, the task would run with an empty sample name
+- `exit 0` ends this one task as successful, without running anything. In a job array this is what you want. In a loop over all samples, use `continue` instead, see [Which exit code to use](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-input-validation.html#which-exit-code-to-use)
+- `|| exit 1`: `||` runs the command on its right only if the command on its left failed. So `|| exit 1` stops the task as failed when a tool fails, and the script never reaches `touch`
+- `touch "$DONE"` makes the marker file. It comes after the last command that makes data, and nowhere else
+
+All paths in the template are relative, for example `samples` and `data/`. They start from the folder you are in when you run `sbatch`. So always submit the job from the folder that holds `samples`, `data/` and `logs/`. If you submit it from another folder, every task fails because it can't find its files.
+
+Your sample list must have Unix line endings. If it comes from Excel or Windows, see [Handling DOS file format issues](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-for-loops.html#handling-dos-file-format-issues).
+
+### Test it before you submit it
+
+On Crunchomics, you submit the script with `sbatch clean_job.sh`. You can first test it on the login node, as long as the commands in it are small and quick. `SLURM_ARRAY_TASK_ID` only exists inside an array job, so you set it yourself. `SLURM_ARRAY_TASK_ID=2 bash clean_job.sh` runs the script once, as task 2. The loop below runs tasks 1 to 5. There is no line 5 in the sample list, so task 5 shows what the empty-ID check does.
+
+After each task, the loop prints the exit code. `$?` holds the exit code of the last command, here the script. An exit code of 0 means that it worked, any other number means that it failed:
+
+```{bash}
+for TASK in 1 2 3 4 5; do
+    SLURM_ARRAY_TASK_ID=$TASK bash clean_job.sh
+    echo -e "exit code: $?\n"
+done
+```
+
+```
+Task 1, sample: s1
+Finished s1
+exit code: 0
+
+Task 2, sample: s2
+cat: data/s2_R2.fastq: No such file or directory
+exit code: 1
+
+Task 3, sample: s3
+Finished s3
+exit code: 0
+
+Task 4, sample: s4
+Finished s4
+exit code: 0
+
+Task 5, sample:
+ERROR: line 5 of samples is empty
+exit code: 1
+```
+
+Look at the output folder:
+
+```{bash}
+ls -l results/cleaned
+```
+
+```
+total 6
+-rw-rw----+ 1 <user> <group>  0 Nov 10 09:17 s1.done
+-rw-rw----+ 1 <user> <group> 34 Nov 10 09:17 s1_R1.clean.fastq.gz
+-rw-rw----+ 1 <user> <group> 34 Nov 10 09:17 s1_R2.clean.fastq.gz
+-rw-rw----+ 1 <user> <group> 34 Nov 10 09:17 s2_R1.clean.fastq.gz
+-rw-rw----+ 1 <user> <group> 20 Nov 10 09:17 s2_R2.clean.fastq.gz
+-rw-rw----+ 1 <user> <group>  0 Nov 10 09:17 s3.done
+-rw-rw----+ 1 <user> <group> 34 Nov 10 09:17 s3_R1.clean.fastq.gz
+-rw-rw----+ 1 <user> <group> 34 Nov 10 09:17 s3_R2.clean.fastq.gz
+-rw-rw----+ 1 <user> <group>  0 Nov 10 09:17 s4.done
+-rw-rw----+ 1 <user> <group> 34 Nov 10 09:17 s4_R1.clean.fastq.gz
+-rw-rw----+ 1 <user> <group> 34 Nov 10 09:17 s4_R2.clean.fastq.gz
+```
+
+There is no `s2.done`. But look at `s2_R2.clean.fastq.gz`: the failed pipe still made it, and it is 20 bytes, a gzip file without reads. This happens because bash makes the file after `>` before the commands in the pipe start. So the file exists even if `cat` fails right away. A check with `-s` on this file would treat s2 as finished, see [Why not just `-s`?](#why-not-just--s). The marker file doesn't.
+
+
+## Why the marker file works
+
+The marker file only works because of `|| exit 1`. `touch` makes the marker, but it doesn't know whether the tools worked. `|| exit 1` stops the task when a tool fails, so the script never reaches `touch`.
+
+To see what happens without it, make a separate test folder with a copy of the sample list, the reads and the template. This way, the test doesn't change the files in `results/` that the next sections use. `cp -r` copies a folder with everything in it:
+
+```{bash}
+mkdir no_exit_demo
+cp -r samples data clean_job.sh no_exit_demo/
+cd no_exit_demo
+cp clean_job.sh clean_job_no_exit.sh
+```
+
+Open the copy with `nano clean_job_no_exit.sh` and remove ` || exit 1` from the end of the two tool lines in step 4. They now look like this:
+
+```{bash}
+cat "data/${ID}_R1.fastq" | gzip > "${OUTDIR}/${ID}_R1.clean.fastq.gz"
+cat "data/${ID}_R2.fastq" | gzip > "${OUTDIR}/${ID}_R2.clean.fastq.gz"
+```
+
+Run tasks 1 to 4 and look at the output folder:
+
+```{bash}
+for TASK in 1 2 3 4; do
+    SLURM_ARRAY_TASK_ID=$TASK bash clean_job_no_exit.sh
+    echo -e "exit code: $?\n"
+done
+
+ls -l results/cleaned
+```
+
+```
+Task 1, sample: s1
+Finished s1
+exit code: 0
+
+Task 2, sample: s2
+cat: data/s2_R2.fastq: No such file or directory
+Finished s2
+exit code: 0
+
+Task 3, sample: s3
+Finished s3
+exit code: 0
+
+Task 4, sample: s4
+Finished s4
+exit code: 0
+
+total 6
+-rw-rw----+ 1 <user> <group>  0 Nov 10 09:17 s1.done
+-rw-rw----+ 1 <user> <group> 34 Nov 10 09:17 s1_R1.clean.fastq.gz
+-rw-rw----+ 1 <user> <group> 34 Nov 10 09:17 s1_R2.clean.fastq.gz
+-rw-rw----+ 1 <user> <group>  0 Nov 10 09:17 s2.done
+-rw-rw----+ 1 <user> <group> 34 Nov 10 09:17 s2_R1.clean.fastq.gz
+-rw-rw----+ 1 <user> <group> 20 Nov 10 09:17 s2_R2.clean.fastq.gz
+-rw-rw----+ 1 <user> <group>  0 Nov 10 09:17 s3.done
+-rw-rw----+ 1 <user> <group> 34 Nov 10 09:17 s3_R1.clean.fastq.gz
+-rw-rw----+ 1 <user> <group> 34 Nov 10 09:17 s3_R2.clean.fastq.gz
+-rw-rw----+ 1 <user> <group>  0 Nov 10 09:17 s4.done
+-rw-rw----+ 1 <user> <group> 34 Nov 10 09:17 s4_R1.clean.fastq.gz
+-rw-rw----+ 1 <user> <group> 34 Nov 10 09:17 s4_R2.clean.fastq.gz
+```
+
+The error for s2 is there, but the script goes on, prints "Finished s2", makes `s2.done` and ends with exit code 0. SLURM would report this task as successful. From now on, the skip check treats s2 as finished, even after you add the missing file:
+
+```{bash}
+printf '@r1\nACGT\n+\nIIII\n' > data/s2_R2.fastq
+
+SLURM_ARRAY_TASK_ID=2 bash clean_job_no_exit.sh
+echo "exit code: $?"
+```
+
+```
+Task 2, sample: s2
+Skipping s2: found results/cleaned/s2.done
+exit code: 0
+```
+
+Three more things to know about the marker file:
+
+- **A pipe needs `set -o pipefail`.** Without it, `|| exit 1` after a pipe only sees the last command of the pipe, here `gzip`. If `cat` fails, the script still reaches `touch`. See [`pipefail` without `set -e`](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-pipefail.html#pipefail-without-set--e)
+- **A marker also catches a cut-off file.** A job that stopped halfway, also when SLURM stops it at its time limit, never gets to the `touch` line. A check with `-s` can't tell a cut-off file from a complete one
+- **`|| exit 1` only works if the tool reports a failure.** The tool must end with an exit code other than 0. Most tools do this, but some end with exit code 0 even after an error. So still look at the log files and the outputs after the job
+
+Go back to the main folder for the next section:
+
+```{bash}
+cd ..
+```
+
+
+## Why not just `-s`?
+
+A check with `-s` looks simpler than a marker file: skip the sample if its output file is not empty. But a check is code too, and it can be wrong. This is harder to notice than it sounds:
+
+- A wrong check gives no error. A sample either runs again for nothing, or a broken sample is skipped and goes missing from your results
+- The part of a check that handles a problem only runs when something goes wrong, so it is easy to never test it
+- What "broken" looks like depends on the tool and the file type
+
+So test a check on small dummy files that are broken in the ways you worry about. Start by listing what an output file can look like when a job stops. For a compressed fastq file, make four test files:
+
+```{bash}
+mkdir -p skip_test
+
+# A complete file with two reads
+printf '@r1\nACGT\n+\nIIII\n@r2\nACGT\n+\nIIII\n' | gzip > skip_test/complete.fastq.gz
+
+# A file of 0 bytes, like a job that opened its output file and then crashed
+touch skip_test/zero_bytes.fastq.gz
+
+# A gzip file with no reads in it
+printf '' | gzip > skip_test/no_reads.fastq.gz
+
+# The first 20 bytes of the complete file, like a file that was cut off while it was written
+head -c 20 skip_test/complete.fastq.gz > skip_test/truncated.fastq.gz
+
+ls -l skip_test
+```
+
+```
+total 2
+-rw-rw----+ 1 <user> <group> 39 Nov 10 09:17 complete.fastq.gz
+-rw-rw----+ 1 <user> <group> 20 Nov 10 09:17 no_reads.fastq.gz
+-rw-rw----+ 1 <user> <group> 20 Nov 10 09:17 truncated.fastq.gz
+-rw-rw----+ 1 <user> <group>  0 Nov 10 09:17 zero_bytes.fastq.gz
+```
+
+Before you run the check below, write down for each file whether you expect it to be skipped:
+
+```{bash}
+for FILE in skip_test/*.fastq.gz; do
+    if [[ -s "$FILE" ]]; then
+        echo "$FILE exists and is non-empty, skipping"
+    else
+        echo "Running cleaning step for $FILE"
+    fi
+done
+```
+
+```
+skip_test/complete.fastq.gz exists and is non-empty, skipping
+skip_test/no_reads.fastq.gz exists and is non-empty, skipping
+skip_test/truncated.fastq.gz exists and is non-empty, skipping
+Running cleaning step for skip_test/zero_bytes.fastq.gz
+```
+
+Only the file of 0 bytes would run again:
+
+- `no_reads.fastq.gz` is 20 bytes, only the gzip header. This is not always a broken file: if a cleaning step removes every read of a bad sample, its output looks exactly like this. Whether that is fine is a question about your data, and no check in the script can answer it
+- `truncated.fastq.gz` is also 20 bytes. A real cut-off file is much larger and still holds many reads, so `-s` has no chance to catch it
+
+You don't need to remember what `-s` does with each kind of file. Make the broken files, and look at what your check does with them. This works for any check, also for the checks that a GenAI tool writes for you.
+
+The marker file avoids these problems, because the script makes it only after every tool worked. Rule of thumb: use `-f` for a marker file, which is empty on purpose. `-s` only catches a file of 0 bytes.
+
+
+## Which samples are not done yet?
+
+After the job array has finished, list the samples without a marker file. `!` means "not", so `[[ ! -f ... ]]` is true if the file does not exist:
+
+```{bash}
+for ID in $(cat samples); do
+    if [[ ! -f "results/cleaned/${ID}.done" ]]; then
+        echo "$ID"
+    fi
+done > not_done.txt
+
+cat not_done.txt
+wc -l not_done.txt
+```
+
+```
+s2
+1 not_done.txt
+```
+
+`> not_done.txt` after `done` writes everything the loop prints into one file. It replaces the file every time you run the loop, so the list is always up to date.
+
+For every sample in this list, read its log file and find the problem. In the test above, each task printed its output to your screen. In a real job that you submit with `sbatch`, SLURM writes the output of each task to its own log file instead, here `logs/clean_<job ID>_<task number>.out` (see [Arrays: running the same job for many samples](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/cli/slurm_basics.html#arrays-running-the-same-job-for-many-samples)). The task number is the line number of the sample in your sample list, so s2 is task 2.
+
+If you ran the test loop with `bash` instead of submitting the job with `sbatch`, you have no log files, so you can't run the next two commands. This is the same on Crunchomics and on your own computer. They show what you would do on the HPC, with an example job ID of 123456. Your job ID will be a different number.
+
+Because the template prints the sample ID at the start of each task, you can search for the log file of a sample with `grep -l`, which prints only the names of the files that contain the text:
+
+```{bash}
+grep -l "sample: s2" logs/clean_*.out
+```
+
+```
+logs/clean_123456_2.out
+```
+
+Then look at what is inside:
+
+```{bash}
+cat logs/clean_123456_2.out
+```
+
+```
+Task 2, sample: s2
+cat: data/s2_R2.fastq: No such file or directory
+```
+
+If you submitted the script more than once, you find one log file per submission, each with its own job ID. The highest job ID is the newest one.
+
+Delete the outputs of that sample, fix the problem, and submit the same script again with `sbatch`. You don't need to change the `--array` range: the tasks of finished samples see their marker file and stop with `exit 0` within seconds.
+
+Here, we first look at the outputs of s2 and delete them. We write out each file name instead of using a pattern like `s2*`, so that we can't delete files of another sample by mistake (for example `s20`):
+
+```{bash}
+ls -l results/cleaned/s2_R1.clean.fastq.gz results/cleaned/s2_R2.clean.fastq.gz
+rm results/cleaned/s2_R1.clean.fastq.gz results/cleaned/s2_R2.clean.fastq.gz
+```
+
+```
+-rw-rw----+ 1 <user> <group> 34 Nov 10 09:17 results/cleaned/s2_R1.clean.fastq.gz
+-rw-rw----+ 1 <user> <group> 20 Nov 10 09:17 results/cleaned/s2_R2.clean.fastq.gz
+```
+
+Then we fix s2 by adding its missing R2 file and run all tasks again:
+
+```{bash}
+printf '@r1\nACGT\n+\nIIII\n' > data/s2_R2.fastq
+
+for TASK in 1 2 3 4; do
+    SLURM_ARRAY_TASK_ID=$TASK bash clean_job.sh
+    echo -e "exit code: $?\n"
+done
+```
+
+```
+Task 1, sample: s1
+Skipping s1: found results/cleaned/s1.done
+exit code: 0
+
+Task 2, sample: s2
+Finished s2
+exit code: 0
+
+Task 3, sample: s3
+Skipping s3: found results/cleaned/s3.done
+exit code: 0
+
+Task 4, sample: s4
+Skipping s4: found results/cleaned/s4.done
+exit code: 0
+```
+
+Running the check for unfinished samples again now prints `0 not_done.txt`.
+
+
+## Checking the outputs
+
+A marker file only tells you that every tool ended without an error. It does not tell you that the results make sense. Whether the output is complete is a different question. You answer it after the job, by looking.
+
+For compressed fastq files, count the lines of each file, and test whether the gzip file is complete with `gzip -t`, which prints nothing if the file is fine. Here we use the broken test files from [Why not just `-s`?](#why-not-just--s):
+
+```{bash}
+for FILE in skip_test/*.fastq.gz; do
+    echo "$FILE"
+    zcat "$FILE" | wc -l
+    gzip -t "$FILE"
+done
+```
+
+On my computer, this prints (the `gzip:` lines can show up in a slightly different place on your screen):
+
+```
+skip_test/complete.fastq.gz
+8
+skip_test/no_reads.fastq.gz
+0
+skip_test/truncated.fastq.gz
+
+gzip: skip_test/truncated.fastq.gz: unexpected end of file
+2
+
+gzip: skip_test/truncated.fastq.gz: unexpected end of file
+skip_test/zero_bytes.fastq.gz
+
+gzip: skip_test/zero_bytes.fastq.gz: unexpected end of file
+0
+
+gzip: skip_test/zero_bytes.fastq.gz: unexpected end of file
+```
+
+- The complete file has 8 lines, so 2 reads (a fastq file has 4 lines per read)
+- The cut-off file gives 2 lines, which is not a multiple of 4, and both `zcat` and `gzip -t` report `unexpected end of file`
+- The file of 0 bytes gives the same error, because it doesn't even have a gzip header
+- The file without reads gives 0 lines but no error: it is a complete file, just empty inside
+
+If you find a cut-off file, delete the outputs and the `.done` file of that sample, and run it again.
+
+
+## In a loop instead of a job array
+
+You can also run all samples one after another in one script, with a loop. The marker file works there too, but `exit` does something else:
+
+- In a job array, each task runs one sample. `exit 0` and `exit 1` end only that one task, and the other tasks still run
+- In a loop, one script runs all samples. `exit` stops the whole script, so the samples after the current one never run. So to skip a finished sample, use `continue` instead of `exit 0`. `continue` skips the rest of the loop for this sample and goes on with the next one
+- `exit 1` after a failed tool still stops the whole loop. That is on purpose: the log ends right at the problem, and you fix it before you go on
+
+To try it, make a new folder with its own files, so that you don't change the files in `results/` from the sections above. The files are the same as for the template, so sample `s2` again has no R2 file:
+
+```{bash}
+mkdir loop_demo
+cd loop_demo
+
+printf 's1\ns2\ns3\ns4\n' > samples
+mkdir -p data
+
+for ID in s1 s2 s3 s4; do
+    printf '@r1\nACGT\n+\nIIII\n' > "data/${ID}_R1.fastq"
+done
+
+for ID in s1 s3 s4; do
+    printf '@r1\nACGT\n+\nIIII\n' > "data/${ID}_R2.fastq"
+done
+```
+
+Save this script as `clean_loop.sh`. It has the same parts as the template, but without the `#SBATCH` lines and the sample lookup, and with `continue` instead of `exit 0`:
+
+```{bash}
+set -o pipefail
+
+OUTDIR="results/cleaned"
+mkdir -p "$OUTDIR"
+
+for ID in $(cat samples); do
+    DONE="${OUTDIR}/${ID}.done"
+
+    # Skip this sample if it is done, and go on with the next one
+    if [[ -f "$DONE" ]]; then
+        echo "Skipping ${ID}: found ${DONE}"
+        continue
+    fi
+
+    echo "Running ${ID}"
+    cat "data/${ID}_R1.fastq" | gzip > "${OUTDIR}/${ID}_R1.clean.fastq.gz" || exit 1
+    cat "data/${ID}_R2.fastq" | gzip > "${OUTDIR}/${ID}_R2.clean.fastq.gz" || exit 1
+
+    touch "$DONE"
+    echo "Finished ${ID}"
+done
+```
+
+Run it and look at the output folder:
+
+```{bash}
+bash clean_loop.sh
+echo -e "exit code: $?\n"
+ls results/cleaned
+```
+
+```
+Running s1
+Finished s1
+Running s2
+cat: data/s2_R2.fastq: No such file or directory
+exit code: 1
+
+s1.done
+s1_R1.clean.fastq.gz
+s1_R2.clean.fastq.gz
+s2_R1.clean.fastq.gz
+s2_R2.clean.fastq.gz
+```
+
+The script finishes s1, stops at s2, and never starts s3 and s4. Only s1 has a `.done` file.
+
+Before you run the script again, delete the outputs of s2. The marker only decides whether a sample runs, so the half-written outputs from the failed run are still there. Some tools refuse to write into an output folder that already exists, and others mix old and new files. Then add the missing file and run the script again:
+
+```{bash}
+ls results/cleaned/s2_R1.clean.fastq.gz results/cleaned/s2_R2.clean.fastq.gz
+rm results/cleaned/s2_R1.clean.fastq.gz results/cleaned/s2_R2.clean.fastq.gz
+
+printf '@r1\nACGT\n+\nIIII\n' > data/s2_R2.fastq
+
+bash clean_loop.sh
+echo -e "exit code: $?\n"
+ls results/cleaned
+```
+
+```
+results/cleaned/s2_R1.clean.fastq.gz
+results/cleaned/s2_R2.clean.fastq.gz
+Skipping s1: found results/cleaned/s1.done
+Running s2
+Finished s2
+Running s3
+Finished s3
+Running s4
+Finished s4
+exit code: 0
+
+s1.done
+s1_R1.clean.fastq.gz
+s1_R2.clean.fastq.gz
+s2.done
+s2_R1.clean.fastq.gz
+s2_R2.clean.fastq.gz
+s3.done
+s3_R1.clean.fastq.gz
+s3_R2.clean.fastq.gz
+s4.done
+s4_R1.clean.fastq.gz
+s4_R2.clean.fastq.gz
+```
+
+The second run skips s1 and runs the other three samples.
+
+Go back to the main folder for the next section:
+
+```{bash}
+cd ..
+```
+
+
+## When a tool makes its own final file
+
+Some tools already write a file at the very end of a run. Then you can use that file as the check, instead of your own marker.
+
+For example, the assembler [MEGAHIT](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/metagenomics/megahit.html) writes an empty file called `done` into its output folder as its last step. To try this out without a real tool, you need two small scripts. Save both as files and run them with `bash`, don't paste them into the terminal. Both scripts contain `exit`, and `exit` in a pasted script closes your terminal.
+
+The first one, `fake_tool.sh`, stands in for the tool. Like many real tools, it gets the name of its output folder when you start it, stops if that folder already exists, writes its results, and makes a `done` file at the very end:
+
+```{bash}
+# fake_tool.sh: stands in for a tool that writes its own "done" file
+# $1 is the first word after the script name. If you run
+# bash fake_tool.sh results/assembly/s1
+# then $1 is results/assembly/s1, the output folder
+OUT="$1"
+mkdir "$OUT" || exit 1
+echo "result line 1" > "${OUT}/result.txt"
+echo "result line 2" >> "${OUT}/result.txt"
+touch "${OUT}/done"
+```
+
+The second one, `assemble_job.sh`, is the job script. It finds its sample in the `samples` list from above, in the same way as the template. The skip check looks for the tool's own `done` file, and the script doesn't make a marker file itself:
+
+```{bash}
+# Find the sample for this task, as in the template
+ID=$(sed -n "${SLURM_ARRAY_TASK_ID}p" samples)
+OUT="results/assembly/${ID}"
+
+# Skip this sample if the tool wrote its "done" file
+if [[ -f "${OUT}/done" ]]; then
+    echo "Skipping ${ID}: found ${OUT}/done"
+    exit 0
+fi
+
+# Create only the folder above the output folder, the tool creates its own
+mkdir -p results/assembly
+bash fake_tool.sh "$OUT" || exit 1
+echo "Finished ${ID}"
+```
+
+This script is shortened so that you can see the skip check. For a real job script, start from the template above and keep the `#SBATCH` lines, `set -o pipefail` and the check for an empty sample ID.
+
+Run it as task 1, which is sample s1, and look at the output folder:
+
+```{bash}
+SLURM_ARRAY_TASK_ID=1 bash assemble_job.sh
+echo "exit code: $?"
+ls results/assembly/s1
+```
+
+```
+Finished s1
+exit code: 0
+done
+result.txt
+```
+
+Run it again, and the sample is skipped:
+
+```{bash}
+SLURM_ARRAY_TASK_ID=1 bash assemble_job.sh
+echo "exit code: $?"
+```
+
+```
+Skipping s1: found results/assembly/s1/done
+exit code: 0
+```
+
+Now we pretend that the tool crashed for sample s2: its output folder exists with a half-written result, but without a `done` file:
+
+```{bash}
+mkdir -p results/assembly/s2
+echo "result line 1" > results/assembly/s2/result.txt
+
+SLURM_ARRAY_TASK_ID=2 bash assemble_job.sh
+echo "exit code: $?"
+```
+
+```
+mkdir: cannot create directory ‘results/assembly/s2’: File exists
+exit code: 1
+```
+
+The check works: there is no `done` file, so the script runs s2 again. But the tool stops, because its output folder from the crashed run is still there. Look at the log of that sample first, then delete its output folder by hand and run it again. Don't add an `rm -rf` to the job script for this, see point 7 in [Checks that look right but aren't](#checks-that-look-right-but-arent).
+
+First look at what is inside the folder, so you know what you delete. Then delete only this one folder. `rm -r` deletes a folder with everything in it:
+
+```{bash}
+ls -l results/assembly/s2
+rm -r results/assembly/s2
+
+SLURM_ARRAY_TASK_ID=2 bash assemble_job.sh
+echo "exit code: $?"
+```
+
+```
+total 1
+-rw-rw----+ 1 <user> <group> 14 Nov 10 09:17 result.txt
+Finished s2
+exit code: 0
+```
+
+### Tools that can resume a crashed run
+
+Some tools can pick up a crashed run where it stopped, instead of starting again from the beginning. The option often has a name like `--continue` or `--resume`. Look for it in the help of your tool, for example with `tool --help`. Then you don't need to delete the folder of a crashed run. Look at the log, then run the same command again with the resume option added.
+
+Before you rely on a resume option, check four things on a small test sample:
+
+- **Does the resumed run give the same result as a run without a crash?** Compare a few numbers, for example the number of lines or sequences in the output
+- **Which settings does the resumed run use?** Some tools ignore new settings and use the settings of the first run
+- **What happens if you resume a run that already finished?** Some tools stop with an error. So keep the skip check on the tool's final file before the command, so that finished samples never get there
+- **What happens if you use the resume option on a new sample, without an output folder?** If the tool then does a normal first run, you can add the resume option to the command for every sample. If it stops with an error, use the resume option only by hand, for the crashed samples
+
+For example, MEGAHIT has the option `--continue`. What these four checks gave for MEGAHIT is on the [MEGAHIT page](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/metagenomics/megahit.html#restarting-a-crashed-run).
+
+The same idea can work for a tool that writes a single report as its very last step. Then a check with `-s` on that report is fine. But be careful which file you choose. Many tools write to their output files during the whole run, for example a table of search hits that grows with every hit the tool finds. A check with `-s` on such a file passes as soon as the first line is written, so a run that stopped halfway looks finished. A check with `-s` only works on a file that the tool makes at the very end of the run.
+
+To find out when a tool writes its files, run it once on a small sample. While it runs, look at the output folder with `ls -l` in a second terminal. On Crunchomics, you can do this from the login node while your job runs. If the file appears early and grows during the run, it is not a good check, use a marker file instead.
+
+
+## Checks that look right but aren't
+
+All of the checks below run without an error. That is what makes them hard to find.
+
+**1. `-s` on a file that a tool writes during the run, or on a `.gz` file.** A half-finished file is larger than 0 bytes, and even a gzip file without any reads is about 20 bytes. Both pass. See [Why not just `-s`?](#why-not-just--s).
+
+**2. Checking only one of several output files.** Many jobs make more than one output file per sample, for example a results table and a summary, or one file per chromosome. If the check looks at only one of them, a job that stopped halfway looks finished. With paired reads, this happens when you check only R1:
+
+```{bash}
+printf '@r1\nACGT\n+\nIIII\n' | gzip > s1_R1.fastq.gz
+# s1_R2.fastq.gz is missing, like a job that stopped before it wrote R2
+
+if [[ -s "s1_R1.fastq.gz" ]]; then
+    echo "s1 looks done, skipping"
+fi
+
+ls s1_R*.fastq.gz
+```
+
+```
+s1 looks done, skipping
+s1_R1.fastq.gz
+```
+
+A marker file made after the last step avoids this.
+
+**3. `-s` on a folder.** A folder is not a file with content, but it still has a size. On Crunchomics, an empty folder has a size of 2, so `-s` is true as soon as the folder exists:
+
+```{bash}
+mkdir -p empty_folder
+
+if [[ -s empty_folder ]]; then
+    echo "-s is true for the empty folder"
+else
+    echo "-s is false for the empty folder"
+fi
+
+ls -ld empty_folder
+```
+
+```
+-s is true for the empty folder
+drwxrwx---+ 2 <user> <group> 2 Nov 10 09:13 empty_folder
+```
+
+The size is the number before the date, here 2. `ls -ld` shows the folder itself. Without the `d`, `ls -l empty_folder` lists what is inside the folder, and for an empty folder it only prints `total 0`.
+
+The size of an empty folder depends on the file system. On a Windows laptop with WSL, the same folder had a size of 4096. On both, `-s` is true. Don't check a folder, check a marker file or a file inside it.
+
+**4. A glob in a check.** A glob is a pattern with `*` that matches file names, like `s1_b0*.tsv`. Bash doesn't replace a glob with the matching file names in two places: when you store it in a variable, and inside `[[ ]]`. So the check below looks for a file that is literally called `s1_b0*.tsv`, and it is never true. Removing the quotes doesn't help:
+
+```{bash}
+echo "some content" > s1_b01.tsv
+
+ID="s1"
+COMPLETE="${ID}_b0*.tsv"
+
+if [[ -s "$COMPLETE" ]]; then
+    echo "Found $COMPLETE, skipping"
+else
+    echo "Not found: $COMPLETE"
+fi
+
+ls ${ID}_b0*.tsv
+```
+
+```
+Not found: s1_b0*.tsv
+s1_b01.tsv
+```
+
+The file exists, as `ls` shows, but the check doesn't find it. This sample runs again on every rerun.
+
+With single brackets and without quotes, `[ -s $COMPLETE ]`, bash does replace the glob. But this only works if exactly one file matches. With two matching files, bash prints an error (`binary operator expected`) and the check is false again. Use the exact name of one file, or a marker file.
+
+**5. A glob that matches nothing.** If no file matches a glob, bash keeps the pattern as plain text. A loop over `bin.*.fa` in a folder without bins then runs once, with the text `bin.*.fa` as the file name:
+
+```{bash}
+mkdir -p renamed
+
+for FILE in bin.*.fa; do
+    echo "Copying $FILE"
+    cp "$FILE" renamed/
+done
+```
+
+```
+Copying bin.*.fa
+cp: cannot stat 'bin.*.fa': No such file or directory
+```
+
+Here `cp` fails, so you see an error. Other commands do something with the text and give no error. Before a loop over a glob, count the matches with `ls bin.*.fa | wc -l`, and decide what should happen for a sample with 0 files.
+
+**6. `>>` that adds the same lines on every rerun.** `>>` adds lines to the end of a file. Save this as `summary.sh`:
+
+```{bash}
+for ID in $(cat samples); do
+    echo "$ID" >> summary.txt
+done
+```
+
+Run it twice and count the lines after each run:
+
+```{bash}
+bash summary.sh
+wc -l summary.txt
+bash summary.sh
+wc -l summary.txt
+```
+
+```
+4 summary.txt
+8 summary.txt
+```
+
+After the second run, every sample is in the file twice. Write the file with `>` after `done` instead, as in [Which samples are not done yet?](#which-samples-are-not-done-yet). Then each run replaces the file, and a rerun gives the same 4 lines.
+
+**7. `rm -rf "$DIR"` at the start of a job.** Some scripts delete the output folder of a sample before they run the tool, so that the tool starts clean. On a rerun, this deletes finished work. And if the variable is empty, the command deletes much more than you want. `echo` shows what the command would run, without deleting anything:
+
+```{bash}
+ID=""
+echo rm -rf "results/${ID}"
+```
+
+```
+rm -rf results/
+```
+
+With an empty `$ID`, this deletes the whole `results` folder, with the outputs of every sample. Don't delete folders inside a job script. Use the skip check, and delete the outputs of a failed sample by hand, after you looked at them.
+
+**8. Array tasks that write the same file.** Tasks of a job array run at the same time. If every task writes the same output file, for example `results/report.tsv`, the tasks overwrite each other, and you end up with the result of only one sample. Put the sample ID into every output file name, for example `results/${ID}_report.tsv`. Combine the files in a separate step, after all tasks are done.
+
+**9. Deleting temporary files inside the job.** Some scripts end with an `rm` of intermediate files, such as an unsorted BAM file. If a result looks wrong later, you can no longer look at the intermediate file, and a rerun has to start from the beginning. Delete intermediate files by hand, after you checked the results of all samples.
+
+
+## Checking GenAI-generated scripts
+
+GenAI tools such as ChatGPT or Claude can write loops and whole job scripts for you. The code usually runs without an error. But a script that runs is not the same as a script that gave correct results. Every check on this page runs without an error, also the wrong ones.
+
+These tools learned mostly from code written for large automated pipelines. That code is built to keep running when something goes wrong. In a scientific workflow you usually want the opposite: you want to see every problem, and no sample may go missing without a message.
+
+**Patterns to look for in a GenAI script**
+
+- **`continue` or `|| continue` after a check.** A sample is skipped, often without a clear message, and is missing from your results. See [Checking files in bash scripts](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-input-validation.html#continue-keyword)
+- **`-f` or `-s` on an output file, to skip samples that already finished.** A cut-off file, or a `.gz` file without reads, counts as finished. See [Why not just `-s`?](#why-not-just--s) and [Checks that look right but aren't](#checks-that-look-right-but-arent). If a GenAI tool writes a new kind of skip check for you, test it with broken files first
+- **`set -euo pipefail` at the top of the script.** The script can stop where you don't expect it, or not stop where you do. See [`set -euo pipefail` in bash](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-pipefail.html#when-it-helps-and-when-it-causes-problems)
+- **An array that collects file names in a loop.** A small typo (`=` instead of `+=`) keeps only the last file, without an error. Often a simple `*` pattern does the same job. See [Bash arrays](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-arrays.html#common-bugs)
+- **`for x in $(cat list)` on a list with more than one column.** Each word becomes its own loop step. See [While loops](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-for-loops.html#while-loops)
+- **Variables without quotes**, for example `$i` instead of `"$i"`. A file name with a space is split into two. See [A word on quoting](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-for-loops.html#adding-the-first-variable)
+
+**How to check a script, whoever wrote it**
+
+1. Replace the real command with `echo` first, and look at what the loop would do. See [Building the core structure](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-for-loops.html#building-the-core-structure)
+2. Run the script on one or two samples before you run it on all of them
+3. After each step, look at the output files:
+   - `head` on an output file: does it look like what the tool should write?
+   - `wc -l` on an output file or a list: is the number in the range you expect, for example 4 lines per read in a fastq file, or one line per sample?
+   - `grep` for one entry that you know should be there, for example one gene or one sample ID
+
+
+## Summary
+
+- Copy the template into every job script: `|| exit 1` after every tool command, `touch "$DONE"` after the last data step, and a skip check with `[[ -f "$DONE" ]]` at the start
+- Add `set -o pipefail` if your script has a pipe
+- After the job array, list the samples without a `.done` file and count them with `wc -l`. Fix those samples and submit the same script again
+- A marker file only tells you that no tool reported a failure. Still look at the outputs after the job, for example with `zcat | wc -l` and `gzip -t` for compressed fastq files
+- In a loop over all samples, use `continue` instead of `exit 0` to skip a finished sample
+- Test every new skip check on small, broken dummy files before you trust it
+- If a tool writes its own file at the very end, such as MEGAHIT's `done` file, use that file as the check
+- Don't check with `-s` on half-written files, `.gz` files, only one of several output files, folders or quoted globs. Don't add to files with `>>` in a job that you may rerun, and don't delete folders or temporary files inside the job
+
+
+</div>

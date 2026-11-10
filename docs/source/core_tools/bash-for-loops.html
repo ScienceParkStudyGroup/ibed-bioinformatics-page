@@ -382,19 +382,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/bash-input-validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">File verifications in bash</span></a>
+ <span class="menu-text">Checking files in bash scripts</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/bash-arrays.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Arrays in bash</span></a>
+  <a href="../../source/core_tools/bash-skip-finished-samples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Skip finished samples safely</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/bash-pipefail.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><code>set -euo pipefail</code> in bash</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bash-arrays.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bash arrays</span></a>
   </div>
 </li>
       </ul>
@@ -665,6 +671,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/medaka.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Medaka</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/megahit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MEGAHIT</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1145,11 +1157,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#removing-the-extension-from-the-basename" id="toc-removing-the-extension-from-the-basename" class="nav-link" data-scroll-target="#removing-the-extension-from-the-basename">Removing the extension from the basename</a></li>
   <li><a href="#simplifying-the-basename" id="toc-simplifying-the-basename" class="nav-link" data-scroll-target="#simplifying-the-basename">Simplifying the basename</a></li>
   <li><a href="#adding-a-variable-for-the-output-file" id="toc-adding-a-variable-for-the-output-file" class="nav-link" data-scroll-target="#adding-a-variable-for-the-output-file">Adding a variable for the output file</a></li>
-  <li><a href="#finalizing-the-loop" id="toc-finalizing-the-loop" class="nav-link" data-scroll-target="#finalizing-the-loop">Finalizing the loop</a>
-  <ul class="collapse">
+  <li><a href="#finalizing-the-loop" id="toc-finalizing-the-loop" class="nav-link" data-scroll-target="#finalizing-the-loop">Finalizing the loop</a></li>
   <li><a href="#using-loops-with-files" id="toc-using-loops-with-files" class="nav-link" data-scroll-target="#using-loops-with-files">Using Loops with Files</a></li>
   <li><a href="#while-loops" id="toc-while-loops" class="nav-link" data-scroll-target="#while-loops">While loops</a></li>
-  </ul></li>
   <li><a href="#addon-alternative-syntax" id="toc-addon-alternative-syntax" class="nav-link" data-scroll-target="#addon-alternative-syntax">Addon: Alternative syntax</a></li>
   <li><a href="#on-genai-usage" id="toc-on-genai-usage" class="nav-link" data-scroll-target="#on-genai-usage">On GenAI usage</a></li>
   <li><a href="#error-handling-or-why-my-loop-does-not-work" id="toc-error-handling-or-why-my-loop-does-not-work" class="nav-link" data-scroll-target="#error-handling-or-why-my-loop-does-not-work">Error handling or why my loop does not work?</a>
@@ -1190,7 +1200,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>for</code>: This keyword indicates the start of the loop.</li>
 <li><code>item</code>: This is a variable that will hold each item from the list in each iteration of the loop.</li>
 <li><code>in</code>: This keyword separates the variable name from the list of items.</li>
-<li><code>list</code>: This is a list of items over which the loop will iterate. It can be specified explicitly (e.g., <code>1 2 3</code>) or through a command substitution (e.g., <code>$(ls)</code> to loop over files in a directory).</li>
+<li><code>list</code>: This is a list of items over which the loop will iterate. It can be written out (e.g., <code>1 2 3</code>), or be a pattern that matches file names (e.g., <code>data/*.faa</code> for all <code>.faa</code> files in the <code>data</code> folder).</li>
 <li><code>do</code>: This keyword indicates the start of the block of commands to execute in each iteration.</li>
 <li><code>done</code>: This keyword marks the end of the loop.</li>
 </ul>
@@ -1268,7 +1278,7 @@ data/GCA_000017945.1_ASM1794v1_protein.faa</code></pre>
 <h2 class="anchored" data-anchor-id="adding-the-first-variable">Adding the first variable</h2>
 <p>To ensure flexibility in naming the output files, let’s extract the file names using the basename command and storing the output in a variable. We will see why this really is useful once we made it to the final command.</p>
 <p><strong>A word on quoting</strong></p>
-<p>Here, we quote <code>"$i"</code> when passing it to basename to ensure bash treats the full path as a single argument. If a filename contains spaces, without quotes bash would split it into separate words and pass them as separate arguments to basename. We also quote <code>$GENOME_ID</code> in the echo for the same reason — consistent quoting is a good habit even when you don’t expect spaces.</p>
+<p>Here, we quote <code>"$i"</code> when passing it to basename to ensure bash treats the full path as a single argument. If a filename contains spaces, without quotes bash would split it into separate words and pass them as separate arguments to basename. We also quote <code>$GENOME_ID</code> in the echo for the same reason. Consistent quoting is a good habit even when you don’t expect spaces.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> data/<span class="pp">*</span>faa<span class="kw">;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
@@ -1325,7 +1335,7 @@ GCA_000017945.1</code></pre>
 <h2 class="anchored" data-anchor-id="adding-a-variable-for-the-output-file">Adding a variable for the output file</h2>
 <p>To facilitate the creation of output file names, let’s introduce a variable named outfile_name. We’ll use this variable to specify the path and name for the modified files.</p>
 <p><strong>Another word on quoting</strong></p>
-<p>Below we use <code>${GENOME_ID}</code> instead of <code>"$GENOME_ID"</code>, which would break the string apart like <code>"data/renamed/"$GENOME_ID."faa"</code>. The curly braces allow the variable to sit inside a single double-quoted string, which serves two purposes: it keeps the code readable, and it ensures the variable value is protected from word splitting. As a general rule, use <code>${...}</code> when appending or prepending text directly to a variable.</p>
+<p>Below we write <code>"data/renamed/${GENOME_ID}.faa"</code>: one string in double quotes, with the variable in curly braces. The double quotes keep the whole path together as one word, also if it contains a space. The curly braces mark where the variable name ends. Here <code>$GENOME_ID.faa</code> would also work, because a <code>.</code> can’t be part of a variable name. But in <code>$GENOME_ID_R1.faa</code>, bash looks for a variable called <code>GENOME_ID_R1</code>. That variable doesn’t exist, so bash uses empty text instead, and you get <code>data/renamed/.faa</code> without an error. So use <code>${...}</code> whenever text comes directly after a variable.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> data/renamed </span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1370,9 +1380,10 @@ MKKPQPYKDEEIYSILEEPVKQWFKEKYKTFTPPQRYAIMEIHKRNNVLISSPTGSGKTLAAFLAIINELIKLSHKGKLE
 NRVYAIYVSPLRSLNNDVKKNLETPLKEIKEKAKELNYYIGDIRIAVRTSDTKESEKAKMLKQPPHILITTPESLAIILS
 TKKFREHIKKVEFVVVDEIHALAESKRGTHLALSLERLNYLTNFVRIGLSATIHPLEEVAKFLFGYENGKPREGYIIDVS
 FEKPIEIQVYSPVDDIIYSSQEELMRNLYKFIGEQLKKYRTILIFTNTRHGAESVAYHLKKAFPDLEKYIAVHHSSLSRE</code></pre>
-<p>Do you see how we elegantly use <code>$outfile_name</code> to create a new file with a cleaner name in a different folder compared to the imput file? This is a very good example for how flexible you can be with your files with some small bash knowledge.</p>
-<section id="using-loops-with-files" class="level3">
-<h3 class="anchored" data-anchor-id="using-loops-with-files">Using Loops with Files</h3>
+<p>Do you see how we elegantly use <code>$outfile_name</code> to create a new file with a cleaner name in a different folder compared to the input file? This is a very good example for how flexible you can be with your files with some small bash knowledge.</p>
+</section>
+<section id="using-loops-with-files" class="level2">
+<h2 class="anchored" data-anchor-id="using-loops-with-files">Using Loops with Files</h2>
 <p>In addition to iterating over files directly within a directory using wildcard patterns (e.g., <code>*.txt</code>), Bash also allows you to iterate over a list of filenames stored in a file. This can be achieved by using command substitution to capture the output of a command that generates the list of filenames. Here’s how you can use this approach:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make 'list', a file containing a list of filenames, with each filename on a separate line</span></span>
@@ -1396,8 +1407,8 @@ Processing file: GCA_000017945.1</code></pre>
 <li><strong>Dynamic File Lists</strong>: The list of files to process may vary over time or depend on external factors. By storing filenames in a separate file, you can easily update the list without modifying the loop structure.</li>
 </ol>
 </section>
-<section id="while-loops" class="level3">
-<h3 class="anchored" data-anchor-id="while-loops">While loops</h3>
+<section id="while-loops" class="level2">
+<h2 class="anchored" data-anchor-id="while-loops">While loops</h2>
 <p>The example above works fine if your list has a single column but can create issues. Let’s assume we still have a file with our genomes but this file is a tab-separated file that contains a second column highlighting from which sample our genome came from:</p>
 <pre><code>GCA_000008085.1 s1
 GCA_000017945.1 s2</code></pre>
@@ -1429,10 +1440,9 @@ Processing: GCA_000017945.1 from s2</code></pre>
 <p>Here:</p>
 <ul>
 <li>By default, read interprets any backslashes as an escape character, which can cause unexpected behavior. To disable backslash escaping, it is generally useful to use the command with the <code>-r</code> option</li>
-<li><code>&lt; genome_to_sample</code>— redirects the sample file as standard input to the loop</li>
-<li><code>read</code> by default recognizes files with tab used as delimiter, which is why we can directly store the content of each column in the variables genome and sample. If you use other separators, like <code>,</code> you can use <code>while IFS=, read -r genome sample; do</code></li>
+<li><code>&lt; genome_to_sample</code>: sends the content of the file to the loop, where <code>read</code> reads it line by line</li>
+<li><code>read</code> splits each line at spaces and tabs. It stores the first column in <code>genome</code> and the rest of the line in <code>sample</code>. If your file uses another separator, like <code>,</code>, use <code>while IFS=, read -r genome sample; do</code></li>
 </ul>
-</section>
 </section>
 <section id="addon-alternative-syntax" class="level2">
 <h2 class="anchored" data-anchor-id="addon-alternative-syntax">Addon: Alternative syntax</h2>
@@ -1441,7 +1451,7 @@ Processing: GCA_000017945.1 from s2</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> results/prokka/<span class="pp">*</span>/bin<span class="pp">*</span>/<span class="pp">*</span>.gbk<span class="kw">;</span> <span class="cf">do</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">genome_name</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="st">"</span><span class="va">$i</span><span class="st">"</span> .gbk<span class="va">)</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">outdir</span><span class="op">=</span><span class="st">"results/pseudofinder/</span><span class="va">${genome_name}</span><span class="st">"</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">pseudofinder.py</span> annotate <span class="at">-g</span> <span class="st">"</span><span class="va">$i</span><span class="st">"</span> <span class="at">-op</span> <span class="va">$outdir</span> <span class="at">-db</span> /zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta <span class="at">-t</span> 20</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">pseudofinder.py</span> annotate <span class="at">-g</span> <span class="st">"</span><span class="va">$i</span><span class="st">"</span> <span class="at">-op</span> <span class="st">"</span><span class="va">$outdir</span><span class="st">"</span> <span class="at">-db</span> /zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta <span class="at">-t</span> 20</span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The line that runs the tool <code>pseudofinder.py</code> is becoming longer, and for readability, we might want to break this command down and display each option on an individual line. We can do this as follows:</p>
@@ -1451,7 +1461,7 @@ Processing: GCA_000017945.1 from s2</code></pre>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">outdir</span><span class="op">=</span><span class="st">"results/pseudofinder/</span><span class="va">${genome_name}</span><span class="st">"</span></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">pseudofinder.py</span> annotate <span class="dt">\</span></span>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">-g</span> <span class="st">"</span><span class="va">$i</span><span class="st">"</span> <span class="dt">\</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">-op</span> <span class="va">$outdir</span> <span class="dt">\</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">-op</span> <span class="st">"</span><span class="va">$outdir</span><span class="st">"</span> <span class="dt">\</span></span>
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">-db</span> /zfs/omics/projects/bioinformatics/databases/uniprot/uniprot_sprot_070524.fasta <span class="dt">\</span></span>
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">-t</span> 20</span>
 <span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1460,16 +1470,9 @@ Processing: GCA_000017945.1 from s2</code></pre>
 </section>
 <section id="on-genai-usage" class="level2">
 <h2 class="anchored" data-anchor-id="on-genai-usage">On GenAI usage</h2>
-<p>GenAI tools such as ChatGPT or Claude can be helpful for generating loop structures and bash commands. However, there are some important things to keep in mind when using these tools:</p>
-<p>GenAI generated code needs critical reading since these tools are trained predominantly on production-level code. This means the patterns they generate are often designed for robustness in automated pipelines rather than transparency in a scientific workflow. This can lead to code that runs without errors but does not do what you expect or silently skips samples without telling you.</p>
-<p>When reviewing GenAI-generated loops, pay particular attention to:</p>
-<ul>
-<li><code>|| continue</code> or <code>&amp;&amp; continue</code> placed directly in command chains. As discussed in the <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-input-validation.html">file verification tutorial</a>, continue skips the current iteration silently. In a scientific context this means a sample can disappear from your results without any warning or error message</li>
-<li>File existence checks that use <code>-f</code> (file exists) where a non-emptiness check with <code>-s</code> would be more appropriate (a file can exist but be empty if a tool failed)</li>
-<li>Use of <code>$(cat list)</code> without accounting for whitespace splitting, which can cause unexpected behavior particularly with multi-column files or Windows-formatted input files. For more details, have a look at the sections on <em>While loops</em> and <em>Handling DOS File Format Issues</em> found below.</li>
-<li>Missing or inconsistent quoting of variables, which can cause loops to fail on filenames with spaces</li>
-</ul>
-<p>Regardless of whether you wrote the loop yourself or generated it with a GenAI tool, always follow the step-by-step approach outlined in the Section below: start with echo to print what the loop would process, confirm the output looks correct, then add the real command. This is the most reliable way to verify that a loop is actually doing what you intend before committing to a computationally expensive run.</p>
+<p>GenAI tools such as ChatGPT or Claude can write loops for you. The code usually runs without an error, but that does not mean it does what you want.</p>
+<p>Whether you wrote a loop yourself or a GenAI tool wrote it, build it up step by step as shown on this page: replace the real command with <code>echo</code>, check what the loop would process, then add the real command. See <a href="#building-the-core-structure">Building the core structure</a>.</p>
+<p>For the patterns that GenAI tools often add to loops and job scripts, and what can go wrong with them, see <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html#checking-genai-generated-scripts">Checking GenAI-generated scripts</a>.</p>
 </section>
 <section id="error-handling-or-why-my-loop-does-not-work" class="level2">
 <h2 class="anchored" data-anchor-id="error-handling-or-why-my-loop-does-not-work">Error handling or why my loop does not work?</h2>
@@ -1484,11 +1487,11 @@ Processing: GCA_000017945.1 from s2</code></pre>
 </ol>
 <p>Additionally, keep in mind that syntax matters a lot in Bash scripting. Common syntax-related mistakes to avoid include:</p>
 <ol type="1">
-<li>Using straight quotes (“), as opposed to curly quotes (“), which may not be recognized by the shell. Depending on your text editor, you might inadvertently use curly quotes, causing syntax errors. Be mindful of this difference and adjust your editor settings if necessary. For example, for Mac users, check out the 3rd comment in <a href="https://community.folivora.ai/t/script-editor-changing-normal-quotes-to-curly-unicode-quotes/22479/2">this post</a></li>
+<li>Use straight quotes (<code>"</code> and <code>'</code>), not curly quotes (<code>“ ”</code> and <code>‘ ’</code>). Bash only understands straight quotes. Some text editors, and also Word, replace straight quotes with curly ones while you type. For example, for Mac users, check out the 3rd comment in <a href="https://community.folivora.ai/t/script-editor-changing-normal-quotes-to-curly-unicode-quotes/22479/2">this post</a></li>
 <li>When defining variables ensure to use proper syntax and not use spaces between the variable name and variable content. I.e. <code>variable="hello"</code>.</li>
-<li>Whitespace and Indentation: Ensure consistent whitespace and indentation in your Bash scripts to enhance readability and maintainability. Pay attention to spaces around operators and arguments to commands within your script to avoid syntax errors or unexpected behavior. Also ensure that you always use spaces after command names and command options.</li>
+<li>Spaces: bash needs a space between a command and its options, and around <code>[[</code> and <code>]]</code>, but no spaces around <code>=</code> when you set a variable. Indentation inside a loop is only for readability, bash ignores it.</li>
 <li>Forgetting to Quote Variables or Use Brackets Around Variables: Properly quote variables, especially when dealing with filenames or strings containing spaces or special characters, to ensure their values are interpreted correctly by the shell. Additionally, use brackets <code>{}</code> around variables when they are part of a string with other text to avoid ambiguity and potential issues.</li>
-<li>Failure to Handle Empty or Missing Files: Be vigilant about handling scenarios where files might be empty or missing in your loops. Implement checks within your script to gracefully handle such situations, either by skipping empty or missing files or by providing appropriate error messages or default values. An introduction to file verification can be found <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-input-validation.html">here</a></li>
+<li>Missing or empty input files: decide what the loop should do when an input file is missing. Either stop with a clear message, or skip that sample with a clear message. See <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-input-validation.html">Checking files in bash scripts</a></li>
 </ol>
 </section>
 <section id="file-not-found" class="level3">
@@ -1527,24 +1530,42 @@ Processing: GCA_000017945.1 from s2</code></pre>
 <h3 class="anchored" data-anchor-id="handling-dos-file-format-issues">5. Handling DOS File Format Issues</h3>
 <p>In some cases, you may encounter issues related to the file format when working with loops in Bash, particularly if your files originate from a Windows environment. DOS (or Windows) text files use different line-ending characters compared to Unix-based systems, which can lead to unexpected behavior when processing files in Bash.</p>
 <p>DOS text files typically use a combination of carriage return ( and line feed () characters to denote line endings, whereas Unix-based systems use only a line feed character. When processing DOS files in Bash, the presence of extra carriage return characters can cause issues, such as unexpected line breaks or syntax errors.</p>
-<p>To handle DOS line endings:</p>
-<ul>
-<li><p>Use utilities like <code>dos2unix</code> to convert DOS-formatted text files to Unix format before processing them in your loop. This command removes any extraneous carriage return characters, ensuring consistent line endings.</p></li>
-<li><p>If dos2unix is not available, you can use tr (translate or delete characters) to remove carriage return characters from DOS-formatted files. Here’s how you can accomplish this:</p>
+<p>To check whether a file has Windows line endings, use <code>file</code> or <code>cat -A</code>. <code>cat -A</code> shows the end of each line as <code>$</code>, and a Windows line ending as <code>^M$</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Remove carriage return characters from DOS-formatted files</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> file <span class="kw">in</span> <span class="pp">*</span>.txt<span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tr</span> <span class="at">-d</span> <span class="st">'\r'</span> <span class="op">&lt;</span> <span class="st">"</span><span class="va">$file</span><span class="st">"</span> <span class="op">&gt;</span> <span class="st">"</span><span class="va">$file</span><span class="st">.tmp"</span> <span class="kw">&amp;&amp;</span> <span class="fu">mv</span> <span class="st">"</span><span class="va">$file</span><span class="st">.tmp"</span> <span class="st">"</span><span class="va">$file</span><span class="st">"</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div></li>
-<li><p>This loop iterates over all .txt files in the current directory, removes carriage return characters ( using tr, and then overwrites the original files with the processed versions. This approach achieves the same result as dos2unix, but using built-in Bash functionality instead.</p></li>
-<li><p>You can modify the file extension (*.txt) to match the specific file types you’re working with in your environment.</p></li>
-</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file</span> list</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="at">-A</span> list <span class="kw">|</span> <span class="fu">head</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>On a Mac, <code>cat -A</code> doesn’t exist. Use <code>cat -e</code> instead: it shows the same <code>^M$</code> for a Windows line ending.</p>
+<p>For a file with Windows line endings, this prints:</p>
+<pre><code>list: ASCII text, with CRLF line terminators
+GCA_000008085.1^M$
+GCA_000017945.1^M$</code></pre>
+<p>For a file with Unix line endings, <code>file</code> prints only <code>ASCII text</code>, and each line ends with <code>$</code>.</p>
+<p>To remove the Windows line endings, use <code>sed</code>. In sed, <code>\r</code> stands for the carriage return and <code>$</code> for the end of the line, so <code>s/\r$//</code> removes a <code>\r</code> only where it sits at the end of a line. Write the result to a new file, and check it:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="st">'s/\r$//'</span> list <span class="op">&gt;</span> list_fixed</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">file</span> list_fixed</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="at">-A</span> list_fixed <span class="kw">|</span> <span class="fu">head</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> list list_fixed</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-c</span> list list_fixed</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code>list_fixed: ASCII text
+GCA_000008085.1$
+GCA_000017945.1$
+ 2 list
+ 2 list_fixed
+ 4 total
+34 list
+32 list_fixed
+66 total</code></pre>
+<p>The <code>^M</code> is gone. Both files have 2 lines, but the fixed file has 2 characters fewer: one <code>\r</code> per line. Use <code>list_fixed</code> in your loop from now on.</p>
+<p>For more on sed, and a longer example with a table saved from Excel, see <a href="https://ndombrowski.github.io/AWK_tutorial/source/sed_basics.html#windows-line-endings">Windows line endings</a> in the AWK and sed tutorial.</p>
+</section>
+</section>
+</section>
 
 
-</section>
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1972,8 +1993,8 @@ Processing: GCA_000017945.1 from s2</code></pre>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/core_tools/bash-input-validation.html" class="pagination-link" aria-label="File verifications in bash">
-        <span class="nav-page-text">File verifications in bash</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/core_tools/bash-input-validation.html" class="pagination-link" aria-label="Checking files in bash scripts">
+        <span class="nav-page-text">Checking files in bash scripts</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1985,7 +2006,7 @@ Processing: GCA_000017945.1 from s2</code></pre>
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-04-01</p>
+Last modified: 2026-11-10</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/bash-for-loops.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

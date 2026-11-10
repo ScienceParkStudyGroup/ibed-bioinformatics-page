@@ -368,5 +368,11 @@
   },
   "source/cli/cli_shell.qmd": {
     "cli_shell.html": "c9fdaf58"
+  },
+  "source/core_tools/bash-skip-finished-samples.qmd": {
+    "bash-skip-finished-samples.html": "8e41772d"
+  },
+  "source/metagenomics/megahit.qmd": {
+    "megahit.html": "773c580a"
   }
 }

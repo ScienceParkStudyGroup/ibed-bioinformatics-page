@@ -73,11 +73,11 @@ while not including `set` returns an empty line.
 
 ### `set -o pipefail`: catch failures in pipes
 
-By default, a pipeline/pipe returns the exit code of the last command only. If in the example below `cat` fails but `sort` succeeds, bash records the pipeline as successful (exit code 0) and the failure from `cat` is invisible to bash. `set -o pipefail` changes this and the pipeline instead returns the exit code of the first failing command.
+By default, a pipeline/pipe returns the exit code of the last command only. If in the example below `cat` fails but `sort` succeeds, bash records the pipeline as successful (exit code 0) and the failure from `cat` is invisible to bash. `set -o pipefail` changes this: the pipeline now returns the exit code of the last (rightmost) command that failed, or 0 if all commands worked.
 
 In the example below, `sort` will run in both cases. That is because `pipefail` does not stop the script. What changes is what bash records as the result of the pipeline, which we made visible by printing `$?`.
 
-Note: Since `pipefail` alone does not stop execution that becomes `set -e`'s job. `pipefail`'s role is to ensure bash has accurate information that `set -e` can act upon. Specifically, this ensures that a failure upstream is not silently swallowed before `set -e` can act on it. Therefore you usually use these two options together with each other.
+Note: Since `pipefail` alone does not stop execution that becomes `set -e`'s job. `pipefail`'s role is to ensure bash has accurate information that `set -e` can act upon. Specifically, this ensures that a failure upstream is not silently swallowed before `set -e` can act on it. Therefore you usually use these two options together with each other, or you use pipefail with `|| exit 1` after each pipe (see [`pipefail` without `set -e`](#pipefail-without-set--e) below).
 
 ```{bash}
 set -o pipefail
@@ -190,7 +190,7 @@ Script continued
 
 Note that echo "Script continued after pipefail" never prints. That is because `set -e `stopped the script when pipefail exposed the non-zero exit code.
 
-Once the job completes, check what Slurm recorded with `sacct -j <JOBID> --format=JobID,JobName,ExitCode,State` (replace the jobID with the job number from your script). This should return something like:
+Once the job completes, check what Slurm recorded with `sacct -j <JOBID> --format=JobID,JobName,ExitCode,State` (replace the jobID with the job number from your script). For how to use `sacct`, see [this section](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/cli/slurm_basics.html#sacct-checking-what-a-job-used). This should return something like:
 
 ```
 JobID           JobName ExitCode      State
@@ -215,13 +215,170 @@ What this demonstrates: without both `pipefail` and `set -e` active, a pipeline 
 :::
 
 
+### Where to put `set` in a job script
+
+A `set` option only works from its own line down. Commands above the `set` line run with the default behavior of bash. This matters in Slurm job scripts that use conda, because they often start with these two lines:
+
+```{bash}
+source ~/.bashrc
+conda activate fastp_1.4.0
+```
+
+`source ~/.bashrc` runs your `.bashrc` file. This file holds your personal settings, such as where conda is installed. We use it in job scripts so that Slurm can find conda.
+
+If `set -u` comes before `source ~/.bashrc`, the job can stop at the `.bashrc`. I tested three orders on Crunchomics, each with the `fastp_1.4.0` and the `checkm2_1.1.0` environment.
+
+**1. `set` before `source ~/.bashrc`: the job fails**
+
+```{bash}
+set -euo pipefail
+source ~/.bashrc
+conda activate fastp_1.4.0
+```
+
+The `.err` file contains:
+
+```
+/home/<user>/.bashrc: line 19: PS1: unbound variable
+```
+
+and `sacct` reports `FAILED` with exit code `1:0`. The script never reached `conda activate`.
+
+`PS1` is the variable that sets how your command prompt looks. Bash only sets it when you type commands yourself in a terminal. A Slurm job runs without a terminal, so `PS1` is not set. The `.bashrc` on Crunchomics contains this line, which changes the look of the prompt:
+
+```
+[ "$PS1" = "\\s-\\v\\\$ " ] && PS1="[\u@\h \W]\\$ "
+```
+
+This line reads `PS1`, and `set -u` stops the script there because `PS1` is not set. A comment in the `.bashrc` says that a Crunchomics setup script added this line, so your `.bashrc` probably has it too. If you added your own lines to your `.bashrc`, the line number can differ, or the error can come from another variable.
+
+**2. `set` after `source ~/.bashrc`, before `conda activate`: the job works**
+
+```{bash}
+source ~/.bashrc
+set -euo pipefail
+conda activate fastp_1.4.0
+```
+
+`sacct` reports `COMPLETED` with exit code `0:0`, and the `.err` file is empty. So `conda activate` itself works with `set -u` on.
+
+**3. `set` after `conda activate`: the job works**
+
+```{bash}
+source ~/.bashrc
+conda activate fastp_1.4.0
+set -euo pipefail
+```
+
+`sacct` reports `COMPLETED` with exit code `0:0`, and the `.err` file is empty.
+
+**Recommendation**: put `set` after `source ~/.bashrc`. Putting it after `conda activate` is also fine. `set -o pipefail` alone does not cause this problem, because the error comes from `set -u`.
+
+**Important**: Activation scripts of other conda environments can behave differently. If a job stops with `unbound variable` right after `conda activate`, move `set` below the `conda activate` line.
+
+
+### Hidden rules of `set -e`
+
+`set -e` does not stop at every failure, and it can stop a script before code that you wanted to run. Two things are easy to miss.
+
+**In an `&&` chain, only the last command can stop the script.** `&&` between two commands means: run the second command only if the first one worked. Save this as `test_chain.sh`:
+
+```{bash}
+set -e
+ls missing_file.txt && echo "ls worked"
+echo "Script continued after the && chain"
+```
+
+Run it and print its exit code:
+
+```{bash}
+bash test_chain.sh
+echo "exit code: $?"
+```
+
+This prints:
+
+```
+ls: cannot access 'missing_file.txt': No such file or directory
+Script continued after the && chain
+exit code: 0
+```
+
+`ls` fails, so `echo "ls worked"` is skipped. But `set -e` ignores a failure of a command that is not the last one in an `&&` chain. So the script goes on and ends with exit code 0. If you swap the two commands (`echo "start" && ls missing_file.txt`), the failing command is the last one, and the script stops.
+
+**Code that should run after a failure is never reached.** Some scripts check `$?` after a tool and write the failed sample to a list. Save this as `test_failed_list.sh`:
+
+```{bash}
+set -e
+ID="sample2"
+ls "${ID}_R1.fastq.gz"
+if [[ $? -ne 0 ]]; then
+    echo "$ID" >> failed_samples.txt
+fi
+echo "Script finished"
+```
+
+Run it, then look for the list of failed samples:
+
+```{bash}
+bash test_failed_list.sh
+ls failed_samples.txt
+```
+
+This prints:
+
+```
+ls: cannot access 'sample2_R1.fastq.gz': No such file or directory
+ls: cannot access 'failed_samples.txt': No such file or directory
+```
+
+`set -e` stops the script at the first `ls`, so the `if` block never runs and `failed_samples.txt` is never made. An empty or missing list of failed samples then looks as if every sample worked. Without `set -e`, the same script works: it reaches the `if` block and writes `sample2` into the list.
+
+
+### `pipefail` without `set -e`
+
+You can use `set -o pipefail` alone and stop the script yourself with `|| exit 1` after a pipe. `||` between two commands means: run the second command only if the first one fails. Save this as `test_pipe.sh`:
+
+```{bash}
+set -o pipefail
+ls missing_file.txt | gzip > out.txt.gz || exit 1
+echo "Script continued"
+```
+
+Run it and print its exit code:
+
+```{bash}
+bash test_pipe.sh
+echo "exit code: $?"
+```
+
+This prints:
+
+```
+ls: cannot access 'missing_file.txt': No such file or directory
+exit code: 1
+```
+
+Remove the `set` line and run the same two commands again:
+
+```
+ls: cannot access 'missing_file.txt': No such file or directory
+Script continued
+exit code: 0
+```
+
+Without pipefail, `|| exit 1` only sees the exit code of `gzip`, and `gzip` worked. Note that in both runs the failed pipe still leaves an `out.txt.gz` behind. It is about 20 bytes, a gzip file with nothing in it. This is why a check with `-s` is not enough after a failed job, see [Why the marker file works](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html#why-the-marker-file-works).
+
+With this pattern you decide where the script stops, and you can see it in the script. [Skip finished samples safely](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html) gives a job script template built on it.
+
+
 ## When it helps and when it causes problems
 
-These options are standard practice in production scripts and are not wrong. However, for scripts you are actively developing and debugging, they can make troubleshooting harder:
+These options are standard practice in production scripts and are not wrong. But each one has a catch:
 
--    `pipefail` is generally safe and useful to add
--    `set -e` can cause the script to exit without a clear message, making it hard to know which step failed
--    `set -u` will exit on unset variables, which is useful but can be surprising if you are not expecting it
+-   `set -o pipefail` is safe and useful when your script has a pipe. It does not stop anything by itself, it only makes sure a failure in a pipe is not hidden
+-   `set -e` stops the script at a failure, but not at every failure, and it can stop the script before code that you wanted to run. See [Hidden rules of `set -e`](#hidden-rules-of-set--e)
+-   `set -u` stops the script at a variable that is not set. This is useful, but on Crunchomics it also stops a job at your `.bashrc`, see [Where to put `set` in a job script](#where-to-put-set-in-a-job-script)
 
 Even more important: **In computational biology non-zero exit codes are sometimes expected** and you might want that the script continues as they don't always mean something went wrong.  A common example is `grep`: it returns exit code 1 when no match is found, and exit code 2 only when an actual error occurs (e.g. the file does not exist). With `set -e` active, a grep that finds no match will kill the script, even though "no match found" is a perfectly valid biological result as seen in the example below:
 
@@ -248,17 +405,18 @@ Pipeline is finished
 ```
 
 
-Altogether this means that whether or not we include `set -euo pipefail` is an important design choice that depends on the tools we are using in our workflow.
+With `|| exit 1` instead of `set -e`, you choose which commands may stop the script. You add it after each tool command, and you leave it out after a `grep` where "no match" is a valid result.
 
-**Recommendations**: 
+**Recommendations**:
 
-- While developing and testing a script, leave these options out and add them once the script is working correctly and you understand each step 
-- Only add these options if you are sure that every non-zero exit code genuinely represents a failure.
-- If you inherit a script with `set -euo pipefail` and it exits unexpectedly, this line is often the first place to look.
+- For your own job scripts, use `set -o pipefail` and put `|| exit 1` after every tool command, without `set -e`. You then see in the script where it can stop. The template on [Skip finished samples safely](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html#the-template) is built this way
+- If you get a script with `set -euo pipefail`, for example from a GenAI tool, change that line to `set -o pipefail` and put `|| exit 1` after every tool command. Always do both. A script without `set -e` and without `|| exit 1` goes on after every failure, which is worse than before. You can ask the GenAI tool to make this change, but then read the script and check that every tool command ends with `|| exit 1`
+- This change also removes `set -u`. The template replaces it with a check for an empty sample ID, which is the variable that matters most in a job script
+- If a script with `set -euo pipefail` stops without a clear message, this line is the first place to look
 
-As an alternative (or complement) to relying on `set -e`, consider building explicit checks into your workflow using the validation approaches described in the [bash input verification tutorial](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-input-validation.html). Checking that an output file exists, is non-empty, and contains the expected number of results after each step is more informative than letting bash decide whether to continue. It also forces you to think about what a correct intermediate result actually looks like, which is a useful habit regardless of whether you use set -euo pipefail or not.
+Whichever option you choose, an exit code of 0 only tells you that no command reported a failure. It does not tell you that the results are correct. So after each step, look at the outputs, see [Checking the outputs](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html#checking-the-outputs).
 
 
-**A note on GenAI-generated scripts:** GenAI might add `set -euo pipefail` to code because it is considered best practice for production-level scripts. That is not wrong, but as discussed above this can make the code harder to debug or might not be the behavior we want for our workflow. If a GenAI-generated script adds this to your code, leave it out while developing, verify that every tool in your workflow returns non-zero only on genuine failures, and add it back once the script is working and it is truly needed.
+**A note on GenAI-generated scripts:** GenAI tools often add `set -euo pipefail` because it is considered best practice for production scripts. That is not wrong, but as shown above, `set -e` can stop a script where you don't expect it, or not stop it where you do. Replace it with `set -o pipefail` and `|| exit 1` after every tool command, as described in the recommendations above. For more patterns to look for in GenAI code, see [Checking GenAI-generated scripts](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html#checking-genai-generated-scripts).
 
 </div>

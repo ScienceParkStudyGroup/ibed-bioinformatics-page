@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/core_tools/bash-pipefail.html" rel="next">
-<link href="../../source/core_tools/bash-input-validation.html" rel="prev">
+<link href="../../source/conda/conda.html" rel="next">
+<link href="../../source/core_tools/bash-pipefail.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -285,7 +285,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-for-loops.html">Writing bash scripts</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-arrays.html">Arrays in bash</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-for-loops.html">Writing bash scripts</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-arrays.html">Bash arrays</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -382,19 +382,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/bash-input-validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">File verifications in bash</span></a>
+ <span class="menu-text">Checking files in bash scripts</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/bash-arrays.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Arrays in bash</span></a>
+  <a href="../../source/core_tools/bash-skip-finished-samples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Skip finished samples safely</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/bash-pipefail.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><code>set -euo pipefail</code> in bash</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bash-arrays.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Bash arrays</span></a>
   </div>
 </li>
       </ul>
@@ -665,6 +671,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/medaka.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Medaka</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/megahit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MEGAHIT</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1135,7 +1147,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#arrays-in-bash" id="toc-arrays-in-bash" class="nav-link active" data-scroll-target="#arrays-in-bash">Arrays in bash</a>
+  <li><a href="#bash-arrays" id="toc-bash-arrays" class="nav-link active" data-scroll-target="#bash-arrays">Bash arrays</a>
   <ul>
   <li><a href="#basics" id="toc-basics" class="nav-link" data-scroll-target="#basics">Basics</a></li>
   <li><a href="#common-bugs" id="toc-common-bugs" class="nav-link" data-scroll-target="#common-bugs">Common bugs</a></li>
@@ -1145,7 +1157,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/bash-arrays.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-for-loops.html">Writing bash scripts</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-arrays.html">Arrays in bash</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-for-loops.html">Writing bash scripts</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-arrays.html">Bash arrays</a></li></ol></nav></header>
 
 
 <header id="title-block-header">
@@ -1154,8 +1166,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="arrays-in-bash" class="level1" style="text-align: justify">
-<h1>Arrays in bash</h1>
+<section id="bash-arrays" class="level1" style="text-align: justify">
+<h1>Bash arrays</h1>
 <section id="basics" class="level2">
 <h2 class="anchored" data-anchor-id="basics">Basics</h2>
 <p>In Bash, an array is a collection of values stored under a single variable name.</p>
@@ -1248,7 +1260,7 @@ Number of files: 3</code></pre>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> s<span class="pp">*</span>.faa</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The benefit of the code above is that a glob cannot silently exclude files the way an array can.</p>
-<p><strong>A note on GenAI-generated code:</strong> Arrays are a pattern that GenAI tools add frequently when code contains loops. That is because for production level code arrays are useful when files do not share a common path or naming pattern. In bioinformatics workflows however, input files are almost always generated by a previous step in a task-specific folder. This means that a glob should be sufficient in most cases. If you encounter an array in GenAI-generated code, always check if a glob can be used instead.</p>
+<p><strong>A note on GenAI-generated code:</strong> Arrays are a pattern that GenAI tools add frequently when code contains loops. That is because for production level code arrays are useful when files do not share a common path or naming pattern. In bioinformatics workflows however, input files are almost always generated by a previous step in a task-specific folder. This means that a glob should be sufficient in most cases. If you encounter an array in GenAI-generated code, always check if a glob can be used instead. For more patterns to look for in GenAI code, see <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html#checking-genai-generated-scripts">Checking GenAI-generated scripts</a>.</p>
 </section>
 </section>
 
@@ -1675,13 +1687,13 @@ Number of files: 3</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/core_tools/bash-input-validation.html" class="pagination-link" aria-label="File verifications in bash">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">File verifications in bash</span>
+      <a href="../../source/core_tools/bash-pipefail.html" class="pagination-link" aria-label="`set -euo pipefail` in bash">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><code>set -euo pipefail</code> in bash</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/core_tools/bash-pipefail.html" class="pagination-link" aria-label="`set -euo pipefail` in bash">
-        <span class="nav-page-text"><code>set -euo pipefail</code> in bash</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/conda/conda.html" class="pagination-link" aria-label="Installing software with conda">
+        <span class="nav-page-text">Installing software with conda</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1693,7 +1705,7 @@ Number of files: 3</code></pre>
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-04-01</p>
+Last modified: 2026-11-10</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/bash-arrays.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

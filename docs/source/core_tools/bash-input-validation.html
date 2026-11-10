@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/core_tools/bash-arrays.html" rel="next">
+<link href="../../source/core_tools/bash-skip-finished-samples.html" rel="next">
 <link href="../../source/core_tools/bash-for-loops.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -285,7 +285,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-for-loops.html">Writing bash scripts</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-input-validation.html">File verifications in bash</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-for-loops.html">Writing bash scripts</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-input-validation.html">Checking files in bash scripts</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -382,19 +382,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/bash-input-validation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">File verifications in bash</span></a>
+ <span class="menu-text">Checking files in bash scripts</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/bash-arrays.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Arrays in bash</span></a>
+  <a href="../../source/core_tools/bash-skip-finished-samples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Skip finished samples safely</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/bash-pipefail.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><code>set -euo pipefail</code> in bash</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bash-arrays.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bash arrays</span></a>
   </div>
 </li>
       </ul>
@@ -665,6 +671,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/medaka.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Medaka</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/megahit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MEGAHIT</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1135,7 +1147,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#file-verifications-in-bash" id="toc-file-verifications-in-bash" class="nav-link active" data-scroll-target="#file-verifications-in-bash">File verifications in bash</a>
+  <li><a href="#checking-files-in-bash-scripts" id="toc-checking-files-in-bash-scripts" class="nav-link active" data-scroll-target="#checking-files-in-bash-scripts">Checking files in bash scripts</a>
   <ul>
   <li><a href="#action-when-a-file-does-not-exist" id="toc-action-when-a-file-does-not-exist" class="nav-link" data-scroll-target="#action-when-a-file-does-not-exist">Action when a file does not exist</a></li>
   <li><a href="#action-when-a-file-exists-but-is-empty" id="toc-action-when-a-file-exists-but-is-empty" class="nav-link" data-scroll-target="#action-when-a-file-exists-but-is-empty">Action when a file exists but is empty</a></li>
@@ -1144,16 +1156,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#looping-across-all-samples" id="toc-looping-across-all-samples" class="nav-link" data-scroll-target="#looping-across-all-samples">Looping across all samples</a></li>
   <li><a href="#break-stopping-a-loop-if-something-is-wrong" id="toc-break-stopping-a-loop-if-something-is-wrong" class="nav-link" data-scroll-target="#break-stopping-a-loop-if-something-is-wrong"><code>break</code>: Stopping a loop if something is wrong</a></li>
-  <li><a href="#exit-1-stopping-a-script-if-something-is-wrong" id="toc-exit-1-stopping-a-script-if-something-is-wrong" class="nav-link" data-scroll-target="#exit-1-stopping-a-script-if-something-is-wrong"><code>exit 1</code>: Stopping a script if something is wrong</a></li>
+  <li><a href="#exit-1-stopping-a-script-if-something-is-wrong" id="toc-exit-1-stopping-a-script-if-something-is-wrong" class="nav-link" data-scroll-target="#exit-1-stopping-a-script-if-something-is-wrong"><code>exit 1</code>: Stopping a script if something is wrong</a>
+  <ul class="collapse">
+  <li><a href="#which-exit-code-to-use" id="toc-which-exit-code-to-use" class="nav-link" data-scroll-target="#which-exit-code-to-use">Which exit code to use</a></li>
+  </ul></li>
   <li><a href="#continue-keyword" id="toc-continue-keyword" class="nav-link" data-scroll-target="#continue-keyword"><code>continue</code> keyword</a></li>
   </ul></li>
+  <li><a href="#skipping-samples-that-already-finished" id="toc-skipping-samples-that-already-finished" class="nav-link" data-scroll-target="#skipping-samples-that-already-finished">Skipping samples that already finished</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/bash-input-validation.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-for-loops.html">Writing bash scripts</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-input-validation.html">File verifications in bash</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/cli/code_doc.html">Getting Started</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-for-loops.html">Writing bash scripts</a></li><li class="breadcrumb-item"><a href="../../source/core_tools/bash-input-validation.html">Checking files in bash scripts</a></li></ol></nav></header>
 
 
 <header id="title-block-header">
@@ -1162,8 +1178,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="file-verifications-in-bash" class="level1" style="text-align: justify">
-<h1>File verifications in bash</h1>
+<section id="checking-files-in-bash-scripts" class="level1" style="text-align: justify">
+<h1>Checking files in bash scripts</h1>
 <p>In job scripts you sometimes want to check whether a file exists and only run an action if it doesn’t exist. For example you might want to run a quality cleaning step on multiple files on an HPC. Here, you might want to skip the cleaning step if the output file already exists to avoid re-running computationally costly tasks. Or you might want to generate a clear error message if an input file is missing for easier troubleshooting.</p>
 <p>For this tutorial, first create two files: a sample list and empty file which we will use in later sections:</p>
 <div class="cell">
@@ -1251,6 +1267,7 @@ cleaned.fastq</code></pre>
 <pre><code>empty_file is empty, run cleaning script. Generating output:
 empty_file</code></pre>
 <p>Note: in a real script, the else branch would rerun the tool that generates the file. Here we use touch as a placeholder, which creates again an empty file and the check would trigger again on the next run.</p>
+<p><strong>Watch out with compressed files.</strong> <code>-s</code> only checks that a file is bigger than 0 bytes. Even a <code>.gz</code> file without any reads is about 20 bytes, so <code>-s</code> is true for it, see <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html#why-not-just--s">Why not just <code>-s</code>?</a>.</p>
 </section>
 <section id="combining-checks" class="level2">
 <h2 class="anchored" data-anchor-id="combining-checks">Combining checks</h2>
@@ -1315,6 +1332,8 @@ Running cleaning step and generating s3.cleaned.fastq
 Processing s4
 ---------------
 Running cleaning step and generating s4.cleaned.fastq</code></pre>
+<p>This <code>-s</code> check on the output file is fine to learn the idea. In a real job script, it can skip a sample whose output is broken. Use a marker file instead, see <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html">Skip finished samples safely</a>.</p>
+<p>This page uses <code>for ID in $(cat samples)</code>, because the sample list has one ID per line. The <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-for-loops.html">for-loops tutorial</a> also teaches you how to use a <code>while</code> loop, which you need when your list has more than one column, for example a sample ID and a file path. Regardless of how you write the loop: if your sample list comes from Excel or Windows, check it for Windows line endings first, see <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-for-loops.html#handling-dos-file-format-issues">Handling DOS file format issues</a>.</p>
 </section>
 <section id="break-stopping-a-loop-if-something-is-wrong" class="level3">
 <h3 class="anchored" data-anchor-id="break-stopping-a-loop-if-something-is-wrong"><code>break</code>: Stopping a loop if something is wrong</h3>
@@ -1359,7 +1378,8 @@ Script finished</code></pre>
 </section>
 <section id="exit-1-stopping-a-script-if-something-is-wrong" class="level3">
 <h3 class="anchored" data-anchor-id="exit-1-stopping-a-script-if-something-is-wrong"><code>exit 1</code>: Stopping a script if something is wrong</h3>
-<p><strong>Important for longer scripts</strong>: break stops the loop but does not stop the script. Any commands written after the done keyword will still be executed, even if break was triggered. To stop the entire script after break, add an exit 1 immediately after the error message. The 1 signals to the system that the script ended due to an error (exit code 0 means success):</p>
+<p><strong>Important for longer scripts</strong>: break stops the loop but does not stop the script. Any commands written after the done keyword will still be executed, even if break was triggered. To stop the entire script, use <code>exit 1</code> instead of <code>break</code>. The 1 signals to the system that the script ended due to an error (exit code 0 means success).</p>
+<p><code>exit</code> ends the whole shell that runs it. If you paste the loop below into your terminal, <code>exit</code> closes your terminal. So save it in a file instead, for example with <code>nano stop_test.sh</code>:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> samples<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_F</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_forward_cleaned.fastq"</span></span>
@@ -1378,7 +1398,12 @@ Script finished</code></pre>
 <span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"\nScript finished"</span> <span class="co"># This line is never reached because exit 1 stops the script</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>You now will see:</p>
+<p>Then run the script with <code>bash</code>. <code>$?</code> holds the exit code of the last command, here the script. <code>echo "exit code: $?"</code> prints it, with “exit code:” as a label in front:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> stop_test.sh</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"exit code: </span><span class="va">$?</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>For me this prints:</p>
 <pre><code>Processing s1
 ---------------
 Both input files exist and are non-empty. Running assembly for s1
@@ -1386,33 +1411,96 @@ Both input files exist and are non-empty. Running assembly for s1
 Processing s2
 ---------------
 ERROR: s2_forward_cleaned.fastq or s2_reverse_cleaned.fastq is missing or empty. Stopping pipeline.
-logout</code></pre>
-<p>If run interactively on your computer you can press enter to restart the terminal. The logout line is produced by the terminal itself when the shell session ends and is not part of the script output. In a SLURM job script, exit 1 will not produce logout or the exit code message. Instead, the script will simply stop, and the job will appear as FAILED when checked with sacct or squeue. The error message printed by echo will appear in the SLURM error file.</p>
+exit code: 1</code></pre>
+<p>“Script finished” is never printed, and the exit code is 1.</p>
+<p>In a SLURM job script, the job stops at <code>exit 1</code> and SLURM marks it as failed. You can check this with <code>sacct</code>: the <code>State</code> column shows <code>FAILED</code> instead of <code>COMPLETED</code>. For how to use <code>sacct</code>, see <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/cli/slurm_basics.html#sacct-checking-what-a-job-used">this section</a>. The message from <code>echo</code> ends up in the SLURM output file, because <code>echo</code> writes to the normal output. By default, SLURM writes normal output and error messages to the same file. If your job script sets a separate error file with <code>#SBATCH --error</code>, you can send the message there instead: add <code>&gt;&amp;2</code> at the end of the <code>echo</code> line.</p>
+<section id="which-exit-code-to-use" class="level4">
+<h4 class="anchored" data-anchor-id="which-exit-code-to-use">Which exit code to use</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Line in the script</th>
+<th>Meaning</th>
+<th>What SLURM sees</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>exit 0</code></td>
+<td>Stop here, all is fine. For example: in a job script for one sample, the output of that sample already exists</td>
+<td>success</td>
+</tr>
+<tr class="even">
+<td><code>exit 1</code></td>
+<td>Stop here, something went wrong</td>
+<td>failure</td>
+</tr>
+<tr class="odd">
+<td>no <code>exit</code></td>
+<td>The script ends after its last line, with the exit code of that line</td>
+<td>depends on the last line</td>
+</tr>
+</tbody>
+</table>
+<p>Any number other than 0 means failure. For example, <code>127</code> means that bash could not find the command or the script you asked it to run.</p>
+<p>The last row is the tricky one. Save these two scripts as <code>exit_1.sh</code> and <code>no_exit.sh</code>, for example with <code>nano</code>. <code>ls</code> stands in for a real tool: like a tool, it fails when its input file is missing. <code>||</code> between two commands means: run the second command only if the first one fails.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># exit_1.sh</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> s2_forward_cleaned.fastq <span class="kw">||</span> <span class="bu">exit</span> 1</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Done"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># no_exit.sh</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> s2_forward_cleaned.fastq</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Done"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Run both with <code>bash</code> and print the exit codes. <code>echo -e</code> with <code>\n</code> at the end adds an empty line, so the output of the two scripts is easier to tell apart:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> exit_1.sh</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"exit code: </span><span class="va">$?</span><span class="st">\n"</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> no_exit.sh</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="at">-e</span> <span class="st">"exit code: </span><span class="va">$?</span><span class="st">\n"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This prints:</p>
+<pre><code>ls: cannot access 's2_forward_cleaned.fastq': No such file or directory
+exit code: 1
+
+ls: cannot access 's2_forward_cleaned.fastq': No such file or directory
+Done
+exit code: 0</code></pre>
+<p>Both scripts show the same error. But <code>no_exit.sh</code> goes on, prints “Done”, and ends with exit code 0, because its last line worked. In a job, SLURM would report this job as successful, and you would only find the error by reading the log files.</p>
+<p><code>exit</code> always stops the whole script, also <code>exit 0</code>. So inside a loop over samples, don’t use <code>exit 0</code> to skip a sample that is already done: the samples after it never run, and you get no error. To skip one sample and go on with the next, use <code>continue</code> or if/else (see below). In a SLURM <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/cli/slurm_basics.html#arrays-running-the-same-job-for-many-samples">job array</a>, this is different: each task runs the script for one sample only, so there <code>exit 0</code> ends just that one task, which is what you want.</p>
+</section>
 </section>
 <section id="continue-keyword" class="level3">
 <h3 class="anchored" data-anchor-id="continue-keyword"><code>continue</code> keyword</h3>
 <p>The above works but we might want a different behavior and run the assembly on all files if the input files exist and for all other cases output a clear error message. The <code>continue</code> keyword does just that. Let’s begin and see what happens if the we don’t use the break keyword:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dummy files for every sample except S2 to illustrate the process</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"some content"</span> <span class="op">&gt;</span> s3_forward_cleaned.fastq</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"some content"</span> <span class="op">&gt;</span> s3_reverse_cleaned.fastq</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"some content"</span> <span class="op">&gt;</span> s4_forward_cleaned.fastq</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"some content"</span> <span class="op">&gt;</span> s4_reverse_cleaned.fastq</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the loop</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> samples<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_F</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_forward_cleaned.fastq"</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_R</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_reverse_cleaned.fastq"</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Processing </span><span class="va">$ID</span><span class="st">"</span></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"---------------"</span></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">[[</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_F</span><span class="st">"</span> <span class="kw">||</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_R</span><span class="st">"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">"ERROR: </span><span class="va">${CLEANED_READS_F}</span><span class="st"> or </span><span class="va">${CLEANED_READS_R}</span><span class="st"> is missing or empty. Skipping sample."</span></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"Both input files exist and are non-empty. Running assembly for </span><span class="va">$ID</span><span class="st">\n"</span></span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dummy files for every sample except S2 to illustrate the process</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"some content"</span> <span class="op">&gt;</span> s3_forward_cleaned.fastq</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"some content"</span> <span class="op">&gt;</span> s3_reverse_cleaned.fastq</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"some content"</span> <span class="op">&gt;</span> s4_forward_cleaned.fastq</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"some content"</span> <span class="op">&gt;</span> s4_reverse_cleaned.fastq</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the loop</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> samples<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_F</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_forward_cleaned.fastq"</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_R</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_reverse_cleaned.fastq"</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Processing </span><span class="va">$ID</span><span class="st">"</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"---------------"</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">[[</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_F</span><span class="st">"</span> <span class="kw">||</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_R</span><span class="st">"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">"ERROR: </span><span class="va">${CLEANED_READS_F}</span><span class="st"> or </span><span class="va">${CLEANED_READS_R}</span><span class="st"> is missing or empty. Skipping sample."</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"Both input files exist and are non-empty. Running assembly for </span><span class="va">$ID</span><span class="st">\n"</span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This prints:</p>
 <pre><code>Processing s1
@@ -1438,21 +1526,21 @@ Both input files exist and are non-empty. Running assembly for s4</code></pre>
 </ol>
 <p>By using <code>continue</code> we can skip the full loop for a sample where something is missing:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the loop</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> samples<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_F</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_forward_cleaned.fastq"</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_R</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_reverse_cleaned.fastq"</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Processing </span><span class="va">$ID</span><span class="st">"</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"---------------"</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">[[</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_F</span><span class="st">"</span> <span class="kw">||</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_R</span><span class="st">"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">"ERROR: </span><span class="va">${CLEANED_READS_F}</span><span class="st"> or </span><span class="va">${CLEANED_READS_R}</span><span class="st"> is missing or empty. Skipping sample."</span></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"Both input files exist and are non-empty. Running assembly for </span><span class="va">$ID</span><span class="st">\n"</span></span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the loop</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> samples<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_F</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_forward_cleaned.fastq"</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_R</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_reverse_cleaned.fastq"</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Processing </span><span class="va">$ID</span><span class="st">"</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"---------------"</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">[[</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_F</span><span class="st">"</span> <span class="kw">||</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_R</span><span class="st">"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">"ERROR: </span><span class="va">${CLEANED_READS_F}</span><span class="st"> or </span><span class="va">${CLEANED_READS_R}</span><span class="st"> is missing or empty. Skipping sample."</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"Both input files exist and are non-empty. Running assembly for </span><span class="va">$ID</span><span class="st">\n"</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Returns:</p>
 <pre><code>Processing s1
@@ -1470,24 +1558,29 @@ Processing s4
 ---------------
 Both input files exist and are non-empty. Running assembly for s4</code></pre>
 <p>Now we see that nothing is done for S2, exactly what we want.</p>
-<p><strong>Important:</strong> if you use this inside a SLURM script, the error message should be captured in the SLURM error file. Make sure to always read these files to catch any issues with your script.</p>
+<p><strong>Important:</strong> if you use this inside a SLURM script, the error message ends up in the SLURM output file (see the <code>exit 1</code> section above). Make sure to always read the SLURM log files to catch any issues with your script.</p>
 <p><strong>Alternative approach</strong>: The same behavior can be written using if/else, which makes both the error and the action branch explicitly visible. This can be easier to read when the loop body is long or when sharing code with others who are less familiar with continue.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> samples<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_F</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_forward_cleaned.fastq"</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_R</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_reverse_cleaned.fastq"</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Processing </span><span class="va">$ID</span><span class="st">"</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"---------------"</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">[[</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_F</span><span class="st">"</span> <span class="kw">||</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_R</span><span class="st">"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">"ERROR: files missing or empty for </span><span class="va">${ID}</span><span class="st">"</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"Running assembly for </span><span class="va">$ID</span><span class="st">\n"</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ID <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> samples<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_F</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_forward_cleaned.fastq"</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">CLEANED_READS_R</span><span class="op">=</span><span class="st">"</span><span class="va">${ID}</span><span class="st">_reverse_cleaned.fastq"</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Processing </span><span class="va">$ID</span><span class="st">"</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"---------------"</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">[[</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_F</span><span class="st">"</span> <span class="kw">||</span> <span class="ot">!</span> <span class="ot">-s</span> <span class="st">"</span><span class="va">$CLEANED_READS_R</span><span class="st">"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">"ERROR: files missing or empty for </span><span class="va">${ID}</span><span class="st">"</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="at">-e</span> <span class="st">"Running assembly for </span><span class="va">$ID</span><span class="st">\n"</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
+</section>
+<section id="skipping-samples-that-already-finished" class="level2">
+<h2 class="anchored" data-anchor-id="skipping-samples-that-already-finished">Skipping samples that already finished</h2>
+<p>The checks on this page look at input files. If you want a job script that you can submit again, and that skips the samples that already finished, the check has to decide whether a sample is done. That is harder than it looks. For example, <code>-s</code> is true for a <code>.gz</code> file without reads, and for a file that was cut off halfway.</p>
+<p><a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html">Skip finished samples safely</a> gives you a template to copy into your job scripts. It also shows how to test a check with broken files, and how to check the outputs after a job.</p>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
@@ -1495,17 +1588,12 @@ Both input files exist and are non-empty. Running assembly for s4</code></pre>
 <ul>
 <li>Use <code>-f</code> to check whether a file exists and <code>-s</code> to check whether a file exists and is non-empty. Prefer <code>[[</code> over <code>[</code> when writing conditions in bash scripts</li>
 <li>Use <code>break</code> to stop a loop entirely when a missing or empty file indicates a problem that needs to be resolved before continuing</li>
-<li>Use <code>continue</code> to skip the current sample and proceed to the next iteration when a file is missing. Note that <code>continue</code> is only meaningful when there is code after the if block that should be skipped — without that, the loop advances to the next iteration anyway, making continue redundant</li>
+<li>Use <code>continue</code> to skip the current sample and proceed to the next iteration when a file is missing. Note that <code>continue</code> is only meaningful when there is code after the if block that should be skipped. Without that, the loop advances to the next iteration anyway, making continue redundant</li>
 <li>Use if/else as a readable alternative to continue, particularly for longer loop bodies or when sharing code with others</li>
+<li>Use <code>exit 1</code> to stop a script when something is wrong. <code>exit 0</code> also stops the whole script, so inside a loop use <code>continue</code> to skip a sample that is done. Without <code>exit</code>, the last line decides, so a final <code>echo "Done"</code> can hide a failure</li>
+<li>To skip samples that already finished, don’t write a new check for every script. Use the template on <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html">Skip finished samples safely</a></li>
 </ul>
-<p><strong>A note on GenAI-generated code</strong></p>
-<p>Code generated by GenAI tools will often include file verification patterns. While these patterns are not wrong, they are frequently written with production pipelines in mind rather than scientific workflows. Concretely this means:</p>
-<ul>
-<li>Silent skipping of samples using continue without a clear error message, meaning a sample can disappear from your results without any warning</li>
-<li>File existence checks (<code>-f</code>) where an integrity check would be more appropriate. For example, a file can exist and be non-empty but still be corrupt, for example after a SLURM timeout</li>
-<li>Defensive patterns like <code>|| continue</code> placed directly in command chains where they are difficult to read and harder to reason about. Avoid these and use the patterns you have seen above.</li>
-</ul>
-<p>When reviewing GenAI-generated code, always ask: if this check fails, what actually happens to my data? A script that runs without errors is not the same as a script that produced correct results.</p>
+<p><strong>A note on GenAI-generated code:</strong> GenAI tools often add <code>continue</code> or <code>|| continue</code> to skip a sample when a file is missing. Check that the script prints a clear message before it skips, as in the examples above, and read the log files after the job. For more patterns to look for, see <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html#checking-genai-generated-scripts">Checking GenAI-generated scripts</a>.</p>
 </section>
 </section>
 
@@ -1937,8 +2025,8 @@ Both input files exist and are non-empty. Running assembly for s4</code></pre>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/core_tools/bash-arrays.html" class="pagination-link" aria-label="Arrays in bash">
-        <span class="nav-page-text">Arrays in bash</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/core_tools/bash-skip-finished-samples.html" class="pagination-link" aria-label="Skip finished samples safely">
+        <span class="nav-page-text">Skip finished samples safely</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1950,7 +2038,7 @@ Both input files exist and are non-empty. Running assembly for s4</code></pre>
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-04-16</p>
+Last modified: 2026-11-10</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/bash-input-validation.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

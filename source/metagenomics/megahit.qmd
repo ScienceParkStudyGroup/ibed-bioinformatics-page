@@ -1,0 +1,87 @@
+---
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+execute:
+  eval: false
+engine: knitr
+bibliography: references.bib
+---
+
+<div style="text-align: justify">
+
+## MEGAHIT
+
+### Introduction
+
+MEGAHIT is an assembler for short reads, such as Illumina reads. It turns reads into contigs, longer stretches of DNA. MEGAHIT is fast, which makes it a common choice to assemble large and complex metagenomes [@li2015].
+
+For more information, please visit [the GitHub page](https://github.com/voutcn/megahit).
+
+For a tutorial that uses MEGAHIT, see [Assembling a metagenome](https://ndombrowski.github.io/Assembly_tutorial/).
+
+### Installation
+
+Installed on Crunchomics: Yes, MEGAHIT v1.2.9 is installed and available without activating a conda environment. You can check the version with:
+
+```{bash}
+megahit --version
+```
+
+```
+MEGAHIT v1.2.9
+```
+
+If you want to install it yourself, the command below installs the version verified on Crunchomics. Before running it, check the tool's [GitHub](https://github.com/voutcn/megahit) for a newer version and swap the version number if one is available.
+
+```{bash}
+mamba create -n megahit_1.2.9
+mamba install -n megahit_1.2.9 -c bioconda megahit=1.2.9
+mamba activate megahit_1.2.9
+```
+
+### Usage
+
+Required inputs:
+
+-   Paired-end reads: two fastq files per sample, R1 and R2 (forward and reverse reads). The files can be compressed (`.fastq.gz`)
+
+Generated output, in the output folder that you give with `-o`:
+
+-   `final.contigs.fa`: the assembled contigs
+-   `log`: the log of the run. Read it if a run fails
+-   `done`: an empty file that MEGAHIT writes as the very last step of a run. If it is there, the run finished
+
+```{bash}
+megahit -1 data/s1_R1.fastq.gz -2 data/s1_R2.fastq.gz -t 8 -o results/assembly/s1
+```
+
+Basic options, for a full list run `megahit --help`:
+
+-   `-1` and `-2`: the R1 and R2 files of one sample
+-   `-t`: the number of threads (CPUs) to use. Match it to `--cpus-per-task` in your SLURM job script
+-   `-o`: the output folder. MEGAHIT makes this folder itself, and stops with an error if it already exists. So don't make it beforehand with `mkdir`, only the folder above it (here `results/assembly`)
+
+### Running MEGAHIT on many samples
+
+To run MEGAHIT on many samples in a SLURM job array, and to skip the samples that already finished when you submit the job again, use the `done` file as the check. [When a tool makes its own final file](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html#when-a-tool-makes-its-own-final-file) on the page "Skip finished samples safely" shows how, and what to do with the output folder of a crashed run.
+
+### Restarting a crashed run
+
+If a run crashed, for example because the job ran out of time, MEGAHIT can pick it up where it stopped with the option `--continue`. Then you don't need to delete the output folder of the crashed run first. The log shows the finished steps as `passing check point`:
+
+```{bash}
+megahit -1 data/s2_R1.fastq.gz -2 data/s2_R2.fastq.gz -t 8 -o results/assembly/s2 --continue
+```
+
+What I found when I tested `--continue` on a small sample:
+
+-   The resumed run gave the same number and total length of contigs as a run without a crash
+-   MEGAHIT prints "Ignore all options except for -o/--out-dir", so it uses the settings of the first run. You can't change, for example, the number of threads on a rerun
+-   On a run that already finished, `--continue` stopped with an error, because MEGAHIT deletes its temporary files at the end of a run. The finished results were not damaged, but the task failed
+-   On a new sample, MEGAHIT prints "Cannot find .../options.json, switching to normal mode" and does a normal first run with the settings you give it. So in a job script, you can use `--continue` for every sample, after the skip check on `done`
+
+*Last tested: 2026-11-10 (MEGAHIT v1.2.9 on Crunchomics).*
+
+For what to check before you rely on the resume option of any tool, see [Tools that can resume a crashed run](https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html#tools-that-can-resume-a-crashed-run).
+
+</div>

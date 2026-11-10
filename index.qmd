@@ -26,12 +26,16 @@ If you are new to informatics it is recommended to start with the bash and HPC t
 
 ### Writing bash scripts
 
-Once you know the basics, these pages help you write scripts that run on many files and stop safely when something goes wrong. They build on each other, so read them in this order:
+Once you know the basics, these pages help you write scripts that run on many files, stop safely when something goes wrong, and can be submitted again. Read the first three in this order:
 
 -   [For-loops in bash](source/core_tools/bash-for-loops.qmd): How can I run the same tool on many files instead of one?
--   [Checking files in bash scripts](source/core_tools/bash-input-validation.qmd): How can my script skip samples that are already done, or stop with a clear message when an input file is missing?
+-   [Checking files in bash scripts](source/core_tools/bash-input-validation.qmd): How can my script check whether an input file is there, and skip a sample or stop with a clear message when it is missing?
+-   [Skip finished samples safely](source/core_tools/bash-skip-finished-samples.qmd): How can I submit a job again so that it skips the samples that already finished, and only those? This page also lists what to look for in a script that a GenAI tool wrote for you.
+
+Read these when you need them:
+
+-   [Stopping scripts on errors with `set -euo pipefail`](source/core_tools/bash-pipefail.qmd): Why does AI often add this line to the top of a script, and when does it help or cause problems? Read this when a script you got has this line, or when your own script uses a pipe (`|`).
 -   [Bash arrays](source/core_tools/bash-arrays.qmd): How can I store a list of file names in one variable, and when do I not need to?
--   [Stopping scripts on errors with `set -euo pipefail`](source/core_tools/bash-pipefail.qmd): Why does AI often add this line to the top of a script, and when does it help or cause problems?
 
 ### Storing data on Crunchomics
 
@@ -147,6 +151,7 @@ These tutorials were first written for workshops at NIOZ. Some use older tool ve
   <ul>
     <li><a href="source/phylogenomics/mafft.qmd">Mafft</a>: A multiple sequence alignment program</li>
     <li><a href="source/metagenomics/medaka.qmd">Medaka</a>: A tool for assembly polishing</li>
+    <li><a href="source/metagenomics/megahit.qmd">MEGAHIT</a>: A de novo assembler for short reads, often used for metagenomes</li>
     <li><a href="source/metagenomics/metabat2.qmd">MetaBAT2</a>: A tool for reconstructing genomes from metagenomic data</li>
     <li><a href="source/metagenomics/metabolic.qmd">METABOLIC</a>: A tool to predict functional trait profiles in genome datasets</li>
     <li><a href="source/metagenomics/metacerberus.qmd">MetaCerberus</a>: A tool for functional assignment</li>

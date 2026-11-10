@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../source/conda/conda.html" rel="next">
-<link href="../../source/core_tools/bash-arrays.html" rel="prev">
+<link href="../../source/core_tools/bash-arrays.html" rel="next">
+<link href="../../source/core_tools/bash-skip-finished-samples.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -382,19 +382,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/bash-input-validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">File verifications in bash</span></a>
+ <span class="menu-text">Checking files in bash scripts</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/core_tools/bash-arrays.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Arrays in bash</span></a>
+  <a href="../../source/core_tools/bash-skip-finished-samples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Skip finished samples safely</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../source/core_tools/bash-pipefail.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><code>set -euo pipefail</code> in bash</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/core_tools/bash-arrays.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bash arrays</span></a>
   </div>
 </li>
       </ul>
@@ -665,6 +671,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../source/metagenomics/medaka.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Medaka</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/metagenomics/megahit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MEGAHIT</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1143,6 +1155,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#set--u-treat-unset-variables-as-errors" id="toc-set--u-treat-unset-variables-as-errors" class="nav-link" data-scroll-target="#set--u-treat-unset-variables-as-errors"><code>set -u</code>: treat unset variables as errors</a></li>
   <li><a href="#set--o-pipefail-catch-failures-in-pipes" id="toc-set--o-pipefail-catch-failures-in-pipes" class="nav-link" data-scroll-target="#set--o-pipefail-catch-failures-in-pipes"><code>set -o pipefail</code>: catch failures in pipes</a></li>
   <li><a href="#putting-it-all-together" id="toc-putting-it-all-together" class="nav-link" data-scroll-target="#putting-it-all-together">Putting it all together</a></li>
+  <li><a href="#where-to-put-set-in-a-job-script" id="toc-where-to-put-set-in-a-job-script" class="nav-link" data-scroll-target="#where-to-put-set-in-a-job-script">Where to put <code>set</code> in a job script</a></li>
+  <li><a href="#hidden-rules-of-set--e" id="toc-hidden-rules-of-set--e" class="nav-link" data-scroll-target="#hidden-rules-of-set--e">Hidden rules of <code>set -e</code></a></li>
+  <li><a href="#pipefail-without-set--e" id="toc-pipefail-without-set--e" class="nav-link" data-scroll-target="#pipefail-without-set--e"><code>pipefail</code> without <code>set -e</code></a></li>
   </ul></li>
   <li><a href="#when-it-helps-and-when-it-causes-problems" id="toc-when-it-helps-and-when-it-causes-problems" class="nav-link" data-scroll-target="#when-it-helps-and-when-it-causes-problems">When it helps and when it causes problems</a></li>
   </ul></li>
@@ -1199,9 +1214,9 @@ This line should only print if cat succeeded</code></pre>
 </section>
 <section id="set--o-pipefail-catch-failures-in-pipes" class="level3">
 <h3 class="anchored" data-anchor-id="set--o-pipefail-catch-failures-in-pipes"><code>set -o pipefail</code>: catch failures in pipes</h3>
-<p>By default, a pipeline/pipe returns the exit code of the last command only. If in the example below <code>cat</code> fails but <code>sort</code> succeeds, bash records the pipeline as successful (exit code 0) and the failure from <code>cat</code> is invisible to bash. <code>set -o pipefail</code> changes this and the pipeline instead returns the exit code of the first failing command.</p>
+<p>By default, a pipeline/pipe returns the exit code of the last command only. If in the example below <code>cat</code> fails but <code>sort</code> succeeds, bash records the pipeline as successful (exit code 0) and the failure from <code>cat</code> is invisible to bash. <code>set -o pipefail</code> changes this: the pipeline now returns the exit code of the last (rightmost) command that failed, or 0 if all commands worked.</p>
 <p>In the example below, <code>sort</code> will run in both cases. That is because <code>pipefail</code> does not stop the script. What changes is what bash records as the result of the pipeline, which we made visible by printing <code>$?</code>.</p>
-<p>Note: Since <code>pipefail</code> alone does not stop execution that becomes <code>set -e</code>’s job. <code>pipefail</code>’s role is to ensure bash has accurate information that <code>set -e</code> can act upon. Specifically, this ensures that a failure upstream is not silently swallowed before <code>set -e</code> can act on it. Therefore you usually use these two options together with each other.</p>
+<p>Note: Since <code>pipefail</code> alone does not stop execution that becomes <code>set -e</code>’s job. <code>pipefail</code>’s role is to ensure bash has accurate information that <code>set -e</code> can act upon. Specifically, this ensures that a failure upstream is not silently swallowed before <code>set -e</code> can act on it. Therefore you usually use these two options together with each other, or you use pipefail with <code>|| exit 1</code> after each pipe (see <a href="#pipefail-without-set--e"><code>pipefail</code> without <code>set -e</code></a> below).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-o</span> pipefail</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1286,7 +1301,7 @@ Script continued
 
 === With pipefail and set -e ===</code></pre>
 <p>Note that echo “Script continued after pipefail” never prints. That is because <code>set -e</code>stopped the script when pipefail exposed the non-zero exit code.</p>
-<p>Once the job completes, check what Slurm recorded with <code>sacct -j &lt;JOBID&gt; --format=JobID,JobName,ExitCode,State</code> (replace the jobID with the job number from your script). This should return something like:</p>
+<p>Once the job completes, check what Slurm recorded with <code>sacct -j &lt;JOBID&gt; --format=JobID,JobName,ExitCode,State</code> (replace the jobID with the job number from your script). For how to use <code>sacct</code>, see <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/cli/slurm_basics.html#sacct-checking-what-a-job-used">this section</a>. This should return something like:</p>
 <pre><code>JobID           JobName ExitCode      State
 ------------ ---------- -------- ----------
 264615       test_pipe+      1:0     FAILED
@@ -1303,41 +1318,142 @@ Script continued
 </div>
 </div>
 </section>
+<section id="where-to-put-set-in-a-job-script" class="level3">
+<h3 class="anchored" data-anchor-id="where-to-put-set-in-a-job-script">Where to put <code>set</code> in a job script</h3>
+<p>A <code>set</code> option only works from its own line down. Commands above the <code>set</code> line run with the default behavior of bash. This matters in Slurm job scripts that use conda, because they often start with these two lines:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate fastp_1.4.0</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>source ~/.bashrc</code> runs your <code>.bashrc</code> file. This file holds your personal settings, such as where conda is installed. We use it in job scripts so that Slurm can find conda.</p>
+<p>If <code>set -u</code> comes before <code>source ~/.bashrc</code>, the job can stop at the <code>.bashrc</code>. I tested three orders on Crunchomics, each with the <code>fastp_1.4.0</code> and the <code>checkm2_1.1.0</code> environment.</p>
+<p><strong>1. <code>set</code> before <code>source ~/.bashrc</code>: the job fails</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate fastp_1.4.0</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The <code>.err</code> file contains:</p>
+<pre><code>/home/&lt;user&gt;/.bashrc: line 19: PS1: unbound variable</code></pre>
+<p>and <code>sacct</code> reports <code>FAILED</code> with exit code <code>1:0</code>. The script never reached <code>conda activate</code>.</p>
+<p><code>PS1</code> is the variable that sets how your command prompt looks. Bash only sets it when you type commands yourself in a terminal. A Slurm job runs without a terminal, so <code>PS1</code> is not set. The <code>.bashrc</code> on Crunchomics contains this line, which changes the look of the prompt:</p>
+<pre><code>[ "$PS1" = "\\s-\\v\\\$ " ] &amp;&amp; PS1="[\u@\h \W]\\$ "</code></pre>
+<p>This line reads <code>PS1</code>, and <code>set -u</code> stops the script there because <code>PS1</code> is not set. A comment in the <code>.bashrc</code> says that a Crunchomics setup script added this line, so your <code>.bashrc</code> probably has it too. If you added your own lines to your <code>.bashrc</code>, the line number can differ, or the error can come from another variable.</p>
+<p><strong>2. <code>set</code> after <code>source ~/.bashrc</code>, before <code>conda activate</code>: the job works</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate fastp_1.4.0</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>sacct</code> reports <code>COMPLETED</code> with exit code <code>0:0</code>, and the <code>.err</code> file is empty. So <code>conda activate</code> itself works with <code>set -u</code> on.</p>
+<p><strong>3. <code>set</code> after <code>conda activate</code>: the job works</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> ~/.bashrc</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate fastp_1.4.0</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>sacct</code> reports <code>COMPLETED</code> with exit code <code>0:0</code>, and the <code>.err</code> file is empty.</p>
+<p><strong>Recommendation</strong>: put <code>set</code> after <code>source ~/.bashrc</code>. Putting it after <code>conda activate</code> is also fine. <code>set -o pipefail</code> alone does not cause this problem, because the error comes from <code>set -u</code>.</p>
+<p><strong>Important</strong>: Activation scripts of other conda environments can behave differently. If a job stops with <code>unbound variable</code> right after <code>conda activate</code>, move <code>set</code> below the <code>conda activate</code> line.</p>
+</section>
+<section id="hidden-rules-of-set--e" class="level3">
+<h3 class="anchored" data-anchor-id="hidden-rules-of-set--e">Hidden rules of <code>set -e</code></h3>
+<p><code>set -e</code> does not stop at every failure, and it can stop a script before code that you wanted to run. Two things are easy to miss.</p>
+<p><strong>In an <code>&amp;&amp;</code> chain, only the last command can stop the script.</strong> <code>&amp;&amp;</code> between two commands means: run the second command only if the first one worked. Save this as <code>test_chain.sh</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-e</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> missing_file.txt <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="st">"ls worked"</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Script continued after the &amp;&amp; chain"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Run it and print its exit code:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> test_chain.sh</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"exit code: </span><span class="va">$?</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This prints:</p>
+<pre><code>ls: cannot access 'missing_file.txt': No such file or directory
+Script continued after the &amp;&amp; chain
+exit code: 0</code></pre>
+<p><code>ls</code> fails, so <code>echo "ls worked"</code> is skipped. But <code>set -e</code> ignores a failure of a command that is not the last one in an <code>&amp;&amp;</code> chain. So the script goes on and ends with exit code 0. If you swap the two commands (<code>echo "start" &amp;&amp; ls missing_file.txt</code>), the failing command is the last one, and the script stops.</p>
+<p><strong>Code that should run after a failure is never reached.</strong> Some scripts check <code>$?</code> after a tool and write the failed sample to a list. Save this as <code>test_failed_list.sh</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-e</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="va">ID</span><span class="op">=</span><span class="st">"sample2"</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="st">"</span><span class="va">${ID}</span><span class="st">_R1.fastq.gz"</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="va">$?</span> <span class="ot">-ne</span> 0 <span class="kw">]];</span> <span class="cf">then</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"</span><span class="va">$ID</span><span class="st">"</span> <span class="op">&gt;&gt;</span> failed_samples.txt</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Script finished"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Run it, then look for the list of failed samples:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> test_failed_list.sh</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> failed_samples.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This prints:</p>
+<pre><code>ls: cannot access 'sample2_R1.fastq.gz': No such file or directory
+ls: cannot access 'failed_samples.txt': No such file or directory</code></pre>
+<p><code>set -e</code> stops the script at the first <code>ls</code>, so the <code>if</code> block never runs and <code>failed_samples.txt</code> is never made. An empty or missing list of failed samples then looks as if every sample worked. Without <code>set -e</code>, the same script works: it reaches the <code>if</code> block and writes <code>sample2</code> into the list.</p>
+</section>
+<section id="pipefail-without-set--e" class="level3">
+<h3 class="anchored" data-anchor-id="pipefail-without-set--e"><code>pipefail</code> without <code>set -e</code></h3>
+<p>You can use <code>set -o pipefail</code> alone and stop the script yourself with <code>|| exit 1</code> after a pipe. <code>||</code> between two commands means: run the second command only if the first one fails. Save this as <code>test_pipe.sh</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-o</span> pipefail</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> missing_file.txt <span class="kw">|</span> <span class="fu">gzip</span> <span class="op">&gt;</span> out.txt.gz <span class="kw">||</span> <span class="bu">exit</span> 1</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Script continued"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Run it and print its exit code:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> test_pipe.sh</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"exit code: </span><span class="va">$?</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This prints:</p>
+<pre><code>ls: cannot access 'missing_file.txt': No such file or directory
+exit code: 1</code></pre>
+<p>Remove the <code>set</code> line and run the same two commands again:</p>
+<pre><code>ls: cannot access 'missing_file.txt': No such file or directory
+Script continued
+exit code: 0</code></pre>
+<p>Without pipefail, <code>|| exit 1</code> only sees the exit code of <code>gzip</code>, and <code>gzip</code> worked. Note that in both runs the failed pipe still leaves an <code>out.txt.gz</code> behind. It is about 20 bytes, a gzip file with nothing in it. This is why a check with <code>-s</code> is not enough after a failed job, see <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html#why-the-marker-file-works">Why the marker file works</a>.</p>
+<p>With this pattern you decide where the script stops, and you can see it in the script. <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html">Skip finished samples safely</a> gives a job script template built on it.</p>
+</section>
 </section>
 <section id="when-it-helps-and-when-it-causes-problems" class="level2">
 <h2 class="anchored" data-anchor-id="when-it-helps-and-when-it-causes-problems">When it helps and when it causes problems</h2>
-<p>These options are standard practice in production scripts and are not wrong. However, for scripts you are actively developing and debugging, they can make troubleshooting harder:</p>
+<p>These options are standard practice in production scripts and are not wrong. But each one has a catch:</p>
 <ul>
-<li><code>pipefail</code> is generally safe and useful to add</li>
-<li><code>set -e</code> can cause the script to exit without a clear message, making it hard to know which step failed</li>
-<li><code>set -u</code> will exit on unset variables, which is useful but can be surprising if you are not expecting it</li>
+<li><code>set -o pipefail</code> is safe and useful when your script has a pipe. It does not stop anything by itself, it only makes sure a failure in a pipe is not hidden</li>
+<li><code>set -e</code> stops the script at a failure, but not at every failure, and it can stop the script before code that you wanted to run. See <a href="#hidden-rules-of-set--e">Hidden rules of <code>set -e</code></a></li>
+<li><code>set -u</code> stops the script at a variable that is not set. This is useful, but on Crunchomics it also stops a job at your <code>.bashrc</code>, see <a href="#where-to-put-set-in-a-job-script">Where to put <code>set</code> in a job script</a></li>
 </ul>
 <p>Even more important: <strong>In computational biology non-zero exit codes are sometimes expected</strong> and you might want that the script continues as they don’t always mean something went wrong. A common example is <code>grep</code>: it returns exit code 1 when no match is found, and exit code 2 only when an actual error occurs (e.g.&nbsp;the file does not exist). With <code>set -e</code> active, a grep that finds no match will kill the script, even though “no match found” is a perfectly valid biological result as seen in the example below:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dummy annotation file for showcasing the command</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> annotations.txt</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># This kills the script if the gene is absent from the file</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># even though absence is a meaningful biological result </span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># since it might tell us that a genome does not encode the gene we are looking for</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"gene_of_interest"</span> annotations.txt</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Pipeline is finished"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dummy annotation file for showcasing the command</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">touch</span> annotations.txt</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="co"># This kills the script if the gene is absent from the file</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co"># even though absence is a meaningful biological result </span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co"># since it might tell us that a genome does not encode the gene we are looking for</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"gene_of_interest"</span> annotations.txt</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Pipeline is finished"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><code>grep</code> produces no output when there is no match. The script exits silently with code 1, therefore not printing <code>Pipeline is finished</code>.</p>
 <p>Removing the <code>set</code> command returns:</p>
 <pre><code>Pipeline is finished</code></pre>
-<p>Altogether this means that whether or not we include <code>set -euo pipefail</code> is an important design choice that depends on the tools we are using in our workflow.</p>
+<p>With <code>|| exit 1</code> instead of <code>set -e</code>, you choose which commands may stop the script. You add it after each tool command, and you leave it out after a <code>grep</code> where “no match” is a valid result.</p>
 <p><strong>Recommendations</strong>:</p>
 <ul>
-<li>While developing and testing a script, leave these options out and add them once the script is working correctly and you understand each step</li>
-<li>Only add these options if you are sure that every non-zero exit code genuinely represents a failure.</li>
-<li>If you inherit a script with <code>set -euo pipefail</code> and it exits unexpectedly, this line is often the first place to look.</li>
+<li>For your own job scripts, use <code>set -o pipefail</code> and put <code>|| exit 1</code> after every tool command, without <code>set -e</code>. You then see in the script where it can stop. The template on <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html#the-template">Skip finished samples safely</a> is built this way</li>
+<li>If you get a script with <code>set -euo pipefail</code>, for example from a GenAI tool, change that line to <code>set -o pipefail</code> and put <code>|| exit 1</code> after every tool command. Always do both. A script without <code>set -e</code> and without <code>|| exit 1</code> goes on after every failure, which is worse than before. You can ask the GenAI tool to make this change, but then read the script and check that every tool command ends with <code>|| exit 1</code></li>
+<li>This change also removes <code>set -u</code>. The template replaces it with a check for an empty sample ID, which is the variable that matters most in a job script</li>
+<li>If a script with <code>set -euo pipefail</code> stops without a clear message, this line is the first place to look</li>
 </ul>
-<p>As an alternative (or complement) to relying on <code>set -e</code>, consider building explicit checks into your workflow using the validation approaches described in the <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-input-validation.html">bash input verification tutorial</a>. Checking that an output file exists, is non-empty, and contains the expected number of results after each step is more informative than letting bash decide whether to continue. It also forces you to think about what a correct intermediate result actually looks like, which is a useful habit regardless of whether you use set -euo pipefail or not.</p>
-<p><strong>A note on GenAI-generated scripts:</strong> GenAI might add <code>set -euo pipefail</code> to code because it is considered best practice for production-level scripts. That is not wrong, but as discussed above this can make the code harder to debug or might not be the behavior we want for our workflow. If a GenAI-generated script adds this to your code, leave it out while developing, verify that every tool in your workflow returns non-zero only on genuine failures, and add it back once the script is working and it is truly needed.</p>
+<p>Whichever option you choose, an exit code of 0 only tells you that no command reported a failure. It does not tell you that the results are correct. So after each step, look at the outputs, see <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html#checking-the-outputs">Checking the outputs</a>.</p>
+<p><strong>A note on GenAI-generated scripts:</strong> GenAI tools often add <code>set -euo pipefail</code> because it is considered best practice for production scripts. That is not wrong, but as shown above, <code>set -e</code> can stop a script where you don’t expect it, or not stop it where you do. Replace it with <code>set -o pipefail</code> and <code>|| exit 1</code> after every tool command, as described in the recommendations above. For more patterns to look for in GenAI code, see <a href="https://scienceparkstudygroup.github.io/ibed-bioinformatics-page/source/core_tools/bash-skip-finished-samples.html#checking-genai-generated-scripts">Checking GenAI-generated scripts</a>.</p>
 </section>
 </section>
 
@@ -1764,13 +1880,13 @@ Script continued
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../source/core_tools/bash-arrays.html" class="pagination-link" aria-label="Arrays in bash">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Arrays in bash</span>
+      <a href="../../source/core_tools/bash-skip-finished-samples.html" class="pagination-link" aria-label="Skip finished samples safely">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Skip finished samples safely</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../source/conda/conda.html" class="pagination-link" aria-label="Installing software with conda">
-        <span class="nav-page-text">Installing software with conda</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../source/core_tools/bash-arrays.html" class="pagination-link" aria-label="Bash arrays">
+        <span class="nav-page-text">Bash arrays</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1782,7 +1898,7 @@ Script continued
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2023, Nina Dombrowski,<br>
-Last modified: 2026-04-01</p>
+Last modified: 2026-11-10</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ScienceParkStudyGroup/software_information/blob/main/source/core_tools/bash-pipefail.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/ScienceParkStudyGroup/software_information/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

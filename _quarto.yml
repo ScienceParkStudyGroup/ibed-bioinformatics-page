@@ -66,8 +66,9 @@ website:
             contents:
               - source/core_tools/bash-for-loops.qmd
               - source/core_tools/bash-input-validation.qmd
-              - source/core_tools/bash-arrays.qmd
+              - source/core_tools/bash-skip-finished-samples.qmd
               - source/core_tools/bash-pipefail.qmd
+              - source/core_tools/bash-arrays.qmd
 
           - text: "Installing software with conda"
             href: source/conda/conda.qmd
@@ -130,6 +131,7 @@ website:
               - source/metagenomics/gtdb.qmd
               - source/metagenomics/homopolish.qmd
               - source/metagenomics/medaka.qmd
+              - source/metagenomics/megahit.qmd
               - source/metagenomics/metabat2.qmd
               - source/metagenomics/motus.qmd
               - source/metagenomics/pseudofinder.qmd
